@@ -9,11 +9,25 @@
 import UIKit
 
 class ViewController: UIViewController {
+    
+    
+    @IBOutlet weak var loginBtn: CustomButton!
+    @IBOutlet weak var signUpBtn: CustomButton!
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         // Do any additional setup after loading the view.
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        navigationController?.navigationBar.barStyle = .black
+        
+    }
+    
+    
 
 
 }

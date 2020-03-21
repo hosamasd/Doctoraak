@@ -3,18 +3,30 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2AD2198E9BCAD6448C7CF56A /* Pods_Doctoraak.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C300D290AB172CC2F362780A /* Pods_Doctoraak.framework */; };
+		7A3C05F9242103D0005E28B2 /* MedicalSpecificationCollectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3C05F7242103D0005E28B2 /* MedicalSpecificationCollectionVC.swift */; };
+		7A3C05FA242103D0005E28B2 /* MedicalSpecificationCellCollectionVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A3C05F8242103D0005E28B2 /* MedicalSpecificationCellCollectionVC.xib */; };
 		7A52BB5524153A28008ED1F9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A52BB5424153A28008ED1F9 /* AppDelegate.swift */; };
 		7A52BB5724153A28008ED1F9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A52BB5624153A28008ED1F9 /* ViewController.swift */; };
 		7A52BB5A24153A28008ED1F9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7A52BB5824153A28008ED1F9 /* Main.storyboard */; };
 		7A52BB5C24153A30008ED1F9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A52BB5B24153A30008ED1F9 /* Assets.xcassets */; };
 		7A52BB5F24153A30008ED1F9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7A52BB5D24153A30008ED1F9 /* LaunchScreen.storyboard */; };
+		7AB7E389241580200033F347 /* CustomViews+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB7E388241580200033F347 /* CustomViews+Extensions.swift */; };
+		7AC1248C241F7A2B006C89D5 /* RoundedViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC1248B241F7A2B006C89D5 /* RoundedViews.swift */; };
+		7AC1248E241F85DC006C89D5 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC1248D241F85DC006C89D5 /* Constants.swift */; };
+		7AC12491241F9A7E006C89D5 /* MedicalSpecificationApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC12490241F9A7E006C89D5 /* MedicalSpecificationApi.swift */; };
+		7AE60E332418F22A002E9AF6 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE60E322418F22A002E9AF6 /* LoginVC.swift */; };
+		7AE60E352419044E002E9AF6 /* MedicalSpecificationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE60E342419044E002E9AF6 /* MedicalSpecificationVC.swift */; };
+		7AE60E3F241914EC002E9AF6 /* MainSpecificationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE60E3E241914EC002E9AF6 /* MainSpecificationModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7A3C05F7242103D0005E28B2 /* MedicalSpecificationCollectionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicalSpecificationCollectionVC.swift; sourceTree = "<group>"; };
+		7A3C05F8242103D0005E28B2 /* MedicalSpecificationCellCollectionVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MedicalSpecificationCellCollectionVC.xib; sourceTree = "<group>"; };
 		7A52BB5124153A28008ED1F9 /* Doctoraak.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Doctoraak.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A52BB5424153A28008ED1F9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7A52BB5624153A28008ED1F9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -22,6 +34,16 @@
 		7A52BB5B24153A30008ED1F9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7A52BB5E24153A30008ED1F9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7A52BB6024153A30008ED1F9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7AB7E388241580200033F347 /* CustomViews+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CustomViews+Extensions.swift"; sourceTree = "<group>"; };
+		7AC1248B241F7A2B006C89D5 /* RoundedViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedViews.swift; sourceTree = "<group>"; };
+		7AC1248D241F85DC006C89D5 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		7AC12490241F9A7E006C89D5 /* MedicalSpecificationApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicalSpecificationApi.swift; sourceTree = "<group>"; };
+		7AE60E322418F22A002E9AF6 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
+		7AE60E342419044E002E9AF6 /* MedicalSpecificationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicalSpecificationVC.swift; sourceTree = "<group>"; };
+		7AE60E3E241914EC002E9AF6 /* MainSpecificationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSpecificationModel.swift; sourceTree = "<group>"; };
+		8C1195FC2E0096E7AF8F9EBD /* Pods-Doctoraak.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Doctoraak.release.xcconfig"; path = "Target Support Files/Pods-Doctoraak/Pods-Doctoraak.release.xcconfig"; sourceTree = "<group>"; };
+		BAD6BD9CA05933F3751070F3 /* Pods-Doctoraak.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Doctoraak.debug.xcconfig"; path = "Target Support Files/Pods-Doctoraak/Pods-Doctoraak.debug.xcconfig"; sourceTree = "<group>"; };
+		C300D290AB172CC2F362780A /* Pods_Doctoraak.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Doctoraak.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,17 +51,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2AD2198E9BCAD6448C7CF56A /* Pods_Doctoraak.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4AD55D828A033710F8B4B53B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C300D290AB172CC2F362780A /* Pods_Doctoraak.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		76E90EC1DCD8ED624FA8D292 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				BAD6BD9CA05933F3751070F3 /* Pods-Doctoraak.debug.xcconfig */,
+				8C1195FC2E0096E7AF8F9EBD /* Pods-Doctoraak.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		7A52BB4824153A28008ED1F9 = {
 			isa = PBXGroup;
 			children = (
 				7A52BB5324153A28008ED1F9 /* Doctoraak */,
 				7A52BB5224153A28008ED1F9 /* Products */,
+				76E90EC1DCD8ED624FA8D292 /* Pods */,
+				4AD55D828A033710F8B4B53B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -55,13 +97,70 @@
 			isa = PBXGroup;
 			children = (
 				7A52BB5424153A28008ED1F9 /* AppDelegate.swift */,
-				7A52BB5624153A28008ED1F9 /* ViewController.swift */,
 				7A52BB5824153A28008ED1F9 /* Main.storyboard */,
+				7AC1248A241F7A12006C89D5 /* Utilies */,
+				7AC12489241F7997006C89D5 /* XIBs */,
+				7AB7E38724157FFA0033F347 /* Model */,
+				7AB7E38524157FCF0033F347 /* Controller */,
+				7AB7E38624157FE30033F347 /* View */,
+				7AC1248F241F9952006C89D5 /* Services */,
 				7A52BB5B24153A30008ED1F9 /* Assets.xcassets */,
 				7A52BB5D24153A30008ED1F9 /* LaunchScreen.storyboard */,
 				7A52BB6024153A30008ED1F9 /* Info.plist */,
 			);
 			path = Doctoraak;
+			sourceTree = "<group>";
+		};
+		7AB7E38524157FCF0033F347 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				7A52BB5624153A28008ED1F9 /* ViewController.swift */,
+				7AE60E322418F22A002E9AF6 /* LoginVC.swift */,
+				7AE60E342419044E002E9AF6 /* MedicalSpecificationVC.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		7AB7E38624157FE30033F347 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				7AB7E388241580200033F347 /* CustomViews+Extensions.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		7AB7E38724157FFA0033F347 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				7AE60E3E241914EC002E9AF6 /* MainSpecificationModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		7AC12489241F7997006C89D5 /* XIBs */ = {
+			isa = PBXGroup;
+			children = (
+				7A3C05F7242103D0005E28B2 /* MedicalSpecificationCollectionVC.swift */,
+				7A3C05F8242103D0005E28B2 /* MedicalSpecificationCellCollectionVC.xib */,
+			);
+			path = XIBs;
+			sourceTree = "<group>";
+		};
+		7AC1248A241F7A12006C89D5 /* Utilies */ = {
+			isa = PBXGroup;
+			children = (
+				7AC1248B241F7A2B006C89D5 /* RoundedViews.swift */,
+				7AC1248D241F85DC006C89D5 /* Constants.swift */,
+			);
+			path = Utilies;
+			sourceTree = "<group>";
+		};
+		7AC1248F241F9952006C89D5 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				7AC12490241F9A7E006C89D5 /* MedicalSpecificationApi.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -71,9 +170,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7A52BB6324153A30008ED1F9 /* Build configuration list for PBXNativeTarget "Doctoraak" */;
 			buildPhases = (
+				48A8AE6766D98C2A614E5B6A /* [CP] Check Pods Manifest.lock */,
 				7A52BB4D24153A28008ED1F9 /* Sources */,
 				7A52BB4E24153A28008ED1F9 /* Frameworks */,
 				7A52BB4F24153A28008ED1F9 /* Resources */,
+				E1B8833E5FF216273EE0A238 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -124,19 +225,70 @@
 			files = (
 				7A52BB5F24153A30008ED1F9 /* LaunchScreen.storyboard in Resources */,
 				7A52BB5C24153A30008ED1F9 /* Assets.xcassets in Resources */,
+				7A3C05FA242103D0005E28B2 /* MedicalSpecificationCellCollectionVC.xib in Resources */,
 				7A52BB5A24153A28008ED1F9 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		48A8AE6766D98C2A614E5B6A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Doctoraak-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E1B8833E5FF216273EE0A238 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Doctoraak/Pods-Doctoraak-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Doctoraak/Pods-Doctoraak-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Doctoraak/Pods-Doctoraak-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		7A52BB4D24153A28008ED1F9 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7AE60E3F241914EC002E9AF6 /* MainSpecificationModel.swift in Sources */,
+				7AB7E389241580200033F347 /* CustomViews+Extensions.swift in Sources */,
+				7AC1248C241F7A2B006C89D5 /* RoundedViews.swift in Sources */,
 				7A52BB5724153A28008ED1F9 /* ViewController.swift in Sources */,
+				7AE60E352419044E002E9AF6 /* MedicalSpecificationVC.swift in Sources */,
+				7AE60E332418F22A002E9AF6 /* LoginVC.swift in Sources */,
 				7A52BB5524153A28008ED1F9 /* AppDelegate.swift in Sources */,
+				7A3C05F9242103D0005E28B2 /* MedicalSpecificationCollectionVC.swift in Sources */,
+				7AC12491241F9A7E006C89D5 /* MedicalSpecificationApi.swift in Sources */,
+				7AC1248E241F85DC006C89D5 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -280,6 +432,7 @@
 		};
 		7A52BB6424153A30008ED1F9 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BAD6BD9CA05933F3751070F3 /* Pods-Doctoraak.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -290,13 +443,14 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = ahmad.eisa.Doctoraak;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
 		7A52BB6524153A30008ED1F9 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8C1195FC2E0096E7AF8F9EBD /* Pods-Doctoraak.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -307,7 +461,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = ahmad.eisa.Doctoraak;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
