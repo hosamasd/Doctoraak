@@ -27,25 +27,17 @@ class MedicalSpecificationVC: UIViewController {
     }
     
     func setUPView(){
+        
 //        medicalSpecificationApi.getMedicalSpecification(onSuccess: { (medicalSpecification) -> (Void) in
-//            if let medicalSpecification = medicalSpecification {
-//                self.collectionData = [medicalSpecification]
+//            if let medicalSpecification = medicalSpecification?.data{
+//                self.collectionData = medicalSpecification
 //                DispatchQueue.main.async {
 //                    self.collectionView.reloadData()
 //                }
+//            }
 //        }) { (error) in
 //            print(error)
 //        }
-        medicalSpecificationApi.getMedicalSpecification(onSuccess: { (medicalSpecification) -> (Void) in
-            if let medicalSpecification = medicalSpecification?.data{
-                self.collectionData = medicalSpecification
-                DispatchQueue.main.async {
-                    self.collectionView.reloadData()
-                }
-            }
-        }) { (error) in
-            print(error)
-        }
         
         }
 
