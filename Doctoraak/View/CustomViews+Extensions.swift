@@ -18,26 +18,6 @@ class CustomButton: UIButton {
 
 }
 
-
-
-//extension UIView {
-//
-//
-//
-//            func setGradientColor() {
-//                let rightcolor =  UIColor(red: 123/255.0, green: 97/255.0, blue: 250/255.0, alpha: 1.0)
-//                let leftColor = UIColor(red: 123/255.0, green: 159/255.0, blue: 250/255.0, alpha: 1.0)
-//                let gradient = CAGradientLayer()
-//                gradient.frame.size = frame.size
-//                gradient.colors = [rightcolor.cgColor , leftColor.cgColor]
-//                gradient.startPoint = CGPoint(x: 0, y: 0.5)
-//                gradient.endPoint = CGPoint(x: 1, y: 0.5)
-//                gradient.cornerRadius = 16
-//                layer.insertSublayer(gradient, at: 0)
-//
-//            }
-//
-//        }
 class ButtonGradient : UIButton {
     
     override func awakeFromNib() {
