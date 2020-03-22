@@ -24,7 +24,6 @@ class DeatilsVC: UIViewController {
     }()
     lazy var customDetailsView:CustomDetailsView = {
        let v = CustomDetailsView()
-//        v.backgroundColor = .red
         return v
     }()
 //    lazy var bookButton:UIButton = {
@@ -39,7 +38,6 @@ class DeatilsVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-         self.setNeedsStatusBarAppearanceUpdate()
         setupViews()
         setupNavigation()
     }

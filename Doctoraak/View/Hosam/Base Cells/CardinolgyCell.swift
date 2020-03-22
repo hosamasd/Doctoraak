@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BaseTestCell: BaseCollectionCell {
+class CardinolgyCell: BaseCollectionCell {
     
     lazy var profileImage:UIImageView = {
         let i = UIImageView(backgroundColor: .gray)

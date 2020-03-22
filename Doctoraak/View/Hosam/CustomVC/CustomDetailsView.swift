@@ -39,7 +39,7 @@ class CustomDetailsView: UIView {
         return v
     }()
     
-    let baseTestCell = BaseTestCell()
+    let baseTestCell = CardinolgyCell()
     lazy var doctorSuggestShiftHorizentalVC:DoctorSuggestShiftHorizentalVC = {
         let v = DoctorSuggestShiftHorizentalVC()
         v.view.constrainHeight(constant: 180)
