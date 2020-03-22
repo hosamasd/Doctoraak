@@ -20,6 +20,8 @@
 		4E5CE79F242748C0001EE175 /* CardiologyCollectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5CE79E242748C0001EE175 /* CardiologyCollectionVC.swift */; };
 		4E5CE7A22427492A001EE175 /* CustomCardiologyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5CE7A12427492A001EE175 /* CustomCardiologyView.swift */; };
 		4E5CE7A524274A2C001EE175 /* CardiologyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5CE7A424274A2C001EE175 /* CardiologyVC.swift */; };
+		4E5CE7A924275187001EE175 /* CusomBookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5CE7A824275187001EE175 /* CusomBookView.swift */; };
+		4E5CE7AB2427545C001EE175 /* DoctorBookVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5CE7AA2427545C001EE175 /* DoctorBookVC.swift */; };
 		4EA5378E242631DE000AE7AD /* ExtensionUivew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA5378D242631DE000AE7AD /* ExtensionUivew.swift */; };
 		4EA5379124263F4F000AE7AD /* MedicalSpecificationApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA5379024263F4F000AE7AD /* MedicalSpecificationApi.swift */; };
 		4EA5379424264090000AE7AD /* DeatilsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA5379324264090000AE7AD /* DeatilsVC.swift */; };
@@ -53,6 +55,8 @@
 		4E5CE79E242748C0001EE175 /* CardiologyCollectionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardiologyCollectionVC.swift; sourceTree = "<group>"; };
 		4E5CE7A12427492A001EE175 /* CustomCardiologyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCardiologyView.swift; sourceTree = "<group>"; };
 		4E5CE7A424274A2C001EE175 /* CardiologyVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardiologyVC.swift; sourceTree = "<group>"; };
+		4E5CE7A824275187001EE175 /* CusomBookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CusomBookView.swift; sourceTree = "<group>"; };
+		4E5CE7AA2427545C001EE175 /* DoctorBookVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorBookVC.swift; sourceTree = "<group>"; };
 		4EA5378D242631DE000AE7AD /* ExtensionUivew.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtensionUivew.swift; sourceTree = "<group>"; };
 		4EA5379024263F4F000AE7AD /* MedicalSpecificationApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicalSpecificationApi.swift; sourceTree = "<group>"; };
 		4EA5379324264090000AE7AD /* DeatilsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeatilsVC.swift; sourceTree = "<group>"; };
@@ -141,6 +145,7 @@
 			children = (
 				4EA53796242645E8000AE7AD /* CustomDetailsView.swift */,
 				4E5CE7A12427492A001EE175 /* CustomCardiologyView.swift */,
+				4E5CE7A824275187001EE175 /* CusomBookView.swift */,
 			);
 			path = CustomVC;
 			sourceTree = "<group>";
@@ -176,6 +181,7 @@
 			children = (
 				4E5CE79D242748A2001EE175 /* Details */,
 				4E5CE7A324274A14001EE175 /* Cardinolgy */,
+				4E5CE7AA2427545C001EE175 /* DoctorBookVC.swift */,
 			);
 			path = Doctor;
 			sourceTree = "<group>";
@@ -402,6 +408,8 @@
 				4E333E1524266A7700F82E00 /* Extensions.swift in Sources */,
 				7AE60E3F241914EC002E9AF6 /* MainSpecificationModel.swift in Sources */,
 				7AB7E389241580200033F347 /* CustomViews+Extensions.swift in Sources */,
+				4E5CE7A924275187001EE175 /* CusomBookView.swift in Sources */,
+				4E5CE7AB2427545C001EE175 /* DoctorBookVC.swift in Sources */,
 				4E333E0524265B2800F82E00 /* DoctorDaysShiftCell.swift in Sources */,
 				7AC1248C241F7A2B006C89D5 /* RoundedViews.swift in Sources */,
 				4E333E0824265C2D00F82E00 /* CustomSiftButton.swift in Sources */,
