@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization aft/Users/hosam/Documents/xcode projects/syphinx/Doctoraak/Doctoraak.xcodeprojer application launch.
         window = UIWindow()
         window?.makeKeyAndVisible()
-        window?.rootViewController =  UINavigationController(rootViewController: ClinicWorkingHoursVC())
+        window?.rootViewController =  UINavigationController(rootViewController: ClinicPaymentVC())
         return true
     }
 

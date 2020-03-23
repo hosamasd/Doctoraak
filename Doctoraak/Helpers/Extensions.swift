@@ -36,8 +36,8 @@ import UIKit
         layer.rasterizationScale = scale ? UIScreen.main.scale : 1
     }
     
-    func createMainTextFields(place:String,type:UIKeyboardType? = .emailAddress,secre:Bool? = false) -> UITextField {
-        let t = CustomSkyTextFieldRightPadding(padding: 16, height: 50)
+    func createMainTextFields(padding:CGFloat? = 16,place:String,type:UIKeyboardType? = .emailAddress,secre:Bool? = false) -> UITextField {
+        let t = CustomSkyTextFieldRightPadding(padding: padding ?? 16, height: 50)
         t.layer.cornerRadius = 8
         t.clipsToBounds = true
         t.placeholder = place

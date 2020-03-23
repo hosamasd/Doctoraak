@@ -39,6 +39,8 @@
 		4E5E0BB5242891380031AE4A /* RegisterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5E0BB4242891380031AE4A /* RegisterVC.swift */; };
 		4E5E0BB7242891620031AE4A /* CustomRegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5E0BB6242891620031AE4A /* CustomRegisterView.swift */; };
 		4E5E0BB9242891EF0031AE4A /* ExtensionsViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5E0BB8242891EF0031AE4A /* ExtensionsViews.swift */; };
+		4E8F40372428E9F200C0B455 /* ClinicPaymentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8F40362428E9F200C0B455 /* ClinicPaymentVC.swift */; };
+		4E8F40392428EA1700C0B455 /* CustomClinicPaymentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8F40382428EA1700C0B455 /* CustomClinicPaymentView.swift */; };
 		4EA5378E242631DE000AE7AD /* ExtensionUivew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA5378D242631DE000AE7AD /* ExtensionUivew.swift */; };
 		4EA5379124263F4F000AE7AD /* MedicalSpecificationApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA5379024263F4F000AE7AD /* MedicalSpecificationApi.swift */; };
 		4EA5379424264090000AE7AD /* DeatilsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA5379324264090000AE7AD /* DeatilsVC.swift */; };
@@ -93,6 +95,8 @@
 		4E5E0BB4242891380031AE4A /* RegisterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterVC.swift; sourceTree = "<group>"; };
 		4E5E0BB6242891620031AE4A /* CustomRegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomRegisterView.swift; sourceTree = "<group>"; };
 		4E5E0BB8242891EF0031AE4A /* ExtensionsViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionsViews.swift; sourceTree = "<group>"; };
+		4E8F40362428E9F200C0B455 /* ClinicPaymentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClinicPaymentVC.swift; sourceTree = "<group>"; };
+		4E8F40382428EA1700C0B455 /* CustomClinicPaymentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomClinicPaymentView.swift; sourceTree = "<group>"; };
 		4EA5378D242631DE000AE7AD /* ExtensionUivew.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtensionUivew.swift; sourceTree = "<group>"; };
 		4EA5379024263F4F000AE7AD /* MedicalSpecificationApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicalSpecificationApi.swift; sourceTree = "<group>"; };
 		4EA5379324264090000AE7AD /* DeatilsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeatilsVC.swift; sourceTree = "<group>"; };
@@ -195,6 +199,7 @@
 			children = (
 				4E4AAEDD2428CBA700023720 /* ClinicDataVC.swift */,
 				4EADCF4E2428DA2100EEE761 /* ClinicWorkingHoursVC.swift */,
+				4E8F40362428E9F200C0B455 /* ClinicPaymentVC.swift */,
 			);
 			path = Clinic;
 			sourceTree = "<group>";
@@ -204,6 +209,7 @@
 			children = (
 				4E4AAEE02428CCE900023720 /* CustomClinicDataView.swift */,
 				4EADCF502428DA5700EEE761 /* CustomClinicWorkingHoursView.swift */,
+				4E8F40382428EA1700C0B455 /* CustomClinicPaymentView.swift */,
 			);
 			path = Clinic;
 			sourceTree = "<group>";
@@ -528,6 +534,7 @@
 			files = (
 				4E333E1524266A7700F82E00 /* Extensions.swift in Sources */,
 				4E580307242789B800B5D502 /* CustomBaseViewVC.swift in Sources */,
+				4E8F40392428EA1700C0B455 /* CustomClinicPaymentView.swift in Sources */,
 				4E5E0BB7242891620031AE4A /* CustomRegisterView.swift in Sources */,
 				4E3458E72428B2D100DA89A0 /* SecondRegisterVC.swift in Sources */,
 				7AE60E3F241914EC002E9AF6 /* MainSpecificationModel.swift in Sources */,
@@ -567,6 +574,7 @@
 				4E580314242790A200B5D502 /* CustomLoginsView.swift in Sources */,
 				7A52BB5524153A28008ED1F9 /* AppDelegate.swift in Sources */,
 				7A3C05F9242103D0005E28B2 /* MedicalSpecificationCollectionVC.swift in Sources */,
+				4E8F40372428E9F200C0B455 /* ClinicPaymentVC.swift in Sources */,
 				7AC1248E241F85DC006C89D5 /* Constants.swift in Sources */,
 				4E333E13242663E400F82E00 /* DoctorWorkingDateCell.swift in Sources */,
 				4EA5379124263F4F000AE7AD /* MedicalSpecificationApi.swift in Sources */,
