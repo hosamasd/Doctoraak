@@ -40,7 +40,6 @@ class CusomBookView: CustomBaseView {
         let ss = ["one","two"]
        let s = CustomSegmentedControl(items: ss)
         s.selectedSegmentIndex = 0
-//        s.tintColor = UIColor(patternImage: UIImage(named: "Rectangle 1748") ?? UIImage())
         return s
     }()
     

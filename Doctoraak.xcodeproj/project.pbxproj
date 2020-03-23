@@ -17,6 +17,8 @@
 		4E333E11242663BF00F82E00 /* DoctorWorkingDateCollectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E333E10242663BF00F82E00 /* DoctorWorkingDateCollectionVC.swift */; };
 		4E333E13242663E400F82E00 /* DoctorWorkingDateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E333E12242663E400F82E00 /* DoctorWorkingDateCell.swift */; };
 		4E333E1524266A7700F82E00 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E333E1424266A7700F82E00 /* Extensions.swift */; };
+		4E3458E72428B2D100DA89A0 /* SecondRegisterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3458E62428B2D100DA89A0 /* SecondRegisterVC.swift */; };
+		4E3458EA2428B2FF00DA89A0 /* CustomCecondRegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3458E92428B2FF00DA89A0 /* CustomCecondRegisterView.swift */; };
 		4E5803052427899200B5D502 /* WelcomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5803042427899200B5D502 /* WelcomeVC.swift */; };
 		4E580307242789B800B5D502 /* CustomBaseViewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E580306242789B800B5D502 /* CustomBaseViewVC.swift */; };
 		4E58030A24278A2700B5D502 /* CustomWelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E58030924278A2700B5D502 /* CustomWelcomeView.swift */; };
@@ -63,6 +65,8 @@
 		4E333E10242663BF00F82E00 /* DoctorWorkingDateCollectionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorWorkingDateCollectionVC.swift; sourceTree = "<group>"; };
 		4E333E12242663E400F82E00 /* DoctorWorkingDateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorWorkingDateCell.swift; sourceTree = "<group>"; };
 		4E333E1424266A7700F82E00 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		4E3458E62428B2D100DA89A0 /* SecondRegisterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondRegisterVC.swift; sourceTree = "<group>"; };
+		4E3458E92428B2FF00DA89A0 /* CustomCecondRegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCecondRegisterView.swift; sourceTree = "<group>"; };
 		4E5803042427899200B5D502 /* WelcomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeVC.swift; sourceTree = "<group>"; };
 		4E580306242789B800B5D502 /* CustomBaseViewVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomBaseViewVC.swift; sourceTree = "<group>"; };
 		4E58030924278A2700B5D502 /* CustomWelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomWelcomeView.swift; sourceTree = "<group>"; };
@@ -154,12 +158,30 @@
 			path = BaseVC;
 			sourceTree = "<group>";
 		};
+		4E3458E52428B2A900DA89A0 /* Register */ = {
+			isa = PBXGroup;
+			children = (
+				4E5E0BB4242891380031AE4A /* RegisterVC.swift */,
+				4E3458E62428B2D100DA89A0 /* SecondRegisterVC.swift */,
+			);
+			path = Register;
+			sourceTree = "<group>";
+		};
+		4E3458E82428B2E600DA89A0 /* Register */ = {
+			isa = PBXGroup;
+			children = (
+				4E5E0BB6242891620031AE4A /* CustomRegisterView.swift */,
+				4E3458E92428B2FF00DA89A0 /* CustomCecondRegisterView.swift */,
+			);
+			path = Register;
+			sourceTree = "<group>";
+		};
 		4E5803032427897E00B5D502 /* Resgitration */ = {
 			isa = PBXGroup;
 			children = (
 				4E5803102427902700B5D502 /* Welcome */,
 				4E5803112427903900B5D502 /* LoginsVC.swift */,
-				4E5E0BB4242891380031AE4A /* RegisterVC.swift */,
+				4E3458E52428B2A900DA89A0 /* Register */,
 			);
 			path = Resgitration;
 			sourceTree = "<group>";
@@ -169,7 +191,7 @@
 			children = (
 				4E58030F2427901D00B5D502 /* Welcome */,
 				4E580313242790A200B5D502 /* CustomLoginsView.swift */,
-				4E5E0BB6242891620031AE4A /* CustomRegisterView.swift */,
+				4E3458E82428B2E600DA89A0 /* Register */,
 			);
 			path = Registration;
 			sourceTree = "<group>";
@@ -473,6 +495,7 @@
 				4E333E1524266A7700F82E00 /* Extensions.swift in Sources */,
 				4E580307242789B800B5D502 /* CustomBaseViewVC.swift in Sources */,
 				4E5E0BB7242891620031AE4A /* CustomRegisterView.swift in Sources */,
+				4E3458E72428B2D100DA89A0 /* SecondRegisterVC.swift in Sources */,
 				7AE60E3F241914EC002E9AF6 /* MainSpecificationModel.swift in Sources */,
 				7AB7E389241580200033F347 /* CustomViews+Extensions.swift in Sources */,
 				4E5803122427903900B5D502 /* LoginsVC.swift in Sources */,
@@ -508,6 +531,7 @@
 				7AC1248E241F85DC006C89D5 /* Constants.swift in Sources */,
 				4E333E13242663E400F82E00 /* DoctorWorkingDateCell.swift in Sources */,
 				4EA5379124263F4F000AE7AD /* MedicalSpecificationApi.swift in Sources */,
+				4E3458EA2428B2FF00DA89A0 /* CustomCecondRegisterView.swift in Sources */,
 				4E58030A24278A2700B5D502 /* CustomWelcomeView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

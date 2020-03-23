@@ -37,9 +37,6 @@ class CustomRegisterView: CustomBaseView {
     lazy var userEditProfileImageView: UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "Group 4142"))
         i.isUserInteractionEnabled = true
-//        i.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleEditProfile)))
-//        i.constrainHeight(constant: 60)
-//        i.constrainWidth(constant: 60)
         i.clipsToBounds = true
         return i
     }()
@@ -70,29 +67,9 @@ class CustomRegisterView: CustomBaseView {
         return s
     }()
     
-//    lazy var boyImageView:UIImageView = {
-//
-//        let i = UIImageView()
-//        i.image = UIImage(named: "Group 4142-1") ?? UIImage()
-//         i.contentMode = .scaleAspectFill
-//        i.constrainHeight(constant: 50)
-//       i.isUserInteractionEnabled = true
-//        return i
-//    }()
-//    lazy var girlImageView:UIImageView = {
-//        let i = UIImageView()
-//        i.image = UIImage(named: "Group 4143-1") ?? UIImage()
-//        i.contentMode = .scaleAspectFill
-//         i.constrainHeight(constant: 50)
-////        i.constrainHeight(constant: 5)
-//        i.isUserInteractionEnabled = true
-//        return i
-//    }()
     lazy var boyButton:UIButton = {
 
          let button = UIButton(type: .system)
-
-//        let button = CustomSiftButton(type: .system)
         button.layer.cornerRadius = 8
         button.layer.borderWidth = 1
         button.layer.borderColor = UIColor.gray.cgColor
