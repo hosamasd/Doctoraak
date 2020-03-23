@@ -50,6 +50,20 @@ import UIKit
         return t
     }
     
+    func createHoursTextFields() -> UITextField {
+        let t = UITextField()
+        t.textAlignment = .center
+        t.layer.borderWidth = 1
+        t.layer.backgroundColor = UIColor.gray.cgColor
+        t.layer.cornerRadius = 16
+        t.clipsToBounds = true
+        t.textColor = .black
+        t.backgroundColor = .white
+        t.text = "00:00"
+//        t.constrainWidth(constant: 60)
+        t.constrainHeight(constant: 50)
+        return t
+    }
   
     
 }

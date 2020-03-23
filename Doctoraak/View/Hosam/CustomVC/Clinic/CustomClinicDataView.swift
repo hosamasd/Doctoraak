@@ -23,8 +23,8 @@ class CustomClinicDataView: CustomBaseView {
         return i
     }()
     
-    lazy var titleLabel = UILabel(text: "Welcome", font: .systemFont(ofSize: 30), textColor: .white)
-    lazy var soonLabel = UILabel(text: "Create account", font: .systemFont(ofSize: 18), textColor: .white)
+    lazy var titleLabel = UILabel(text: "Clinic", font: .systemFont(ofSize: 30), textColor: .white)
+    lazy var soonLabel = UILabel(text: "Fill your data", font: .systemFont(ofSize: 18), textColor: .white)
     
     lazy var clinicProfileImage:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "Ellipse 119-2"))
