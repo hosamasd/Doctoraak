@@ -25,19 +25,35 @@ class CustomSiftButton: UIButton {
     }
 }
 
-class CustomSiftSegmented: UISegmentedControl {
+
+class CustomSegmentedControl: UISegmentedControl {
     
-    override func draw(_ rect: CGRect) {
-        super.draw(rect)
+    override func layoutSubviews(){
         
-        let gradientLayer = CAGradientLayer()
-        let leftColor = #colorLiteral(red: 0.4747212529, green: 0.2048208416, blue: 1, alpha: 1)
-        let rightColor = #colorLiteral(red: 0.7187242508, green: 0.5294578671, blue: 0.9901599288, alpha: 1)
-        gradientLayer.colors = [leftColor.cgColor, rightColor.cgColor]
-        gradientLayer.startPoint = CGPoint(x: 0, y: 0.5)
-        gradientLayer.endPoint = CGPoint(x: 1, y: 0.5)
+        super.layoutSubviews()
         
-        self.layer.insertSublayer(gradientLayer, at: 0)
-        gradientLayer.frame = rect
+        //corner radius
+        let cornerRadius = bounds.height/2
+        let maskedCorners: CACornerMask = [.layerMinXMinYCorner, .layerMinXMaxYCorner, .layerMaxXMinYCorner, .layerMaxXMaxYCorner]
+        //background
+        clipsToBounds = true
+        layer.cornerRadius = cornerRadius
+        layer.maskedCorners = maskedCorners
+        //foreground
+        let foregroundIndex = numberOfSegments
+        if subviews.indices.contains(foregroundIndex), let foregroundImageView = subviews[foregroundIndex] as? UIImageView
+        {
+            foregroundImageView.bounds = foregroundImageView.bounds.insetBy(dx: 5, dy: 5)
+            foregroundImageView.image = UIImage()
+            foregroundImageView.highlightedImage = UIImage()
+            foregroundImageView.backgroundColor = UIColor.darkGray
+            foregroundImageView.clipsToBounds = true
+            foregroundImageView.layer.masksToBounds = true
+            
+            foregroundImageView.layer.cornerRadius = 14
+            foregroundImageView.layer.maskedCorners = maskedCorners
+        }
+        
+        
     }
 }

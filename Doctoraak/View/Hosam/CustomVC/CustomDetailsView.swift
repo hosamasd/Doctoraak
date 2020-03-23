@@ -17,7 +17,6 @@ class CustomDetailsView: UIView {
     }()
     lazy var backImage:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "Icon - Keyboard Arrow - Left - Filled"))
-        //        i.contentMode = .scaleAspectFill
         i.constrainWidth(constant: 30)
         i.constrainHeight(constant: 30)
         return i

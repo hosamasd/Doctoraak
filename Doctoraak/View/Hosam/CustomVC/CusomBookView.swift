@@ -36,6 +36,14 @@ class CusomBookView: CustomBaseView {
         return b
     }()
     
+    lazy var seg:CustomSegmentedControl = {
+        let ss = ["one","two"]
+       let s = CustomSegmentedControl(items: ss)
+        s.selectedSegmentIndex = 0
+//        s.tintColor = UIColor(patternImage: UIImage(named: "Rectangle 1748") ?? UIImage())
+        return s
+    }()
+    
     lazy var mainDateView:UIView = {
         let l = UIView(backgroundColor: .white)
         l.layer.cornerRadius = 8
@@ -72,22 +80,9 @@ l.constrainHeight(constant: 50)
     }()
     lazy var shift1Button = secondButtons(title: "Shift 1")
      lazy var shift2Button = secondButtons(title: "Shift 2")
-//    lazy var mainFullNameView:UIView = {
-//        let l = UIView(backgroundColor: .white)
-//        l.layer.cornerRadius = 8
-//        l.layer.borderWidth = 1
-//        l.layer.borderColor = #colorLiteral(red: 0.4835817814, green: 0.4836651683, blue: 0.4835640788, alpha: 1).cgColor
-//        return l
-//    }()
-    lazy var fullNameTextField = createMainTextFields(place: "  Full Name", type: .default)
-//    lazy var mainMobileView:UIView = {
-//        let l = UIView(backgroundColor: .white)
-//        l.layer.cornerRadius = 8
-//        l.layer.borderWidth = 1
-//        l.layer.borderColor = #colorLiteral(red: 0.4835817814, green: 0.4836651683, blue: 0.4835640788, alpha: 1).cgColor
-//        return l
-//    }()
-    lazy var mobileNumberTextField = createMainTextFields(place:  "   enter Mobile".localized, type: .numberPad)
+    
+    lazy var fullNameTextField = createMainTextFields(place: "Full name")
+    lazy var mobileNumberTextField = createMainTextFields(place: "enter Mobile",type: .numberPad)
     
     lazy var dayTextField = createMainTextFields(place: "   DD")
     lazy var monthTextField = createMainTextFields(place: " MM")
@@ -134,20 +129,20 @@ sssd.anchor(top: sV.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing:
 
     }
     
-    func createMainTextFields(place:String,type:UIKeyboardType? = .emailAddress) -> UITextField {
-        let t = SkyFloatingLabelTextField(backgroundColor: .white)
-        t.constrainHeight(constant: 50)
-        t.layer.cornerRadius = 8
-        t.clipsToBounds = true
-        t.placeholder = place
-        t.keyboardType = type ?? .emailAddress
-        t.layer.borderWidth = 1
-        t.layer.borderColor = UIColor.lightGray.cgColor
-        t.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: t.frame.height))
-        t.leftViewMode = .always
-         t.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)
-        return t
-    }
+//    func createMainTextFields(place:String,type:UIKeyboardType? = .emailAddress) -> UITextField {
+//        let t = SkyFloatingLabelTextField(backgroundColor: .white)
+//        t.constrainHeight(constant: 50)
+//        t.layer.cornerRadius = 8
+//        t.clipsToBounds = true
+//        t.placeholder = place
+//        t.keyboardType = type ?? .emailAddress
+//        t.layer.borderWidth = 1
+//        t.layer.borderColor = UIColor.lightGray.cgColor
+//        t.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: t.frame.height))
+//        t.leftViewMode = .always
+//         t.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)
+//        return t
+//    }
     
     func secondButtons(title:String) ->UIButton {
         let b  = UIButton()
@@ -170,6 +165,15 @@ sssd.anchor(top: sV.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing:
         b.clipsToBounds = true
         b.constrainHeight(constant: 50)
         return b
+    }
+    
+    func colorBackgroundSelectedButton(sender:UIButton,views:[UIButton])  {
+        views.forEach { (bt) in
+            bt.setTitleColor(.black, for: .normal)
+            bt.backgroundColor = .gray
+//            bt.
+        }
+//        sender.backgroundColor = ColorConstant.mainBackgroundColor
     }
     
     @objc func tapDone(sender: Any, datePicker1: UIDatePicker) {
