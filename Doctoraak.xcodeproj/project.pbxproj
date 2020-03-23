@@ -17,6 +17,8 @@
 		4E333E11242663BF00F82E00 /* DoctorWorkingDateCollectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E333E10242663BF00F82E00 /* DoctorWorkingDateCollectionVC.swift */; };
 		4E333E13242663E400F82E00 /* DoctorWorkingDateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E333E12242663E400F82E00 /* DoctorWorkingDateCell.swift */; };
 		4E333E1524266A7700F82E00 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E333E1424266A7700F82E00 /* Extensions.swift */; };
+		4E3449072428BF9300259224 /* VerificationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3449062428BF9300259224 /* VerificationVC.swift */; };
+		4E3449092428BFB600259224 /* CustomVerificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3449082428BFB600259224 /* CustomVerificationView.swift */; };
 		4E3458E72428B2D100DA89A0 /* SecondRegisterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3458E62428B2D100DA89A0 /* SecondRegisterVC.swift */; };
 		4E3458EA2428B2FF00DA89A0 /* CustomCecondRegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3458E92428B2FF00DA89A0 /* CustomCecondRegisterView.swift */; };
 		4E5803052427899200B5D502 /* WelcomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5803042427899200B5D502 /* WelcomeVC.swift */; };
@@ -65,6 +67,8 @@
 		4E333E10242663BF00F82E00 /* DoctorWorkingDateCollectionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorWorkingDateCollectionVC.swift; sourceTree = "<group>"; };
 		4E333E12242663E400F82E00 /* DoctorWorkingDateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorWorkingDateCell.swift; sourceTree = "<group>"; };
 		4E333E1424266A7700F82E00 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		4E3449062428BF9300259224 /* VerificationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationVC.swift; sourceTree = "<group>"; };
+		4E3449082428BFB600259224 /* CustomVerificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomVerificationView.swift; sourceTree = "<group>"; };
 		4E3458E62428B2D100DA89A0 /* SecondRegisterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondRegisterVC.swift; sourceTree = "<group>"; };
 		4E3458E92428B2FF00DA89A0 /* CustomCecondRegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCecondRegisterView.swift; sourceTree = "<group>"; };
 		4E5803042427899200B5D502 /* WelcomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeVC.swift; sourceTree = "<group>"; };
@@ -163,6 +167,7 @@
 			children = (
 				4E5E0BB4242891380031AE4A /* RegisterVC.swift */,
 				4E3458E62428B2D100DA89A0 /* SecondRegisterVC.swift */,
+				4E3449062428BF9300259224 /* VerificationVC.swift */,
 			);
 			path = Register;
 			sourceTree = "<group>";
@@ -172,6 +177,7 @@
 			children = (
 				4E5E0BB6242891620031AE4A /* CustomRegisterView.swift */,
 				4E3458E92428B2FF00DA89A0 /* CustomCecondRegisterView.swift */,
+				4E3449082428BFB600259224 /* CustomVerificationView.swift */,
 			);
 			path = Register;
 			sourceTree = "<group>";
@@ -525,12 +531,14 @@
 				4E5CE79F242748C0001EE175 /* CardiologyCollectionVC.swift in Sources */,
 				4E333E012426559000F82E00 /* BaseCollectionCell.swift in Sources */,
 				4E5E0BB9242891EF0031AE4A /* ExtensionsViews.swift in Sources */,
+				4E3449092428BFB600259224 /* CustomVerificationView.swift in Sources */,
 				4E580314242790A200B5D502 /* CustomLoginsView.swift in Sources */,
 				7A52BB5524153A28008ED1F9 /* AppDelegate.swift in Sources */,
 				7A3C05F9242103D0005E28B2 /* MedicalSpecificationCollectionVC.swift in Sources */,
 				7AC1248E241F85DC006C89D5 /* Constants.swift in Sources */,
 				4E333E13242663E400F82E00 /* DoctorWorkingDateCell.swift in Sources */,
 				4EA5379124263F4F000AE7AD /* MedicalSpecificationApi.swift in Sources */,
+				4E3449072428BF9300259224 /* VerificationVC.swift in Sources */,
 				4E3458EA2428B2FF00DA89A0 /* CustomCecondRegisterView.swift in Sources */,
 				4E58030A24278A2700B5D502 /* CustomWelcomeView.swift in Sources */,
 			);

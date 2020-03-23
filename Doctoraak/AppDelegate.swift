@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization aft/Users/hosam/Documents/xcode projects/syphinx/Doctoraak/Doctoraak.xcodeprojer application launch.
         window = UIWindow()
         window?.makeKeyAndVisible()
-        window?.rootViewController =  UINavigationController(rootViewController: SecondRegisterVC())
+        window?.rootViewController =  UINavigationController(rootViewController: VerificationVC())
         return true
     }
 

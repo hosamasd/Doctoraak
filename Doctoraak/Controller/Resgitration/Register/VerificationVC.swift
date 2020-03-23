@@ -1,5 +1,5 @@
 //
-//  SecondRegisterVC.swift
+//  VerificationVC.swift
 //  Doctoraak
 //
 //  Created by hosam on 3/23/20.
@@ -8,10 +8,10 @@
 
 import UIKit
 
-class SecondRegisterVC: CustomBaseViewVC {
+class VerificationVC: CustomBaseViewVC {
     
-    lazy var customCecondRegisterView:CustomCecondRegisterView = {
-        let v = CustomCecondRegisterView()
+    lazy var customVerificationView:CustomVerificationView = {
+        let v = CustomVerificationView()
         return v
     }()
     
@@ -21,7 +21,7 @@ class SecondRegisterVC: CustomBaseViewVC {
     
     override func setupViews() {
         
-        view.addSubview(customCecondRegisterView)
-        customCecondRegisterView.fillSuperview()
+        view.addSubview(customVerificationView)
+        customVerificationView.fillSuperview()
     }
 }
