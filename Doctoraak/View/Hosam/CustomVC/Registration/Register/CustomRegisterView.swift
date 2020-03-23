@@ -36,7 +36,10 @@ class CustomRegisterView: CustomBaseView {
     }()
     lazy var userEditProfileImageView: UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "Group 4142"))
-        i.isUserInteractionEnabled = true
+        i.constrainWidth(constant: 28)
+        i.constrainHeight(constant: 28)
+        i.layer.cornerRadius = 8
+        i.contentMode = .scaleAspectFill
         i.clipsToBounds = true
         return i
     }()
@@ -70,6 +73,8 @@ class CustomRegisterView: CustomBaseView {
     lazy var boyButton:UIButton = {
 
          let button = UIButton(type: .system)
+        button.setTitle("Male", for: .normal)
+        button.setTitleColor(.white, for: .normal)
         button.layer.cornerRadius = 8
         button.layer.borderWidth = 1
         button.layer.borderColor = UIColor.gray.cgColor
@@ -79,6 +84,8 @@ class CustomRegisterView: CustomBaseView {
     }()
     lazy var girlButton:UIButton = {
         let button = UIButton(type: .system)
+        button.setTitle("Female", for: .normal)
+        button.setTitleColor(.black, for: .normal)
         button.backgroundColor = .white
         button.layer.cornerRadius = 8
         button.layer.borderWidth = 1
@@ -111,7 +118,7 @@ class CustomRegisterView: CustomBaseView {
         subView.addSubViews(views: userProfileImage,userEditProfileImageView)
         subView.constrainWidth(constant: 100)
         subView.constrainHeight(constant: 100)
-        userEditProfileImageView.anchor(top: nil, leading: userProfileImage.trailingAnchor, bottom: userProfileImage.bottomAnchor, trailing: userProfileImage.trailingAnchor,padding: .init(top: 0, left: -40, bottom: 24, right: 16))
+        userEditProfileImageView.anchor(top: nil, leading: nil, bottom: userProfileImage.bottomAnchor, trailing: userProfileImage.trailingAnchor,padding: .init(top: 0, left:0 , bottom:10, right: 10))
         
         let genderStack = getStack(views: boyButton,girlButton, spacing: 16, distribution: .fillEqually, axis: .horizontal)
         let textStack = getStack(views: fullNameTextField,mobileNumberTextField,emailTextField,passwordTextField,confirmPasswordTextField,genderStack, spacing: 16, distribution: .fillEqually, axis: .vertical)
