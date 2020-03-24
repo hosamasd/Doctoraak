@@ -12,11 +12,41 @@ class SecondWelcomeVC: CustomBaseViewVC {
     
     lazy var customSecondWelcomeView:CustomSecondWelcomeView = {
         let v = CustomSecondWelcomeView()
+        v.loginButton.addTarget(self, action: #selector(handleLogin), for: .touchUpInside)
+        v.registerButton.addTarget(self, action: #selector(handleRegister), for: .touchUpInside)
         return v
     }()
+    
+    //check to go specific way
+    var index:Int? = 0
+    
     
     override func setupViews() {
         view.addSubview(customSecondWelcomeView)
         customSecondWelcomeView.fillSuperview()
+    }
+    
+    override func setupNavigation()  {
+        navigationController?.navigationBar.isHide(true)
+    }
+    
+    func goToLoginNextVC(index:Int) {
+        let medical = MainLoginsVC()
+        medical.index = index
+        navigationController?.pushViewController(medical, animated: true)
+    }
+    
+    func goToRegisterNextVC(index:Int) {
+        let medical = MainRegisterVC()
+        medical.index = index
+        navigationController?.pushViewController(medical, animated: true)
+    }
+    
+    @objc func handleLogin()  {
+        goToLoginNextVC(index: index ?? 0)
+    }
+    
+    @objc func handleRegister()  {
+        goToRegisterNextVC(index: index ?? 0)
     }
 }

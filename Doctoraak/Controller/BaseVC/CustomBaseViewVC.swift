@@ -10,6 +10,8 @@ import UIKit
 
 class CustomBaseViewVC: UIViewController {
     
+     var isLab,isPharamacy,isRediology,isDoctor,isMedicalCenter:Int?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = #colorLiteral(red: 0.9829737544, green: 0.9831344485, blue: 0.9829396605, alpha: 1)

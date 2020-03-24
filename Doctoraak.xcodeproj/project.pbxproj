@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2AD2198E9BCAD6448C7CF56A /* Pods_Doctoraak.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C300D290AB172CC2F362780A /* Pods_Doctoraak.framework */; };
-		4E111D7B2429C4EC000250AE /* PharmacyRegisterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E111D7A2429C4EC000250AE /* PharmacyRegisterVC.swift */; };
+		4E111D7B2429C4EC000250AE /* MainRegisterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E111D7A2429C4EC000250AE /* MainRegisterVC.swift */; };
 		4E111D822429C5C1000250AE /* ColorConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E111D812429C5C1000250AE /* ColorConstants.swift */; };
 		4E111D842429C690000250AE /* CustomPharmacyRegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E111D832429C690000250AE /* CustomPharmacyRegisterView.swift */; };
 		4E111D862429CACA000250AE /* PharmacyLoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E111D852429CACA000250AE /* PharmacyLoginVC.swift */; };
@@ -36,7 +36,7 @@
 		4E58030A24278A2700B5D502 /* CustomWelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E58030924278A2700B5D502 /* CustomWelcomeView.swift */; };
 		4E58030C24278DB500B5D502 /* SecondWelcomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E58030B24278DB500B5D502 /* SecondWelcomeVC.swift */; };
 		4E58030E24278DDB00B5D502 /* CustomSecondWelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E58030D24278DDB00B5D502 /* CustomSecondWelcomeView.swift */; };
-		4E5803122427903900B5D502 /* LoginsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5803112427903900B5D502 /* LoginsVC.swift */; };
+		4E5803122427903900B5D502 /* MainLoginsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5803112427903900B5D502 /* MainLoginsVC.swift */; };
 		4E580314242790A200B5D502 /* CustomLoginsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E580313242790A200B5D502 /* CustomLoginsView.swift */; };
 		4E580316242796DC00B5D502 /* CustomSkyTextFieldRightPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E580315242796DC00B5D502 /* CustomSkyTextFieldRightPadding.swift */; };
 		4E5CE79F242748C0001EE175 /* CardiologyCollectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5CE79E242748C0001EE175 /* CardiologyCollectionVC.swift */; };
@@ -72,7 +72,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		4E111D7A2429C4EC000250AE /* PharmacyRegisterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PharmacyRegisterVC.swift; sourceTree = "<group>"; };
+		4E111D7A2429C4EC000250AE /* MainRegisterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainRegisterVC.swift; sourceTree = "<group>"; };
 		4E111D812429C5C1000250AE /* ColorConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorConstants.swift; sourceTree = "<group>"; };
 		4E111D832429C690000250AE /* CustomPharmacyRegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPharmacyRegisterView.swift; sourceTree = "<group>"; };
 		4E111D852429CACA000250AE /* PharmacyLoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PharmacyLoginVC.swift; sourceTree = "<group>"; };
@@ -100,7 +100,7 @@
 		4E58030924278A2700B5D502 /* CustomWelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomWelcomeView.swift; sourceTree = "<group>"; };
 		4E58030B24278DB500B5D502 /* SecondWelcomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondWelcomeVC.swift; sourceTree = "<group>"; };
 		4E58030D24278DDB00B5D502 /* CustomSecondWelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSecondWelcomeView.swift; sourceTree = "<group>"; };
-		4E5803112427903900B5D502 /* LoginsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginsVC.swift; sourceTree = "<group>"; };
+		4E5803112427903900B5D502 /* MainLoginsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainLoginsVC.swift; sourceTree = "<group>"; };
 		4E580313242790A200B5D502 /* CustomLoginsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLoginsView.swift; sourceTree = "<group>"; };
 		4E580315242796DC00B5D502 /* CustomSkyTextFieldRightPadding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSkyTextFieldRightPadding.swift; sourceTree = "<group>"; };
 		4E5CE79E242748C0001EE175 /* CardiologyCollectionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardiologyCollectionVC.swift; sourceTree = "<group>"; };
@@ -220,8 +220,8 @@
 		4E111D8D2429CCEA000250AE /* Main Login And Register */ = {
 			isa = PBXGroup;
 			children = (
-				4E5803112427903900B5D502 /* LoginsVC.swift */,
-				4E111D7A2429C4EC000250AE /* PharmacyRegisterVC.swift */,
+				4E5803112427903900B5D502 /* MainLoginsVC.swift */,
+				4E111D7A2429C4EC000250AE /* MainRegisterVC.swift */,
 			);
 			path = "Main Login And Register";
 			sourceTree = "<group>";
@@ -628,7 +628,7 @@
 				4E3458E72428B2D100DA89A0 /* SecondRegisterVC.swift in Sources */,
 				7AE60E3F241914EC002E9AF6 /* MainSpecificationModel.swift in Sources */,
 				7AB7E389241580200033F347 /* CustomViews+Extensions.swift in Sources */,
-				4E5803122427903900B5D502 /* LoginsVC.swift in Sources */,
+				4E5803122427903900B5D502 /* MainLoginsVC.swift in Sources */,
 				4E5CE7A924275187001EE175 /* CusomBookView.swift in Sources */,
 				4E5CE7AB2427545C001EE175 /* DoctorBookVC.swift in Sources */,
 				4E333E0524265B2800F82E00 /* DoctorDaysShiftCell.swift in Sources */,
@@ -664,7 +664,7 @@
 				4E3449092428BFB600259224 /* CustomVerificationView.swift in Sources */,
 				4E580314242790A200B5D502 /* CustomLoginsView.swift in Sources */,
 				7A52BB5524153A28008ED1F9 /* AppDelegate.swift in Sources */,
-				4E111D7B2429C4EC000250AE /* PharmacyRegisterVC.swift in Sources */,
+				4E111D7B2429C4EC000250AE /* MainRegisterVC.swift in Sources */,
 				4E111D8C2429CBAD000250AE /* RediologyLoginVC.swift in Sources */,
 				7A3C05F9242103D0005E28B2 /* MedicalSpecificationCollectionVC.swift in Sources */,
 				4E111D862429CACA000250AE /* PharmacyLoginVC.swift in Sources */,

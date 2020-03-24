@@ -11,6 +11,15 @@ import iOSDropDown
 
 class CustomPharmacyRegisterView: CustomBaseView {
     
+    var index:Int! {
+        didSet{
+            fullNameTextField.placeholder = index == 4 ? "Pharmacy Name" : index == 2 ? "Lap Name" : "Center Name"
+            mobileNumberTextField.placeholder = index == 4 ? "Pharmacy phone"  : index == 2 ? "Lap phone" : "Center phone"
+            soonLabel.text = index == 4 ? "Creat Pharmacy account"  : index == 2 ? "Creat Lap account" : "Creat Center account"
+
+//        text = index == 4 ? "Pharmacy" : index == 2 ? "Lap" : "Center"
+    }
+    }
     
     lazy var LogoImage:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "Group 4116"))
@@ -45,8 +54,8 @@ class CustomPharmacyRegisterView: CustomBaseView {
         return i
     }()
     
-    lazy var fullNameTextField = createMainTextFields(place: "Pharmacy Name")
-    lazy var mobileNumberTextField = createMainTextFields(place: "Pharmacy phone",type: .numberPad)
+    lazy var fullNameTextField = createMainTextFields(place: " Name")
+    lazy var mobileNumberTextField = createMainTextFields(place: " phone",type: .numberPad)
     lazy var emailTextField = createMainTextFields(place: "enter email",type: .emailAddress)
     lazy var passwordTextField:UITextField = {
         let s = createMainTextFields(place: "Password", type: .default,secre: true)
@@ -113,6 +122,8 @@ class CustomPharmacyRegisterView: CustomBaseView {
         button.clipsToBounds = true
         return button
     }()
+    
+    var text:String?
     
  
     

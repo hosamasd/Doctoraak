@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LoginsVC: CustomBaseViewVC {
+class MainLoginsVC: CustomBaseViewVC {
     
     lazy var customLoginsView:CustomLoginsView = {
        let v = CustomLoginsView()
@@ -17,7 +17,9 @@ class LoginsVC: CustomBaseViewVC {
     }()
     
     //check to go specific way
-    var isLab,isPharamacy,isRediology,isDoctor:Bool?
+    var index:Int? = 0
+    
+//    var isLab,isPharamacy,isRediology,isDoctor:Int?
     
     
    override func setupNavigation()  {
