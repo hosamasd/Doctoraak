@@ -50,10 +50,11 @@ class CustomLoginsView: CustomBaseView {
     }()
     
     lazy var loginButton:UIButton = {
-        let button = CustomSiftButton(type: .system)
+        let button = UIButton(type: .system)
         button.setTitle("LOGIN", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.layer.cornerRadius = 8
+        button.backgroundColor = ColorConstants.disabledButtonsGray
         button.constrainHeight(constant: 50)
         button.clipsToBounds = true
         return button

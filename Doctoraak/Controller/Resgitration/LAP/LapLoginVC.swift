@@ -1,22 +1,23 @@
 //
-//  LoginVC.swift
+//  LapLoginVC.swift
 //  Doctoraak
 //
-//  Created by hosam on 3/22/20.
+//  Created by hosam on 3/24/20.
 //  Copyright © 2020 Ahmad Eisa. All rights reserved.
 //
 
 import UIKit
 
-class LoginsVC: CustomBaseViewVC {
+class LapLoginVC: CustomBaseViewVC {
+    
     
     lazy var customLoginsView:CustomLoginsView = {
-       let v = CustomLoginsView()
+        let v = CustomLoginsView()
         
         return v
     }()
     
-   override func setupNavigation()  {
+    override func setupNavigation()  {
         navigationController?.navigationBar.isHide(true)
     }
     
