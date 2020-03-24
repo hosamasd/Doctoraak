@@ -70,13 +70,15 @@ class CustomClinicPaymentView: CustomBaseView {
     }()
     
     lazy var doneButton:UIButton = {
-        let button = CustomSiftButton(type: .system)
+        let button = UIButton(type: .system)
         button.setTitle("Done", for: .normal)
-        button.setTitleColor(.white, for: .normal)
+        button.backgroundColor = ColorConstants.disabledButtonsGray
+        button.setTitleColor(.black, for: .normal)
         button.layer.cornerRadius = 16
         button.constrainHeight(constant: 50)
         
         button.clipsToBounds = true
+        button.isEnabled = false
         return button
     }()
     lazy var firstScrollButton = createButtons(image: #imageLiteral(resourceName: "Ellipse 128"),tags: 1)
