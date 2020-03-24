@@ -26,6 +26,7 @@ class RegisterViewModel {
       var insurance:String? {didSet {checkFormValidity()}}
     var delivery:Bool? = true {didSet {checkFormValidity()}}
     var index:Int? = -1 {didSet {checkFormValidity()}}
+    var image:UIImage? {didSet {checkFormValidity()}}
     
     
     func performRegister(completion:@escaping (Error?)->Void)  {
@@ -37,7 +38,7 @@ class RegisterViewModel {
     }
     
     func checkFormValidity() {
-        let isFormValid = email?.isEmpty == false && password?.isEmpty == false && confirmPassword?.isEmpty == false && confirmPassword == password &&  phone?.isEmpty == false && name?.isEmpty == false && address?.isEmpty == false && hours?.isEmpty == false && insurance?.isEmpty == false && index != -1
+        let isFormValid = email?.isEmpty == false && password?.isEmpty == false && confirmPassword?.isEmpty == false && confirmPassword == password &&  phone?.isEmpty == false && name?.isEmpty == false && address?.isEmpty == false && hours?.isEmpty == false && insurance?.isEmpty == false && index != -1 && image != nil
         
         bindableIsFormValidate.value = isFormValid
         
