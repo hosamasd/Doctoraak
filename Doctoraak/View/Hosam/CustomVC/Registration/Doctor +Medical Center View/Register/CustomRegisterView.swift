@@ -96,7 +96,8 @@ class CustomRegisterView: CustomBaseView {
     }()
     
     lazy var nextButton:UIButton = {
-        let button = CustomSiftButton(type: .system)
+        let button = UIButton(type: .system)
+        button.backgroundColor = ColorConstants.disabledButtonsGray
         button.setTitle("Next", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.layer.cornerRadius = 16
@@ -109,7 +110,7 @@ class CustomRegisterView: CustomBaseView {
         super.layoutSubviews()
         let leftColor = #colorLiteral(red: 0.4747212529, green: 0.2048208416, blue: 1, alpha: 1)
         let rightColor = #colorLiteral(red: 0.7187242508, green: 0.5294578671, blue: 0.9901599288, alpha: 1)
-        boyButton.applyGradient(colors: [leftColor.cgColor, rightColor.cgColor])
+        boyButton.applyGradient(colors: [leftColor.cgColor, rightColor.cgColor], index: 0)
     }
  
     

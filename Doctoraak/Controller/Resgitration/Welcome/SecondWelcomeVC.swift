@@ -37,9 +37,13 @@ class SecondWelcomeVC: CustomBaseViewVC {
     }
     
     func goToRegisterNextVC(index:Int) {
+        let doctor = DoctorRegisterVC()
+        doctor.index = index
         let medical = MainRegisterVC()
         medical.index = index
-        navigationController?.pushViewController(medical, animated: true)
+        let vc = index == 0 || index == 1 ? doctor : medical
+        
+        navigationController?.pushViewController( vc, animated: true)
     }
     
     @objc func handleLogin()  {

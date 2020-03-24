@@ -9,7 +9,7 @@
 import UIKit
 import iOSDropDown
 
-class CustomPharmacyRegisterView: CustomBaseView {
+class CustomMainRegisterView: CustomBaseView {
     
     var index:Int! {
         didSet{
@@ -115,9 +115,9 @@ class CustomPharmacyRegisterView: CustomBaseView {
     lazy var nextButton:UIButton = {
         let button = UIButton()
         button.setTitle("Next", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.layer.cornerRadius = 16
         button.backgroundColor = ColorConstants.disabledButtonsGray
+        button.setTitleColor(.black, for: .normal)
+        button.layer.cornerRadius = 16
         button.constrainHeight(constant: 50)
         button.clipsToBounds = true
         return button

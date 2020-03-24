@@ -88,7 +88,7 @@ class CustomClinicWorkingHoursView: CustomBaseView {
         super.layoutSubviews()
         let leftColor = #colorLiteral(red: 0.6555111408, green: 0.5125037432, blue: 0.9976704717, alpha: 1)
         let rightColor = #colorLiteral(red: 0.7503471971, green: 0.6148311496, blue: 0.9988300204, alpha: 1)
-        [shift1Button,sunButton].forEach({$0.applyGradient(colors: [leftColor.cgColor, rightColor.cgColor])})
+        [shift1Button,sunButton].forEach({$0.applyGradient(colors: [leftColor.cgColor, rightColor.cgColor], index: 0)})
     }
     
     override func setupViews() {

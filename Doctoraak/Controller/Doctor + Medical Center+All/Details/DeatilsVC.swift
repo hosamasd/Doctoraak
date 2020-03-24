@@ -26,15 +26,8 @@ class DeatilsVC: UIViewController {
        let v = CustomDetailsView()
         return v
     }()
-//    lazy var bookButton:UIButton = {
-//        let button = CustomSiftButton(type: .system)
-//        button.setTitle("Book", for: .normal)
-//        button.setTitleColor(.white, for: .normal)
-//        button.layer.cornerRadius = 8
-//        button.clipsToBounds = true
-//        button.constrainHeight(constant: 50)
-//        return button
-//    }()
+    var index:Int? = 0
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,7 +46,6 @@ class DeatilsVC: UIViewController {
         view.addSubview(scrollView)
         scrollView.fillSuperview()
         scrollView.addSubview(mainView)
-//        mainView.fillSuperview()
         mainView.anchor(top: scrollView.topAnchor, leading: scrollView.leadingAnchor, bottom: scrollView.bottomAnchor, trailing: scrollView.trailingAnchor,padding: .init(top: -60, left: 0, bottom: 0, right: 0))
         mainView.addSubViews(views: customDetailsView)
         customDetailsView.fillSuperview()

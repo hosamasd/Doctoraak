@@ -15,6 +15,7 @@ class ClinicPaymentVC: CustomBaseViewVC {
         return v
     }()
     
+      var index:Int? = 0
     
     override  func setupNavigation()  {
         navigationController?.navigationBar.isHide(true)

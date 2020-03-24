@@ -104,7 +104,8 @@ class CustomCecondRegisterView: CustomBaseView {
    
 
     lazy var signUpButton:UIButton = {
-        let button = CustomSiftButton(type: .system)
+        let button = UIButton(type: .system)
+        button.backgroundColor = ColorConstants.disabledButtonsGray
         button.setTitle("Sign up", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.layer.cornerRadius = 16

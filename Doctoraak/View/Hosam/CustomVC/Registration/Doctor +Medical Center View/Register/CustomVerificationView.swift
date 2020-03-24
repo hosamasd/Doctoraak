@@ -35,7 +35,8 @@ class CustomVerificationView: CustomBaseView {
      lazy var forthNumberTextField = createMainTextFields(place: "")
     
     lazy var confirmButton:UIButton = {
-        let button = CustomSiftButton(type: .system)
+        let button = UIButton(type: .system)
+        button.backgroundColor = ColorConstants.disabledButtonsGray
         button.setTitle("Confirm", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.layer.cornerRadius = 16

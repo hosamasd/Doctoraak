@@ -1,5 +1,5 @@
 //
-//  ClinicDataVC.swift
+//  ClinicWorkingHoursVC.swift
 //  Doctoraak
 //
 //  Created by hosam on 3/23/20.
@@ -7,7 +7,8 @@
 //
 
 import UIKit
-class ClinicDataVC: CustomBaseViewVC {
+
+class ClinicWorkingHoursVC: CustomBaseViewVC {
     
     
     lazy var scrollView: UIScrollView = {
@@ -22,25 +23,24 @@ class ClinicDataVC: CustomBaseViewVC {
         v.constrainWidth(constant: view.frame.width)
         return v
     }()
-    lazy var customClinicDataView:CustomClinicDataView = {
-        let v = CustomClinicDataView()
+    lazy var customClinicWorkingHoursView:CustomClinicWorkingHoursView = {
+        let v = CustomClinicWorkingHoursView()
         return v
     }()
+      var index:Int? = 0
     
-   
-  override  func setupNavigation()  {
+    override  func setupNavigation()  {
         navigationController?.navigationBar.isHide(true)
     }
     
-   override func setupViews()  {
-    
+    override func setupViews()  {
+        
         view.addSubview(scrollView)
         scrollView.fillSuperview()
         scrollView.addSubview(mainView)
-        //        mainView.fillSuperview()
         mainView.anchor(top: scrollView.topAnchor, leading: scrollView.leadingAnchor, bottom: scrollView.bottomAnchor, trailing: scrollView.trailingAnchor,padding: .init(top: -60, left: 0, bottom: 0, right: 0))
-        mainView.addSubViews(views: customClinicDataView)
-        customClinicDataView.fillSuperview()
+        mainView.addSubViews(views: customClinicWorkingHoursView)
+        customClinicWorkingHoursView.fillSuperview()
         
         
         

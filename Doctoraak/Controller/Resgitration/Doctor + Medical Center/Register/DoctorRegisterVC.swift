@@ -8,7 +8,7 @@
 
 import UIKit
 
-class RegisterVC: CustomBaseViewVC {
+class DoctorRegisterVC: CustomBaseViewVC {
     
     lazy var customRegisterView:CustomRegisterView = {
         let v = CustomRegisterView()
@@ -16,6 +16,8 @@ class RegisterVC: CustomBaseViewVC {
           v.girlButton.addTarget(self, action: #selector(handleGirl), for: .touchUpInside)
         return v
     }()
+    var index:Int? = 0
+    
     
     override func setupNavigation()  {
         navigationController?.navigationBar.isHide(true)

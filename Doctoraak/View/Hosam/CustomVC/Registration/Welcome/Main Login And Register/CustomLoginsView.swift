@@ -52,9 +52,10 @@ class CustomLoginsView: CustomBaseView {
     lazy var loginButton:UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("LOGIN", for: .normal)
-        button.setTitleColor(.white, for: .normal)
+         button.backgroundColor = ColorConstants.disabledButtonsGray
+        button.setTitleColor(.black, for: .normal)
         button.layer.cornerRadius = 8
-        button.backgroundColor = ColorConstants.disabledButtonsGray
+       
         button.constrainHeight(constant: 50)
         button.clipsToBounds = true
         return button
@@ -67,6 +68,9 @@ class CustomLoginsView: CustomBaseView {
         b.constrainHeight(constant: 50)
         return b
     }()
+    
+      var index:Int? = 0
+    
     
     override func setupViews() {
           let forgetStack = getStack(views: UIView(),forgetPasswordButton, spacing: 8, distribution: .fill, axis: .horizontal)
