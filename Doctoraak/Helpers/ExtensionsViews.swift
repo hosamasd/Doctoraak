@@ -53,6 +53,7 @@ extension UIViewController {
              if vv.backgroundColor != nil {
                 vv.applyGradient(colors: [ColorConstants.firstColorBangsegy,ColorConstants.secondColorBangsegy], index: 0)
                 vv.setTitleColor(.black, for: .normal)
+                vv.isEnabled = true
             }
             
         }else {
@@ -60,9 +61,11 @@ extension UIViewController {
                 removeSublayer(vv, layerIndex: 0)
                 vv.backgroundColor =  ColorConstants.disabledButtonsGray
                 vv.setTitleColor(.black, for: .normal)
+                 vv.isEnabled = false
             }else {
                 vv.setTitleColor(.black, for: .normal)
                 vv.backgroundColor =  ColorConstants.disabledButtonsGray
+                vv.isEnabled = false
             }
         }
     }

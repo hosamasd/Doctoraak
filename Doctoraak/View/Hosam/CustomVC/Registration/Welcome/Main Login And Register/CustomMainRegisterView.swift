@@ -121,6 +121,7 @@ class CustomMainRegisterView: CustomBaseView {
         button.layer.cornerRadius = 16
         button.constrainHeight(constant: 50)
         button.clipsToBounds = true
+        button.isEnabled = false
         return button
     }()
     

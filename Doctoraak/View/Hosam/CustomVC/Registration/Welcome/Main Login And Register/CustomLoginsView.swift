@@ -66,6 +66,7 @@ class CustomLoginsView: CustomBaseView {
         b.setTitle("Sign up".localized, for: .normal)
         b.setTitleColor(#colorLiteral(red: 0.4852292538, green: 0.7782793641, blue: 0.8675006032, alpha: 1), for: .normal)
         b.constrainHeight(constant: 50)
+//        b.isEnabled = false
         return b
     }()
     

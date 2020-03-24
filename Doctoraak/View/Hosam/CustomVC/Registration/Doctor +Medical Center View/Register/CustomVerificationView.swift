@@ -29,10 +29,10 @@ class CustomVerificationView: CustomBaseView {
     lazy var timerLabel = UILabel(text: "00:30", font: .systemFont(ofSize: 18), textColor: #colorLiteral(red: 0.2387362421, green: 0.8891445994, blue: 0.7412704825, alpha: 1),textAlignment: .center)
 
     lazy var resendButton = UIButton(title: "Resend again ", titleColor: #colorLiteral(red: 0.8645762801, green: 0.8727034926, blue: 0.9021102786, alpha: 1), font: .systemFont(ofSize: 16), backgroundColor: .clear, target: self, action: #selector(handleASD))
-    lazy var firstNumberTextField = createMainTextFields(place: "")
- lazy var secondNumberTextField = createMainTextFields(place: "")
-     lazy var thirdNumberTextField = createMainTextFields(place: "")
-     lazy var forthNumberTextField = createMainTextFields(place: "")
+    lazy var firstNumberTextField = createMainTextFieldsWithoutPods(place: "")
+ lazy var secondNumberTextField = createMainTextFieldsWithoutPods(place: "")
+     lazy var thirdNumberTextField = createMainTextFieldsWithoutPods(place: "")
+     lazy var forthNumberTextField = createMainTextFieldsWithoutPods(place: "")
     
     lazy var confirmButton:UIButton = {
         let button = UIButton(type: .system)
@@ -42,10 +42,12 @@ class CustomVerificationView: CustomBaseView {
         button.layer.cornerRadius = 16
         button.constrainHeight(constant: 50)
         button.clipsToBounds = true
+        button.isEnabled = false
         return button
     }()
     
     override func setupViews() {
+        resendButton.isEnabled = false
         let numbersStack = getStack(views: UIView(),firstNumberTextField,secondNumberTextField,thirdNumberTextField,forthNumberTextField,UIView(), spacing: 8, distribution: .fillEqually, axis: .horizontal)
 //        let mainStack = getStack(views: verificationLabel, spacing: <#T##CGFloat#>, distribution: <#T##UIStackView.Distribution#>, axis: <#T##NSLayoutConstraint.Axis#>)
         

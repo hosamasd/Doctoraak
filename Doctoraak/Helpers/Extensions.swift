@@ -50,6 +50,22 @@ import UIKit
         return t
     }
     
+    func createMainTextFieldsWithoutPods(place:String) -> UITextField {
+        let t = UITextField()
+        t.textAlignment = .center
+        t.constrainHeight(constant: 50)
+        t.layer.cornerRadius = 8
+        t.clipsToBounds = true
+        t.placeholder = place
+        t.keyboardType = .default
+        t.layer.borderWidth = 1
+        t.layer.borderColor = UIColor.lightGray.cgColor
+//        t.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: t.frame.height))
+//        t.leftViewMode = .always
+//        t.isSecureTextEntry = secre ?? false
+        return t
+    }
+    
     func createHoursTextFields() -> UITextField {
         let t = UITextField()
         t.textAlignment = .center
