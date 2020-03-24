@@ -9,23 +9,25 @@
 import UIKit
 import SkyFloatingLabelTextField
 
-class VerificationVC: CustomBaseViewVC {
+class MainVerificationVC: CustomBaseViewVC {
     
-    lazy var customVerificationView:CustomVerificationView = {
-        let v = CustomVerificationView()
+    lazy var customVerificationView:CustomMainVerificationView = {
+        let v = CustomMainVerificationView()
         [v.firstNumberTextField,v.secondNumberTextField,v.thirdNumberTextField,v.forthNumberTextField].forEach({$0.delegate = self})
         v.firstNumberTextField.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)
         v.secondNumberTextField.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)
         v.thirdNumberTextField.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)
         v.forthNumberTextField.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)
         v.resendButton.addTarget(self, action: #selector(handleResendCode), for: .touchUpInside)
+        v.confirmButton.addTarget(self, action: #selector(handleConfirm), for: .touchUpInside)
         return v
     }()
     
-    var index:Int? 
+    var index:Int = 0
     fileprivate var timer = Timer()
     fileprivate var seconds = 30
     let sMSCodeViewModel = SMSCodeViewModel()
+    var isFromForgetPassw:Bool = false
     
     
     override func viewDidLoad() {
@@ -138,9 +140,23 @@ class VerificationVC: CustomBaseViewVC {
    @objc func handleResendCode()  {
         setupTimer()
     }
+    
+  @objc  func handleConfirm()  {
+    
+    if isFromForgetPassw {
+       let  vc =  MainNewPassVC()
+        vc.index = index
+         navigationController?.pushViewController(vc, animated: true)
+    }else {
+        let vc =  ClinicDataVC()
+        vc.index = index
+         navigationController?.pushViewController(vc, animated: true)
+    }
+   
+    }
 }
 
-extension VerificationVC: UITextFieldDelegate {
+extension MainVerificationVC: UITextFieldDelegate {
     public func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         return range.location < 1
     }

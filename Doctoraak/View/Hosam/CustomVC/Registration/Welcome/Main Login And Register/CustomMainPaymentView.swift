@@ -7,7 +7,7 @@
 //
 
 import UIKit
-class CustomClinicPaymentView: CustomBaseView {
+class CustomMainPaymentView: CustomBaseView {
     
     lazy var LogoImage:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "Group 4116"))

@@ -17,7 +17,6 @@ class CustomMainRegisterView: CustomBaseView {
             mobileNumberTextField.placeholder = index == 4 ? "Pharmacy phone"  : index == 2 ? "Lap phone" : "Center phone"
             soonLabel.text = index == 4 ? "Creat Pharmacy account"  : index == 2 ? "Creat Lap account" : "Creat Center account"
 
-//        text = index == 4 ? "Pharmacy" : index == 2 ? "Lap" : "Center"
     }
     }
     

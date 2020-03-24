@@ -16,7 +16,7 @@ class DoctorRegisterVC: CustomBaseViewVC {
           v.girlButton.addTarget(self, action: #selector(handleGirl), for: .touchUpInside)
         return v
     }()
-    var index:Int? = 0
+    var index:Int = 0
     
     
     override func setupNavigation()  {

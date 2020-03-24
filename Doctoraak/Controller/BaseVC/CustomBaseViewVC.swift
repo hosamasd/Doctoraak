@@ -10,7 +10,6 @@ import UIKit
 
 class CustomBaseViewVC: UIViewController {
     
-     var isLab,isPharamacy,isRediology,isDoctor,isMedicalCenter:Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()

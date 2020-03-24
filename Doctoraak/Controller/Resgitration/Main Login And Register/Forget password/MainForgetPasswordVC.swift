@@ -1,25 +1,26 @@
 //
-//  ClinicPaymentVC.swift
+//  MainForgetPasswordVC.swift
 //  Doctoraak
 //
-//  Created by hosam on 3/23/20.
+//  Created by hosam on 3/24/20.
 //  Copyright © 2020 Ahmad Eisa. All rights reserved.
 //
 
 import UIKit
 import SkyFloatingLabelTextField
 
-class MainPaymentVC: CustomBaseViewVC {
+class MainForgetPasswordVC: CustomBaseViewVC {
     
-    lazy var customClinicPaymentView:CustomMainPaymentView = {
-        let v = CustomMainPaymentView()
+    
+    
+    lazy var customMainForgetPassView:CustomMainForgetPassView = {
+        let v = CustomMainForgetPassView()
         v.numberTextField.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)
-        v.codeTextField.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)
-        v.doneButton.addTarget(self, action: #selector(handleDonePayment), for: .touchUpInside)
+        v.nextButton.addTarget(self, action: #selector(handleDonePayment), for: .touchUpInside)
         return v
     }()
     
-      var index:Int = 0
+    var index:Int = 0
     let paymentViewModel = PaymentViewModel()
     
     override func viewDidLoad() {
@@ -34,7 +35,7 @@ class MainPaymentVC: CustomBaseViewVC {
             guard let isValid = isValidForm else {return}
             //            self.customLoginView.loginButton.isEnabled = isValid
             
-            self.changeButtonState(enable: isValid, vv: self.customClinicPaymentView.doneButton)
+            self.changeButtonState(enable: isValid, vv: self.customMainForgetPassView.nextButton)
         }
         
         paymentViewModel.bindableIsLogging.bind(observer: {  [unowned self] (isReg) in
@@ -54,8 +55,8 @@ class MainPaymentVC: CustomBaseViewVC {
     }
     
     override func setupViews()  {
-        view.addSubview(customClinicPaymentView)
-        customClinicPaymentView.fillSuperview()
+        view.addSubview(customMainForgetPassView)
+        customMainForgetPassView.fillSuperview()
         
     }
     
@@ -63,7 +64,6 @@ class MainPaymentVC: CustomBaseViewVC {
         paymentViewModel.index = index
         guard let texts = text.text else { return  }
         if let floatingLabelTextField = text as? SkyFloatingLabelTextField {
-            if text == customClinicPaymentView.numberTextField {
                 if  !texts.isValidPhoneNumber    {
                     floatingLabelTextField.errorMessage = "Invalid   Phone".localized
                     paymentViewModel.vodafoneVode = nil
@@ -72,21 +72,17 @@ class MainPaymentVC: CustomBaseViewVC {
                     floatingLabelTextField.errorMessage = ""
                     paymentViewModel.vodafoneVode = texts
                 }
-                
-            }else
-                if(texts.count < 6 ) {
-                    floatingLabelTextField.errorMessage = "code must have 6 character".localized
-                    paymentViewModel.fawryCode = nil
-                }
-                else {
-                    floatingLabelTextField.errorMessage = ""
-                    paymentViewModel.fawryCode = texts
-                    
-            }
+            
+           
         }
     }
     
-   @objc func handleDonePayment()  {
+    @objc func handleDonePayment()  {
+        let verifiy = MainVerificationVC()
+        verifiy.index = index
+        verifiy.isFromForgetPassw = true
+        navigationController?.pushViewController(verifiy, animated: true)
+        
         print(999)
     }
 }

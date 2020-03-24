@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CustomVerificationView: CustomBaseView {
+class CustomMainVerificationView: CustomBaseView {
     
     
     lazy var LogoImage:UIImageView = {

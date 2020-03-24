@@ -17,11 +17,12 @@ class MainLoginsVC: CustomBaseViewVC {
         v.phoneNumberTextField.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)
         v.passwordTextField.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)
         v.createAccountButton.addTarget(self, action: #selector(handleRegister), for: .touchUpInside)
+        v.forgetPasswordButton.addTarget(self, action: #selector(handleForget), for: .touchUpInside)
         return v
     }()
     
     //check to go specific way
-    var index:Int? = 0
+    var index:Int = 0
     
 //    var isLab,isPharamacy,isRediology,isDoctor:Int?
     
@@ -97,5 +98,11 @@ class MainLoginsVC: CustomBaseViewVC {
         register.index = index
         navigationController?.pushViewController(register, animated: true)
         
+    }
+    
+    @objc func handleForget()  {
+        let forget = MainForgetPasswordVC()
+        forget.index = index
+        navigationController?.pushViewController(forget, animated: true)
     }
 }

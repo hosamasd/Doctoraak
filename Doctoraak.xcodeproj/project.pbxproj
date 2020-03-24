@@ -14,6 +14,11 @@
 		4E111D862429CACA000250AE /* PharmacyLoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E111D852429CACA000250AE /* PharmacyLoginVC.swift */; };
 		4E111D892429CB65000250AE /* LapLoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E111D882429CB65000250AE /* LapLoginVC.swift */; };
 		4E111D8C2429CBAD000250AE /* RediologyLoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E111D8B2429CBAD000250AE /* RediologyLoginVC.swift */; };
+		4E28EC67242A49B100B54186 /* MainForgetPasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E28EC66242A49B100B54186 /* MainForgetPasswordVC.swift */; };
+		4E28EC6A242A4A7E00B54186 /* CustomMainForgetPassView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E28EC69242A4A7E00B54186 /* CustomMainForgetPassView.swift */; };
+		4E28EC6C242A4D9E00B54186 /* CustomMainNewPassView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E28EC6B242A4D9E00B54186 /* CustomMainNewPassView.swift */; };
+		4E28EC6E242A4DB900B54186 /* MainNewPassVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E28EC6D242A4DB900B54186 /* MainNewPassVC.swift */; };
+		4E28EC72242A51C500B54186 /* NewPassViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E28EC71242A51C500B54186 /* NewPassViewModel.swift */; };
 		4E333E012426559000F82E00 /* BaseCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E333E002426559000F82E00 /* BaseCollectionCell.swift */; };
 		4E333E03242655D400F82E00 /* CardinolgyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E333E02242655D400F82E00 /* CardinolgyCell.swift */; };
 		4E333E0524265B2800F82E00 /* DoctorDaysShiftCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E333E0424265B2800F82E00 /* DoctorDaysShiftCell.swift */; };
@@ -23,8 +28,8 @@
 		4E333E11242663BF00F82E00 /* DoctorWorkingDateCollectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E333E10242663BF00F82E00 /* DoctorWorkingDateCollectionVC.swift */; };
 		4E333E13242663E400F82E00 /* DoctorWorkingDateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E333E12242663E400F82E00 /* DoctorWorkingDateCell.swift */; };
 		4E333E1524266A7700F82E00 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E333E1424266A7700F82E00 /* Extensions.swift */; };
-		4E3449072428BF9300259224 /* VerificationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3449062428BF9300259224 /* VerificationVC.swift */; };
-		4E3449092428BFB600259224 /* CustomVerificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3449082428BFB600259224 /* CustomVerificationView.swift */; };
+		4E3449072428BF9300259224 /* MainVerificationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3449062428BF9300259224 /* MainVerificationVC.swift */; };
+		4E3449092428BFB600259224 /* CustomMainVerificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3449082428BFB600259224 /* CustomMainVerificationView.swift */; };
 		4E3458E72428B2D100DA89A0 /* SecondRegisterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3458E62428B2D100DA89A0 /* SecondRegisterVC.swift */; };
 		4E3458EA2428B2FF00DA89A0 /* CustomCecondRegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3458E92428B2FF00DA89A0 /* CustomCecondRegisterView.swift */; };
 		4E382D7024290B74006B0E8D /* WelcomeMainSecondVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E382D6F24290B74006B0E8D /* WelcomeMainSecondVC.swift */; };
@@ -47,7 +52,7 @@
 		4E5E0BB5242891380031AE4A /* DoctorRegisterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5E0BB4242891380031AE4A /* DoctorRegisterVC.swift */; };
 		4E5E0BB7242891620031AE4A /* CustomRegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5E0BB6242891620031AE4A /* CustomRegisterView.swift */; };
 		4E5E0BB9242891EF0031AE4A /* ExtensionsViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5E0BB8242891EF0031AE4A /* ExtensionsViews.swift */; };
-		4E8F40392428EA1700C0B455 /* CustomClinicPaymentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8F40382428EA1700C0B455 /* CustomClinicPaymentView.swift */; };
+		4E8F40392428EA1700C0B455 /* CustomMainPaymentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8F40382428EA1700C0B455 /* CustomMainPaymentView.swift */; };
 		4EA112B52429E4DB005B64E3 /* Bindable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA112B42429E4DB005B64E3 /* Bindable.swift */; };
 		4EA112B82429E541005B64E3 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA112B72429E541005B64E3 /* LoginViewModel.swift */; };
 		4EA112BA2429E557005B64E3 /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA112B92429E557005B64E3 /* RegisterViewModel.swift */; };
@@ -83,6 +88,11 @@
 		4E111D852429CACA000250AE /* PharmacyLoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PharmacyLoginVC.swift; sourceTree = "<group>"; };
 		4E111D882429CB65000250AE /* LapLoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LapLoginVC.swift; sourceTree = "<group>"; };
 		4E111D8B2429CBAD000250AE /* RediologyLoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RediologyLoginVC.swift; sourceTree = "<group>"; };
+		4E28EC66242A49B100B54186 /* MainForgetPasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainForgetPasswordVC.swift; sourceTree = "<group>"; };
+		4E28EC69242A4A7E00B54186 /* CustomMainForgetPassView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMainForgetPassView.swift; sourceTree = "<group>"; };
+		4E28EC6B242A4D9E00B54186 /* CustomMainNewPassView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMainNewPassView.swift; sourceTree = "<group>"; };
+		4E28EC6D242A4DB900B54186 /* MainNewPassVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainNewPassVC.swift; sourceTree = "<group>"; };
+		4E28EC71242A51C500B54186 /* NewPassViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPassViewModel.swift; sourceTree = "<group>"; };
 		4E333E002426559000F82E00 /* BaseCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionCell.swift; sourceTree = "<group>"; };
 		4E333E02242655D400F82E00 /* CardinolgyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardinolgyCell.swift; sourceTree = "<group>"; };
 		4E333E0424265B2800F82E00 /* DoctorDaysShiftCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorDaysShiftCell.swift; sourceTree = "<group>"; };
@@ -92,8 +102,8 @@
 		4E333E10242663BF00F82E00 /* DoctorWorkingDateCollectionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorWorkingDateCollectionVC.swift; sourceTree = "<group>"; };
 		4E333E12242663E400F82E00 /* DoctorWorkingDateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorWorkingDateCell.swift; sourceTree = "<group>"; };
 		4E333E1424266A7700F82E00 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		4E3449062428BF9300259224 /* VerificationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationVC.swift; sourceTree = "<group>"; };
-		4E3449082428BFB600259224 /* CustomVerificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomVerificationView.swift; sourceTree = "<group>"; };
+		4E3449062428BF9300259224 /* MainVerificationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVerificationVC.swift; sourceTree = "<group>"; };
+		4E3449082428BFB600259224 /* CustomMainVerificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMainVerificationView.swift; sourceTree = "<group>"; };
 		4E3458E62428B2D100DA89A0 /* SecondRegisterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondRegisterVC.swift; sourceTree = "<group>"; };
 		4E3458E92428B2FF00DA89A0 /* CustomCecondRegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCecondRegisterView.swift; sourceTree = "<group>"; };
 		4E382D6F24290B74006B0E8D /* WelcomeMainSecondVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeMainSecondVC.swift; sourceTree = "<group>"; };
@@ -116,7 +126,7 @@
 		4E5E0BB4242891380031AE4A /* DoctorRegisterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorRegisterVC.swift; sourceTree = "<group>"; };
 		4E5E0BB6242891620031AE4A /* CustomRegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomRegisterView.swift; sourceTree = "<group>"; };
 		4E5E0BB8242891EF0031AE4A /* ExtensionsViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionsViews.swift; sourceTree = "<group>"; };
-		4E8F40382428EA1700C0B455 /* CustomClinicPaymentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomClinicPaymentView.swift; sourceTree = "<group>"; };
+		4E8F40382428EA1700C0B455 /* CustomMainPaymentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMainPaymentView.swift; sourceTree = "<group>"; };
 		4EA112B42429E4DB005B64E3 /* Bindable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bindable.swift; sourceTree = "<group>"; };
 		4EA112B72429E541005B64E3 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		4EA112B92429E557005B64E3 /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
@@ -228,11 +238,31 @@
 		4E111D8D2429CCEA000250AE /* Main Login And Register */ = {
 			isa = PBXGroup;
 			children = (
+				4E28EC65242A498100B54186 /* Forget password */,
 				4E5803112427903900B5D502 /* MainLoginsVC.swift */,
 				4E111D7A2429C4EC000250AE /* MainRegisterVC.swift */,
+				4E3449062428BF9300259224 /* MainVerificationVC.swift */,
 				4EC8DDAC242A363700CEC5DF /* MainPaymentVC.swift */,
 			);
 			path = "Main Login And Register";
+			sourceTree = "<group>";
+		};
+		4E28EC65242A498100B54186 /* Forget password */ = {
+			isa = PBXGroup;
+			children = (
+				4E28EC66242A49B100B54186 /* MainForgetPasswordVC.swift */,
+				4E28EC6D242A4DB900B54186 /* MainNewPassVC.swift */,
+			);
+			path = "Forget password";
+			sourceTree = "<group>";
+		};
+		4E28EC68242A4A5500B54186 /* Forget Password */ = {
+			isa = PBXGroup;
+			children = (
+				4E28EC69242A4A7E00B54186 /* CustomMainForgetPassView.swift */,
+				4E28EC6B242A4D9E00B54186 /* CustomMainNewPassView.swift */,
+			);
+			path = "Forget Password";
 			sourceTree = "<group>";
 		};
 		4E333DFF2426557000F82E00 /* Base Cells */ = {
@@ -270,7 +300,6 @@
 			children = (
 				4E5E0BB4242891380031AE4A /* DoctorRegisterVC.swift */,
 				4E3458E62428B2D100DA89A0 /* SecondRegisterVC.swift */,
-				4E3449062428BF9300259224 /* VerificationVC.swift */,
 			);
 			path = Register;
 			sourceTree = "<group>";
@@ -280,7 +309,6 @@
 			children = (
 				4E5E0BB6242891620031AE4A /* CustomRegisterView.swift */,
 				4E3458E92428B2FF00DA89A0 /* CustomCecondRegisterView.swift */,
-				4E3449082428BFB600259224 /* CustomVerificationView.swift */,
 			);
 			path = Register;
 			sourceTree = "<group>";
@@ -299,7 +327,6 @@
 			children = (
 				4E4AAEE02428CCE900023720 /* CustomClinicDataView.swift */,
 				4EADCF502428DA5700EEE761 /* CustomClinicWorkingHoursView.swift */,
-				4E8F40382428EA1700C0B455 /* CustomClinicPaymentView.swift */,
 			);
 			path = Clinic;
 			sourceTree = "<group>";
@@ -382,8 +409,11 @@
 		4E93C106242A031300CF7F30 /* Main Login And Register */ = {
 			isa = PBXGroup;
 			children = (
+				4E28EC68242A4A5500B54186 /* Forget Password */,
 				4E580313242790A200B5D502 /* CustomLoginsView.swift */,
 				4E111D832429C690000250AE /* CustomMainRegisterView.swift */,
+				4E3449082428BFB600259224 /* CustomMainVerificationView.swift */,
+				4E8F40382428EA1700C0B455 /* CustomMainPaymentView.swift */,
 			);
 			path = "Main Login And Register";
 			sourceTree = "<group>";
@@ -404,6 +434,7 @@
 				4EA112B92429E557005B64E3 /* RegisterViewModel.swift */,
 				4EA112BB2429E612005B64E3 /* SMSCodeViewModel.swift */,
 				4EC8DDAA242A346500CEC5DF /* PaymentViewModel.swift */,
+				4E28EC71242A51C500B54186 /* NewPassViewModel.swift */,
 			);
 			path = Registration;
 			sourceTree = "<group>";
@@ -662,7 +693,7 @@
 				4E333E1524266A7700F82E00 /* Extensions.swift in Sources */,
 				4E580307242789B800B5D502 /* CustomBaseViewVC.swift in Sources */,
 				4E111D842429C690000250AE /* CustomMainRegisterView.swift in Sources */,
-				4E8F40392428EA1700C0B455 /* CustomClinicPaymentView.swift in Sources */,
+				4E8F40392428EA1700C0B455 /* CustomMainPaymentView.swift in Sources */,
 				4EA112BE2429E94B005B64E3 /* ExtensionUivew.swift in Sources */,
 				4E5E0BB7242891620031AE4A /* CustomRegisterView.swift in Sources */,
 				4E3458E72428B2D100DA89A0 /* SecondRegisterVC.swift in Sources */,
@@ -677,6 +708,7 @@
 				4E333E0F2426607E00F82E00 /* BaseCollectionVC.swift in Sources */,
 				4EA112BC2429E612005B64E3 /* SMSCodeViewModel.swift in Sources */,
 				4EC8DDAB242A346500CEC5DF /* PaymentViewModel.swift in Sources */,
+				4E28EC6A242A4A7E00B54186 /* CustomMainForgetPassView.swift in Sources */,
 				4E580316242796DC00B5D502 /* CustomSkyTextFieldRightPadding.swift in Sources */,
 				7A52BB5724153A28008ED1F9 /* ViewController.swift in Sources */,
 				4EA5379424264090000AE7AD /* DeatilsVC.swift in Sources */,
@@ -690,13 +722,16 @@
 				4E333E03242655D400F82E00 /* CardinolgyCell.swift in Sources */,
 				4E382D7024290B74006B0E8D /* WelcomeMainSecondVC.swift in Sources */,
 				4E333E11242663BF00F82E00 /* DoctorWorkingDateCollectionVC.swift in Sources */,
+				4E28EC67242A49B100B54186 /* MainForgetPasswordVC.swift in Sources */,
 				4E5CE7A22427492A001EE175 /* CustomCardiologyView.swift in Sources */,
 				4E4AAEE12428CCE900023720 /* CustomClinicDataView.swift in Sources */,
 				4EA112BA2429E557005B64E3 /* RegisterViewModel.swift in Sources */,
 				4EADCF4F2428DA2100EEE761 /* ClinicWorkingHoursVC.swift in Sources */,
+				4E28EC6C242A4D9E00B54186 /* CustomMainNewPassView.swift in Sources */,
 				4E382D7224290BA5006B0E8D /* CustomWelcomeMainSecondView.swift in Sources */,
 				4EADCF512428DA5700EEE761 /* CustomClinicWorkingHoursView.swift in Sources */,
 				4EA5379924264605000AE7AD /* CustomBaseView.swift in Sources */,
+				4E28EC72242A51C500B54186 /* NewPassViewModel.swift in Sources */,
 				7AE60E332418F22A002E9AF6 /* LoginVC.swift in Sources */,
 				4E5803052427899200B5D502 /* WelcomeVC.swift in Sources */,
 				4E4AAEDE2428CBA700023720 /* ClinicDataVC.swift in Sources */,
@@ -705,7 +740,7 @@
 				4EA112B52429E4DB005B64E3 /* Bindable.swift in Sources */,
 				4EC8DDAD242A363700CEC5DF /* MainPaymentVC.swift in Sources */,
 				4E5E0BB9242891EF0031AE4A /* ExtensionsViews.swift in Sources */,
-				4E3449092428BFB600259224 /* CustomVerificationView.swift in Sources */,
+				4E3449092428BFB600259224 /* CustomMainVerificationView.swift in Sources */,
 				4E580314242790A200B5D502 /* CustomLoginsView.swift in Sources */,
 				7A52BB5524153A28008ED1F9 /* AppDelegate.swift in Sources */,
 				4EA112B82429E541005B64E3 /* LoginViewModel.swift in Sources */,
@@ -715,9 +750,10 @@
 				4E111D862429CACA000250AE /* PharmacyLoginVC.swift in Sources */,
 				7AC1248E241F85DC006C89D5 /* Constants.swift in Sources */,
 				4E333E13242663E400F82E00 /* DoctorWorkingDateCell.swift in Sources */,
+				4E28EC6E242A4DB900B54186 /* MainNewPassVC.swift in Sources */,
 				4E111D892429CB65000250AE /* LapLoginVC.swift in Sources */,
 				4EA5379124263F4F000AE7AD /* MedicalSpecificationApi.swift in Sources */,
-				4E3449072428BF9300259224 /* VerificationVC.swift in Sources */,
+				4E3449072428BF9300259224 /* MainVerificationVC.swift in Sources */,
 				4E111D822429C5C1000250AE /* ColorConstants.swift in Sources */,
 				4E3458EA2428B2FF00DA89A0 /* CustomCecondRegisterView.swift in Sources */,
 				4E58030A24278A2700B5D502 /* CustomWelcomeView.swift in Sources */,

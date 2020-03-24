@@ -18,7 +18,7 @@ class SecondWelcomeVC: CustomBaseViewVC {
     }()
     
     //check to go specific way
-    var index:Int? = 0
+    var index:Int = 0
     
     
     override func setupViews() {
