@@ -30,11 +30,11 @@ class CustomDoctorHomeView: CustomBaseView {
     lazy var titleLabel = UILabel(text: "Home", font: .systemFont(ofSize: 30), textColor: .white)
     
     lazy var topDoctorHomeCell = TopDoctorHomeCell()
-    lazy var allButton = createButtons(title: "All", color: .black, tags: 0)
-    lazy var newButton = createButtons(title: "New", color: .black, tags: 1)
-    lazy var consultaionButton = createButtons(title: "Consultation", color: .black, tags: 2)
-    lazy var continueButton = createButtons(title: "Continue", color: .black, tags: 3)
-  lazy var docotrCollectionView = DoctorHomeCollectionVC()
+    lazy var allButton = createMainButtons(title: "All", color: .black, tags: 0)
+    lazy var newButton = createMainButtons(title: "New", color: .black, tags: 1)
+    lazy var consultaionButton = createMainButtons(title: "Consultation", color: .black, tags: 2)
+    lazy var continueButton = createMainButtons(title: "Continue", color: .black, tags: 3)
+  lazy var docotrCollectionView = DoctorHomePatientsCollectionVC()
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -58,20 +58,20 @@ class CustomDoctorHomeView: CustomBaseView {
 
     }
     
-    func createButtons(title:String,color:UIColor,tags : Int? = 0) -> UIButton {
-        let button = UIButton(type: .system)
-        button.layer.cornerRadius = 8
-        button.layer.borderWidth = 1
-        button.layer.borderColor = UIColor.gray.cgColor
-        button.clipsToBounds = true
-        button.setTitle(title, for: .normal)
-        button.setTitleColor(color, for: .normal)
-        button.constrainHeight(constant: 50)
-        button.tag = tags ?? 0
-        button.layer.cornerRadius = 16
-        button.backgroundColor = #colorLiteral(red: 0.9214958549, green: 0.9216470122, blue: 0.9214636683, alpha: 1)
-//        button.clipsToBounds =
-//        button.addTarget(self, action: #selector(handleOpen), for: .touchUpInside)
-        return button
-    }
+//    func createButtons(title:String,color:UIColor,tags : Int? = 0) -> UIButton {
+//        let button = UIButton(type: .system)
+//        button.layer.cornerRadius = 8
+//        button.layer.borderWidth = 1
+//        button.layer.borderColor = UIColor.gray.cgColor
+//        button.clipsToBounds = true
+//        button.setTitle(title, for: .normal)
+//        button.setTitleColor(color, for: .normal)
+//        button.constrainHeight(constant: 50)
+//        button.tag = tags ?? 0
+//        button.layer.cornerRadius = 16
+//        button.backgroundColor = #colorLiteral(red: 0.9214958549, green: 0.9216470122, blue: 0.9214636683, alpha: 1)
+////        button.clipsToBounds =
+////        button.addTarget(self, action: #selector(handleOpen), for: .touchUpInside)
+//        return button
+//    }
 }

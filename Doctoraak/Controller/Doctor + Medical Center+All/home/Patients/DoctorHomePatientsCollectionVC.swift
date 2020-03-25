@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DoctorHomeCollectionVC: BaseCollectionVC {
+class DoctorHomePatientsCollectionVC: BaseCollectionVC {
     
     
     fileprivate let cellId = "cellId"
@@ -18,7 +18,7 @@ class DoctorHomeCollectionVC: BaseCollectionVC {
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! DoctorHomeCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! DoctorHomePatientsCell
         
         return cell
     }
@@ -35,6 +35,6 @@ class DoctorHomeCollectionVC: BaseCollectionVC {
 //            layout.scrollDirection = .horizontal
 //        }
         collectionView.backgroundColor = .white
-        collectionView.register(DoctorHomeCell.self, forCellWithReuseIdentifier: cellId)
+        collectionView.register(DoctorHomePatientsCell.self, forCellWithReuseIdentifier: cellId)
     }
 }

@@ -7,7 +7,7 @@
 //
 
 import UIKit
-class DoctorHomeCell: BaseCollectionCell {
+class DoctorHomePatientsCell: BaseCollectionCell {
     
     lazy var doctorProfileImage:UIImageView = {
         let i = UIImageView(backgroundColor: .gray)
