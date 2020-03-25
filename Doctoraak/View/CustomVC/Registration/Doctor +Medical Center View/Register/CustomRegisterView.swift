@@ -41,6 +41,7 @@ class CustomRegisterView: CustomBaseView {
         i.layer.cornerRadius = 8
         i.contentMode = .scaleAspectFill
         i.clipsToBounds = true
+        i.isUserInteractionEnabled = true
         return i
     }()
     

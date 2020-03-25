@@ -19,6 +19,7 @@ extension UIViewController {
         
         vv.setTitleColor(.black, for: .normal)
         removeSublayer(vv, layerIndex: index ?? 0)
+        vv.backgroundColor = ColorConstants.disabledButtonsGray
     }
     
     // SWIFT 4 update
