@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CustomClinicWorkingHoursView: CustomBaseView {
+class CustomMainClinicWorkingHoursView: CustomBaseView {
     
     lazy var LogoImage:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "Group 4116"))
@@ -29,7 +29,7 @@ class CustomClinicWorkingHoursView: CustomBaseView {
     lazy var shift1Button = createButtons(title: "Shift 1",color: .white)
      lazy var shift2Button = createButtons(title: "Shift 2",color: .black)
     
-    func createButtons(title:String,color:UIColor) -> UIButton {
+    func createButtons(title:String,color:UIColor,tags : Int? = 0) -> UIButton {
         let button = UIButton(type: .system)
         button.layer.cornerRadius = 8
         button.layer.borderWidth = 1
@@ -38,36 +38,37 @@ class CustomClinicWorkingHoursView: CustomBaseView {
         button.setTitle(title, for: .normal)
         button.setTitleColor(color, for: .normal)
         button.constrainHeight(constant: 50)
-       
+       button.tag = tags ?? 0
         button.layer.cornerRadius = 25
+        button.addTarget(self, action: #selector(handleOpen), for: .touchUpInside)
         return button
     }
     
-    lazy var sunButton = createButtons(title: "Sun",color: .white)
+    lazy var sunButton = createButtons(title: "Sun",color: .white,tags: 1)
     lazy var first1TextField = createHoursTextFields()
     lazy var first2TextField = createHoursTextFields()
     
-     lazy var monButton = createButtons(title: "Mon",color: .black)
+     lazy var monButton = createButtons(title: "Mon",color: .black,tags: 2)
     lazy var second1TextField = createHoursTextFields()
     lazy var second2TextField = createHoursTextFields()
     
-     lazy var tuesButton = createButtons(title: "Tue",color: .black)
+     lazy var tuesButton = createButtons(title: "Tue",color: .black,tags: 3)
     lazy var third1TextField = createHoursTextFields()
     lazy var third2TextField = createHoursTextFields()
     
-    lazy var wedButton = createButtons(title: "Wed",color: .black)
+    lazy var wedButton = createButtons(title: "Wed",color: .black,tags: 4)
     lazy var forth1TextField = createHoursTextFields()
     lazy var forth2TextField = createHoursTextFields()
     
-    lazy var thuButton = createButtons(title: "Thu",color: .black)
+    lazy var thuButton = createButtons(title: "Thu",color: .black,tags: 5)
     lazy var fifth1TextField = createHoursTextFields()
     lazy var fifth2TextField = createHoursTextFields()
     
-    lazy var friButton = createButtons(title: "Fri",color: .black)
+    lazy var friButton = createButtons(title: "Fri",color: .black,tags: 6)
     lazy var sexth1TextField = createHoursTextFields()
     lazy var sexth2TextField = createHoursTextFields()
     
-    lazy var satButton = createButtons(title: "Sat",color: .black)
+    lazy var satButton = createButtons(title: "Sat",color: .black,tags: 7)
     lazy var seventh1TextField = createHoursTextFields()
     lazy var seventh2TextField = createHoursTextFields()
     
@@ -92,6 +93,8 @@ class CustomClinicWorkingHoursView: CustomBaseView {
     }
     
     override func setupViews() {
+       [first2TextField,first1TextField].forEach({$0.isUserInteractionEnabled = true})
+//        [second1TextField,second2TextField,third1TextField,third2TextField,forth1TextField,forth2TextField,fifth1TextField,fifth2TextField,sexth1TextField,sexth2TextField].forEach({$0.isUserInteractionEnabled = false})
         [satButton,sunButton,monButton,tuesButton,thuButton,wedButton,friButton].forEach({$0.constrainWidth(constant: 50)})
         let ss = getStack(views: shift1Button,shift2Button, spacing: 16, distribution: .fillEqually, axis: .horizontal)
         let text1Stack = getStack(views: first1TextField,first2TextField, spacing: 16, distribution: .fillEqually, axis: .horizontal)
@@ -134,5 +137,66 @@ class CustomClinicWorkingHoursView: CustomBaseView {
             
         }
     
+    func createHoursTextFields() -> UITextField {
+        let t = UITextField()
+        t.textAlignment = .center
+        t.layer.borderWidth = 1
+        t.layer.backgroundColor = UIColor.gray.cgColor
+        t.layer.cornerRadius = 16
+        t.clipsToBounds = true
+        t.textColor = .black
+        t.backgroundColor = .white
+        t.text = "00:00"
+        t.constrainHeight(constant: 50)
+        t.isUserInteractionEnabled = false
+        return t
+    }
     
+    func enalbes(t:UITextField...,enable:Bool? = true)   {
+        t.forEach({$0.isUserInteractionEnabled = enable ?? true})
+    }
+    
+    func enableTextFields(tag:Int)  {
+        switch tag {
+        case 1:
+            enalbes(t: first1TextField,first2TextField)
+        case 2:
+            enalbes(t: second1TextField,second2TextField)
+        case 3:
+            enalbes(t: third1TextField,third2TextField)
+        case 4:
+            enalbes(t: forth1TextField,forth2TextField)
+        case 5:
+            enalbes(t: fifth1TextField,fifth2TextField)
+        case 6:
+            enalbes(t: sexth1TextField,sexth2TextField)
+        default:
+            enalbes(t: seventh1TextField,seventh2TextField)
+            
+        }
+    }
+    
+  @objc  func handleOpen(sender:UIButton)  {
+        enableTextFields(tag: sender.tag)
+    addGradientInSenderAndRemoveOther(sender: sender)
+    }
+    
+    
+   @objc func tapDone()  {
+        print(969)
+    }
+
 }
+//    @objc func handleShowPicker() {
+//        let timeSelector = TimeSelector()
+//        timeSelector.timeSelected = {
+//            (timeSelector) in
+//            self.setLabelFromDate(timeSelector.date)
+//        }
+//        timeSelector.overlayAlpha = 0.8
+//        timeSelector.clockTint = timeSelector_rgb(0, 230, 0)
+//        timeSelector.minutes = 30
+//        timeSelector.hours = 5
+//        timeSelector.isAm = false
+//        timeSelector.presentOnView(view: self.view)
+//    }}
