@@ -45,32 +45,32 @@ class CustomMainClinicWorkingHoursView: CustomBaseView {
     }
     
     lazy var sunButton = createButtons(title: "Sun",color: .white,tags: 1)
-    lazy var first1TextField = createHoursTextFields()
-    lazy var first2TextField = createHoursTextFields()
+    lazy var first1TextField = createHoursTextFields(tags: 1)
+    lazy var first2TextField = createHoursTextFields(tags: 11)
     
      lazy var monButton = createButtons(title: "Mon",color: .black,tags: 2)
-    lazy var second1TextField = createHoursTextFields()
-    lazy var second2TextField = createHoursTextFields()
+    lazy var second1TextField = createHoursTextFields(tags: 2)
+    lazy var second2TextField = createHoursTextFields(tags: 22)
     
      lazy var tuesButton = createButtons(title: "Tue",color: .black,tags: 3)
-    lazy var third1TextField = createHoursTextFields()
-    lazy var third2TextField = createHoursTextFields()
+    lazy var third1TextField = createHoursTextFields(tags: 3)
+    lazy var third2TextField = createHoursTextFields(tags: 33)
     
     lazy var wedButton = createButtons(title: "Wed",color: .black,tags: 4)
-    lazy var forth1TextField = createHoursTextFields()
-    lazy var forth2TextField = createHoursTextFields()
+    lazy var forth1TextField = createHoursTextFields(tags: 4)
+    lazy var forth2TextField = createHoursTextFields(tags: 44)
     
     lazy var thuButton = createButtons(title: "Thu",color: .black,tags: 5)
-    lazy var fifth1TextField = createHoursTextFields()
-    lazy var fifth2TextField = createHoursTextFields()
+    lazy var fifth1TextField = createHoursTextFields(tags: 5)
+    lazy var fifth2TextField = createHoursTextFields(tags: 55)
     
     lazy var friButton = createButtons(title: "Fri",color: .black,tags: 6)
-    lazy var sexth1TextField = createHoursTextFields()
-    lazy var sexth2TextField = createHoursTextFields()
+    lazy var sexth1TextField = createHoursTextFields(tags: 6)
+    lazy var sexth2TextField = createHoursTextFields(tags: 66)
     
     lazy var satButton = createButtons(title: "Sat",color: .black,tags: 7)
-    lazy var seventh1TextField = createHoursTextFields()
-    lazy var seventh2TextField = createHoursTextFields()
+    lazy var seventh1TextField = createHoursTextFields(tags: 7)
+    lazy var seventh2TextField = createHoursTextFields(tags: 77)
     
     lazy var doneButton:UIButton = {
         let button = CustomSiftButton(type: .system)
@@ -137,7 +137,7 @@ class CustomMainClinicWorkingHoursView: CustomBaseView {
             
         }
     
-    func createHoursTextFields() -> UITextField {
+    func createHoursTextFields(tags:Int) -> UITextField {
         let t = UITextField()
         t.textAlignment = .center
         t.layer.borderWidth = 1
@@ -149,6 +149,7 @@ class CustomMainClinicWorkingHoursView: CustomBaseView {
         t.text = "00:00"
         t.constrainHeight(constant: 50)
         t.isUserInteractionEnabled = false
+        t.tag = tags
         return t
     }
     
