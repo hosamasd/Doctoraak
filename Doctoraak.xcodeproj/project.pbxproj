@@ -30,6 +30,9 @@
 		4E3449092428BFB600259224 /* CustomMainVerificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3449082428BFB600259224 /* CustomMainVerificationView.swift */; };
 		4E3458E72428B2D100DA89A0 /* SecondRegisterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3458E62428B2D100DA89A0 /* SecondRegisterVC.swift */; };
 		4E3458EA2428B2FF00DA89A0 /* CustomCecondRegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3458E92428B2FF00DA89A0 /* CustomCecondRegisterView.swift */; };
+		4E35489C242B814C00DD4E7A /* BaseSlidingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E35489B242B814C00DD4E7A /* BaseSlidingVC.swift */; };
+		4E35489F242B834300DD4E7A /* HomeLeftMenuTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E35489E242B834300DD4E7A /* HomeLeftMenuTableVC.swift */; };
+		4E3548A1242B83C300DD4E7A /* DoctorLeftMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3548A0242B83C300DD4E7A /* DoctorLeftMenuCell.swift */; };
 		4E382D7024290B74006B0E8D /* WelcomeMainSecondVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E382D6F24290B74006B0E8D /* WelcomeMainSecondVC.swift */; };
 		4E382D7224290BA5006B0E8D /* CustomWelcomeMainSecondView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E382D7124290BA5006B0E8D /* CustomWelcomeMainSecondView.swift */; };
 		4E4AAEDE2428CBA700023720 /* ClinicDataVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4AAEDD2428CBA700023720 /* ClinicDataVC.swift */; };
@@ -103,6 +106,9 @@
 		4E3449082428BFB600259224 /* CustomMainVerificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMainVerificationView.swift; sourceTree = "<group>"; };
 		4E3458E62428B2D100DA89A0 /* SecondRegisterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondRegisterVC.swift; sourceTree = "<group>"; };
 		4E3458E92428B2FF00DA89A0 /* CustomCecondRegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCecondRegisterView.swift; sourceTree = "<group>"; };
+		4E35489B242B814C00DD4E7A /* BaseSlidingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseSlidingVC.swift; sourceTree = "<group>"; };
+		4E35489E242B834300DD4E7A /* HomeLeftMenuTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeLeftMenuTableVC.swift; sourceTree = "<group>"; };
+		4E3548A0242B83C300DD4E7A /* DoctorLeftMenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorLeftMenuCell.swift; sourceTree = "<group>"; };
 		4E382D6F24290B74006B0E8D /* WelcomeMainSecondVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeMainSecondVC.swift; sourceTree = "<group>"; };
 		4E382D7124290BA5006B0E8D /* CustomWelcomeMainSecondView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomWelcomeMainSecondView.swift; sourceTree = "<group>"; };
 		4E4AAEDD2428CBA700023720 /* ClinicDataVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClinicDataVC.swift; sourceTree = "<group>"; };
@@ -275,6 +281,7 @@
 			children = (
 				4E333E0E2426607E00F82E00 /* BaseCollectionVC.swift */,
 				4E580306242789B800B5D502 /* CustomBaseViewVC.swift */,
+				4E35489B242B814C00DD4E7A /* BaseSlidingVC.swift */,
 			);
 			path = BaseVC;
 			sourceTree = "<group>";
@@ -295,6 +302,15 @@
 				4E3458E92428B2FF00DA89A0 /* CustomCecondRegisterView.swift */,
 			);
 			path = Register;
+			sourceTree = "<group>";
+		};
+		4E35489D242B832200DD4E7A /* left menu */ = {
+			isa = PBXGroup;
+			children = (
+				4E92AF68242B6FF900BCF20E /* HomeLeftMenuCollectionVC.swift */,
+				4E35489E242B834300DD4E7A /* HomeLeftMenuTableVC.swift */,
+			);
+			path = "left menu";
 			sourceTree = "<group>";
 		};
 		4E4AAEDC2428CB9000023720 /* Clinic for Doctor + Medical Center */ = {
@@ -473,7 +489,7 @@
 			children = (
 				4EC977EE242B525200C61F1B /* DoctorHomeVC.swift */,
 				4E92AF63242B6AE300BCF20E /* Patients */,
-				4E92AF68242B6FF900BCF20E /* HomeLeftMenuCollectionVC.swift */,
+				4E35489D242B832200DD4E7A /* left menu */,
 			);
 			path = home;
 			sourceTree = "<group>";
@@ -492,6 +508,7 @@
 			children = (
 				4EC977F6242B54D000C61F1B /* TopDoctorHomeCell.swift */,
 				4EC977FA242B59D900C61F1B /* DoctorHomePatientsCell.swift */,
+				4E3548A0242B83C300DD4E7A /* DoctorLeftMenuCell.swift */,
 			);
 			path = "Doctor Home";
 			sourceTree = "<group>";
@@ -696,6 +713,7 @@
 				4E3458E72428B2D100DA89A0 /* SecondRegisterVC.swift in Sources */,
 				4EC977FB242B59D900C61F1B /* DoctorHomePatientsCell.swift in Sources */,
 				7AE60E3F241914EC002E9AF6 /* MainSpecificationModel.swift in Sources */,
+				4E3548A1242B83C300DD4E7A /* DoctorLeftMenuCell.swift in Sources */,
 				4E5803122427903900B5D502 /* MainLoginsVC.swift in Sources */,
 				4E5CE7A924275187001EE175 /* CusomBookView.swift in Sources */,
 				4E14F23B242B462400107FA7 /* DoctorRegisterViewModel.swift in Sources */,
@@ -724,6 +742,7 @@
 				4E333E11242663BF00F82E00 /* DoctorWorkingDateCollectionVC.swift in Sources */,
 				4E28EC67242A49B100B54186 /* MainForgetPasswordVC.swift in Sources */,
 				4EC977EF242B525200C61F1B /* DoctorHomeVC.swift in Sources */,
+				4E35489F242B834300DD4E7A /* HomeLeftMenuTableVC.swift in Sources */,
 				4E5CE7A22427492A001EE175 /* CustomCardiologyView.swift in Sources */,
 				4E4AAEE12428CCE900023720 /* CustomClinicDataView.swift in Sources */,
 				4EA112BA2429E557005B64E3 /* RegisterViewModel.swift in Sources */,
@@ -742,6 +761,7 @@
 				4EC8DDAD242A363700CEC5DF /* MainPaymentVC.swift in Sources */,
 				4EBB726F242B22D4008DD084 /* TimeSelector.swift in Sources */,
 				4E5E0BB9242891EF0031AE4A /* ExtensionsViews.swift in Sources */,
+				4E35489C242B814C00DD4E7A /* BaseSlidingVC.swift in Sources */,
 				4E3449092428BFB600259224 /* CustomMainVerificationView.swift in Sources */,
 				4E580314242790A200B5D502 /* CustomLoginsView.swift in Sources */,
 				7A52BB5524153A28008ED1F9 /* AppDelegate.swift in Sources */,
