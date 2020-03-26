@@ -24,6 +24,7 @@ class ClinicDataVC: CustomBaseViewVC {
     }()
     lazy var customClinicDataView:CustomClinicDataView = {
         let v = CustomClinicDataView()
+        v.cityDrop.addTarget(self, action: #selector(handleMulti), for: .touchUpInside)
         return v
     }()
       var index:Int? = 0
@@ -47,4 +48,8 @@ class ClinicDataVC: CustomBaseViewVC {
         
     }
     
+    
+    func handleMulti()  {
+        
+    }
 }

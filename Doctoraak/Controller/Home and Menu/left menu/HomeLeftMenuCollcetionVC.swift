@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HomeLeftMenuTableVC: BaseCollectionVC {
+class HomeLeftMenuCollcetionVC: BaseCollectionVC {
     
     var images:[UIImage] = [#imageLiteral(resourceName: "ic_language_24px"),#imageLiteral(resourceName: "ic_language_24px"),#imageLiteral(resourceName: "ic_language_24px"),#imageLiteral(resourceName: "ic_language_24px"),#imageLiteral(resourceName: "Group 4122"),#imageLiteral(resourceName: "ic_phone_24px"),#imageLiteral(resourceName: "ic_language_24px")]
     var deatas = ["Profile","Calender","Add clinic","Clinic information","Analysis","Contact Us","Language"]
@@ -29,7 +29,6 @@ class HomeLeftMenuTableVC: BaseCollectionVC {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        let width = (view.frame.width - 56 ) / 2
         
         return .init(width: view.frame.width, height: 100)
     }

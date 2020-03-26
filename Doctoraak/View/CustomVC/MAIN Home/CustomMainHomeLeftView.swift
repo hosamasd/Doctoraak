@@ -92,7 +92,7 @@ class CustomMainHomeLeftView: CustomBaseView {
 //        s.constrainHeight(constant: 60)
 //        return s
 //    }()
-    lazy var homeLeftMenuTableVC  = HomeLeftMenuTableVC()
+    lazy var homeLeftMenuTableVC  = HomeLeftMenuCollcetionVC()
     lazy var Image8:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "icon2"))
         i.constrainWidth(constant: 30)

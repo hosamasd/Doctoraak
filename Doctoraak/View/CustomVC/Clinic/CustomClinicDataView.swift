@@ -8,6 +8,7 @@
 
 import UIKit
 import iOSDropDown
+import RSSelectionMenu
 
 class CustomClinicDataView: CustomBaseView {
     
@@ -54,15 +55,33 @@ class CustomClinicDataView: CustomBaseView {
         l.layer.borderWidth = 1
         l.layer.borderColor = #colorLiteral(red: 0.4835817814, green: 0.4836651683, blue: 0.4835640788, alpha: 1).cgColor
         l.addSubview(cityDrop)
+        l.isUserInteractionEnabled = true
         return l
     }()
-    lazy var cityDrop:DropDown = {
-        let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
-        i.optionArray = ["one","two","three"]
-        i.arrowSize = 20
-        i.placeholder = "City".localized
+    lazy var cityDrop:UIButton = {
+        let b = UIButton()
+        b.setTitle("assafsd", for: .normal)
+//        let i = UIButton(title: "Drop", titleColor: .black, font: .systemFont(ofSize: 22), backgroundColor: .white, target: self, action: #selector(handle))
+//        i.optionArray = ["one","two","three"]
+//        i.arrowSize = 20
+//        i.placeholder = "City".localized
         return i
     }()
+//    lazy var mainDropView:UIView = {
+//        let l = UIView(backgroundColor: .white)
+//        l.layer.cornerRadius = 8
+//        l.layer.borderWidth = 1
+//        l.layer.borderColor = #colorLiteral(red: 0.4835817814, green: 0.4836651683, blue: 0.4835640788, alpha: 1).cgColor
+//        l.addSubview(cityDrop)
+//        return l
+//    }()
+//    lazy var cityDrop:DropDown = {
+//        let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
+//        i.optionArray = ["one","two","three"]
+//        i.arrowSize = 20
+//        i.placeholder = "City".localized
+//        return i
+//    }()
     lazy var mainDrop2View:UIView = {
         let l = UIView(backgroundColor: .white)
         l.layer.cornerRadius = 8
@@ -121,8 +140,8 @@ class CustomClinicDataView: CustomBaseView {
         clinicEditProfileImageView.anchor(top: nil, leading: nil, bottom: clinicProfileImage.bottomAnchor, trailing: clinicProfileImage.trailingAnchor,padding: .init(top: 0, left:0 , bottom:10, right: 10))
         
         let textStack = getStack(views: clinicMobileNumberTextField,clinicAddressTextField,mainDropView,mainDrop2View,feesTextField,clinicWorkingHoursTextField,waitingHoursTextField, spacing: 16, distribution: .fillEqually, axis: .vertical)
-        
-        [areaDrop,cityDrop].forEach({$0.fillSuperview(padding: .init(top: 16, left: 16, bottom: 16, right: 16))})
+        cityDrop.fillSuperview()
+//        [areaDrop,cityDrop].forEach({$0.fillSuperview(padding: .init(top: 16, left: 16, bottom: 16, right: 16))})
 
         addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,subView,textStack,doneButton)
         

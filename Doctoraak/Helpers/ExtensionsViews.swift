@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RSSelectionMenu
 
 
 extension UIViewController {
@@ -69,5 +70,29 @@ extension UIViewController {
                 vv.isEnabled = false
             }
         }
+    }
+    
+    func showBottomSheet(fromBarButton barButton: UIButton) {
+        let dataArray = ["Sachin Tendulkar", "Rahul Dravid", "Saurav Ganguli", "Virat Kohli", "Suresh Raina", "Ravindra Jadeja", "Chris Gyle", "Steve Smith", "Anil Kumble"]
+
+        /// Register custom cell class
+        
+        let menu = RSSelectionMenu(dataSource: dataArray) { (cell, i, index) in
+            print(cell,i,index)
+        }
+        
+    
+        // Unique property in BottomSheetAction
+        menu.uniquePropertyName = "title"
+        
+        // on selection
+      
+        
+        // customization
+        menu.tableView?.rowHeight = 50
+        menu.tableView?.isScrollEnabled = false
+        
+        // height
+        menu.showBottomSheet(fromBarButton: barButton)
     }
 }

@@ -31,9 +31,6 @@ class DoctorHomePatientsCollectionVC: BaseCollectionVC {
     
     override func setupCollection() {
         collectionView.showsVerticalScrollIndicator = false
-//        if let layout = collectionViewLayout as? UICollectionViewFlowLayout {
-//            layout.scrollDirection = .horizontal
-//        }
         collectionView.backgroundColor = .white
         collectionView.register(DoctorHomePatientsCell.self, forCellWithReuseIdentifier: cellId)
     }

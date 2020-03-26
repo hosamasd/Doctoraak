@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
          keyboardChanges()
         window = UIWindow()
         window?.makeKeyAndVisible()
-        window?.rootViewController =  BaseSlidingVC()
+        window?.rootViewController =  UINavigationController(rootViewController: ClinicDataVC())
         return true
     }
 
