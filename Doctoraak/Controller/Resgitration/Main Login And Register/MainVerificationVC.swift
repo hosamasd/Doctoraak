@@ -150,7 +150,7 @@ class MainVerificationVC: CustomBaseViewVC {
         vc.index = index
          navigationController?.pushViewController(vc, animated: true)
     }else {
-        let vc =  ClinicDataVC()
+        let vc =  MainClinicDataVC()
         vc.index = index
          navigationController?.pushViewController(vc, animated: true)
     }

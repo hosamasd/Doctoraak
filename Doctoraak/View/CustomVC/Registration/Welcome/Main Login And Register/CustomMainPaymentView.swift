@@ -116,34 +116,34 @@ ss.anchor(top: choosePayLabel.topAnchor, leading: nil, bottom: nil, trailing: ni
     func createButtons(image:UIImage,tags:Int) -> UIButton {
         let b = UIButton()
         b.setImage(image, for: .normal)
-        b.addTarget(self, action: #selector(handleChoosedButton), for: .touchUpInside)
+//        b.addTarget(self, action: #selector(handleChoosedButton), for: .touchUpInside)
         b.tag = tags
         return b
     }
     
-    func hideOrUnhide(tag:Int)  {
-        DispatchQueue.main.async {
-            
-        
-            self.vodafoneImage.isHide(tag == 1 ? false : true)
-            self.fawryImage.isHide(tag == 1 ? true : false)
-           self.numberTextField.isHide(tag == 1 ? false : true)
-            self.codeTextField.isHide(tag == 1 ? true : false)
-//            self.num.rightViewMode = tag == 1 ? .always : .never
-        }
-    }
+//    func hideOrUnhide(tag:Int)  {
+//        DispatchQueue.main.async {
+//
+//
+//            self.vodafoneImage.isHide(tag == 1 ? false : true)
+//            self.fawryImage.isHide(tag == 1 ? true : false)
+//           self.numberTextField.isHide(tag == 1 ? false : true)
+//            self.codeTextField.isHide(tag == 1 ? true : false)
+////            self.num.rightViewMode = tag == 1 ? .always : .never
+//        }
+//    }
     
-    @objc func handleChoosedButton(sender:UIButton)  {
-        [firstScrollButton,secondScrollButton].forEach({$0.setImage(#imageLiteral(resourceName: "Ellipse 129"), for: .normal)})
-        
-        sender.setImage( #imageLiteral(resourceName: "Ellipse 128"), for: .normal)
-        switch sender.tag {
-        case 1:
-           hideOrUnhide(tag: 1)
-        default:
-            hideOrUnhide(tag: tag)
-        }
-//        handleTextContents?(sender.tag,true)
-        
-    }
+//    @objc func handleChoosedButton(sender:UIButton)  {
+//        [firstScrollButton,secondScrollButton].forEach({$0.setImage(#imageLiteral(resourceName: "Ellipse 129"), for: .normal)})
+//
+//        sender.setImage( #imageLiteral(resourceName: "Ellipse 128"), for: .normal)
+//        switch sender.tag {
+//        case 1:
+//           hideOrUnhide(tag: 1)
+//        default:
+//            hideOrUnhide(tag: tag)
+//        }
+//        [codeTextField,numberTextField].forEach({$0.text = ""})
+//
+//    }
 }

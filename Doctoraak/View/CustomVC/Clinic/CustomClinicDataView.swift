@@ -84,15 +84,15 @@ class CustomClinicDataView: CustomBaseView {
     lazy var feesTextField:UITextField = {
         let s = createMainTextFields(place: "Fees", type: .numberPad)
         let label = UILabel(text: "EGY", font: .systemFont(ofSize: 18), textColor: .lightGray)
-        label.frame = CGRect(x: CGFloat(s.frame.size.width - 25), y: CGFloat(5), width: CGFloat(25), height: CGFloat(25))
+        label.frame = CGRect(x: CGFloat(s.frame.size.width - 60), y: CGFloat(5), width: CGFloat(60), height: CGFloat(25))
         s.rightView = label
         s.rightViewMode = .always
         return s
     }()
     lazy var consultationFeesTextField:UITextField = {
         let s = createMainTextFields(place: "Consultation fees", type: .numberPad)
-        let label = UILabel(text: "EGY", font: .systemFont(ofSize: 12), textColor: .lightGray)
-        label.frame = CGRect(x: CGFloat(s.frame.size.width - 80), y: CGFloat(5), width: CGFloat(80), height: CGFloat(25))
+        let label = UILabel(text: "EGY", font: .systemFont(ofSize: 18), textColor: .lightGray)
+        label.frame = CGRect(x: CGFloat(s.frame.size.width - 60), y: CGFloat(5), width: CGFloat(60), height: CGFloat(25))
         s.rightView = label
         s.rightViewMode = .always
         return s
@@ -100,19 +100,21 @@ class CustomClinicDataView: CustomBaseView {
     lazy var clinicWorkingHoursTextField = createMainTextFields(place: "Work hours")
     lazy var waitingHoursTextField:UITextField = {
         let s = createMainTextFields(place: "Waiting hours", type: .numberPad)
-        let label = UILabel(text: "Time in m", font: .systemFont(ofSize: 12), textColor: .lightGray)
+        let label = UILabel(text: "Time in m", font: .systemFont(ofSize: 14), textColor: .lightGray)
         label.frame = CGRect(x: CGFloat(s.frame.size.width - 80), y: CGFloat(5), width: CGFloat(80), height: CGFloat(25))
         s.rightView = label
         s.rightViewMode = .always
         return s
     }()
     lazy var doneButton:UIButton = {
-        let button = CustomSiftButton(type: .system)
+        let button = UIButton(type: .system)
         button.setTitle("Done", for: .normal)
-        button.setTitleColor(.white, for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        button.backgroundColor = ColorConstants.disabledButtonsGray
         button.layer.cornerRadius = 16
         button.constrainHeight(constant: 50)
         button.clipsToBounds = true
+        button.isEnabled = false
         return button
     }()
     
@@ -123,7 +125,7 @@ class CustomClinicDataView: CustomBaseView {
         subView.constrainHeight(constant: 100)
         clinicEditProfileImageView.anchor(top: nil, leading: nil, bottom: clinicProfileImage.bottomAnchor, trailing: clinicProfileImage.trailingAnchor,padding: .init(top: 0, left:0 , bottom:10, right: 10))
         
-        let textStack = getStack(views: clinicMobileNumberTextField,clinicAddressTextField,mainDropView,mainDrop2View,feesTextField,clinicWorkingHoursTextField,waitingHoursTextField, spacing: 16, distribution: .fillEqually, axis: .vertical)
+        let textStack = getStack(views: clinicMobileNumberTextField,clinicAddressTextField,mainDropView,mainDrop2View,feesTextField,consultationFeesTextField,clinicWorkingHoursTextField,waitingHoursTextField, spacing: 16, distribution: .fillEqually, axis: .vertical)
         [areaDrop,cityDrop].forEach({$0.fillSuperview(padding: .init(top: 16, left: 16, bottom: 16, right: 16))})
 
         addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,subView,textStack,doneButton)

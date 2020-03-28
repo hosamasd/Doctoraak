@@ -17,11 +17,11 @@ class MainPaymentVC: CustomBaseViewVC {
         v.codeTextField.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)
         v.doneButton.addTarget(self, action: #selector(handleDonePayment), for: .touchUpInside)
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
-
+        [v.firstScrollButton,v.secondScrollButton].forEach({$0.addTarget(self, action: #selector(handleChoosedButton), for: .touchUpInside)})
         return v
     }()
     
-      var index:Int = 0
+    var index:Int = 0
     let paymentViewModel = PaymentViewModel()
     
     override func viewDidLoad() {
@@ -61,6 +61,18 @@ class MainPaymentVC: CustomBaseViewVC {
         
     }
     
+    func hideOrUnhide(tag:Int)  {
+        DispatchQueue.main.async {[unowned self] in
+            
+            
+            self.customClinicPaymentView.vodafoneImage.isHide(tag == 1 ? false : true)
+            self.customClinicPaymentView.fawryImage.isHide(tag == 1 ? true : false)
+            self.customClinicPaymentView.numberTextField.isHide(tag == 1 ? false : true)
+            self.customClinicPaymentView.codeTextField.isHide(tag == 1 ? true : false)
+            //            self.num.rightViewMode = tag == 1 ? .always : .never
+        }
+    }
+    
     @objc func textFieldDidChange(text: UITextField)  {
         paymentViewModel.index = index
         guard let texts = text.text else { return  }
@@ -88,12 +100,27 @@ class MainPaymentVC: CustomBaseViewVC {
         }
     }
     
-   @objc func handleDonePayment()  {
+    @objc func handleDonePayment()  {
         print(999)
     }
     
     @objc func handleBack()  {
         navigationController?.popViewController(animated: true)
     }
-
+    
+    @objc func handleChoosedButton(sender:UIButton)  {
+        [customClinicPaymentView.firstScrollButton,customClinicPaymentView.secondScrollButton].forEach({$0.setImage(#imageLiteral(resourceName: "Ellipse 129"), for: .normal)})
+        
+        sender.setImage( #imageLiteral(resourceName: "Ellipse 128"), for: .normal)
+        switch sender.tag {
+        case 1:
+            hideOrUnhide(tag: 1)
+        default:
+            hideOrUnhide(tag: 2)
+        }
+        [customClinicPaymentView.codeTextField,customClinicPaymentView.numberTextField].forEach({$0.text = ""})
+        paymentViewModel.fawryCode = nil
+        paymentViewModel.vodafoneVode = nil
+    }
+    
 }
