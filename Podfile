@@ -13,4 +13,5 @@ pod 'Kingfisher', '~> 4.0'
 pod 'iOSDropDown'
 pod 'SkyFloatingLabelTextField', '~> 3.0'
 pod 'RSSelectionMenu'
+pod 'UIMultiPicker'
 end

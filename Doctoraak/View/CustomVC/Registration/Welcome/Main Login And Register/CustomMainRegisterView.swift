@@ -8,6 +8,7 @@
 
 import UIKit
 import iOSDropDown
+import UIMultiPicker
 
 class CustomMainRegisterView: CustomBaseView {
     
@@ -29,6 +30,7 @@ class CustomMainRegisterView: CustomBaseView {
         let i = UIImageView(image: #imageLiteral(resourceName: "Icon - Keyboard Arrow - Left - Filled"))
         i.constrainWidth(constant: 30)
         i.constrainHeight(constant: 30)
+         i.isUserInteractionEnabled = true
         return i
     }()
     
@@ -81,21 +83,72 @@ class CustomMainRegisterView: CustomBaseView {
     }()
     
     lazy var addressTextField = createMainTextFields(place: "Address")
+    
     lazy var mainDrop3View:UIView = {
         let l = UIView(backgroundColor: .white)
         l.layer.cornerRadius = 8
         l.layer.borderWidth = 1
         l.layer.borderColor = #colorLiteral(red: 0.4835817814, green: 0.4836651683, blue: 0.4835640788, alpha: 1).cgColor
-        l.addSubview(insuranceDrop)
+        l.constrainHeight(constant: 50)
+        l.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpenCloseInsurance)))
+        //        l.addSubview(insuranceDrop)
         return l
     }()
-    lazy var insuranceDrop:DropDown = {
-        let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
-        i.optionArray = ["one","two","three"]
-        i.arrowSize = 20
-        i.placeholder = "insurance".localized
+    lazy var doenImage:UIImageView = {
+        let i = UIImageView(image: #imageLiteral(resourceName: "Group 4142-6"))
+        i.constrainWidth(constant: 50)
+        i.constrainHeight(constant: 50)
         return i
     }()
+    lazy var insuracneText = UILabel(text: "choose insurance", font: .systemFont(ofSize: 18), textColor: .black, textAlignment: .left)
+    lazy var insuranceDrop:UIMultiPicker = {
+        let v = UIMultiPicker(backgroundColor: .white)
+        v.options = insuracneArray
+        v.color = .gray
+        v.tintColor = .green
+        v.font = .systemFont(ofSize: 30, weight: .bold)
+        v.highlight(2, animated: true) // centering "Bitter"
+        v.constrainHeight(constant: 150)
+        v.isHide(true)
+        v.addTarget(self, action: #selector(handleHidePicker), for: .valueChanged)
+        return v
+    }()
+    
+//    lazy var mainDrop3View:UIView = {
+//        let l = UIView(backgroundColor: .white)
+//        l.layer.cornerRadius = 8
+//        l.layer.borderWidth = 1
+//        l.layer.borderColor = #colorLiteral(red: 0.4835817814, green: 0.4836651683, blue: 0.4835640788, alpha: 1).cgColor
+//        l.addSubview(insuranceDrop)
+//        return l
+//    }()
+//    lazy var insuranceDrop:UIMultiPicker = {
+//        let v = UIMultiPicker(backgroundColor: .white)
+//        v.options = ["one","two","three","sdfdsfsd"]
+//        v.color = .gray
+//        v.tintColor = .green
+//        v.font = .systemFont(ofSize: 30, weight: .bold)
+//
+//        v.highlight(4, animated: true) // centering "Bitter"
+//        return v
+//    }()
+    
+    
+//    lazy var mainDrop3View:UIView = {
+//        let l = UIView(backgroundColor: .white)
+//        l.layer.cornerRadius = 8
+//        l.layer.borderWidth = 1
+//        l.layer.borderColor = #colorLiteral(red: 0.4835817814, green: 0.4836651683, blue: 0.4835640788, alpha: 1).cgColor
+//        l.addSubview(insuranceDrop)
+//        return l
+//    }()
+//lazy var insuranceDrop:DropDown = {
+//        let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
+//        i.optionArray = ["one","two","three"]
+//        i.arrowSize = 20
+//        i.placeholder = "insurance".localized
+//        return i
+//    }()
     lazy var pharamacyWorkingHoursTextField = createMainTextFields(place: "Work hours")
 
     lazy var delvierySwitch:UISwitch = {
@@ -125,7 +178,7 @@ class CustomMainRegisterView: CustomBaseView {
     }()
     
     var text:String?
-    
+     var insuracneArray = ["one","two","three","sdfdsfsd"]
  
     
     
@@ -136,10 +189,13 @@ class CustomMainRegisterView: CustomBaseView {
         subView.constrainHeight(constant: 100)
         userEditProfileImageView.anchor(top: nil, leading: nil, bottom: userProfileImage.bottomAnchor, trailing: userProfileImage.trailingAnchor,padding: .init(top: 0, left:0 , bottom:10, right: 10))
        
-        let textStack = getStack(views: fullNameTextField,mobileNumberTextField,emailTextField,passwordTextField,confirmPasswordTextField,addressTextField,mainDrop3View,pharamacyWorkingHoursTextField,deliveryTextField, spacing: 16, distribution: .fillEqually, axis: .vertical)
+        let textStack = getStack(views: fullNameTextField,mobileNumberTextField,emailTextField,passwordTextField,confirmPasswordTextField,addressTextField,pharamacyWorkingHoursTextField,deliveryTextField,mainDrop3View, spacing: 16, distribution: .fillEqually, axis: .vertical)
         
-        addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,subView,textStack,nextButton)
-         insuranceDrop.fillSuperview(padding: .init(top: 16, left: 16, bottom: 16, right: 16))
+        mainDrop3View.addSubViews(views: doenImage,insuracneText)
+        mainDrop3View.hstack(insuracneText,doenImage).withMargins(.init(top: 0, left: 16, bottom: 0, right: 0))
+        addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,subView,textStack,insuranceDrop,nextButton)
+        
+//         insuranceDrop.fillSuperview(padding: .init(top: 16, left: 16, bottom: 16, right: 16))
         NSLayoutConstraint.activate([
             subView.centerXAnchor.constraint(equalTo: centerXAnchor)
             ])
@@ -151,8 +207,10 @@ class CustomMainRegisterView: CustomBaseView {
         soonLabel.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
         textStack.anchor(top: soonLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 128, left: 32, bottom: 16, right: 32))
         //        genderStack.anchor(top: textStack.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 128, left: 32, bottom: 16, right: 32))
+        insuranceDrop.anchor(top: textStack.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 0, right: 32))
+
         
-        nextButton.anchor(top: textStack.bottomAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 32, left: 32, bottom: 16, right: 32))
+        nextButton.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 32, left: 32, bottom: 16, right: 32))
         
     }
     
@@ -162,6 +220,28 @@ class CustomMainRegisterView: CustomBaseView {
     
     @objc func handleASDs()  {
         confirmPasswordTextField.isSecureTextEntry = !confirmPasswordTextField.isSecureTextEntry
+    }
+    
+   
+    var iiii = ""
+    var de = ""
+    
+    @objc func handleHidePicker(sender:UIMultiPicker)  {
+        sender.selectedIndexes.forEach { (i) in
+            
+            de += insuracneArray[i] + ","
+        }
+        iiii = de
+        insuracneText.text = iiii
+        de = ""
+    }
+    
+    @objc func handleOpenCloseInsurance()  {
+        insuranceDrop.isHidden = !insuranceDrop.isHidden
+    }
+    
+    @objc func handleAgree(sender:UIButton)  {
+        sender.isSelected = !sender.isSelected
     }
 }
 

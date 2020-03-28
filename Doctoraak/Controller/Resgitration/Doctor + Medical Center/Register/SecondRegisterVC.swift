@@ -10,6 +10,18 @@ import UIKit
 
 class SecondRegisterVC: CustomBaseViewVC {
     
+    lazy var scrollView: UIScrollView = {
+        let v = UIScrollView()
+        v.backgroundColor = .clear
+        
+        return v
+    }()
+    lazy var mainView:UIView = {
+        let v = UIView(backgroundColor: .white)
+        v.constrainHeight(constant: 1000)
+        v.constrainWidth(constant: view.frame.width)
+        return v
+    }()
     lazy var customCecondRegisterView:CustomCecondRegisterView = {
         let v = CustomCecondRegisterView()
         return v
@@ -20,8 +32,11 @@ class SecondRegisterVC: CustomBaseViewVC {
     }
     
     override func setupViews() {
-        
-        view.addSubview(customCecondRegisterView)
+        view.addSubview(scrollView)
+        scrollView.fillSuperview()
+        scrollView.addSubview(mainView)
+        mainView.anchor(top: scrollView.topAnchor, leading: scrollView.leadingAnchor, bottom: scrollView.bottomAnchor, trailing: scrollView.trailingAnchor,padding: .init(top: -60, left: 0, bottom: 0, right: 0))
+        mainView.addSubViews(views: customCecondRegisterView)
         customCecondRegisterView.fillSuperview()
     }
 }

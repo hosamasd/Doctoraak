@@ -24,11 +24,11 @@ class ClinicDataVC: CustomBaseViewVC {
     }()
     lazy var customClinicDataView:CustomClinicDataView = {
         let v = CustomClinicDataView()
-        v.cityDrop.addTarget(self, action: #selector(handleMulti), for: .touchUpInside)
+//        v.cityDrop.addTarget(self, action: #selector(handleMulti), for: .touchUpInside)
         return v
     }()
       var index:Int? = 0
-    
+
    
   override  func setupNavigation()  {
         navigationController?.navigationBar.isHide(true)
@@ -45,11 +45,6 @@ class ClinicDataVC: CustomBaseViewVC {
         customClinicDataView.fillSuperview()
         
         
-        
-    }
-    
-    
-    func handleMulti()  {
         
     }
 }

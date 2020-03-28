@@ -47,10 +47,10 @@ class SecondWelcomeVC: CustomBaseViewVC {
     }
     
     @objc func handleLogin()  {
-        goToLoginNextVC(index: index ?? 0)
+        goToLoginNextVC(index: index )
     }
     
     @objc func handleRegister()  {
-        goToRegisterNextVC(index: index ?? 0)
+        goToRegisterNextVC(index: index )
     }
 }

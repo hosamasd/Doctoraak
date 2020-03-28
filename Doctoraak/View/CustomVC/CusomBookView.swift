@@ -22,6 +22,7 @@ class CusomBookView: CustomBaseView {
         let i = UIImageView(image: #imageLiteral(resourceName: "Icon - Keyboard Arrow - Left - Filled"))
         i.constrainWidth(constant: 30)
         i.constrainHeight(constant: 30)
+         i.isUserInteractionEnabled = true
         return i
     }()
   

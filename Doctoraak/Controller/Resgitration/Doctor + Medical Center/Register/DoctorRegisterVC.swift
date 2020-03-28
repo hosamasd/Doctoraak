@@ -11,6 +11,19 @@ import SkyFloatingLabelTextField
 
 class DoctorRegisterVC: CustomBaseViewVC {
     
+    lazy var scrollView: UIScrollView = {
+        let v = UIScrollView()
+        v.backgroundColor = .clear
+        
+        return v
+    }()
+    lazy var mainView:UIView = {
+        let v = UIView(backgroundColor: .white)
+        v.constrainHeight(constant: 800)
+        v.constrainWidth(constant: view.frame.width)
+        return v
+    }()
+    
     lazy var customRegisterView:CustomRegisterView = {
         let v = CustomRegisterView()
         v.boyButton.addTarget(self, action: #selector(handleBoy), for: .touchUpInside)
@@ -60,8 +73,11 @@ class DoctorRegisterVC: CustomBaseViewVC {
     }
     
     override func setupViews() {
-        
-        view.addSubview(customRegisterView)
+        view.addSubview(scrollView)
+        scrollView.fillSuperview()
+        scrollView.addSubview(mainView)
+        mainView.anchor(top: scrollView.topAnchor, leading: scrollView.leadingAnchor, bottom: scrollView.bottomAnchor, trailing: scrollView.trailingAnchor,padding: .init(top: -60, left: 0, bottom: 0, right: 0))
+        mainView.addSubViews(views: customRegisterView)
         customRegisterView.fillSuperview()
     }
     
