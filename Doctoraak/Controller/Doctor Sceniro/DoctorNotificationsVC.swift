@@ -26,7 +26,7 @@ class DoctorNotificationsVC: BaseCollectionVC {
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! DoctorHomePatientsCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! NotificationCell
         
         return cell
     }
@@ -37,8 +37,11 @@ class DoctorNotificationsVC: BaseCollectionVC {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         //        let width = (view.frame.wid15th - 56 ) / 2
+        let ss = "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout."
         
-        return .init(width: view.frame.width, height: 110)
+        
+        let height = ss.getFrameForText(text: ss)
+        return .init(width: view.frame.width-64, height: height.height+30)
     }
     
     override func setupNavigation() {
@@ -47,9 +50,8 @@ class DoctorNotificationsVC: BaseCollectionVC {
     
     override func setupCollection() {
         collectionView.showsVerticalScrollIndicator = false
-        collectionView.backgroundColor = .white
-        collectionView.contentInset.top = -50
-        collectionView.register(DoctorHomePatientsCell.self, forCellWithReuseIdentifier: cellId)
+        collectionView.backgroundColor = #colorLiteral(red: 0.9561814666, green: 0.9626725316, blue: 0.9625836015, alpha: 1)
+        collectionView.register(NotificationCell.self, forCellWithReuseIdentifier: cellId)
         collectionView.register(DoctorHeaderNotificationCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: cellHeaderId)
     }
 }

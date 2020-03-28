@@ -27,7 +27,7 @@ class DoctorHeaderNotificationCell: UICollectionReusableView {
         i.constrainHeight(constant: 30)
         return i
     }()
-    lazy var titleLabel = UILabel(text: "Notification", font: .systemFont(ofSize: 30), textColor: .white)
+    lazy var titleLabel = UILabel(text: "Notification", font: .systemFont(ofSize: 35), textColor: .white)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -41,9 +41,9 @@ class DoctorHeaderNotificationCell: UICollectionReusableView {
     func setupViews()  {
         addSubViews(views: LogoImage,listImage,notifyImage,titleLabel)
         
-        LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 32, right: 0))
-        listImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 60, left: 16, bottom: 0, right: 0))
-        notifyImage.anchor(top: topAnchor, leading: nil, bottom: nil, trailing: trailingAnchor,padding: .init(top: 60, left: 0, bottom: 0, right: 16))
+        LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: -60, left: -48, bottom: 32, right: 0))
+        listImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 20, left: 16, bottom: 0, right: 0))
+        notifyImage.anchor(top: topAnchor, leading: nil, bottom: nil, trailing: trailingAnchor,padding: .init(top: 20, left: 0, bottom: 0, right: 16))
         titleLabel.anchor(top: nil, leading: leadingAnchor, bottom: LogoImage.bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
     }
 }
