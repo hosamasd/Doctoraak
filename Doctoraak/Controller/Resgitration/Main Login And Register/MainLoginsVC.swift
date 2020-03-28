@@ -18,6 +18,10 @@ class MainLoginsVC: CustomBaseViewVC {
         v.passwordTextField.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)
         v.createAccountButton.addTarget(self, action: #selector(handleRegister), for: .touchUpInside)
         v.forgetPasswordButton.addTarget(self, action: #selector(handleForget), for: .touchUpInside)
+        v.loginButton.addTarget(self, action: #selector(handleLogin), for: .touchUpInside)
+
+        v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
+
         return v
     }()
     
@@ -100,9 +104,18 @@ class MainLoginsVC: CustomBaseViewVC {
         
     }
     
+  @objc  func handleLogin()  {
+        print("login")
+    }
+    
     @objc func handleForget()  {
         let forget = MainForgetPasswordVC()
         forget.index = index
         navigationController?.pushViewController(forget, animated: true)
     }
+    
+    @objc func handleBack()  {
+        navigationController?.popToRootViewController(animated: true)
+    }
+
 }

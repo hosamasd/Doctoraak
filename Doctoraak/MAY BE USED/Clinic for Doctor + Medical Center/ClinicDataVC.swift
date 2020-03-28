@@ -24,18 +24,26 @@ class ClinicDataVC: CustomBaseViewVC {
     }()
     lazy var customClinicDataView:CustomClinicDataView = {
         let v = CustomClinicDataView()
-//        v.cityDrop.addTarget(self, action: #selector(handleMulti), for: .touchUpInside)
+        v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
+        v.doneButton.addTarget(self, action: #selector(handleDone), for: .touchUpInside)
+        
+        v.clinicWorkingHoursTextField.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleChooseWorkingHours)))
+        //        v.cityDrop.addTarget(self, action: #selector(handleMulti), for: .touchUpInside)
         return v
     }()
-      var index:Int? = 0
-
-   
-  override  func setupNavigation()  {
+    var index:Int = 0
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        customClinicDataView.clinicWorkingHoursTextField.inputAccessoryView = UIView()
+    }
+    
+    override  func setupNavigation()  {
         navigationController?.navigationBar.isHide(true)
     }
     
-   override func setupViews()  {
-    
+    override func setupViews()  {
+        
         view.addSubview(scrollView)
         scrollView.fillSuperview()
         scrollView.addSubview(mainView)
@@ -47,4 +55,33 @@ class ClinicDataVC: CustomBaseViewVC {
         
         
     }
+    
+    @objc func handleBack()  {
+        navigationController?.popViewController(animated: true)
+    }
+    
+    @objc func handleDone()  {
+        let payment = MainPaymentVC()
+        payment.index = index
+        navigationController?.pushViewController(payment, animated: true)
+    }
+    
+    @objc func handleChooseWorkingHours()  {
+        let payment = MainClinicWorkingHoursVC()
+        payment.delgate = self
+        payment.index = index
+        navigationController?.pushViewController(payment, animated: true)
+    }
+}
+
+extension ClinicDataVC: MainClinicWorkingHoursProtocol {
+    
+    func getHoursChoosed(hours: [String]) {
+        let texts = hours.map{$0}.joined(separator: ",")
+        
+        customClinicDataView.waitingHoursTextField.text = texts
+    }
+    
+    
+    
 }

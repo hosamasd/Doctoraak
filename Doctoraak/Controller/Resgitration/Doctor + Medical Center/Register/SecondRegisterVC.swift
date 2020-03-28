@@ -24,6 +24,8 @@ class SecondRegisterVC: CustomBaseViewVC {
     }()
     lazy var customCecondRegisterView:CustomCecondRegisterView = {
         let v = CustomCecondRegisterView()
+        v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
+
         return v
     }()
     
@@ -38,5 +40,10 @@ class SecondRegisterVC: CustomBaseViewVC {
         mainView.anchor(top: scrollView.topAnchor, leading: scrollView.leadingAnchor, bottom: scrollView.bottomAnchor, trailing: scrollView.trailingAnchor,padding: .init(top: -60, left: 0, bottom: 0, right: 0))
         mainView.addSubViews(views: customCecondRegisterView)
         customCecondRegisterView.fillSuperview()
+    }
+    
+    
+   @objc func handleBack()  {
+        navigationController?.popViewController(animated: true)
     }
 }

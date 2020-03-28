@@ -20,6 +20,8 @@ class MainVerificationVC: CustomBaseViewVC {
         v.forthNumberTextField.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)
         v.resendButton.addTarget(self, action: #selector(handleResendCode), for: .touchUpInside)
         v.confirmButton.addTarget(self, action: #selector(handleConfirm), for: .touchUpInside)
+        v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
+
         return v
     }()
     
@@ -154,6 +156,11 @@ class MainVerificationVC: CustomBaseViewVC {
     }
    
     }
+    
+    @objc func handleBack()  {
+        navigationController?.popViewController(animated: true)
+    }
+
 }
 
 extension MainVerificationVC: UITextFieldDelegate {

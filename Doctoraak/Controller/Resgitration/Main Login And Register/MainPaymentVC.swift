@@ -16,6 +16,8 @@ class MainPaymentVC: CustomBaseViewVC {
         v.numberTextField.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)
         v.codeTextField.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)
         v.doneButton.addTarget(self, action: #selector(handleDonePayment), for: .touchUpInside)
+        v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
+
         return v
     }()
     
@@ -89,4 +91,9 @@ class MainPaymentVC: CustomBaseViewVC {
    @objc func handleDonePayment()  {
         print(999)
     }
+    
+    @objc func handleBack()  {
+        navigationController?.popViewController(animated: true)
+    }
+
 }

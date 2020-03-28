@@ -26,6 +26,7 @@ class DoctorRegisterVC: CustomBaseViewVC {
     
     lazy var customRegisterView:CustomRegisterView = {
         let v = CustomRegisterView()
+        v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
         v.boyButton.addTarget(self, action: #selector(handleBoy), for: .touchUpInside)
         v.girlButton.addTarget(self, action: #selector(handleGirl), for: .touchUpInside)
         v.mobileNumberTextField.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)
@@ -191,4 +192,7 @@ extension DoctorRegisterVC: UIImagePickerControllerDelegate, UINavigationControl
     }
     
     
+    @objc func handleBack()  {
+        navigationController?.popViewController(animated: true)
+    }
 }

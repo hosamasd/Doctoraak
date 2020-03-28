@@ -15,6 +15,7 @@ class MainNewPassVC: CustomBaseViewVC {
         let v = CustomMainNewPassView()
         v.passwordTextField.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)
         v.confirmPasswordTextField.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)
+        v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
 
         v.doneButton.addTarget(self, action: #selector(handleNext), for: .touchUpInside)
         return v
@@ -95,6 +96,9 @@ class MainNewPassVC: CustomBaseViewVC {
         login.index = index
         navigationController?.pushViewController(login, animated: true)
         
-        print(999)
+    }
+    
+    @objc func handleBack()  {
+        navigationController?.popViewController(animated: true)
     }
 }

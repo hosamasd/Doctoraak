@@ -28,10 +28,7 @@ lazy var customWelcomeView:CustomWelcomeView = {
          setupAnimation()
     }
     
-    override func setupNavigation()  {
-        navigationController?.navigationBar.isHide(true)
-    }
-    
+  
     
     override func setupViews() {
         
@@ -81,7 +78,9 @@ lazy var customWelcomeView:CustomWelcomeView = {
     
    @objc func handleNext()  {
         let welcome = WelcomeMainSecondVC()
-        navigationController?.pushViewController(welcome, animated: true)
-        
+    let nav = UINavigationController(rootViewController:welcome)
+    present(nav, animated: true)
+//        navigationController?.pushViewController(welcome, animated: true)
+    
     }
 }

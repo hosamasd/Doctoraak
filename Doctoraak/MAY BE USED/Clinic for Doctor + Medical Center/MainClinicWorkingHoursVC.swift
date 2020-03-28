@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol MainClinicWorkingHoursProtocol {
+    func getHoursChoosed(hours:[String])
+}
+
 class MainClinicWorkingHoursVC: CustomBaseViewVC {
     
     
@@ -27,12 +31,16 @@ class MainClinicWorkingHoursVC: CustomBaseViewVC {
         let v = CustomMainClinicWorkingHoursView()
         [v.first2TextField,v.first1TextField,v.second1TextField,v.second2TextField,v.third1TextField,v.third2TextField,v.forth1TextField,v.forth2TextField,v.fifth1TextField,v.fifth2TextField,v.sexth1TextField,v.sexth2TextField,v.seventh2TextField,v.seventh1TextField].forEach({$0
             .addTarget(self, action:#selector(handleShowPicker), for: UIControl.Event.editingDidBegin)})
-        
+        v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
+        v.doneButton.addTarget(self, action: #selector(handleDone), for: .touchUpInside)
         
         return v
     }()
     var index:Int? = 0
     let timeSelector = TimeSelector()
+    var delgate:MainClinicWorkingHoursProtocol?
+    var choosedHours = [String]()
+    
     
     override  func setupNavigation()  {
         navigationController?.navigationBar.isHide(true)
@@ -93,7 +101,7 @@ class MainClinicWorkingHoursVC: CustomBaseViewVC {
         default:
             customClinicWorkingHoursView.seventh2TextField.text = texts
         }
-        
+        choosedHours.append(texts)
     }
     
     
@@ -115,5 +123,14 @@ class MainClinicWorkingHoursVC: CustomBaseViewVC {
             }
         }
         
+    }
+    
+    @objc func handleBack()  {
+        navigationController?.popViewController(animated: true)
+    }
+    
+   @objc func handleDone()  {
+        delgate?.getHoursChoosed(hours: choosedHours)
+    navigationController?.popViewController(animated: true)
     }
 }
