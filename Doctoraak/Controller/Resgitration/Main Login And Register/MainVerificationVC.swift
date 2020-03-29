@@ -21,7 +21,7 @@ class MainVerificationVC: CustomBaseViewVC {
         v.resendButton.addTarget(self, action: #selector(handleResendCode), for: .touchUpInside)
         v.confirmButton.addTarget(self, action: #selector(handleConfirm), for: .touchUpInside)
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
-
+        
         return v
     }()
     
@@ -76,7 +76,7 @@ class MainVerificationVC: CustomBaseViewVC {
     
     fileprivate func upadteLabels() {
         DispatchQueue.main.async {
-             self.customVerificationView.timerLabel.textColor = #colorLiteral(red: 0.5667257905, green: 0.9375677705, blue: 0.8425782323, alpha: 1)
+            self.customVerificationView.timerLabel.textColor = #colorLiteral(red: 0.5667257905, green: 0.9375677705, blue: 0.8425782323, alpha: 1)
             self.customVerificationView.timerLabel.text = self.timeString(time: TimeInterval(self.seconds))
             self.customVerificationView.resendButton.setTitleColor(#colorLiteral(red: 0.7814221978, green: 0.7986494303, blue: 0.843649447, alpha: 1), for: .normal)
             self.customVerificationView.resendButton.isEnabled = false
@@ -139,28 +139,28 @@ class MainVerificationVC: CustomBaseViewVC {
         }
     }
     
-   @objc func handleResendCode()  {
+    @objc func handleResendCode()  {
         setupTimer()
     }
     
-  @objc  func handleConfirm()  {
-    
-    if isFromForgetPassw {
-       let  vc =  MainNewPassVC()
-        vc.index = index
-         navigationController?.pushViewController(vc, animated: true)
-    }else {
-        let vc =  MainClinicDataVC()
-        vc.index = index
-         navigationController?.pushViewController(vc, animated: true)
-    }
-   
+    @objc  func handleConfirm()  {
+        
+        if isFromForgetPassw {
+            let  vc =  MainNewPassVC()
+            vc.index = index
+            navigationController?.pushViewController(vc, animated: true)
+        }else {
+            let vc =  MainClinicDataVC()
+            vc.index = index
+            navigationController?.pushViewController(vc, animated: true)
+        }
+        
     }
     
     @objc func handleBack()  {
         navigationController?.popViewController(animated: true)
     }
-
+    
 }
 
 extension MainVerificationVC: UITextFieldDelegate {

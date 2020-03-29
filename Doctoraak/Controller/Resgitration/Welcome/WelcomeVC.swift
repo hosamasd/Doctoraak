@@ -10,10 +10,10 @@ import UIKit
 
 class WelcomeVC: CustomBaseViewVC {
     
-lazy var customWelcomeView:CustomWelcomeView = {
-    let v = CustomWelcomeView()
-    return v
-}()
+    lazy var customWelcomeView:CustomWelcomeView = {
+        let v = CustomWelcomeView()
+        return v
+    }()
     
     lazy var views = [
         customWelcomeView.drImage,
@@ -25,10 +25,10 @@ lazy var customWelcomeView:CustomWelcomeView = {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-         setupAnimation()
+        setupAnimation()
     }
     
-  
+      //MARK: -user methods
     
     override func setupViews() {
         
@@ -52,7 +52,7 @@ lazy var customWelcomeView:CustomWelcomeView = {
         self.addTransform()
         
         UIView.animate(withDuration: 0.7, delay: 0.6 * 1.3, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.1, options: .curveEaseInOut, animations: {
-             [ self.customWelcomeView.docotrLabel, self.customWelcomeView.copyWriteLabel].forEach({$0.transform = .identity})
+            [ self.customWelcomeView.docotrLabel, self.customWelcomeView.copyWriteLabel].forEach({$0.transform = .identity})
             self.goToNextVC()
         })
     }
@@ -61,7 +61,7 @@ lazy var customWelcomeView:CustomWelcomeView = {
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+12) {
             self.handleNext()
         }
-       
+        
     }
     
     
@@ -76,11 +76,13 @@ lazy var customWelcomeView:CustomWelcomeView = {
         self.customWelcomeView.drImage.layer.add(rotationAnimation, forKey: "rotationAnimation")
     }
     
-   @objc func handleNext()  {
-        let welcome = WelcomeMainSecondVC()
-    let nav = UINavigationController(rootViewController:welcome)
-    present(nav, animated: true)
-//        navigationController?.pushViewController(welcome, animated: true)
+    //TODO: -handle methods
     
+    @objc func handleNext()  {
+        let welcome = WelcomeMainSecondVC()
+        let nav = UINavigationController(rootViewController:welcome)
+        present(nav, animated: true)
+        //        navigationController?.pushViewController(welcome, animated: true)
+        
     }
 }

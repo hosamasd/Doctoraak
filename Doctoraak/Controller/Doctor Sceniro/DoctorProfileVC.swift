@@ -19,7 +19,7 @@ class DoctorProfileVC: CustomBaseViewVC {
     }()
     lazy var mainView:UIView = {
         let v = UIView(backgroundColor: .white)
-        v.constrainHeight(constant: 600)
+        v.constrainHeight(constant: 800)
         v.constrainWidth(constant: view.frame.width)
         return v
     }()
@@ -28,8 +28,8 @@ class DoctorProfileVC: CustomBaseViewVC {
         return v
     }()
     
-  
     
+    //MARK:-User methods
     
     override func setupNavigation()  {
         navigationController?.navigationBar.isHide(true)

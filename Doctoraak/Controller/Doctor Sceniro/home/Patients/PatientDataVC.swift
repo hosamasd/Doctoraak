@@ -32,10 +32,11 @@ class PatientDataVC: CustomBaseViewVC {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupViews()
-        setupNavigation()
+       
     }
     
+    
+    //MARK:-User methods
     
     override func setupNavigation()  {
         navigationController?.navigationBar.isHide(true)

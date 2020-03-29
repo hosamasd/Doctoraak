@@ -33,6 +33,8 @@ class HomeLeftMenuCollcetionVC: BaseCollectionVC {
         return .init(width: view.frame.width, height: 100)
     }
     
+     //TODO: -handle methods
+    
     override func setupCollection() {
         collectionView.backgroundColor = .white
         collectionView.register(DoctorLeftMenuCell.self, forCellWithReuseIdentifier: cellId)

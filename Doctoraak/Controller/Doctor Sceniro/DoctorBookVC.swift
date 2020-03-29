@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DoctorBookVC: UIViewController {
+class DoctorBookVC: CustomBaseViewVC {
     
     lazy var scrollView: UIScrollView = {
         let v = UIScrollView()
@@ -29,16 +29,16 @@ class DoctorBookVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupViews()
-        setupNavigation()
+        
     }
     
+    //MARK:-User methods
     
-    func setupNavigation()  {
+    override  func setupNavigation()  {
         navigationController?.navigationBar.isHide(true)
     }
     
-    func setupViews()  {
+    override func setupViews()  {
         view.backgroundColor = .white
         
         view.addSubview(scrollView)

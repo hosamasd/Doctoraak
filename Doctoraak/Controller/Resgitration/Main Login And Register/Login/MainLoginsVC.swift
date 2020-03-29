@@ -12,26 +12,26 @@ import SkyFloatingLabelTextField
 class MainLoginsVC: CustomBaseViewVC {
     
     lazy var customLoginsView:CustomLoginsView = {
-       let v = CustomLoginsView()
+        let v = CustomLoginsView()
         v.index = index
         v.phoneNumberTextField.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)
         v.passwordTextField.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)
         v.createAccountButton.addTarget(self, action: #selector(handleRegister), for: .touchUpInside)
         v.forgetPasswordButton.addTarget(self, action: #selector(handleForget), for: .touchUpInside)
         v.loginButton.addTarget(self, action: #selector(handleLogin), for: .touchUpInside)
-
+        
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
-
+        
         return v
     }()
     
     //check to go specific way
     var index:Int = 0
     
-//    var isLab,isPharamacy,isRediology,isDoctor:Int?
+    //    var isLab,isPharamacy,isRediology,isDoctor:Int?
     
     let loginViewModel = LoginViewModel ()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLoginViewModelObserver()
@@ -49,17 +49,17 @@ class MainLoginsVC: CustomBaseViewVC {
         }
         loginViewModel.bindableIsLogging.bind(observer: {  [unowned self] (isReg) in
             if isReg == true {
-//                UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
-//                SVProgressHUD.show(withStatus: "Login...".localized)
+                //                UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
+                //                SVProgressHUD.show(withStatus: "Login...".localized)
                 
             }else {
-//                SVProgressHUD.dismiss()
-//                self.activeViewsIfNoData()
+                //                SVProgressHUD.dismiss()
+                //                self.activeViewsIfNoData()
             }
         })
     }
     
-   override func setupNavigation()  {
+    override func setupNavigation()  {
         navigationController?.navigationBar.isHide(true)
     }
     
@@ -69,6 +69,7 @@ class MainLoginsVC: CustomBaseViewVC {
         customLoginsView.fillSuperview()
     }
     
+    //TODO: -handle methods
     
     @objc func textFieldDidChange(text: UITextField)  {
         loginViewModel.index = index
@@ -97,14 +98,14 @@ class MainLoginsVC: CustomBaseViewVC {
         }
     }
     
-  @objc  func handleRegister()  {
+    @objc  func handleRegister()  {
         let register = MainRegisterVC()
         register.index = index
         navigationController?.pushViewController(register, animated: true)
         
     }
     
-  @objc  func handleLogin()  {
+    @objc  func handleLogin()  {
         print("login")
     }
     
@@ -117,5 +118,5 @@ class MainLoginsVC: CustomBaseViewVC {
     @objc func handleBack()  {
         navigationController?.popToRootViewController(animated: true)
     }
-
+    
 }

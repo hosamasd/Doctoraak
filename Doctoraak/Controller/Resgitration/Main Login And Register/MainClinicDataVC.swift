@@ -35,7 +35,7 @@ class MainClinicDataVC: CustomBaseViewVC {
         v.consultationFeesTextField.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)
         v.clinicWorkingHoursTextField.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleChooseWorkingHours)))
         v.clinicEditProfileImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpenGallery)))
-
+        
         //        v.cityDrop.addTarget(self, action: #selector(handleMulti), for: .touchUpInside)
         return v
     }()
@@ -47,7 +47,7 @@ class MainClinicDataVC: CustomBaseViewVC {
         super.viewDidLoad()
         setupViewModelObserver()
         customClinicDataView.clinicWorkingHoursTextField.inputAccessoryView = UIView()
-
+        
     }
     
     //MARK:-User methods
@@ -71,7 +71,7 @@ class MainClinicDataVC: CustomBaseViewVC {
             }
         })
     }
-   
+    
     
     override  func setupNavigation()  {
         navigationController?.navigationBar.isHide(true)
@@ -90,6 +90,8 @@ class MainClinicDataVC: CustomBaseViewVC {
         
         
     }
+    
+    //TODO: -handle methods
     
     @objc func handleBack()  {
         navigationController?.popViewController(animated: true)
@@ -120,7 +122,7 @@ class MainClinicDataVC: CustomBaseViewVC {
         clinicDataViewModel.city = "dd"
         clinicDataViewModel.area = "cc"
         clinicDataViewModel.workingHours = ["dsfds"]
-//        registerViewModel.insurance = "asd"
+        //        registerViewModel.insurance = "asd"
         guard let texts = text.text else { return  }
         if let floatingLabelTextField = text as? SkyFloatingLabelTextField {
             if text == customClinicDataView.clinicMobileNumberTextField {
@@ -175,15 +177,15 @@ class MainClinicDataVC: CustomBaseViewVC {
                 }
                 
             }else {
-//                if (texts.count < 3 ) {
-//                    floatingLabelTextField.errorMessage = "Invalid working hours".localized
-//                    registerViewModel.hours = nil
-//                }
-//                else {
-//
-//                    registerViewModel.hours = texts
-//                    floatingLabelTextField.errorMessage = ""
-//                }
+                //                if (texts.count < 3 ) {
+                //                    floatingLabelTextField.errorMessage = "Invalid working hours".localized
+                //                    registerViewModel.hours = nil
+                //                }
+                //                else {
+                //
+                //                    registerViewModel.hours = texts
+                //                    floatingLabelTextField.errorMessage = ""
+                //                }
             }
         }
     }

@@ -23,6 +23,7 @@ class DoctorHomeVC: CustomBaseViewVC {
         setupNavigation()
     }
     
+    //MARK:-User methods
     
     override func setupNavigation()  {
         navigationController?.navigationBar.isHide(true)
@@ -35,5 +36,5 @@ class DoctorHomeVC: CustomBaseViewVC {
         customDoctorHomeView.fillSuperview()
         
     }
-
+    
 }

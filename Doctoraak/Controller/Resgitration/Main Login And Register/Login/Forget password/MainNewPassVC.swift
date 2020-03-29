@@ -62,6 +62,8 @@ class MainNewPassVC: CustomBaseViewVC {
         
     }
     
+      //TODO: -handle methods
+    
     @objc func textFieldDidChange(text: UITextField)  {
         newPassViewModel.index = index
         guard let texts = text.text else { return  }

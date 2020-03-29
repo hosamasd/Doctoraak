@@ -23,6 +23,7 @@ class HomeLeftMenuVC: CustomBaseViewVC {
         setupNavigation()
     }
     
+      //MARK: -user methods
     
     override func setupNavigation()  {
         navigationController?.navigationBar.isHide(true)
@@ -33,10 +34,9 @@ class HomeLeftMenuVC: CustomBaseViewVC {
         
         view.addSubview(customMainHomeLeftView)
         customMainHomeLeftView.fillSuperview()
-        
-        
-        
     }
+  
+     //TODO: -handle methods
     
     @objc func handleOne()  {
         print(9999999)

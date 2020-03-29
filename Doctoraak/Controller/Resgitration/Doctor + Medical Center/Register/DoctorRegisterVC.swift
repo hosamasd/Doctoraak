@@ -82,6 +82,8 @@ class DoctorRegisterVC: CustomBaseViewVC {
         customRegisterView.fillSuperview()
     }
     
+    //TODO: -handle methods
+    
     @objc func handleGirl(sender:UIButton)  {
         if sender.backgroundColor == nil {
             doctorRegisterViewModel.male = false;return

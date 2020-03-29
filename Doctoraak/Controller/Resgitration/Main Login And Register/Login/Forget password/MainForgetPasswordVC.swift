@@ -21,7 +21,7 @@ class MainForgetPasswordVC: CustomBaseViewVC {
     }()
     
     var index:Int = 0
-    let paymentViewModel = PaymentViewModel()
+    let forgetPassViewModel = ForgetPassViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,14 +31,14 @@ class MainForgetPasswordVC: CustomBaseViewVC {
     //MARK:-User methods
     
     func setupViewModelObserver()  {
-        paymentViewModel.bindableIsFormValidate.bind { [unowned self] (isValidForm) in
+        forgetPassViewModel.bindableIsFormValidate.bind { [unowned self] (isValidForm) in
             guard let isValid = isValidForm else {return}
             //            self.customLoginView.loginButton.isEnabled = isValid
             
             self.changeButtonState(enable: isValid, vv: self.customMainForgetPassView.nextButton)
         }
         
-        paymentViewModel.bindableIsLogging.bind(observer: {  [unowned self] (isReg) in
+        forgetPassViewModel.bindableIsLogging.bind(observer: {  [unowned self] (isReg) in
             if isReg == true {
                 //                UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
                 //                SVProgressHUD.show(withStatus: "Login...".localized)
@@ -60,20 +60,22 @@ class MainForgetPasswordVC: CustomBaseViewVC {
         
     }
     
+    //TODO: -handle methods
+    
     @objc func textFieldDidChange(text: UITextField)  {
-        paymentViewModel.index = index
+        forgetPassViewModel.index = index
         guard let texts = text.text else { return  }
         if let floatingLabelTextField = text as? SkyFloatingLabelTextField {
-                if  !texts.isValidPhoneNumber    {
-                    floatingLabelTextField.errorMessage = "Invalid   Phone".localized
-                    paymentViewModel.vodafoneVode = nil
-                }
-                else {
-                    floatingLabelTextField.errorMessage = ""
-                    paymentViewModel.vodafoneVode = texts
-                }
+            if  !texts.isValidPhoneNumber    {
+                floatingLabelTextField.errorMessage = "Invalid   Phone".localized
+                forgetPassViewModel.phone = nil
+            }
+            else {
+                floatingLabelTextField.errorMessage = ""
+                forgetPassViewModel.phone = texts
+            }
             
-           
+            
         }
     }
     

@@ -136,7 +136,7 @@ class CustomDoctorProfileView: CustomBaseView {
         subView.constrainHeight(constant: 100)
         doctorEditProfileImageView.anchor(top: nil, leading: nil, bottom: doctorProfileImage.bottomAnchor, trailing: doctorProfileImage.trailingAnchor,padding: .init(top: 0, left:0 , bottom:10, right: 10))
         
-        let textStack = getStack(views: addressTextField,emailTextField,phoneTextField,cVTextField,waitingHoursTextField, spacing: 16, distribution: .fillEqually, axis: .vertical)
+        let textStack = getStack(views: addressTextField,emailTextField,phoneTextField,cVTextField,waitingHoursTextField, spacing: 24, distribution: .fillEqually, axis: .vertical)
     
         addSubViews(views: LogoImage,listImage,notifyImage,titleLabel,subView,textStack,nextButton)
         
@@ -155,7 +155,7 @@ class CustomDoctorProfileView: CustomBaseView {
 //        insuranceDrop.anchor(top: textStack.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 0, right: 32))
         
         
-        nextButton.anchor(top: textStack.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 32, left: 32, bottom: 16, right: 32))
+        nextButton.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 32, left: 32, bottom: 16, right: 32))
         
     }
 }

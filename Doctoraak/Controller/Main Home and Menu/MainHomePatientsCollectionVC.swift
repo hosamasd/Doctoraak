@@ -1,15 +1,14 @@
 //
-//  DoctorHomeCollectionVC.swift
+//  MainHomePatientsCollectionVC.swift
 //  Doctoraak
 //
-//  Created by hosam on 3/25/20.
+//  Created by hosam on 3/28/20.
 //  Copyright © 2020 Ahmad Eisa. All rights reserved.
 //
 
 import UIKit
 
-class DoctorHomePatientsCollectionVC: BaseCollectionVC {
-    
+class MainHomePatientsCollectionVC: BaseCollectionVC     {
     
     fileprivate let cellId = "cellId"
     
@@ -18,7 +17,7 @@ class DoctorHomePatientsCollectionVC: BaseCollectionVC {
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! DoctorHomePatientsCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! MainHomePatientsCell
         
         return cell
     }
@@ -29,11 +28,11 @@ class DoctorHomePatientsCollectionVC: BaseCollectionVC {
         return .init(width: view.frame.width, height: 110)
     }
     
-    //MARK:-User methods
+      //MARK: -user methods
     
     override func setupCollection() {
         collectionView.showsVerticalScrollIndicator = false
         collectionView.backgroundColor = .white
-        collectionView.register(DoctorHomePatientsCell.self, forCellWithReuseIdentifier: cellId)
+        collectionView.register(MainHomePatientsCell.self, forCellWithReuseIdentifier: cellId)
     }
 }

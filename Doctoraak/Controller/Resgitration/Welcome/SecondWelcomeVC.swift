@@ -20,6 +20,7 @@ class SecondWelcomeVC: CustomBaseViewVC {
     //check to go specific way
     var index:Int = 0
     
+    //MARK: -user methods
     
     override func setupViews() {
         view.addSubview(customSecondWelcomeView)
@@ -45,6 +46,8 @@ class SecondWelcomeVC: CustomBaseViewVC {
         
         navigationController?.pushViewController( vc, animated: true)
     }
+    
+    //TODO: -handle methods
     
     @objc func handleLogin()  {
         goToLoginNextVC(index: index )

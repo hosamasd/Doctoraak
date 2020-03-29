@@ -25,9 +25,11 @@ class SecondRegisterVC: CustomBaseViewVC {
     lazy var customCecondRegisterView:CustomCecondRegisterView = {
         let v = CustomCecondRegisterView()
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
-
+        
         return v
     }()
+    
+    //MARK:-User methods
     
     override func setupNavigation()  {
         navigationController?.navigationBar.isHide(true)
@@ -42,8 +44,9 @@ class SecondRegisterVC: CustomBaseViewVC {
         customCecondRegisterView.fillSuperview()
     }
     
+    //TODO: -handle methods
     
-   @objc func handleBack()  {
+    @objc func handleBack()  {
         navigationController?.popViewController(animated: true)
     }
 }

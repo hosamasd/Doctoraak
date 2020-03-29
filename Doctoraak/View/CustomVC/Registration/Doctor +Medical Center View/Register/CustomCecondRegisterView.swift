@@ -132,7 +132,6 @@ class CustomCecondRegisterView: CustomBaseView {
         b.setTitleColor(#colorLiteral(red: 0.5999417901, green: 0.821531117, blue: 0.8872718215, alpha: 1), for: .normal)
         b.underline()
         b.constrainHeight(constant: 50)
-//        b.addTarget(self, action: #selector(handleC), for: <#T##UIControl.Event#>)
         return b
     }()
     

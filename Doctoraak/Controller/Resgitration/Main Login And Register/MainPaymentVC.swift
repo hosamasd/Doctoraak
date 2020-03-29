@@ -73,6 +73,8 @@ class MainPaymentVC: CustomBaseViewVC {
         }
     }
     
+    //TODO: -handle methods
+    
     @objc func textFieldDidChange(text: UITextField)  {
         paymentViewModel.index = index
         guard let texts = text.text else { return  }

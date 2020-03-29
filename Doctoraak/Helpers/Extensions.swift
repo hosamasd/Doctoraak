@@ -7,32 +7,8 @@
 //
 
 import UIKit
-import RSSelectionMenu
  extension UIView {
     
-    func showBottomSheet(fromBarButton barButton: UIButton) {
-        let dataArray = ["Sachin Tendulkar", "Rahul Dravid", "Saurav Ganguli", "Virat Kohli", "Suresh Raina", "Ravindra Jadeja", "Chris Gyle", "Steve Smith", "Anil Kumble"]
-        
-        /// Register custom cell class
-        
-        let menu = RSSelectionMenu(dataSource: dataArray) { (cell, i, index) in
-            print(cell,i,index)
-        }
-        
-        
-        // Unique property in BottomSheetAction
-        menu.uniquePropertyName = "title"
-        
-        // on selection
-        
-        
-        // customization
-        menu.tableView?.rowHeight = 50
-        menu.tableView?.isScrollEnabled = false
-        
-        // height
-        menu.showBottomSheet(fromBarButton: barButton)
-    }
     
     func createMainButtons(title:String,color:UIColor,tags : Int? = 0) -> UIButton {
         let button = UIButton(type: .system)
@@ -60,32 +36,6 @@ import RSSelectionMenu
       
         
        
-    }
-    
-    // OUTPUT 1
-    func dropShadow(scale: Bool = true) {
-        layer.masksToBounds = false
-        layer.shadowColor = UIColor.black.cgColor
-        layer.shadowOpacity = 0.5
-        layer.shadowOffset = CGSize(width: -1, height: 1)
-        layer.shadowRadius = 1
-        
-        layer.shadowPath = UIBezierPath(rect: bounds).cgPath
-        layer.shouldRasterize = true
-        layer.rasterizationScale = scale ? UIScreen.main.scale : 1
-    }
-    
-    // OUTPUT 2
-    func dropShadow(color: UIColor, opacity: Float = 0.5, offSet: CGSize, radius: CGFloat = 1, scale: Bool = true) {
-        layer.masksToBounds = false
-        layer.shadowColor = color.cgColor
-        layer.shadowOpacity = opacity
-        layer.shadowOffset = offSet
-        layer.shadowRadius = radius
-        
-        layer.shadowPath = UIBezierPath(rect: self.bounds).cgPath
-        layer.shouldRasterize = true
-        layer.rasterizationScale = scale ? UIScreen.main.scale : 1
     }
     
     func createMainTextFields(padding:CGFloat? = 16,place:String,type:UIKeyboardType? = .emailAddress,secre:Bool? = false) -> UITextField {

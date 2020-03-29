@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
          keyboardChanges()
         window = UIWindow()
         window?.makeKeyAndVisible()
-        window?.rootViewController =   UINavigationController(rootViewController:DoctorProfileVC())
+        window?.rootViewController =   UINavigationController(rootViewController:WelcomeMainSecondVC())
         return true
     }
 

@@ -11,23 +11,19 @@ import UIKit
 
 class BaseSlidingVC: UIViewController {
     
-    fileprivate let velocityThreshold: CGFloat = 500
-    fileprivate let menuWidth:CGFloat = 300
-    fileprivate var isMenuOpen:Bool = false
-    var redViewTrailingConstraint: NSLayoutConstraint!
-    var redViewLeadingConstarint:NSLayoutConstraint!
     
-    let redView:UIView = {
+    
+    lazy var redView:UIView = {
         let v = UIView()
         v.translatesAutoresizingMaskIntoConstraints = false
         return v
     }()
-    let blueView:UIView = {
+    lazy var blueView:UIView = {
         let v = UIView(backgroundColor: .blue)
         v.translatesAutoresizingMaskIntoConstraints = false
         return v
     }()
-    let darkCoverView: UIView = {
+    lazy var darkCoverView: UIView = {
         let v = UIView()
         v.backgroundColor = UIColor(white: 0, alpha: 0.7)
         v.alpha = 0
@@ -36,8 +32,12 @@ class BaseSlidingVC: UIViewController {
     }()
     
     //     var rightViewController: UIViewController = UINavigationController(rootViewController: HomeVC())
-    var rightViewController: UIViewController = UINavigationController(rootViewController: DoctorHomeVC())
-    
+    lazy var rightViewController: UIViewController = UINavigationController(rootViewController: DoctorHomeVC())
+    fileprivate let velocityThreshold: CGFloat = 500
+    fileprivate let menuWidth:CGFloat = 300
+    fileprivate var isMenuOpen:Bool = false
+    var redViewTrailingConstraint: NSLayoutConstraint!
+    var redViewLeadingConstarint:NSLayoutConstraint!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,7 +55,7 @@ class BaseSlidingVC: UIViewController {
     
     //MARK: -user methods
     
-    func setupViews()  {
+    fileprivate func setupViews()  {
         view.backgroundColor = .red
         view.addSubViews(views: redView,blueView)
         
@@ -78,13 +78,13 @@ class BaseSlidingVC: UIViewController {
         
     }
     
-    func setupGesture()  {
+    fileprivate func setupGesture()  {
         let pan = UIPanGestureRecognizer(target: self, action: #selector(handlePaneed))
         //        pan.delegate = self
         view.addGestureRecognizer(pan)
     }
     
-    func setupViewControllers()  {
+    fileprivate func setupViewControllers()  {
         let homeView = rightViewController.view!
         
         //        let menuVC = MenuVC()
@@ -144,28 +144,6 @@ class BaseSlidingVC: UIViewController {
         
         performRightViewCleanUp()
         closeMenu()
-        print(5645)
-//        switch index.row {
-//        case 0:
-//            rightViewController = UINavigationController(rootViewController: HomeVC())
-//        case 1:
-//            rightViewController = UINavigationController(rootViewController: ListVC())
-//        case 2:
-//            rightViewController = BookmarkVC()
-//        default:
-//
-//            let tabBarController = UITabBarController()
-//            let momentsController = UIViewController()
-//            momentsController.navigationItem.title = "Moments"
-//            momentsController.view.backgroundColor = .orange
-//            let navController = UINavigationController(rootViewController: momentsController)
-//            navController.tabBarItem.title = "Moments"
-//            tabBarController.viewControllers = [navController]
-//            rightViewController = tabBarController
-//        }
-//        redView.addSubview(rightViewController.view)
-//        addChild(rightViewController)
-//        redView.bringSubviewToFront(darkCoverView)
         
     }
     
