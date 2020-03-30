@@ -1,14 +1,14 @@
 //
-//  CustomMainHomeView.swift
+//  DoctorHeaderNotificationCell.swift
 //  Doctoraak
 //
-//  Created by hosam on 3/28/20.
+//  Created by hosam on 3/25/20.
 //  Copyright © 2020 Ahmad Eisa. All rights reserved.
 //
 
 import UIKit
 
-class CustomMainHomeView: CustomBaseView {
+class CustomMainDoctorNotificationView: CustomBaseView {
     
     lazy var LogoImage:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "Group 4116"))
@@ -19,40 +19,36 @@ class CustomMainHomeView: CustomBaseView {
         let i = UIImageView(image: #imageLiteral(resourceName: "ic_subject_24px"))
         i.constrainWidth(constant: 30)
         i.constrainHeight(constant: 30)
+        i.isUserInteractionEnabled = true
         return i
     }()
     lazy var notifyImage:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "ic_notifications_active_24px"))
         i.constrainWidth(constant: 30)
         i.constrainHeight(constant: 30)
+        i.isUserInteractionEnabled = true
         return i
     }()
-    lazy var titleLabel = UILabel(text: "Home", font: .systemFont(ofSize: 30), textColor: .white)
-    
-    lazy var topMainHomeCell = TopMainHomeCell()
-   
-    lazy var mainHomePatientsCollectionVC:MainHomePatientsCollectionVC = {
-       let vc = MainHomePatientsCollectionVC()
-        vc.handleSelectedIndex = {[unowned self] indexPath in
-            self.handleSelectedIndex?(indexPath)
-        }
-        return vc
+    lazy var sampleRosetaImage:UIImageView = {
+        let i = UIImageView(image: #imageLiteral(resourceName: "G4-G5 Sample Rx"))
+        i.contentMode = .scaleAspectFill
+        return i
     }()
-    
-    var handleSelectedIndex:((IndexPath)->Void)?
-    
+    lazy var titleLabel = UILabel(text: "Notification", font: .systemFont(ofSize: 30), textColor: .white)
+    lazy var doctorNotificationsVC:DoctorNotificationsVC = {
+        let v = DoctorNotificationsVC()
+        
+        return v
+    }()
     
     override func setupViews() {
         
-        addSubViews(views: LogoImage,listImage,notifyImage,titleLabel,topMainHomeCell,mainHomePatientsCollectionVC.view)
+        addSubViews(views: LogoImage,listImage,notifyImage,titleLabel,doctorNotificationsVC.view)
+        //        addSubViews(views: LogoImage,backImage,titleLabel,doctorHomePatientsCell,ss)//,ss,docotrCollectionView.view)
         
         LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
         listImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 60, left: 16, bottom: 0, right: 0))
-        notifyImage.anchor(top: topAnchor, leading: nil, bottom: nil, trailing: trailingAnchor,padding: .init(top: 60, left: 0, bottom: 0, right: 16))
+                notifyImage.anchor(top: topAnchor, leading: nil, bottom: nil, trailing: trailingAnchor,padding: .init(top: 60, left: 0, bottom: 0, right: 16))
         titleLabel.anchor(top: nil, leading: leadingAnchor, bottom: LogoImage.bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
-        topMainHomeCell.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 16, left: 46, bottom: 0, right: 32))
-        
-        mainHomePatientsCollectionVC.view.anchor(top: topMainHomeCell.bottomAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 16, left: 46, bottom: 8, right: 32))
-        
-    }
-}
+        doctorNotificationsVC.view.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 128, left: 32, bottom: 16, right: 32))
+   }}

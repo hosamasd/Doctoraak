@@ -11,6 +11,7 @@ import UIKit
 class MainHomePatientsCollectionVC: BaseCollectionVC     {
     
     fileprivate let cellId = "cellId"
+     var handleSelectedIndex:((IndexPath)->Void)?
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 10
@@ -20,6 +21,10 @@ class MainHomePatientsCollectionVC: BaseCollectionVC     {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! MainHomePatientsCell
         
         return cell
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        handleSelectedIndex?(indexPath)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

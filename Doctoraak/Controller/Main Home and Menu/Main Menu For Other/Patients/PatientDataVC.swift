@@ -25,6 +25,7 @@ class PatientDataVC: CustomBaseViewVC {
     }()
     lazy var customPatientDataView:CustomPatientDataView = {
         let v = CustomPatientDataView()
+        v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
         return v
     }()
     var index:Int? = 0
@@ -54,5 +55,11 @@ class PatientDataVC: CustomBaseViewVC {
         
         
         
+    }
+    
+    //TODO:-Handle methods
+    
+ @objc   func handleBack()  {
+        navigationController?.popViewController(animated: true)
     }
 }

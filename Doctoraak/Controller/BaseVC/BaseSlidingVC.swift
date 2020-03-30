@@ -32,7 +32,7 @@ class BaseSlidingVC: UIViewController {
     }()
     
     //     var rightViewController: UIViewController = UINavigationController(rootViewController: HomeVC())
-    lazy var rightViewController: UIViewController = UINavigationController(rootViewController: DoctorHomeVC())
+    lazy var rightViewController: UIViewController = UINavigationController(rootViewController: MainDoctorNotificationVC())
     fileprivate let velocityThreshold: CGFloat = 500
     fileprivate let menuWidth:CGFloat = 300
     fileprivate var isMenuOpen:Bool = false
