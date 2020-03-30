@@ -92,7 +92,13 @@ class CustomMainHomeLeftView: CustomBaseView {
 //        s.constrainHeight(constant: 60)
 //        return s
 //    }()
-    lazy var homeLeftMenuTableVC  = HomeLeftMenuCollcetionVC()
+    lazy var homeLeftMenuTableVC:HomeLeftMenuCollcetionVC  =  {
+        let vc = HomeLeftMenuCollcetionVC()
+        vc.handleCheckedIndex = {[unowned self ] index in
+            self.handleCheckedIndex?(index)
+        }
+        return vc
+    }()
     lazy var Image8:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "icon2"))
         i.constrainWidth(constant: 30)
@@ -105,6 +111,9 @@ class CustomMainHomeLeftView: CustomBaseView {
         s.constrainHeight(constant: 60)
         return s
     }()
+    
+    var handleCheckedIndex:((IndexPath)->Void)? 
+    
     
     override func setupViews() {
         addSubViews(views: LogoImage,userImage,userNameLabel,userSpecificationLabel,homeLeftMenuTableVC.view,first8Stack)

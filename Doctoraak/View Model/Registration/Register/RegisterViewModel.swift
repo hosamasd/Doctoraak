@@ -23,6 +23,7 @@ class RegisterViewModel {
     var password:String? {didSet {checkFormValidity()}}
     var confirmPassword:String? {didSet {checkFormValidity()}}
     var hours:String? {didSet {checkFormValidity()}}
+    
       var insurance:String? {didSet {checkFormValidity()}}
     var delivery:Bool? = true {didSet {checkFormValidity()}}
     var index:Int? = -1 {didSet {checkFormValidity()}}

@@ -68,6 +68,7 @@
 		4EA112BE2429E94B005B64E3 /* ExtensionUivew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA112BD2429E94B005B64E3 /* ExtensionUivew.swift */; };
 		4EA5379424264090000AE7AD /* DeatilsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA5379324264090000AE7AD /* DeatilsVC.swift */; };
 		4EA53797242645E8000AE7AD /* CustomDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA53796242645E8000AE7AD /* CustomDetailsView.swift */; };
+		4EA8B1232430E895008473D3 /* DoctorEdirProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA8B1222430E895008473D3 /* DoctorEdirProfileViewModel.swift */; };
 		4EA8D6D7242F3189004F043B /* ClinicDataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA8D6D6242F3189004F043B /* ClinicDataViewModel.swift */; };
 		4EA94B99242F5F7E001C4650 /* MainHomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA94B98242F5F7E001C4650 /* MainHomeVC.swift */; };
 		4EA94B9B242F5FB6001C4650 /* CustomMainHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA94B9A242F5FB6001C4650 /* CustomMainHomeView.swift */; };
@@ -157,6 +158,7 @@
 		4EA112BD2429E94B005B64E3 /* ExtensionUivew.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ExtensionUivew.swift; path = "../../../../ios tutorial/ExtensionUivew.swift"; sourceTree = "<group>"; };
 		4EA5379324264090000AE7AD /* DeatilsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeatilsVC.swift; sourceTree = "<group>"; };
 		4EA53796242645E8000AE7AD /* CustomDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDetailsView.swift; sourceTree = "<group>"; };
+		4EA8B1222430E895008473D3 /* DoctorEdirProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorEdirProfileViewModel.swift; sourceTree = "<group>"; };
 		4EA8D6D6242F3189004F043B /* ClinicDataViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClinicDataViewModel.swift; sourceTree = "<group>"; };
 		4EA94B98242F5F7E001C4650 /* MainHomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainHomeVC.swift; sourceTree = "<group>"; };
 		4EA94B9A242F5FB6001C4650 /* CustomMainHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMainHomeView.swift; sourceTree = "<group>"; };
@@ -487,6 +489,7 @@
 			children = (
 				4EA112B42429E4DB005B64E3 /* Bindable.swift */,
 				4EA112B62429E52E005B64E3 /* Registration */,
+				4EA8B1222430E895008473D3 /* DoctorEdirProfileViewModel.swift */,
 			);
 			path = "View Model";
 			sourceTree = "<group>";
@@ -817,6 +820,7 @@
 				4E92AF6C242B717200BCF20E /* CustomMainHomeLeftView.swift in Sources */,
 				4EC977F7242B54D000C61F1B /* TopDoctorHomeCell.swift in Sources */,
 				4E333E0F2426607E00F82E00 /* BaseCollectionVC.swift in Sources */,
+				4EA8B1232430E895008473D3 /* DoctorEdirProfileViewModel.swift in Sources */,
 				4EA112BC2429E612005B64E3 /* SMSCodeViewModel.swift in Sources */,
 				4EAE7986242C7E1B00A2E20F /* CustomBaseView.swift in Sources */,
 				4EC8DDAB242A346500CEC5DF /* PaymentViewModel.swift in Sources */,

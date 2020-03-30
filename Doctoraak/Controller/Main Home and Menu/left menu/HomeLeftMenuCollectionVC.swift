@@ -13,6 +13,9 @@ class HomeLeftMenuVC: CustomBaseViewVC {
   
     lazy var customMainHomeLeftView:CustomMainHomeLeftView = {
         let v = CustomMainHomeLeftView()
+        v.handleCheckedIndex = {[unowned self] index in
+            print(index.item)
+        }
 //        v.firstStack.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOne)))
         return v
     }()
@@ -22,6 +25,8 @@ class HomeLeftMenuVC: CustomBaseViewVC {
         setupViews()
         setupNavigation()
     }
+    
+    
     
       //MARK: -user methods
     
@@ -36,6 +41,7 @@ class HomeLeftMenuVC: CustomBaseViewVC {
         customMainHomeLeftView.fillSuperview()
     }
   
+    
      //TODO: -handle methods
     
     @objc func handleOne()  {

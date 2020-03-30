@@ -145,6 +145,29 @@ class BaseSlidingVC: UIViewController {
         performRightViewCleanUp()
         closeMenu()
         
+//        switch index.row {
+//        case 0:
+//            rightViewController = UINavigationController(rootViewController: HomeVC())
+//        case 1:
+//            rightViewController = UINavigationController(rootViewController: ListVC())
+//        case 2:
+//            rightViewController = BookmarkVC()
+//        default:
+//            
+//            let tabBarController = UITabBarController()
+//            let momentsController = UIViewController()
+//            momentsController.navigationItem.title = "Moments"
+//            momentsController.view.backgroundColor = .orange
+//            let navController = UINavigationController(rootViewController: momentsController)
+//            navController.tabBarItem.title = "Moments"
+//            tabBarController.viewControllers = [navController]
+//            rightViewController = tabBarController
+//        }
+//        redView.addSubview(rightViewController.view)
+//        addChild(rightViewController)
+//        redView.bringSubviewToFront(darkCoverView)
+
+        
     }
     
     func performRightViewCleanUp()  {

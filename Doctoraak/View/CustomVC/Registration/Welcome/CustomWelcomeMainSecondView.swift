@@ -39,7 +39,6 @@ class CustomWelcomeMainSecondView: CustomBaseView {
         v.layer.borderWidth = 1
         v.layer.borderColor = UIColor.lightGray.cgColor
         v.clipsToBounds = true
-//        v.constrainHeight(constant: 80)
         v.addSubViews(views: Image2,label2)
         return v
     }()
@@ -49,7 +48,6 @@ class CustomWelcomeMainSecondView: CustomBaseView {
         v.layer.borderWidth = 1
         v.layer.borderColor = UIColor.lightGray.cgColor
         v.clipsToBounds = true
-//        v.constrainHeight(constant: 80)
         v.addSubViews(views: Image3,label3)
         return v
     }()

@@ -17,6 +17,9 @@ class HomeLeftMenuCollcetionVC: BaseCollectionVC {
     
     fileprivate let cellId = "cellId"
     
+    var handleCheckedIndex:((IndexPath)->Void)?
+
+    
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return deatas.count
     }
@@ -26,6 +29,11 @@ class HomeLeftMenuCollcetionVC: BaseCollectionVC {
         cell.Image6.image = images[indexPath.item]
         cell.Label6.text = deatas[indexPath.item]
         return cell
+    }
+    
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        handleCheckedIndex?(indexPath)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
