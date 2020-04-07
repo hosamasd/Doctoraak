@@ -15,7 +15,7 @@ class MainLoginsVC: CustomBaseViewVC {
         v.loginButton.addTarget(self, action: #selector(handleLogin), for: .touchUpInside)
         
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
-        
+        v.forgetPasswordButton.addTarget(self, action: #selector(handleForget), for: .touchUpInside)
         return v
     }()
     
@@ -88,7 +88,8 @@ class MainLoginsVC: CustomBaseViewVC {
     @objc func handleBack()  {
         navigationController?.popToRootViewController(animated: true)
     }
-    
+   
+   
     
     
 }

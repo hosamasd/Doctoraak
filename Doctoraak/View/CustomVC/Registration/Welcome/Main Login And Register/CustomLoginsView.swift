@@ -59,7 +59,7 @@ class CustomLoginsView: CustomBaseView {
        
         button.constrainHeight(constant: 50)
         button.clipsToBounds = true
-        button.isEnabled = false
+//        button.isEnabled = false
         return button
     }()
     lazy var createAccountLabel = UILabel(text: "Don't have an account ? ".localized, font: .systemFont(ofSize: 16), textColor: .black)

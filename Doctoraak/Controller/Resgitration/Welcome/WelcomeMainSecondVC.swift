@@ -23,7 +23,7 @@ class WelcomeMainSecondVC: CustomBaseViewVC {
     }()
     
     lazy var views = [
-     customWelcomeMainSecondView.main2View,customWelcomeMainSecondView.main3View,customWelcomeMainSecondView.main4View,customWelcomeMainSecondView.main5View,customWelcomeMainSecondView.mainFirstView
+        customWelcomeMainSecondView.main2View,customWelcomeMainSecondView.main3View,customWelcomeMainSecondView.main4View,customWelcomeMainSecondView.main5View,customWelcomeMainSecondView.mainFirstView
     ]
     
     override func viewWillAppear(_ animated: Bool) {
@@ -46,44 +46,41 @@ class WelcomeMainSecondVC: CustomBaseViewVC {
     fileprivate func setupAnimation()  {
         views.forEach({$0.alpha = 1})
         let translateButtons = CGAffineTransform.init(translationX: -1000, y: 0)
-         let translatesButtons = CGAffineTransform.init(translationX: 1000, y: 0)
+        let translatesButtons = CGAffineTransform.init(translationX: 1000, y: 0)
         [customWelcomeMainSecondView.mainFirstView,customWelcomeMainSecondView.main3View,customWelcomeMainSecondView.main5View].forEach({$0.transform = translateButtons})
-       [customWelcomeMainSecondView.main2View,customWelcomeMainSecondView.main4View].forEach({$0.transform = translatesButtons})
+        [customWelcomeMainSecondView.main2View,customWelcomeMainSecondView.main4View].forEach({$0.transform = translatesButtons})
         UIView.animate(withDuration: 0.7, delay: 0.6 * 1.3, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.1, options: .curveEaseInOut, animations: {
             self.views.forEach({$0.transform = .identity})
-        
+            
         })
     }
     
     //TODO: -handle methods
     
     @objc func handleMedicalCenter()  {
-        let secondwelcome = SecondWelcomeVC()
-        secondwelcome.index = 0
+        let secondwelcome = SecondWelcomeVC(inde: 0)
         navigationController?.pushViewController(secondwelcome, animated: true)
     }
     
     @objc func handleDoctor()  {
-        let secondwelcome = SecondWelcomeVC()
-        secondwelcome.index = 1
+        let secondwelcome = SecondWelcomeVC(inde: 1)
         navigationController?.pushViewController(secondwelcome, animated: true)
     }
     
     @objc func handleLab()  {
-        let secondwelcome = SecondWelcomeVC()
-        secondwelcome.index = 2
-        navigationController?.pushViewController(secondwelcome, animated: true)
-    }
-    
-    @objc func handlePharamacy()  {
-        let secondwelcome = SecondWelcomeVC()
-        secondwelcome.index = 4
+        let secondwelcome = SecondWelcomeVC(inde: 2)
         navigationController?.pushViewController(secondwelcome, animated: true)
     }
     
     @objc func handleRadiology()  {
-        let secondwelcome = SecondWelcomeVC()
-        secondwelcome.index = 3
+        let secondwelcome = SecondWelcomeVC(inde: 3)
         navigationController?.pushViewController(secondwelcome, animated: true)
     }
+    
+    @objc func handlePharamacy()  {
+        let secondwelcome = SecondWelcomeVC(inde: 4)
+        navigationController?.pushViewController(secondwelcome, animated: true)
+    }
+    
+    
 }

@@ -27,10 +27,20 @@ class DoctorBookVC: CustomBaseViewVC {
         return v
     }()
     
+    fileprivate let index:Int!
+       init(inde:Int) {
+           self.index = inde
+           super.init(nibName: nil, bundle: nil)
+       }
+       required init?(coder: NSCoder) {
+           fatalError("init(coder:) has not been implemented")
+       }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
     }
+    
     
     //MARK:-User methods
     

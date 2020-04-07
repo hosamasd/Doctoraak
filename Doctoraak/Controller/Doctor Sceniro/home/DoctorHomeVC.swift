@@ -24,10 +24,18 @@ class DoctorHomeVC: CustomBaseViewVC {
     }()
     lazy var customDoctorHomeView:CustomDoctorHomeView = {
         let v = CustomDoctorHomeView()
+        v.listImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpenMenu)))
+
         return v
     }()
-    var index:Int? = 0
     
+    fileprivate let index:Int!
+       init(inde:Int) {
+           self.index = inde
+           super.init(nibName: nil, bundle: nil)
+       }
+       
+      
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,4 +61,13 @@ class DoctorHomeVC: CustomBaseViewVC {
         
     }
     
+    
+    @objc func handleOpenMenu()  {
+    (UIApplication.shared.keyWindow?.rootViewController as? BaseSlidingVC)?.openMenu()
+
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 }

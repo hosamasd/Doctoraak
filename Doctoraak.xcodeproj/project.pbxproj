@@ -603,8 +603,8 @@
 		4EDBE2A0242BA00000702C9A /* Doctor Sceniro */ = {
 			isa = PBXGroup;
 			children = (
-				4E5CE7AA2427545C001EE175 /* DoctorBookVC.swift */,
 				4EC977ED242B524000C61F1B /* home */,
+				4E5CE7AA2427545C001EE175 /* DoctorBookVC.swift */,
 				4E000B0B2431B750007CEC3C /* Notifications */,
 				4E75642C242F43F100A6C15F /* DoctorProfileVC.swift */,
 			);

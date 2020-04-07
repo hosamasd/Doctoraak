@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
          keyboardChanges()
         window = UIWindow()
         window?.makeKeyAndVisible()
-        window?.rootViewController =   UINavigationController(rootViewController:MainPaymentVC(indexx: 0))
+        window?.rootViewController =   BaseSlidingVC(indexx: 2)//UINavigationController(rootViewController:BaseSlidingVC(indexx: 2))
         return true
     }
 

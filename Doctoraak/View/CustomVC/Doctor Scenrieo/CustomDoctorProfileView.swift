@@ -27,6 +27,8 @@ class CustomDoctorProfileView: CustomBaseView {
         let i = UIImageView(image: #imageLiteral(resourceName: "ic_notifications_active_24px"))
         i.constrainWidth(constant: 30)
         i.constrainHeight(constant: 30)
+        i.isUserInteractionEnabled = true
+
         return i
     }()
     lazy var titleLabel = UILabel(text: "Profile", font: .systemFont(ofSize: 35), textColor: .white)

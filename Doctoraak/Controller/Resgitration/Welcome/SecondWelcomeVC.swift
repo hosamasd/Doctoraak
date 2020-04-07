@@ -18,7 +18,13 @@ class SecondWelcomeVC: CustomBaseViewVC {
     }()
     
     //check to go specific way
-    var index:Int = 0
+    fileprivate let index:Int!
+    init(inde:Int) {
+        self.index = inde
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    
     
     //MARK: -user methods
     
@@ -52,5 +58,9 @@ class SecondWelcomeVC: CustomBaseViewVC {
     
     @objc func handleRegister()  {
         goToRegisterNextVC(index: index )
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }
