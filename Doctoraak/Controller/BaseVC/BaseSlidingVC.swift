@@ -149,22 +149,22 @@ class BaseSlidingVC: UIViewController {
         
     }
     
-    func didSelectItemAtIndex(index:IndexPath)  {
+    func didSelectItemAtIndex(indexx:IndexPath)  {
         
         
         
         performRightViewCleanUp()
         closeMenu()
         
-//        switch index.row {
-//        case 0:
-//            rightViewController = UINavigationController(rootViewController: HomeVC())
+        switch indexx.row {
+        case 0:
+            rightViewController = UINavigationController(rootViewController: DoctorProfileVC())
 //        case 1:
-//            rightViewController = UINavigationController(rootViewController: ListVC())
+//            rightViewController = UINavigationController(rootViewController: DoctorNotificationsVC())
 //        case 2:
 //            rightViewController = BookmarkVC()
-//        default:
-//            
+        default:
+             rightViewController = UINavigationController(rootViewController: MainDoctorNotificationVC(inde: index))
 //            let tabBarController = UITabBarController()
 //            let momentsController = UIViewController()
 //            momentsController.navigationItem.title = "Moments"
@@ -173,10 +173,10 @@ class BaseSlidingVC: UIViewController {
 //            navController.tabBarItem.title = "Moments"
 //            tabBarController.viewControllers = [navController]
 //            rightViewController = tabBarController
-//        }
-//        redView.addSubview(rightViewController.view)
-//        addChild(rightViewController)
-//        redView.bringSubviewToFront(darkCoverView)
+        }
+        redView.addSubview(rightViewController.view)
+        addChild(rightViewController)
+        redView.bringSubviewToFront(darkCoverView)
 
         
     }

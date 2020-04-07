@@ -24,6 +24,8 @@ class MainDoctorNotificationVC: CustomBaseViewVC {
     }()
     lazy var customMainDoctorNotificationView:CustomMainDoctorNotificationView = {
         let v = CustomMainDoctorNotificationView()
+        v.listImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpenMenu)))
+
 //        v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
         return v
     }()
@@ -62,4 +64,9 @@ class MainDoctorNotificationVC: CustomBaseViewVC {
         
         
     }
+    
+    @objc func handleOpenMenu()  {
+           (UIApplication.shared.keyWindow?.rootViewController as? BaseSlidingVC)?.openMenu()
+           
+       }
 }

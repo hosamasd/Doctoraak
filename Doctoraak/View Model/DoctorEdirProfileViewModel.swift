@@ -30,7 +30,8 @@ class DoctorEdirProfileViewModel {
     }
     
     func checkFormValidity() {
-        let isFormValid = email?.isEmpty == false  &&  phone?.isEmpty == false  && address?.isEmpty == false && image != nil && hours?.isEmpty == false && cvFile?.isEmpty == false
+        let isFormValid = email?.isEmpty == false  &&  phone?.isEmpty == false  && address?.isEmpty == false && image != nil && hours?.isEmpty == false
+//            5&& cvFile?.isEmpty == false
         bindableIsFormValidate.value = isFormValid
         
     }

@@ -20,21 +20,17 @@ class DoctorProfileVC: CustomBaseViewVC {
     }()
     lazy var mainView:UIView = {
         let v = UIView(backgroundColor: .white)
-        v.constrainHeight(constant: 800)
+        v.constrainHeight(constant: 900)
         v.constrainWidth(constant: view.frame.width)
         return v
     }()
     lazy var customDoctorProfileView:CustomDoctorProfileView = {
         let v = CustomDoctorProfileView()
-        v.phoneTextField.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)
-        v.emailTextField.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)
-        v.addressTextField.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)
-        v.waitingHoursTextField.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)
+        v.cvView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpenFiles)))
         v.doctorEditProfileImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpenGallery)))
         return v
     }()
     
-    let doctorEdirProfileViewModel = DoctorEdirProfileViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,14 +40,14 @@ class DoctorProfileVC: CustomBaseViewVC {
     //MARK:-User methods
     
     func setupViewModelObserver()  {
-        doctorEdirProfileViewModel.bindableIsFormValidate.bind { [unowned self] (isValidForm) in
+        customDoctorProfileView.doctorEdirProfileViewModel.bindableIsFormValidate.bind { [unowned self] (isValidForm) in
             guard let isValid = isValidForm else {return}
             //            self.customLoginView.loginButton.isEnabled = isValid
             
             self.changeButtonState(enable: isValid, vv: self.customDoctorProfileView.nextButton)
         }
         
-        doctorEdirProfileViewModel.bindableIsResgiter.bind(observer: {  [unowned self] (isReg) in
+        customDoctorProfileView.doctorEdirProfileViewModel.bindableIsResgiter.bind(observer: {  [unowned self] (isReg) in
             if isReg == true {
                 //                UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
                 //                SVProgressHUD.show(withStatus: "Login...".localized)
@@ -84,54 +80,6 @@ class DoctorProfileVC: CustomBaseViewVC {
     
     //TODO: -handle methods
     
-    @objc func textFieldDidChange(text: UITextField)  {
-        guard let texts = text.text else { return  }
-        if let floatingLabelTextField = text as? SkyFloatingLabelTextField {
-            if text == customDoctorProfileView.phoneTextField {
-                if  !texts.isValidPhoneNumber    {
-                    floatingLabelTextField.errorMessage = "Invalid   Phone".localized
-                    doctorEdirProfileViewModel.phone = nil
-                }
-                else {
-                    floatingLabelTextField.errorMessage = ""
-                    doctorEdirProfileViewModel.phone = texts
-                }
-                
-            }else if text == customDoctorProfileView.emailTextField {
-                if  !texts.isValidEmail    {
-                    floatingLabelTextField.errorMessage = "Invalid   Email".localized
-                    doctorEdirProfileViewModel.email = nil
-                }
-                else {
-                    floatingLabelTextField.errorMessage = ""
-                    doctorEdirProfileViewModel.email = texts
-                }
-                
-            }else if text == customDoctorProfileView.waitingHoursTextField {
-                if  (texts.count < 3 )    {
-                    floatingLabelTextField.errorMessage = "Invalid   waiting".localized
-                    doctorEdirProfileViewModel.hours = nil
-                }
-                else {
-                    floatingLabelTextField.errorMessage = ""
-                    doctorEdirProfileViewModel.hours = texts
-                }
-                
-            }else   {
-                if (texts.count < 3 ) {
-                    floatingLabelTextField.errorMessage = "Invalid Address".localized
-                    doctorEdirProfileViewModel.address = nil
-                }
-                else {
-                    
-                    doctorEdirProfileViewModel.address = texts
-                    floatingLabelTextField.errorMessage = ""
-                }
-                
-            }
-            
-        }
-    }
     
     @objc func handleOpenGallery()  {
         let imagePicker = UIImagePickerController()
@@ -140,21 +88,44 @@ class DoctorProfileVC: CustomBaseViewVC {
         present(imagePicker, animated: true)
     }
     
+  @objc  func handleOpenFiles()  {
+        let documentPicker = UIDocumentPickerViewController(documentTypes: ["public.text", "com.apple.iwork.pages.pages", "public.data"], in: .import)
+
+           documentPicker.delegate = self
+           present(documentPicker, animated: true, completion: nil)
+    }
     
 }
 
 
 //MARK:-Extension
 
+extension DoctorProfileVC : UIDocumentPickerDelegate {
+    
+    func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentAt url: URL) {
+
+                  let cico = url as URL
+                  print(cico)
+                  print(url)
+
+                  print(url.lastPathComponent)
+
+        self.customDoctorProfileView.cvLabel.text = url.lastPathComponent
+                  print(url.pathExtension)
+
+                 }
+}
+
+
 extension DoctorProfileVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     func imagePickerController (_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]){
         if let img = info[.originalImage]  as? UIImage   {
-            doctorEdirProfileViewModel.image = img
+            customDoctorProfileView.doctorEdirProfileViewModel.image = img
             customDoctorProfileView.doctorProfileImage.image = img
         }
         if let img = info[.editedImage]  as? UIImage   {
-            doctorEdirProfileViewModel.image = img
+            customDoctorProfileView.doctorEdirProfileViewModel.image = img
             customDoctorProfileView.doctorProfileImage.image = img
         }
         
@@ -163,7 +134,7 @@ extension DoctorProfileVC: UIImagePickerControllerDelegate, UINavigationControll
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        doctorEdirProfileViewModel.image = nil
+        customDoctorProfileView.doctorEdirProfileViewModel.image = nil
         dismiss(animated: true)
     }
     
