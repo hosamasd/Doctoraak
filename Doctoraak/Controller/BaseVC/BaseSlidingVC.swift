@@ -39,6 +39,14 @@ class BaseSlidingVC: UIViewController {
     var redViewTrailingConstraint: NSLayoutConstraint!
     var redViewLeadingConstarint:NSLayoutConstraint!
     
+    fileprivate let index:Int!
+    init(indexx:Int) {
+        self.index = indexx
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -216,4 +224,8 @@ class BaseSlidingVC: UIViewController {
         }
     }
     
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 }

@@ -13,11 +13,7 @@ class MainVerificationVC: CustomBaseViewVC {
     
     lazy var customVerificationView:CustomMainVerificationView = {
         let v = CustomMainVerificationView()
-        [v.firstNumberTextField,v.secondNumberTextField,v.thirdNumberTextField,v.forthNumberTextField].forEach({$0.delegate = self})
-        v.firstNumberTextField.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)
-        v.secondNumberTextField.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)
-        v.thirdNumberTextField.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)
-        v.forthNumberTextField.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)
+        v.index = index
         v.resendButton.addTarget(self, action: #selector(handleResendCode), for: .touchUpInside)
         v.confirmButton.addTarget(self, action: #selector(handleConfirm), for: .touchUpInside)
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
@@ -25,11 +21,18 @@ class MainVerificationVC: CustomBaseViewVC {
         return v
     }()
     
-    var index:Int = 0
+    //check to go specific way
+    fileprivate let index:Int!
+    fileprivate let isFromForgetPassw:Bool!
+    init(indexx:Int,isFromForgetPassw:Bool) {
+        self.index = indexx
+        self.isFromForgetPassw = isFromForgetPassw
+        super.init(nibName: nil, bundle: nil)
+    }
+    
     fileprivate var timer = Timer()
     fileprivate var seconds = 30
-    let sMSCodeViewModel = SMSCodeViewModel()
-    var isFromForgetPassw:Bool = false
+    //    let sMSCodeViewModel = SMSCodeViewModel()
     
     
     override func viewDidLoad() {
@@ -54,11 +57,11 @@ class MainVerificationVC: CustomBaseViewVC {
     }
     
     func setupViewModelObserver()  {
-        sMSCodeViewModel.bindableIsFormValidate.bind { [unowned self] (isValidForm) in
+        customVerificationView.sMSCodeViewModel.bindableIsFormValidate.bind { [unowned self] (isValidForm) in
             guard let isValid = isValidForm else {return}            
             self.changeButtonState(enable: isValid, vv: self.customVerificationView.confirmButton)
         }
-        sMSCodeViewModel.bindableIsLogging.bind(observer: {  [unowned self] (isReg) in
+        customVerificationView.sMSCodeViewModel.bindableIsLogging.bind(observer: {  [unowned self] (isReg) in
             if isReg == true {
                 //                UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
                 //                SVProgressHUD.show(withStatus: "Login...".localized)
@@ -72,6 +75,9 @@ class MainVerificationVC: CustomBaseViewVC {
     
     func setupTimer()  {
         timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: (#selector(updateTimer)), userInfo: nil, repeats: true)
+        
+        
+        
     }
     
     fileprivate func upadteLabels() {
@@ -84,6 +90,14 @@ class MainVerificationVC: CustomBaseViewVC {
         
     }
     
+    func resetViewModel()  {
+        customVerificationView.sMSCodeViewModel.smsCode = nil
+        customVerificationView.sMSCodeViewModel.sms2Code = nil
+        customVerificationView.sMSCodeViewModel.sms3Code = nil
+        customVerificationView.sMSCodeViewModel.sms4Code = nil
+        [customVerificationView.firstNumberTextField,customVerificationView.secondNumberTextField,customVerificationView.thirdNumberTextField,customVerificationView.forthNumberTextField].forEach({$0.text = ""})
+    }
+    
     fileprivate func timeString(time:TimeInterval) -> String {
         let minutes = Int(time) / 60 % 60
         let seconds = Int(time) % 60
@@ -91,7 +105,7 @@ class MainVerificationVC: CustomBaseViewVC {
         return String(format:"%02i:%02i",  minutes, seconds)
     }
     
-    func resetViews()  {
+    fileprivate func resetViews()  {
         timer.invalidate()
         seconds = 30
         self.customVerificationView.timerLabel.text = "00:00"
@@ -112,46 +126,18 @@ class MainVerificationVC: CustomBaseViewVC {
         }
     }
     
-    @objc func textFieldDidChange(text: UITextField)  {
-        
-        sMSCodeViewModel.index = index
-        guard let texts = text.text, !texts.isEmpty  else {self.changeButtonState(enable: false, vv: self.customVerificationView.confirmButton);  return  }
-        
-        if texts.utf16.count==1{
-            switch text{
-            case customVerificationView.firstNumberTextField:
-                sMSCodeViewModel.smsCode = texts
-                customVerificationView.secondNumberTextField.becomeFirstResponder()
-            case customVerificationView.secondNumberTextField:
-                sMSCodeViewModel.sms2Code = texts
-                customVerificationView.thirdNumberTextField.becomeFirstResponder()
-            case customVerificationView.thirdNumberTextField:
-                sMSCodeViewModel.sms3Code = texts
-                customVerificationView.forthNumberTextField.becomeFirstResponder()
-            case customVerificationView.forthNumberTextField:
-                sMSCodeViewModel.sms4Code = texts
-                customVerificationView.forthNumberTextField.resignFirstResponder()
-            default:
-                break
-            }
-        }else{
-            
-        }
-    }
-    
     @objc func handleResendCode()  {
         setupTimer()
+        resetViewModel()
     }
     
     @objc  func handleConfirm()  {
         
         if isFromForgetPassw {
-            let  vc =  MainNewPassVC()
-            vc.index = index
+            let  vc =  MainNewPassVC(indexx: index)
             navigationController?.pushViewController(vc, animated: true)
         }else {
-            let vc =  MainClinicDataVC()
-            vc.index = index
+            let vc =  MainClinicDataVC(indexx: index)
             navigationController?.pushViewController(vc, animated: true)
         }
         
@@ -161,10 +147,8 @@ class MainVerificationVC: CustomBaseViewVC {
         navigationController?.popViewController(animated: true)
     }
     
-}
-
-extension MainVerificationVC: UITextFieldDelegate {
-    public func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        return range.location < 1
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
+    
 }

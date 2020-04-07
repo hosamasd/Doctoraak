@@ -21,8 +21,16 @@ class MainNewPassVC: CustomBaseViewVC {
         return v
     }()
     
-    var index:Int = 0
- 
+    //check to go specific way
+    fileprivate let index:Int!
+      init(indexx:Int) {
+          self.index = indexx
+          super.init(nibName: nil, bundle: nil)
+      }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     let newPassViewModel = NewPassViewModel()
     
     override func viewDidLoad() {
@@ -94,8 +102,7 @@ class MainNewPassVC: CustomBaseViewVC {
     }
     
     @objc func handleNext()  {
-        let login = MainLoginsVC()
-        login.index = index
+        let login = MainLoginsVC(indexx: index)
         navigationController?.pushViewController(login, animated: true)
         
     }

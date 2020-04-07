@@ -20,7 +20,16 @@ class MainForgetPasswordVC: CustomBaseViewVC {
         return v
     }()
     
-    var index:Int = 0
+    //check to go specific way
+    fileprivate let index:Int!
+      init(indexx:Int) {
+          self.index = indexx
+          super.init(nibName: nil, bundle: nil)
+      }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     let forgetPassViewModel = ForgetPassViewModel()
     
     override func viewDidLoad() {
@@ -80,9 +89,7 @@ class MainForgetPasswordVC: CustomBaseViewVC {
     }
     
     @objc func handleDonePayment()  {
-        let verifiy = MainVerificationVC()
-        verifiy.index = index
-        verifiy.isFromForgetPassw = true
+        let verifiy = MainVerificationVC(indexx: index,isFromForgetPassw: true)
         navigationController?.pushViewController(verifiy, animated: true)
         
         print(999)

@@ -9,6 +9,7 @@
 import UIKit
 import iOSDropDown
 import RSSelectionMenu
+import SkyFloatingLabelTextField
 
 class CustomClinicDataView: CustomBaseView {
     
@@ -118,7 +119,15 @@ class CustomClinicDataView: CustomBaseView {
         return button
     }()
     
+    var index = 0
+    
+    let clinicDataViewModel = ClinicDataViewModel()
+
+    
     override func setupViews() {
+        
+        [ waitingHoursTextField, feesTextField, clinicAddressTextField,   clinicMobileNumberTextField, consultationFeesTextField].forEach({$0.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)})
+        
         let subView = UIView(backgroundColor: .clear)
         subView.addSubViews(views: clinicProfileImage,clinicEditProfileImageView)
         subView.constrainWidth(constant: 100)
@@ -145,5 +154,70 @@ class CustomClinicDataView: CustomBaseView {
         doneButton.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 16, right: 32))
         
     }
+    
+    
+    @objc func textFieldDidChange(text: UITextField)  {
+           clinicDataViewModel.index = index
+           clinicDataViewModel.city = "dd"
+           clinicDataViewModel.area = "cc"
+           clinicDataViewModel.workingHours = ["dsfds"]
+           //        registerViewModel.insurance = "asd"
+           guard let texts = text.text else { return  }
+           if let floatingLabelTextField = text as? SkyFloatingLabelTextField {
+               if text == clinicMobileNumberTextField {
+                   if  !texts.isValidPhoneNumber    {
+                       floatingLabelTextField.errorMessage = "Invalid   Phone".localized
+                       clinicDataViewModel.phone = nil
+                   }
+                   else {
+                       floatingLabelTextField.errorMessage = ""
+                       clinicDataViewModel.phone = texts
+                   }
+                   
+               }else if text == clinicAddressTextField {
+                   if  (texts.count < 3 )   {
+                       floatingLabelTextField.errorMessage = "Invalid   Addresss".localized
+                       clinicDataViewModel.address = nil
+                   }
+                   else {
+                       floatingLabelTextField.errorMessage = ""
+                       clinicDataViewModel.address = texts
+                   }
+                   
+               }else  if text == feesTextField {
+                   if (texts.count < 1 ) {
+                       floatingLabelTextField.errorMessage = "Invalid fees".localized
+                       clinicDataViewModel.fees = nil
+                   }
+                   else {
+                       floatingLabelTextField.errorMessage = ""
+                       clinicDataViewModel.fees = texts
+                   }
+               }else  if text == consultationFeesTextField {
+                   if (texts.count < 3 ) {
+                       floatingLabelTextField.errorMessage = "Invalid consulation feez".localized
+                       clinicDataViewModel.consultaionFees = nil
+                   }
+                   else {
+                       
+                       clinicDataViewModel.consultaionFees = texts
+                       floatingLabelTextField.errorMessage = ""
+                   }
+                   
+               }else if text == waitingHoursTextField {
+                   if (texts.count < 3 ) {
+                       floatingLabelTextField.errorMessage = "Invalid waiing".localized
+                       clinicDataViewModel.waitingHours = nil
+                   }
+                   else {
+                       
+                       clinicDataViewModel.waitingHours = texts
+                       floatingLabelTextField.errorMessage = ""
+                   }
+                   
+               
+               }
+           }
+       }
     
 }

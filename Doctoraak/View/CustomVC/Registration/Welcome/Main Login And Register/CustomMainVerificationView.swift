@@ -46,8 +46,15 @@ class CustomMainVerificationView: CustomBaseView {
         button.isEnabled = false
         return button
     }()
+    var index:Int = 0
+    
+    let sMSCodeViewModel = SMSCodeViewModel()
+
     
     override func setupViews() {
+        [firstNumberTextField,secondNumberTextField,thirdNumberTextField,forthNumberTextField].forEach({$0.delegate = self})
+        [firstNumberTextField, secondNumberTextField,thirdNumberTextField, forthNumberTextField].forEach({$0.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)})
+        
         resendButton.isEnabled = false
         let numbersStack = getStack(views: UIView(),firstNumberTextField,secondNumberTextField,thirdNumberTextField,forthNumberTextField,UIView(), spacing: 8, distribution: .fillEqually, axis: .horizontal)
 //        let mainStack = getStack(views: verificationLabel, spacing: <#T##CGFloat#>, distribution: <#T##UIStackView.Distribution#>, axis: <#T##NSLayoutConstraint.Axis#>)
@@ -77,8 +84,42 @@ class CustomMainVerificationView: CustomBaseView {
 
     }
     
+    @objc func textFieldDidChange(text: UITextField)  {
+          
+          sMSCodeViewModel.index = index
+          guard let texts = text.text, !texts.isEmpty  else {self.changeButtonState(enable: false, vv: self.confirmButton);  return  }
+          
+          if texts.utf16.count==1{
+              switch text{
+              case firstNumberTextField:
+                  sMSCodeViewModel.smsCode = texts
+                  secondNumberTextField.becomeFirstResponder()
+              case secondNumberTextField:
+                  sMSCodeViewModel.sms2Code = texts
+                  thirdNumberTextField.becomeFirstResponder()
+              case thirdNumberTextField:
+                  sMSCodeViewModel.sms3Code = texts
+                  forthNumberTextField.becomeFirstResponder()
+              case forthNumberTextField:
+                  sMSCodeViewModel.sms4Code = texts
+                  forthNumberTextField.resignFirstResponder()
+              default:
+                  break
+              }
+          }else{
+              
+          }
+      }
+    
     
    @objc func handleASD()  {
         print(956)
+    }
+}
+
+
+extension CustomMainVerificationView: UITextFieldDelegate {
+    public func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        return range.location < 1
     }
 }

@@ -59,6 +59,7 @@ class CustomLoginsView: CustomBaseView {
        
         button.constrainHeight(constant: 50)
         button.clipsToBounds = true
+        button.isEnabled = false
         return button
     }()
     lazy var createAccountLabel = UILabel(text: "Don't have an account ? ".localized, font: .systemFont(ofSize: 16), textColor: .black)
@@ -72,9 +73,13 @@ class CustomLoginsView: CustomBaseView {
     }()
     
       var index:Int? = 0
-    
+    let loginViewModel = LoginViewModel ()
+
     
     override func setupViews() {
+        
+        [ phoneNumberTextField, passwordTextField, createAccountButton,forgetPasswordButton].forEach({$0.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)})
+        
           let forgetStack = getStack(views: UIView(),forgetPasswordButton, spacing: 8, distribution: .fill, axis: .horizontal)
         let createStack = getStack(views: createAccountLabel,createAccountButton, spacing: 0, distribution: .fill, axis: .horizontal)
         let subStack = getStack(views: phoneNumberTextField,passwordTextField,forgetStack, spacing: 16, distribution: .fillEqually, axis: .vertical)
@@ -101,6 +106,33 @@ class CustomLoginsView: CustomBaseView {
         createStack.anchor(top: nil, leading: nil, bottom: bottomAnchor, trailing: nil,padding: .init(top: 0, left: 0, bottom: 16, right: 0))
 
     }
+    
+    @objc func textFieldDidChange(text: UITextField)  {
+           loginViewModel.index = index
+           guard let texts = text.text else { return  }
+           if let floatingLabelTextField = text as? SkyFloatingLabelTextField {
+               if text == phoneNumberTextField {
+                   if  !texts.isValidPhoneNumber    {
+                       floatingLabelTextField.errorMessage = "Invalid   Phone".localized
+                       loginViewModel.phone = nil
+                   }
+                   else {
+                       floatingLabelTextField.errorMessage = ""
+                       loginViewModel.phone = texts
+                   }
+                   
+               }else
+                   if(texts.count < 8 ) {
+                       floatingLabelTextField.errorMessage = "password must have 8 character".localized
+                       loginViewModel.password = nil
+                   }
+                   else {
+                       floatingLabelTextField.errorMessage = ""
+                       loginViewModel.password = texts
+                       
+               }
+           }
+       }
     
    @objc func handleASD()  {
         passwordTextField.isSecureTextEntry = !passwordTextField.isSecureTextEntry

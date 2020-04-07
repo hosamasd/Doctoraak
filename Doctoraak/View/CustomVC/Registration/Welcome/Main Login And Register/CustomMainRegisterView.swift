@@ -9,6 +9,7 @@
 import UIKit
 import iOSDropDown
 import UIMultiPicker
+import SkyFloatingLabelTextField
 
 class CustomMainRegisterView: CustomBaseView {
     
@@ -113,43 +114,14 @@ class CustomMainRegisterView: CustomBaseView {
         v.addTarget(self, action: #selector(handleHidePicker), for: .valueChanged)
         return v
     }()
-    
-//    lazy var mainDrop3View:UIView = {
-//        let l = UIView(backgroundColor: .white)
-//        l.layer.cornerRadius = 8
-//        l.layer.borderWidth = 1
-//        l.layer.borderColor = #colorLiteral(red: 0.4835817814, green: 0.4836651683, blue: 0.4835640788, alpha: 1).cgColor
-//        l.addSubview(insuranceDrop)
-//        return l
-//    }()
-//    lazy var insuranceDrop:UIMultiPicker = {
-//        let v = UIMultiPicker(backgroundColor: .white)
-//        v.options = ["one","two","three","sdfdsfsd"]
-//        v.color = .gray
-//        v.tintColor = .green
-//        v.font = .systemFont(ofSize: 30, weight: .bold)
-//
-//        v.highlight(4, animated: true) // centering "Bitter"
-//        return v
-//    }()
-    
-    
-//    lazy var mainDrop3View:UIView = {
-//        let l = UIView(backgroundColor: .white)
-//        l.layer.cornerRadius = 8
-//        l.layer.borderWidth = 1
-//        l.layer.borderColor = #colorLiteral(red: 0.4835817814, green: 0.4836651683, blue: 0.4835640788, alpha: 1).cgColor
-//        l.addSubview(insuranceDrop)
-//        return l
-//    }()
-//lazy var insuranceDrop:DropDown = {
-//        let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
-//        i.optionArray = ["one","two","three"]
-//        i.arrowSize = 20
-//        i.placeholder = "insurance".localized
-//        return i
-//    }()
-    lazy var pharamacyWorkingHoursTextField = createMainTextFields(place: "Work hours")
+    lazy var workingHourView:UIView = {
+        let v = makeMainSubViewWithAppendView(vv: [workingHoursLabel])
+        v.hstack(workingHoursLabel).withMargins(.init(top: 0, left: 16, bottom: 0, right: 0))
+        v.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleChoose)))
+        return v
+    }()
+    lazy var workingHoursLabel = UILabel(text: "Working Hours", font: .systemFont(ofSize: 16), textColor: .lightGray)
+//    lazy var pharamacyWorkingHoursTextField = createMainTextFields(place: "Work hours")
 
     lazy var delvierySwitch:UISwitch = {
        let s = UISwitch()
@@ -179,17 +151,20 @@ class CustomMainRegisterView: CustomBaseView {
     
     var text:String?
      var insuracneArray = ["one","two","three","sdfdsfsd"]
- 
+ let registerViewModel = RegisterViewModel()
+    var handleChooseHours:(()->Void)?
     
     
     override func setupViews() {
+        [mobileNumberTextField,passwordTextField,  emailTextField, fullNameTextField, confirmPasswordTextField, addressTextField].forEach({$0.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)})
+        
         let subView = UIView(backgroundColor: .clear)
         subView.addSubViews(views: userProfileImage,userEditProfileImageView)
         subView.constrainWidth(constant: 100)
         subView.constrainHeight(constant: 100)
         userEditProfileImageView.anchor(top: nil, leading: nil, bottom: userProfileImage.bottomAnchor, trailing: userProfileImage.trailingAnchor,padding: .init(top: 0, left:0 , bottom:10, right: 10))
        
-        let textStack = getStack(views: fullNameTextField,mobileNumberTextField,emailTextField,passwordTextField,confirmPasswordTextField,addressTextField,pharamacyWorkingHoursTextField,deliveryTextField,mainDrop3View, spacing: 16, distribution: .fillEqually, axis: .vertical)
+        let textStack = getStack(views: fullNameTextField,mobileNumberTextField,emailTextField,passwordTextField,confirmPasswordTextField,addressTextField,workingHourView,deliveryTextField,mainDrop3View, spacing: 16, distribution: .fillEqually, axis: .vertical)
         
         mainDrop3View.addSubViews(views: doenImage,insuracneText)
         mainDrop3View.hstack(insuracneText,doenImage).withMargins(.init(top: 0, left: 16, bottom: 0, right: 0))
@@ -213,6 +188,85 @@ class CustomMainRegisterView: CustomBaseView {
         nextButton.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 32, left: 32, bottom: 16, right: 32))
         
     }
+    
+    @objc func textFieldDidChange(text: UITextField)  {
+           registerViewModel.index = index
+           registerViewModel.insurance = "asd"
+           guard let texts = text.text else { return  }
+           if let floatingLabelTextField = text as? SkyFloatingLabelTextField {
+               if text == mobileNumberTextField {
+                   if  !texts.isValidPhoneNumber    {
+                       floatingLabelTextField.errorMessage = "Invalid   Phone".localized
+                       registerViewModel.phone = nil
+                   }
+                   else {
+                       floatingLabelTextField.errorMessage = ""
+                       registerViewModel.phone = texts
+                   }
+                   
+               }else if text == emailTextField {
+                   if  !texts.isValidEmail    {
+                       floatingLabelTextField.errorMessage = "Invalid   Email".localized
+                       registerViewModel.email = nil
+                   }
+                   else {
+                       floatingLabelTextField.errorMessage = ""
+                       registerViewModel.email = texts
+                   }
+                   
+               }else   if text == confirmPasswordTextField {
+                   if text.text != passwordTextField.text {
+                       floatingLabelTextField.errorMessage = "Passowrd should be same".localized
+                       registerViewModel.confirmPassword = nil
+                   }
+                   else {
+                       registerViewModel.confirmPassword = texts
+                       floatingLabelTextField.errorMessage = ""
+                   }
+               }else  if text == passwordTextField {
+                   if(texts.count < 8 ) {
+                       floatingLabelTextField.errorMessage = "password must have 8 character".localized
+                       registerViewModel.password = nil
+                   }
+                   else {
+                       floatingLabelTextField.errorMessage = ""
+                       registerViewModel.password = texts
+                   }
+               }else  if text == addressTextField {
+                   if (texts.count < 3 ) {
+                       floatingLabelTextField.errorMessage = "Invalid Address".localized
+                       registerViewModel.address = nil
+                   }
+                   else {
+                       
+                       registerViewModel.address = texts
+                       floatingLabelTextField.errorMessage = ""
+                   }
+                   
+               }else if text == fullNameTextField {
+                   if (texts.count < 3 ) {
+                       floatingLabelTextField.errorMessage = "Invalid name".localized
+                       registerViewModel.name = nil
+                   }
+                   else {
+                       
+                       registerViewModel.name = texts
+                       floatingLabelTextField.errorMessage = ""
+                   }
+                   
+               }else {
+                   if (texts.count < 3 ) {
+                       floatingLabelTextField.errorMessage = "Invalid working hours".localized
+                       registerViewModel.hours = nil
+                   }
+                   else {
+                       
+                       registerViewModel.hours = texts
+                       floatingLabelTextField.errorMessage = ""
+                   }
+               }
+           }
+       }
     
     @objc func handleASD()  {
         passwordTextField.isSecureTextEntry = !passwordTextField.isSecureTextEntry
@@ -242,6 +296,10 @@ class CustomMainRegisterView: CustomBaseView {
     
     @objc func handleAgree(sender:UIButton)  {
         sender.isSelected = !sender.isSelected
+    }
+    
+   @objc func handleChoose()  {
+        handleChooseHours?()
     }
 }
 
