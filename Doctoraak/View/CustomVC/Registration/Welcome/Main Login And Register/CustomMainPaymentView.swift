@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import SkyFloatingLabelTextField
+
 class CustomMainPaymentView: CustomBaseView {
     
     lazy var LogoImage:UIImageView = {
@@ -18,7 +20,7 @@ class CustomMainPaymentView: CustomBaseView {
         let i = UIImageView(image: #imageLiteral(resourceName: "Icon - Keyboard Arrow - Left - Filled"))
         i.constrainWidth(constant: 30)
         i.constrainHeight(constant: 30)
-         i.isUserInteractionEnabled = true
+        i.isUserInteractionEnabled = true
         return i
     }()
     
@@ -28,7 +30,7 @@ class CustomMainPaymentView: CustomBaseView {
     lazy var vodafoneImage:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "Vodafone_Sim_Card"))
         i.contentMode = .scaleAspectFill
-//        i.isHide(true)
+        //        i.isHide(true)
         i.constrainWidth(constant: 250)
         return i
     }()
@@ -43,18 +45,17 @@ class CustomMainPaymentView: CustomBaseView {
         let i = UIImageView(image: #imageLiteral(resourceName: "Rectangle 1724_22"))
         i.constrainWidth(constant: 8)
         i.contentMode = .scaleAspectFill
-//        i.constrainHeight(constant: 30)
         return i
     }()
     lazy var leftImage:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "Rectangle 1724"))
         i.constrainWidth(constant: 8)
         i.contentMode = .scaleAspectFill
-//        i.constrainHeight(constant: 30)
+        i.alpha = 0
         return i
     }()
     lazy var choosePayLabel = UILabel(text: "Enter your phone number :", font: .systemFont(ofSize: 18), textColor: .black,textAlignment: .center)
-
+    
     lazy var numberTextField:UITextField = {
         let s = createMainTextFields(padding:100,place: "(324) 242-2457", type: .default,secre: true)
         let button = UIImageView(image: #imageLiteral(resourceName: "Group 4142-3"))
@@ -64,7 +65,7 @@ class CustomMainPaymentView: CustomBaseView {
         return s
     }()
     lazy var codeTextField:UITextField = {
-       let t = createMainTextFields(place: "65986")
+        let t = createMainTextFields(place: "65986")
         t.textAlignment = .center
         t.isHide(true)
         return t
@@ -85,16 +86,26 @@ class CustomMainPaymentView: CustomBaseView {
     lazy var firstScrollButton = createButtons(image: #imageLiteral(resourceName: "Ellipse 128"),tags: 1)
     lazy var secondScrollButton = createButtons(image: #imageLiteral(resourceName: "Ellipse 129"),tags: 2)
     
+    var index = 0
+    
+    let paymentViewModel = PaymentViewModel()
+    
+    
+    
     override func setupViews() {
+        [firstScrollButton,secondScrollButton].forEach({$0.addTarget(self, action: #selector(handleChoosedButton), for: .touchUpInside)})
+        
+        [numberTextField,codeTextField].forEach({$0.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)})
+        
         let ss = getStack(views: firstScrollButton,secondScrollButton, spacing: 8, distribution: .fillEqually, axis: .horizontal)
         
         addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,vodafoneImage,fawryImage,doneButton,leftImage,rightImage,ss,choosePayLabel,codeTextField,numberTextField)
         
         NSLayoutConstraint.activate([
             ss.centerXAnchor.constraint(equalTo: centerXAnchor),
-             vodafoneImage.centerXAnchor.constraint(equalTo: centerXAnchor),
-              fawryImage.centerXAnchor.constraint(equalTo: centerXAnchor),
-            ])
+            vodafoneImage.centerXAnchor.constraint(equalTo: centerXAnchor),
+            fawryImage.centerXAnchor.constraint(equalTo: centerXAnchor),
+        ])
         choosePayLabel.centerInSuperview(size: .init(width: frame.width, height: 120))
         //
         LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
@@ -106,9 +117,9 @@ class CustomMainPaymentView: CustomBaseView {
         
         leftImage.anchor(top: soonLabel.bottomAnchor, leading: nil, bottom: vodafoneImage.bottomAnchor, trailing: vodafoneImage.leadingAnchor,padding: .init(top: 32, left: 0, bottom: 0, right: -8))
         rightImage.anchor(top: soonLabel.bottomAnchor, leading: vodafoneImage.trailingAnchor, bottom: nil, trailing: nil,padding: .init(top: 32, left: -8, bottom: 0, right: 0))
-ss.anchor(top: choosePayLabel.topAnchor, leading: nil, bottom: nil, trailing: nil,padding: .init(top: 16, left: 32, bottom: 16, right: 32))
+        ss.anchor(top: choosePayLabel.topAnchor, leading: nil, bottom: nil, trailing: nil,padding: .init(top: 16, left: 32, bottom: 16, right: 32))
         numberTextField.anchor(top: choosePayLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 8, left: 32, bottom: 16, right: 32))
- codeTextField.anchor(top: choosePayLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 8, left: 32, bottom: 16, right: 32))
+        codeTextField.anchor(top: choosePayLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 8, left: 32, bottom: 16, right: 32))
         doneButton.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 16, right: 32))
         
     }
@@ -116,34 +127,77 @@ ss.anchor(top: choosePayLabel.topAnchor, leading: nil, bottom: nil, trailing: ni
     func createButtons(image:UIImage,tags:Int) -> UIButton {
         let b = UIButton()
         b.setImage(image, for: .normal)
-//        b.addTarget(self, action: #selector(handleChoosedButton), for: .touchUpInside)
+        //        b.addTarget(self, action: #selector(handleChoosedButton), for: .touchUpInside)
         b.tag = tags
         return b
     }
     
-//    func hideOrUnhide(tag:Int)  {
-//        DispatchQueue.main.async {
-//
-//
-//            self.vodafoneImage.isHide(tag == 1 ? false : true)
-//            self.fawryImage.isHide(tag == 1 ? true : false)
-//           self.numberTextField.isHide(tag == 1 ? false : true)
-//            self.codeTextField.isHide(tag == 1 ? true : false)
-////            self.num.rightViewMode = tag == 1 ? .always : .never
-//        }
-//    }
+    func hideOrUnhide(tag:Int)  {
+        UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
+            self.rightImage.alpha = tag == 1 ? 1 : 0
+            self.leftImage.alpha = tag == 1 ? 0 : 1
+            
+            self.vodafoneImage.isHide(tag == 1 ? false : true)
+            self.fawryImage.isHide(tag == 1 ? true : false)
+            self.numberTextField.isHide(tag == 1 ? false : true)
+            self.codeTextField.isHide(tag == 1 ? true : false)
+        })
+        //           DispatchQueue.main.async {[unowned self] in
+        //
+        //            self.rightImage.isHide(tag == 1 ? false : true)
+        //            self.leftImage.isHide(tag == 1 ? true : false)
+        //
+        //               self.vodafoneImage.isHide(tag == 1 ? false : true)
+        //               self.fawryImage.isHide(tag == 1 ? true : false)
+        //               self.numberTextField.isHide(tag == 1 ? false : true)
+        //               self.codeTextField.isHide(tag == 1 ? true : false)
+        //               //            self.num.rightViewMode = tag == 1 ? .always : .never
+        //           }
+    }
     
-//    @objc func handleChoosedButton(sender:UIButton)  {
-//        [firstScrollButton,secondScrollButton].forEach({$0.setImage(#imageLiteral(resourceName: "Ellipse 129"), for: .normal)})
-//
-//        sender.setImage( #imageLiteral(resourceName: "Ellipse 128"), for: .normal)
-//        switch sender.tag {
-//        case 1:
-//           hideOrUnhide(tag: 1)
-//        default:
-//            hideOrUnhide(tag: tag)
-//        }
-//        [codeTextField,numberTextField].forEach({$0.text = ""})
-//
-//    }
+    
+    //TODO: -handle methods
+    
+    @objc func textFieldDidChange(text: UITextField)  {
+        paymentViewModel.index = index
+        guard let texts = text.text else { return  }
+        if let floatingLabelTextField = text as? SkyFloatingLabelTextField {
+            if text == numberTextField {
+                if  !texts.isValidPhoneNumber    {
+                    floatingLabelTextField.errorMessage = "Invalid   Phone".localized
+                    paymentViewModel.vodafoneVode = nil
+                }
+                else {
+                    floatingLabelTextField.errorMessage = ""
+                    paymentViewModel.vodafoneVode = texts
+                }
+                
+            }else
+                if(texts.count < 6 ) {
+                    floatingLabelTextField.errorMessage = "code must have 6 character".localized
+                    paymentViewModel.fawryCode = nil
+                }
+                else {
+                    floatingLabelTextField.errorMessage = ""
+                    paymentViewModel.fawryCode = texts
+                    
+            }
+        }
+    }
+    
+    
+    @objc func handleChoosedButton(sender:UIButton)  {
+        [firstScrollButton,secondScrollButton].forEach({$0.setImage(#imageLiteral(resourceName: "Ellipse 129"), for: .normal)})
+        
+        sender.setImage( #imageLiteral(resourceName: "Ellipse 128"), for: .normal)
+        switch sender.tag {
+        case 1:
+            hideOrUnhide(tag: 1)
+        default:
+            hideOrUnhide(tag: 2)
+        }
+        [codeTextField,numberTextField].forEach({$0.text = ""})
+        paymentViewModel.fawryCode = nil
+        paymentViewModel.vodafoneVode = nil
+    }
 }

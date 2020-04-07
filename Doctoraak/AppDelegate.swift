@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
          keyboardChanges()
         window = UIWindow()
         window?.makeKeyAndVisible()
-        window?.rootViewController =   UINavigationController(rootViewController:MainVerificationVC(indexx: 0,isFromForgetPassw: false))
+        window?.rootViewController =   UINavigationController(rootViewController:MainPaymentVC(indexx: 0))
         return true
     }
 
