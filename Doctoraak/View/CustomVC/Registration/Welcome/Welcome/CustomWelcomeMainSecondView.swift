@@ -150,4 +150,6 @@ class CustomWelcomeMainSecondView: CustomBaseView {
         return l
     }
     
+   
+    
 }
