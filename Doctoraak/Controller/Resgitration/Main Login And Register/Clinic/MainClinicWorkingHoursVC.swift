@@ -33,7 +33,8 @@ class MainClinicWorkingHoursVC: CustomBaseViewVC {
             .addTarget(self, action:#selector(handleShowPicker), for: UIControl.Event.editingDidBegin)})
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
         v.doneButton.addTarget(self, action: #selector(handleDone), for: .touchUpInside)
-        
+       
+
         return v
     }()
     var index:Int? = 0
@@ -129,8 +130,8 @@ class MainClinicWorkingHoursVC: CustomBaseViewVC {
         navigationController?.popViewController(animated: true)
     }
     
-   @objc func handleDone()  {
+    @objc func handleDone()  {
         delgate?.getHoursChoosed(hours: choosedHours)
-    navigationController?.popViewController(animated: true)
+        navigationController?.popViewController(animated: true)
     }
 }

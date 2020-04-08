@@ -25,7 +25,9 @@ class DoctorHomeVC: CustomBaseViewVC {
     lazy var customDoctorHomeView:CustomDoctorHomeView = {
         let v = CustomDoctorHomeView()
         v.listImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpenMenu)))
-
+        v.handleSelectedIndex = {[unowned self] indexPath in
+                   self.goToSpecifyIndex(indexPath)
+               }
         return v
     }()
     
@@ -61,6 +63,14 @@ class DoctorHomeVC: CustomBaseViewVC {
         
     }
     
+    func goToSpecifyIndex(_ indexx:IndexPath)  {
+        print(indexx.item)
+        let patient = DoctorBookVC(inde: index)
+        navigationController?.pushViewController(patient, animated: true)
+        
+    }
+    
+    //TODO:-Handle methods
     
     @objc func handleOpenMenu()  {
     (UIApplication.shared.keyWindow?.rootViewController as? BaseSlidingVC)?.openMenu()

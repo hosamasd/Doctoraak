@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CustomPatientSecondDataView: CustomBaseView {
+class CustomPatientThirddDataView: CustomBaseView {
     
     
     lazy var LogoImage:UIImageView = {
@@ -27,13 +27,13 @@ class CustomPatientSecondDataView: CustomBaseView {
         let i = UIImageView(image: #imageLiteral(resourceName: "G4-G5 Sample Rx"))
         i.contentMode = .scaleAspectFill
 //        i.constrainWidth(constant: 80)
-        i.constrainHeight(constant: 150)
+//        i.constrainHeight(constant: 150)
         i.clipsToBounds = true
         return i
     }()
     lazy var titleLabel = UILabel(text: "Patient data", font: .systemFont(ofSize: 30), textColor: .white)
-    lazy var prescriptionLabel = UILabel(text: "Prescription", font: .systemFont(ofSize: 16), textColor: .lightGray)
-    lazy var medicineLabel = UILabel(text: "Medicine", font: .systemFont(ofSize: 16), textColor: .lightGray)
+    lazy var prescriptionLabel = UILabel(text: "Prescription", font: .systemFont(ofSize: 20), textColor: .lightGray)
+    lazy var medicineLabel = UILabel(text: "Medicine", font: .systemFont(ofSize: 20), textColor: .lightGray)
     
     lazy var medicineCollectionVC:MedicineCollectionVC = {
         let vc = MedicineCollectionVC()
@@ -58,7 +58,7 @@ class CustomPatientSecondDataView: CustomBaseView {
     
     
     override func setupViews() {
-        prescriptionLabel.constrainWidth(constant: 80)
+        prescriptionLabel.constrainWidth(constant: 130)
         let ss = getStack(views: okButton,cancelButton, spacing: 8, distribution: .fillEqually, axis: .horizontal)
         
         addSubViews(views: LogoImage,backImage,titleLabel,patientCell,prescriptionLabel,sampleRosetaImage,medicineLabel,medicineCollectionVC.view,ss)
@@ -75,7 +75,7 @@ class CustomPatientSecondDataView: CustomBaseView {
         titleLabel.anchor(top: nil, leading: leadingAnchor, bottom: LogoImage.bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
         patientCell.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 0, right: 32))
         prescriptionLabel.anchor(top: patientCell.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 16, left: 32, bottom: 40, right: 32))
-        sampleRosetaImage.anchor(top: prescriptionLabel.bottomAnchor, leading: prescriptionLabel.trailingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 16, left: 0, bottom: 40, right: 32))
+        sampleRosetaImage.anchor(top: prescriptionLabel.bottomAnchor, leading: prescriptionLabel.trailingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 16, left: -74, bottom: 0, right: 32))
          medicineLabel.anchor(top: sampleRosetaImage.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 64, left: 32, bottom: 40, right: 32))
         medicineCollectionVC.view.anchor(top: medicineLabel.bottomAnchor, leading: leadingAnchor, bottom: ss.topAnchor, trailing: trailingAnchor,padding: .init(top: 8, left: 32, bottom: 40, right: 32))
         //        ss.anchor(top: topDoctorHomeCell.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 16, left: 46, bottom: 0, right: 32))

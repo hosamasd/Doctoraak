@@ -37,12 +37,24 @@ class CustomDoctorHomeView: CustomBaseView {
     lazy var newButton = createMainButtons(title: "New", color: .black, tags: 1)
     lazy var consultaionButton = createMainButtons(title: "Consultation", color: .black, tags: 2)
     lazy var continueButton = createMainButtons(title: "Continue", color: .black, tags: 3)
-  lazy var docotrCollectionView = DoctorHomePatientsCollectionVC()
+    lazy var docotrCollectionView:DoctorHomePatientsCollectionVC = {
+        let vc = DoctorHomePatientsCollectionVC()
+        vc.handleSelectedIndex = {[unowned self] inde in
+            self.handleSelectedIndex?(inde)
+        }
+        return vc
+    }()
+    var handleSelectedIndex:((IndexPath)->Void)?
+
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        allButton.applyGradient(colors: [ColorConstants.firstColorBangsegy,ColorConstants.secondColorBangsegy], index: 0)
-        allButton.setTitleColor(.white, for: .normal)
+        if allButton.backgroundColor != nil {
+            addGradientInSenderAndRemoveOther(sender: allButton)
+             allButton.setTitleColor(.white, for: .normal)
+        }
+//        allButton.applyGradient(colors: [ColorConstants.firstColorBangsegy,ColorConstants.secondColorBangsegy], index: 0)
+//        allButton.setTitleColor(.white, for: .normal)
     }
     
     override func setupViews() {

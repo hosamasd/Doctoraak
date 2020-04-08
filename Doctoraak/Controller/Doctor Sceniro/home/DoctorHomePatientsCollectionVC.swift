@@ -10,7 +10,8 @@ import UIKit
 
 class DoctorHomePatientsCollectionVC: BaseCollectionVC {
     
-    
+    var handleSelectedIndex:((IndexPath)->Void)?
+
     fileprivate let cellId = "cellId"
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -27,6 +28,10 @@ class DoctorHomePatientsCollectionVC: BaseCollectionVC {
         //        let width = (view.frame.wid15th - 56 ) / 2
         
         return .init(width: view.frame.width, height: 110)
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        handleSelectedIndex?(indexPath)
     }
     
     //MARK:-User methods

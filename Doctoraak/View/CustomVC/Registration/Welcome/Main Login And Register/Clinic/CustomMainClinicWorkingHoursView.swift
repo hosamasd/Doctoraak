@@ -27,23 +27,9 @@ class CustomMainClinicWorkingHoursView: CustomBaseView {
     lazy var soonLabel = UILabel(text: "Fill your data", font: .systemFont(ofSize: 18), textColor: .white)
     
     
-    lazy var shift1Button = createButtons(title: "Shift 1",color: .white)
-     lazy var shift2Button = createButtons(title: "Shift 2",color: .black)
+    lazy var shift1Button = creatShiftBTN(title: "Shift1")
+     lazy var shift2Button = creatShiftBTN(title: "Shift2")
     
-    func createButtons(title:String,color:UIColor,tags : Int? = 0) -> UIButton {
-        let button = UIButton(type: .system)
-        button.layer.cornerRadius = 8
-        button.layer.borderWidth = 1
-        button.layer.borderColor = UIColor.gray.cgColor
-        button.clipsToBounds = true
-        button.setTitle(title, for: .normal)
-        button.setTitleColor(color, for: .normal)
-        button.constrainHeight(constant: 50)
-       button.tag = tags ?? 0
-        button.layer.cornerRadius = 25
-        button.addTarget(self, action: #selector(handleOpen), for: .touchUpInside)
-        return button
-    }
     
     lazy var sunButton = createButtons(title: "Sun",color: .white,tags: 1)
     lazy var first1TextField = createHoursTextFields(tags: 1)
@@ -88,12 +74,19 @@ class CustomMainClinicWorkingHoursView: CustomBaseView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        let leftColor = #colorLiteral(red: 0.6555111408, green: 0.5125037432, blue: 0.9976704717, alpha: 1)
-        let rightColor = #colorLiteral(red: 0.7503471971, green: 0.6148311496, blue: 0.9988300204, alpha: 1)
-        [shift1Button,sunButton].forEach({$0.applyGradient(colors: [leftColor.cgColor, rightColor.cgColor], index: 0)})
+        if shift1Button.backgroundColor != nil {
+            addGradientInSenderAndRemoveOther(sender: shift1Button)
+            shift1Button.setTitleColor(.white, for: .normal)
+        }
+        if sunButton.backgroundColor != nil {
+                  addGradientInSenderAndRemoveOther(sender: sunButton)
+                  sunButton.setTitleColor(.white, for: .normal)
+              }
     }
     
     override func setupViews() {
+        shift1Button.addTarget(self, action: #selector(handle1Shift), for: .touchUpInside)
+               shift2Button.addTarget(self, action: #selector(handle2Shift), for: .touchUpInside)
        [first2TextField,first1TextField].forEach({$0.isUserInteractionEnabled = true})
 //        [second1TextField,second2TextField,third1TextField,third2TextField,forth1TextField,forth2TextField,fifth1TextField,fifth2TextField,sexth1TextField,sexth2TextField].forEach({$0.isUserInteractionEnabled = false})
         [satButton,sunButton,monButton,tuesButton,thuButton,wedButton,friButton].forEach({$0.constrainWidth(constant: 50)})
@@ -138,6 +131,18 @@ class CustomMainClinicWorkingHoursView: CustomBaseView {
             
         }
     
+    func creatShiftBTN(title:String) -> UIButton {
+               let button = UIButton(type: .system)
+               button.backgroundColor = ColorConstants.disabledButtonsGray
+               button.setTitle(title, for: .normal)
+               button.setTitleColor(.white, for: .normal)
+               button.layer.cornerRadius = 16
+               button.constrainHeight(constant: 60)
+               button.clipsToBounds = true
+               return button
+           
+    }
+    
     func createHoursTextFields(tags:Int) -> UITextField {
         let t = UITextField()
         t.textAlignment = .center
@@ -157,6 +162,23 @@ class CustomMainClinicWorkingHoursView: CustomBaseView {
     func enalbes(t:UITextField...,enable:Bool? = true)   {
         t.forEach({$0.isUserInteractionEnabled = enable ?? true})
     }
+    
+    func createButtons(title:String,color:UIColor,tags : Int? = 0) -> UIButton {
+        let button = UIButton(type: .system)
+        button.layer.cornerRadius = 8
+        button.layer.borderWidth = 1
+        button.layer.borderColor = UIColor.gray.cgColor
+        button.backgroundColor = ColorConstants.disabledButtonsGray
+        button.clipsToBounds = true
+        button.setTitle(title, for: .normal)
+        button.setTitleColor(color, for: .normal)
+        button.constrainHeight(constant: 50)
+       button.tag = tags ?? 0
+        button.layer.cornerRadius = 25
+        button.addTarget(self, action: #selector(handleOpen), for: .touchUpInside)
+        return button
+    }
+
     
     func enableTextFields(tag:Int)  {
         switch tag {
@@ -187,6 +209,25 @@ class CustomMainClinicWorkingHoursView: CustomBaseView {
    @objc func tapDone()  {
         print(969)
     }
+    
+    @objc func handle1Shift(sender:UIButton)  {
+           if sender.backgroundColor == nil {
+            return
+//               ClinicDataViewModel.male = false;return
+           }
+           addGradientInSenderAndRemoveOther(sender: sender, vv: shift2Button)
+//           doctorRegisterViewModel.male = false
+       }
+       
+       @objc func handle2Shift(sender:UIButton)  {
+           if sender.backgroundColor == nil {
+            return
+//               doctorRegisterViewModel.male = true;return
+           }
+           addGradientInSenderAndRemoveOther(sender: sender, vv: shift1Button)
+//           doctorRegisterViewModel.male = true
+       }
+    
 
 }
 //    @objc func handleShowPicker() {

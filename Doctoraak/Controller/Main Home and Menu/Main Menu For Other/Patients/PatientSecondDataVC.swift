@@ -10,10 +10,7 @@ import UIKit
 
 class PatientSecondDataVC: CustomBaseViewVC {
     
-    
-    
-
-    lazy var scrollView: UIScrollView = {
+ lazy var scrollView: UIScrollView = {
         let v = UIScrollView()
         v.backgroundColor = .clear
         
