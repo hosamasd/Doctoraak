@@ -17,12 +17,9 @@ class DoctorRegisterViewModel {
     var name:String? {didSet {checkFormValidity()}}
     var phone:String? {didSet {checkFormValidity()}}
     var email:String? {didSet {checkFormValidity()}}
-    var address:String? {didSet {checkFormValidity()}}
     var password:String? {didSet {checkFormValidity()}}
     var confirmPassword:String? {didSet {checkFormValidity()}}
     var male:Bool? = true {didSet {checkFormValidity()}}
-//    var insurance:String? {didSet {checkFormValidity()}}
-//    var delivery:Bool? = true {didSet {checkFormValidity()}}
     var index:Int? = -1 {didSet {checkFormValidity()}}
     var image:UIImage? {didSet {checkFormValidity()}}
     
@@ -36,7 +33,7 @@ class DoctorRegisterViewModel {
     }
     
     func checkFormValidity() {
-        let isFormValid = email?.isEmpty == false && password?.isEmpty == false && confirmPassword?.isEmpty == false && confirmPassword == password &&  phone?.isEmpty == false && name?.isEmpty == false && address?.isEmpty == false  && index != -1 && image != nil
+        let isFormValid = email?.isEmpty == false && password?.isEmpty == false && confirmPassword?.isEmpty == false && confirmPassword == password &&  phone?.isEmpty == false && name?.isEmpty == false   && index != -1 && image != nil
         
         bindableIsFormValidate.value = isFormValid
         

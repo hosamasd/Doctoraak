@@ -19,7 +19,7 @@ class PatientDataVC: CustomBaseViewVC {
     }()
     lazy var mainView:UIView = {
         let v = UIView(backgroundColor: .white)
-        v.constrainHeight(constant: 1000)
+        v.constrainHeight(constant: 900)
         v.constrainWidth(constant: view.frame.width)
         return v
     }()
@@ -28,18 +28,16 @@ class PatientDataVC: CustomBaseViewVC {
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
         return v
     }()
+    
     fileprivate let index:Int!
-       init(inde:Int) {
-           self.index = inde
-           super.init(nibName: nil, bundle: nil)
-       }
-       required init?(coder: NSCoder) {
-           fatalError("init(coder:) has not been implemented")
-       }
+    init(inde:Int) {
+        self.index = inde
+        super.init(nibName: nil, bundle: nil)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       
+        
     }
     
     
@@ -65,7 +63,12 @@ class PatientDataVC: CustomBaseViewVC {
     
     //TODO:-Handle methods
     
- @objc   func handleBack()  {
+    @objc   func handleBack()  {
         navigationController?.popViewController(animated: true)
     }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
 }

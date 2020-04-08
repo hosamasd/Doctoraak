@@ -88,11 +88,11 @@ class DoctorProfileVC: CustomBaseViewVC {
         present(imagePicker, animated: true)
     }
     
-  @objc  func handleOpenFiles()  {
+    @objc  func handleOpenFiles()  {
         let documentPicker = UIDocumentPickerViewController(documentTypes: ["public.text", "com.apple.iwork.pages.pages", "public.data"], in: .import)
-
-           documentPicker.delegate = self
-           present(documentPicker, animated: true, completion: nil)
+        
+        documentPicker.delegate = self
+        present(documentPicker, animated: true, completion: nil)
     }
     
 }
@@ -103,17 +103,17 @@ class DoctorProfileVC: CustomBaseViewVC {
 extension DoctorProfileVC : UIDocumentPickerDelegate {
     
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentAt url: URL) {
-
-                  let cico = url as URL
-                  print(cico)
-                  print(url)
-
-                  print(url.lastPathComponent)
-
+        
+        let cico = url as URL
+        print(cico)
+        print(url)
+        
+        print(url.lastPathComponent)
+        
         self.customDoctorProfileView.cvLabel.text = url.lastPathComponent
-                  print(url.pathExtension)
-
-                 }
+        print(url.pathExtension)
+        
+    }
 }
 
 

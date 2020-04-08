@@ -168,6 +168,7 @@ class CustomMainRegisterView: CustomBaseView {
         
         mainDrop3View.addSubViews(views: doenImage,insuracneText)
         mainDrop3View.hstack(insuracneText,doenImage).withMargins(.init(top: 0, left: 16, bottom: 0, right: 0))
+        
         addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,subView,textStack,insuranceDrop,nextButton)
         
 //         insuranceDrop.fillSuperview(padding: .init(top: 16, left: 16, bottom: 16, right: 16))

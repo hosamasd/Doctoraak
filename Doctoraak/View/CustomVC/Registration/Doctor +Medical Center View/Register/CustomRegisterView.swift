@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SkyFloatingLabelTextField
 
 class CustomRegisterView: CustomBaseView {
     
@@ -73,15 +74,18 @@ class CustomRegisterView: CustomBaseView {
     }()
     
     lazy var boyButton:UIButton = {
-
-         let button = UIButton(type: .system)
+        
+        let button = UIButton(type: .system)
         button.setTitle("Male", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.layer.cornerRadius = 8
         button.layer.borderWidth = 1
         button.layer.borderColor = UIColor.gray.cgColor
+        button.backgroundColor = ColorConstants.disabledButtonsGray
         button.clipsToBounds = true
         button.leftImage(image: #imageLiteral(resourceName: "toilet"), renderMode: .alwaysOriginal)
+        button.addTarget(self, action: #selector(handleBoy), for: .touchUpInside)
+        
         return button
     }()
     lazy var girlButton:UIButton = {
@@ -93,7 +97,9 @@ class CustomRegisterView: CustomBaseView {
         button.layer.borderWidth = 1
         button.layer.borderColor = UIColor.gray.cgColor
         button.clipsToBounds = true
-         button.leftImage(image: #imageLiteral(resourceName: "toile11t"), renderMode: .alwaysOriginal)
+        button.leftImage(image: #imageLiteral(resourceName: "toile11t"), renderMode: .alwaysOriginal)
+        button.addTarget(self, action: #selector(handleGirl), for: .touchUpInside)
+        button.constrainHeight(constant: 60)
         return button
     }()
     
@@ -105,18 +111,26 @@ class CustomRegisterView: CustomBaseView {
         button.layer.cornerRadius = 16
         button.constrainHeight(constant: 50)
         button.clipsToBounds = true
+        button.isEnabled = false
         return button
     }()
     
+    let doctorRegisterViewModel = DoctorRegisterViewModel()
+    var index = 0
+    
+    
     override func layoutSubviews() {
         super.layoutSubviews()
-        let leftColor = #colorLiteral(red: 0.4747212529, green: 0.2048208416, blue: 1, alpha: 1)
-        let rightColor = #colorLiteral(red: 0.7187242508, green: 0.5294578671, blue: 0.9901599288, alpha: 1)
-        boyButton.applyGradient(colors: [leftColor.cgColor, rightColor.cgColor], index: 0)
+        if boyButton.backgroundColor != nil {
+            addGradientInSenderAndRemoveOther(sender: boyButton)
+            boyButton.setTitleColor(.white, for: .normal)
+        }
     }
- 
+    
     
     override func setupViews() {
+        
+        [ mobileNumberTextField,  passwordTextField,  emailTextField,fullNameTextField, confirmPasswordTextField].forEach({$0.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)})
         let subView = UIView(backgroundColor: .clear)
         subView.addSubViews(views: userProfileImage,userEditProfileImageView)
         subView.constrainWidth(constant: 100)
@@ -125,22 +139,96 @@ class CustomRegisterView: CustomBaseView {
         
         let genderStack = getStack(views: boyButton,girlButton, spacing: 16, distribution: .fillEqually, axis: .horizontal)
         let textStack = getStack(views: fullNameTextField,mobileNumberTextField,emailTextField,passwordTextField,confirmPasswordTextField,genderStack, spacing: 16, distribution: .fillEqually, axis: .vertical)
-
+        
         addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,subView,textStack,nextButton)
         NSLayoutConstraint.activate([
-             subView.centerXAnchor.constraint(equalTo: centerXAnchor)
-            ])
-
+            subView.centerXAnchor.constraint(equalTo: centerXAnchor)
+        ])
+        
         LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
         subView.anchor(top: LogoImage.bottomAnchor, leading: nil, bottom: nil, trailing: nil,padding: .init(top: 50, left: 0, bottom: 0, right: 0))
         backImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 60, left: 16, bottom: 0, right: 0))
         titleLabel.anchor(top: nil, leading: leadingAnchor, bottom: LogoImage.bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
         soonLabel.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
         textStack.anchor(top: soonLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 128, left: 32, bottom: 16, right: 32))
-//        genderStack.anchor(top: textStack.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 128, left: 32, bottom: 16, right: 32))
-
+        //        genderStack.anchor(top: textStack.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 128, left: 32, bottom: 16, right: 32))
+        
         nextButton.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 32, left: 32, bottom: 16, right: 32))
-
+        
+    }
+    
+    @objc func textFieldDidChange(text: UITextField)  {
+        doctorRegisterViewModel.index = index
+        doctorRegisterViewModel.male = true
+        //        registerViewModel.insurance = "asd"
+        guard let texts = text.text else { return  }
+        if let floatingLabelTextField = text as? SkyFloatingLabelTextField {
+            if text == mobileNumberTextField {
+                if  !texts.isValidPhoneNumber    {
+                    floatingLabelTextField.errorMessage = "Invalid   Phone".localized
+                    doctorRegisterViewModel.phone = nil
+                }
+                else {
+                    floatingLabelTextField.errorMessage = ""
+                    doctorRegisterViewModel.phone = texts
+                }
+                
+            }else if text == fullNameTextField {
+                if (texts.count < 3 ) {
+                    floatingLabelTextField.errorMessage = "Invalid name".localized
+                    doctorRegisterViewModel.name = nil
+                }
+                else {
+                    
+                    doctorRegisterViewModel.name = texts
+                    floatingLabelTextField.errorMessage = ""
+                }
+                
+            }  else if text == emailTextField {
+                if  !texts.isValidEmail    {
+                    floatingLabelTextField.errorMessage = "Invalid   Email".localized
+                    doctorRegisterViewModel.email = nil
+                }
+                else {
+                    floatingLabelTextField.errorMessage = ""
+                    doctorRegisterViewModel.email = texts
+                }
+                
+            }else   if text == confirmPasswordTextField {
+                if text.text != passwordTextField.text {
+                    floatingLabelTextField.errorMessage = "Passowrd should be same".localized
+                    doctorRegisterViewModel.confirmPassword = nil
+                }
+                else {
+                    doctorRegisterViewModel.confirmPassword = texts
+                    floatingLabelTextField.errorMessage = ""
+                }
+            }else
+                if(texts.count < 8 ) {
+                    floatingLabelTextField.errorMessage = "password must have 8 character".localized
+                    doctorRegisterViewModel.password = nil
+                }
+                else {
+                    floatingLabelTextField.errorMessage = ""
+                    doctorRegisterViewModel.password = texts
+            }
+        }
+    }
+    
+    @objc func handleGirl(sender:UIButton)  {
+        if sender.backgroundColor == nil {
+            doctorRegisterViewModel.male = false;return
+        }
+        addGradientInSenderAndRemoveOther(sender: sender, vv: boyButton)
+        doctorRegisterViewModel.male = false
+    }
+    
+    @objc func handleBoy(sender:UIButton)  {
+        if sender.backgroundColor == nil {
+            doctorRegisterViewModel.male = true;return
+        }
+        addGradientInSenderAndRemoveOther(sender: sender, vv: girlButton)
+        doctorRegisterViewModel.male = true
     }
     
     @objc func handleASD()  {

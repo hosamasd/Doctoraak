@@ -9,6 +9,25 @@
 import UIKit
  extension UIView {
 
+    
+    func addGradientInSenderAndRemoveOther(sender:UIButton,index:Int? = 0,lef:UIColor? = #colorLiteral(red: 0.4747212529, green: 0.2048208416, blue: 1, alpha: 1),right:UIColor? = #colorLiteral(red: 0.7187242508, green: 0.5294578671, blue: 0.9901599288, alpha: 1))  {
+           
+           let leftColor = lef?.cgColor ?? #colorLiteral(red: 0.4747212529, green: 0.2048208416, blue: 1, alpha: 1).cgColor
+           let rightColor = right?.cgColor ?? #colorLiteral(red: 0.7187242508, green: 0.5294578671, blue: 0.9901599288, alpha: 1).cgColor
+           sender.applyGradient(colors: [leftColor,rightColor], index: 0)
+       }
+    
+    func addGradientInSenderAndRemoveOther(sender:UIButton,vv:UIButton)  {
+        
+        let leftColor = #colorLiteral(red: 0.4747212529, green: 0.2048208416, blue: 1, alpha: 1).cgColor
+        let rightColor = #colorLiteral(red: 0.7187242508, green: 0.5294578671, blue: 0.9901599288, alpha: 1).cgColor
+        sender.applyGradient(colors: [leftColor,rightColor], index: 0)
+        
+        vv.setTitleColor(.black, for: .normal)
+        removeSublayer(vv, layerIndex:   0)
+        vv.backgroundColor = ColorConstants.disabledButtonsGray
+    }
+    
     func removeSublayer(_ view: UIView, layerIndex index: Int) {
            guard let sublayers = view.layer.sublayers else {
                print("The view does not have any sublayers.")
