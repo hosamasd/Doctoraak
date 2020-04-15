@@ -159,7 +159,6 @@ class CustomRegisterView: CustomBaseView {
     
     @objc func textFieldDidChange(text: UITextField)  {
         doctorRegisterViewModel.index = index
-        doctorRegisterViewModel.male = true
         //        registerViewModel.insurance = "asd"
         guard let texts = text.text else { return  }
         if let floatingLabelTextField = text as? SkyFloatingLabelTextField {
@@ -217,18 +216,18 @@ class CustomRegisterView: CustomBaseView {
     
     @objc func handleGirl(sender:UIButton)  {
         if sender.backgroundColor == nil {
-            doctorRegisterViewModel.male = false;return
+            doctorRegisterViewModel.male = "female";return
         }
         addGradientInSenderAndRemoveOther(sender: sender, vv: boyButton)
-        doctorRegisterViewModel.male = false
+        doctorRegisterViewModel.male = "female"
     }
     
     @objc func handleBoy(sender:UIButton)  {
         if sender.backgroundColor == nil {
-            doctorRegisterViewModel.male = true;return
+            doctorRegisterViewModel.male = "male";return
         }
         addGradientInSenderAndRemoveOther(sender: sender, vv: girlButton)
-        doctorRegisterViewModel.male = true
+        doctorRegisterViewModel.male = "male"
     }
     
     @objc func handleASD()  {

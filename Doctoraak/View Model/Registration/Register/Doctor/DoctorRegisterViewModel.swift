@@ -19,16 +19,16 @@ class DoctorRegisterViewModel {
     var email:String? {didSet {checkFormValidity()}}
     var password:String? {didSet {checkFormValidity()}}
     var confirmPassword:String? {didSet {checkFormValidity()}}
-    var male:Bool? = true {didSet {checkFormValidity()}}
+    var male:String = "male" {didSet {checkFormValidity()}}
     var index:Int? = -1 {didSet {checkFormValidity()}}
     var image:UIImage? {didSet {checkFormValidity()}}
     
     
-    func performRegister(completion:@escaping (Error?)->Void)  {
-        guard let email = email,let password = password,let name = name,let phone = phone,let male = male
+    func performRegister(completion:@escaping (String,String,String,String,String,UIImage)->Void)  {
+        guard let email = email,let password = password,let name = name,let phone = phone,let img = image
             else { return  }
         bindableIsResgiter.value = true
-        
+        completion(name,email,password,phone,male,img)
         //        RegistrationServices.shared.registerUser(name: username, email: email, phone: phone, password: password, completion: completion)
     }
     
