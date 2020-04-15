@@ -11,6 +11,12 @@ import UIKit
 
 extension UIViewController {
     
+    func activeViewsIfNoData()  {
+           DispatchQueue.main.async {
+               UIApplication.shared.endIgnoringInteractionEvents()
+           }
+       }
+    
     func addGradientInSenderAndRemoveOther(sender:UIButton,vv:UIButton)  {
         
         let leftColor = #colorLiteral(red: 0.4747212529, green: 0.2048208416, blue: 1, alpha: 1).cgColor

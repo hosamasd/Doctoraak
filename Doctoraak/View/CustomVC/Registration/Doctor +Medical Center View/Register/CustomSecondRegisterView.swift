@@ -64,7 +64,7 @@ class CustomSecondRegisterView: CustomBaseView {
         i.arrowSize = 20
         i.placeholder = "Specialization".localized
         i.didSelect { (txt, index, _) in
-            self.doctorSecondRegisterViewModel.specialization = txt
+            self.doctorSecondRegisterViewModel.specialization = index+1
         }
         return i
     }()
@@ -76,7 +76,7 @@ class CustomSecondRegisterView: CustomBaseView {
         i.arrowSize = 20
         i.placeholder = "Degree".localized
         i.didSelect { (txt, index, _) in
-            self.doctorSecondRegisterViewModel.degree = txt
+            self.doctorSecondRegisterViewModel.degree = index+1
         }
         return i
     }()
@@ -197,7 +197,8 @@ class CustomSecondRegisterView: CustomBaseView {
         iiii = de
         insuracneText.text = iiii
         de = ""
-        doctorSecondRegisterViewModel.insurance = iiii
+        doctorSecondRegisterViewModel.isInsurance = iiii != "" ?  true : false
+        doctorSecondRegisterViewModel.insurance = iiii != ""  ? iiii : nil
     }
     
     @objc func handleOpenCloseInsurance()  {

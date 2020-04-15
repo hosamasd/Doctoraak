@@ -30,7 +30,7 @@ class MainClinicWorkingHoursVC: CustomBaseViewVC {
     lazy var customClinicWorkingHoursView:CustomMainClinicWorkingHoursView = {
         let v = CustomMainClinicWorkingHoursView()
         [v.first2TextField,v.first1TextField,v.second1TextField,v.second2TextField,v.third1TextField,v.third2TextField,v.forth1TextField,v.forth2TextField,v.fifth1TextField,v.fifth2TextField,v.sexth1TextField,v.sexth2TextField,v.seventh2TextField,v.seventh1TextField].forEach({$0
-            .addTarget(self, action:#selector(handleShowPicker), for: UIControl.Event.editingDidBegin)})
+            .addTarget(self, action:#selector(handleShowPicker), for: .touchUpInside)})
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
         v.doneButton.addTarget(self, action: #selector(handleDone), for: .touchUpInside)
        
@@ -70,61 +70,62 @@ class MainClinicWorkingHoursVC: CustomBaseViewVC {
         timeSelector.presentOnView(view: self.view)
     }
     
-    func updateTextField(text:UITextField,texts:String)  {
-        
-        switch text{
-        case customClinicWorkingHoursView.first1TextField:
-            customClinicWorkingHoursView.first1TextField.text = texts
-        case customClinicWorkingHoursView.first2TextField:
-            customClinicWorkingHoursView.first2TextField.text = texts
-        case customClinicWorkingHoursView.second1TextField:
-            customClinicWorkingHoursView.second1TextField.text = texts
-        case customClinicWorkingHoursView.second2TextField:
-            customClinicWorkingHoursView.second2TextField.text = texts
-        case customClinicWorkingHoursView.third1TextField:
-            customClinicWorkingHoursView.third1TextField.text = texts
-        case customClinicWorkingHoursView.third2TextField:
-            customClinicWorkingHoursView.third2TextField.text = texts
-        case customClinicWorkingHoursView.forth1TextField:
-            customClinicWorkingHoursView.forth1TextField.text = texts
-        case customClinicWorkingHoursView.forth2TextField:
-            customClinicWorkingHoursView.forth2TextField.text = texts
-        case customClinicWorkingHoursView.fifth1TextField:
-            customClinicWorkingHoursView.fifth1TextField.text = texts
-        case customClinicWorkingHoursView.fifth2TextField:
-            customClinicWorkingHoursView.fifth2TextField.text = texts
-        case customClinicWorkingHoursView.sexth2TextField:
-            customClinicWorkingHoursView.sexth2TextField.text = texts
-        case customClinicWorkingHoursView.sexth1TextField:
-            customClinicWorkingHoursView.sexth1TextField.text = texts
-        case customClinicWorkingHoursView.seventh1TextField:
-            customClinicWorkingHoursView.seventh1TextField.text = texts
-        default:
-            customClinicWorkingHoursView.seventh2TextField.text = texts
-        }
-        choosedHours.append(texts)
-    }
+    func updateTextField(tag:Int,texts:String)  {
+           
+           switch tag{
+           case 1:
+            customClinicWorkingHoursView.first1TextField.setTitle(texts, for: .normal)
+           case 11:
+               customClinicWorkingHoursView.first2TextField.setTitle(texts, for: .normal)
+           case 2:
+               customClinicWorkingHoursView.second1TextField.setTitle(texts, for: .normal)
+           case 22:
+               customClinicWorkingHoursView.second2TextField.setTitle(texts, for: .normal)
+           case 3:
+               customClinicWorkingHoursView.third1TextField.setTitle(texts, for: .normal)
+           case 33:
+               customClinicWorkingHoursView.third2TextField.setTitle(texts, for: .normal)
+           case 4:
+               customClinicWorkingHoursView.forth1TextField.setTitle(texts, for: .normal)
+           case 44:
+               customClinicWorkingHoursView.forth2TextField.setTitle(texts, for: .normal)
+           case 5:
+               customClinicWorkingHoursView.fifth1TextField.setTitle(texts, for: .normal)
+           case 55:
+               customClinicWorkingHoursView.fifth2TextField.setTitle(texts, for: .normal)
+           case 6:
+               customClinicWorkingHoursView.sexth2TextField.setTitle(texts, for: .normal)
+           case 66:
+               customClinicWorkingHoursView.sexth1TextField.setTitle(texts, for: .normal)
+           case 7:
+               customClinicWorkingHoursView.seventh1TextField.setTitle(texts, for: .normal)
+           default:
+               customClinicWorkingHoursView.seventh2TextField.setTitle(texts, for: .normal)
+           }
+           choosedHours.append(texts)
+       }
     
-    
-    
-    @objc func handleShowPicker(textField:UITextField) {
-        var texts = ""
-        let cc = Calendar.current
-        
-        setupTimeSelector(timeSelector)
-        timeSelector.timeSelected = {[unowned self] (timeSelector) in
-            print(timeSelector.date)
-            let dd = timeSelector.date
-            
-            let hour = cc.component(.hour, from: dd)
-            let minute = cc.component(.minute, from: dd)
-            texts = "\(hour):\(minute)"
-            DispatchQueue.main.async {
-                self.updateTextField(text: textField, texts: texts)
-            }
-        }
-        
-    }
+    @objc func handleShowPicker(sender:UIButton) {
+           var texts = ""
+           let cc = Calendar.current
+           var ppp = "am"
+           
+           setupTimeSelector(timeSelector)
+           timeSelector.timeSelected = {[unowned self] (timeSelector) in
+               print(timeSelector.date)
+               let dd = timeSelector.date
+               
+               var hour = cc.component(.hour, from: dd)
+                ppp = hour > 12 ? "pm" : "am"
+               hour =   hour > 12 ? hour - 12 : hour
+              
+               let minute = cc.component(.minute, from: dd)
+               texts = "\(hour):\(minute) \(ppp)"
+               DispatchQueue.main.async {
+                self.updateTextField(tag: sender.tag, texts: texts)
+               }
+           }
+       }
     
     @objc func handleBack()  {
         navigationController?.popViewController(animated: true)

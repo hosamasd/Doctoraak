@@ -83,14 +83,23 @@ class CustomMainRegisterView: CustomBaseView {
         return s
     }()
     
-    lazy var addressTextField = createMainTextFields(place: "Address")
+    lazy var addressMainView:UIView = {
+           let v = makeMainSubViewWithAppendView(vv: [addressLabel])
+           //        v.addSubViews(views: addressImage,addressLabel)
+           v.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpenLocation)))
+           
+           v.hstack(addressLabel).withMargins(.init(top: 0, left: 16, bottom: 0, right: 8))
+           return v
+       }()
+       lazy var addressLabel = UILabel(text: "Address", font: .systemFont(ofSize: 16), textColor: .lightGray)
+//    lazy var addressTextField = createMainTextFields(place: "Address")
     
     lazy var mainDrop3View:UIView = {
         let l = UIView(backgroundColor: .white)
         l.layer.cornerRadius = 8
         l.layer.borderWidth = 1
         l.layer.borderColor = #colorLiteral(red: 0.4835817814, green: 0.4836651683, blue: 0.4835640788, alpha: 1).cgColor
-        l.constrainHeight(constant: 50)
+//        l.constrainHeight(constant: 50)
         l.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpenCloseInsurance)))
         //        l.addSubview(insuranceDrop)
         return l
@@ -98,7 +107,7 @@ class CustomMainRegisterView: CustomBaseView {
     lazy var doenImage:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "Group 4142-6"))
         i.constrainWidth(constant: 50)
-        i.constrainHeight(constant: 50)
+//        i.constrainHeight(constant: 50)
         return i
     }()
     lazy var insuracneText = UILabel(text: "choose insurance", font: .systemFont(ofSize: 18), textColor: .black, textAlignment: .left)
@@ -153,10 +162,11 @@ class CustomMainRegisterView: CustomBaseView {
      var insuracneArray = ["one","two","three","sdfdsfsd"]
  let registerViewModel = RegisterViewModel()
     var handleChooseHours:(()->Void)?
-    
+    var handlerChooseLocation:(()->Void)?
+
     
     override func setupViews() {
-        [mobileNumberTextField,passwordTextField,  emailTextField, fullNameTextField, confirmPasswordTextField, addressTextField].forEach({$0.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)})
+        [mobileNumberTextField,passwordTextField,  emailTextField, fullNameTextField, confirmPasswordTextField].forEach({$0.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)})
         
         let subView = UIView(backgroundColor: .clear)
         subView.addSubViews(views: userProfileImage,userEditProfileImageView)
@@ -164,7 +174,7 @@ class CustomMainRegisterView: CustomBaseView {
         subView.constrainHeight(constant: 100)
         userEditProfileImageView.anchor(top: nil, leading: nil, bottom: userProfileImage.bottomAnchor, trailing: userProfileImage.trailingAnchor,padding: .init(top: 0, left:0 , bottom:10, right: 10))
        
-        let textStack = getStack(views: fullNameTextField,mobileNumberTextField,emailTextField,passwordTextField,confirmPasswordTextField,addressTextField,workingHourView,deliveryTextField,mainDrop3View, spacing: 16, distribution: .fillEqually, axis: .vertical)
+        let textStack = getStack(views: fullNameTextField,mobileNumberTextField,emailTextField,passwordTextField,confirmPasswordTextField,addressMainView,workingHourView,deliveryTextField,mainDrop3View, spacing: 16, distribution: .fillEqually, axis: .vertical)
         
         mainDrop3View.addSubViews(views: doenImage,insuracneText)
         mainDrop3View.hstack(insuracneText,doenImage).withMargins(.init(top: 0, left: 16, bottom: 0, right: 0))
@@ -233,16 +243,7 @@ class CustomMainRegisterView: CustomBaseView {
                        floatingLabelTextField.errorMessage = ""
                        registerViewModel.password = texts
                    }
-               }else  if text == addressTextField {
-                   if (texts.count < 3 ) {
-                       floatingLabelTextField.errorMessage = "Invalid Address".localized
-                       registerViewModel.address = nil
-                   }
-                   else {
-                       
-                       registerViewModel.address = texts
-                       floatingLabelTextField.errorMessage = ""
-                   }
+               
                    
                }else if text == fullNameTextField {
                    if (texts.count < 3 ) {
@@ -302,6 +303,10 @@ class CustomMainRegisterView: CustomBaseView {
    @objc func handleChoose()  {
         handleChooseHours?()
     }
+    
+    @objc  func handleOpenLocation()  {
+           handlerChooseLocation?()
+       }
 }
 
 

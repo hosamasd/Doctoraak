@@ -97,6 +97,8 @@
 		4EC977F7242B54D000C61F1B /* TopDoctorHomeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC977F6242B54D000C61F1B /* TopDoctorHomeCell.swift */; };
 		4EC977F9242B59A300C61F1B /* DoctorHomePatientsCollectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC977F8242B59A300C61F1B /* DoctorHomePatientsCollectionVC.swift */; };
 		4EC977FB242B59D900C61F1B /* DoctorHomePatientsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC977FA242B59D900C61F1B /* DoctorHomePatientsCell.swift */; };
+		4ED34648244736FE00E29F03 /* ChooseLocationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED34647244736FE00E29F03 /* ChooseLocationVC.swift */; };
+		4ED3464B2447373800E29F03 /* CustomChooseUserLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED3464A2447373800E29F03 /* CustomChooseUserLocationView.swift */; };
 		4EDBE29F242B9C7F00702C9A /* MainPaymentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDBE29E242B9C7F00702C9A /* MainPaymentVC.swift */; };
 		4EDBE2A2242BA06500702C9A /* DoctorNotificationsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDBE2A1242BA06500702C9A /* DoctorNotificationsVC.swift */; };
 		4EDBE2A5242BA28900702C9A /* CustomMainDoctorNotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDBE2A4242BA28900702C9A /* CustomMainDoctorNotificationView.swift */; };
@@ -205,6 +207,8 @@
 		4EC977F6242B54D000C61F1B /* TopDoctorHomeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopDoctorHomeCell.swift; sourceTree = "<group>"; };
 		4EC977F8242B59A300C61F1B /* DoctorHomePatientsCollectionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorHomePatientsCollectionVC.swift; sourceTree = "<group>"; };
 		4EC977FA242B59D900C61F1B /* DoctorHomePatientsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorHomePatientsCell.swift; sourceTree = "<group>"; };
+		4ED34647244736FE00E29F03 /* ChooseLocationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseLocationVC.swift; sourceTree = "<group>"; };
+		4ED3464A2447373800E29F03 /* CustomChooseUserLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomChooseUserLocationView.swift; sourceTree = "<group>"; };
 		4EDBE29E242B9C7F00702C9A /* MainPaymentVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainPaymentVC.swift; sourceTree = "<group>"; };
 		4EDBE2A1242BA06500702C9A /* DoctorNotificationsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorNotificationsVC.swift; sourceTree = "<group>"; };
 		4EDBE2A4242BA28900702C9A /* CustomMainDoctorNotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMainDoctorNotificationView.swift; sourceTree = "<group>"; };
@@ -295,7 +299,7 @@
 			isa = PBXGroup;
 			children = (
 				4E13DDDB24308EC700421737 /* Login */,
-				4E111D7A2429C4EC000250AE /* MainRegisterVC.swift */,
+				4ED34646244736E200E29F03 /* Register */,
 				4E3449062428BF9300259224 /* MainVerificationVC.swift */,
 				4E8F1810243DBDD900C00044 /* Clinic */,
 				4EDBE29E242B9C7F00702C9A /* MainPaymentVC.swift */,
@@ -546,7 +550,7 @@
 			children = (
 				4E28EC68242A4A5500B54186 /* Forget Password */,
 				4E580313242790A200B5D502 /* CustomLoginsView.swift */,
-				4E111D832429C690000250AE /* CustomMainRegisterView.swift */,
+				4ED346492447372E00E29F03 /* Register */,
 				4E3449082428BFB600259224 /* CustomMainVerificationView.swift */,
 				4E8F180F243DBDC500C00044 /* Clinic */,
 				4E8F40382428EA1700C0B455 /* CustomMainPaymentView.swift */,
@@ -672,6 +676,32 @@
 			path = "Doctor Home";
 			sourceTree = "<group>";
 		};
+		4ED34646244736E200E29F03 /* Register */ = {
+			isa = PBXGroup;
+			children = (
+				4E111D7A2429C4EC000250AE /* MainRegisterVC.swift */,
+				4ED34647244736FE00E29F03 /* ChooseLocationVC.swift */,
+			);
+			path = Register;
+			sourceTree = "<group>";
+		};
+		4ED346492447372E00E29F03 /* Register */ = {
+			isa = PBXGroup;
+			children = (
+				4E111D832429C690000250AE /* CustomMainRegisterView.swift */,
+				4ED3464A2447373800E29F03 /* CustomChooseUserLocationView.swift */,
+			);
+			path = Register;
+			sourceTree = "<group>";
+		};
+		4ED3464C24473A8F00E29F03 /* Supports Files */ = {
+			isa = PBXGroup;
+			children = (
+				7A52BB6024153A30008ED1F9 /* Info.plist */,
+			);
+			path = "Supports Files";
+			sourceTree = "<group>";
+		};
 		4EDBE2A0242BA00000702C9A /* Doctor Sceniro */ = {
 			isa = PBXGroup;
 			children = (
@@ -769,7 +799,7 @@
 				7A52BB5B24153A30008ED1F9 /* Assets.xcassets */,
 				7A52BB5824153A28008ED1F9 /* Main.storyboard */,
 				7A52BB5D24153A30008ED1F9 /* LaunchScreen.storyboard */,
-				7A52BB6024153A30008ED1F9 /* Info.plist */,
+				4ED3464C24473A8F00E29F03 /* Supports Files */,
 			);
 			path = Doctoraak;
 			sourceTree = "<group>";
@@ -956,6 +986,7 @@
 				4E333E0824265C2D00F82E00 /* CustomSiftButton.swift in Sources */,
 				4E92AF6C242B717200BCF20E /* CustomMainHomeLeftView.swift in Sources */,
 				4EC977F7242B54D000C61F1B /* TopDoctorHomeCell.swift in Sources */,
+				4ED3464B2447373800E29F03 /* CustomChooseUserLocationView.swift in Sources */,
 				4E333E0F2426607E00F82E00 /* BaseCollectionVC.swift in Sources */,
 				4EA8B1232430E895008473D3 /* DoctorEdirProfileViewModel.swift in Sources */,
 				4EA112BC2429E612005B64E3 /* SMSCodeViewModel.swift in Sources */,
@@ -1012,6 +1043,7 @@
 				4E580314242790A200B5D502 /* CustomLoginsView.swift in Sources */,
 				4E0923AF243DA86D0068E10F /* PatientSecondDataVC.swift in Sources */,
 				7A52BB5524153A28008ED1F9 /* AppDelegate.swift in Sources */,
+				4ED34648244736FE00E29F03 /* ChooseLocationVC.swift in Sources */,
 				4EA112B82429E541005B64E3 /* LoginViewModel.swift in Sources */,
 				4E111D7B2429C4EC000250AE /* MainRegisterVC.swift in Sources */,
 				4E333E13242663E400F82E00 /* DoctorWorkingDateCell.swift in Sources */,
@@ -1170,7 +1202,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5RTZJMVRS2;
-				INFOPLIST_FILE = Doctoraak/Info.plist;
+				INFOPLIST_FILE = "Doctoraak/Supports Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1189,7 +1221,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5RTZJMVRS2;
-				INFOPLIST_FILE = Doctoraak/Info.plist;
+				INFOPLIST_FILE = "Doctoraak/Supports Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

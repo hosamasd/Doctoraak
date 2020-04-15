@@ -8,6 +8,7 @@
 
 import UIKit
 import SkyFloatingLabelTextField
+import SVProgressHUD
 
 class DoctorRegisterVC: CustomBaseViewVC {
     
@@ -19,7 +20,7 @@ class DoctorRegisterVC: CustomBaseViewVC {
     }()
     lazy var mainView:UIView = {
         let v = UIView(backgroundColor: .white)
-        v.constrainHeight(constant: 800)
+        v.constrainHeight(constant: 900)
         v.constrainWidth(constant: view.frame.width)
         return v
     }()
@@ -27,27 +28,22 @@ class DoctorRegisterVC: CustomBaseViewVC {
     lazy var customRegisterView:CustomRegisterView = {
         let v = CustomRegisterView()
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
-        v.boyButton.addTarget(self, action: #selector(handleBoy), for: .touchUpInside)
-        v.girlButton.addTarget(self, action: #selector(handleGirl), for: .touchUpInside)
-        v.mobileNumberTextField.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)
-        v.passwordTextField.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)
-        v.emailTextField.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)
-        v.fullNameTextField.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)
-        v.confirmPasswordTextField.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)
+        v.index = index
+        v.nextButton.addTarget(self, action: #selector(handleNext), for: .touchUpInside)
         v.userEditProfileImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpenGallery)))
         return v
     }()
+    
     //check to go specific way
     fileprivate let index:Int!
-      init(indexx:Int) {
-          self.index = indexx
-          super.init(nibName: nil, bundle: nil)
-      }
+    init(indexx:Int) {
+        self.index = indexx
+        super.init(nibName: nil, bundle: nil)
+    }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    let doctorRegisterViewModel = DoctorRegisterViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,14 +53,14 @@ class DoctorRegisterVC: CustomBaseViewVC {
     //MARK:-User methods
     
     func setupViewModelObserver()  {
-        doctorRegisterViewModel.bindableIsFormValidate.bind { [unowned self] (isValidForm) in
+        customRegisterView.doctorRegisterViewModel.bindableIsFormValidate.bind { [unowned self] (isValidForm) in
             guard let isValid = isValidForm else {return}
             //            self.customLoginView.loginButton.isEnabled = isValid
             
             self.changeButtonState(enable: isValid, vv: self.customRegisterView.nextButton)
         }
         
-        doctorRegisterViewModel.bindableIsResgiter.bind(observer: {  [unowned self] (isReg) in
+        customRegisterView.doctorRegisterViewModel.bindableIsResgiter.bind(observer: {  [unowned self] (isReg) in
             if isReg == true {
                 //                UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
                 //                SVProgressHUD.show(withStatus: "Login...".localized)
@@ -92,79 +88,9 @@ class DoctorRegisterVC: CustomBaseViewVC {
     
     //TODO: -handle methods
     
-    @objc func handleGirl(sender:UIButton)  {
-        if sender.backgroundColor == nil {
-            doctorRegisterViewModel.male = false;return
-        }
-        addGradientInSenderAndRemoveOther(sender: sender, vv: customRegisterView.boyButton)
-        doctorRegisterViewModel.male = false
-    }
     
-    @objc func handleBoy(sender:UIButton)  {
-        if sender.backgroundColor == nil {
-            doctorRegisterViewModel.male = true;return
-        }
-        addGradientInSenderAndRemoveOther(sender: sender, vv: customRegisterView.girlButton)
-        doctorRegisterViewModel.male = true
-    }
     
-    @objc func textFieldDidChange(text: UITextField)  {
-        doctorRegisterViewModel.index = index
-        doctorRegisterViewModel.male = true
-        //        registerViewModel.insurance = "asd"
-        guard let texts = text.text else { return  }
-        if let floatingLabelTextField = text as? SkyFloatingLabelTextField {
-            if text == customRegisterView.mobileNumberTextField {
-                if  !texts.isValidPhoneNumber    {
-                    floatingLabelTextField.errorMessage = "Invalid   Phone".localized
-                    doctorRegisterViewModel.phone = nil
-                }
-                else {
-                    floatingLabelTextField.errorMessage = ""
-                    doctorRegisterViewModel.phone = texts
-                }
-                
-            }else if text == customRegisterView.fullNameTextField {
-                if (texts.count < 3 ) {
-                    floatingLabelTextField.errorMessage = "Invalid name".localized
-                    doctorRegisterViewModel.name = nil
-                }
-                else {
-                    
-                    doctorRegisterViewModel.name = texts
-                    floatingLabelTextField.errorMessage = ""
-                }
-                
-            }  else if text == customRegisterView.emailTextField {
-                if  !texts.isValidEmail    {
-                    floatingLabelTextField.errorMessage = "Invalid   Email".localized
-                    doctorRegisterViewModel.email = nil
-                }
-                else {
-                    floatingLabelTextField.errorMessage = ""
-                    doctorRegisterViewModel.email = texts
-                }
-                
-            }else   if text == customRegisterView.confirmPasswordTextField {
-                if text.text != customRegisterView.passwordTextField.text {
-                    floatingLabelTextField.errorMessage = "Passowrd should be same".localized
-                    doctorRegisterViewModel.confirmPassword = nil
-                }
-                else {
-                    doctorRegisterViewModel.confirmPassword = texts
-                    floatingLabelTextField.errorMessage = ""
-                }
-            }else
-                if(texts.count < 8 ) {
-                    floatingLabelTextField.errorMessage = "password must have 8 character".localized
-                    doctorRegisterViewModel.password = nil
-                }
-                else {
-                    floatingLabelTextField.errorMessage = ""
-                    doctorRegisterViewModel.password = texts
-            }
-        }
-    }
+    
     
     
     
@@ -174,6 +100,23 @@ class DoctorRegisterVC: CustomBaseViewVC {
         imagePicker.sourceType = .photoLibrary
         present(imagePicker, animated: true)
     }
+    
+    @objc func handleBack()  {
+        navigationController?.popViewController(animated: true)
+    }
+    
+    @objc func handleNext()  {
+        
+        customRegisterView.doctorRegisterViewModel.performRegister {[unowned self] (name, mobile, email, password, male, img) in            
+            let second = DoctorSecondRegisterVC(indexx: self.index, male: male, photo: img, email: email, name: name, mobile: mobile, passowrd: password)
+            self.navigationController?.pushViewController(second, animated: true)
+        }
+        
+        
+        
+        
+    }
+    
 }
 
 
@@ -184,11 +127,11 @@ extension DoctorRegisterVC: UIImagePickerControllerDelegate, UINavigationControl
     
     func imagePickerController (_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]){
         if let img = info[.originalImage]  as? UIImage   {
-            doctorRegisterViewModel.image = img
+            customRegisterView.doctorRegisterViewModel.image = img
             customRegisterView.userProfileImage.image = img
         }
         if let img = info[.editedImage]  as? UIImage   {
-            doctorRegisterViewModel.image = img
+            customRegisterView.doctorRegisterViewModel.image = img
             customRegisterView.userProfileImage.image = img
         }
         
@@ -197,12 +140,10 @@ extension DoctorRegisterVC: UIImagePickerControllerDelegate, UINavigationControl
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        doctorRegisterViewModel.image = nil
+        customRegisterView.doctorRegisterViewModel.image = nil
         dismiss(animated: true)
     }
     
     
-    @objc func handleBack()  {
-        navigationController?.popViewController(animated: true)
-    }
+    
 }

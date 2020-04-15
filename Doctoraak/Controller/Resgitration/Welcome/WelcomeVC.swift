@@ -260,7 +260,11 @@ class WelcomeVC: CustomBaseViewVC {
     //TODO: -handle methods
     
     @objc func handleNext()  {
-        let welcome = WelcomeMainSecondVC()
+        let index = userDefaults.integer(forKey: UserDefaultsConstants.isUserRegisterAndWaitForSMScODEIndex)
+        
+        let check = userDefaults.bool(forKey: UserDefaultsConstants.isUserRegisterAndWaitForSMScODE) ? MainVerificationVC(indexx: index, isFromForgetPassw: false) : WelcomeMainSecondVC()
+        
+        let welcome = check//WelcomeMainSecondVC()
         let nav = UINavigationController(rootViewController:welcome)
         nav.modalPresentationStyle = .fullScreen
         present(nav, animated: true)

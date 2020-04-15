@@ -41,4 +41,10 @@ class UserDefaultsConstants {
     static let specificationIdArray = "specificationIdArray"
     static let insuranceIdArray = "insuranceIdArray"
     static let degreeIdArray = "degreeIdArray"
+    
+    
+    
+    static let isUserRegisterAndWaitForSMScODE = "isUserRegisterAndWaitForSMScODE"
+    static let isUserRegisterAndWaitForSMScODEIndex = "isUserRegisterAndWaitForSMScODEIndex"
+
 }
