@@ -7,11 +7,13 @@ target 'Doctoraak' do
 
   # Pods for Doctoraak
 
-pod 'Alamofire'
+#pod 'Alamofire'
 pod 'IQKeyboardManagerSwift'
 pod 'Kingfisher', '~> 4.0'
 pod 'iOSDropDown'
 pod 'SkyFloatingLabelTextField', '~> 3.0'
 pod 'UIMultiPicker'
 pod 'SVProgressHUD'
+pod 'Alamofire', '~> 4.0'
+
 end
