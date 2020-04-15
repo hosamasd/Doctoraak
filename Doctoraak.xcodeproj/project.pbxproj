@@ -105,6 +105,7 @@
 		4EEBF7C8243D9BBE0039BF81 /* MedicineCollectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEBF7C7243D9BBE0039BF81 /* MedicineCollectionVC.swift */; };
 		4EFD44F72446EBE300B4CB35 /* MainRaysModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFD44F62446EBE300B4CB35 /* MainRaysModel.swift */; };
 		4EFD44F92446EC8600B4CB35 /* MainNotificationsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFD44F82446EC8600B4CB35 /* MainNotificationsModel.swift */; };
+		4EFD44FC2446EE7500B4CB35 /* UserDefaultsConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFD44FB2446EE7500B4CB35 /* UserDefaultsConstants.swift */; };
 		7A52BB5524153A28008ED1F9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A52BB5424153A28008ED1F9 /* AppDelegate.swift */; };
 		7A52BB5A24153A28008ED1F9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7A52BB5824153A28008ED1F9 /* Main.storyboard */; };
 		7A52BB5C24153A30008ED1F9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A52BB5B24153A30008ED1F9 /* Assets.xcassets */; };
@@ -210,6 +211,7 @@
 		4EEBF7C7243D9BBE0039BF81 /* MedicineCollectionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicineCollectionVC.swift; sourceTree = "<group>"; };
 		4EFD44F62446EBE300B4CB35 /* MainRaysModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainRaysModel.swift; sourceTree = "<group>"; };
 		4EFD44F82446EC8600B4CB35 /* MainNotificationsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainNotificationsModel.swift; sourceTree = "<group>"; };
+		4EFD44FB2446EE7500B4CB35 /* UserDefaultsConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsConstants.swift; sourceTree = "<group>"; };
 		7A52BB5124153A28008ED1F9 /* Doctoraak.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Doctoraak.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A52BB5424153A28008ED1F9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7A52BB5924153A28008ED1F9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -280,6 +282,7 @@
 			isa = PBXGroup;
 			children = (
 				4E111D812429C5C1000250AE /* ColorConstants.swift */,
+				4EFD44FB2446EE7500B4CB35 /* UserDefaultsConstants.swift */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -925,6 +928,7 @@
 				4E8F180A243DBD3300C00044 /* CustomMainClinicWorkingHoursView.swift in Sources */,
 				4EDBE29F242B9C7F00702C9A /* MainPaymentVC.swift in Sources */,
 				4E5CE7A924275187001EE175 /* CusomBookView.swift in Sources */,
+				4EFD44FC2446EE7500B4CB35 /* UserDefaultsConstants.swift in Sources */,
 				4EA94B99242F5F7E001C4650 /* MainHomeVC.swift in Sources */,
 				4E9145F32446CCAA00766D20 /* MainServices.swift in Sources */,
 				4E14F23B242B462400107FA7 /* DoctorRegisterViewModel.swift in Sources */,

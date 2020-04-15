@@ -8,7 +8,7 @@
 
 import UIKit
 import iOSDropDown
-import RSSelectionMenu
+//import RSSelectionMenu
 import SkyFloatingLabelTextField
 
 class CustomClinicDataView: CustomBaseView {
