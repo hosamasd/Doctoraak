@@ -81,6 +81,7 @@ class WelcomeVC: CustomBaseViewVC {
     @objc func handleNext()  {
         let welcome = WelcomeMainSecondVC()
         let nav = UINavigationController(rootViewController:welcome)
+        nav.modalPresentationStyle = .fullScreen
         present(nav, animated: true)
         //        navigationController?.pushViewController(welcome, animated: true)
         
