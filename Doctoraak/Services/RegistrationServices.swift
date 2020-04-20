@@ -58,6 +58,34 @@ class RegistrationServices {
         }
     }
     
+    func RegiasterClinicCreate(fees:Int,lang:Double,latt:Double,phone:String,waiting_time:Int,city:Int,area:Int,api_token:String,doctor_id:Int,photo:String,working_hours:[String:Any])  {
+        
+        let signUpDict : [String:Any] =
+             [
+                "fees":fees,
+                "lang":lang,
+                "latt":latt,
+                "phone":phone,
+                "waiting_time":waiting_time,
+                "city":city,
+                "area":area,
+                "api_token":api_token,
+                "doctor_id":doctor_id,
+                "photo":photo,
+                "working_hours":working_hours
+//                  "Account": [
+//                  "lastname": lname!,
+//                  "PersonEmail": email!
+//                  ],
+//
+//                  "Member": [
+//                      "Password__C": pass!
+//                  ],
+//
+//                  "ProgramName": "My Chilli's"
+              ]
+    }
+    
     //replace model
     func MainLoginUser(index:Int,phone:String,password:String,completion:@escaping (MainDoctorRegisterModel?,Error?)->Void)  {
         let nnn = index == 0 || index == 1 ? "doctor_login" : index == 2 ? "lab_login" : index == 3 ? "radiology_login" : "pharmacy_login"

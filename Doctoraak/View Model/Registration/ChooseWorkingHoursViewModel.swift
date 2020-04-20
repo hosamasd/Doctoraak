@@ -48,13 +48,14 @@ class ChooseWorkingHoursViewModel {
     }
     
     func checkFormValidity() {
-        let isFormValid = day1 == true && d1TXT1?.isEmpty == false && d1TXT2?.isEmpty == false ||
-         day2 == true && d2TXT1?.isEmpty == false && d2TXT2?.isEmpty == false ||
-             day3 == true && d3TXT1?.isEmpty == false && d3TXT2?.isEmpty == false ||
-             day4 == true && d4TXT1?.isEmpty == false && d4TXT2?.isEmpty == false ||
-             day5 == true && d5TXT1?.isEmpty == false && d5TXT2?.isEmpty == false ||
-             day6 == true && d6TXT1?.isEmpty == false && d6TXT2?.isEmpty == false ||
-             day7 == true && d7TXT1?.isEmpty == false && d7TXT2?.isEmpty == false
+        let isFormValid = true
+//            day1 == true && d1TXT1?.isEmpty == false && d1TXT2?.isEmpty == false ||
+//         day2 == true && d2TXT1?.isEmpty == false && d2TXT2?.isEmpty == false ||
+//             day3 == true && d3TXT1?.isEmpty == false && d3TXT2?.isEmpty == false ||
+//             day4 == true && d4TXT1?.isEmpty == false && d4TXT2?.isEmpty == false ||
+//             day5 == true && d5TXT1?.isEmpty == false && d5TXT2?.isEmpty == false ||
+//             day6 == true && d6TXT1?.isEmpty == false && d6TXT2?.isEmpty == false ||
+//             day7 == true && d7TXT1?.isEmpty == false && d7TXT2?.isEmpty == false
             
         bindableIsFormValidate.value = isFormValid
         

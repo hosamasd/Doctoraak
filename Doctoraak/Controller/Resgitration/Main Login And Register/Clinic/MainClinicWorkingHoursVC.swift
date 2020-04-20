@@ -9,7 +9,8 @@
 import UIKit
 
 protocol MainClinicWorkingHoursProtocol {
-    func getHoursChoosed(hours:[String])
+//    func getHoursChoosed(hours:[String])
+    func getHoursChoosed(hours:[[String:Any]])
 }
 
 class MainClinicWorkingHoursVC: CustomBaseViewVC {
@@ -164,8 +165,8 @@ class MainClinicWorkingHoursVC: CustomBaseViewVC {
     
     func checkValidation()  {
         //        guard let _ = customClinicWorkingHoursView.first1TextField.titleLabel?.text,let _=customClinicWorkingHoursView.first2TextField.titleLabel?.text else { creatMainSnackBar(message: "From and To required...");return  }
-        //                   delgate?.getHoursChoosed(hours: choosedHours)
-        //                          navigationController?.popViewController(animated: true)
+        //                           delgate?.getHoursChoosed(hours: choosedHours)
+        //                                  navigationController?.popViewController(animated: true)
     }
     
     @objc func handleShowPicker(sender:UIButton) {
@@ -190,9 +191,6 @@ class MainClinicWorkingHoursVC: CustomBaseViewVC {
         }
     }
     
-    func changeButtonState()  {
-        
-    }
     
     @objc func handle1Shift(sender:UIButton)  {
         if sender.backgroundColor == nil {
@@ -264,12 +262,62 @@ class MainClinicWorkingHoursVC: CustomBaseViewVC {
         navigationController?.popViewController(animated: true)
     }
     
-    @objc func handleDone()  {
+    fileprivate func checkValidateDoneButton() {
+        if chooseWorkingHoursViewModel.day1 ?? true  {
+            guard let _ = chooseWorkingHoursViewModel.d1TXT1,let _ = chooseWorkingHoursViewModel.d1TXT2 else {creatMainSnackBar(message: "Sunday range should be choosen"); return  }
+        }
+        if chooseWorkingHoursViewModel.day2 ?? true  {
+            guard let _ = chooseWorkingHoursViewModel.d2TXT1,let _ = chooseWorkingHoursViewModel.d2TXT2 else {creatMainSnackBar(message: "Monday range should be choosen"); return  }
+        }
+        if chooseWorkingHoursViewModel.day3 ?? true  {
+            guard let _ = chooseWorkingHoursViewModel.d3TXT1,let _ = chooseWorkingHoursViewModel.d3TXT2 else {creatMainSnackBar(message: "Tuesday range should be choosen"); return  }
+        }
+        if chooseWorkingHoursViewModel.day4 ?? true  {
+            guard let _ = chooseWorkingHoursViewModel.d4TXT1,let _ = chooseWorkingHoursViewModel.d4TXT2 else {creatMainSnackBar(message: "Wednsday range should be choosen"); return  }
+        }
+        if chooseWorkingHoursViewModel.day5 ?? true  {
+            guard let _ = chooseWorkingHoursViewModel.d5TXT1,let _ = chooseWorkingHoursViewModel.d5TXT2 else {creatMainSnackBar(message: "Thrusday range should be choosen"); return  }
+        }
+        if chooseWorkingHoursViewModel.day6 ?? true  {
+            guard let _ = chooseWorkingHoursViewModel.d6TXT1,let _ = chooseWorkingHoursViewModel.d6TXT2 else {creatMainSnackBar(message: "Friday range should be choosen"); return  }
+        }
+        if chooseWorkingHoursViewModel.day7 ?? true  {
+            guard let _ = chooseWorkingHoursViewModel.d7TXT1,let _ = chooseWorkingHoursViewModel.d7TXT2 else {creatMainSnackBar(message: "Saturday range should be choosen"); return  }
+        }
+        
+        delgate?.getHoursChoosed(hours: getChoosenHours())
+        navigationController?.popViewController(animated: true)
         print(99999)
-        //        if day1 {
-        //
-        //        }
-        //        delgate?.getHoursChoosed(hours: choosedHours)
-        //        navigationController?.popViewController(animated: true)
+    }
+    
+    @objc func handleDone()  {
+        checkValidateDoneButton()
+
+    }
+    
+    func creates(day:Int,v:Bool?,t1:String? ,t2:String?) -> [String:Any] {
+       
+         return [   "part1_from": t1 ?? "00:00",
+                       "part1_to":t2 ?? "00:00",
+                       "part2_from": t1 ?? "00:00",
+                       "part2_to": t2 ?? "00:00",
+                       "day":day ,
+                       "active":v ?? false
+        ]
+    }
+    
+    func getChoosenHours() -> [[String:Any]] {
+        let vv:[[String:Any]] = [
+              creates(day: 1, v: chooseWorkingHoursViewModel.day1, t1: chooseWorkingHoursViewModel.d1TXT1, t2: chooseWorkingHoursViewModel.d1TXT1)
+                ,
+            creates(day: 2, v: chooseWorkingHoursViewModel.day2, t1: chooseWorkingHoursViewModel.d2TXT1, t2: chooseWorkingHoursViewModel.d2TXT1),
+            creates(day: 3, v: chooseWorkingHoursViewModel.day3, t1: chooseWorkingHoursViewModel.d3TXT1, t2: chooseWorkingHoursViewModel.d3TXT1),
+            creates(day: 4, v: chooseWorkingHoursViewModel.day4, t1: chooseWorkingHoursViewModel.d4TXT1, t2: chooseWorkingHoursViewModel.d4TXT1),
+            creates(day: 5, v: chooseWorkingHoursViewModel.day5, t1: chooseWorkingHoursViewModel.d5TXT1, t2: chooseWorkingHoursViewModel.d5TXT1),
+            creates(day: 6, v: chooseWorkingHoursViewModel.day6, t1: chooseWorkingHoursViewModel.d6TXT1, t2: chooseWorkingHoursViewModel.d6TXT1),
+            creates(day: 7, v: chooseWorkingHoursViewModel.day7, t1: chooseWorkingHoursViewModel.d7TXT1, t2: chooseWorkingHoursViewModel.d7TXT1)
+
+        ]
+        return vv
     }
 }

@@ -131,12 +131,16 @@ class MainClinicDataVC: CustomBaseViewVC {
 
 
 extension MainClinicDataVC: MainClinicWorkingHoursProtocol {
-    
-    func getHoursChoosed(hours: [String]) {
-        let texts = hours.map{$0}.joined(separator: ",")
-        
-        customClinicDataView.clinicWorkingHoursTextField.text = texts
+    func getHoursChoosed(hours: [[String : Any]]) {
+        print(hours)
     }
+    
+    
+//    func getHoursChoosed(hours: [String]) {
+//        let texts = hours.map{$0}.joined(separator: ",")
+//
+//        customClinicDataView.clinicWorkingHoursTextField.text = texts
+//    }
     
     
     

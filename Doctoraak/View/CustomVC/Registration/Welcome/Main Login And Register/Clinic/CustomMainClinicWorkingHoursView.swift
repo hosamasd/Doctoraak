@@ -60,15 +60,15 @@ class CustomMainClinicWorkingHoursView: CustomBaseView {
     lazy var seventh2TextField = createHoursButtons(tags: 77)
     
     lazy var doneButton:UIButton = {
-        let button = UIButton(type: .system)
+        let button = CustomSiftButton(type: .system)
         button.setTitle("Done", for: .normal)
         button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = ColorConstants.disabledButtonsGray
+//        button.backgroundColor = ColorConstants.disabledButtonsGray
         button.layer.cornerRadius = 16
         button.constrainHeight(constant: 50)
         
         button.clipsToBounds = true
-        button.isEnabled = false
+//        button.isEnabled = false
         return button
     }()
   

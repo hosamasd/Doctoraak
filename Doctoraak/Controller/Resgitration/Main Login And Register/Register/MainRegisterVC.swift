@@ -173,9 +173,13 @@ extension MainRegisterVC: UIImagePickerControllerDelegate, UINavigationControlle
 
 
 extension MainRegisterVC: MainClinicWorkingHoursProtocol{
-    func getHoursChoosed(hours: [String]) {
-        customMainRegisterView.workingHoursLabel.text = hours.first
+    func getHoursChoosed(hours: [[String : Any]]) {
+        print(hours)
     }
+    
+//    func getHoursChoosed(hours: [String]) {
+//        customMainRegisterView.workingHoursLabel.text = hours.first
+//    }
     
     
     
