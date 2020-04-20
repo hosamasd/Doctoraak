@@ -104,7 +104,7 @@ class MainClinicWorkingHoursVC: CustomBaseViewVC {
     //        chooseWorkingHoursViewModel.sv = texts
     //    }
     
-    func updateTextField(tag:Int,texts:String)  {
+    func updateTextField(isShift1:Bool,tag:Int,texts:String)  {
         
         switch tag{
         case 1:
@@ -189,7 +189,7 @@ class MainClinicWorkingHoursVC: CustomBaseViewVC {
             let minute = cc.component(.minute, from: dd)
             texts = "\(hour):\(minute) \(ppp)"
             DispatchQueue.main.async {
-                self.updateTextField(tag: sender.tag, texts: texts)
+                self.updateTextField(isShift1: true, tag: sender.tag, texts: texts)
             }
         }
     }

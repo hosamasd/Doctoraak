@@ -39,6 +39,29 @@ class ChooseWorkingHoursViewModel {
     var d7TXT1:String? {didSet {checkFormValidity()}}
     var d7TXT2:String? {didSet {checkFormValidity()}}
     
+    var day12:Bool? = true {didSet {checkFormValidity()}}
+       var day22:Bool? = false {didSet {checkFormValidity()}}
+       var day32:Bool? = false {didSet {checkFormValidity()}}
+       var day42:Bool? = false {didSet {checkFormValidity()}}
+       var day52:Bool? = false {didSet {checkFormValidity()}}
+       var day62:Bool? = false {didSet {checkFormValidity()}}
+       var day72:Bool? = false {didSet {checkFormValidity()}}
+       
+       var d12TXT1:String? {didSet {checkFormValidity()}}
+       var d12TXT2:String? {didSet {checkFormValidity()}}
+       var d22TXT1:String? {didSet {checkFormValidity()}}
+       var d22TXT2:String? {didSet {checkFormValidity()}}
+       var d32TXT1:String? {didSet {checkFormValidity()}}
+       var d32TXT2:String? {didSet {checkFormValidity()}}
+       var d42TXT1:String? {didSet {checkFormValidity()}}
+       var d42TXT2:String? {didSet {checkFormValidity()}}
+       var d52TXT1:String? {didSet {checkFormValidity()}}
+       var d52TXT2:String? {didSet {checkFormValidity()}}
+       var d62TXT1:String? {didSet {checkFormValidity()}}
+       var d62TXT2:String? {didSet {checkFormValidity()}}
+       var d72TXT1:String? {didSet {checkFormValidity()}}
+       var d72TXT2:String? {didSet {checkFormValidity()}}
+    
     func performRegister(completion:@escaping (Error?)->Void)  {
 //        guard let city = city,let area = area,let fees = fees,let phone = phone,let address = address,let waitingHours = waitingHours, let image = image
 //            ,let consultaionFees = consultaionFees  else { return  }

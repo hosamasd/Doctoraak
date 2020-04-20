@@ -10,6 +10,7 @@ import UIKit
 import iOSDropDown
 import UIMultiPicker
 import SkyFloatingLabelTextField
+import MOLH
 
 class CustomMainRegisterView: CustomBaseView {
     
@@ -113,7 +114,7 @@ class CustomMainRegisterView: CustomBaseView {
     lazy var insuracneText = UILabel(text: "choose insurance", font: .systemFont(ofSize: 18), textColor: .black, textAlignment: .left)
     lazy var insuranceDrop:UIMultiPicker = {
         let v = UIMultiPicker(backgroundColor: .white)
-        v.options = insuracneArray
+//        v.options = insuracneArray
         v.color = .gray
         v.tintColor = .green
         v.font = .systemFont(ofSize: 30, weight: .bold)
@@ -132,20 +133,20 @@ class CustomMainRegisterView: CustomBaseView {
     lazy var workingHoursLabel = UILabel(text: "Working Hours", font: .systemFont(ofSize: 16), textColor: .lightGray)
 //    lazy var pharamacyWorkingHoursTextField = createMainTextFields(place: "Work hours")
 
-    lazy var delvierySwitch:UISwitch = {
+    lazy var deliverySwitch:UISwitch = {
        let s = UISwitch()
         s.onTintColor = #colorLiteral(red: 0.3896943331, green: 0, blue: 0.8117204905, alpha: 1)
         s.isOn = true
+        s.addTarget(self, action: #selector(handleDelvieryCheck), for: .valueChanged)
+
         return s
     }()
-    lazy var deliveryTextField:UITextField = {
-        let s = createMainTextFields(place: "Delivery ?", type: .default,secre: true)
-       
-        delvierySwitch.frame = CGRect(x: CGFloat(s.frame.size.width - 25), y: CGFloat(5), width: CGFloat(25), height: CGFloat(25))
-        s.rightView = delvierySwitch
-        s.rightViewMode = .always
-        return s
-    }()
+    
+    lazy var deliveryView = makeMainSubViewWithAppendView(vv: [deliveryLabel,deliverySwitch])
+      
+      lazy var deliveryLabel = UILabel(text: "Delivery ?", font: .systemFont(ofSize: 20), textColor: .lightGray)
+    
+   
     lazy var nextButton:UIButton = {
         let button = UIButton()
         button.setTitle("Next", for: .normal)
@@ -163,7 +164,44 @@ class CustomMainRegisterView: CustomBaseView {
  let registerViewModel = RegisterViewModel()
     var handleChooseHours:(()->Void)?
     var handlerChooseLocation:(()->Void)?
-
+    var insuranceStringArray = [String]()
+              var insuranceNumberArray = [Int]()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        fetchData()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    fileprivate func fetchEnglishData(isArabic:Bool) {
+           if isArabic {
+               
+               
+            if let insuranceNameArray = userDefaults.value(forKey: UserDefaultsConstants.insuranceNameARArray) as? [String],let insuranceIdArray = userDefaults.value(forKey: UserDefaultsConstants.insuranceIdArray) as? [Int] {
+                self.insuranceStringArray = insuranceNameArray
+                self.insuranceNumberArray = insuranceIdArray
+            
+                
+               }
+           }else {
+               if let insuranceNameArray = userDefaults.value(forKey: UserDefaultsConstants.insuranceNameArray) as? [String],let insuranceIdArray = userDefaults.value(forKey: UserDefaultsConstants.insuranceIdArray) as? [Int] {
+                   self.insuranceStringArray = insuranceNameArray
+                   self.insuranceNumberArray = insuranceIdArray
+               }
+           }
+        self.insuranceDrop.options = insuranceStringArray
+           DispatchQueue.main.async {
+               self.layoutIfNeeded()
+           }
+       }
+    
+    fileprivate func fetchData()  {
+        
+        fetchEnglishData(isArabic: MOLHLanguage.isRTLLanguage())
+    }
     
     override func setupViews() {
         [mobileNumberTextField,passwordTextField,  emailTextField, fullNameTextField, confirmPasswordTextField].forEach({$0.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)})
@@ -174,12 +212,14 @@ class CustomMainRegisterView: CustomBaseView {
         subView.constrainHeight(constant: 100)
         userEditProfileImageView.anchor(top: nil, leading: nil, bottom: userProfileImage.bottomAnchor, trailing: userProfileImage.trailingAnchor,padding: .init(top: 0, left:0 , bottom:10, right: 10))
        
-        let textStack = getStack(views: fullNameTextField,mobileNumberTextField,emailTextField,passwordTextField,confirmPasswordTextField,addressMainView,workingHourView,deliveryTextField,mainDrop3View, spacing: 16, distribution: .fillEqually, axis: .vertical)
+        let textStack = getStack(views: fullNameTextField,mobileNumberTextField,emailTextField,passwordTextField,confirmPasswordTextField,addressMainView,mainDrop3View, spacing: 16, distribution: .fillEqually, axis: .vertical)
         
         mainDrop3View.addSubViews(views: doenImage,insuracneText)
         mainDrop3View.hstack(insuracneText,doenImage).withMargins(.init(top: 0, left: 16, bottom: 0, right: 0))
+        deliveryView.hstack(deliveryLabel,deliverySwitch).withMargins(.init(top: 16, left: 16, bottom: 8, right: 16))
+
         
-        addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,subView,textStack,insuranceDrop,nextButton)
+        addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,subView,textStack,workingHourView,deliveryView,insuranceDrop,nextButton)
         
 //         insuranceDrop.fillSuperview(padding: .init(top: 16, left: 16, bottom: 16, right: 16))
         NSLayoutConstraint.activate([
@@ -191,9 +231,13 @@ class CustomMainRegisterView: CustomBaseView {
         backImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 60, left: 16, bottom: 0, right: 0))
         titleLabel.anchor(top: nil, leading: leadingAnchor, bottom: LogoImage.bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
         soonLabel.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
+        
         textStack.anchor(top: soonLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 128, left: 32, bottom: 16, right: 32))
+         insuranceDrop.anchor(top: textStack.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 0, right: 32))
         //        genderStack.anchor(top: textStack.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 128, left: 32, bottom: 16, right: 32))
-        insuranceDrop.anchor(top: textStack.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 0, right: 32))
+        workingHourView.anchor(top: textStack.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 0, right: 32))
+        deliveryView.anchor(top: workingHourView.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 0, right: 32))
+       
 
         
         nextButton.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 32, left: 32, bottom: 16, right: 32))
@@ -307,6 +351,10 @@ class CustomMainRegisterView: CustomBaseView {
     @objc  func handleOpenLocation()  {
            handlerChooseLocation?()
        }
+    
+    @objc func handleDelvieryCheck(sender:UISwitch)  {
+        sender.isOn = !sender.isOn
+    }
 }
 
 
