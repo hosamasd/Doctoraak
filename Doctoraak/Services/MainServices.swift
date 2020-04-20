@@ -73,4 +73,26 @@ class MainServices {
             }
         }.resume()
     }
+    
+    static func registerationPostMethodGeneric<T:Codable>(postString:String,url:URL,completion:@escaping (T?,Error?)->Void)  {
+           var request = URLRequest(url: url)
+           request.httpMethod = "POST"
+           
+           
+           request.httpBody = postString.data(using: .utf8)
+           
+           URLSession.shared.dataTask(with: request) { (data, response, err) in
+               if let error = err {
+                   completion(nil,error)
+               }
+               guard let data = data else {return}
+               do {
+                   let objects = try JSONDecoder().decode(T.self, from: data)
+                   // success
+                   completion(objects,nil)
+               } catch let error {
+                   completion(nil,error)
+               }
+               }.resume()
+       }
 }

@@ -60,13 +60,15 @@ class CustomMainClinicWorkingHoursView: CustomBaseView {
     lazy var seventh2TextField = createHoursButtons(tags: 77)
     
     lazy var doneButton:UIButton = {
-        let button = CustomSiftButton(type: .system)
+        let button = UIButton(type: .system)
         button.setTitle("Done", for: .normal)
         button.setTitleColor(.white, for: .normal)
+        button.backgroundColor = ColorConstants.disabledButtonsGray
         button.layer.cornerRadius = 16
         button.constrainHeight(constant: 50)
         
         button.clipsToBounds = true
+        button.isEnabled = false
         return button
     }()
   
@@ -85,8 +87,8 @@ class CustomMainClinicWorkingHoursView: CustomBaseView {
     }
     
     override func setupViews() {
-        shift1Button.addTarget(self, action: #selector(handle1Shift), for: .touchUpInside)
-               shift2Button.addTarget(self, action: #selector(handle2Shift), for: .touchUpInside)
+//        shift1Button.addTarget(self, action: #selector(handle1Shift), for: .touchUpInside)
+//               shift2Button.addTarget(self, action: #selector(handle2Shift), for: .touchUpInside)
        [first2TextField,first1TextField].forEach({$0.isEnabled = true})
         
         [satButton,sunButton,monButton,tuesButton,thuButton,wedButton,friButton].forEach({$0.constrainWidth(constant: 50)})
@@ -177,58 +179,62 @@ class CustomMainClinicWorkingHoursView: CustomBaseView {
         button.constrainHeight(constant: 50)
        button.tag = tags ?? 0
         button.layer.cornerRadius = 25
-        button.addTarget(self, action: #selector(handleOpen), for: .touchUpInside)
+//        button.addTarget(self, action: #selector(handleOpen), for: .touchUpInside)
         return button
     }
 
     
-    func enableTextFields(tag:Int)  {
-        switch tag {
-        case 1:
-            enalbes(t: first1TextField,first2TextField)
-        case 2:
-            enalbes(t: second1TextField,second2TextField)
-        case 3:
-            enalbes(t: third1TextField,third2TextField)
-        case 4:
-            enalbes(t: forth1TextField,forth2TextField)
-        case 5:
-            enalbes(t: fifth1TextField,fifth2TextField)
-        case 6:
-            enalbes(t: sexth1TextField,sexth2TextField)
-        default:
-            enalbes(t: seventh1TextField,seventh2TextField)
-            
-        }
-    }
-    
-  @objc  func handleOpen(sender:UIButton)  {
-        enableTextFields(tag: sender.tag)
-    addGradientInSenderAndRemoveOther(sender: sender)
-    }
+//    func enableTextFields(tag:Int)  {
+//        switch tag {
+//        case 1:
+//            enalbes(t: first1TextField,first2TextField)
+//        case 2:
+//            enalbes(t: second1TextField,second2TextField)
+//        case 3:
+//            enalbes(t: third1TextField,third2TextField)
+//        case 4:
+//            enalbes(t: forth1TextField,forth2TextField)
+//        case 5:
+//            enalbes(t: fifth1TextField,fifth2TextField)
+//        case 6:
+//            enalbes(t: sexth1TextField,sexth2TextField)
+//        default:
+//            enalbes(t: seventh1TextField,seventh2TextField)
+//
+//        }
+//    }
+//
+//  @objc  func handleOpen(sender:UIButton)  {
+//        enableTextFields(tag: sender.tag)
+//    addGradientInSenderAndRemoveOther(sender: sender)
+//    }
     
     
    @objc func tapDone()  {
         print(969)
     }
     
-    @objc func handle1Shift(sender:UIButton)  {
-           if sender.backgroundColor == nil {
-            return
-//               ClinicDataViewModel.male = false;return
-           }
-           addGradientInSenderAndRemoveOther(sender: sender, vv: shift2Button)
-//           doctorRegisterViewModel.male = false
-       }
-       
-       @objc func handle2Shift(sender:UIButton)  {
-           if sender.backgroundColor == nil {
-            return
-//               doctorRegisterViewModel.male = true;return
-           }
-           addGradientInSenderAndRemoveOther(sender: sender, vv: shift1Button)
-//           doctorRegisterViewModel.male = true
-       }
+//    @objc func handle1Shift(sender:UIButton)  {
+//           if sender.backgroundColor == nil {
+//            return
+////               ClinicDataViewModel.male = false;return
+//           }
+//           addGradientInSenderAndRemoveOther(sender: sender, vv: shift2Button)
+//        chooseWorkingHoursViewModel.isShiftTwo = false
+//        chooseWorkingHoursViewModel.isShiftOne = true
+////           doctorRegisterViewModel.male = false
+//       }
+//
+//       @objc func handle2Shift(sender:UIButton)  {
+//           if sender.backgroundColor == nil {
+//            return
+////               doctorRegisterViewModel.male = true;return
+//           }
+//           addGradientInSenderAndRemoveOther(sender: sender, vv: shift1Button)
+//        chooseWorkingHoursViewModel.isShiftTwo = true
+//                 chooseWorkingHoursViewModel.isShiftOne = false
+////           doctorRegisterViewModel.male = true
+//       }
     
 
 }

@@ -48,7 +48,6 @@ class RegistrationServices {
                     } catch let error {
                         completion(nil,error)
                     }
-                    
                 }
                 
             case .failure( let encodingError):
@@ -59,25 +58,49 @@ class RegistrationServices {
         }
     }
     
-    //    func loginUser(phone:String,password:String,completion:@escaping (BaseUserSecondModel?,Error?)->Void)  {
-    //           let urlString = "http://aqarzelo.com/public/api/user/login".toSecrueHttps()
-    //           guard  let url = URL(string: urlString) else { return  }
-    //           let postString = "phone=\(phone)&password=\(password)"
-    //           RegistrationServices.registerationPostMethodGeneric(postString: postString, url: url, completion: completion)
-    //       }
+    //replace model
+    func MainLoginUser(index:Int,phone:String,password:String,completion:@escaping (MainDoctorRegisterModel?,Error?)->Void)  {
+        let nnn = index == 0 || index == 1 ? "doctor_login" : index == 2 ? "lab_login" : index == 3 ? "radiology_login" : "pharmacy_login"
+        let urlString = "https://doctoraak.sphinxat.us/public/api/\(nnn)"
+        guard  let url = URL(string: urlString) else { return  }
+        let postString = "phone=\(phone)&password=\(password)"
+        MainServices.registerationPostMethodGeneric(postString: postString, url: url, completion: completion)
+    }
     //
-    //       func forgetPassword(phone:String,completion:@escaping (BaseUserSecondModel?,Error?)->Void)  { ////baseusermodel
-    //           let urlString = "http://aqarzelo.com/public/api/user/forget-password".toSecrueHttps()
-    //           guard  let url = URL(string: urlString) else { return  }
-    //           let postString = "phone=\(phone)"
-    //           RegistrationServices.registerationPostMethodGeneric(postString: postString, url: url, completion: completion)
-    //       }
-    //
-    //       func receiveSmsCode(phone:String,code:String,api_Token:String,password:String,completion:@escaping (BaseUserSecondModel?,Error?)->Void)  {
-    //           let urlString = "http://aqarzelo.com/public/api/user/reset-password".toSecrueHttps()
-    //           guard  let url = URL(string: urlString) else { return  }
-    //
-    //           let postString = "phone=\(phone)&password=\(password)&api_token=\(api_Token)&sms_code=\(code)"
-    //           RegistrationServices.registerationPostMethodGeneric(postString: postString, url: url, completion: completion)
-    //       }
+    func MainForgetPassword(index:Int,phone:String,completion:@escaping (MainDoctorRegisterModel?,Error?)->Void)  { ////baseusermodel
+        let nnn = index == 0 || index == 1 ? "doctor_forget_password" : index == 2 ? "lab_forget_password" : index == 3 ? "radiology_forget_password" : "pharmacy_forget_password"
+        let urlString = "https://doctoraak.sphinxat.us/public/api/\(nnn)"
+        guard  let url = URL(string: urlString) else { return  }
+        let postString = "phone=\(phone)"
+        MainServices.registerationPostMethodGeneric(postString: postString, url: url, completion: completion)
+    }
+    
+    
+    func MainUpdateWithoutSMSPassword(index:Int,phone:String,old_password:String,new_password:String,completion:@escaping (MainDoctorRegisterModel?,Error?)->Void) {
+        let nnn = index == 0 || index == 1 ? "doctor_verify_account" : index == 2 ? "lab_verify_account" : index == 3 ? "radiology_verify_account" : "pharmacy_verify_account"
+        let urlString = "https://doctoraak.sphinxat.us/public/api/\(nnn)"
+        guard  let url = URL(string: urlString) else { return  }
+        let postString = "phone=\(phone)&old_password=\(old_password)&new_password=\(new_password)"
+        MainServices.registerationPostMethodGeneric(postString: postString, url: url, completion: completion)
+    }
+    
+    
+    func MainUpdateUsingSMSPassword(index:Int,phone:String,old_password:String,new_password:String,completion:@escaping (MainDoctorRegisterModel?,Error?)->Void) {
+        let nnn = index == 0 || index == 1 ? "doctor_verify_account" : index == 2 ? "lab_verify_account" : index == 3 ? "radiology_verify_account" : "pharmacy_verify_account"
+        let urlString = "https://doctoraak.sphinxat.us/public/api/\(nnn)"
+        guard  let url = URL(string: urlString) else { return  }
+        let postString = "phone=\(phone)&old_password=\(old_password)&new_password=\(new_password)" // old_password is smscode
+        MainServices.registerationPostMethodGeneric(postString: postString, url: url, completion: completion)
+    }
+    
+    func MainReceiveSmsCode(index:Int,user_id:Int,sms_code:String,completion:@escaping (MainDoctorRegisterModel?,Error?)->Void)  {
+        let nnn = index == 0 || index == 1 ? "doctor_verify_account" : index == 2 ? "lab_verify_account" : index == 3 ? "radiology_verify_account" : "pharmacy_verify_account"
+        
+        let urlString = "https://doctoraak.sphinxat.us/public/api/\(nnn)"
+        guard  let url = URL(string: urlString) else { return  }
+        
+        let postString = "user_id=\(user_id)&sms_code=\(sms_code)"
+        MainServices.registerationPostMethodGeneric(postString: postString, url: url, completion: completion)
+    }
+    
 }

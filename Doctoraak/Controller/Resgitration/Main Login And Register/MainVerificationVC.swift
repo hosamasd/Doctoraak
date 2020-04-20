@@ -46,19 +46,9 @@ class MainVerificationVC: CustomBaseViewVC {
         //        setupTimer()
     }
     
-    override func setupNavigation()  {
-        navigationController?.navigationBar.isHide(true)
-    }
-    
-    override func setupViews() {
-        
-        view.addSubview(customVerificationView)
-        customVerificationView.fillSuperview()
-    }
-    
     func setupViewModelObserver()  {
         customVerificationView.sMSCodeViewModel.bindableIsFormValidate.bind { [unowned self] (isValidForm) in
-            guard let isValid = isValidForm else {return}            
+            guard let isValid = isValidForm else {return}
             self.changeButtonState(enable: isValid, vv: self.customVerificationView.confirmButton)
         }
         customVerificationView.sMSCodeViewModel.bindableIsLogging.bind(observer: {  [unowned self] (isReg) in
@@ -72,6 +62,17 @@ class MainVerificationVC: CustomBaseViewVC {
             }
         })
     }
+    
+    override func setupNavigation()  {
+        navigationController?.navigationBar.isHide(true)
+    }
+    
+    override func setupViews() {
+        
+        view.addSubview(customVerificationView)
+        customVerificationView.fillSuperview()
+    }
+    
     
     func setupTimer()  {
         timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: (#selector(updateTimer)), userInfo: nil, repeats: true)
