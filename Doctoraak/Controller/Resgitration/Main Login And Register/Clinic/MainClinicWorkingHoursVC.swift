@@ -9,8 +9,11 @@
 import UIKit
 
 protocol MainClinicWorkingHoursProtocol {
-//    func getHoursChoosed(hours:[String])
+    //    func getHoursChoosed(hours:[String])
     func getHoursChoosed(hours:[[String:Any]])
+    func getDays(indexs:[Int],days:[String])
+    
+    
 }
 
 class MainClinicWorkingHoursVC: CustomBaseViewVC {
@@ -286,37 +289,96 @@ class MainClinicWorkingHoursVC: CustomBaseViewVC {
         }
         
         delgate?.getHoursChoosed(hours: getChoosenHours())
+        delgate?.getDays(indexs: getDaysIndex(), days: getDays())
         navigationController?.popViewController(animated: true)
         print(99999)
     }
     
+    //    func getDay(v:Bool,txt:String) -> String  {
+    //        if v {
+    //            return
+    //        }
+    //    }
+    
+    func getDays() -> [String] {
+        var ss = [String]()
+        if chooseWorkingHoursViewModel.day1 ?? true {
+            ss.append("Sat")
+        }
+        if chooseWorkingHoursViewModel.day2 ?? true {
+            ss.append("Sun")
+        }
+        if chooseWorkingHoursViewModel.day3 ?? true {
+            ss.append("Mon")
+        }
+        if chooseWorkingHoursViewModel.day4 ?? true {
+            ss.append("Tue")
+        }
+        if chooseWorkingHoursViewModel.day5 ?? true {
+            ss.append("Wed")
+        }
+        if chooseWorkingHoursViewModel.day6 ?? true {
+            ss.append("Thr")
+        }
+        if chooseWorkingHoursViewModel.day7 ?? true {
+            ss.append("Fri")
+        }
+        return ss
+    }
+    
+    func getDaysIndex() -> [Int] {
+        var ss = [Int]()
+        if chooseWorkingHoursViewModel.day1 ?? true {
+            ss.append(1)
+        }
+        if chooseWorkingHoursViewModel.day2 ?? true {
+            ss.append(2)
+        }
+        if chooseWorkingHoursViewModel.day3 ?? true {
+            ss.append(3)
+        }
+        if chooseWorkingHoursViewModel.day4 ?? true {
+            ss.append(4)
+        }
+        if chooseWorkingHoursViewModel.day5 ?? true {
+            ss.append(5)
+        }
+        if chooseWorkingHoursViewModel.day6 ?? true {
+            ss.append(6)
+        }
+        if chooseWorkingHoursViewModel.day7 ?? true {
+            ss.append(7)
+        }
+        return ss
+    }
+    
     @objc func handleDone()  {
         checkValidateDoneButton()
-
+        
     }
     
     func creates(day:Int,v:Bool?,t1:String? ,t2:String?) -> [String:Any] {
-       
-         return [   "part1_from": t1 ?? "00:00",
-                       "part1_to":t2 ?? "00:00",
-                       "part2_from": t1 ?? "00:00",
-                       "part2_to": t2 ?? "00:00",
-                       "day":day ,
-                       "active":v ?? false
+        
+        return [   "part1_from": t1 ?? "00:00",
+                   "part1_to":t2 ?? "00:00",
+                   "part2_from": t1 ?? "00:00",
+                   "part2_to": t2 ?? "00:00",
+                   "day":day ,
+                   "active":v ?? false
         ]
     }
     
     func getChoosenHours() -> [[String:Any]] {
         let vv:[[String:Any]] = [
-              creates(day: 1, v: chooseWorkingHoursViewModel.day1, t1: chooseWorkingHoursViewModel.d1TXT1, t2: chooseWorkingHoursViewModel.d1TXT1)
-                ,
+            creates(day: 1, v: chooseWorkingHoursViewModel.day1, t1: chooseWorkingHoursViewModel.d1TXT1, t2: chooseWorkingHoursViewModel.d1TXT1)
+            ,
             creates(day: 2, v: chooseWorkingHoursViewModel.day2, t1: chooseWorkingHoursViewModel.d2TXT1, t2: chooseWorkingHoursViewModel.d2TXT1),
             creates(day: 3, v: chooseWorkingHoursViewModel.day3, t1: chooseWorkingHoursViewModel.d3TXT1, t2: chooseWorkingHoursViewModel.d3TXT1),
             creates(day: 4, v: chooseWorkingHoursViewModel.day4, t1: chooseWorkingHoursViewModel.d4TXT1, t2: chooseWorkingHoursViewModel.d4TXT1),
             creates(day: 5, v: chooseWorkingHoursViewModel.day5, t1: chooseWorkingHoursViewModel.d5TXT1, t2: chooseWorkingHoursViewModel.d5TXT1),
             creates(day: 6, v: chooseWorkingHoursViewModel.day6, t1: chooseWorkingHoursViewModel.d6TXT1, t2: chooseWorkingHoursViewModel.d6TXT1),
             creates(day: 7, v: chooseWorkingHoursViewModel.day7, t1: chooseWorkingHoursViewModel.d7TXT1, t2: chooseWorkingHoursViewModel.d7TXT1)
-
+            
         ]
         return vv
     }

@@ -115,7 +115,6 @@ class CustomMainClinicWorkingHoursView: CustomBaseView {
         let first7Stack = getStack(views: satButton,text7Stack, spacing: 32, distribution: .fill, axis: .horizontal)
         
         let mainStack = getStack(views: firstStack,first2Stack,first3Stack,first4Stack,first5Stack,first6Stack,first7Stack, spacing: 16, distribution: .fillEqually, axis: .vertical)
-        
       
             addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,ss,mainStack,doneButton)
             

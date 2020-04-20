@@ -173,6 +173,11 @@ extension MainRegisterVC: UIImagePickerControllerDelegate, UINavigationControlle
 
 
 extension MainRegisterVC: MainClinicWorkingHoursProtocol{
+    
+    func getDays(indexs: [Int], days: [String]) {
+           print(indexs,"              ",days)
+       }
+    
     func getHoursChoosed(hours: [[String : Any]]) {
         print(hours)
     }
