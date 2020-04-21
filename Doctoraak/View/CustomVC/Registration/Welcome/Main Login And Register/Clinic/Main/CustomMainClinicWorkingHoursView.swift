@@ -101,6 +101,8 @@ class CustomMainClinicWorkingHoursView: CustomBaseView {
         return button
     }()
     
+    var handleShowPicker:(()->Void)?
+    
     
     
     override func layoutSubviews() {
@@ -118,6 +120,9 @@ class CustomMainClinicWorkingHoursView: CustomBaseView {
     override func setupViews() {
         //        shift1Button.addTarget(self, action: #selector(handle1Shift), for: .touchUpInside)
         //               shift2Button.addTarget(self, action: #selector(handle2Shift), for: .touchUpInside)
+        [first2TextField,first1TextField,second1TextField,second2TextField,third1TextField,third2TextField,forth1TextField,forth2TextField,v.fifth1TextField,v.fifth2TextField,v.sexth1TextField,v.sexth2TextField,v.seventh2TextField,v.seventh1TextField,
+                v.mainSecondStack.first1TextField,v.mainSecondStack.first2TextField,v.mainSecondStack.second1TextField,v.mainSecondStack.second2TextField,v.mainSecondStack.third1TextField,v.mainSecondStack.third2TextField,v.mainSecondStack.forth1TextField,v.mainSecondStack.forth2TextField,v.mainSecondStack.fifth1TextField,v.mainSecondStack.fifth2TextField,v.mainSecondStack.sexth1TextField,v.mainSecondStack.sexth2TextField,v.mainSecondStack.seventh2TextField,v.mainSecondStack.seventh1TextField].forEach({$0
+                   .addTarget(self, action:#selector(handleShowPicker), for: .touchUpInside)})
         [first2TextField,first1TextField].forEach({$0.isEnabled = true})
         
         [satButton,sunButton,monButton,tuesButton,thuButton,wedButton,friButton].forEach({$0.constrainWidth(constant: 50)})
