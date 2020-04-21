@@ -16,8 +16,8 @@ class ChooseWorkingHoursViewModel {
     //variables
     var isShiftOne:Bool? = true {didSet {checkFormValidity()}}
     var isShiftTwo:Bool? = false {didSet {checkFormValidity()}}
-    var day1:Bool? = true {didSet {checkFormValidity()}}
-    var day2:Bool? = false {didSet {checkFormValidity()}}
+    var day1:Bool? = false {didSet {checkFormValidity()}}
+    var day2:Bool? = true {didSet {checkFormValidity()}}
     var day3:Bool? = false {didSet {checkFormValidity()}}
     var day4:Bool? = false {didSet {checkFormValidity()}}
     var day5:Bool? = false {didSet {checkFormValidity()}}
@@ -63,7 +63,7 @@ class ChooseWorkingHoursViewModel {
     }
     
     func checkFormValidity() {
-        let isFormValid = true
+        let isFormValid = day1 == true ||  day2 == true || day3 == true ||  day4 == true || day5 == true ||  day6 == true ||  day7 == true
 //            day1 == true && d1TXT1?.isEmpty == false && d1TXT2?.isEmpty == false ||
 //         day2 == true && d2TXT1?.isEmpty == false && d2TXT2?.isEmpty == false ||
 //             day3 == true && d3TXT1?.isEmpty == false && d3TXT2?.isEmpty == false ||

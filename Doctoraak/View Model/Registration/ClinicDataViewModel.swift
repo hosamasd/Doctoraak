@@ -25,6 +25,7 @@ class ClinicDataViewModel {
     var waitingHours:String?  {didSet {checkFormValidity()}}
     var index:Int? = -1 {didSet {checkFormValidity()}}
     var image:UIImage? {didSet {checkFormValidity()}}
+    var workingArrayHours:[[String : Any]]?  {didSet {checkFormValidity()}}
     
     
     func performRegister(completion:@escaping (Error?)->Void)  {
@@ -36,8 +37,8 @@ class ClinicDataViewModel {
     }
     
     func checkFormValidity() {
-        let isFormValid = city?.isEmpty == false && area?.isEmpty == false && fees?.isEmpty == false  &&  phone?.isEmpty == false && waitingHours?.isEmpty == false && address?.isEmpty == false && workingHours?.isEmpty == false && consultaionFees?.isEmpty == false && index != -1 && image != nil
-        
+//        let isFormValid = city?.isEmpty == false && area?.isEmpty == false && fees?.isEmpty == false  &&  phone?.isEmpty == false && waitingHours?.isEmpty == false && address?.isEmpty == false && workingHours?.isEmpty == false && consultaionFees?.isEmpty == false && index != -1 && image != nil && workingArrayHours?.isEmpty == false
+         let isFormValid = city?.isEmpty == false && area?.isEmpty == false && fees?.isEmpty == false  &&  phone?.isEmpty == false && waitingHours?.isEmpty == false && address?.isEmpty == false  && consultaionFees?.isEmpty == false && index != -1 && image != nil && workingArrayHours?.isEmpty == false
         bindableIsFormValidate.value = isFormValid
         
     }

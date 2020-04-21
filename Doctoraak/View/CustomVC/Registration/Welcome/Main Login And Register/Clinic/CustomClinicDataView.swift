@@ -22,7 +22,7 @@ class CustomClinicDataView: CustomBaseView {
         let i = UIImageView(image: #imageLiteral(resourceName: "Icon - Keyboard Arrow - Left - Filled"))
         i.constrainWidth(constant: 30)
         i.constrainHeight(constant: 30)
-         i.isUserInteractionEnabled = true
+        i.isUserInteractionEnabled = true
         return i
     }()
     
@@ -78,7 +78,7 @@ class CustomClinicDataView: CustomBaseView {
         let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
         i.optionArray = ["one","two","three"]
         i.arrowSize = 20
-    
+        
         i.placeholder = "Area".localized
         return i
     }()
@@ -98,7 +98,15 @@ class CustomClinicDataView: CustomBaseView {
         s.rightViewMode = .always
         return s
     }()
-    lazy var clinicWorkingHoursTextField = createMainTextFields(place: "Work hours")
+    lazy var workingHourView:UIView = {
+        let v = makeMainSubViewWithAppendView(vv: [workingHoursLabel])
+        v.hstack(workingHoursLabel).withMargins(.init(top: 0, left: 16, bottom: 0, right: 0))
+        v.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleChoose)))
+        return v
+    }()
+    lazy var workingHoursLabel = UILabel(text: "Working Hours", font: .systemFont(ofSize: 16), textColor: .lightGray)
+    
+    //    lazy var clinicWorkingHoursTextField = createMainTextFields(place: "Work hours")
     lazy var waitingHoursTextField:UITextField = {
         let s = createMainTextFields(place: "Waiting hours", type: .numberPad)
         let label = UILabel(text: "Time in m", font: .systemFont(ofSize: 14), textColor: .lightGray)
@@ -120,104 +128,108 @@ class CustomClinicDataView: CustomBaseView {
     }()
     
     var index = 0
+    var handleChooseHours:(()->Void)?
     
     let clinicDataViewModel = ClinicDataViewModel()
-
+    
     
     override func setupViews() {
         
         [ waitingHoursTextField, feesTextField, clinicAddressTextField,   clinicMobileNumberTextField, consultationFeesTextField].forEach({$0.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)})
-        
+        workingHourView.hstack(workingHoursLabel).padLeft(16)
         let subView = UIView(backgroundColor: .clear)
         subView.addSubViews(views: clinicProfileImage,clinicEditProfileImageView)
         subView.constrainWidth(constant: 100)
         subView.constrainHeight(constant: 100)
         clinicEditProfileImageView.anchor(top: nil, leading: nil, bottom: clinicProfileImage.bottomAnchor, trailing: clinicProfileImage.trailingAnchor,padding: .init(top: 0, left:0 , bottom:10, right: 10))
         
-        let textStack = getStack(views: clinicMobileNumberTextField,clinicAddressTextField,mainDropView,mainDrop2View,feesTextField,consultationFeesTextField,clinicWorkingHoursTextField,waitingHoursTextField, spacing: 16, distribution: .fillEqually, axis: .vertical)
+        let textStack = getStack(views: clinicMobileNumberTextField,clinicAddressTextField,mainDropView,mainDrop2View,feesTextField,consultationFeesTextField,workingHourView,waitingHoursTextField, spacing: 16, distribution: .fillEqually, axis: .vertical)
         [areaDrop,cityDrop].forEach({$0.fillSuperview(padding: .init(top: 16, left: 16, bottom: 16, right: 16))})
-
+        
         addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,subView,textStack,doneButton)
         
         NSLayoutConstraint.activate([
             subView.centerXAnchor.constraint(equalTo: centerXAnchor)
-            ])
-//
+        ])
+        //
         LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
         subView.anchor(top: LogoImage.bottomAnchor, leading: nil, bottom: nil, trailing: nil,padding: .init(top: 50, left: 0, bottom: 0, right: 0))
         backImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 60, left: 16, bottom: 0, right: 0))
         titleLabel.anchor(top: nil, leading: leadingAnchor, bottom: LogoImage.bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
         soonLabel.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
         textStack.anchor(top: soonLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 128, left: 32, bottom: 16, right: 32))
-
-//
+        
+        //
         doneButton.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 16, right: 32))
         
     }
     
+    @objc func handleChoose()  {
+        handleChooseHours?()
+    }
     
     @objc func textFieldDidChange(text: UITextField)  {
-           clinicDataViewModel.index = index
-           clinicDataViewModel.city = "dd"
-           clinicDataViewModel.area = "cc"
-           clinicDataViewModel.workingHours = ["dsfds"]
-           //        registerViewModel.insurance = "asd"
-           guard let texts = text.text else { return  }
-           if let floatingLabelTextField = text as? SkyFloatingLabelTextField {
-               if text == clinicMobileNumberTextField {
-                   if  !texts.isValidPhoneNumber    {
-                       floatingLabelTextField.errorMessage = "Invalid   Phone".localized
-                       clinicDataViewModel.phone = nil
-                   }
-                   else {
-                       floatingLabelTextField.errorMessage = ""
-                       clinicDataViewModel.phone = texts
-                   }
-                   
-               }else if text == clinicAddressTextField {
-                   if  (texts.count < 3 )   {
-                       floatingLabelTextField.errorMessage = "Invalid   Addresss".localized
-                       clinicDataViewModel.address = nil
-                   }
-                   else {
-                       floatingLabelTextField.errorMessage = ""
-                       clinicDataViewModel.address = texts
-                   }
-                   
-               }else  if text == feesTextField {
-                   if (texts.count < 1 ) {
-                       floatingLabelTextField.errorMessage = "Invalid fees".localized
-                       clinicDataViewModel.fees = nil
-                   }
-                   else {
-                       floatingLabelTextField.errorMessage = ""
-                       clinicDataViewModel.fees = texts
-                   }
-               }else  if text == consultationFeesTextField {
-                   if (texts.count < 3 ) {
-                       floatingLabelTextField.errorMessage = "Invalid consulation feez".localized
-                       clinicDataViewModel.consultaionFees = nil
-                   }
-                   else {
-                       
-                       clinicDataViewModel.consultaionFees = texts
-                       floatingLabelTextField.errorMessage = ""
-                   }
-                   
-               }else if text == waitingHoursTextField {
-                   if (texts.count < 3 ) {
-                       floatingLabelTextField.errorMessage = "Invalid waiing".localized
-                       clinicDataViewModel.waitingHours = nil
-                   }
-                   else {
-                       
-                       clinicDataViewModel.waitingHours = texts
-                       floatingLabelTextField.errorMessage = ""
-                   }
-                   
-               
-               }
-           }
-       }
+        clinicDataViewModel.index = index
+        clinicDataViewModel.city = "dd"
+        clinicDataViewModel.area = "cc"
+        clinicDataViewModel.workingHours = ["dsfds"]
+        //        registerViewModel.insurance = "asd"
+        guard let texts = text.text else { return  }
+        if let floatingLabelTextField = text as? SkyFloatingLabelTextField {
+            if text == clinicMobileNumberTextField {
+                if  !texts.isValidPhoneNumber    {
+                    floatingLabelTextField.errorMessage = "Invalid   Phone".localized
+                    clinicDataViewModel.phone = nil
+                }
+                else {
+                    floatingLabelTextField.errorMessage = ""
+                    clinicDataViewModel.phone = texts
+                }
+                
+            }else if text == clinicAddressTextField {
+                if  (texts.count < 3 )   {
+                    floatingLabelTextField.errorMessage = "Invalid   Addresss".localized
+                    clinicDataViewModel.address = nil
+                }
+                else {
+                    floatingLabelTextField.errorMessage = ""
+                    clinicDataViewModel.address = texts
+                }
+                
+            }else  if text == feesTextField {
+                if (texts.count < 1 ) {
+                    floatingLabelTextField.errorMessage = "Invalid fees".localized
+                    clinicDataViewModel.fees = nil
+                }
+                else {
+                    floatingLabelTextField.errorMessage = ""
+                    clinicDataViewModel.fees = texts
+                }
+            }else  if text == consultationFeesTextField {
+                if (texts.count < 3 ) {
+                    floatingLabelTextField.errorMessage = "Invalid consulation feez".localized
+                    clinicDataViewModel.consultaionFees = nil
+                }
+                else {
+                    
+                    clinicDataViewModel.consultaionFees = texts
+                    floatingLabelTextField.errorMessage = ""
+                }
+                
+            }else if text == waitingHoursTextField {
+                if (texts.count < 3 ) {
+                    floatingLabelTextField.errorMessage = "Invalid waiing".localized
+                    clinicDataViewModel.waitingHours = nil
+                }
+                else {
+                    
+                    clinicDataViewModel.waitingHours = texts
+                    floatingLabelTextField.errorMessage = ""
+                }
+                
+                
+            }
+        }
+    }
     
 }

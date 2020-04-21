@@ -31,77 +31,77 @@ class CustomMainClinicWorkingHoursView: CustomBaseView {
     lazy var shift2Button = creatShiftBTN(title: "Shift2")
     
     
-    lazy var sunButton = createButtons(title: "Sun",color: .white,tags: 1)
+    lazy var sunButton = createButtons(title: "Sun",color: .white,tags: 2)
     lazy var first1TextField = createHoursButtons(tags: 1)
     lazy var first2TextField = createHoursButtons(tags: 11)
     
-    lazy var monButton = createButtons(title: "Mon",color: .black,tags: 2)
+    lazy var monButton = createButtons(title: "Mon",color: .black,tags: 3)
     lazy var second1TextField = createHoursButtons(tags: 2)
     lazy var second2TextField = createHoursButtons(tags: 22)
     
-    lazy var tuesButton = createButtons(title: "Tue",color: .black,tags: 3)
+    lazy var tuesButton = createButtons(title: "Tue",color: .black,tags: 4)
     lazy var third1TextField = createHoursButtons(tags: 3)
     lazy var third2TextField = createHoursButtons(tags: 33)
     
-    lazy var wedButton = createButtons(title: "Wed",color: .black,tags: 4)
+    lazy var wedButton = createButtons(title: "Wed",color: .black,tags: 5)
     lazy var forth1TextField = createHoursButtons(tags: 4)
     lazy var forth2TextField = createHoursButtons(tags: 44)
     
-    lazy var thuButton = createButtons(title: "Thu",color: .black,tags: 5)
+    lazy var thuButton = createButtons(title: "Thu",color: .black,tags: 6)
     lazy var fifth1TextField = createHoursButtons(tags: 5)
     lazy var fifth2TextField = createHoursButtons(tags: 55)
     
-    lazy var friButton = createButtons(title: "Fri",color: .black,tags: 6)
+    lazy var friButton = createButtons(title: "Fri",color: .black,tags: 7)
     lazy var sexth1TextField = createHoursButtons(tags: 6)
     lazy var sexth2TextField = createHoursButtons(tags: 66)
     
-    lazy var satButton = createButtons(title: "Sat",color: .black,tags: 7)
+    lazy var satButton = createButtons(title: "Sat",color: .black,tags: 1)
     lazy var seventh1TextField = createHoursButtons(tags: 7)
     lazy var seventh2TextField = createHoursButtons(tags: 77)
     
     lazy var mainFirstSecondStack:UIStackView = {
         let text1Stack = getStack(views: first1TextField,first2TextField, spacing: 16, distribution: .fillEqually, axis: .horizontal)
         let text2Stack = getStack(views: second1TextField,second2TextField, spacing: 16, distribution: .fillEqually, axis: .horizontal)
-             let text3Stack = getStack(views: third1TextField,third2TextField, spacing: 16, distribution: .fillEqually, axis: .horizontal)
-                
-                let text4Stack = getStack(views: forth1TextField,forth2TextField, spacing: 16, distribution: .fillEqually, axis: .horizontal)
-                
-                let text5Stack = getStack(views: fifth1TextField,fifth2TextField, spacing: 16, distribution: .fillEqually, axis: .horizontal)
-                
-                let text6Stack = getStack(views: sexth1TextField,sexth2TextField, spacing: 16, distribution: .fillEqually, axis: .horizontal)
-                
-                let text7Stack = getStack(views: seventh1TextField,seventh2TextField, spacing: 16, distribution: .fillEqually, axis: .horizontal)
-        let v = getStack(views: text1Stack,text2Stack,text3Stack,text4Stack,text5Stack,text6Stack,text7Stack, spacing: 16, distribution: .fillEqually, axis: .vertical)
-          return v
-      }()
+        let text3Stack = getStack(views: third1TextField,third2TextField, spacing: 16, distribution: .fillEqually, axis: .horizontal)
+        
+        let text4Stack = getStack(views: forth1TextField,forth2TextField, spacing: 16, distribution: .fillEqually, axis: .horizontal)
+        
+        let text5Stack = getStack(views: fifth1TextField,fifth2TextField, spacing: 16, distribution: .fillEqually, axis: .horizontal)
+        
+        let text6Stack = getStack(views: sexth1TextField,sexth2TextField, spacing: 16, distribution: .fillEqually, axis: .horizontal)
+        
+        let text7Stack = getStack(views: seventh1TextField,seventh2TextField, spacing: 16, distribution: .fillEqually, axis: .horizontal)
+        let v = getStack(views: text2Stack,text3Stack,text4Stack,text5Stack,text6Stack,text7Stack,text1Stack, spacing: 16, distribution: .fillEqually, axis: .vertical)
+        return v
+    }()
     lazy var buttonDaysStack:UIStackView = {
-           let v = getStack(views: sunButton,monButton,tuesButton,wedButton,thuButton,friButton,satButton, spacing: 16, distribution: .fillEqually, axis: .vertical)
-             return v
-         }()
+        let v = getStack(views: sunButton,monButton,tuesButton,wedButton,thuButton,friButton,satButton, spacing: 16, distribution: .fillEqually, axis: .vertical)
+        return v
+    }()
     lazy var totalStack:UIStackView = {
         let v = getStack(views: buttonDaysStack,mainFirstSecondStack,mainSecondStack, spacing: 48, distribution: .fillProportionally, axis: .horizontal )
         return v
     }()
     lazy var mainSecondStack:CustomMainCliView = {
-       let v = CustomMainCliView()
+        let v = CustomMainCliView()
         v.isHide(true)
         return v
     }()
     
     lazy var doneButton:UIButton = {
-        let button = CustomSiftButton(type: .system)
+        let button = UIButton(type: .system)
         button.setTitle("Done", for: .normal)
         button.setTitleColor(.white, for: .normal)
-        //        button.backgroundColor = ColorConstants.disabledButtonsGray
+                button.backgroundColor = ColorConstants.disabledButtonsGray
         button.layer.cornerRadius = 16
         button.constrainHeight(constant: 50)
         
         button.clipsToBounds = true
-        //        button.isEnabled = false
+                button.isEnabled = false
         return button
     }()
     
-    var handleShowPicker:(()->Void)?
+    var handleShowPickers:((UIButton)->Void)?
     
     
     
@@ -115,66 +115,76 @@ class CustomMainClinicWorkingHoursView: CustomBaseView {
             addGradientInSenderAndRemoveOther(sender: sunButton)
             sunButton.setTitleColor(.white, for: .normal)
         }
+        
+        putDefualValues()
+    }
+    
+    func getSavedData()  {
+        if let f1 = userDefaults.string(forKey: UserDefaultsConstants.first1),let f11 = userDefaults.string(forKey: UserDefaultsConstants.first11),let f12 = userDefaults.string(forKey: UserDefaultsConstants.first211),let f112 = userDefaults.string(forKey: UserDefaultsConstants.first2111),
+            let f2 = userDefaults.string(forKey: UserDefaultsConstants.first2),let f21 = userDefaults.string(forKey: UserDefaultsConstants.first21),let f221 = userDefaults.string(forKey: UserDefaultsConstants.first22),let f222 = userDefaults.string(forKey: UserDefaultsConstants.first221),
+            let f3 = userDefaults.string(forKey: UserDefaultsConstants.first3),let f31 = userDefaults.string(forKey: UserDefaultsConstants.first31),let f23 = userDefaults.string(forKey: UserDefaultsConstants.first23),let f231 = userDefaults.string(forKey: UserDefaultsConstants.first231),
+            let f4 = userDefaults.string(forKey: UserDefaultsConstants.first4),let f41 = userDefaults.string(forKey: UserDefaultsConstants.first41),let f24 = userDefaults.string(forKey: UserDefaultsConstants.first24),let f241 = userDefaults.string(forKey: UserDefaultsConstants.first241),
+            let f5 = userDefaults.string(forKey: UserDefaultsConstants.first5),let f51 = userDefaults.string(forKey: UserDefaultsConstants.first51),let f25 = userDefaults.string(forKey: UserDefaultsConstants.first25),let f251 = userDefaults.string(forKey: UserDefaultsConstants.first251),
+            let f6 = userDefaults.string(forKey: UserDefaultsConstants.first6),let f61 = userDefaults.string(forKey: UserDefaultsConstants.first61),let f26 = userDefaults.string(forKey: UserDefaultsConstants.first26),let f261 = userDefaults.string(forKey: UserDefaultsConstants.first261),
+            
+            let f7 = userDefaults.string(forKey: UserDefaultsConstants.first7),let f71 = userDefaults.string(forKey: UserDefaultsConstants.first71),let f27 = userDefaults.string(forKey: UserDefaultsConstants.first27),let f271 = userDefaults.string(forKey: UserDefaultsConstants.first271)
+            
+            
+            
+        {
+            first1TextField.setTitle(f1, for: .normal)
+            first2TextField.setTitle(f11, for: .normal)
+            mainSecondStack.first1TextField.setTitle(f12, for: .normal)
+            mainSecondStack.first1TextField.setTitle(f112, for: .normal)
+            
+            second1TextField.setTitle(f2, for: .normal)
+            second2TextField.setTitle(f21, for: .normal)
+            mainSecondStack.second1TextField.setTitle(f221, for: .normal)
+            mainSecondStack.second2TextField.setTitle(f222, for: .normal)
+            
+            third1TextField.setTitle(f3, for: .normal)
+            third2TextField.setTitle(f31, for: .normal)
+            mainSecondStack.third1TextField.setTitle(f23, for: .normal)
+            mainSecondStack.third2TextField.setTitle(f231, for: .normal)
+            
+            forth1TextField.setTitle(f4, for: .normal)
+            forth2TextField.setTitle(f41, for: .normal)
+            mainSecondStack.forth1TextField.setTitle(f24, for: .normal)
+            mainSecondStack.forth2TextField.setTitle(f241, for: .normal)
+            
+            fifth1TextField.setTitle(f5, for: .normal)
+            fifth2TextField.setTitle(f51, for: .normal)
+            mainSecondStack.fifth1TextField.setTitle(f25, for: .normal)
+            mainSecondStack.fifth2TextField.setTitle(f251, for: .normal)
+            
+            sexth1TextField.setTitle(f6, for: .normal)
+            sexth2TextField.setTitle(f61, for: .normal)
+            mainSecondStack.sexth1TextField.setTitle(f26, for: .normal)
+            mainSecondStack.sexth2TextField.setTitle(f261, for: .normal)
+            
+            seventh1TextField.setTitle(f7, for: .normal)
+            seventh2TextField.setTitle(f71, for: .normal)
+            mainSecondStack.seventh1TextField.setTitle(f27, for: .normal)
+            mainSecondStack.seventh2TextField.setTitle(f271, for: .normal)
+            
+            
+        }
+    }
+    
+    func putDefualValues()  {
     }
     
     override func setupViews() {
         //        shift1Button.addTarget(self, action: #selector(handle1Shift), for: .touchUpInside)
         //               shift2Button.addTarget(self, action: #selector(handle2Shift), for: .touchUpInside)
-        [first2TextField,first1TextField,second1TextField,second2TextField,third1TextField,third2TextField,forth1TextField,forth2TextField,v.fifth1TextField,v.fifth2TextField,v.sexth1TextField,v.sexth2TextField,v.seventh2TextField,v.seventh1TextField,
-                v.mainSecondStack.first1TextField,v.mainSecondStack.first2TextField,v.mainSecondStack.second1TextField,v.mainSecondStack.second2TextField,v.mainSecondStack.third1TextField,v.mainSecondStack.third2TextField,v.mainSecondStack.forth1TextField,v.mainSecondStack.forth2TextField,v.mainSecondStack.fifth1TextField,v.mainSecondStack.fifth2TextField,v.mainSecondStack.sexth1TextField,v.mainSecondStack.sexth2TextField,v.mainSecondStack.seventh2TextField,v.mainSecondStack.seventh1TextField].forEach({$0
-                   .addTarget(self, action:#selector(handleShowPicker), for: .touchUpInside)})
-        [first2TextField,first1TextField].forEach({$0.isEnabled = true})
+        [first2TextField,first1TextField,second1TextField,second2TextField,third1TextField,third2TextField,forth1TextField,forth2TextField,fifth1TextField,fifth2TextField,sexth1TextField,sexth2TextField,seventh2TextField,seventh1TextField,
+         mainSecondStack.first1TextField,mainSecondStack.first2TextField,mainSecondStack.second1TextField,mainSecondStack.second2TextField,mainSecondStack.third1TextField,mainSecondStack.third2TextField,mainSecondStack.forth1TextField,mainSecondStack.forth2TextField,mainSecondStack.fifth1TextField,mainSecondStack.fifth2TextField,mainSecondStack.sexth1TextField,mainSecondStack.sexth2TextField,mainSecondStack.seventh2TextField,mainSecondStack.seventh1TextField].forEach({$0
+            .addTarget(self, action:#selector(handleShowPicker), for: .touchUpInside)})
+        [second1TextField,second2TextField].forEach({$0.isEnabled = true})
         
         [satButton,sunButton,monButton,tuesButton,thuButton,wedButton,friButton].forEach({$0.constrainWidth(constant: 50)})
-        let vv = getStack(views: satButton,sunButton,monButton,tuesButton,wedButton,thuButton,friButton, spacing: 16, distribution: .fillEqually, axis: .vertical)
         
         let ss = getStack(views: shift1Button,shift2Button, spacing: 16, distribution: .fillEqually, axis: .horizontal)
-        let text1Stack = getStack(views: first1TextField,first2TextField, spacing: 16, distribution: .fillEqually, axis: .horizontal)
-//        let firstStack = getStack(views: sunButton,text1Stack, spacing: 32, distribution: .fill, axis: .horizontal)
-        
-        let text2Stack = getStack(views: second1TextField,second2TextField, spacing: 16, distribution: .fillEqually, axis: .horizontal)
-//        let first2Stack = getStack(views: monButton,text2Stack, spacing: 32, distribution: .fill, axis: .horizontal)
-        
-        let text3Stack = getStack(views: third1TextField,third2TextField, spacing: 16, distribution: .fillEqually, axis: .horizontal)
-//        let first3Stack = getStack(views: tuesButton,text3Stack, spacing: 32, distribution: .fill, axis: .horizontal)
-        
-        let text4Stack = getStack(views: forth1TextField,forth2TextField, spacing: 16, distribution: .fillEqually, axis: .horizontal)
-//        let first4Stack = getStack(views: wedButton,text4Stack, spacing: 32, distribution: .fill, axis: .horizontal)
-        
-        let text5Stack = getStack(views: fifth1TextField,fifth2TextField, spacing: 16, distribution: .fillEqually, axis: .horizontal)
-//        let first5Stack = getStack(views: thuButton,text5Stack, spacing: 32, distribution: .fill, axis: .horizontal)
-        
-        let text6Stack = getStack(views: sexth1TextField,sexth2TextField, spacing: 16, distribution: .fillEqually, axis: .horizontal)
-//        let first6Stack = getStack(views: friButton,text6Stack, spacing: 32, distribution: .fill, axis: .horizontal)
-        
-        let text7Stack = getStack(views: seventh1TextField,seventh2TextField, spacing: 16, distribution: .fillEqually, axis: .horizontal)
-//        let first7Stack = getStack(views: satButton,text7Stack, spacing: 32, distribution: .fill, axis: .horizontal)
-        
-        
-//        let text12Stack = getStack(views: first1TextField,first2TextField, spacing: 16, distribution: .fillEqually, axis: .horizontal)
-//        let first12Stack = getStack(views: sunButton,text12Stack, spacing: 32, distribution: .fill, axis: .horizontal)
-//        
-//        let text22Stack = getStack(views: second1TextField,second2TextField, spacing: 16, distribution: .fillEqually, axis: .horizontal)
-//        let first22Stack = getStack(views: monButton,text22Stack, spacing: 32, distribution: .fill, axis: .horizontal)
-//        
-//        let text32Stack = getStack(views: third1TextField,third2TextField, spacing: 16, distribution: .fillEqually, axis: .horizontal)
-//        let first32Stack = getStack(views: tuesButton,text32Stack, spacing: 32, distribution: .fill, axis: .horizontal)
-//        
-//        let text42Stack = getStack(views: forth1TextField,forth2TextField, spacing: 16, distribution: .fillEqually, axis: .horizontal)
-//        let first42Stack = getStack(views: wedButton,text42Stack, spacing: 32, distribution: .fill, axis: .horizontal)
-//        
-//        let text52Stack = getStack(views: fifth1TextField,fifth2TextField, spacing: 16, distribution: .fillEqually, axis: .horizontal)
-//        let first52Stack = getStack(views: thuButton,text52Stack, spacing: 32, distribution: .fill, axis: .horizontal)
-//        
-//        let text62Stack = getStack(views: sexth1TextField,sexth2TextField, spacing: 16, distribution: .fillEqually, axis: .horizontal)
-//        let first62Stack = getStack(views: friButton,text62Stack, spacing: 32, distribution: .fill, axis: .horizontal)
-//        
-//        let text72Stack = getStack(views: seventh1TextField,seventh2TextField, spacing: 16, distribution: .fillEqually, axis: .horizontal)
-//        let first72Stack = getStack(views: satButton,text72Stack, spacing: 32, distribution: .fill, axis: .horizontal)
-//        
-//        let mainStack = getStack(views: firstStack,first2Stack,first3Stack,first4Stack,first5Stack,first6Stack,first7Stack, spacing: 16, distribution: .fillEqually, axis: .vertical)
-//        let mainSecondStack = getStack(views: first12Stack,first22Stack,first32Stack,first42Stack,first52Stack,first62Stack,first72Stack, spacing: 16, distribution: .fillEqually, axis: .vertical)
-//        mainSecondStack.isHide(true)
         addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,ss,totalStack,doneButton)
         
         
@@ -265,6 +275,9 @@ class CustomMainClinicWorkingHoursView: CustomBaseView {
     //    addGradientInSenderAndRemoveOther(sender: sender)
     //    }
     
+    @objc func handleShowPicker(sender:UIButton) {
+        handleShowPickers?(sender)
+    }
     
     @objc func tapDone()  {
         print(969)

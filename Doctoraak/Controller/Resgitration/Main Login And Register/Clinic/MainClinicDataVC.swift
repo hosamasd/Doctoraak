@@ -30,9 +30,12 @@ class MainClinicDataVC: CustomBaseViewVC {
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
         v.doneButton.addTarget(self, action: #selector(handleDone), for: .touchUpInside)
        
-        v.clinicWorkingHoursTextField.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleChooseWorkingHours)))
+//        v.clinicWorkingHoursTextField.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleChooseWorkingHours)))
         v.clinicEditProfileImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpenGallery)))
         
+        v.handleChooseHours = {[unowned self] in
+            self.handleChooseWorkingHours()
+        }
         //        v.cityDrop.addTarget(self, action: #selector(handleMulti), for: .touchUpInside)
         return v
     }()
@@ -49,7 +52,7 @@ class MainClinicDataVC: CustomBaseViewVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViewModelObserver()
-        customClinicDataView.clinicWorkingHoursTextField.inputAccessoryView = UIView()
+//        customClinicDataView.clinicWorkingHoursTextField.inputAccessoryView = UIView()
         
     }
     
@@ -101,14 +104,15 @@ class MainClinicDataVC: CustomBaseViewVC {
     }
     
     @objc func handleDone()  {
+        
+        
         let payment = MainPaymentVC(indexx: index)
         navigationController?.pushViewController(payment, animated: true)
     }
     
-    @objc func handleChooseWorkingHours()  {
+     func handleChooseWorkingHours()  {
         let payment = MainClinicWorkingHoursVC()
         payment.delgate = self
-//        payment.index = index
         navigationController?.pushViewController(payment, animated: true)
     }
     
@@ -137,6 +141,7 @@ extension MainClinicDataVC: MainClinicWorkingHoursProtocol {
     
     func getHoursChoosed(hours: [[String : Any]]) {
         print(hours)
+        customClinicDataView.clinicDataViewModel.workingArrayHours = hours
     }
     
     

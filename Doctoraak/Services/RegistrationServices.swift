@@ -59,6 +59,11 @@ class RegistrationServices {
     }
     
     func RegiasterClinicCreate(fees:Int,lang:Double,latt:Double,phone:String,waiting_time:Int,city:Int,area:Int,api_token:String,doctor_id:Int,photo:String,working_hours:[String:Any])  {
+        let urlString = "https://doctoraak.sphinxat.us/public/api/doctor_create_clinic"
+        guard let url = URL(string: urlString) else { return  }
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
         let signUpDict : [String:Any] =
              [
@@ -73,17 +78,22 @@ class RegistrationServices {
                 "doctor_id":doctor_id,
                 "photo":photo,
                 "working_hours":working_hours
-//                  "Account": [
-//                  "lastname": lname!,
-//                  "PersonEmail": email!
-//                  ],
-//
-//                  "Member": [
-//                      "Password__C": pass!
-//                  ],
-//
-//                  "ProgramName": "My Chilli's"
               ]
+        request.httpBody = try! JSONSerialization.data(withJSONObject: signUpDict)
+        Alamofire.request(request)
+            .responseJSON { response in
+                // do whatever you want here
+                switch response.result {
+                case .failure(let error):
+                    print(error)
+
+                    if let data = response.data, let responseString = String(data: data, encoding: .utf8) {
+                        print(responseString)
+                    }
+                case .success(let responseObject):
+                    print(responseObject)
+                }
+        }
     }
     
     //replace model
