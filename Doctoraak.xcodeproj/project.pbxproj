@@ -87,6 +87,7 @@
 		4EA94BA2242F60FF001C4650 /* MainHomePatientsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA94BA1242F60FF001C4650 /* MainHomePatientsCell.swift */; };
 		4EAE7985242C7E1B00A2E20F /* BaseCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EAE7983242C7E1B00A2E20F /* BaseCollectionCell.swift */; };
 		4EAE7986242C7E1B00A2E20F /* CustomBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EAE7984242C7E1B00A2E20F /* CustomBaseView.swift */; };
+		4EB847D5244EBB060042DD35 /* CustomMainCliView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB847D4244EBB060042DD35 /* CustomMainCliView.swift */; };
 		4EBB726F242B22D4008DD084 /* TimeSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBB726E242B22D4008DD084 /* TimeSelector.swift */; };
 		4EBCA266242CC0B30090C1E1 /* TestVCS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBCA265242CC0B30090C1E1 /* TestVCS.swift */; };
 		4EC1A8CC244705AA00AD898E /* RegistrationServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC1A8CB244705AA00AD898E /* RegistrationServices.swift */; };
@@ -198,6 +199,7 @@
 		4EA94BA1242F60FF001C4650 /* MainHomePatientsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainHomePatientsCell.swift; sourceTree = "<group>"; };
 		4EAE7983242C7E1B00A2E20F /* BaseCollectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BaseCollectionCell.swift; path = "Doctoraak/View/ Cells/Base Cells/BaseCollectionCell.swift"; sourceTree = SOURCE_ROOT; };
 		4EAE7984242C7E1B00A2E20F /* CustomBaseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomBaseView.swift; path = "Doctoraak/View/ Cells/Base Cells/CustomBaseView.swift"; sourceTree = SOURCE_ROOT; };
+		4EB847D4244EBB060042DD35 /* CustomMainCliView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMainCliView.swift; sourceTree = "<group>"; };
 		4EBB726E242B22D4008DD084 /* TimeSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSelector.swift; sourceTree = "<group>"; };
 		4EBCA265242CC0B30090C1E1 /* TestVCS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestVCS.swift; sourceTree = "<group>"; };
 		4EC1A8CB244705AA00AD898E /* RegistrationServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationServices.swift; sourceTree = "<group>"; };
@@ -511,7 +513,7 @@
 		4E8F180F243DBDC500C00044 /* Clinic */ = {
 			isa = PBXGroup;
 			children = (
-				4E8F1809243DBD3300C00044 /* CustomMainClinicWorkingHoursView.swift */,
+				4EB847D3244EBAF00042DD35 /* Main */,
 				4E8F180D243DBD7100C00044 /* CustomClinicDataView.swift */,
 			);
 			path = Clinic;
@@ -630,6 +632,15 @@
 			);
 			name = "Base Cells";
 			path = "Base Cells/Base Cells";
+			sourceTree = "<group>";
+		};
+		4EB847D3244EBAF00042DD35 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				4E8F1809243DBD3300C00044 /* CustomMainClinicWorkingHoursView.swift */,
+				4EB847D4244EBB060042DD35 /* CustomMainCliView.swift */,
+			);
+			path = Main;
 			sourceTree = "<group>";
 		};
 		4EBBC031243CC29A00328D34 /* Welcome */ = {
@@ -1024,6 +1035,7 @@
 				4E35489F242B834300DD4E7A /* HomeLeftMenuCollcetionVC.swift in Sources */,
 				4EA112BA2429E557005B64E3 /* RegisterViewModel.swift in Sources */,
 				4E13DDDA24308E1F00421737 /* ForgetPassViewModel.swift in Sources */,
+				4EB847D5244EBB060042DD35 /* CustomMainCliView.swift in Sources */,
 				4E28EC6C242A4D9E00B54186 /* CustomMainNewPassView.swift in Sources */,
 				4E382D7224290BA5006B0E8D /* CustomWelcomeMainSecondView.swift in Sources */,
 				4E92AF67242B6B5C00BCF20E /* CustomPatientDataView.swift in Sources */,

@@ -59,6 +59,35 @@ class CustomMainClinicWorkingHoursView: CustomBaseView {
     lazy var seventh1TextField = createHoursButtons(tags: 7)
     lazy var seventh2TextField = createHoursButtons(tags: 77)
     
+    lazy var mainFirstSecondStack:UIStackView = {
+        let text1Stack = getStack(views: first1TextField,first2TextField, spacing: 16, distribution: .fillEqually, axis: .horizontal)
+        let text2Stack = getStack(views: second1TextField,second2TextField, spacing: 16, distribution: .fillEqually, axis: .horizontal)
+             let text3Stack = getStack(views: third1TextField,third2TextField, spacing: 16, distribution: .fillEqually, axis: .horizontal)
+                
+                let text4Stack = getStack(views: forth1TextField,forth2TextField, spacing: 16, distribution: .fillEqually, axis: .horizontal)
+                
+                let text5Stack = getStack(views: fifth1TextField,fifth2TextField, spacing: 16, distribution: .fillEqually, axis: .horizontal)
+                
+                let text6Stack = getStack(views: sexth1TextField,sexth2TextField, spacing: 16, distribution: .fillEqually, axis: .horizontal)
+                
+                let text7Stack = getStack(views: seventh1TextField,seventh2TextField, spacing: 16, distribution: .fillEqually, axis: .horizontal)
+        let v = getStack(views: text1Stack,text2Stack,text3Stack,text4Stack,text5Stack,text6Stack,text7Stack, spacing: 16, distribution: .fillEqually, axis: .vertical)
+          return v
+      }()
+    lazy var buttonDaysStack:UIStackView = {
+           let v = getStack(views: sunButton,monButton,tuesButton,wedButton,thuButton,friButton,satButton, spacing: 16, distribution: .fillEqually, axis: .vertical)
+             return v
+         }()
+    lazy var totalStack:UIStackView = {
+        let v = getStack(views: buttonDaysStack,mainFirstSecondStack,mainSecondStack, spacing: 48, distribution: .fillProportionally, axis: .horizontal )
+        return v
+    }()
+    lazy var mainSecondStack:CustomMainCliView = {
+       let v = CustomMainCliView()
+        v.isHide(true)
+        return v
+    }()
+    
     lazy var doneButton:UIButton = {
         let button = CustomSiftButton(type: .system)
         button.setTitle("Done", for: .normal)
@@ -92,54 +121,56 @@ class CustomMainClinicWorkingHoursView: CustomBaseView {
         [first2TextField,first1TextField].forEach({$0.isEnabled = true})
         
         [satButton,sunButton,monButton,tuesButton,thuButton,wedButton,friButton].forEach({$0.constrainWidth(constant: 50)})
+        let vv = getStack(views: satButton,sunButton,monButton,tuesButton,wedButton,thuButton,friButton, spacing: 16, distribution: .fillEqually, axis: .vertical)
+        
         let ss = getStack(views: shift1Button,shift2Button, spacing: 16, distribution: .fillEqually, axis: .horizontal)
         let text1Stack = getStack(views: first1TextField,first2TextField, spacing: 16, distribution: .fillEqually, axis: .horizontal)
-        let firstStack = getStack(views: sunButton,text1Stack, spacing: 32, distribution: .fill, axis: .horizontal)
+//        let firstStack = getStack(views: sunButton,text1Stack, spacing: 32, distribution: .fill, axis: .horizontal)
         
         let text2Stack = getStack(views: second1TextField,second2TextField, spacing: 16, distribution: .fillEqually, axis: .horizontal)
-        let first2Stack = getStack(views: monButton,text2Stack, spacing: 32, distribution: .fill, axis: .horizontal)
+//        let first2Stack = getStack(views: monButton,text2Stack, spacing: 32, distribution: .fill, axis: .horizontal)
         
         let text3Stack = getStack(views: third1TextField,third2TextField, spacing: 16, distribution: .fillEqually, axis: .horizontal)
-        let first3Stack = getStack(views: tuesButton,text3Stack, spacing: 32, distribution: .fill, axis: .horizontal)
+//        let first3Stack = getStack(views: tuesButton,text3Stack, spacing: 32, distribution: .fill, axis: .horizontal)
         
         let text4Stack = getStack(views: forth1TextField,forth2TextField, spacing: 16, distribution: .fillEqually, axis: .horizontal)
-        let first4Stack = getStack(views: wedButton,text4Stack, spacing: 32, distribution: .fill, axis: .horizontal)
+//        let first4Stack = getStack(views: wedButton,text4Stack, spacing: 32, distribution: .fill, axis: .horizontal)
         
         let text5Stack = getStack(views: fifth1TextField,fifth2TextField, spacing: 16, distribution: .fillEqually, axis: .horizontal)
-        let first5Stack = getStack(views: thuButton,text5Stack, spacing: 32, distribution: .fill, axis: .horizontal)
+//        let first5Stack = getStack(views: thuButton,text5Stack, spacing: 32, distribution: .fill, axis: .horizontal)
         
         let text6Stack = getStack(views: sexth1TextField,sexth2TextField, spacing: 16, distribution: .fillEqually, axis: .horizontal)
-        let first6Stack = getStack(views: friButton,text6Stack, spacing: 32, distribution: .fill, axis: .horizontal)
+//        let first6Stack = getStack(views: friButton,text6Stack, spacing: 32, distribution: .fill, axis: .horizontal)
         
         let text7Stack = getStack(views: seventh1TextField,seventh2TextField, spacing: 16, distribution: .fillEqually, axis: .horizontal)
-        let first7Stack = getStack(views: satButton,text7Stack, spacing: 32, distribution: .fill, axis: .horizontal)
+//        let first7Stack = getStack(views: satButton,text7Stack, spacing: 32, distribution: .fill, axis: .horizontal)
         
         
-        let text12Stack = getStack(views: first1TextField,first2TextField, spacing: 16, distribution: .fillEqually, axis: .horizontal)
-        let first12Stack = getStack(views: sunButton,text12Stack, spacing: 32, distribution: .fill, axis: .horizontal)
-        
-        let text22Stack = getStack(views: second1TextField,second2TextField, spacing: 16, distribution: .fillEqually, axis: .horizontal)
-        let first22Stack = getStack(views: monButton,text22Stack, spacing: 32, distribution: .fill, axis: .horizontal)
-        
-        let text32Stack = getStack(views: third1TextField,third2TextField, spacing: 16, distribution: .fillEqually, axis: .horizontal)
-        let first32Stack = getStack(views: tuesButton,text32Stack, spacing: 32, distribution: .fill, axis: .horizontal)
-        
-        let text42Stack = getStack(views: forth1TextField,forth2TextField, spacing: 16, distribution: .fillEqually, axis: .horizontal)
-        let first42Stack = getStack(views: wedButton,text42Stack, spacing: 32, distribution: .fill, axis: .horizontal)
-        
-        let text52Stack = getStack(views: fifth1TextField,fifth2TextField, spacing: 16, distribution: .fillEqually, axis: .horizontal)
-        let first52Stack = getStack(views: thuButton,text52Stack, spacing: 32, distribution: .fill, axis: .horizontal)
-        
-        let text62Stack = getStack(views: sexth1TextField,sexth2TextField, spacing: 16, distribution: .fillEqually, axis: .horizontal)
-        let first62Stack = getStack(views: friButton,text62Stack, spacing: 32, distribution: .fill, axis: .horizontal)
-        
-        let text72Stack = getStack(views: seventh1TextField,seventh2TextField, spacing: 16, distribution: .fillEqually, axis: .horizontal)
-        let first72Stack = getStack(views: satButton,text72Stack, spacing: 32, distribution: .fill, axis: .horizontal)
-        
-        let mainStack = getStack(views: firstStack,first2Stack,first3Stack,first4Stack,first5Stack,first6Stack,first7Stack, spacing: 16, distribution: .fillEqually, axis: .vertical)
-        let mainSecondStack = getStack(views: first12Stack,first22Stack,first32Stack,first42Stack,first52Stack,first62Stack,first72Stack, spacing: 16, distribution: .fillEqually, axis: .vertical)
-        mainSecondStack.isHide(true)
-        addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,ss,mainStack,mainSecondStack,doneButton)
+//        let text12Stack = getStack(views: first1TextField,first2TextField, spacing: 16, distribution: .fillEqually, axis: .horizontal)
+//        let first12Stack = getStack(views: sunButton,text12Stack, spacing: 32, distribution: .fill, axis: .horizontal)
+//        
+//        let text22Stack = getStack(views: second1TextField,second2TextField, spacing: 16, distribution: .fillEqually, axis: .horizontal)
+//        let first22Stack = getStack(views: monButton,text22Stack, spacing: 32, distribution: .fill, axis: .horizontal)
+//        
+//        let text32Stack = getStack(views: third1TextField,third2TextField, spacing: 16, distribution: .fillEqually, axis: .horizontal)
+//        let first32Stack = getStack(views: tuesButton,text32Stack, spacing: 32, distribution: .fill, axis: .horizontal)
+//        
+//        let text42Stack = getStack(views: forth1TextField,forth2TextField, spacing: 16, distribution: .fillEqually, axis: .horizontal)
+//        let first42Stack = getStack(views: wedButton,text42Stack, spacing: 32, distribution: .fill, axis: .horizontal)
+//        
+//        let text52Stack = getStack(views: fifth1TextField,fifth2TextField, spacing: 16, distribution: .fillEqually, axis: .horizontal)
+//        let first52Stack = getStack(views: thuButton,text52Stack, spacing: 32, distribution: .fill, axis: .horizontal)
+//        
+//        let text62Stack = getStack(views: sexth1TextField,sexth2TextField, spacing: 16, distribution: .fillEqually, axis: .horizontal)
+//        let first62Stack = getStack(views: friButton,text62Stack, spacing: 32, distribution: .fill, axis: .horizontal)
+//        
+//        let text72Stack = getStack(views: seventh1TextField,seventh2TextField, spacing: 16, distribution: .fillEqually, axis: .horizontal)
+//        let first72Stack = getStack(views: satButton,text72Stack, spacing: 32, distribution: .fill, axis: .horizontal)
+//        
+//        let mainStack = getStack(views: firstStack,first2Stack,first3Stack,first4Stack,first5Stack,first6Stack,first7Stack, spacing: 16, distribution: .fillEqually, axis: .vertical)
+//        let mainSecondStack = getStack(views: first12Stack,first22Stack,first32Stack,first42Stack,first52Stack,first62Stack,first72Stack, spacing: 16, distribution: .fillEqually, axis: .vertical)
+//        mainSecondStack.isHide(true)
+        addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,ss,totalStack,doneButton)
         
         
         LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
@@ -148,9 +179,7 @@ class CustomMainClinicWorkingHoursView: CustomBaseView {
         soonLabel.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
         ss.anchor(top: soonLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 76, left: 32, bottom: 0, right: 32))
         
-        mainStack.anchor(top: ss.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 0, right: 32))
-        mainSecondStack.anchor(top: ss.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 0, right: 32))
-        //
+        totalStack.anchor(top: ss.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 0, right: 32))
         doneButton.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 16, right: 32))
         
     }

@@ -38,14 +38,6 @@ class ChooseWorkingHoursViewModel {
     var d6TXT2:String? {didSet {checkFormValidity()}}
     var d7TXT1:String? {didSet {checkFormValidity()}}
     var d7TXT2:String? {didSet {checkFormValidity()}}
-    
-    var day12:Bool? = true {didSet {checkFormValidity()}}
-       var day22:Bool? = false {didSet {checkFormValidity()}}
-       var day32:Bool? = false {didSet {checkFormValidity()}}
-       var day42:Bool? = false {didSet {checkFormValidity()}}
-       var day52:Bool? = false {didSet {checkFormValidity()}}
-       var day62:Bool? = false {didSet {checkFormValidity()}}
-       var day72:Bool? = false {didSet {checkFormValidity()}}
        
        var d12TXT1:String? {didSet {checkFormValidity()}}
        var d12TXT2:String? {didSet {checkFormValidity()}}

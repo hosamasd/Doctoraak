@@ -33,7 +33,8 @@ class MainClinicWorkingHoursVC: CustomBaseViewVC {
     }()
     lazy var customClinicWorkingHoursView:CustomMainClinicWorkingHoursView = {
         let v = CustomMainClinicWorkingHoursView()
-        [v.first2TextField,v.first1TextField,v.second1TextField,v.second2TextField,v.third1TextField,v.third2TextField,v.forth1TextField,v.forth2TextField,v.fifth1TextField,v.fifth2TextField,v.sexth1TextField,v.sexth2TextField,v.seventh2TextField,v.seventh1TextField].forEach({$0
+        [v.first2TextField,v.first1TextField,v.second1TextField,v.second2TextField,v.third1TextField,v.third2TextField,v.forth1TextField,v.forth2TextField,v.fifth1TextField,v.fifth2TextField,v.sexth1TextField,v.sexth2TextField,v.seventh2TextField,v.seventh1TextField,
+         v.mainSecondStack.first1TextField,v.mainSecondStack.first2TextField,v.mainSecondStack.second1TextField,v.mainSecondStack.second2TextField,v.mainSecondStack.third1TextField,v.mainSecondStack.third2TextField,v.mainSecondStack.forth1TextField,v.mainSecondStack.forth2TextField,v.mainSecondStack.fifth1TextField,v.mainSecondStack.fifth2TextField,v.mainSecondStack.sexth1TextField,v.mainSecondStack.sexth2TextField,v.mainSecondStack.seventh2TextField,v.mainSecondStack.seventh1TextField].forEach({$0
             .addTarget(self, action:#selector(handleShowPicker), for: .touchUpInside)})
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
         v.doneButton.addTarget(self, action: #selector(handleDone), for: .touchUpInside)
@@ -104,67 +105,138 @@ class MainClinicWorkingHoursVC: CustomBaseViewVC {
     //        chooseWorkingHoursViewModel.sv = texts
     //    }
     
-    func updateTextField(isShift1:Bool,tag:Int,texts:String)  {
-        
-        switch tag{
-        case 1:
-            //            update(fv: customClinicWorkingHoursView.first1TextField, sv: chooseWorkingHoursViewModel.d1TXT1, texts: texts)
-            customClinicWorkingHoursView.first1TextField.setTitle(texts, for: .normal)
-            chooseWorkingHoursViewModel.d1TXT1 = texts
-        case 11:
-            customClinicWorkingHoursView.first2TextField.setTitle(texts, for: .normal)
-            chooseWorkingHoursViewModel.d1TXT2 = texts
-            
-        case 2:
-            customClinicWorkingHoursView.second1TextField.setTitle(texts, for: .normal)
-            chooseWorkingHoursViewModel.d2TXT1 = texts
-            
-        case 22:
-            customClinicWorkingHoursView.second2TextField.setTitle(texts, for: .normal)
-            chooseWorkingHoursViewModel.d2TXT2 = texts
-            
-        case 3:
-            customClinicWorkingHoursView.third1TextField.setTitle(texts, for: .normal)
-            chooseWorkingHoursViewModel.d3TXT1 = texts
-            
-        case 33:
-            customClinicWorkingHoursView.third2TextField.setTitle(texts, for: .normal)
-            chooseWorkingHoursViewModel.d3TXT2 = texts
-            
-        case 4:
-            customClinicWorkingHoursView.forth1TextField.setTitle(texts, for: .normal)
-            chooseWorkingHoursViewModel.d4TXT1 = texts
-            
-        case 44:
-            customClinicWorkingHoursView.forth2TextField.setTitle(texts, for: .normal)
-            chooseWorkingHoursViewModel.d4TXT2 = texts
-            
-        case 5:
-            customClinicWorkingHoursView.fifth1TextField.setTitle(texts, for: .normal)
-            chooseWorkingHoursViewModel.d5TXT1 = texts
-            
-        case 55:
-            customClinicWorkingHoursView.fifth2TextField.setTitle(texts, for: .normal)
-            chooseWorkingHoursViewModel.d5TXT2 = texts
-            
-        case 6:
-            customClinicWorkingHoursView.sexth2TextField.setTitle(texts, for: .normal)
-            chooseWorkingHoursViewModel.d6TXT1 = texts
-            
-        case 66:
-            customClinicWorkingHoursView.sexth1TextField.setTitle(texts, for: .normal)
-            chooseWorkingHoursViewModel.d6TXT2 = texts
-            
-        case 7:
-            customClinicWorkingHoursView.seventh1TextField.setTitle(texts, for: .normal)
-            chooseWorkingHoursViewModel.d7TXT1 = texts
-            
-        default:
-            customClinicWorkingHoursView.seventh2TextField.setTitle(texts, for: .normal)
-            chooseWorkingHoursViewModel.d7TXT2 = texts
-        }
-        choosedHours.append(texts)
+    func titleForButton(_ isShift1:Bool,fbt:UIButton,sbt:UIButton,txt:String)  {
+        isShift1 ?    fbt.setTitle(txt, for: .normal) :  sbt.setTitle(txt, for: .normal)
     }
+    
+    func updateTextField(isShift1:Bool,tag:Int,texts:String)  {
+           
+           switch tag{
+           case 1:
+            if isShift1 {
+                chooseWorkingHoursViewModel.d1TXT1 = texts
+            }else {
+                chooseWorkingHoursViewModel.d12TXT1 = texts
+            }
+            titleForButton(isShift1, fbt: customClinicWorkingHoursView.first1TextField, sbt: customClinicWorkingHoursView.mainSecondStack.first1TextField, txt: texts)
+               
+           case 11:
+               customClinicWorkingHoursView.first2TextField.setTitle(texts, for: .normal)
+               chooseWorkingHoursViewModel.d1TXT2 = texts
+               
+           case 2:
+               customClinicWorkingHoursView.second1TextField.setTitle(texts, for: .normal)
+               chooseWorkingHoursViewModel.d2TXT1 = texts
+               
+           case 22:
+               customClinicWorkingHoursView.second2TextField.setTitle(texts, for: .normal)
+               chooseWorkingHoursViewModel.d2TXT2 = texts
+               
+           case 3:
+               customClinicWorkingHoursView.third1TextField.setTitle(texts, for: .normal)
+               chooseWorkingHoursViewModel.d3TXT1 = texts
+               
+           case 33:
+               customClinicWorkingHoursView.third2TextField.setTitle(texts, for: .normal)
+               chooseWorkingHoursViewModel.d3TXT2 = texts
+               
+           case 4:
+               customClinicWorkingHoursView.forth1TextField.setTitle(texts, for: .normal)
+               chooseWorkingHoursViewModel.d4TXT1 = texts
+               
+           case 44:
+               customClinicWorkingHoursView.forth2TextField.setTitle(texts, for: .normal)
+               chooseWorkingHoursViewModel.d4TXT2 = texts
+               
+           case 5:
+               customClinicWorkingHoursView.fifth1TextField.setTitle(texts, for: .normal)
+               chooseWorkingHoursViewModel.d5TXT1 = texts
+               
+           case 55:
+               customClinicWorkingHoursView.fifth2TextField.setTitle(texts, for: .normal)
+               chooseWorkingHoursViewModel.d5TXT2 = texts
+               
+           case 6:
+               customClinicWorkingHoursView.sexth2TextField.setTitle(texts, for: .normal)
+               chooseWorkingHoursViewModel.d6TXT1 = texts
+               
+           case 66:
+               customClinicWorkingHoursView.sexth1TextField.setTitle(texts, for: .normal)
+               chooseWorkingHoursViewModel.d6TXT2 = texts
+               
+           case 7:
+               customClinicWorkingHoursView.seventh1TextField.setTitle(texts, for: .normal)
+               chooseWorkingHoursViewModel.d7TXT1 = texts
+               
+           default:
+               customClinicWorkingHoursView.seventh2TextField.setTitle(texts, for: .normal)
+               chooseWorkingHoursViewModel.d7TXT2 = texts
+           }
+           choosedHours.append(texts)
+       }
+    
+//    func updateTextField(isShift1:Bool,tag:Int,texts:String)  {
+//
+//        switch tag{
+//        case 1:
+//            //            update(fv: customClinicWorkingHoursView.first1TextField, sv: chooseWorkingHoursViewModel.d1TXT1, texts: texts)
+//            isShift1
+//          customClinicWorkingHoursView.first1TextField.setTitle(texts, for: .normal)
+//            chooseWorkingHoursViewModel.d1TXT1 = texts
+//        case 11:
+//            customClinicWorkingHoursView.first2TextField.setTitle(texts, for: .normal)
+//            chooseWorkingHoursViewModel.d1TXT2 = texts
+//
+//        case 2:
+//            customClinicWorkingHoursView.second1TextField.setTitle(texts, for: .normal)
+//            chooseWorkingHoursViewModel.d2TXT1 = texts
+//
+//        case 22:
+//            customClinicWorkingHoursView.second2TextField.setTitle(texts, for: .normal)
+//            chooseWorkingHoursViewModel.d2TXT2 = texts
+//
+//        case 3:
+//            customClinicWorkingHoursView.third1TextField.setTitle(texts, for: .normal)
+//            chooseWorkingHoursViewModel.d3TXT1 = texts
+//
+//        case 33:
+//            customClinicWorkingHoursView.third2TextField.setTitle(texts, for: .normal)
+//            chooseWorkingHoursViewModel.d3TXT2 = texts
+//
+//        case 4:
+//            customClinicWorkingHoursView.forth1TextField.setTitle(texts, for: .normal)
+//            chooseWorkingHoursViewModel.d4TXT1 = texts
+//
+//        case 44:
+//            customClinicWorkingHoursView.forth2TextField.setTitle(texts, for: .normal)
+//            chooseWorkingHoursViewModel.d4TXT2 = texts
+//
+//        case 5:
+//            customClinicWorkingHoursView.fifth1TextField.setTitle(texts, for: .normal)
+//            chooseWorkingHoursViewModel.d5TXT1 = texts
+//
+//        case 55:
+//            customClinicWorkingHoursView.fifth2TextField.setTitle(texts, for: .normal)
+//            chooseWorkingHoursViewModel.d5TXT2 = texts
+//
+//        case 6:
+//            customClinicWorkingHoursView.sexth2TextField.setTitle(texts, for: .normal)
+//            chooseWorkingHoursViewModel.d6TXT1 = texts
+//
+//        case 66:
+//            customClinicWorkingHoursView.sexth1TextField.setTitle(texts, for: .normal)
+//            chooseWorkingHoursViewModel.d6TXT2 = texts
+//
+//        case 7:
+//            customClinicWorkingHoursView.seventh1TextField.setTitle(texts, for: .normal)
+//            chooseWorkingHoursViewModel.d7TXT1 = texts
+//
+//        default:
+//            customClinicWorkingHoursView.seventh2TextField.setTitle(texts, for: .normal)
+//            chooseWorkingHoursViewModel.d7TXT2 = texts
+//        }
+//        choosedHours.append(texts)
+//    }
     
     func checkValidation()  {
         //        guard let _ = customClinicWorkingHoursView.first1TextField.titleLabel?.text,let _=customClinicWorkingHoursView.first2TextField.titleLabel?.text else { creatMainSnackBar(message: "From and To required...");return  }
@@ -189,11 +261,17 @@ class MainClinicWorkingHoursVC: CustomBaseViewVC {
             let minute = cc.component(.minute, from: dd)
             texts = "\(hour):\(minute) \(ppp)"
             DispatchQueue.main.async {
-                self.updateTextField(isShift1: true, tag: sender.tag, texts: texts)
+                self.updateTextField(isShift1: self.chooseWorkingHoursViewModel.isShiftOne ?? true, tag: sender.tag, texts: texts)
             }
         }
     }
     
+    func showAndHide(fv:UIView,sv:UIView)  {
+        UIView.animate(withDuration: 0.6, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
+            fv.isHide(true)
+            sv.isHide(false)
+        })
+    }
     
     @objc func handle1Shift(sender:UIButton)  {
         if sender.backgroundColor == nil {
@@ -204,6 +282,7 @@ class MainClinicWorkingHoursVC: CustomBaseViewVC {
         addGradientInSenderAndRemoveOther(sender: sender, vv: customClinicWorkingHoursView.shift2Button)
         chooseWorkingHoursViewModel.isShiftTwo = false
         chooseWorkingHoursViewModel.isShiftOne = true
+        showAndHide(fv: customClinicWorkingHoursView.mainSecondStack, sv: customClinicWorkingHoursView.mainFirstSecondStack)
         //           doctorRegisterViewModel.male = false
     }
     
@@ -215,7 +294,8 @@ class MainClinicWorkingHoursVC: CustomBaseViewVC {
         addGradientInSenderAndRemoveOther(sender: sender, vv: customClinicWorkingHoursView.shift1Button)
         chooseWorkingHoursViewModel.isShiftTwo = true
         chooseWorkingHoursViewModel.isShiftOne = false
-        
+        showAndHide(fv: customClinicWorkingHoursView.mainFirstSecondStack, sv: customClinicWorkingHoursView.mainSecondStack)
+
         //           doctorRegisterViewModel.male = true
     }
     
@@ -226,25 +306,25 @@ class MainClinicWorkingHoursVC: CustomBaseViewVC {
     func enableTextFields(enable:Bool,tag:Int)  {
         switch tag {
         case 1:
-            enalbes(t: customClinicWorkingHoursView.first1TextField,customClinicWorkingHoursView.first2TextField,enable:enable)
+            enalbes(t: customClinicWorkingHoursView.first1TextField,customClinicWorkingHoursView.first2TextField,customClinicWorkingHoursView.mainSecondStack.first1TextField,customClinicWorkingHoursView.mainSecondStack.first2TextField,enable:enable)
             chooseWorkingHoursViewModel.day1 =  enable ? true : false
         case 2:
-            enalbes(t: customClinicWorkingHoursView.second1TextField,customClinicWorkingHoursView.second2TextField,enable:enable)
+            enalbes(t: customClinicWorkingHoursView.second1TextField,customClinicWorkingHoursView.second2TextField,customClinicWorkingHoursView.mainSecondStack.second1TextField,customClinicWorkingHoursView.mainSecondStack.second2TextField,enable:enable)
             chooseWorkingHoursViewModel.day2 = enable ? true : false
         case 3:
-            enalbes(t: customClinicWorkingHoursView.third1TextField,customClinicWorkingHoursView.third2TextField,enable:enable)
+            enalbes(t: customClinicWorkingHoursView.third1TextField,customClinicWorkingHoursView.third2TextField,customClinicWorkingHoursView.mainSecondStack.third1TextField,customClinicWorkingHoursView.mainSecondStack.third2TextField,enable:enable)
             chooseWorkingHoursViewModel.day3 = enable ? true : false
         case 4:
-            enalbes(t: customClinicWorkingHoursView.forth1TextField,customClinicWorkingHoursView.forth2TextField,enable:enable)
+            enalbes(t: customClinicWorkingHoursView.forth1TextField,customClinicWorkingHoursView.forth2TextField,customClinicWorkingHoursView.mainSecondStack.forth1TextField,customClinicWorkingHoursView.mainSecondStack.forth2TextField,enable:enable)
             chooseWorkingHoursViewModel.day4 = enable ? true : false
         case 5:
-            enalbes(t: customClinicWorkingHoursView.fifth1TextField,customClinicWorkingHoursView.fifth2TextField,enable:enable)
+            enalbes(t: customClinicWorkingHoursView.fifth1TextField,customClinicWorkingHoursView.fifth2TextField,customClinicWorkingHoursView.mainSecondStack.fifth1TextField,customClinicWorkingHoursView.mainSecondStack.fifth2TextField,enable:enable)
             chooseWorkingHoursViewModel.day5 = enable ? true : false
         case 6:
-            enalbes(t: customClinicWorkingHoursView.sexth1TextField,customClinicWorkingHoursView.sexth2TextField,enable:enable)
+            enalbes(t: customClinicWorkingHoursView.sexth1TextField,customClinicWorkingHoursView.sexth2TextField,customClinicWorkingHoursView.mainSecondStack.sexth1TextField,customClinicWorkingHoursView.mainSecondStack.sexth2TextField,enable:enable)
             chooseWorkingHoursViewModel.day6 = enable ? true : false
         default:
-            enalbes(t: customClinicWorkingHoursView.seventh1TextField,customClinicWorkingHoursView.seventh2TextField,enable:enable)
+            enalbes(t: customClinicWorkingHoursView.seventh1TextField,customClinicWorkingHoursView.seventh2TextField,customClinicWorkingHoursView.mainSecondStack.seventh1TextField,customClinicWorkingHoursView.mainSecondStack.seventh2TextField,enable:enable)
             chooseWorkingHoursViewModel.day7 = enable ? true : false
         }
     }
