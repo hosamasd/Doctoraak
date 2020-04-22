@@ -1,0 +1,106 @@
+PODS:
+  - Alamofire (4.9.1)
+  - iOSDropDown (0.3.4)
+  - IQKeyboardManagerSwift (6.5.5)
+  - MaterialComponents/AnimationTiming (105.0.1)
+  - MaterialComponents/Availability (105.0.1)
+  - MaterialComponents/Buttons (105.0.1):
+    - MaterialComponents/Elevation
+    - MaterialComponents/Ink
+    - MaterialComponents/private/Math
+    - MaterialComponents/Ripple
+    - MaterialComponents/ShadowElevations
+    - MaterialComponents/ShadowLayer
+    - MaterialComponents/Shapes
+    - MaterialComponents/Typography
+    - MDFInternationalization
+    - MDFTextAccessibility
+  - MaterialComponents/Elevation (105.0.1):
+    - MaterialComponents/Availability
+    - MaterialComponents/private/Color
+    - MaterialComponents/private/Math
+  - MaterialComponents/Ink (105.0.1):
+    - MaterialComponents/Availability
+    - MaterialComponents/private/Color
+    - MaterialComponents/private/Math
+  - MaterialComponents/OverlayWindow (105.0.1):
+    - MaterialComponents/private/Application
+  - MaterialComponents/private/Application (105.0.1)
+  - MaterialComponents/private/Color (105.0.1):
+    - MaterialComponents/Availability
+  - MaterialComponents/private/KeyboardWatcher (105.0.1):
+    - MaterialComponents/private/Application
+  - MaterialComponents/private/Math (105.0.1)
+  - MaterialComponents/private/Overlay (105.0.1)
+  - MaterialComponents/Ripple (105.0.1):
+    - MaterialComponents/AnimationTiming
+    - MaterialComponents/private/Color
+    - MaterialComponents/private/Math
+  - MaterialComponents/ShadowElevations (105.0.1)
+  - MaterialComponents/ShadowLayer (105.0.1):
+    - MaterialComponents/ShadowElevations
+  - MaterialComponents/Shapes (105.0.1):
+    - MaterialComponents/private/Color
+    - MaterialComponents/private/Math
+    - MaterialComponents/ShadowLayer
+  - MaterialComponents/Snackbar (105.0.1):
+    - MaterialComponents/AnimationTiming
+    - MaterialComponents/Availability
+    - MaterialComponents/Buttons
+    - MaterialComponents/Elevation
+    - MaterialComponents/OverlayWindow
+    - MaterialComponents/private/Application
+    - MaterialComponents/private/KeyboardWatcher
+    - MaterialComponents/private/Math
+    - MaterialComponents/private/Overlay
+    - MaterialComponents/ShadowElevations
+    - MaterialComponents/ShadowLayer
+    - MaterialComponents/Typography
+  - MaterialComponents/Typography (105.0.1):
+    - MaterialComponents/private/Application
+    - MaterialComponents/private/Math
+  - MDFInternationalization (2.0.0)
+  - MDFTextAccessibility (2.0.0)
+  - MOLH (1.1.2)
+  - SkyFloatingLabelTextField (3.8.0)
+  - SVProgressHUD (2.2.5)
+  - UIMultiPicker (0.6.0)
+
+DEPENDENCIES:
+  - Alamofire (~> 4.0)
+  - iOSDropDown
+  - IQKeyboardManagerSwift
+  - MaterialComponents/Snackbar
+  - MOLH
+  - SkyFloatingLabelTextField (~> 3.0)
+  - SVProgressHUD
+  - UIMultiPicker
+
+SPEC REPOS:
+  trunk:
+    - Alamofire
+    - iOSDropDown
+    - IQKeyboardManagerSwift
+    - MaterialComponents
+    - MDFInternationalization
+    - MDFTextAccessibility
+    - MOLH
+    - SkyFloatingLabelTextField
+    - SVProgressHUD
+    - UIMultiPicker
+
+SPEC CHECKSUMS:
+  Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
+  iOSDropDown: c10a761f9a00c3f1cc9d3bce43ae504628e2f692
+  IQKeyboardManagerSwift: 0fb93310284665245591f50f7a5e38de615960b7
+  MaterialComponents: cfc2fbc3a380238821ea1786d237e21b32d8514e
+  MDFInternationalization: 010097556d6b09d2c4ea38e0820ea6d37be6a314
+  MDFTextAccessibility: 85c09a1bd9c321f494348e632a25063bcda35a53
+  MOLH: 79723d6938aff0ac02aebe4d89cc96b73f46fa32
+  SkyFloatingLabelTextField: 5a338412114808e961fe2d14ea2c5452c8b6e4aa
+  SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
+  UIMultiPicker: 814ef851119183662347ed15ebbad26879c49073
+
+PODFILE CHECKSUM: 5ae546372ec3420406645e2e6de1930cccb96e1b
+
+COCOAPODS: 1.8.4
