@@ -35,6 +35,7 @@ class RegisterViewModel {
             else { return  }
         bindableIsResgiter.value = true
         
+//        RegistrationServices.shared.regis
 //        RegistrationServices.shared.registerUser(name: username, email: email, phone: phone, password: password, completion: completion)
     }
     

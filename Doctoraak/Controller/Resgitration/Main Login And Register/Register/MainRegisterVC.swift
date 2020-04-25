@@ -9,6 +9,8 @@
 import UIKit
 import SkyFloatingLabelTextField
 import MapKit
+import SVProgressHUD
+import MOLH
 
 
 class MainRegisterVC: CustomBaseViewVC {
@@ -74,12 +76,12 @@ class MainRegisterVC: CustomBaseViewVC {
         
         customMainRegisterView.registerViewModel.bindableIsResgiter.bind(observer: {  [unowned self] (isReg) in
             if isReg == true {
-                //                UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
-                //                SVProgressHUD.show(withStatus: "Login...".localized)
+                                UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
+                                SVProgressHUD.show(withStatus: "Login...".localized)
                 
             }else {
-                //                SVProgressHUD.dismiss()
-                //                self.activeViewsIfNoData()
+                                SVProgressHUD.dismiss()
+                                self.activeViewsIfNoData()
             }
         })
     }

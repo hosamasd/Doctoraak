@@ -12,6 +12,8 @@ class UserDefaultsConstants {
     
     static let isCachedDriopLists = "isCachedDriopLists"
     
+    //register
+    static let userMobileNumber="userMobileNumber"
     
     //for english
     static let areaNameArray = "areaNameArray"

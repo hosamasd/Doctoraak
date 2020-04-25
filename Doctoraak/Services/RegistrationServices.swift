@@ -13,6 +13,13 @@ class RegistrationServices {
     
     static let shared = RegistrationServices()
     
+    func mainRegister(index:Int,photo:UIImage,cvName:String,name:String,email:String,phone:String,password:String,insurance:[Int],delivery:Int,avaliable_days:[Int] ,latt:Double,lang:Double,city:Int,area:Int,completion: @escaping (MainDoctorRegisterModel?, Error?) -> Void)  {
+        let nn = index == 2 ? "lab_register" : index == 3 ? "radiology_register" : "pharmacy_register"
+        
+        let urlString = "https://doctoraak.sphinxat.us/public/api/\(nn)"
+          let postString = urlString+"?name=\(name)&email=\(email)&phone=\(phone)&password=\(password)&lang=\(lang)&latt=\(latt)&avaliable_days=\(avaliable_days)&insurance=\(insurance)&city=\(city)&area=\(area)"
+    }
+    
     func registerDoctor(isInsurance:Bool,coverImage:UIImage,cvName:String,cvFile:Data,name:String,email:String,phone:String,password:String,gender:String,specialization_id:Int,degree_id:Int,insurance:[Int] ,completion: @escaping (MainDoctorRegisterModel?, Error?) -> Void ) {
         let urlString = "https://doctoraak.sphinxat.us/public/api/doctor_register"
         

@@ -86,6 +86,12 @@ class DoctorRegisterVC: CustomBaseViewVC {
         customRegisterView.fillSuperview()
     }
     
+    func goToNext()  {
+//         let second = DoctorSecondRegisterVC(indexx: self.index, male: male, photo: img, email: email, name: name, mobile: mobile, passowrd: password)
+//                   self.navigationController?.pushViewController(second, animated: true)
+        userDefaults.set("phone", forKey: UserDefaultsConstants.userMobileNumber)
+    }
+    
     //TODO: -handle methods
     
     
@@ -107,15 +113,16 @@ class DoctorRegisterVC: CustomBaseViewVC {
     
     @objc func handleNext()  {
         
-        customRegisterView.doctorRegisterViewModel.performRegister {[unowned self] (name, mobile, email, password, male, img) in            
-            let second = DoctorSecondRegisterVC(indexx: self.index, male: male, photo: img, email: email, name: name, mobile: mobile, passowrd: password)
-            self.navigationController?.pushViewController(second, animated: true)
+        customRegisterView.doctorRegisterViewModel.performRegister { (base, err) in
+            
+        }
+           
         }
         
         
         
         
-    }
+    
     
 }
 
