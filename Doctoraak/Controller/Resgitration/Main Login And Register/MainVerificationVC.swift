@@ -24,9 +24,11 @@ class MainVerificationVC: CustomBaseViewVC {
     //check to go specific way
     fileprivate let index:Int!
     fileprivate let isFromForgetPassw:Bool!
-    init(indexx:Int,isFromForgetPassw:Bool) {
+    fileprivate let phoneNumber:String!
+    init(indexx:Int,isFromForgetPassw:Bool,phone:String) {
         self.index = indexx
         self.isFromForgetPassw = isFromForgetPassw
+        self.phoneNumber = phone
         super.init(nibName: nil, bundle: nil)
     }
     

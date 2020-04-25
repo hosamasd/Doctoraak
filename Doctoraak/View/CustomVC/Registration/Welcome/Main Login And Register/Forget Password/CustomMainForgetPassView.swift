@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import SkyFloatingLabelTextField
+
 class CustomMainForgetPassView: CustomBaseView {
     
     lazy var LogoImage:UIImageView = {
@@ -18,7 +20,7 @@ class CustomMainForgetPassView: CustomBaseView {
         let i = UIImageView(image: #imageLiteral(resourceName: "Icon - Keyboard Arrow - Left - Filled"))
         i.constrainWidth(constant: 30)
         i.constrainHeight(constant: 30)
-         i.isUserInteractionEnabled = true
+        i.isUserInteractionEnabled = true
         return i
     }()
     
@@ -33,6 +35,9 @@ class CustomMainForgetPassView: CustomBaseView {
         button.frame = CGRect(x: CGFloat(s.frame.size.width - 80), y: CGFloat(0), width: CGFloat(80), height: CGFloat(50))
         s.leftView = button
         s.leftViewMode = .always
+        s.constrainHeight(constant: 60)
+        s.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)
+        
         return s
     }()
     lazy var nextButton:UIButton = {
@@ -48,20 +53,41 @@ class CustomMainForgetPassView: CustomBaseView {
         return button
     }()
     
+    let forgetPassViewModel = ForgetPassViewModel()
+    var index = 0
+    
     override func setupViews() {
         
         addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,nextButton,choosePayLabel,numberTextField)
         
-       
+        
         choosePayLabel.centerInSuperview(size: .init(width: frame.width, height: 120))
         //
         LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
         backImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 60, left: 16, bottom: 0, right: 0))
         titleLabel.anchor(top: nil, leading: leadingAnchor, bottom: LogoImage.bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
         soonLabel.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
-       numberTextField.anchor(top: choosePayLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 8, left: 32, bottom: 16, right: 32))
-       
+        numberTextField.anchor(top: choosePayLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 8, left: 32, bottom: 16, right: 32))
+        
         nextButton.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 16, right: 32))
         
     }
+    
+    @objc func textFieldDidChange(text: UITextField)  {
+        forgetPassViewModel.index = index
+        guard let texts = text.text else { return  }
+        if let floatingLabelTextField = text as? SkyFloatingLabelTextField {
+            if  !texts.isValidPhoneNumber    {
+                floatingLabelTextField.errorMessage = "Invalid   Phone".localized
+                forgetPassViewModel.phone = nil
+            }
+            else {
+                floatingLabelTextField.errorMessage = ""
+                forgetPassViewModel.phone = texts
+            }
+            
+            
+        }
+    }
+    
 }

@@ -62,6 +62,7 @@ PODS:
   - MDFInternationalization (2.0.0)
   - MDFTextAccessibility (2.0.0)
   - MOLH (1.1.2)
+  - PKHUD (5.3.0)
   - SkyFloatingLabelTextField (3.8.0)
   - SVProgressHUD (2.2.5)
   - UIMultiPicker (0.6.0)
@@ -72,6 +73,7 @@ DEPENDENCIES:
   - IQKeyboardManagerSwift
   - MaterialComponents/Snackbar
   - MOLH
+  - PKHUD (~> 5.0)
   - SkyFloatingLabelTextField (~> 3.0)
   - SVProgressHUD
   - UIMultiPicker
@@ -85,6 +87,7 @@ SPEC REPOS:
     - MDFInternationalization
     - MDFTextAccessibility
     - MOLH
+    - PKHUD
     - SkyFloatingLabelTextField
     - SVProgressHUD
     - UIMultiPicker
@@ -97,10 +100,11 @@ SPEC CHECKSUMS:
   MDFInternationalization: 010097556d6b09d2c4ea38e0820ea6d37be6a314
   MDFTextAccessibility: 85c09a1bd9c321f494348e632a25063bcda35a53
   MOLH: 79723d6938aff0ac02aebe4d89cc96b73f46fa32
+  PKHUD: 98f3e4bc904b9c916f1c5bb6d765365b5357291b
   SkyFloatingLabelTextField: 5a338412114808e961fe2d14ea2c5452c8b6e4aa
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   UIMultiPicker: 814ef851119183662347ed15ebbad26879c49073
 
-PODFILE CHECKSUM: 5ae546372ec3420406645e2e6de1930cccb96e1b
+PODFILE CHECKSUM: 7a68170000546e6207b3d2b30bc68527bb3e000d
 
 COCOAPODS: 1.8.4

@@ -1,14 +1,15 @@
 //
-//  CustomClinicWorkingHoursView.swift
+//  CustomMainsClinicWorkingHoursView.swift
 //  Doctoraak
 //
-//  Created by hosam on 3/23/20.
+//  Created by hosam on 4/25/20.
 //  Copyright © 2020 Ahmad Eisa. All rights reserved.
 //
 
 import UIKit
 
 class CustomMainClinicWorkingHoursView: CustomBaseView {
+    
     
     lazy var LogoImage:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "Group 4116"))
@@ -27,10 +28,7 @@ class CustomMainClinicWorkingHoursView: CustomBaseView {
     lazy var soonLabel = UILabel(text: "Fill your data", font: .systemFont(ofSize: 18), textColor: .white)
     
     
-    lazy var shift1Button = creatShiftBTN(title: "Shift1")
-    lazy var shift2Button = creatShiftBTN(title: "Shift2")
-    
-    
+  
     lazy var sunButton = createButtons(title: "Sun",color: .white,tags: 2)
     lazy var first1TextField = createHoursButtons(tags: 1)
     lazy var first2TextField = createHoursButtons(tags: 11)
@@ -89,15 +87,15 @@ class CustomMainClinicWorkingHoursView: CustomBaseView {
     }()
     
     lazy var doneButton:UIButton = {
-        let button = UIButton(type: .system)
+        let button = CustomSiftButton(type: .system)
         button.setTitle("Done", for: .normal)
         button.setTitleColor(.white, for: .normal)
-                button.backgroundColor = ColorConstants.disabledButtonsGray
+        //                button.backgroundColor = ColorConstants.disabledButtonsGray
         button.layer.cornerRadius = 16
         button.constrainHeight(constant: 50)
         
         button.clipsToBounds = true
-                button.isEnabled = false
+        //                button.isEnabled = false
         return button
     }()
     
@@ -107,10 +105,7 @@ class CustomMainClinicWorkingHoursView: CustomBaseView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        if shift1Button.backgroundColor != nil {
-            addGradientInSenderAndRemoveOther(sender: shift1Button)
-            shift1Button.setTitleColor(.white, for: .normal)
-        }
+       
         if sunButton.backgroundColor != nil {
             addGradientInSenderAndRemoveOther(sender: sunButton)
             sunButton.setTitleColor(.white, for: .normal)
@@ -184,35 +179,20 @@ class CustomMainClinicWorkingHoursView: CustomBaseView {
         
         [satButton,sunButton,monButton,tuesButton,thuButton,wedButton,friButton].forEach({$0.constrainWidth(constant: 50)})
         
-        let ss = getStack(views: shift1Button,shift2Button, spacing: 16, distribution: .fillEqually, axis: .horizontal)
-        addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,ss,totalStack,doneButton)
+        addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,totalStack,doneButton)
         
         
         LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
         backImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 60, left: 16, bottom: 0, right: 0))
         titleLabel.anchor(top: nil, leading: leadingAnchor, bottom: LogoImage.bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
         soonLabel.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
-        ss.anchor(top: soonLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 76, left: 32, bottom: 0, right: 32))
+        totalStack.anchor(top: soonLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 128, left: 32, bottom: 0, right: 32))
         
-        totalStack.anchor(top: ss.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 0, right: 32))
         doneButton.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 16, right: 32))
         
     }
     
-    func creatShiftBTN(title:String) -> UIButton {
-        let button = UIButton(type: .system)
-        button.backgroundColor = ColorConstants.disabledButtonsGray
-        button.setTitle(title, for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.layer.cornerRadius = 16
-        button.constrainHeight(constant: 60)
-        button.clipsToBounds = true
-        return button
-        
-    }
-    
-    
-    
+  
     func createHoursButtons(tags:Int) -> UIButton {
         let t = UIButton()
         t.layer.borderWidth = 1
@@ -249,32 +229,6 @@ class CustomMainClinicWorkingHoursView: CustomBaseView {
         return button
     }
     
-    
-    //    func enableTextFields(tag:Int)  {
-    //        switch tag {
-    //        case 1:
-    //            enalbes(t: first1TextField,first2TextField)
-    //        case 2:
-    //            enalbes(t: second1TextField,second2TextField)
-    //        case 3:
-    //            enalbes(t: third1TextField,third2TextField)
-    //        case 4:
-    //            enalbes(t: forth1TextField,forth2TextField)
-    //        case 5:
-    //            enalbes(t: fifth1TextField,fifth2TextField)
-    //        case 6:
-    //            enalbes(t: sexth1TextField,sexth2TextField)
-    //        default:
-    //            enalbes(t: seventh1TextField,seventh2TextField)
-    //
-    //        }
-    //    }
-    //
-    //  @objc  func handleOpen(sender:UIButton)  {
-    //        enableTextFields(tag: sender.tag)
-    //    addGradientInSenderAndRemoveOther(sender: sender)
-    //    }
-    
     @objc func handleShowPicker(sender:UIButton) {
         handleShowPickers?(sender)
     }
@@ -283,27 +237,6 @@ class CustomMainClinicWorkingHoursView: CustomBaseView {
         print(969)
     }
     
-    //    @objc func handle1Shift(sender:UIButton)  {
-    //           if sender.backgroundColor == nil {
-    //            return
-    ////               ClinicDataViewModel.male = false;return
-    //           }
-    //           addGradientInSenderAndRemoveOther(sender: sender, vv: shift2Button)
-    //        chooseWorkingHoursViewModel.isShiftTwo = false
-    //        chooseWorkingHoursViewModel.isShiftOne = true
-    ////           doctorRegisterViewModel.male = false
-    //       }
-    //
-    //       @objc func handle2Shift(sender:UIButton)  {
-    //           if sender.backgroundColor == nil {
-    //            return
-    ////               doctorRegisterViewModel.male = true;return
-    //           }
-    //           addGradientInSenderAndRemoveOther(sender: sender, vv: shift1Button)
-    //        chooseWorkingHoursViewModel.isShiftTwo = true
-    //                 chooseWorkingHoursViewModel.isShiftOne = false
-    ////           doctorRegisterViewModel.male = true
-    //       }
-    
     
 }
+

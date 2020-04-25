@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SkyFloatingLabelTextField
 
 class CustomMainNewPassView: CustomBaseView {
     
@@ -48,6 +49,7 @@ class CustomMainNewPassView: CustomBaseView {
         button.addTarget(self, action: #selector(handleASDs), for: .touchUpInside)
         s.rightView = button
         s.rightViewMode = .always
+        s.constrainHeight(constant: 60)
         return s
     }()
     lazy var doneButton:UIButton = {
@@ -62,8 +64,13 @@ class CustomMainNewPassView: CustomBaseView {
         button.isEnabled = false
         return button
     }()
+    var index = 0
+    
+    let newPassViewModel = NewPassViewModel()
+
     
     override func setupViews() {
+        [ passwordTextField,confirmPasswordTextField].forEach({$0.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)})
         let textStack = getStack(views: passwordTextField,confirmPasswordTextField, spacing: 16, distribution: .fillEqually, axis: .vertical)
 
         choosePayLabel.constrainHeight(constant: 40)
@@ -93,4 +100,33 @@ class CustomMainNewPassView: CustomBaseView {
     @objc func handleASDs()  {
         confirmPasswordTextField.isSecureTextEntry = !confirmPasswordTextField.isSecureTextEntry
     }
+    
+    @objc func textFieldDidChange(text: UITextField)  {
+          newPassViewModel.index = index
+          guard let texts = text.text else { return  }
+          if let floatingLabelTextField = text as? SkyFloatingLabelTextField {
+              if text == confirmPasswordTextField {
+                  if text.text != passwordTextField.text {
+                      floatingLabelTextField.errorMessage = "Passowrd should be same".localized
+                      newPassViewModel.confirmPassword = nil
+                  }
+                  else {
+                      newPassViewModel.confirmPassword = texts
+                      floatingLabelTextField.errorMessage = ""
+                  }
+              }else
+              {
+                  if(texts.count < 8 ) {
+                      floatingLabelTextField.errorMessage = "password must have 8 character".localized
+                      newPassViewModel.password = nil
+                  }
+                  else {
+                      floatingLabelTextField.errorMessage = ""
+                      newPassViewModel.password = texts
+                  }
+              }
+              
+              
+          }
+      }
 }

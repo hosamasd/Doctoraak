@@ -106,7 +106,7 @@ class DoctorSecondRegisterVC: CustomBaseViewVC {
         userDefaults.set(true, forKey: UserDefaultsConstants.isUserRegisterAndWaitForSMScODE)
         userDefaults.set(index, forKey: UserDefaultsConstants.isUserRegisterAndWaitForSMScODEIndex)
         userDefaults.synchronize()
-        let verify = MainVerificationVC(indexx: index, isFromForgetPassw: false)
+        let verify = MainVerificationVC(indexx: index, isFromForgetPassw: false, phone: mobile)
                navigationController?.pushViewController(verify, animated: true)
         
         // 78371   sms code

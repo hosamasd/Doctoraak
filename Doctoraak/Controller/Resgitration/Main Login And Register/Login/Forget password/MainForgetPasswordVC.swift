@@ -8,6 +8,8 @@
 
 import UIKit
 import SkyFloatingLabelTextField
+import SVProgressHUD
+import MOLH
 
 class MainForgetPasswordVC: CustomBaseViewVC {
     
@@ -15,8 +17,8 @@ class MainForgetPasswordVC: CustomBaseViewVC {
     
     lazy var customMainForgetPassView:CustomMainForgetPassView = {
         let v = CustomMainForgetPassView()
-        v.numberTextField.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)
-        v.nextButton.addTarget(self, action: #selector(handleDonePayment), for: .touchUpInside)
+        v.index = index
+        v.nextButton.addTarget(self, action: #selector(handleNext), for: .touchUpInside)
         return v
     }()
     
@@ -27,11 +29,7 @@ class MainForgetPasswordVC: CustomBaseViewVC {
           super.init(nibName: nil, bundle: nil)
       }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    let forgetPassViewModel = ForgetPassViewModel()
-    
+   
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViewModelObserver()
@@ -40,21 +38,21 @@ class MainForgetPasswordVC: CustomBaseViewVC {
     //MARK:-User methods
     
     func setupViewModelObserver()  {
-        forgetPassViewModel.bindableIsFormValidate.bind { [unowned self] (isValidForm) in
+        customMainForgetPassView.forgetPassViewModel.bindableIsFormValidate.bind { [unowned self] (isValidForm) in
             guard let isValid = isValidForm else {return}
             //            self.customLoginView.loginButton.isEnabled = isValid
             
             self.changeButtonState(enable: isValid, vv: self.customMainForgetPassView.nextButton)
         }
         
-        forgetPassViewModel.bindableIsLogging.bind(observer: {  [unowned self] (isReg) in
+        customMainForgetPassView.forgetPassViewModel.bindableIsLogging.bind(observer: {  [unowned self] (isReg) in
             if isReg == true {
-                //                UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
-                //                SVProgressHUD.show(withStatus: "Login...".localized)
+                                UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
+                                SVProgressHUD.show(withStatus: "Checking Phone...".localized)
                 
             }else {
-                //                SVProgressHUD.dismiss()
-                //                self.activeViewsIfNoData()
+                                SVProgressHUD.dismiss()
+                                self.activeViewsIfNoData()
             }
         })
     }
@@ -69,29 +67,35 @@ class MainForgetPasswordVC: CustomBaseViewVC {
         
     }
     
+    func goToNext()  {
+        let verifiy = MainVerificationVC(indexx: index,isFromForgetPassw: true, phone: customMainForgetPassView.forgetPassViewModel.phone ?? "")
+               navigationController?.pushViewController(verifiy, animated: true)
+               
+               print(999)
+    }
+    
     //TODO: -handle methods
     
-    @objc func textFieldDidChange(text: UITextField)  {
-        forgetPassViewModel.index = index
-        guard let texts = text.text else { return  }
-        if let floatingLabelTextField = text as? SkyFloatingLabelTextField {
-            if  !texts.isValidPhoneNumber    {
-                floatingLabelTextField.errorMessage = "Invalid   Phone".localized
-                forgetPassViewModel.phone = nil
-            }
-            else {
-                floatingLabelTextField.errorMessage = ""
-                forgetPassViewModel.phone = texts
-            }
-            
-            
-        }
-    }
+   
+    @objc func handleNext()  {
+                customMainForgetPassView.forgetPassViewModel.performLogging { [unowned self] (base,err) in
+                if let err = err {
+                    SVProgressHUD.showError(withStatus: err.localizedDescription)
+                    self.activeViewsIfNoData();return
+                }
+                SVProgressHUD.dismiss()
+                self.activeViewsIfNoData()
+                    guard let user = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
+        //        self.saveToken(token: user.apiToken)
+                
+                DispatchQueue.main.async {
+                    self.goToNext()
+                }
+                }
+     }
     
-    @objc func handleDonePayment()  {
-        let verifiy = MainVerificationVC(indexx: index,isFromForgetPassw: true)
-        navigationController?.pushViewController(verifiy, animated: true)
-        
-        print(999)
-    }
+    required init?(coder: NSCoder) {
+           fatalError("init(coder:) has not been implemented")
+       }
+       
 }

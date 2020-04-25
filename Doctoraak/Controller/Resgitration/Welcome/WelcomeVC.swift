@@ -262,7 +262,7 @@ class WelcomeVC: CustomBaseViewVC {
     @objc func handleNext()  {
         let index = userDefaults.integer(forKey: UserDefaultsConstants.isUserRegisterAndWaitForSMScODEIndex)
         
-        let check = userDefaults.bool(forKey: UserDefaultsConstants.isUserRegisterAndWaitForSMScODE) ? MainVerificationVC(indexx: index, isFromForgetPassw: false) : WelcomeMainSecondVC()
+        let check = userDefaults.bool(forKey: UserDefaultsConstants.isUserRegisterAndWaitForSMScODE) ? MainVerificationVC(indexx: index, isFromForgetPassw: false, phone: "") : WelcomeMainSecondVC()
         
         let welcome = check//WelcomeMainSecondVC()
         let nav = UINavigationController(rootViewController:welcome)

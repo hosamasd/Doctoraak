@@ -111,7 +111,7 @@ class MainClinicDataVC: CustomBaseViewVC {
     }
     
      func handleChooseWorkingHours()  {
-        let payment = MainClinicWorkingHoursVC()
+        let payment = DoctorClinicWorkingHoursVC()
         payment.delgate = self
         navigationController?.pushViewController(payment, animated: true)
     }

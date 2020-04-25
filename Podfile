@@ -16,5 +16,5 @@ pod 'SVProgressHUD'
 pod 'Alamofire', '~> 4.0'
 pod 'MaterialComponents/Snackbar'
 pod 'MOLH'
-
+pod 'PKHUD', '~> 5.0'
 end

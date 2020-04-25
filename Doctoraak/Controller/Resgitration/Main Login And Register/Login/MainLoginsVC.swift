@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import SVProgressHUD
+import PKHUD
+import MOLH
 
 class MainLoginsVC: CustomBaseViewVC {
     
@@ -47,12 +50,12 @@ class MainLoginsVC: CustomBaseViewVC {
         }
         customLoginsView.loginViewModel.bindableIsLogging.bind(observer: {  [unowned self] (isReg) in
             if isReg == true {
-                //                UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
-                //                SVProgressHUD.show(withStatus: "Login...".localized)
+                                UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
+                                SVProgressHUD.show(withStatus: "Login...".localized)
                 
             }else {
-                //                SVProgressHUD.dismiss()
-                //                self.activeViewsIfNoData()
+                                SVProgressHUD.dismiss()
+                                self.activeViewsIfNoData()
             }
         })
     }
@@ -67,6 +70,12 @@ class MainLoginsVC: CustomBaseViewVC {
         customLoginsView.fillSuperview()
     }
     
+    func goToMainTab()  {
+        let home = BaseSlidingVC(indexx: index)
+                     //        present(home, animated: true, completion: nil)
+                     navigationController?.pushViewController(home, animated: true)
+    }
+    
     //TODO: -handle methods
     
     @objc  func handleRegister()  {
@@ -76,9 +85,25 @@ class MainLoginsVC: CustomBaseViewVC {
     }
     
     @objc  func handleLogin()  {
-        let home = BaseSlidingVC(indexx: index)
-              //        present(home, animated: true, completion: nil)
-              navigationController?.pushViewController(home, animated: true)    }
+        
+        customLoginsView.loginViewModel.performLogging { [unowned self] (base,err) in
+        if let err = err {
+            SVProgressHUD.showError(withStatus: err.localizedDescription)
+            self.activeViewsIfNoData();return
+        }
+        SVProgressHUD.dismiss()
+        self.activeViewsIfNoData()
+            guard let user = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
+//        self.saveToken(token: user.apiToken)
+        
+        DispatchQueue.main.async {
+            self.goToMainTab()
+        }
+        }
+        
+       
+        
+    }
     
     @objc func handleForget()  {
         let forget = MainForgetPasswordVC(indexx: index)

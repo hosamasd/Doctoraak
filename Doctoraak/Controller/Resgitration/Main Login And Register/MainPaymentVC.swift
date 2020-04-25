@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import SkyFloatingLabelTextField
 
 class MainPaymentVC: CustomBaseViewVC {
     
@@ -16,7 +15,6 @@ class MainPaymentVC: CustomBaseViewVC {
         v.index = index
         v.doneButton.addTarget(self, action: #selector(handleDonePayment), for: .touchUpInside)
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
-//        [v.firstScrollButton,v.secondScrollButton].forEach({$0.addTarget(self, action: #selector(handleChoosedButton), for: .touchUpInside)})
         return v
     }()
     
@@ -67,47 +65,6 @@ class MainPaymentVC: CustomBaseViewVC {
         
     }
     
-//    func hideOrUnhide(tag:Int)  {
-//        DispatchQueue.main.async {[unowned self] in
-//            
-//            
-//            self.customClinicPaymentView.vodafoneImage.isHide(tag == 1 ? false : true)
-//            self.customClinicPaymentView.fawryImage.isHide(tag == 1 ? true : false)
-//            self.customClinicPaymentView.numberTextField.isHide(tag == 1 ? false : true)
-//            self.customClinicPaymentView.codeTextField.isHide(tag == 1 ? true : false)
-//            //            self.num.rightViewMode = tag == 1 ? .always : .never
-//        }
-//    }
-    
-    //TODO: -handle methods
-    
-//    @objc func textFieldDidChange(text: UITextField)  {
-//        paymentViewModel.index = index
-//        guard let texts = text.text else { return  }
-//        if let floatingLabelTextField = text as? SkyFloatingLabelTextField {
-//            if text == customClinicPaymentView.numberTextField {
-//                if  !texts.isValidPhoneNumber    {
-//                    floatingLabelTextField.errorMessage = "Invalid   Phone".localized
-//                    paymentViewModel.vodafoneVode = nil
-//                }
-//                else {
-//                    floatingLabelTextField.errorMessage = ""
-//                    paymentViewModel.vodafoneVode = texts
-//                }
-//
-//            }else
-//                if(texts.count < 6 ) {
-//                    floatingLabelTextField.errorMessage = "code must have 6 character".localized
-//                    paymentViewModel.fawryCode = nil
-//                }
-//                else {
-//                    floatingLabelTextField.errorMessage = ""
-//                    paymentViewModel.fawryCode = texts
-//
-//            }
-//        }
-//    }
-    
     @objc func handleDonePayment()  {
         print(999)
     }
@@ -115,22 +72,6 @@ class MainPaymentVC: CustomBaseViewVC {
     @objc func handleBack()  {
         navigationController?.popViewController(animated: true)
     }
-    
-//    @objc func handleChoosedButton(sender:UIButton)  {
-//        [customClinicPaymentView.firstScrollButton,customClinicPaymentView.secondScrollButton].forEach({$0.setImage(#imageLiteral(resourceName: "Ellipse 129"), for: .normal)})
-//        
-//        sender.setImage( #imageLiteral(resourceName: "Ellipse 128"), for: .normal)
-//        switch sender.tag {
-//        case 1:
-//            hideOrUnhide(tag: 1)
-//        default:
-//            hideOrUnhide(tag: 2)
-//        }
-//        [customClinicPaymentView.codeTextField,customClinicPaymentView.numberTextField].forEach({$0.text = ""})
-//        customClinicPaymentView.paymentViewModel.fawryCode = nil
-//        customClinicPaymentView.paymentViewModel.vodafoneVode = nil
-//    }
-    
     
     required init?(coder: NSCoder) {
            fatalError("init(coder:) has not been implemented")
