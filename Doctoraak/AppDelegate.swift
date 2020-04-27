@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
          keyboardChanges()
         window = UIWindow()
         window?.makeKeyAndVisible()
-        window?.rootViewController =   UINavigationController(rootViewController: MainVerificationVC(indexx: 0, isFromForgetPassw: true, phone: ""))//)MainClinicDataVC(indexx: 0))//MainRegisterVC(indexx: 2))
+        window?.rootViewController =   UINavigationController(rootViewController: DoctorSecondRegisterVC(indexx: 0))//MainVerificationVC(indexx: 0, isFromForgetPassw: true, phone: ""))//)MainClinicDataVC(indexx: 0))//MainRegisterVC(indexx: 2))
 //        window?.rootViewController = BaseSlidingVC(indexx: 0)
         return true
     }

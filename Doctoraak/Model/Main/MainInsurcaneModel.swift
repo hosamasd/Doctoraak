@@ -24,7 +24,7 @@ struct InsurcaneModel:Codable {
     let id: Int
        let name, photo, nameAr, nameFr: String
        let createdAt, updatedAt: String?
-       let url: String
+//       let url: String
 
        enum CodingKeys: String, CodingKey {
            case id, name, photo
@@ -32,6 +32,6 @@ struct InsurcaneModel:Codable {
            case nameFr = "name_fr"
            case createdAt = "created_at"
            case updatedAt = "updated_at"
-           case url
+//           case url
        }
 }

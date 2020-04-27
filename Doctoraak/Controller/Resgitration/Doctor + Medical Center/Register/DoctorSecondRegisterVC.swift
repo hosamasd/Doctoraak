@@ -34,28 +34,28 @@ class DoctorSecondRegisterVC: CustomBaseViewVC {
     
     //check to go specific way
     fileprivate let index:Int!
-    fileprivate let name:String!
-    fileprivate let email:String!
-    fileprivate let mobile:String!
-    fileprivate let passowrd:String!
-    fileprivate let male:String!
-    fileprivate let photo:UIImage!
-
-    init(indexx:Int,male:String,photo:UIImage,email:String,name:String,mobile:String,passowrd:String) {
-        self.index = indexx
-        self.name = name
-        self.email = email
-        self.passowrd = passowrd
-        self.photo = photo
-        self.male = male
-        self.mobile = mobile
-        super.init(nibName: nil, bundle: nil)
-    }
+//    fileprivate let name:String!
+//    fileprivate let email:String!
+//    fileprivate let mobile:String!
+//    fileprivate let passowrd:String!
+//    fileprivate let male:String!
+//    fileprivate let photo:UIImage!
+//
+//    init(indexx:Int,male:String,photo:UIImage,email:String,name:String,mobile:String,passowrd:String) {
+//        self.index = indexx
+//        self.name = name
+//        self.email = email
+//        self.passowrd = passowrd
+//        self.photo = photo
+//        self.male = male
+//        self.mobile = mobile
+//        super.init(nibName: nil, bundle: nil)
+//    }
     
-//        init(indexx:Int) {
-//            self.index = indexx
-//            super.init(nibName: nil, bundle: nil)
-//        }
+        init(indexx:Int) {
+            self.index = indexx
+            super.init(nibName: nil, bundle: nil)
+        }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -106,8 +106,8 @@ class DoctorSecondRegisterVC: CustomBaseViewVC {
         userDefaults.set(true, forKey: UserDefaultsConstants.isUserRegisterAndWaitForSMScODE)
         userDefaults.set(index, forKey: UserDefaultsConstants.isUserRegisterAndWaitForSMScODEIndex)
         userDefaults.synchronize()
-        let verify = MainVerificationVC(indexx: index, isFromForgetPassw: false, phone: mobile)
-               navigationController?.pushViewController(verify, animated: true)
+//        let verify = MainVerificationVC(indexx: index, isFromForgetPassw: false, phone: mobile)
+//               navigationController?.pushViewController(verify, animated: true)
         
         // 78371   sms code
     }
@@ -129,22 +129,22 @@ class DoctorSecondRegisterVC: CustomBaseViewVC {
     
     @objc func handleSignup()  {
         
-        guard let specialization = customCecondRegisterView.doctorSecondRegisterViewModel.specialization,let degree = customCecondRegisterView.doctorSecondRegisterViewModel.degree,let _ = customCecondRegisterView.doctorSecondRegisterViewModel.description,let cvFile = customCecondRegisterView.doctorSecondRegisterViewModel.cvFile,let cvName = customCecondRegisterView.doctorSecondRegisterViewModel.cvName,let insurance = customCecondRegisterView.doctorSecondRegisterViewModel.insurance,let isInsurance = customCecondRegisterView.doctorSecondRegisterViewModel.isInsurance
-                                 else { return  }
-        UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
-                                       SVProgressHUD.show(withStatus: "Register...".localized)
-        RegistrationServices.shared.registerDoctor(isInsurance: isInsurance, coverImage: photo, cvName: cvName, cvFile: cvFile, name: name, email: email, phone: mobile, password: passowrd, gender: male, specialization_id: specialization, degree_id: degree, insurance: [1]) { (base, err) in
-            if let err=err {
-                SVProgressHUD.showError(withStatus: err.localizedDescription)
-                self.activeViewsIfNoData();return
-            }
-            SVProgressHUD.dismiss()
-                                           self.activeViewsIfNoData()
+//        guard let specialization = customCecondRegisterView.doctorSecondRegisterViewModel.specialization,let degree = customCecondRegisterView.doctorSecondRegisterViewModel.degree,let _ = customCecondRegisterView.doctorSecondRegisterViewModel.description,let cvFile = customCecondRegisterView.doctorSecondRegisterViewModel.cvFile,let cvName = customCecondRegisterView.doctorSecondRegisterViewModel.cvName,let insurance = customCecondRegisterView.doctorSecondRegisterViewModel.insurance,let isInsurance = customCecondRegisterView.doctorSecondRegisterViewModel.isInsurance
+//                                 else { return  }
+//        UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
+//                                       SVProgressHUD.show(withStatus: "Register...".localized)
+//        RegistrationServices.shared.registerDoctor(isInsurance: isInsurance, coverImage: photo, cvName: cvName, cvFile: cvFile, name: name, email: email, phone: mobile, password: passowrd, gender: male, specialization_id: specialization, degree_id: degree, insurance: [1]) { (base, err) in
+//            if let err=err {
+//                SVProgressHUD.showError(withStatus: err.localizedDescription)
+//                self.activeViewsIfNoData();return
+//            }
+//            SVProgressHUD.dismiss()
+//                                           self.activeViewsIfNoData()
             self.updateStates()
         }
         
        
-    }
+    
     
     
     

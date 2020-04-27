@@ -35,16 +35,56 @@ class WelcomeVC: CustomBaseViewVC {
         super.viewWillAppear(animated)
         setupAnimation()
         checks()
+//        removeAll()
     }
     
     //MARK: -user methods
     
+    func removeAll()  {
+        userDefaults.removeObject(forKey: UserDefaultsConstants.cityNameArray)
+        userDefaults.removeObject(forKey: UserDefaultsConstants.cityNameFRArray)
+        userDefaults.removeObject(forKey: UserDefaultsConstants.cityNameArray)
+        userDefaults.removeObject(forKey: UserDefaultsConstants.cityIdArray)
+        
+        userDefaults.removeObject(forKey: UserDefaultsConstants.areaNameArray)
+              userDefaults.removeObject(forKey: UserDefaultsConstants.areaNameFRArray)
+              userDefaults.removeObject(forKey: UserDefaultsConstants.areaNameARArray)
+              userDefaults.removeObject(forKey: UserDefaultsConstants.areaCityIdsArrays)
+        userDefaults.removeObject(forKey: UserDefaultsConstants.areaIdArray)
+        
+        userDefaults.removeObject(forKey: UserDefaultsConstants.specificationNameArray)
+              userDefaults.removeObject(forKey: UserDefaultsConstants.specificationNameFRArray)
+              userDefaults.removeObject(forKey: UserDefaultsConstants.specificationNameARArray)
+              userDefaults.removeObject(forKey: UserDefaultsConstants.specificationIdArray)
+        
+        userDefaults.removeObject(forKey: UserDefaultsConstants.degreeNameFRArray)
+              userDefaults.removeObject(forKey: UserDefaultsConstants.degreeNameArray)
+              userDefaults.removeObject(forKey: UserDefaultsConstants.degreeNameARArray)
+              userDefaults.removeObject(forKey: UserDefaultsConstants.degreeIdArray)
+        
+        userDefaults.removeObject(forKey: UserDefaultsConstants.insuranceNameArray)
+              userDefaults.removeObject(forKey: UserDefaultsConstants.insuranceNameARArray)
+              userDefaults.removeObject(forKey: UserDefaultsConstants.insuranceNameFRArray)
+              userDefaults.removeObject(forKey: UserDefaultsConstants.insuranceIdArray)
+        
+        
+                   
+//                   userDefaults.set(iNameArray, forKey: UserDefaultsConstants.insuranceNameArray)
+//                   userDefaults.set(iNameFR, forKey: UserDefaultsConstants.insuranceNameFRArray)
+//                   userDefaults.set(iNameARData, forKey: UserDefaultsConstants.insuranceNameARArray)
+//                   userDefaults.set(iIdData, forKey: UserDefaultsConstants.insuranceIdArray)
+    }
+    
     func checks()  {
+        
         print(userDefaults.value(forKey: UserDefaultsConstants.areaNameARArray))
          print("            ",userDefaults.value(forKey: UserDefaultsConstants.cityNameFRArray))
          print("                ",userDefaults.value(forKey: UserDefaultsConstants.specificationNameArray))
          print("                        ",userDefaults.value(forKey: UserDefaultsConstants.insuranceNameARArray))
         print(" ",userDefaults.value(forKey: UserDefaultsConstants.degreeNameFRArray))
+        userDefaults.set(false, forKey: UserDefaultsConstants.isCachedDriopLists)
+//        userDefaults.removeObject(forKey: <#T##String#>)
+        userDefaults.synchronize()
 
     }
     

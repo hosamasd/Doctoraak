@@ -12,47 +12,47 @@ class MainServices {
     static let shared = MainServices()
     
     func getDegrees(completion: @escaping (MainDegreeModel?, Error?) -> ())  {
-        let urlString = "https://doctoraak.sphinxat.us/public/api/show_degree"
+        let urlString = "http://doctoraak.sphinxatapps.com/public/api/show_degree".toSecrueHttps()
         MainServices.mainGetMethodGenerics(urlString: urlString, completion: completion)
     }
     
     func getSpecificationss(completion: @escaping (MainSpecificationModel?, Error?) -> ())  {
-        let urlString = "https://doctoraak.sphinxat.us/public/api/show_specialization"
+        let urlString = "http://doctoraak.sphinxatapps.com/public/api/show_specialization".toSecrueHttps()
         MainServices.mainGetMethodGenerics(urlString: urlString, completion: completion)
     }
     
     func getCitiess(completion: @escaping (MainCityModel?, Error?) -> ())  {
-        let urlString = "https://doctoraak.sphinxat.us/public/api/show_city"
+        let urlString = "http://doctoraak.sphinxatapps.com/public/api/show_city".toSecrueHttps()
         MainServices.mainGetMethodGenerics(urlString: urlString, completion: completion)
     }
     
     func getAreas(completion: @escaping (MainAreaModel?, Error?) -> ())  {
-        let urlString = "https://doctoraak.sphinxat.us/public/api/show_area"
+        let urlString = "http://doctoraak.sphinxatapps.com/public/api/show_area".toSecrueHttps()
         MainServices.mainGetMethodGenerics(urlString: urlString, completion: completion)
     }
     
     func getInsuracness(completion: @escaping (MainInsurcaneModel?, Error?) -> ())  {
-        let urlString = "https://doctoraak.sphinxat.us/public/api/show_insurance"
+        let urlString = "http://doctoraak.sphinxatapps.com/public/api/show_insurance".toSecrueHttps()
         MainServices.mainGetMethodGenerics(urlString: urlString, completion: completion)
     }
     
     func getMedicineTypes(completion: @escaping (MainMedicineTypeModel?, Error?) -> ())  {
-        let urlString = "https://doctoraak.sphinxat.us/public/api/show_medicines_type"
+        let urlString = "http://doctoraak.sphinxatapps.com/public/api/show_medicines_type".toSecrueHttps()
         MainServices.mainGetMethodGenerics(urlString: urlString, completion: completion)
     }
     
     func getMedicines(completion: @escaping (MainMedicineModel?, Error?) -> ())  {
-        let urlString = "https://doctoraak.sphinxat.us/public/api/show_medicines"
+        let urlString = "http://doctoraak.sphinxatapps.com/public/api/show_medicines".toSecrueHttps()
         MainServices.mainGetMethodGenerics(urlString: urlString, completion: completion)
     }
     
     func getRays(completion: @escaping (MainRaysModel?, Error?) -> ())  {
-        let urlString = "https://doctoraak.sphinxat.us/public/api/show_rays"
+        let urlString = "http://doctoraak.sphinxatapps.com/public/api/show_rays".toSecrueHttps()
         MainServices.mainGetMethodGenerics(urlString: urlString, completion: completion)
     }
     
     func getNotifications(completion: @escaping (MainNotificationsModel?, Error?) -> ())  {
-        let urlString = "https://doctoraak.sphinxat.us/public/api/show_specialization"
+        let urlString = "http://doctoraak.sphinxatapps.com/public/api/show_specialization".toSecrueHttps()
         MainServices.mainGetMethodGenerics(urlString: urlString, completion: completion)
     }
     

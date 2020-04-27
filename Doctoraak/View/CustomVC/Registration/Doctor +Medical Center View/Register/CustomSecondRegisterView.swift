@@ -10,6 +10,7 @@ import UIKit
 import iOSDropDown
 import UIMultiPicker
 import SkyFloatingLabelTextField
+import MOLH
 
 class CustomSecondRegisterView: CustomBaseView {
     
@@ -64,7 +65,8 @@ class CustomSecondRegisterView: CustomBaseView {
         i.arrowSize = 20
         i.placeholder = "Specialization".localized
         i.didSelect { (txt, index, _) in
-            self.doctorSecondRegisterViewModel.specialization = index+1
+         let b =    self.specificationIDSArray[index]
+            self.doctorSecondRegisterViewModel.specialization_id = index+1
         }
         return i
     }()
@@ -76,7 +78,8 @@ class CustomSecondRegisterView: CustomBaseView {
         i.arrowSize = 20
         i.placeholder = "Degree".localized
         i.didSelect { (txt, index, _) in
-            self.doctorSecondRegisterViewModel.degree = index+1
+            let b =    self.degreeIDSArray[index]
+            self.doctorSecondRegisterViewModel.degree_id = index+1
         }
         return i
     }()
@@ -97,10 +100,10 @@ class CustomSecondRegisterView: CustomBaseView {
         i.constrainWidth(constant: 50)
         return i
     }()
-    lazy var insuracneText = UILabel(text: "choose insurance", font: .systemFont(ofSize: 18), textColor: .black, textAlignment: .left)
+    lazy var insuracneText = UILabel(text: "choose insurance", font: .systemFont(ofSize: 16), textColor: .black, textAlignment: .left,numberOfLines: 0)
     lazy var insuranceDrop:UIMultiPicker = {
         let v = UIMultiPicker(backgroundColor: .white)
-        v.options = insuracneArray
+//        v.options = insuracneArray
         v.color = .gray
         v.tintColor = .green
         v.font = .systemFont(ofSize: 30, weight: .bold)
@@ -149,10 +152,64 @@ class CustomSecondRegisterView: CustomBaseView {
     var de = ""
     let doctorSecondRegisterViewModel = DoctorSecondRegisterViewModel()
     
-    var insuracneArray = ["one","two","three","sdfdsfsd"]
+    var insuracneArray = [String]() //["one","two","three","sdfdsfsd"]
+    var degreeArray = [String]()
+    var specificationArray = [String]()
     
+    var insuracneIDSArray = [Int]() //["one","two","three","sdfdsfsd"]
+       var degreeIDSArray = [Int]()
+       var specificationIDSArray = [Int]()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        putData()
+        addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handlCloseInsurance)))
+    }
+    
+    func putData()  {
+        fetchEnglishData(isArabic: MOLHLanguage.isRTLLanguage())
+
+    }
+    
+    func putDataInDrops(sr:[String],sid:[Int],dr:[String],did:[Int],ir:[String],iid:[Int])  {
+        self.specificationArray = sr
+        self.degreeArray = dr
+        self.insuracneArray = ir
+        self.insuracneIDSArray = iid
+        specificationIDSArray = sid
+        degreeIDSArray = did
+
+    }
+    
+    fileprivate func fetchEnglishData(isArabic:Bool) {
+        if isArabic {
+            
+            
+            if let specificationsArray = userDefaults.value(forKey: UserDefaultsConstants.specificationNameARArray) as? [String],let specificationIds = userDefaults.value(forKey: UserDefaultsConstants.specificationIdArray) as? [Int],let degreeNames = userDefaults.value(forKey: UserDefaultsConstants.degreeNameARArray) as? [String], let degreeIds =  userDefaults.value(forKey: UserDefaultsConstants.degreeIdArray) as? [Int],
+                let insuracneNames = userDefaults.value(forKey: UserDefaultsConstants.insuranceNameARArray) as? [String], let insuranceIds =  userDefaults.value(forKey: UserDefaultsConstants.insuranceIdArray) as? [Int] {
+                putDataInDrops(sr: specificationsArray, sid: specificationIds, dr: degreeNames, did: degreeIds, ir: insuracneNames, iid: insuranceIds)
+                
+            }
+        }else {
+            if let specificationsArray = userDefaults.value(forKey: UserDefaultsConstants.specificationNameArray) as? [String],let specificationIds = userDefaults.value(forKey: UserDefaultsConstants.specificationIdArray) as? [Int],let degreeNames = userDefaults.value(forKey: UserDefaultsConstants.degreeNameArray) as? [String], let degreeIds =  userDefaults.value(forKey: UserDefaultsConstants.degreeIdArray) as? [Int],
+            let insuracneNames = userDefaults.value(forKey: UserDefaultsConstants.insuranceNameArray) as? [String], let insuranceIds =  userDefaults.value(forKey: UserDefaultsConstants.insuranceIdArray) as? [Int] {
+                putDataInDrops(sr: specificationsArray, sid: specificationIds, dr: degreeNames, did: degreeIds, ir: insuracneNames, iid: insuranceIds)
+            }
+        }
+        self.specializationDrop.optionArray = self.specificationArray
+                   self.degreeDrop.optionArray = self.degreeArray
+                   self.insuranceDrop.options = self.insuracneArray
+        DispatchQueue.main.async {
+            self.layoutIfNeeded()
+        }
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func setupViews() {
+        
         discriptionTextField.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)
         //        [ descriptionTextField].forEach({$0.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)})
         
@@ -188,21 +245,30 @@ class CustomSecondRegisterView: CustomBaseView {
         print(965)
     }
     
+    var insuranceArr = [Int]()
     
     @objc func handleHidePicker(sender:UIMultiPicker)  {
+        insuranceArr.removeAll()
         sender.selectedIndexes.forEach { (i) in
             
             de += insuracneArray[i] + ","
+            insuranceArr.append(i+1)
         }
         iiii = de
         insuracneText.text = iiii
         de = ""
+        insuranceArr = insuranceArr.uniques
+        print(insuranceArr)
         doctorSecondRegisterViewModel.isInsurance = iiii != "" ?  true : false
-        doctorSecondRegisterViewModel.insurance = iiii != ""  ? iiii : nil
+        doctorSecondRegisterViewModel.insurance = iiii != ""  ? insuranceArr : nil
     }
     
     @objc func handleOpenCloseInsurance()  {
         insuranceDrop.isHidden = !insuranceDrop.isHidden
+    }
+
+   @objc func handlCloseInsurance()  {
+        insuranceDrop.isHide(true)
     }
     
     @objc func handleAgree(sender:UIButton)  {
