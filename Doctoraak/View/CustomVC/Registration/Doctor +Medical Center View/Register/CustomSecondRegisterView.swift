@@ -65,8 +65,7 @@ class CustomSecondRegisterView: CustomBaseView {
         i.arrowSize = 20
         i.placeholder = "Specialization".localized
         i.didSelect { (txt, index, _) in
-         let b =    self.specificationIDSArray[index]
-            self.doctorSecondRegisterViewModel.specialization_id = index+1
+            self.doctorSecondRegisterViewModel.specialization_id = self.specificationIDSArray[index]//index+1
         }
         return i
     }()
@@ -78,8 +77,7 @@ class CustomSecondRegisterView: CustomBaseView {
         i.arrowSize = 20
         i.placeholder = "Degree".localized
         i.didSelect { (txt, index, _) in
-            let b =    self.degreeIDSArray[index]
-            self.doctorSecondRegisterViewModel.degree_id = index+1
+            self.doctorSecondRegisterViewModel.degree_id =  self.degreeIDSArray[index]//index+1
         }
         return i
     }()
@@ -147,7 +145,7 @@ class CustomSecondRegisterView: CustomBaseView {
         return button
     }()
     
-    var index = 0
+//    var index = 0
     var iiii = ""
     var de = ""
     let doctorSecondRegisterViewModel = DoctorSecondRegisterViewModel()
@@ -159,6 +157,16 @@ class CustomSecondRegisterView: CustomBaseView {
     var insuracneIDSArray = [Int]() //["one","two","three","sdfdsfsd"]
        var degreeIDSArray = [Int]()
        var specificationIDSArray = [Int]()
+    
+     var index:Int!
+     var name:String!
+     var email:String!
+     var mobile:String!
+     var passowrd:String!
+     var male:String!
+     var photo:UIImage!
+
+   
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -279,6 +287,11 @@ class CustomSecondRegisterView: CustomBaseView {
     
     @objc func textFieldDidChange(text: UITextField)  {
         doctorSecondRegisterViewModel.index = index
+        doctorSecondRegisterViewModel.password = passowrd
+        doctorSecondRegisterViewModel.phone = mobile
+        doctorSecondRegisterViewModel.image = photo
+        doctorSecondRegisterViewModel.name = name
+        doctorSecondRegisterViewModel.email = email
         guard let texts = text.text else { return  }
         if let floatingLabelTextField = text as? SkyFloatingLabelTextField {
             if text == discriptionTextField {

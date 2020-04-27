@@ -10,42 +10,39 @@ import UIKit
 
 struct MainDoctorRegisterModel:Codable {
     let status: Int
-    let message, messageEn: String
-    let data: DoctorRegisterModel
-    
-    enum CodingKeys: String, CodingKey {
-        case status, message
-        case messageEn = "message_en"
-        case data
-    }
+       let message, messageEn: String
+       let data: DoctorRegisterModel
+
+       enum CodingKeys: String, CodingKey {
+           case status, message
+           case messageEn = "message_en"
+           case data
+       }
 }
 
 struct DoctorRegisterModel:Codable {
     let name, email, phone, gender: String
-    let specializationID, degreeID, password: String
-    let smsCode, active: Int
-    let updatedAt, createdAt: String
-    let id: Int
-    let cv: String
-    let photo: String
-    let doctorInsurances: [DoctorInsuranceModel]
-    let degree, specialization: DegreeDoctorModel
-    let insuranceCompany: [DegreeDoctorModel]
-    
-    enum CodingKeys: String, CodingKey {
-        case name, email, phone, gender
-        case specializationID = "specialization_id"
-        case degreeID = "degree_id"
-        case password
-        case smsCode = "sms_code"
-        case active
-        case updatedAt = "updated_at"
-        case createdAt = "created_at"
-        case id, cv, photo
-        case doctorInsurances = "doctor_insurances"
-        case degree, specialization
-        case insuranceCompany = "insurance_company"
-    }
+       let specializationID, degreeID, password: String
+       let smsCode, active: Int
+       let updatedAt, createdAt: String
+       let id: Int
+       let photo, cv: String
+       let doctorInsurances: [DoctorInsuranceModel]
+       let degree, specialization: DegreeDoctorModel
+
+       enum CodingKeys: String, CodingKey {
+           case name, email, phone, gender
+           case specializationID = "specialization_id"
+           case degreeID = "degree_id"
+           case password
+           case smsCode = "sms_code"
+           case active
+           case updatedAt = "updated_at"
+           case createdAt = "created_at"
+           case id, photo, cv
+           case doctorInsurances = "doctor_insurances"
+           case degree, specialization
+       }
 }
 
 struct DoctorInsuranceModel:Codable {

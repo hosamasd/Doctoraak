@@ -14,6 +14,9 @@ class UserDefaultsConstants {
     
     //register
     static let userMobileNumber="userMobileNumber"
+    static let doctorRegisterUser_id = "doctorRegisterUser_id"
+    static let isUserRegisterAndWaitForClinicData="isUserRegisterAndWaitForClinicData"
+    static let isUserRegisterAndWaitForClinicDataIndex="isUserRegisterAndWaitForClinicDataIndex"
     
     //for english
     static let areaNameArray = "areaNameArray"

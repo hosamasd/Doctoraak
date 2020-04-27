@@ -34,6 +34,7 @@ class CustomMainVerificationView: CustomBaseView {
     lazy var secondNumberTextField = createMainTextFieldsWithoutPods(place: "")
     lazy var thirdNumberTextField = createMainTextFieldsWithoutPods(place: "")
     lazy var forthNumberTextField = createMainTextFieldsWithoutPods(place: "")
+    lazy var fifthNumberTextField = createMainTextFieldsWithoutPods(place: "")
     
     lazy var confirmButton:UIButton = {
         let button = UIButton(type: .system)
@@ -47,16 +48,17 @@ class CustomMainVerificationView: CustomBaseView {
         return button
     }()
     var index:Int = 0
+    var id:Int = 0
     
     let sMSCodeViewModel = SMSCodeViewModel()
     
     
     override func setupViews() {
-        [firstNumberTextField,secondNumberTextField,thirdNumberTextField,forthNumberTextField].forEach({$0.delegate = self})
-        [firstNumberTextField, secondNumberTextField,thirdNumberTextField, forthNumberTextField].forEach({$0.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)})
+        [firstNumberTextField,secondNumberTextField,thirdNumberTextField,forthNumberTextField,fifthNumberTextField].forEach({$0.delegate = self})
+        [firstNumberTextField, secondNumberTextField,thirdNumberTextField, forthNumberTextField,fifthNumberTextField].forEach({$0.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)})
         
         resendButton.isEnabled = false
-        let numbersStack = getStack(views: UIView(),firstNumberTextField,secondNumberTextField,thirdNumberTextField,forthNumberTextField,UIView(), spacing: 8, distribution: .fillEqually, axis: .horizontal)
+        let numbersStack = getStack(views: firstNumberTextField,secondNumberTextField,thirdNumberTextField,forthNumberTextField,fifthNumberTextField, spacing: 8, distribution: .fillEqually, axis: .horizontal)
         //        let mainStack = getStack(views: verificationLabel, spacing: <#T##CGFloat#>, distribution: <#T##UIStackView.Distribution#>, axis: <#T##NSLayoutConstraint.Axis#>)
         
         
@@ -85,7 +87,7 @@ class CustomMainVerificationView: CustomBaseView {
     }
     
     @objc func textFieldDidChange(text: UITextField)  {
-        
+        sMSCodeViewModel.id = id
         sMSCodeViewModel.index = index
         guard let texts = text.text, !texts.isEmpty  else {self.changeButtonState(enable: false, vv: self.confirmButton);  return  }
         
@@ -102,9 +104,12 @@ class CustomMainVerificationView: CustomBaseView {
                 forthNumberTextField.becomeFirstResponder()
             case forthNumberTextField:
                 sMSCodeViewModel.sms4Code = texts
-                forthNumberTextField.resignFirstResponder()
+                fifthNumberTextField.becomeFirstResponder()
+                case fifthNumberTextField:
+                sMSCodeViewModel.sms5Code = texts
+                fifthNumberTextField.resignFirstResponder()
             default:
-                break
+                ()
             }
         }else{
             

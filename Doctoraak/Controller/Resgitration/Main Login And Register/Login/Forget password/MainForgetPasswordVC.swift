@@ -68,7 +68,7 @@ class MainForgetPasswordVC: CustomBaseViewVC {
     }
     
     func goToNext()  {
-        let verifiy = MainVerificationVC(indexx: index,isFromForgetPassw: true, phone: customMainForgetPassView.forgetPassViewModel.phone ?? "")
+        let verifiy = MainVerificationVC(indexx: index,isFromForgetPassw: true, phone: customMainForgetPassView.forgetPassViewModel.phone ?? "", user_id: -1)
                navigationController?.pushViewController(verifiy, animated: true)
                
                print(999)

@@ -19,7 +19,6 @@ class DoctorSecondRegisterViewModel {
     var phone:String? {didSet {checkFormValidity()}}
     var email:String? {didSet {checkFormValidity()}}
     var password:String? {didSet {checkFormValidity()}}
-    var confirmPassword:String? {didSet {checkFormValidity()}}
     var male:String = "male" {didSet {checkFormValidity()}}
     var index:Int? = -1 {didSet {checkFormValidity()}}
     var image:UIImage? {didSet {checkFormValidity()}}
@@ -64,7 +63,7 @@ class DoctorSecondRegisterViewModel {
        
        func checkFormValidity() {
         
-        let isFormValid = email?.isEmpty == false && password?.isEmpty == false && confirmPassword?.isEmpty == false && confirmPassword == password &&  phone?.isEmpty == false && name?.isEmpty == false   && index != -1 && image != nil && isInsurance == false || isInsurance == true &&   email?.isEmpty == false && password?.isEmpty == false && confirmPassword?.isEmpty == false && confirmPassword == password &&  phone?.isEmpty == false && name?.isEmpty == false   && index != -1 && image != nil && insurance?.isEmpty == false
+        let isFormValid = email?.isEmpty == false && password?.isEmpty == false &&  phone?.isEmpty == false && name?.isEmpty == false   && index != -1 && image != nil && isInsurance == false && isAccept != false &&   cvFile?.isEmpty ==  false &&   cvName?.isEmpty ==  false  || isInsurance == true &&   email?.isEmpty == false && password?.isEmpty == false &&  phone?.isEmpty == false && name?.isEmpty == false   && index != -1 && image != nil && insurance?.isEmpty == false && isAccept != false &&   cvFile?.isEmpty ==  false &&   cvName?.isEmpty ==  false 
                
                bindableIsFormValidate.value = isFormValid
         

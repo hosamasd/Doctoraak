@@ -116,8 +116,8 @@ class DoctorRegisterVC: CustomBaseViewVC {
         
         
         customRegisterView.doctorRegisterViewModel.performRegister {[unowned self] (img, name, mobile, email, password, male, index) in
-//            let second = DoctorSecondRegisterVC(indexx: index, male: male, photo: img, email: email, name: name, mobile: mobile, passowrd: password)
-//            self.navigationController?.pushViewController(second, animated: true)
+            let second = DoctorSecondRegisterVC(indexx: index, male: male, photo: img, email: email, name: name, mobile: mobile, passowrd: password)
+            self.navigationController?.pushViewController(second, animated: true)
         }
             
         }

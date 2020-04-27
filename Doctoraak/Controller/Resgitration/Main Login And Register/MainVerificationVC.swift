@@ -8,12 +8,15 @@
 
 import UIKit
 import SkyFloatingLabelTextField
+import SVProgressHUD
+import MOLH
 
 class MainVerificationVC: CustomBaseViewVC {
     
     lazy var customVerificationView:CustomMainVerificationView = {
         let v = CustomMainVerificationView()
         v.index = index
+        v.id = user_id
         v.resendButton.addTarget(self, action: #selector(handleResendCode), for: .touchUpInside)
         v.confirmButton.addTarget(self, action: #selector(handleConfirm), for: .touchUpInside)
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
@@ -25,10 +28,12 @@ class MainVerificationVC: CustomBaseViewVC {
     fileprivate let index:Int!
     fileprivate let isFromForgetPassw:Bool!
     fileprivate let phoneNumber:String!
-    init(indexx:Int,isFromForgetPassw:Bool,phone:String) {
+    fileprivate let user_id:Int!
+    init(indexx:Int,isFromForgetPassw:Bool,phone:String,user_id:Int) {
         self.index = indexx
         self.isFromForgetPassw = isFromForgetPassw
         self.phoneNumber = phone
+        self.user_id = user_id
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -55,12 +60,12 @@ class MainVerificationVC: CustomBaseViewVC {
         }
         customVerificationView.sMSCodeViewModel.bindableIsLogging.bind(observer: {  [unowned self] (isReg) in
             if isReg == true {
-                //                UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
-                //                SVProgressHUD.show(withStatus: "Login...".localized)
+                UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
+                SVProgressHUD.show(withStatus: "Waiting...".localized)
                 
             }else {
-                //                SVProgressHUD.dismiss()
-                //                self.activeViewsIfNoData()
+                SVProgressHUD.dismiss()
+                self.activeViewsIfNoData()
             }
         })
     }
@@ -117,6 +122,21 @@ class MainVerificationVC: CustomBaseViewVC {
         self.customVerificationView.resendButton.isEnabled = true
     }
     
+    func updateStates()  {
+        userDefaults.set(true, forKey: UserDefaultsConstants.isUserRegisterAndWaitForClinicData)
+        userDefaults.set(index, forKey: UserDefaultsConstants.isUserRegisterAndWaitForClinicDataIndex)
+        userDefaults.synchronize()
+    }
+    
+    func goToNext()  {
+        self.updateStates()
+        let clinic = MainClinicDataVC(indexx: index)
+        navigationController?.pushViewController(clinic, animated: true)
+    }
+    
+    
+    
+    
     //TODO: -handle Methods
     
     @objc fileprivate func updateTimer() {
@@ -136,13 +156,29 @@ class MainVerificationVC: CustomBaseViewVC {
     
     @objc  func handleConfirm()  {
         
-        if isFromForgetPassw {
-            let  vc =  MainNewPassVC(indexx: index)
-            navigationController?.pushViewController(vc, animated: true)
-        }else {
-            let vc =  MainClinicDataVC(indexx: index)
-            navigationController?.pushViewController(vc, animated: true)
+        customVerificationView.sMSCodeViewModel.performLogging { (base, err) in
+            if let err = err {
+                SVProgressHUD.showError(withStatus: err.localizedDescription)
+                self.activeViewsIfNoData();return
+            }
+            SVProgressHUD.dismiss()
+            self.activeViewsIfNoData()
+            guard let user = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
+            
+            DispatchQueue.main.async {
+                self.goToNext()
+            }
         }
+        
+        
+        //        if isFromForgetPassw {
+        //            let  vc =  MainNewPassVC(indexx: index)
+        //            navigationController?.pushViewController(vc, animated: true)
+        //        }else {
+        //
+        //            let vc =  MainClinicDataVC(indexx: index)
+        //            navigationController?.pushViewController(vc, animated: true)
+        //        }
         
     }
     

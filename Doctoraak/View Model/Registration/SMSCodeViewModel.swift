@@ -18,19 +18,26 @@ class SMSCodeViewModel {
      var sms2Code:String? {didSet {checkFormValidity()}}
      var sms3Code:String? {didSet {checkFormValidity()}}
      var sms4Code:String? {didSet {checkFormValidity()}}
+    var sms5Code:String? {didSet {checkFormValidity()}}
+
+    
+     var id:Int? = -1 {didSet {checkFormValidity()}}
     var index:Int? = -1 {didSet {checkFormValidity()}}
 
     
-    func performLogging(completion:@escaping (Error?)->Void)  {
-        guard let smsCode = smsCode, let sms2Code = sms2Code, let sms3Code = sms3Code,let sms4Code = sms4Code
+    func performLogging(completion:@escaping (MainDoctorVerificationModel?,Error?)->Void)  {
+        guard let smsCode = smsCode, let sms2Code = sms2Code, let sms3Code = sms3Code,let sms4Code = sms4Code,let sms5Code=sms5Code,let index=index,let id=id
             else { return  }
+        let mainsmsCode = smsCode+sms2Code+sms3Code+sms4Code+sms5Code
+        
         bindableIsLogging.value = true
         
+        RegistrationServices.shared.MainReceiveSmsCode(index: index, user_id: id, sms_code: mainsmsCode, completion: completion)
         //        RegistrationServices.shared.loginUser(phone: email, password: password, completion: completion)
     }
     
     func checkFormValidity() {
-        let isFormValid = smsCode?.isEmpty == false && sms2Code?.isEmpty == false && sms3Code?.isEmpty == false && sms4Code?.isEmpty == false && index != -1
+        let isFormValid = smsCode?.isEmpty == false && sms2Code?.isEmpty == false && sms3Code?.isEmpty == false && sms4Code?.isEmpty == false && sms4Code?.isEmpty == false && index != -1 && id != -1
         
         bindableIsFormValidate.value = isFormValid
         

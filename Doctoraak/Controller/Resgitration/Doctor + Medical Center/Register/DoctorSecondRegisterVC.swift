@@ -8,6 +8,7 @@
 
 import UIKit
 import SVProgressHUD
+import MOLH
 
 class DoctorSecondRegisterVC: CustomBaseViewVC {
     
@@ -25,6 +26,14 @@ class DoctorSecondRegisterVC: CustomBaseViewVC {
     }()
     lazy var customCecondRegisterView:CustomSecondRegisterView = {
         let v = CustomSecondRegisterView()
+        v.index = index
+        v.photo = photo
+        v.name = name
+        v.email = email
+        v.passowrd = passowrd
+        v.male = male
+        v.mobile = mobile
+        //        putSomeData()
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
         v.signUpButton.addTarget(self, action: #selector(handleSignup), for: .touchUpInside)
         v.cvView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpenFiles)))
@@ -34,28 +43,28 @@ class DoctorSecondRegisterVC: CustomBaseViewVC {
     
     //check to go specific way
     fileprivate let index:Int!
-//    fileprivate let name:String!
-//    fileprivate let email:String!
-//    fileprivate let mobile:String!
-//    fileprivate let passowrd:String!
-//    fileprivate let male:String!
-//    fileprivate let photo:UIImage!
-//
-//    init(indexx:Int,male:String,photo:UIImage,email:String,name:String,mobile:String,passowrd:String) {
-//        self.index = indexx
-//        self.name = name
-//        self.email = email
-//        self.passowrd = passowrd
-//        self.photo = photo
-//        self.male = male
-//        self.mobile = mobile
-//        super.init(nibName: nil, bundle: nil)
-//    }
+    fileprivate let name:String!
+    fileprivate let email:String!
+    fileprivate let mobile:String!
+    fileprivate let passowrd:String!
+    fileprivate let male:String!
+    fileprivate let photo:UIImage!
     
-        init(indexx:Int) {
-            self.index = indexx
-            super.init(nibName: nil, bundle: nil)
-        }
+    init(indexx:Int,male:String,photo:UIImage,email:String,name:String,mobile:String,passowrd:String) {
+        self.index = indexx
+        self.name = name
+        self.email = email
+        self.passowrd = passowrd
+        self.photo = photo
+        self.male = male
+        self.mobile = mobile
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    //        init(indexx:Int) {
+    //            self.index = indexx
+    //            super.init(nibName: nil, bundle: nil)
+    //        }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -68,6 +77,17 @@ class DoctorSecondRegisterVC: CustomBaseViewVC {
     
     //MARK:-User methods
     
+    func putSomeData()  {
+        customCecondRegisterView.doctorSecondRegisterViewModel.image = photo
+        customCecondRegisterView.doctorSecondRegisterViewModel.index = index
+        customCecondRegisterView.doctorSecondRegisterViewModel.name = name
+        customCecondRegisterView.doctorSecondRegisterViewModel.email = email
+        customCecondRegisterView.doctorSecondRegisterViewModel.phone = mobile
+        customCecondRegisterView.doctorSecondRegisterViewModel.password = passowrd
+        customCecondRegisterView.doctorSecondRegisterViewModel.male = male
+        
+    }
+    
     func setupViewModelObserver()  {
         customCecondRegisterView.doctorSecondRegisterViewModel.bindableIsFormValidate.bind { [unowned self] (isValidForm) in
             guard let isValid = isValidForm else {return}
@@ -78,12 +98,12 @@ class DoctorSecondRegisterVC: CustomBaseViewVC {
         
         customCecondRegisterView.doctorSecondRegisterViewModel.bindableIsResgiter.bind(observer: {  [unowned self] (isReg) in
             if isReg == true {
-                                UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
-                                SVProgressHUD.show(withStatus: "Register...".localized)
+                UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
+                SVProgressHUD.show(withStatus: "Register...".localized)
                 
             }else {
-                                SVProgressHUD.dismiss()
-                                self.activeViewsIfNoData()
+                SVProgressHUD.dismiss()
+                self.activeViewsIfNoData()
             }
         })
     }
@@ -101,15 +121,25 @@ class DoctorSecondRegisterVC: CustomBaseViewVC {
         mainView.addSubViews(views: customCecondRegisterView)
         customCecondRegisterView.fillSuperview()
     }
-
+    
     func updateStates()  {
         userDefaults.set(true, forKey: UserDefaultsConstants.isUserRegisterAndWaitForSMScODE)
         userDefaults.set(index, forKey: UserDefaultsConstants.isUserRegisterAndWaitForSMScODEIndex)
         userDefaults.synchronize()
-//        let verify = MainVerificationVC(indexx: index, isFromForgetPassw: false, phone: mobile)
-//               navigationController?.pushViewController(verify, animated: true)
+    }
+    
+    func goToNext(id:Int)  {
+        self.updateStates()
+        let verify = MainVerificationVC(indexx: index, isFromForgetPassw: false, phone: mobile, user_id: id)
+        navigationController?.pushViewController(verify, animated: true)
         
-        // 78371   sms code
+        
+    }
+    
+    func saveToken(user_id:Int)  {
+        userDefaults.set(user_id, forKey: UserDefaultsConstants.doctorRegisterUser_id)
+        userDefaults.synchronize()
+        goToNext(id: user_id)
     }
     
     //TODO: -handle methods
@@ -129,21 +159,23 @@ class DoctorSecondRegisterVC: CustomBaseViewVC {
     
     @objc func handleSignup()  {
         
-//        guard let specialization = customCecondRegisterView.doctorSecondRegisterViewModel.specialization,let degree = customCecondRegisterView.doctorSecondRegisterViewModel.degree,let _ = customCecondRegisterView.doctorSecondRegisterViewModel.description,let cvFile = customCecondRegisterView.doctorSecondRegisterViewModel.cvFile,let cvName = customCecondRegisterView.doctorSecondRegisterViewModel.cvName,let insurance = customCecondRegisterView.doctorSecondRegisterViewModel.insurance,let isInsurance = customCecondRegisterView.doctorSecondRegisterViewModel.isInsurance
-//                                 else { return  }
-//        UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
-//                                       SVProgressHUD.show(withStatus: "Register...".localized)
-//        RegistrationServices.shared.registerDoctor(isInsurance: isInsurance, coverImage: photo, cvName: cvName, cvFile: cvFile, name: name, email: email, phone: mobile, password: passowrd, gender: male, specialization_id: specialization, degree_id: degree, insurance: [1]) { (base, err) in
-//            if let err=err {
-//                SVProgressHUD.showError(withStatus: err.localizedDescription)
-//                self.activeViewsIfNoData();return
-//            }
-//            SVProgressHUD.dismiss()
-//                                           self.activeViewsIfNoData()
-            self.updateStates()
+        customCecondRegisterView.doctorSecondRegisterViewModel.performRegister { (base, err) in
+            if let err = err {
+                SVProgressHUD.showError(withStatus: err.localizedDescription)
+                self.activeViewsIfNoData();return
+            }
+            SVProgressHUD.dismiss()
+            self.activeViewsIfNoData()
+            guard let user = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
+            
+            DispatchQueue.main.async {
+                self.saveToken(user_id: user.id)
+            }
         }
         
-       
+    }
+    
+    
     
     
     
@@ -166,12 +198,12 @@ extension DoctorSecondRegisterVC : UIDocumentPickerDelegate {
         
         self.customCecondRegisterView.cvLabel.text = url.lastPathComponent
         self.customCecondRegisterView.doctorSecondRegisterViewModel.cvName = url.lastPathComponent
-            do {
-//                let imageData = try Data(contentsOf: cico as URL)
-              try  self.customCecondRegisterView.doctorSecondRegisterViewModel.cvFile = Data(contentsOf: cico)
-            } catch {
-                print("Unable to load data: \(error)")
-            }
+        do {
+            //                let imageData = try Data(contentsOf: cico as URL)
+            try  self.customCecondRegisterView.doctorSecondRegisterViewModel.cvFile = Data(contentsOf: cico)
+        } catch {
+            print("Unable to load data: \(error)")
+        }
         
         
     }
