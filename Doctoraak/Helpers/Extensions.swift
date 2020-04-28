@@ -143,20 +143,6 @@ extension UIView {
         return t
     }
     
-    //    func createHoursTextFields() -> UITextField {
-    //        let t = UITextField()
-    //        t.textAlignment = .center
-    //        t.layer.borderWidth = 1
-    //        t.layer.backgroundColor = UIColor.gray.cgColor
-    //        t.layer.cornerRadius = 16
-    //        t.clipsToBounds = true
-    //        t.textColor = .black
-    //        t.backgroundColor = .white
-    //        t.text = "00:00"
-    //        t.constrainHeight(constant: 50)
-    //        return t
-    //    }
-    
     
 }
 
@@ -176,5 +162,11 @@ extension NSAttributedString {
         
         let attrs = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: ofSize, weight: weight), NSAttributedString.Key.foregroundColor: color]
         return NSMutableAttributedString(string: text, attributes:attrs)
+    }
+}
+
+extension Array where Element: Equatable {
+    func indexes(of element: Element) -> [Int] {
+        return self.enumerated().filter({ element == $0.element }).map({ $0.offset })
     }
 }

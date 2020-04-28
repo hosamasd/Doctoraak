@@ -34,7 +34,7 @@ class WelcomeVC: CustomBaseViewVC {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupAnimation()
-        checks()
+//        checks() // for c
 //        removeAll()
     }
     
@@ -190,7 +190,7 @@ class WelcomeVC: CustomBaseViewVC {
             
             group?.forEach({ (city) in
                 cityNameArray.append(city.name)
-                cityNameArray.append(city.nameAr)
+                cityNameARData.append(city.nameAr)
                 cityNameFR.append(city.nameFr)
                 cityIdData.append(city.id)
             })
@@ -226,7 +226,7 @@ class WelcomeVC: CustomBaseViewVC {
             
             userDefaults.set(cityNameArray, forKey: UserDefaultsConstants.cityNameArray)
             userDefaults.set(cityNameFR, forKey: UserDefaultsConstants.cityNameFRArray)
-            userDefaults.set(cityNameARData, forKey: UserDefaultsConstants.cityNameArray)
+            userDefaults.set(cityNameARData, forKey: UserDefaultsConstants.cityNameARArray)
             userDefaults.set(cityIdData, forKey: UserDefaultsConstants.cityIdArray)
             
             userDefaults.set(areNameArray, forKey: UserDefaultsConstants.areaNameArray)

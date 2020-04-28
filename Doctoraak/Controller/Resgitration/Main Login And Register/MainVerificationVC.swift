@@ -68,6 +68,17 @@ class MainVerificationVC: CustomBaseViewVC {
                 self.activeViewsIfNoData()
             }
         })
+        
+        customVerificationView.sMSCodeViewModel.bindableIsResendingSms.bind(observer: {  [unowned self] (isReg) in
+            if isReg == true {
+                UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
+                SVProgressHUD.show(withStatus: "Resending SMS Code...".localized)
+                
+            }else {
+                SVProgressHUD.dismiss()
+                self.activeViewsIfNoData()
+            }
+        })
     }
     
     override func setupNavigation()  {
@@ -130,8 +141,15 @@ class MainVerificationVC: CustomBaseViewVC {
     
     func goToNext()  {
         self.updateStates()
-        let clinic = MainClinicDataVC(indexx: index)
-        navigationController?.pushViewController(clinic, animated: true)
+        if  isFromForgetPassw {
+            let  vc =  MainNewPassVC(indexx: index)
+            navigationController?.pushViewController(vc, animated: true)
+        }else {
+            
+            let vc =  MainClinicDataVC(indexx: index)
+            navigationController?.pushViewController(vc, animated: true)
+        }
+        
     }
     
     
@@ -152,6 +170,15 @@ class MainVerificationVC: CustomBaseViewVC {
     @objc func handleResendCode()  {
         setupTimer()
         resetViewModel()
+        customVerificationView.sMSCodeViewModel.performResendSMSCode { (base, err) in
+            if let err = err {
+                SVProgressHUD.showError(withStatus: err.localizedDescription)
+                self.activeViewsIfNoData();return
+            }
+            SVProgressHUD.dismiss()
+            SVProgressHUD.showSuccess(withStatus: "SMS Code is sent again....")
+            self.activeViewsIfNoData()
+        }
     }
     
     @objc  func handleConfirm()  {
@@ -163,7 +190,7 @@ class MainVerificationVC: CustomBaseViewVC {
             }
             SVProgressHUD.dismiss()
             self.activeViewsIfNoData()
-            guard let user = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
+            guard let _ = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
             
             DispatchQueue.main.async {
                 self.goToNext()
@@ -171,14 +198,7 @@ class MainVerificationVC: CustomBaseViewVC {
         }
         
         
-        //        if isFromForgetPassw {
-        //            let  vc =  MainNewPassVC(indexx: index)
-        //            navigationController?.pushViewController(vc, animated: true)
-        //        }else {
-        //
-        //            let vc =  MainClinicDataVC(indexx: index)
-        //            navigationController?.pushViewController(vc, animated: true)
-        //        }
+        
         
     }
     

@@ -11,6 +11,8 @@ import UIKit
 class SMSCodeViewModel {
     
     var bindableIsLogging = Bindable<Bool>()
+    var bindableIsResendingSms = Bindable<Bool>()
+
     var bindableIsFormValidate = Bindable<Bool>()
     
     //variables
@@ -36,8 +38,16 @@ class SMSCodeViewModel {
         //        RegistrationServices.shared.loginUser(phone: email, password: password, completion: completion)
     }
     
+    func performResendSMSCode(completion:@escaping (MainDoctorVerificationModel?,Error?)->Void)  {
+           guard let id = id,let index=index  else { return  }
+           
+           bindableIsResendingSms.value = true
+           
+        RegistrationServices.shared.MainResendSmsCodeAgain(index: index, user_id: id, completion: completion)
+       }
+    
     func checkFormValidity() {
-        let isFormValid = smsCode?.isEmpty == false && sms2Code?.isEmpty == false && sms3Code?.isEmpty == false && sms4Code?.isEmpty == false && sms4Code?.isEmpty == false && index != -1 && id != -1
+        let isFormValid = smsCode?.isEmpty == false && sms2Code?.isEmpty == false && sms3Code?.isEmpty == false && sms4Code?.isEmpty == false && sms5Code?.isEmpty == false && index != -1 && id != -1
         
         bindableIsFormValidate.value = isFormValid
         

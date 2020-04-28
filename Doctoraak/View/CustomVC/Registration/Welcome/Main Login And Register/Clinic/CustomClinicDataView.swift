@@ -8,7 +8,7 @@
 
 import UIKit
 import iOSDropDown
-//import RSSelectionMenu
+import MOLH
 import SkyFloatingLabelTextField
 
 class CustomClinicDataView: CustomBaseView {
@@ -61,9 +61,14 @@ class CustomClinicDataView: CustomBaseView {
     }()
     lazy var cityDrop:DropDown = {
         let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
-        i.optionArray = ["one","two","three"]
         i.arrowSize = 20
         i.placeholder = "City".localized
+        i.didSelect { (txt, index, _) in
+            self.getAreaAccordingToCityId(index: index)
+
+                   self.clinicDataViewModel.city = self.cityIDSArray[index]//index+1
+            
+               }
         return i
     }()
     lazy var mainDrop2View:UIView = {
@@ -76,10 +81,12 @@ class CustomClinicDataView: CustomBaseView {
     }()
     lazy var areaDrop:DropDown = {
         let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
-        i.optionArray = ["one","two","three"]
         i.arrowSize = 20
         
         i.placeholder = "Area".localized
+        i.didSelect { (txt, index, _) in
+                         self.clinicDataViewModel.area = self.areaIDSArray[index]//index+1
+                     }
         return i
     }()
     lazy var feesTextField:UITextField = {
@@ -131,7 +138,87 @@ class CustomClinicDataView: CustomBaseView {
     var handleChooseHours:(()->Void)?
     
     let clinicDataViewModel = ClinicDataViewModel()
+    var cityArray = [String]() //["one","two","three","sdfdsfsd"]
+    var areaArray = [String]()
     
+    var cityIDSArray = [Int]() //["one","two","three","sdfdsfsd"]
+       var areaIDSArray = [Int]()
+
+    
+    override init(frame: CGRect) {
+           super.init(frame: frame)
+//        areaIDSArray.removeAll()
+//            cityIDSArray.removeAll()
+//         areaArray.removeAll()
+//         cityArray.removeAll()
+           putData()
+       }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    fileprivate func getAreaAccordingToCityId(index:Int)  {
+        areaIDSArray.removeAll()
+        areaArray.removeAll()
+        
+        if let  cityIdArra = userDefaults.value(forKey: UserDefaultsConstants.cityIdArray) as? [Int],let areaIdArra = userDefaults.value(forKey: UserDefaultsConstants.areaIdArray) as? [Int],let areaIdArray = userDefaults.value(forKey: UserDefaultsConstants.areaCityIdsArrays) as? [Int],let areasStringArray =  MOLHLanguage.isRTLLanguage() ? userDefaults.value(forKey: UserDefaultsConstants.areaNameARArray) as? [String] : userDefaults.value(forKey: UserDefaultsConstants.areaNameArray) as? [String]  {
+            //            self.areaNumberArray = cityIdArra
+            
+            let areas = self.cityIDSArray[index]
+    
+            let areasFilteredArray = areaIdArray.indexes(of: areas)
+            areasFilteredArray.forEach { (s) in
+                areaIDSArray.append(areaIdArra[s])
+            }
+            areasFilteredArray.forEach { (indexx) in
+                
+                
+                areaArray.append( areasStringArray[indexx])
+                
+            }
+            
+            self.areaDrop.optionArray = areaArray
+            
+            DispatchQueue.main.async {
+                self.layoutIfNeeded()
+            }
+        }
+    }
+
+    
+       func putData()  {
+           fetchEnglishData(isArabic: MOLHLanguage.isRTLLanguage())
+
+       }
+    
+    func putDataInDrops(sr:[String],sid:[Int],dr:[String],did:[Int])  {
+          self.cityArray = sr
+          self.areaArray = dr
+          self.cityIDSArray = sid
+          areaIDSArray = did
+
+      }
+    
+    fileprivate func fetchEnglishData(isArabic:Bool) {
+           if isArabic {
+               
+               
+               if let specificationsArray = userDefaults.value(forKey: UserDefaultsConstants.cityNameARArray) as? [String],let specificationIds = userDefaults.value(forKey: UserDefaultsConstants.cityIdArray) as? [Int],let degreeNames = userDefaults.value(forKey: UserDefaultsConstants.areaNameARArray) as? [String], let degreeIds =  userDefaults.value(forKey: UserDefaultsConstants.areaIdArray) as? [Int] {
+                   putDataInDrops(sr: specificationsArray, sid: specificationIds, dr: degreeNames, did: degreeIds)
+                   
+               }
+           }else {
+               if let specificationsArray = userDefaults.value(forKey: UserDefaultsConstants.cityNameArray) as? [String],let specificationIds = userDefaults.value(forKey: UserDefaultsConstants.cityIdArray) as? [Int],let degreeNames = userDefaults.value(forKey: UserDefaultsConstants.areaNameArray) as? [String] , let degreeIds =  userDefaults.value(forKey: UserDefaultsConstants.areaIdArray) as? [Int]  {
+                   putDataInDrops(sr: specificationsArray, sid: specificationIds, dr: degreeNames, did: degreeIds)
+               }
+           }
+           self.cityDrop.optionArray = self.cityArray
+                      self.areaDrop.optionArray = self.areaArray
+           DispatchQueue.main.async {
+               self.layoutIfNeeded()
+           }
+       }
     
     override func setupViews() {
         
@@ -170,8 +257,6 @@ class CustomClinicDataView: CustomBaseView {
     
     @objc func textFieldDidChange(text: UITextField)  {
         clinicDataViewModel.index = index
-        clinicDataViewModel.city = "dd"
-        clinicDataViewModel.area = "cc"
         clinicDataViewModel.workingHours = ["dsfds"]
         //        registerViewModel.insurance = "asd"
         guard let texts = text.text else { return  }

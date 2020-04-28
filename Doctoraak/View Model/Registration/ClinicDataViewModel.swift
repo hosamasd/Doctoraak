@@ -15,10 +15,10 @@ class ClinicDataViewModel {
     var bindableIsFormValidate = Bindable<Bool>()
     
     //variables
-    var city:String? {didSet {checkFormValidity()}}
+    var city:Int? = -1 {didSet {checkFormValidity()}}
     var phone:String? {didSet {checkFormValidity()}}
     var address:String? {didSet {checkFormValidity()}}
-    var area:String? {didSet {checkFormValidity()}}
+    var area:Int? = -1 {didSet {checkFormValidity()}}
     var workingHours:[String]? {didSet {checkFormValidity()}}
     var fees:String? {didSet {checkFormValidity()}}
     var consultaionFees:String? {didSet {checkFormValidity()}}
@@ -38,7 +38,7 @@ class ClinicDataViewModel {
     
     func checkFormValidity() {
 //        let isFormValid = city?.isEmpty == false && area?.isEmpty == false && fees?.isEmpty == false  &&  phone?.isEmpty == false && waitingHours?.isEmpty == false && address?.isEmpty == false && workingHours?.isEmpty == false && consultaionFees?.isEmpty == false && index != -1 && image != nil && workingArrayHours?.isEmpty == false
-         let isFormValid = city?.isEmpty == false && area?.isEmpty == false && fees?.isEmpty == false  &&  phone?.isEmpty == false && waitingHours?.isEmpty == false && address?.isEmpty == false  && consultaionFees?.isEmpty == false && index != -1 && image != nil && workingArrayHours?.isEmpty == false
+         let isFormValid = city != -1 && area != -1 && fees?.isEmpty == false  &&  phone?.isEmpty == false && waitingHours?.isEmpty == false && address?.isEmpty == false  && consultaionFees?.isEmpty == false && index != -1 && image != nil && workingArrayHours?.isEmpty == false
         bindableIsFormValidate.value = isFormValid
         
     }

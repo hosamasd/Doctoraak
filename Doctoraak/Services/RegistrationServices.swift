@@ -150,4 +150,14 @@ class RegistrationServices {
         MainServices.registerationPostMethodGeneric(postString: postString, url: url, completion: completion)
     }
     
+    func MainResendSmsCodeAgain(index:Int,user_id:Int,completion:@escaping (MainDoctorVerificationModel?,Error?)->Void)  {
+           let nnn = index == 0 || index == 1 ? "doctor_resend" : index == 2 ? "lab_resend" : index == 3 ? "radiology_resend" : "pharmacy_resend"
+           
+           let urlString = "http://doctoraak.sphinxatapps.com/public/api/\(nnn)".toSecrueHttps()
+           guard  let url = URL(string: urlString) else { return  }
+           
+           let postString = "user_id=\(user_id)"
+           MainServices.registerationPostMethodGeneric(postString: postString, url: url, completion: completion)
+       }
+    
 }
