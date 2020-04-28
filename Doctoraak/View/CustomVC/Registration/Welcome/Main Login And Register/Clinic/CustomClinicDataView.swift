@@ -48,61 +48,61 @@ class CustomClinicDataView: CustomBaseView {
         return i
     }()
     
-    lazy var clinicAddressTextField = createMainTextFields(place: "Address")
+    lazy var addressMainView:UIView = {
+        let v = makeMainSubViewWithAppendView(vv: [addressLabel])
+        //        v.addSubViews(views: addressImage,addressLabel)
+        v.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpenLocation)))
+        
+        v.hstack(addressLabel).withMargins(.init(top: 0, left: 16, bottom: 0, right: 8))
+        
+        return v
+    }()
+    lazy var addressLabel = UILabel(text: "Address", font: .systemFont(ofSize: 16), textColor: .lightGray,numberOfLines: 0)
+    //    lazy var clinicAddressTextField = createMainTextFields(place: "Address")
     lazy var clinicMobileNumberTextField = createMainTextFields(place: "Clinic phone",type: .numberPad)
     
-    lazy var mainDropView:UIView = {
-        let l = UIView(backgroundColor: .white)
-        l.layer.cornerRadius = 8
-        l.layer.borderWidth = 1
-        l.layer.borderColor = #colorLiteral(red: 0.4835817814, green: 0.4836651683, blue: 0.4835640788, alpha: 1).cgColor
-        l.addSubview(cityDrop)
-        return l
-    }()
+    lazy var mainDropView:UIView =  makeMainSubViewWithAppendView(vv: [cityDrop])
     lazy var cityDrop:DropDown = {
         let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
         i.arrowSize = 20
         i.placeholder = "City".localized
         i.didSelect { (txt, index, _) in
             self.getAreaAccordingToCityId(index: index)
-
-                   self.clinicDataViewModel.city = self.cityIDSArray[index]//index+1
             
-               }
+            self.clinicDataViewModel.city = self.cityIDSArray[index]//index+1
+            
+        }
         return i
     }()
-    lazy var mainDrop2View:UIView = {
-        let l = UIView(backgroundColor: .white)
-        l.layer.cornerRadius = 8
-        l.layer.borderWidth = 1
-        l.layer.borderColor = #colorLiteral(red: 0.4835817814, green: 0.4836651683, blue: 0.4835640788, alpha: 1).cgColor
-        l.addSubview(areaDrop)
-        return l
-    }()
+    lazy var mainDrop2View:UIView = makeMainSubViewWithAppendView(vv: [areaDrop])
     lazy var areaDrop:DropDown = {
         let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
         i.arrowSize = 20
         
         i.placeholder = "Area".localized
         i.didSelect { (txt, index, _) in
-                         self.clinicDataViewModel.area = self.areaIDSArray[index]//index+1
-                     }
+            self.clinicDataViewModel.area = self.areaIDSArray[index]//index+1
+        }
         return i
     }()
     lazy var feesTextField:UITextField = {
         let s = createMainTextFields(place: "Fees", type: .numberPad)
-        let label = UILabel(text: "EGY", font: .systemFont(ofSize: 18), textColor: .lightGray)
+        let label = UILabel(text: "EGY  ", font: .systemFont(ofSize: 18), textColor: .lightGray)
         label.frame = CGRect(x: CGFloat(s.frame.size.width - 60), y: CGFloat(5), width: CGFloat(60), height: CGFloat(25))
         s.rightView = label
         s.rightViewMode = .always
+        s.keyboardType = .numberPad
+        
         return s
     }()
     lazy var consultationFeesTextField:UITextField = {
         let s = createMainTextFields(place: "Consultation fees", type: .numberPad)
-        let label = UILabel(text: "EGY", font: .systemFont(ofSize: 18), textColor: .lightGray)
+        let label = UILabel(text: "EGY  ", font: .systemFont(ofSize: 18), textColor: .lightGray)
         label.frame = CGRect(x: CGFloat(s.frame.size.width - 60), y: CGFloat(5), width: CGFloat(60), height: CGFloat(25))
         s.rightView = label
         s.rightViewMode = .always
+        s.keyboardType = .numberPad
+        
         return s
     }()
     lazy var workingHourView:UIView = {
@@ -116,10 +116,11 @@ class CustomClinicDataView: CustomBaseView {
     //    lazy var clinicWorkingHoursTextField = createMainTextFields(place: "Work hours")
     lazy var waitingHoursTextField:UITextField = {
         let s = createMainTextFields(place: "Waiting hours", type: .numberPad)
-        let label = UILabel(text: "Time in m", font: .systemFont(ofSize: 14), textColor: .lightGray)
+        let label = UILabel(text: "Time in m    ", font: .systemFont(ofSize: 14), textColor: .lightGray)
         label.frame = CGRect(x: CGFloat(s.frame.size.width - 80), y: CGFloat(5), width: CGFloat(80), height: CGFloat(25))
         s.rightView = label
         s.rightViewMode = .always
+        s.keyboardType = .numberPad
         return s
     }()
     lazy var doneButton:UIButton = {
@@ -136,23 +137,24 @@ class CustomClinicDataView: CustomBaseView {
     
     var index = 0
     var handleChooseHours:(()->Void)?
+    var handlerChooseLocation:(()->Void)?
     
     let clinicDataViewModel = ClinicDataViewModel()
     var cityArray = [String]() //["one","two","three","sdfdsfsd"]
     var areaArray = [String]()
     
     var cityIDSArray = [Int]() //["one","two","three","sdfdsfsd"]
-       var areaIDSArray = [Int]()
-
+    var areaIDSArray = [Int]()
+    
     
     override init(frame: CGRect) {
-           super.init(frame: frame)
-//        areaIDSArray.removeAll()
-//            cityIDSArray.removeAll()
-//         areaArray.removeAll()
-//         cityArray.removeAll()
-           putData()
-       }
+        super.init(frame: frame)
+        //        areaIDSArray.removeAll()
+        //            cityIDSArray.removeAll()
+        //         areaArray.removeAll()
+        //         cityArray.removeAll()
+        putData()
+    }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -166,7 +168,7 @@ class CustomClinicDataView: CustomBaseView {
             //            self.areaNumberArray = cityIdArra
             
             let areas = self.cityIDSArray[index]
-    
+            
             let areasFilteredArray = areaIdArray.indexes(of: areas)
             areasFilteredArray.forEach { (s) in
                 areaIDSArray.append(areaIdArra[s])
@@ -185,44 +187,44 @@ class CustomClinicDataView: CustomBaseView {
             }
         }
     }
-
     
-       func putData()  {
-           fetchEnglishData(isArabic: MOLHLanguage.isRTLLanguage())
-
-       }
+    
+    func putData()  {
+        fetchEnglishData(isArabic: MOLHLanguage.isRTLLanguage())
+        
+    }
     
     func putDataInDrops(sr:[String],sid:[Int],dr:[String],did:[Int])  {
-          self.cityArray = sr
-          self.areaArray = dr
-          self.cityIDSArray = sid
-          areaIDSArray = did
-
-      }
+        self.cityArray = sr
+        self.areaArray = dr
+        self.cityIDSArray = sid
+        areaIDSArray = did
+        
+    }
     
     fileprivate func fetchEnglishData(isArabic:Bool) {
-           if isArabic {
-               
-               
-               if let specificationsArray = userDefaults.value(forKey: UserDefaultsConstants.cityNameARArray) as? [String],let specificationIds = userDefaults.value(forKey: UserDefaultsConstants.cityIdArray) as? [Int],let degreeNames = userDefaults.value(forKey: UserDefaultsConstants.areaNameARArray) as? [String], let degreeIds =  userDefaults.value(forKey: UserDefaultsConstants.areaIdArray) as? [Int] {
-                   putDataInDrops(sr: specificationsArray, sid: specificationIds, dr: degreeNames, did: degreeIds)
-                   
-               }
-           }else {
-               if let specificationsArray = userDefaults.value(forKey: UserDefaultsConstants.cityNameArray) as? [String],let specificationIds = userDefaults.value(forKey: UserDefaultsConstants.cityIdArray) as? [Int],let degreeNames = userDefaults.value(forKey: UserDefaultsConstants.areaNameArray) as? [String] , let degreeIds =  userDefaults.value(forKey: UserDefaultsConstants.areaIdArray) as? [Int]  {
-                   putDataInDrops(sr: specificationsArray, sid: specificationIds, dr: degreeNames, did: degreeIds)
-               }
-           }
-           self.cityDrop.optionArray = self.cityArray
-                      self.areaDrop.optionArray = self.areaArray
-           DispatchQueue.main.async {
-               self.layoutIfNeeded()
-           }
-       }
+        if isArabic {
+            
+            
+            if let specificationsArray = userDefaults.value(forKey: UserDefaultsConstants.cityNameARArray) as? [String],let specificationIds = userDefaults.value(forKey: UserDefaultsConstants.cityIdArray) as? [Int],let degreeNames = userDefaults.value(forKey: UserDefaultsConstants.areaNameARArray) as? [String], let degreeIds =  userDefaults.value(forKey: UserDefaultsConstants.areaIdArray) as? [Int] {
+                putDataInDrops(sr: specificationsArray, sid: specificationIds, dr: degreeNames, did: degreeIds)
+                
+            }
+        }else {
+            if let specificationsArray = userDefaults.value(forKey: UserDefaultsConstants.cityNameArray) as? [String],let specificationIds = userDefaults.value(forKey: UserDefaultsConstants.cityIdArray) as? [Int],let degreeNames = userDefaults.value(forKey: UserDefaultsConstants.areaNameArray) as? [String] , let degreeIds =  userDefaults.value(forKey: UserDefaultsConstants.areaIdArray) as? [Int]  {
+                putDataInDrops(sr: specificationsArray, sid: specificationIds, dr: degreeNames, did: degreeIds)
+            }
+        }
+        self.cityDrop.optionArray = self.cityArray
+        self.areaDrop.optionArray = self.areaArray
+        DispatchQueue.main.async {
+            self.layoutIfNeeded()
+        }
+    }
     
     override func setupViews() {
         
-        [ waitingHoursTextField, feesTextField, clinicAddressTextField,   clinicMobileNumberTextField, consultationFeesTextField].forEach({$0.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)})
+        [ waitingHoursTextField, feesTextField,   clinicMobileNumberTextField, consultationFeesTextField].forEach({$0.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)})
         workingHourView.hstack(workingHoursLabel).padLeft(16)
         let subView = UIView(backgroundColor: .clear)
         subView.addSubViews(views: clinicProfileImage,clinicEditProfileImageView)
@@ -230,7 +232,7 @@ class CustomClinicDataView: CustomBaseView {
         subView.constrainHeight(constant: 100)
         clinicEditProfileImageView.anchor(top: nil, leading: nil, bottom: clinicProfileImage.bottomAnchor, trailing: clinicProfileImage.trailingAnchor,padding: .init(top: 0, left:0 , bottom:10, right: 10))
         
-        let textStack = getStack(views: clinicMobileNumberTextField,clinicAddressTextField,mainDropView,mainDrop2View,feesTextField,consultationFeesTextField,workingHourView,waitingHoursTextField, spacing: 16, distribution: .fillEqually, axis: .vertical)
+        let textStack = getStack(views: clinicMobileNumberTextField,addressMainView,mainDropView,mainDrop2View,feesTextField,consultationFeesTextField,workingHourView,waitingHoursTextField, spacing: 16, distribution: .fillEqually, axis: .vertical)
         [areaDrop,cityDrop].forEach({$0.fillSuperview(padding: .init(top: 16, left: 16, bottom: 16, right: 16))})
         
         addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,subView,textStack,doneButton)
@@ -271,16 +273,6 @@ class CustomClinicDataView: CustomBaseView {
                     clinicDataViewModel.phone = texts
                 }
                 
-            }else if text == clinicAddressTextField {
-                if  (texts.count < 3 )   {
-                    floatingLabelTextField.errorMessage = "Invalid   Addresss".localized
-                    clinicDataViewModel.address = nil
-                }
-                else {
-                    floatingLabelTextField.errorMessage = ""
-                    clinicDataViewModel.address = texts
-                }
-                
             }else  if text == feesTextField {
                 if (texts.count < 1 ) {
                     floatingLabelTextField.errorMessage = "Invalid fees".localized
@@ -315,6 +307,10 @@ class CustomClinicDataView: CustomBaseView {
                 
             }
         }
+    }
+    
+    @objc  func handleOpenLocation()  {
+        handlerChooseLocation?()
     }
     
 }

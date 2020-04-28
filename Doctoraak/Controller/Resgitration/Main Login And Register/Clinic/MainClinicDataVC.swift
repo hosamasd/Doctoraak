@@ -8,6 +8,8 @@
 
 import UIKit
 import SkyFloatingLabelTextField
+import MapKit
+
 
 class MainClinicDataVC: CustomBaseViewVC {
     
@@ -36,6 +38,12 @@ class MainClinicDataVC: CustomBaseViewVC {
         v.handleChooseHours = {[unowned self] in
             self.handleChooseWorkingHours()
         }
+        v.handlerChooseLocation = {[unowned self] in
+                         let loct = ChooseLocationVC()
+                         loct.delgate = self
+                         self.navigationController?.pushViewController(loct, animated: true)
+                     }
+              return v
         //        v.cityDrop.addTarget(self, action: #selector(handleMulti), for: .touchUpInside)
         return v
     }()
@@ -96,6 +104,24 @@ class MainClinicDataVC: CustomBaseViewVC {
         
         
     }
+    
+    func convertLatLongToAddress(latitude:Double,longitude:Double){
+
+           let geoCoder = CLGeocoder()
+           let location = CLLocation(latitude: latitude, longitude: longitude)
+           geoCoder.reverseGeocodeLocation(location, completionHandler: {[unowned self] (placemarks, error) -> Void in
+
+               // Place details
+               var placeMark: CLPlacemark!
+               placeMark = placemarks?[0]
+
+               // Location name
+               guard let locationName = placeMark.locality , let street = placeMark.thoroughfare, let city = placeMark.subAdministrativeArea, let country = placeMark.country else {return}
+                self.customClinicDataView.addressLabel.text = "\(locationName) - \(street) - \(city) - \(country)"
+           })
+
+           
+       }
     
     //TODO: -handle methods
     
@@ -179,4 +205,15 @@ extension MainClinicDataVC: UIImagePickerControllerDelegate, UINavigationControl
     }
     
     
+}
+
+
+extension MainClinicDataVC: ChooseLocationVCProtocol{
+    
+    func getLatAndLong(lat: Double, long: Double) {
+        customClinicDataView.clinicDataViewModel.latt = "\(lat)"
+           customClinicDataView.clinicDataViewModel.lang = "\(long)"
+        convertLatLongToAddress(latitude: lat, longitude: long)
+           print(lat, "            ",long)
+       }
 }

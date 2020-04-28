@@ -116,7 +116,7 @@ class CustomDoctorClinicWorkingHoursView: CustomBaseView {
             sunButton.setTitleColor(.white, for: .normal)
         }
         
-        putDefualValues()
+//        putDefualValues()
     }
     
     func getSavedData()  {

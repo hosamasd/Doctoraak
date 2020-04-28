@@ -170,3 +170,16 @@ extension Array where Element: Equatable {
         return self.enumerated().filter({ element == $0.element }).map({ $0.offset })
     }
 }
+extension String {
+
+    func strstr(needle: String, beforeNeedle: Bool = false) -> String? {
+        guard let range = self.range(of: needle) else { return nil }
+
+        if beforeNeedle {
+            return self.substring(to: range.lowerBound)
+        }
+
+        return self.substring(from: range.upperBound)
+    }
+
+}

@@ -62,9 +62,52 @@ class MainRegisterVC: CustomBaseViewVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViewModelObserver()
+        MAKEoPERATION()
     }
     
     //MARK:-User methods
+    
+    func MAKEoPERATION()  {
+        let working:[Any] = [
+      [  "part1_from":"10:00",
+                "part1_to":"14:00",
+//                "part2_from":"10:00",
+//                "part2_to":"14:00",
+                "day":1 ,
+                "active":1],
+      
+               [ "part1_from":"00:00",
+                        "part1_to":"00:00",
+                        "day":2 ,
+                        "active":0],
+               [ "part1_from":"00:00",
+                                      "part1_to":"00:00",
+                                      "day":3 ,
+                                      "active":0],
+               [ "part1_from":"00:00",
+                                      "part1_to":"00:00",
+                                      "day":4 ,
+                                      "active":0],
+               [ "part1_from":"00:00",
+                                      "part1_to":"00:00",
+                                      "day":5 ,
+                                      "active":0],
+               [ "part1_from":"00:00",
+                                      "part1_to":"00:00",
+                                      "day":6 ,
+                                      "active":0],
+               [ "part1_from":"00:00",
+                                      "part1_to":"00:00",
+                                      "day":7 ,
+                                      "active":0]
+        ]
+        
+        RegistrationServices.shared.mainRegister(index: index, photo: #imageLiteral(resourceName: "Group 4143-2"), name: "asd", email: "cxc@c.com", phone: "00012345620", password: "00000000", insurance: [1], delivery: 1, working_hours: working, latt: "51512.4555454", lang: "5451521.155151454545", city: 1, area: 1) { (base, err) in
+            if let err=err{
+                print(err.localizedDescription)
+            }
+        }
+    }
     
     func setupViewModelObserver()  {
         customMainRegisterView.registerViewModel.bindableIsFormValidate.bind { [unowned self] (isValidForm) in

@@ -13,11 +13,55 @@ class RegistrationServices {
     
     static let shared = RegistrationServices()
     
-    func mainRegister(index:Int,photo:UIImage,cvName:String,name:String,email:String,phone:String,password:String,insurance:[Int],delivery:Int,avaliable_days:[Int] ,latt:Double,lang:Double,city:Int,area:Int,completion: @escaping (MainDoctorRegisterModel?, Error?) -> Void)  {
+//    func mainRegister(index:Int,photo:UIImage,cvName:String,name:String,email:String,phone:String,password:String,insurance:[Int],delivery:Int,avaliable_days:[Int] ,latt:Double,lang:Double,city:Int,area:Int,completion: @escaping (MainDoctorRegisterModel?, Error?) -> Void)  {
+//        let nn = index == 2 ? "lab_register" : index == 3 ? "radiology_register" : "pharmacy_register"
+//
+//        let urlString = "http://doctoraak.sphinxatapps.com/public/api/\(nn)".toSecrueHttps()
+//        let postString = urlString+"?name=\(name)&email=\(email)&phone=\(phone)&password=\(password)&lang=\(lang)&latt=\(latt)&avaliable_days=\(avaliable_days)&insurance=\(insurance)&city=\(city)&area=\(area)"
+//    }
+    
+    func mainRegister(index:Int,photo:UIImage,name:String,email:String,phone:String,password:String,insurance:[Int],delivery:Int,working_hours:[Any] ,latt:String,lang:String,city:Int,area:Int,completion: @escaping (MainDoctorRegisterModel?, Error?) -> Void)  {
         let nn = index == 2 ? "lab_register" : index == 3 ? "radiology_register" : "pharmacy_register"
         
         let urlString = "http://doctoraak.sphinxatapps.com/public/api/\(nn)".toSecrueHttps()
-        let postString = urlString+"?name=\(name)&email=\(email)&phone=\(phone)&password=\(password)&lang=\(lang)&latt=\(latt)&avaliable_days=\(avaliable_days)&insurance=\(insurance)&city=\(city)&area=\(area)"
+        let postString = urlString+"?name=\(name)&email=\(email)&phone=\(phone)&password=\(password)&lang=\(lang)&latt=\(latt)&insurance=\(insurance)&city=\(city)&area=\(area)&working_hours=\(working_hours)&delivery=\(delivery)"
+        var urlsString = postString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+        Alamofire.upload(multipartFormData: { (multipartFormData) in
+            
+            if let data = photo.pngData() {
+                multipartFormData.append(data, withName: "photo", fileName: "asd.jpeg", mimeType: "image/jpeg")
+            }
+        }, to:urlsString as! URLConvertible)
+        { (result) in
+            switch result {
+            case .success(let upload, _, _):
+                
+                upload.uploadProgress(closure: { (progress) in
+                    //Print progress
+                    print(progress)
+                })
+                
+                upload.responseJSON { response in
+                    //print response.result
+                    print(response.result)
+                    guard let data = response.data else {return}
+                               
+                    do {
+                        let objects = try JSONDecoder().decode(MainDoctorRegisterModel.self, from: data)
+                        // success
+                        completion(objects,nil)
+                    } catch let error {
+                        completion(nil,error)
+                    }
+                }
+                
+            case .failure( let encodingError):
+                completion(nil,encodingError)
+                break
+                //print encodingError.description
+            }
+        }
+
     }
     
     func registerDoctor(isInsurance:Bool,coverImage:UIImage,cvName:String,cvFile:Data,name:String,email:String,phone:String,password:String,gender:String,specialization_id:Int,degree_id:Int,insurance:[Int] ,completion: @escaping (MainDoctorRegisterModel?, Error?) -> Void ) {
@@ -67,8 +111,8 @@ class RegistrationServices {
         }
     }
     
-    func RegiasterClinicCreate(fees:Int,lang:Double,latt:Double,phone:String,waiting_time:Int,city:Int,area:Int,api_token:String,doctor_id:Int,photo:String,working_hours:[String:Any])  {
-        let urlString = "https://doctoraak.sphinxat.us/public/api/doctor_create_clinic"
+    func RegiasterClinicCreate(fees:Int,lang:String,latt:String,phone:String,waiting_time:String,city:Int,area:Int,api_token:String,doctor_id:String,photo:String,working_hours:[String:Any])  {
+        let urlString = "http://doctoraak.sphinxatapps.com/public/api/doctor_create_clinic".toSecrueHttps()
         guard let url = URL(string: urlString) else { return  }
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -159,5 +203,7 @@ class RegistrationServices {
            let postString = "user_id=\(user_id)"
            MainServices.registerationPostMethodGeneric(postString: postString, url: url, completion: completion)
        }
+    
+   
     
 }

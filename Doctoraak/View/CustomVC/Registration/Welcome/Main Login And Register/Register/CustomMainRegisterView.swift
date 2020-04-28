@@ -92,7 +92,7 @@ class CustomMainRegisterView: CustomBaseView {
            v.hstack(addressLabel).withMargins(.init(top: 0, left: 16, bottom: 0, right: 8))
            return v
        }()
-       lazy var addressLabel = UILabel(text: "Address", font: .systemFont(ofSize: 16), textColor: .lightGray)
+       lazy var addressLabel = UILabel(text: "Address", font: .systemFont(ofSize: 16), textColor: .lightGray,numberOfLines: 0)
 //    lazy var addressTextField = createMainTextFields(place: "Address")
     
     lazy var mainDrop3View:UIView = {
@@ -355,6 +355,8 @@ class CustomMainRegisterView: CustomBaseView {
     @objc func handleDelvieryCheck(sender:UISwitch)  {
         sender.isOn = !sender.isOn
     }
+    
+   
 }
 
 

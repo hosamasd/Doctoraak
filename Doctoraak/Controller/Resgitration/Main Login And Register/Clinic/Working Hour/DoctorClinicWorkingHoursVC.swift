@@ -49,121 +49,161 @@ class DoctorClinicWorkingHoursVC: CustomBaseViewVC {
     var delgate:MainClinicWorkingHoursProtocol?
     var choosedHours = [String]()
     var shiftOne = true
-       var shiftTwo = false
-       
-       var day1:Bool? = false
-       var day2:Bool? = true
-       var day3:Bool? = false
-       var day4:Bool? = false
-       var day5:Bool? = false
-       var day6:Bool? = false
-       var day7:Bool? = false
-       
-       var d1TXT1:String?
-       var d1TXT2:String?
-       var d2TXT1:String? 
-       var d2TXT2:String? 
-       var d3TXT1:String?
-       var d3TXT2:String?
-       var d4TXT1:String?
-       var d4TXT2:String?
-       var d5TXT1:String?
-       var d5TXT2:String?
-       var d6TXT1:String? 
-       var d6TXT2:String?
-       var d7TXT1:String?
-       var d7TXT2:String?
-       
-       var d12TXT1:String?
-       var d12TXT2:String?
-       var d22TXT1:String?
-       var d22TXT2:String?
-       var d32TXT1:String?
-       var d32TXT2:String?
-       var d42TXT1:String?
-       var d42TXT2:String?
-       var d52TXT1:String?
-       var d52TXT2:String?
-       var d62TXT1:String?
-       var d62TXT2:String?
-       var d72TXT1:String?
-       var d72TXT2:String?
+    var shiftTwo = false
+    
+    var day1:Bool = false
+    var day2:Bool = true
+    var day3:Bool = false
+    var day4:Bool = false
+    var day5:Bool = false
+    var day6:Bool = false
+    var day7:Bool = false
+    
+    var d1TXT1:String?  = "00:00"
+    var d1TXT2:String?  = "00:00"
+    var d2TXT1:String?  = "00:00"
+    var d2TXT2:String?  = "00:00"
+    var d3TXT1:String?  = "00:00"
+    var d3TXT2:String?  = "00:00"
+    var d4TXT1:String?  = "00:00"
+    var d4TXT2:String?  = "00:00"
+    var d5TXT1:String?  = "00:00"
+    var d5TXT2:String?  = "00:00"
+    var d6TXT1:String?  = "00:00"
+    var d6TXT2:String?  = "00:00"
+    var d7TXT1:String?  = "00:00"
+    var d7TXT2:String?  = "00:00"
+    
+    var d12TXT1:String? = "00:00"
+    var d12TXT2:String? = "00:00"
+    var d22TXT1:String? = "00:00"
+    var d22TXT2:String? = "00:00"
+    var d32TXT1:String? = "00:00"
+    var d32TXT2:String? = "00:00"
+    var d42TXT1:String? = "00:00"
+    var d42TXT2:String? = "00:00"
+    var d52TXT1:String? = "00:00"
+    var d52TXT2:String? = "00:00"
+    var d62TXT1:String? = "00:00"
+    var d62TXT2:String? = "00:00"
+    var d72TXT1:String? = "00:00"
+    var d72TXT2:String? = "00:00"
     //    let chooseWorkingHoursViewModel = ChooseWorkingHoursViewModel()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         //        setupViewModelObserver()
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        print(9999999)
+//        userDefaults.set(false, forKey: UserDefaultsConstants.isWorkingHoursSaved)
+//        userDefaults.synchronize()
         if userDefaults.bool(forKey: UserDefaultsConstants.isWorkingHoursSaved) {
-            customClinicWorkingHoursView.getSavedData()
-            DispatchQueue.main.async {
-                self.view.layoutIfNeeded()
-            }
+//            customClinicWorkingHoursView.getSavedData()
+            getSavedData()
+//            DispatchQueue.main.async {
+//                self.view.layoutIfNeeded()
+//            }
             
         }else{
             //        chooseWorkingHoursViewModel.day2 = true
         }
     }
     
-    //    func getSavedData()  {
-    //        if let f1 = userDefaults.string(forKey: UserDefaultsConstants.first1),let f11 = userDefaults.string(forKey: UserDefaultsConstants.first11),let f12 = userDefaults.string(forKey: UserDefaultsConstants.first211),let f112 = userDefaults.string(forKey: UserDefaultsConstants.first2111),
-    //            let f2 = userDefaults.string(forKey: UserDefaultsConstants.first2),let f21 = userDefaults.string(forKey: UserDefaultsConstants.first21),let f221 = userDefaults.string(forKey: UserDefaultsConstants.first22),let f222 = userDefaults.string(forKey: UserDefaultsConstants.first221),
-    //            let f3 = userDefaults.string(forKey: UserDefaultsConstants.first3),let f31 = userDefaults.string(forKey: UserDefaultsConstants.first31),let f23 = userDefaults.string(forKey: UserDefaultsConstants.first23),let f231 = userDefaults.string(forKey: UserDefaultsConstants.first231),
-    //            let f4 = userDefaults.string(forKey: UserDefaultsConstants.first4),let f41 = userDefaults.string(forKey: UserDefaultsConstants.first41),let f24 = userDefaults.string(forKey: UserDefaultsConstants.first24),let f241 = userDefaults.string(forKey: UserDefaultsConstants.first241),
-    //            let f5 = userDefaults.string(forKey: UserDefaultsConstants.first5),let f51 = userDefaults.string(forKey: UserDefaultsConstants.first51),let f25 = userDefaults.string(forKey: UserDefaultsConstants.first25),let f251 = userDefaults.string(forKey: UserDefaultsConstants.first251),
-    //            let f6 = userDefaults.string(forKey: UserDefaultsConstants.first6),let f61 = userDefaults.string(forKey: UserDefaultsConstants.first61),let f26 = userDefaults.string(forKey: UserDefaultsConstants.first26),let f261 = userDefaults.string(forKey: UserDefaultsConstants.first261),
+        func getSavedData()  {
+            if let f1 = userDefaults.string(forKey: UserDefaultsConstants.first1),let f11 = userDefaults.string(forKey: UserDefaultsConstants.first11),let f12 = userDefaults.string(forKey: UserDefaultsConstants.first211),let f112 = userDefaults.string(forKey: UserDefaultsConstants.first2111),
+                let f2 = userDefaults.string(forKey: UserDefaultsConstants.first2),let f21 = userDefaults.string(forKey: UserDefaultsConstants.first21),let f221 = userDefaults.string(forKey: UserDefaultsConstants.first22),let f222 = userDefaults.string(forKey: UserDefaultsConstants.first221),
+                let f3 = userDefaults.string(forKey: UserDefaultsConstants.first3),let f31 = userDefaults.string(forKey: UserDefaultsConstants.first31),let f23 = userDefaults.string(forKey: UserDefaultsConstants.first23),let f231 = userDefaults.string(forKey: UserDefaultsConstants.first231),
+                let f4 = userDefaults.string(forKey: UserDefaultsConstants.first4),let f41 = userDefaults.string(forKey: UserDefaultsConstants.first41),let f24 = userDefaults.string(forKey: UserDefaultsConstants.first24),let f241 = userDefaults.string(forKey: UserDefaultsConstants.first241),
+                let f5 = userDefaults.string(forKey: UserDefaultsConstants.first5),let f51 = userDefaults.string(forKey: UserDefaultsConstants.first51),let f25 = userDefaults.string(forKey: UserDefaultsConstants.first25),let f251 = userDefaults.string(forKey: UserDefaultsConstants.first251),
+                let f6 = userDefaults.string(forKey: UserDefaultsConstants.first6),let f61 = userDefaults.string(forKey: UserDefaultsConstants.first61),let f26 = userDefaults.string(forKey: UserDefaultsConstants.first26),let f261 = userDefaults.string(forKey: UserDefaultsConstants.first261),
+    
+                let f7 = userDefaults.string(forKey: UserDefaultsConstants.first7),let f71 = userDefaults.string(forKey: UserDefaultsConstants.first71),let f27 = userDefaults.string(forKey: UserDefaultsConstants.first27),let f271 = userDefaults.string(forKey: UserDefaultsConstants.first271)
+    
+    
+    
+            {
+                
+                customClinicWorkingHoursView.first1TextField.setTitle(changeTimeForButtonTitle(values: f1), for: .normal)
+                            customClinicWorkingHoursView.first2TextField.setTitle(changeTimeForButtonTitle(values: f11) , for: .normal)
+                            customClinicWorkingHoursView.mainSecondStack.first1TextField.setTitle(changeTimeForButtonTitle(values: f12), for: .normal)
+                            customClinicWorkingHoursView.mainSecondStack.first1TextField.setTitle(changeTimeForButtonTitle(values: f112), for: .normal)
+                
+                            customClinicWorkingHoursView.second1TextField.setTitle(changeTimeForButtonTitle(values: f2), for: .normal)
+                            customClinicWorkingHoursView.second2TextField.setTitle(changeTimeForButtonTitle(values: f21), for: .normal)
+                            customClinicWorkingHoursView.mainSecondStack.second1TextField.setTitle(changeTimeForButtonTitle(values: f221), for: .normal)
+                            customClinicWorkingHoursView.mainSecondStack.second2TextField.setTitle(changeTimeForButtonTitle(values: f222), for: .normal)
+                
+                            customClinicWorkingHoursView.third1TextField.setTitle(f3, for: .normal)
+                            customClinicWorkingHoursView.third2TextField.setTitle(f31, for: .normal)
+                            customClinicWorkingHoursView.mainSecondStack.third1TextField.setTitle(f23, for: .normal)
+                            customClinicWorkingHoursView.mainSecondStack.third2TextField.setTitle(f231, for: .normal)
+                
+                            customClinicWorkingHoursView.forth1TextField.setTitle(f4, for: .normal)
+                            customClinicWorkingHoursView.forth2TextField.setTitle(f41, for: .normal)
+                            customClinicWorkingHoursView.mainSecondStack.forth1TextField.setTitle(f24, for: .normal)
+                            customClinicWorkingHoursView.mainSecondStack.forth2TextField.setTitle(f241, for: .normal)
+                
+                            customClinicWorkingHoursView.fifth1TextField.setTitle(f5, for: .normal)
+                            customClinicWorkingHoursView.fifth2TextField.setTitle(f51, for: .normal)
+                            customClinicWorkingHoursView.mainSecondStack.fifth1TextField.setTitle(f25, for: .normal)
+                            customClinicWorkingHoursView.mainSecondStack.fifth2TextField.setTitle(f251, for: .normal)
+                
+                            customClinicWorkingHoursView.sexth1TextField.setTitle(f6, for: .normal)
+                            customClinicWorkingHoursView.sexth2TextField.setTitle(f61, for: .normal)
+                            customClinicWorkingHoursView.mainSecondStack.sexth1TextField.setTitle(f26, for: .normal)
+                            customClinicWorkingHoursView.mainSecondStack.sexth2TextField.setTitle(f261, for: .normal)
+                
+                            customClinicWorkingHoursView.seventh1TextField.setTitle(f7, for: .normal)
+                            customClinicWorkingHoursView.seventh2TextField.setTitle(f71, for: .normal)
+                            customClinicWorkingHoursView.mainSecondStack.seventh1TextField.setTitle(f27, for: .normal)
+                            customClinicWorkingHoursView.mainSecondStack.seventh2TextField.setTitle(f271, for: .normal)
+                
+//                customClinicWorkingHoursView.first1TextField.setTitle(f1, for: .normal)
+//                customClinicWorkingHoursView.first2TextField.setTitle(f11, for: .normal)
+//                customClinicWorkingHoursView.mainSecondStack.first1TextField.setTitle(f12, for: .normal)
+//                customClinicWorkingHoursView.mainSecondStack.first1TextField.setTitle(f112, for: .normal)
+//
+//                customClinicWorkingHoursView.second1TextField.setTitle(f2, for: .normal)
+//                customClinicWorkingHoursView.second2TextField.setTitle(f21, for: .normal)
+//                customClinicWorkingHoursView.mainSecondStack.second1TextField.setTitle(f221, for: .normal)
+//                customClinicWorkingHoursView.mainSecondStack.second2TextField.setTitle(f222, for: .normal)
+//
+//                customClinicWorkingHoursView.third1TextField.setTitle(f3, for: .normal)
+//                customClinicWorkingHoursView.third2TextField.setTitle(f31, for: .normal)
+//                customClinicWorkingHoursView.mainSecondStack.third1TextField.setTitle(f23, for: .normal)
+//                customClinicWorkingHoursView.mainSecondStack.third2TextField.setTitle(f231, for: .normal)
+//
+//                customClinicWorkingHoursView.forth1TextField.setTitle(f4, for: .normal)
+//                customClinicWorkingHoursView.forth2TextField.setTitle(f41, for: .normal)
+//                customClinicWorkingHoursView.mainSecondStack.forth1TextField.setTitle(f24, for: .normal)
+//                customClinicWorkingHoursView.mainSecondStack.forth2TextField.setTitle(f241, for: .normal)
+//
+//                customClinicWorkingHoursView.fifth1TextField.setTitle(f5, for: .normal)
+//                customClinicWorkingHoursView.fifth2TextField.setTitle(f51, for: .normal)
+//                customClinicWorkingHoursView.mainSecondStack.fifth1TextField.setTitle(f25, for: .normal)
+//                customClinicWorkingHoursView.mainSecondStack.fifth2TextField.setTitle(f251, for: .normal)
+//
+//                customClinicWorkingHoursView.sexth1TextField.setTitle(f6, for: .normal)
+//                customClinicWorkingHoursView.sexth2TextField.setTitle(f61, for: .normal)
+//                customClinicWorkingHoursView.mainSecondStack.sexth1TextField.setTitle(f26, for: .normal)
+//                customClinicWorkingHoursView.mainSecondStack.sexth2TextField.setTitle(f261, for: .normal)
+//
+//                customClinicWorkingHoursView.seventh1TextField.setTitle(f7, for: .normal)
+//                customClinicWorkingHoursView.seventh2TextField.setTitle(f71, for: .normal)
+//                customClinicWorkingHoursView.mainSecondStack.seventh1TextField.setTitle(f27, for: .normal)
+//                customClinicWorkingHoursView.mainSecondStack.seventh2TextField.setTitle(f271, for: .normal)
     //
-    //            let f7 = userDefaults.string(forKey: UserDefaultsConstants.first7),let f71 = userDefaults.string(forKey: UserDefaultsConstants.first71),let f27 = userDefaults.string(forKey: UserDefaultsConstants.first27),let f271 = userDefaults.string(forKey: UserDefaultsConstants.first271)
-    //
-    //
-    //
-    //        {
-    //            customClinicWorkingHoursView.first1TextField.setTitle(f1, for: .normal)
-    //            customClinicWorkingHoursView.first2TextField.setTitle(f11, for: .normal)
-    //            customClinicWorkingHoursView.mainSecondStack.first1TextField.setTitle(f12, for: .normal)
-    //            customClinicWorkingHoursView.mainSecondStack.first1TextField.setTitle(f112, for: .normal)
-    //
-    //            customClinicWorkingHoursView.second1TextField.setTitle(f2, for: .normal)
-    //            customClinicWorkingHoursView.second2TextField.setTitle(f21, for: .normal)
-    //            customClinicWorkingHoursView.mainSecondStack.second1TextField.setTitle(f221, for: .normal)
-    //            customClinicWorkingHoursView.mainSecondStack.second2TextField.setTitle(f222, for: .normal)
-    //
-    //            customClinicWorkingHoursView.third1TextField.setTitle(f3, for: .normal)
-    //            customClinicWorkingHoursView.third2TextField.setTitle(f31, for: .normal)
-    //            customClinicWorkingHoursView.mainSecondStack.third1TextField.setTitle(f23, for: .normal)
-    //            customClinicWorkingHoursView.mainSecondStack.third2TextField.setTitle(f231, for: .normal)
-    //
-    //            customClinicWorkingHoursView.forth1TextField.setTitle(f4, for: .normal)
-    //            customClinicWorkingHoursView.forth2TextField.setTitle(f41, for: .normal)
-    //            customClinicWorkingHoursView.mainSecondStack.forth1TextField.setTitle(f24, for: .normal)
-    //            customClinicWorkingHoursView.mainSecondStack.forth2TextField.setTitle(f241, for: .normal)
-    //
-    //            customClinicWorkingHoursView.fifth1TextField.setTitle(f5, for: .normal)
-    //            customClinicWorkingHoursView.fifth2TextField.setTitle(f51, for: .normal)
-    //            customClinicWorkingHoursView.mainSecondStack.fifth1TextField.setTitle(f25, for: .normal)
-    //            customClinicWorkingHoursView.mainSecondStack.fifth2TextField.setTitle(f251, for: .normal)
-    //
-    //            customClinicWorkingHoursView.sexth1TextField.setTitle(f6, for: .normal)
-    //            customClinicWorkingHoursView.sexth2TextField.setTitle(f61, for: .normal)
-    //            customClinicWorkingHoursView.mainSecondStack.sexth1TextField.setTitle(f26, for: .normal)
-    //            customClinicWorkingHoursView.mainSecondStack.sexth2TextField.setTitle(f261, for: .normal)
-    //
-    //            customClinicWorkingHoursView.seventh1TextField.setTitle(f7, for: .normal)
-    //            customClinicWorkingHoursView.seventh2TextField.setTitle(f71, for: .normal)
-    //            customClinicWorkingHoursView.mainSecondStack.seventh1TextField.setTitle(f27, for: .normal)
-    //            customClinicWorkingHoursView.mainSecondStack.seventh2TextField.setTitle(f271, for: .normal)
-    //
-    //            DispatchQueue.main.async {
-    //                self.view.layoutIfNeeded()
-    //            }
+                DispatchQueue.main.async {
+                    self.view.layoutIfNeeded()
+                }
     //
     //        }
-    //    }
+        }
+    }
     
     //    func setupViewModelObserver()  {
     //        chooseWorkingHoursViewModel.bindableIsFormValidate.bind { [unowned self] (isValidForm) in
@@ -199,7 +239,7 @@ class DoctorClinicWorkingHoursVC: CustomBaseViewVC {
         
     }
     
-   
+    
     
     
     fileprivate func setupTimeSelector(_ timeSelector: TimeSelector) {
@@ -237,51 +277,51 @@ class DoctorClinicWorkingHoursVC: CustomBaseViewVC {
             if isShift1 {
                 d1TXT2 = ss
             }else {
-            d12TXT2 = ss
+                d12TXT2 = ss
             }
             titleForButton(isShift1, fbt: customClinicWorkingHoursView.first2TextField, sbt: customClinicWorkingHoursView.mainSecondStack.first2TextField, txt: texts)
             
         case 2:
             if isShift1 {
-            d2TXT1 = ss
+                d2TXT1 = ss
             }else {
-          d22TXT1 = ss
+                d22TXT1 = ss
             }
             titleForButton(isShift1, fbt: customClinicWorkingHoursView.second1TextField, sbt: customClinicWorkingHoursView.mainSecondStack.second1TextField, txt: texts)
             
             
         case 22:
             if isShift1 {
-             d2TXT2 = ss
+                d2TXT2 = ss
             }else {
-              d22TXT2 = ss
+                d22TXT2 = ss
             }
             titleForButton(isShift1, fbt: customClinicWorkingHoursView.second2TextField, sbt: customClinicWorkingHoursView.mainSecondStack.second2TextField, txt: texts)
             
             
         case 3:
             if isShift1 {
-               d3TXT1 = ss
+                d3TXT1 = ss
             }else {
-               d32TXT1 = ss
+                d32TXT1 = ss
             }
             titleForButton(isShift1, fbt: customClinicWorkingHoursView.third1TextField, sbt: customClinicWorkingHoursView.mainSecondStack.third1TextField, txt: texts)
             
             
         case 33:
             if isShift1 {
-              d3TXT2 = ss
+                d3TXT2 = ss
             }else {
-              d32TXT2 = ss
+                d32TXT2 = ss
             }
             titleForButton(isShift1, fbt: customClinicWorkingHoursView.third2TextField, sbt: customClinicWorkingHoursView.mainSecondStack.third2TextField, txt: texts)
             
             
         case 4:
             if isShift1 {
-         d4TXT1 = ss
+                d4TXT1 = ss
             }else {
-           d42TXT1 = ss
+                d42TXT1 = ss
             }
             titleForButton(isShift1, fbt: customClinicWorkingHoursView.forth1TextField, sbt: customClinicWorkingHoursView.mainSecondStack.forth1TextField, txt: texts)
             
@@ -348,7 +388,14 @@ class DoctorClinicWorkingHoursVC: CustomBaseViewVC {
         choosedHours.append(texts)
     }
     
-    
+    func changeTimeForButtonTitle(values:String)->String  {
+         var ppp = "am"
+        guard let minute = values.strstr(needle: ":", beforeNeedle: false)?.toInt()  else { return "" }
+        guard var hours = values.strstr(needle: ":", beforeNeedle: true)?.toInt()  else { return "" }
+                   ppp = hours > 12 ? "pm" : "am"
+        hours =   hours > 12 ? hours - 12 : hours
+ return "\(hours):\(minute) \(ppp)"
+    }
     
     @objc func handleShowPicker(sender:UIButton) {
         var texts = ""
@@ -451,32 +498,22 @@ class DoctorClinicWorkingHoursVC: CustomBaseViewVC {
         navigationController?.popViewController(animated: true)
     }
     
-    func checkValidteShifting(bol:Bool?,ftf:String?,stf:String?,title:String,ftf2:String?,stf2:String?) ->Bool {
-        if bol ?? true  {
-            guard let _ = ftf,let _ = stf else {creatMainSnackBar(message: "\(title) range should be choosen"); return false }
-            //            guard let _ = ftf,let _ = stf else {creatMainSnackBar(message: "\(title) range should be choosen"); return  }
-            
+    func checkValidteShifting(bol:Bool,ftf:String?,stf:String?,title:String,ftf2:String?,stf2:String?) -> Bool {
+        let ss = ftf !=  "00:00" && stf != "00:00"
+        let dd = stf == "00:00" && ftf == "00:00"
+        
+        let sss = ftf2 == "00:00" && stf2 == "00:00"
+        let ddd = stf2 != "00:00" && ftf2 != "00:00"
+        
+        if ss && ddd || (ss && sss)  ||  (ddd && dd  ) {
+            return true
+        }else {
+           creatMainSnackBar(message: "\(title) range should be choosen"); return  false
+
         }
-        return true
+        
     }
     
-    fileprivate func validateFirstShift() {
-        if checkValidteShifting(bol: day2, ftf: d1TXT1, stf: d1TXT2, title: "Sunday",ftf2: d12TXT1,stf2: d12TXT2) && checkValidteShifting(bol: day3, ftf: d2TXT1, stf: d2TXT2, title: "Monday",ftf2: d22TXT1,stf2: d22TXT2) &&  checkValidteShifting(bol: day4, ftf: d3TXT1, stf: d3TXT2, title: "Tuesday",ftf2: d32TXT1,stf2: d32TXT2) &&
-            checkValidteShifting(bol: day5, ftf: d4TXT1, stf: d4TXT2, title: "Wednsday",ftf2: d42TXT1,stf2: d42TXT2)
-            &&  checkValidteShifting(bol: day6, ftf: d5TXT1, stf: d5TXT2, title: "Thrusday",ftf2: d52TXT1,stf2: d52TXT2) &&
-            checkValidteShifting(bol: day7, ftf: d6TXT1, stf: d6TXT2, title: "Friday",ftf2: d62TXT1,stf2: d62TXT2) &&
-            checkValidteShifting(bol: day1, ftf: d7TXT1, stf: d7TXT2, title: "Saturday",ftf2: d72TXT1,stf2: d72TXT2) {
-            delgate?.getHoursChoosed(hours: getChoosenHours())
-            delgate?.getDays(indexs: getDaysIndex(), days: getDays())
-            savedData()
-            navigationController?.popViewController(animated: true)
-            return
-        }else {
-            print(99999)
-            
-            return
-        }
-    }
     
     func savedData()  {
         if userDefaults.bool(forKey: UserDefaultsConstants.isWorkingHoursSaved) {
@@ -517,74 +554,65 @@ class DoctorClinicWorkingHoursVC: CustomBaseViewVC {
             userDefaults.set(d72TXT1 , forKey: UserDefaultsConstants.first27)
             userDefaults.set(d72TXT2 , forKey: UserDefaultsConstants.first271)
             
-            userDefaults.set(day1 ?? false, forKey: UserDefaultsConstants.day1)
-            userDefaults.set(day2 ?? false, forKey: UserDefaultsConstants.day2)
-            userDefaults.set(day3 ?? false, forKey: UserDefaultsConstants.day3)
-            userDefaults.set(day4 ?? false, forKey: UserDefaultsConstants.day4)
-            userDefaults.set(day5 ?? false, forKey: UserDefaultsConstants.day5)
-            userDefaults.set(day6 ?? false, forKey: UserDefaultsConstants.day6)
-            userDefaults.set(day7 ?? false, forKey: UserDefaultsConstants.day7)
+            userDefaults.set(day1  , forKey: UserDefaultsConstants.day1)
+            userDefaults.set(day2  , forKey: UserDefaultsConstants.day2)
+            userDefaults.set(day3  , forKey: UserDefaultsConstants.day3)
+            userDefaults.set(day4  , forKey: UserDefaultsConstants.day4)
+            userDefaults.set(day5  , forKey: UserDefaultsConstants.day5)
+            userDefaults.set(day6  , forKey: UserDefaultsConstants.day6)
+            userDefaults.set(day7  , forKey: UserDefaultsConstants.day7)
             
             userDefaults.set(true, forKey: UserDefaultsConstants.isWorkingHoursSaved)
             userDefaults.synchronize()
+            print(9999)
         }
     }
     
     fileprivate func checkValidateDoneButton() {
-        validateFirstShift()
         
         
+        if day1 {
+            if checkValidteShifting(bol: day1, ftf: d1TXT1, stf: d1TXT2, title: "Saturday ",ftf2: d12TXT1,stf2: d12TXT2){}else {return}
+        }
+        if day2 {
+            if  checkValidteShifting(bol: day2, ftf: d2TXT1, stf: d2TXT2, title: "Sunday",ftf2: d22TXT1,stf2: d22TXT2) {}else {return}
+            
+        }
+        if day3 {
+            if checkValidteShifting(bol: day3, ftf: d3TXT1, stf: d3TXT2, title: "Monday",ftf2: d32TXT1,stf2: d32TXT2){}else {return}
+        }
+        if day4 {
+            if checkValidteShifting(bol: day4, ftf: d4TXT1, stf: d4TXT2, title: "Tuesday",ftf2: d42TXT1,stf2: d42TXT2){}else {return}
+        }
+        if day5 {
+            if checkValidteShifting(bol: day5, ftf: d5TXT1, stf: d5TXT2, title: "Wednsday",ftf2: d52TXT1,stf2: d52TXT2){}else {return}
+        }
+        if day6 {
+            if checkValidteShifting(bol: day6, ftf: d6TXT1, stf: d6TXT2, title: "Thrusday ",ftf2: d62TXT1,stf2: d62TXT2){}else {return}
+        }
+        if day7 {
+            
+            if checkValidteShifting(bol: day7, ftf: d7TXT1, stf: d7TXT2, title: "Friday",ftf2: d72TXT1,stf2: d72TXT2) {}else {return}
+        }
+        
+        
+        
+        delgate?.getHoursChoosed(hours: getChoosenHours())
+        delgate?.getDays(indexs: getDaysIndex(), days: getDays())
+        savedData()
+        navigationController?.popViewController(animated: true)
     }
     
     func getDays() -> [String] {
         var ss = [String]()
-        if day1 ?? true {
-            ss.append("Sat")
-        }
-        if day2 ?? true {
-            ss.append("Sun")
-        }
-        if day3 ?? true {
-            ss.append("Mon")
-        }
-        if day4 ?? true {
-            ss.append("Tue")
-        }
-        if day5 ?? true {
-            ss.append("Wed")
-        }
-        if day6 ?? true {
-            ss.append("Thr")
-        }
-        if day7 ?? true {
-            ss.append("Fri")
-        }
+        ss.append(day1 ? "Sat" : day2 ? "Sun" : day3 ? "Mon" : day4 ? "Tue" : day5 ? "Wed" : day6 ? "Thr" : "Fri" )
         return ss
     }
     
     func getDaysIndex() -> [Int] {
         var ss = [Int]()
-        if day1 ?? true {
-            ss.append(1)
-        }
-        if day2 ?? true {
-            ss.append(2)
-        }
-        if day3 ?? true {
-            ss.append(3)
-        }
-        if day4 ?? true {
-            ss.append(4)
-        }
-        if day5 ?? true {
-            ss.append(5)
-        }
-        if day6 ?? true {
-            ss.append(6)
-        }
-        if day7 ?? true {
-            ss.append(7)
-        }
+        ss.append(day1 ? 1 : day2 ? 2 : day3 ? 3 : day4 ? 4 : day5 ? 5 : day6 ? 6 : 7)
+        
         return ss
     }
     
