@@ -13,12 +13,12 @@ class RegistrationServices {
     
     static let shared = RegistrationServices()
     
-//    func mainRegister(index:Int,photo:UIImage,cvName:String,name:String,email:String,phone:String,password:String,insurance:[Int],delivery:Int,avaliable_days:[Int] ,latt:Double,lang:Double,city:Int,area:Int,completion: @escaping (MainDoctorRegisterModel?, Error?) -> Void)  {
-//        let nn = index == 2 ? "lab_register" : index == 3 ? "radiology_register" : "pharmacy_register"
-//
-//        let urlString = "http://doctoraak.sphinxatapps.com/public/api/\(nn)".toSecrueHttps()
-//        let postString = urlString+"?name=\(name)&email=\(email)&phone=\(phone)&password=\(password)&lang=\(lang)&latt=\(latt)&avaliable_days=\(avaliable_days)&insurance=\(insurance)&city=\(city)&area=\(area)"
-//    }
+    //    func mainRegister(index:Int,photo:UIImage,cvName:String,name:String,email:String,phone:String,password:String,insurance:[Int],delivery:Int,avaliable_days:[Int] ,latt:Double,lang:Double,city:Int,area:Int,completion: @escaping (MainDoctorRegisterModel?, Error?) -> Void)  {
+    //        let nn = index == 2 ? "lab_register" : index == 3 ? "radiology_register" : "pharmacy_register"
+    //
+    //        let urlString = "http://doctoraak.sphinxatapps.com/public/api/\(nn)".toSecrueHttps()
+    //        let postString = urlString+"?name=\(name)&email=\(email)&phone=\(phone)&password=\(password)&lang=\(lang)&latt=\(latt)&avaliable_days=\(avaliable_days)&insurance=\(insurance)&city=\(city)&area=\(area)"
+    //    }
     
     func mainRegister(index:Int,photo:UIImage,name:String,email:String,phone:String,password:String,insurance:[Int],delivery:Int,working_hours:[Any] ,latt:String,lang:String,city:Int,area:Int,completion: @escaping (MainDoctorRegisterModel?, Error?) -> Void)  {
         let nn = index == 2 ? "lab_register" : index == 3 ? "radiology_register" : "pharmacy_register"
@@ -45,7 +45,7 @@ class RegistrationServices {
                     //print response.result
                     print(response.result)
                     guard let data = response.data else {return}
-                               
+                    
                     do {
                         let objects = try JSONDecoder().decode(MainDoctorRegisterModel.self, from: data)
                         // success
@@ -61,13 +61,13 @@ class RegistrationServices {
                 //print encodingError.description
             }
         }
-
+        
     }
     
-    func registerDoctor(isInsurance:Bool,coverImage:UIImage,cvName:String,cvFile:Data,name:String,email:String,phone:String,password:String,gender:String,specialization_id:Int,degree_id:Int,insurance:[Int] ,completion: @escaping (MainDoctorRegisterModel?, Error?) -> Void ) {
+    func registerDoctor(index:Int,isInsurance:Bool,coverImage:UIImage,cvName:String,cvFile:Data,name:String,email:String,phone:String,password:String,gender:String,specialization_id:Int,degree_id:Int,insurance:[Int] ,completion: @escaping (MainDoctorRegisterModel?, Error?) -> Void ) {
         let urlString = "http://doctoraak.sphinxatapps.com/public/api/doctor_register".toSecrueHttps()
         
-        let basics = urlString+"?name=\(name)&email=\(email)&phone=\(phone)&password=\(password)&gender=\(gender)&specialization_id=\(specialization_id)&degree_id=\(degree_id)"
+        let basics = urlString+"?name=\(name)&email=\(email)&phone=\(phone)&password=\(password)&gender=\(gender)&specialization_id=\(specialization_id)&degree_id=\(degree_id)&is_medical_center=\(index)"
         
         let postString = !isInsurance ?  basics : basics+"&insurance=\(insurance)" //insurance if not empty
         
@@ -195,15 +195,15 @@ class RegistrationServices {
     }
     
     func MainResendSmsCodeAgain(index:Int,user_id:Int,completion:@escaping (MainDoctorVerificationModel?,Error?)->Void)  {
-           let nnn = index == 0 || index == 1 ? "doctor_resend" : index == 2 ? "lab_resend" : index == 3 ? "radiology_resend" : "pharmacy_resend"
-           
-           let urlString = "http://doctoraak.sphinxatapps.com/public/api/\(nnn)".toSecrueHttps()
-           guard  let url = URL(string: urlString) else { return  }
-           
-           let postString = "user_id=\(user_id)"
-           MainServices.registerationPostMethodGeneric(postString: postString, url: url, completion: completion)
-       }
+        let nnn = index == 0 || index == 1 ? "doctor_resend" : index == 2 ? "lab_resend" : index == 3 ? "radiology_resend" : "pharmacy_resend"
+        
+        let urlString = "http://doctoraak.sphinxatapps.com/public/api/\(nnn)".toSecrueHttps()
+        guard  let url = URL(string: urlString) else { return  }
+        
+        let postString = "user_id=\(user_id)"
+        MainServices.registerationPostMethodGeneric(postString: postString, url: url, completion: completion)
+    }
     
-   
+    
     
 }
