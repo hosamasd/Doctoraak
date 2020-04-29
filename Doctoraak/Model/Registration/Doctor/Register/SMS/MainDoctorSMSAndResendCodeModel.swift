@@ -7,11 +7,11 @@
 //
 
 import UIKit
-struct MainDoctorVerificationModel:Codable {
+struct MainDoctorSMSAndResendCodeModel:Codable {
     
     let status: Int
        let message, messageEn: String
-       var data: DoctorVerificationModel?
+       var data: DoctorModel?
 
        enum CodingKeys: String, CodingKey {
            case status, message
@@ -20,7 +20,7 @@ struct MainDoctorVerificationModel:Codable {
        }
 }
 
-struct DoctorVerificationModel:Codable {
+struct DoctorModel:Codable {
     let id: Int
     let name: String
     var nameAr, nameFr: String?
@@ -38,6 +38,7 @@ struct DoctorVerificationModel:Codable {
     let isMedicalCenter: Int
     let doctorInsurances: [DoctorInsuranceModel]
     let degree, specialization: DegreeDoctorModel
+    let insuranceCompany: [DegreeDoctorModel]
 
     enum CodingKeys: String, CodingKey {
         case id, name
@@ -60,5 +61,7 @@ struct DoctorVerificationModel:Codable {
         case isMedicalCenter = "is_medical_center"
         case doctorInsurances = "doctor_insurances"
         case degree, specialization
+        case insuranceCompany = "insurance_company"
     }
+    
 }

@@ -27,7 +27,7 @@ class SMSCodeViewModel {
     var index:Int? = -1 {didSet {checkFormValidity()}}
 
     
-    func performLogging(completion:@escaping (MainDoctorVerificationModel?,Error?)->Void)  {
+    func performLogging(completion:@escaping (MainDoctorSMSAndResendCodeModel?,Error?)->Void)  {
         guard let smsCode = smsCode, let sms2Code = sms2Code, let sms3Code = sms3Code,let sms4Code = sms4Code,let sms5Code=sms5Code,let index=index,let id=id
             else { return  }
         let mainsmsCode = smsCode+sms2Code+sms3Code+sms4Code+sms5Code
@@ -38,7 +38,7 @@ class SMSCodeViewModel {
         //        RegistrationServices.shared.loginUser(phone: email, password: password, completion: completion)
     }
     
-    func performResendSMSCode(completion:@escaping (MainDoctorVerificationModel?,Error?)->Void)  {
+    func performResendSMSCode(completion:@escaping (MainDoctorSMSAndResendCodeModel?,Error?)->Void)  {
            guard let id = id,let index=index  else { return  }
            
            bindableIsResendingSms.value = true

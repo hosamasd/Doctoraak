@@ -111,42 +111,87 @@ class RegistrationServices {
         }
     }
     
-    func RegiasterClinicCreate(fees:Int,lang:String,latt:String,phone:String,waiting_time:String,city:Int,area:Int,api_token:String,doctor_id:String,photo:String,working_hours:[String:Any])  {
+    func RegiasterClinicCreate(fees2:Int,fees:Int,lang:String,latt:String,phone:String,waiting_time:String,photo:UIImage,city:Int,area:Int,api_token:String,doctor_id:String,working_hours:[Any],completion:@escaping (MainDoctorClinicCreateModel?,Error?)->Void)  {
         let urlString = "http://doctoraak.sphinxatapps.com/public/api/doctor_create_clinic".toSecrueHttps()
-        guard let url = URL(string: urlString) else { return  }
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
-        let signUpDict : [String:Any] =
-            [
-                "fees":fees,
-                "lang":lang,
-                "latt":latt,
-                "phone":phone,
-                "waiting_time":waiting_time,
-                "city":city,
-                "area":area,
-                "api_token":api_token,
-                "doctor_id":doctor_id,
-                "photo":photo,
-                "working_hours":working_hours
-        ]
-        request.httpBody = try! JSONSerialization.data(withJSONObject: signUpDict)
-        Alamofire.request(request)
-            .responseJSON { response in
-                // do whatever you want here
-                switch response.result {
-                case .failure(let error):
-                    print(error)
+        let postString = urlString+"?fees=\(fees)&lang=\(lang)&latt=\(latt)&phone=\(phone)&waiting_time=\(waiting_time)&city=\(city)&area=\(area)&api_token=\(api_token)&doctor_id=\(doctor_id)&working_hours=\(working_hours)&fees2=\(fees2)"
+        
+        
+        
+        Alamofire.upload(multipartFormData: { (multipartFormData) in
+            
+            if let data = photo.pngData() {
+                multipartFormData.append(data, withName: "photo", fileName: "asd.jpeg", mimeType: "image/jpeg")
+            }
+            
+        }, to:postString)
+        { (result) in
+            switch result {
+            case .success(let upload, _, _):
+                
+                upload.uploadProgress(closure: { (progress) in
+                    //Print progress
+                    print(progress)
+                })
+                
+                upload.responseJSON { response in
+                    //print response.result
+                    print(response.result)
+                    guard let data = response.data else {return}
                     
-                    if let data = response.data, let responseString = String(data: data, encoding: .utf8) {
-                        print(responseString)
+                    do {
+                        let objects = try JSONDecoder().decode(MainDoctorClinicCreateModel.self, from: data)
+                        // success
+                        completion(objects,nil)
+                    } catch let error {
+                        completion(nil,error)
                     }
-                case .success(let responseObject):
-                    print(responseObject)
                 }
+                
+            case .failure( let encodingError):
+                completion(nil,encodingError)
+                break
+                //print encodingError.description
+            }
         }
+        
+//        guard let url = URL(string: urlString) else { return  }
+//        var request = URLRequest(url: url)
+//        request.httpMethod = "POST"
+//        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+//
+//        let signUpDict : [String:Any] =
+//            [
+//                "fees":fees,
+//                "lang":lang,
+//                "latt":latt,
+//                "phone":phone,
+//                "waiting_time":waiting_time,
+//                "city":city,
+//                "area":area,
+//                "api_token":api_token,
+//                "doctor_id":doctor_id,
+//                "photo":photo,
+//                "working_hours":working_hours
+//        ]
+//        request.httpBody = try! JSONSerialization.data(withJSONObject: signUpDict)
+//        Alamofire.request(request)
+//            .responseJSON { response in
+//                // do whatever you want here
+//
+//
+//
+//                switch response.result {
+//                case .failure(let error):
+//                    print(error)
+//
+//                    if let data = response.data, let responseString = String(data: data, encoding: .utf8) {
+//                        print(responseString)
+//                    }
+//                case .success(let responseObject):
+//                    print(responseObject)
+//                }
+//        }
     }
     
     //replace model
@@ -184,7 +229,7 @@ class RegistrationServices {
         MainServices.registerationPostMethodGeneric(postString: postString, url: url, completion: completion)
     }
     
-    func MainReceiveSmsCode(index:Int,user_id:Int,sms_code:String,completion:@escaping (MainDoctorVerificationModel?,Error?)->Void)  {
+    func MainReceiveSmsCode(index:Int,user_id:Int,sms_code:String,completion:@escaping (MainDoctorSMSAndResendCodeModel?,Error?)->Void)  {
         let nnn = index == 0 || index == 1 ? "doctor_verify_account" : index == 2 ? "lab_verify_account" : index == 3 ? "radiology_verify_account" : "pharmacy_verify_account"
         
         let urlString = "http://doctoraak.sphinxatapps.com/public/api/\(nnn)".toSecrueHttps()
@@ -194,7 +239,7 @@ class RegistrationServices {
         MainServices.registerationPostMethodGeneric(postString: postString, url: url, completion: completion)
     }
     
-    func MainResendSmsCodeAgain(index:Int,user_id:Int,completion:@escaping (MainDoctorVerificationModel?,Error?)->Void)  {
+    func MainResendSmsCodeAgain(index:Int,user_id:Int,completion:@escaping (MainDoctorSMSAndResendCodeModel?,Error?)->Void)  {
         let nnn = index == 0 || index == 1 ? "doctor_resend" : index == 2 ? "lab_resend" : index == 3 ? "radiology_resend" : "pharmacy_resend"
         
         let urlString = "http://doctoraak.sphinxatapps.com/public/api/\(nnn)".toSecrueHttps()
