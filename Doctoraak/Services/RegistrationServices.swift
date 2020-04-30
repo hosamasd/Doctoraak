@@ -70,7 +70,8 @@ class RegistrationServices {
         let basics = urlString+"?name=\(name)&email=\(email)&phone=\(phone)&password=\(password)&gender=\(gender)&specialization_id=\(specialization_id)&degree_id=\(degree_id)&is_medical_center=\(index)"
         
         let postString = !isInsurance ?  basics : basics+"&insurance=\(insurance)" //insurance if not empty
-        
+        var urlsString = postString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+
         
         Alamofire.upload(multipartFormData: { (multipartFormData) in
             
@@ -79,7 +80,7 @@ class RegistrationServices {
             }
             
             multipartFormData.append(cvFile, withName: "cv", fileName: cvName, mimeType:"application/pdf")
-        }, to:postString)
+        }, to:urlsString as! URLConvertible)
         { (result) in
             switch result {
             case .success(let upload, _, _):

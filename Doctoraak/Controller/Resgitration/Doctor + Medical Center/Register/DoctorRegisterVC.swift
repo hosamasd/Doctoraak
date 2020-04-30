@@ -59,17 +59,6 @@ class DoctorRegisterVC: CustomBaseViewVC {
             
             self.changeButtonState(enable: isValid, vv: self.customRegisterView.nextButton)
         }
-        
-        customRegisterView.doctorRegisterViewModel.bindableIsResgiter.bind(observer: {  [unowned self] (isReg) in
-            if isReg == true {
-                //                UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
-                //                SVProgressHUD.show(withStatus: "Login...".localized)
-                
-            }else {
-                //                SVProgressHUD.dismiss()
-                //                self.activeViewsIfNoData()
-            }
-        })
     }
     
     
@@ -86,10 +75,17 @@ class DoctorRegisterVC: CustomBaseViewVC {
         customRegisterView.fillSuperview()
     }
     
-    func goToNext()  {
-        //         let second = DoctorSecondRegisterVC(indexx: self.index, male: male, photo: img, email: email, name: name, mobile: mobile, passowrd: password)
-        //                   self.navigationController?.pushViewController(second, animated: true)
-        userDefaults.set("phone", forKey: UserDefaultsConstants.userMobileNumber)
+    fileprivate func saveDefults(img:UIImage,name:String,mobile:String,email:String,password:String,male:String,index:Int)  {
+        let data = img.pngData()
+        userDefaults.set(data, forKey: UserDefaultsConstants.doctorRegisterImage)
+        userDefaults.set(name, forKey: UserDefaultsConstants.doctorRegisterName)
+        userDefaults.set(email, forKey: UserDefaultsConstants.doctorRegisterEmail)
+        userDefaults.set(mobile, forKey: UserDefaultsConstants.doctorRegisterMobile)
+        userDefaults.set(password, forKey: UserDefaultsConstants.doctorRegisterPassword)
+        userDefaults.set(male, forKey: UserDefaultsConstants.doctorRegisterMale)
+        userDefaults.set(index, forKey: UserDefaultsConstants.doctorRegisterIndee)
+         userDefaults.set(true, forKey: UserDefaultsConstants.isDoctorSecondRegister)
+        userDefaults.synchronize()
     }
     
     //TODO: -handle methods
@@ -116,18 +112,12 @@ class DoctorRegisterVC: CustomBaseViewVC {
         
         
         customRegisterView.doctorRegisterViewModel.performRegister {[unowned self] (img, name, mobile, email, password, male, index) in
+            self.saveDefults(img: img, name: name, mobile: mobile, email: email, password: password, male: male, index: index)
             let second = DoctorSecondRegisterVC(indexx: index, male: male, photo: img, email: email, name: name, mobile: mobile, passowrd: password)
             self.navigationController?.pushViewController(second, animated: true)
         }
-            
-        }
         
-    
-    
-    
-    
-    
-    
+    }
     
 }
 

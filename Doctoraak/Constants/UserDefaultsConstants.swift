@@ -12,6 +12,19 @@ class UserDefaultsConstants {
     
     static let isCachedDriopLists = "isCachedDriopLists"
     
+    //doctor register
+    static let doctorRegisterImage = "doctorRegisterImage"
+    static let doctorRegisterName="doctorRegisterName"
+    static let doctorRegisterEmail="doctorRegisterEmail"
+    static let doctorRegisterMobile="doctorRegisterMobile"
+    static let doctorRegisterPassword="doctorRegisterPassword"
+    static let doctorRegisterMale="doctorRegisterMale"
+    static let doctorRegisterIndee="doctorRegisterIndee"
+    static let isDoctorSecondRegister="isDoctorSecondRegister"
+    
+    //doctor second register
+    static let doctorRegisterSecondIsFromForgetPassw="doctorRegisterSecondIsFromForgetPassw"
+    
     //register
     static let userMobileNumber="userMobileNumber"
     static let doctorRegisterUser_id = "doctorRegisterUser_id"

@@ -73,9 +73,24 @@ class DoctorSecondRegisterVC: CustomBaseViewVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViewModelObserver()
+        checkThis()
     }
     
     //MARK:-User methods
+    
+    func checkThis()  {
+        let img = #imageLiteral(resourceName: "lego(1)").pngData()
+        
+        RegistrationServices.shared.registerDoctor(index: 0, isInsurance: true, coverImage: #imageLiteral(resourceName: "lego(1)"), cvName: "as", cvFile: img!, name: "asd", email: "xsa@s.com", phone: "00000006231", password: "00000000", gender: "male", specialization_id: 1, degree_id: 1, insurance: [1,2]) { (base, err) in
+            if let err = err {
+                       SVProgressHUD.showError(withStatus: err.localizedDescription)
+                       self.activeViewsIfNoData();return
+                   }
+                   SVProgressHUD.dismiss()
+                   self.activeViewsIfNoData()
+                   guard let user = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
+        }
+    }
     
     func putSomeData()  {
         customCecondRegisterView.doctorSecondRegisterViewModel.image = photo
@@ -121,15 +136,7 @@ class DoctorSecondRegisterVC: CustomBaseViewVC {
         mainView.addSubViews(views: customCecondRegisterView)
         customCecondRegisterView.fillSuperview()
     }
-    
-    func updateStates()  {
-        userDefaults.set(true, forKey: UserDefaultsConstants.isUserRegisterAndWaitForSMScODE)
-        userDefaults.set(index, forKey: UserDefaultsConstants.isUserRegisterAndWaitForSMScODEIndex)
-        userDefaults.synchronize()
-    }
-    
     func goToNext(id:Int)  {
-        self.updateStates()
         let verify = MainVerificationVC(indexx: index, isFromForgetPassw: false, phone: mobile, user_id: id)
         navigationController?.pushViewController(verify, animated: true)
         
@@ -138,6 +145,12 @@ class DoctorSecondRegisterVC: CustomBaseViewVC {
     
     func saveToken(user_id:Int)  {
         userDefaults.set(user_id, forKey: UserDefaultsConstants.doctorRegisterUser_id)
+        userDefaults.set(true, forKey: UserDefaultsConstants.isUserRegisterAndWaitForSMScODE)
+        userDefaults.set(false, forKey: UserDefaultsConstants.isDoctorSecondRegister)
+        userDefaults.set(mobile, forKey: UserDefaultsConstants.doctorRegisterMobile)
+        userDefaults.set(false, forKey: UserDefaultsConstants.doctorRegisterSecondIsFromForgetPassw)
+
+        userDefaults.set(index, forKey: UserDefaultsConstants.isUserRegisterAndWaitForSMScODEIndex)
         userDefaults.synchronize()
         goToNext(id: user_id)
     }
@@ -191,10 +204,6 @@ extension DoctorSecondRegisterVC : UIDocumentPickerDelegate {
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentAt url: URL) {
         
         let cico = url as URL
-        print(cico)
-        print(url)
-        
-        print(url.lastPathComponent)
         
         self.customCecondRegisterView.cvLabel.text = url.lastPathComponent
         self.customCecondRegisterView.doctorSecondRegisterViewModel.cvName = url.lastPathComponent
