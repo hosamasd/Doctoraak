@@ -32,36 +32,39 @@ class MainClinicDataVC: CustomBaseViewVC {
         v.index = index
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
         v.doneButton.addTarget(self, action: #selector(handleDone), for: .touchUpInside)
-       
-//        v.clinicWorkingHoursTextField.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleChooseWorkingHours)))
+        
+        //        v.clinicWorkingHoursTextField.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleChooseWorkingHours)))
         v.clinicEditProfileImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpenGallery)))
         
         v.handleChooseHours = {[unowned self] in
             self.handleChooseWorkingHours()
         }
         v.handlerChooseLocation = {[unowned self] in
-                         let loct = ChooseLocationVC()
-                         loct.delgate = self
-                         self.navigationController?.pushViewController(loct, animated: true)
-                     }
-              return v
+            let loct = ChooseLocationVC()
+            loct.delgate = self
+            self.navigationController?.pushViewController(loct, animated: true)
+        }
         //        v.cityDrop.addTarget(self, action: #selector(handleMulti), for: .touchUpInside)
         return v
     }()
     
     //check to go specific way
     fileprivate let index:Int!
-      init(indexx:Int) {
-          self.index = indexx
-          super.init(nibName: nil, bundle: nil)
-      }
+    fileprivate let doctor_id:Int!
+    fileprivate let api_token:String!
+    init(indexx:Int,api_token:String,doctor_id:Int) {
+        self.index = indexx
+        self.api_token = api_token
+        self.doctor_id = doctor_id
+        super.init(nibName: nil, bundle: nil)
+    }
     
-  
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViewModelObserver()
-//        customClinicDataView.clinicWorkingHoursTextField.inputAccessoryView = UIView()
+        //        customClinicDataView.clinicWorkingHoursTextField.inputAccessoryView = UIView()
         
     }
     
@@ -70,19 +73,18 @@ class MainClinicDataVC: CustomBaseViewVC {
     func setupViewModelObserver()  {
         customClinicDataView.clinicDataViewModel.bindableIsFormValidate.bind { [unowned self] (isValidForm) in
             guard let isValid = isValidForm else {return}
-            //            self.customLoginView.loginButton.isEnabled = isValid
             
             self.changeButtonState(enable: isValid, vv: self.customClinicDataView.doneButton)
         }
         
         customClinicDataView.clinicDataViewModel.bindableIsResgiter.bind(observer: {  [unowned self] (isReg) in
             if isReg == true {
-                //                UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
-                //                SVProgressHUD.show(withStatus: "Login...".localized)
+                                UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
+                                SVProgressHUD.show(withStatus: "Looding...".localized)
                 
             }else {
-                //                SVProgressHUD.dismiss()
-                //                self.activeViewsIfNoData()
+                                SVProgressHUD.dismiss()
+                                self.activeViewsIfNoData()
             }
         })
     }
@@ -107,22 +109,22 @@ class MainClinicDataVC: CustomBaseViewVC {
     }
     
     func convertLatLongToAddress(latitude:Double,longitude:Double){
-
-           let geoCoder = CLGeocoder()
-           let location = CLLocation(latitude: latitude, longitude: longitude)
-           geoCoder.reverseGeocodeLocation(location, completionHandler: {[unowned self] (placemarks, error) -> Void in
-
-               // Place details
-               var placeMark: CLPlacemark!
-               placeMark = placemarks?[0]
-
-               // Location name
-               guard let locationName = placeMark.locality , let street = placeMark.thoroughfare, let city = placeMark.subAdministrativeArea, let country = placeMark.country else {return}
-                self.customClinicDataView.addressLabel.text = "\(locationName) - \(street) - \(city) - \(country)"
-           })
-
-           
-       }
+        
+        let geoCoder = CLGeocoder()
+        let location = CLLocation(latitude: latitude, longitude: longitude)
+        geoCoder.reverseGeocodeLocation(location, completionHandler: {[unowned self] (placemarks, error) -> Void in
+            
+            // Place details
+            var placeMark: CLPlacemark!
+            placeMark = placemarks?[0]
+            
+            // Location name
+            guard let locationName = placeMark.locality , let street = placeMark.thoroughfare, let city = placeMark.subAdministrativeArea, let country = placeMark.country else {return}
+            self.customClinicDataView.addressLabel.text = "\(locationName) - \(street) - \(city) - \(country)"
+        })
+        
+        
+    }
     
     //TODO: -handle methods
     
@@ -132,12 +134,13 @@ class MainClinicDataVC: CustomBaseViewVC {
     
     @objc func handleDone()  {
         
+//        customClinicDataView.clinicDataViewModel.per
         
         let payment = MainPaymentVC(indexx: index)
         navigationController?.pushViewController(payment, animated: true)
     }
     
-     func handleChooseWorkingHours()  {
+    func handleChooseWorkingHours()  {
         let payment = DoctorClinicWorkingHoursVC()
         payment.delgate = self
         navigationController?.pushViewController(payment, animated: true)
@@ -150,11 +153,11 @@ class MainClinicDataVC: CustomBaseViewVC {
         present(imagePicker, animated: true)
     }
     
-   
+    
     
     required init?(coder: NSCoder) {
-          fatalError("init(coder:) has not been implemented")
-      }
+        fatalError("init(coder:) has not been implemented")
+    }
     
 }
 
@@ -172,11 +175,11 @@ extension MainClinicDataVC: MainClinicWorkingHoursProtocol {
     }
     
     
-//    func getHoursChoosed(hours: [String]) {
-//        let texts = hours.map{$0}.joined(separator: ",")
-//
-//        customClinicDataView.clinicWorkingHoursTextField.text = texts
-//    }
+    //    func getHoursChoosed(hours: [String]) {
+    //        let texts = hours.map{$0}.joined(separator: ",")
+    //
+    //        customClinicDataView.clinicWorkingHoursTextField.text = texts
+    //    }
     
     
     
@@ -213,8 +216,8 @@ extension MainClinicDataVC: ChooseLocationVCProtocol{
     
     func getLatAndLong(lat: Double, long: Double) {
         customClinicDataView.clinicDataViewModel.latt = "\(lat)"
-           customClinicDataView.clinicDataViewModel.lang = "\(long)"
+        customClinicDataView.clinicDataViewModel.lang = "\(long)"
         convertLatLongToAddress(latitude: lat, longitude: long)
-           print(lat, "            ",long)
-       }
+        print(lat, "            ",long)
+    }
 }

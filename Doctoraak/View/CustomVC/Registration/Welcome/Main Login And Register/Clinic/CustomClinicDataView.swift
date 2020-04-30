@@ -225,6 +225,7 @@ class CustomClinicDataView: CustomBaseView {
     override func setupViews() {
         
         [ waitingHoursTextField, feesTextField,   clinicMobileNumberTextField, consultationFeesTextField].forEach({$0.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)})
+        
         workingHourView.hstack(workingHoursLabel).padLeft(16)
         let subView = UIView(backgroundColor: .clear)
         subView.addSubViews(views: clinicProfileImage,clinicEditProfileImageView)
@@ -280,7 +281,7 @@ class CustomClinicDataView: CustomBaseView {
                 }
                 else {
                     floatingLabelTextField.errorMessage = ""
-                    clinicDataViewModel.fees = texts
+                    clinicDataViewModel.fees = texts.toInt()
                 }
             }else  if text == consultationFeesTextField {
                 if (texts.count < 3 ) {
@@ -289,7 +290,7 @@ class CustomClinicDataView: CustomBaseView {
                 }
                 else {
                     
-                    clinicDataViewModel.consultaionFees = texts
+                    clinicDataViewModel.consultaionFees = texts.toInt()
                     floatingLabelTextField.errorMessage = ""
                 }
                 

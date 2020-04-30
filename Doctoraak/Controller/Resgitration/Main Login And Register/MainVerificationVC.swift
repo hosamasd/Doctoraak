@@ -50,6 +50,7 @@ class MainVerificationVC: CustomBaseViewVC {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        customVerificationView.firstNumberTextField.becomeFirstResponder()
         //        setupTimer()
     }
     
@@ -114,7 +115,7 @@ class MainVerificationVC: CustomBaseViewVC {
         customVerificationView.sMSCodeViewModel.sms2Code = nil
         customVerificationView.sMSCodeViewModel.sms3Code = nil
         customVerificationView.sMSCodeViewModel.sms4Code = nil
-        [customVerificationView.firstNumberTextField,customVerificationView.secondNumberTextField,customVerificationView.thirdNumberTextField,customVerificationView.forthNumberTextField].forEach({$0.text = ""})
+        [customVerificationView.firstNumberTextField,customVerificationView.secondNumberTextField,customVerificationView.thirdNumberTextField,customVerificationView.forthNumberTextField,customVerificationView.fifthNumberTextField].forEach({$0.text = ""})
     }
     
     fileprivate func timeString(time:TimeInterval) -> String {
@@ -133,20 +134,23 @@ class MainVerificationVC: CustomBaseViewVC {
         self.customVerificationView.resendButton.isEnabled = true
     }
     
-    func updateStates()  {
+    func updateStates(api_token:String,_ doctor_id:Int)  {
         userDefaults.set(true, forKey: UserDefaultsConstants.isUserRegisterAndWaitForClinicData)
+        userDefaults.set(api_token, forKey: UserDefaultsConstants.DoctorVerificationAPITOKEN)
+        userDefaults.set(doctor_id, forKey: UserDefaultsConstants.DoctorVerificationDoctorId)
+
         userDefaults.set(index, forKey: UserDefaultsConstants.isUserRegisterAndWaitForClinicDataIndex)
         userDefaults.synchronize()
     }
     
-    func goToNext()  {
-        self.updateStates()
+    func goToNext(api_token:String,_ doctor_id:Int)  {
+        self.updateStates(api_token: api_token,doctor_id)
         if  isFromForgetPassw {
             let  vc =  MainNewPassVC(indexx: index)
             navigationController?.pushViewController(vc, animated: true)
         }else {
             
-            let vc =  MainClinicDataVC(indexx: index)
+            let vc =  MainClinicDataVC(indexx: index,api_token: api_token,doctor_id: doctor_id)
             navigationController?.pushViewController(vc, animated: true)
         }
         
@@ -182,7 +186,7 @@ class MainVerificationVC: CustomBaseViewVC {
     }
     
     @objc  func handleConfirm()  {
-        
+        resetViews()
         customVerificationView.sMSCodeViewModel.performLogging { (base, err) in
             if let err = err {
                 SVProgressHUD.showError(withStatus: err.localizedDescription)
@@ -190,10 +194,10 @@ class MainVerificationVC: CustomBaseViewVC {
             }
             SVProgressHUD.dismiss()
             self.activeViewsIfNoData()
-            guard let _ = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
+            guard let user = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn);self.setupTimer(); return}
             
             DispatchQueue.main.async {
-                self.goToNext()
+                self.goToNext(api_token: user.apiToken,user.id)
             }
         }
         

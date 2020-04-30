@@ -24,10 +24,15 @@ class UserDefaultsConstants {
     
     //doctor second register
     static let doctorRegisterSecondIsFromForgetPassw="doctorRegisterSecondIsFromForgetPassw"
+    static let doctorSecondRegisterSMSCode="doctorSecondRegisterSMSCode"
+    
+    //doctro verifcation
+    static let DoctorVerificationAPITOKEN="DoctorVerificationAPITOKEN"
+    static let DoctorVerificationDoctorId="DoctorVerificationDoctorId"
     
     //register
     static let userMobileNumber="userMobileNumber"
-    static let doctorRegisterUser_id = "doctorRegisterUser_id"
+    static let doctorSecondRegisterUser_id = "doctorRegisterUser_id"
     static let isUserRegisterAndWaitForClinicData="isUserRegisterAndWaitForClinicData"
     static let isUserRegisterAndWaitForClinicDataIndex="isUserRegisterAndWaitForClinicDataIndex"
     

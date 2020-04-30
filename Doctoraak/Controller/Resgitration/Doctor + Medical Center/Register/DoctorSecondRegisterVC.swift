@@ -73,7 +73,7 @@ class DoctorSecondRegisterVC: CustomBaseViewVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViewModelObserver()
-        checkThis()
+        //        checkThis()
     }
     
     //MARK:-User methods
@@ -83,12 +83,12 @@ class DoctorSecondRegisterVC: CustomBaseViewVC {
         
         RegistrationServices.shared.registerDoctor(index: 0, isInsurance: true, coverImage: #imageLiteral(resourceName: "lego(1)"), cvName: "as", cvFile: img!, name: "asd", email: "xsa@s.com", phone: "00000006231", password: "00000000", gender: "male", specialization_id: 1, degree_id: 1, insurance: [1,2]) { (base, err) in
             if let err = err {
-                       SVProgressHUD.showError(withStatus: err.localizedDescription)
-                       self.activeViewsIfNoData();return
-                   }
-                   SVProgressHUD.dismiss()
-                   self.activeViewsIfNoData()
-                   guard let user = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
+                SVProgressHUD.showError(withStatus: err.localizedDescription)
+                self.activeViewsIfNoData();return
+            }
+            SVProgressHUD.dismiss()
+            self.activeViewsIfNoData()
+            guard let user = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
         }
     }
     
@@ -139,17 +139,17 @@ class DoctorSecondRegisterVC: CustomBaseViewVC {
     func goToNext(id:Int)  {
         let verify = MainVerificationVC(indexx: index, isFromForgetPassw: false, phone: mobile, user_id: id)
         navigationController?.pushViewController(verify, animated: true)
-        
-        
-    }
+      }
     
-    func saveToken(user_id:Int)  {
-        userDefaults.set(user_id, forKey: UserDefaultsConstants.doctorRegisterUser_id)
+    func saveToken(user_id:Int,_ sms:Int)  {
+        userDefaults.set(user_id, forKey: UserDefaultsConstants.doctorSecondRegisterUser_id)
+        userDefaults.set(sms, forKey: UserDefaultsConstants.doctorSecondRegisterSMSCode)
+        
         userDefaults.set(true, forKey: UserDefaultsConstants.isUserRegisterAndWaitForSMScODE)
         userDefaults.set(false, forKey: UserDefaultsConstants.isDoctorSecondRegister)
         userDefaults.set(mobile, forKey: UserDefaultsConstants.doctorRegisterMobile)
         userDefaults.set(false, forKey: UserDefaultsConstants.doctorRegisterSecondIsFromForgetPassw)
-
+        
         userDefaults.set(index, forKey: UserDefaultsConstants.isUserRegisterAndWaitForSMScODEIndex)
         userDefaults.synchronize()
         goToNext(id: user_id)
@@ -182,17 +182,11 @@ class DoctorSecondRegisterVC: CustomBaseViewVC {
             guard let user = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
             
             DispatchQueue.main.async {
-                self.saveToken(user_id: user.id)
+                self.saveToken(user_id: user.id,user.smsCode)
             }
         }
         
     }
-    
-    
-    
-    
-    
-    
 }
 
 
@@ -213,7 +207,5 @@ extension DoctorSecondRegisterVC : UIDocumentPickerDelegate {
         } catch {
             print("Unable to load data: \(error)")
         }
-        
-        
-    }
+     }
 }
