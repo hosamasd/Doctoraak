@@ -30,6 +30,11 @@ class UserDefaultsConstants {
     static let DoctorVerificationAPITOKEN="DoctorVerificationAPITOKEN"
     static let DoctorVerificationDoctorId="DoctorVerificationDoctorId"
     
+    //doctor clinic create
+    static let DocotrClinicCreateCLINICID="DocotrClinicCreateCLINICID"
+    static let DoctorPerformLogin="DoctorPerformLogin"
+static let DoctorPerformLoginWithMainIndex="DoctorPerformLoginWithMainIndex"
+    
     //register
     static let userMobileNumber="userMobileNumber"
     static let doctorSecondRegisterUser_id = "doctorRegisterUser_id"

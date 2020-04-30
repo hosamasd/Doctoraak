@@ -18,7 +18,7 @@ class ClinicDataViewModel {
     var city:Int? = -1 {didSet {checkFormValidity()}}
     var phone:String? {didSet {checkFormValidity()}}
     var api_token:String? {didSet {checkFormValidity()}}
-    var doctor_id:String? {didSet {checkFormValidity()}}
+    var doctor_id:Int? = -1 {didSet {checkFormValidity()}}
 
  var latt:String? {didSet {checkFormValidity()}}
      var lang:String? {didSet {checkFormValidity()}}
@@ -38,12 +38,11 @@ class ClinicDataViewModel {
         bindableIsResgiter.value = true
         
         RegistrationServices.shared.RegiasterClinicCreate(fees2: consultaionFees, fees: fees, lang: lang, latt: lat, phone: phone, waiting_time: waitingHours, photo: image, city: city, area: area, api_token: api_token, doctor_id: doctor_id, working_hours:workingArrayHours , completion: completion)
-        //        RegistrationServices.shared.registerUser(name: username, email: email, phone: phone, password: password, completion: completion)
     }
     
     func checkFormValidity() {
 //        let isFormValid = city?.isEmpty == false && area?.isEmpty == false && fees?.isEmpty == false  &&  phone?.isEmpty == false && waitingHours?.isEmpty == false && address?.isEmpty == false && workingHours?.isEmpty == false && consultaionFees?.isEmpty == false && index != -1 && image != nil && workingArrayHours?.isEmpty == false
-        let isFormValid = city != -1 && area != -1 && fees != -1  &&  phone?.isEmpty == false && waitingHours?.isEmpty == false && latt?.isEmpty == false  && lang?.isEmpty == false  && consultaionFees  != -1 && index != -1 && image != nil && workingArrayHours?.isEmpty == false && api_token?.isEmpty == false && doctor_id?.isEmpty == false
+        let isFormValid = city != -1 && area != -1 && fees != -1  &&  phone?.isEmpty == false && waitingHours?.isEmpty == false && latt?.isEmpty == false  && lang?.isEmpty == false  && consultaionFees  != -1 && index != -1 && image != nil && workingArrayHours?.isEmpty == false && api_token?.isEmpty == false && doctor_id != -1
         bindableIsFormValidate.value = isFormValid
         
     }

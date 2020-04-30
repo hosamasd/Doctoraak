@@ -12,7 +12,7 @@ struct MainDoctorClinicCreateModel:Codable {
     
     let status: Int
     let message, messageEn: String
-    let data: DoctorClinicCreateModel
+    var data: DoctorClinicCreateModel?
     
     enum CodingKeys: String, CodingKey {
         case status, message

@@ -111,7 +111,7 @@ class CustomClinicDataView: CustomBaseView {
         v.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleChoose)))
         return v
     }()
-    lazy var workingHoursLabel = UILabel(text: "Working Hours", font: .systemFont(ofSize: 16), textColor: .lightGray)
+    lazy var workingHoursLabel = UILabel(text: "Working Hours", font: .systemFont(ofSize: 16), textColor: .lightGray,numberOfLines: 0)
     
     //    lazy var clinicWorkingHoursTextField = createMainTextFields(place: "Work hours")
     lazy var waitingHoursTextField:UITextField = {
@@ -136,6 +136,8 @@ class CustomClinicDataView: CustomBaseView {
     }()
     
     var index = 0
+    var  doctor_id:Int = 0
+    var  api_token:String = ""
     var handleChooseHours:(()->Void)?
     var handlerChooseLocation:(()->Void)?
     
@@ -260,8 +262,8 @@ class CustomClinicDataView: CustomBaseView {
     
     @objc func textFieldDidChange(text: UITextField)  {
         clinicDataViewModel.index = index
-        clinicDataViewModel.workingHours = ["dsfds"]
-        //        registerViewModel.insurance = "asd"
+        clinicDataViewModel.doctor_id = doctor_id
+        clinicDataViewModel.api_token = api_token
         guard let texts = text.text else { return  }
         if let floatingLabelTextField = text as? SkyFloatingLabelTextField {
             if text == clinicMobileNumberTextField {
@@ -284,7 +286,7 @@ class CustomClinicDataView: CustomBaseView {
                     clinicDataViewModel.fees = texts.toInt()
                 }
             }else  if text == consultationFeesTextField {
-                if (texts.count < 3 ) {
+                if (texts.count < 1 ) {
                     floatingLabelTextField.errorMessage = "Invalid consulation feez".localized
                     clinicDataViewModel.consultaionFees = nil
                 }
@@ -295,7 +297,7 @@ class CustomClinicDataView: CustomBaseView {
                 }
                 
             }else if text == waitingHoursTextField {
-                if (texts.count < 3 ) {
+                if (texts.count < 1 ) {
                     floatingLabelTextField.errorMessage = "Invalid waiing".localized
                     clinicDataViewModel.waitingHours = nil
                 }

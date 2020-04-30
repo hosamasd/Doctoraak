@@ -303,9 +303,6 @@ class CustomDoctorClinicWorkingHoursView: CustomBaseView {
     }
     
     func savedData()  {
-           if !userDefaults.bool(forKey: UserDefaultsConstants.isWorkingHoursSaved) {
-               return
-           }else{
                userDefaults.set(d1TXT1 , forKey: UserDefaultsConstants.first1)
                userDefaults.set(d1TXT2  , forKey: UserDefaultsConstants.first11)
                userDefaults.set(d12TXT1 , forKey: UserDefaultsConstants.first211)
@@ -352,7 +349,7 @@ class CustomDoctorClinicWorkingHoursView: CustomBaseView {
                userDefaults.set(true, forKey: UserDefaultsConstants.isWorkingHoursSaved)
                userDefaults.synchronize()
                print(9999)
-           }
+           
        }
     
     

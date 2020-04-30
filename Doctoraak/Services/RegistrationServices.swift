@@ -70,7 +70,7 @@ class RegistrationServices {
         let basics = urlString+"?name=\(name)&email=\(email)&phone=\(phone)&password=\(password)&gender=\(gender)&specialization_id=\(specialization_id)&degree_id=\(degree_id)&is_medical_center=\(index)"
         
         let postString = !isInsurance ?  basics : basics+"&insurance=\(insurance)" //insurance if not empty
-        var urlsString = postString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+        let urlsString = postString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
 
         
         Alamofire.upload(multipartFormData: { (multipartFormData) in
@@ -112,12 +112,13 @@ class RegistrationServices {
         }
     }
     
-    func RegiasterClinicCreate(fees2:Int,fees:Int,lang:String,latt:String,phone:String,waiting_time:String,photo:UIImage,city:Int,area:Int,api_token:String,doctor_id:String,working_hours:[Any],completion:@escaping (MainDoctorClinicCreateModel?,Error?)->Void)  {
+    func RegiasterClinicCreate(fees2:Int,fees:Int,lang:String,latt:String,phone:String,waiting_time:String,photo:UIImage,city:Int,area:Int,api_token:String,doctor_id:Int,working_hours:[Any],completion:@escaping (MainDoctorClinicCreateModel?,Error?)->Void)  {
         let urlString = "http://doctoraak.sphinxatapps.com/public/api/doctor_create_clinic".toSecrueHttps()
         
         let postString = urlString+"?fees=\(fees)&lang=\(lang)&latt=\(latt)&phone=\(phone)&waiting_time=\(waiting_time)&city=\(city)&area=\(area)&api_token=\(api_token)&doctor_id=\(doctor_id)&working_hours=\(working_hours)&fees2=\(fees2)"
         
-        
+        let urlsString = postString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+
         
         Alamofire.upload(multipartFormData: { (multipartFormData) in
             
@@ -125,7 +126,7 @@ class RegistrationServices {
                 multipartFormData.append(data, withName: "photo", fileName: "asd.jpeg", mimeType: "image/jpeg")
             }
             
-        }, to:postString)
+        }, to:urlsString!)
         { (result) in
             switch result {
             case .success(let upload, _, _):

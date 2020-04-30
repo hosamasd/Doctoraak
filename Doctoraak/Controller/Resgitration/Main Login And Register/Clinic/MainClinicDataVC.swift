@@ -10,6 +10,7 @@ import UIKit
 import SkyFloatingLabelTextField
 import MapKit
 import SVProgressHUD
+import MOLH
 
 
 class MainClinicDataVC: CustomBaseViewVC {
@@ -30,6 +31,8 @@ class MainClinicDataVC: CustomBaseViewVC {
     lazy var customClinicDataView:CustomClinicDataView = {
         let v = CustomClinicDataView()
         v.index = index
+        v.api_token = api_token
+        v.doctor_id=doctor_id
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
         v.doneButton.addTarget(self, action: #selector(handleDone), for: .touchUpInside)
         
@@ -126,6 +129,29 @@ class MainClinicDataVC: CustomBaseViewVC {
         
     }
     
+    func goToNext(_ clinic_id:Int)  {
+        
+           self.updateStates(clinic_id)
+        let main = DoctorHomeVC(inde: index)
+        navigationController?.pushViewController(main, animated: true)
+//           if  isFromForgetPassw {
+//               let  vc =  MainNewPassVC(indexx: index)
+//               navigationController?.pushViewController(vc, animated: true)
+//           }else {
+//
+//               let vc =  MainClinicDataVC(indexx: index,api_token: api_token,doctor_id: doctor_id)
+//               navigationController?.pushViewController(vc, animated: true)
+//           }
+           
+       }
+    
+    func updateStates(_ clinic_id:Int)  {
+        userDefaults.set(clinic_id, forKey: UserDefaultsConstants.DocotrClinicCreateCLINICID)
+        userDefaults.set(true, forKey: UserDefaultsConstants.DoctorPerformLogin)
+        userDefaults.set(index, forKey: UserDefaultsConstants.DoctorPerformLoginWithMainIndex)
+        userDefaults.synchronize()
+    }
+    
     //TODO: -handle methods
     
     @objc func handleBack()  {
@@ -134,10 +160,20 @@ class MainClinicDataVC: CustomBaseViewVC {
     
     @objc func handleDone()  {
         
-//        customClinicDataView.clinicDataViewModel.per
+        customClinicDataView.clinicDataViewModel.performRegister { (base, err) in
+            if let err = err {
+                      SVProgressHUD.showError(withStatus: err.localizedDescription)
+                      self.activeViewsIfNoData();return
+                  }
+                  SVProgressHUD.dismiss()
+                  self.activeViewsIfNoData()
+                  guard let user = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
+                  
+                  DispatchQueue.main.async {
+                      self.goToNext(user.id)
+                  }
+        }
         
-        let payment = MainPaymentVC(indexx: index)
-        navigationController?.pushViewController(payment, animated: true)
     }
     
     func handleChooseWorkingHours()  {
@@ -167,6 +203,7 @@ class MainClinicDataVC: CustomBaseViewVC {
 extension MainClinicDataVC: MainClinicWorkingHoursProtocol {
     func getDays(indexs: [Int], days: [String]) {
         print(indexs,"              ",days)
+        customClinicDataView.workingHoursLabel.text = days.joined(separator: "-")
     }
     
     func getHoursChoosed(hours: [[String : Any]]) {

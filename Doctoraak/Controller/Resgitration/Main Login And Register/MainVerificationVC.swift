@@ -136,6 +136,8 @@ class MainVerificationVC: CustomBaseViewVC {
     
     func updateStates(api_token:String,_ doctor_id:Int)  {
         userDefaults.set(true, forKey: UserDefaultsConstants.isUserRegisterAndWaitForClinicData)
+        userDefaults.set(false, forKey: UserDefaultsConstants.isWorkingHoursSaved)
+
         userDefaults.set(api_token, forKey: UserDefaultsConstants.DoctorVerificationAPITOKEN)
         userDefaults.set(doctor_id, forKey: UserDefaultsConstants.DoctorVerificationDoctorId)
 
