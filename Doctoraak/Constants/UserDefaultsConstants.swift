@@ -12,6 +12,13 @@ class UserDefaultsConstants {
     
     static let isCachedDriopLists = "isCachedDriopLists"
     
+    //login or reigster done states
+    static let DoctorPerformLogin="DoctorPerformLogin"
+    static let medicalCenterPerformLogin="medicalCenterPerformLogin"
+    static let pharamacyPerformLogin="pharamacyPerformLogin"
+    static let labPerformLogin="labPerformLogin"
+    static let radiologyPerformLogin="radiologyPerformLogin"
+    
     //doctor register
     static let doctorRegisterImage = "doctorRegisterImage"
     static let doctorRegisterName="doctorRegisterName"
@@ -32,7 +39,6 @@ class UserDefaultsConstants {
     
     //doctor clinic create
     static let DocotrClinicCreateCLINICID="DocotrClinicCreateCLINICID"
-    static let DoctorPerformLogin="DoctorPerformLogin"
 static let DoctorPerformLoginWithMainIndex="DoctorPerformLoginWithMainIndex"
     
     //register

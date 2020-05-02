@@ -19,7 +19,7 @@ class LoginViewModel {
     var index:Int?  = -1 {didSet {checkFormValidity()}}
     
     
-    func performLogging(completion:@escaping (MainDoctorRegisterModel?,Error?)->Void)  {
+    func performLogging(completion:@escaping (MainLoginAllModel?,Error?)->Void)  {
         guard let phone = phone,let password = password
             else { return  }
         bindableIsLogging.value = true

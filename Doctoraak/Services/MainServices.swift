@@ -8,6 +8,9 @@
 
 import UIKit
 
+let baseUrl = "http://doctoraak.sphinxatapps.com/public/api/"
+
+
 class MainServices {
     static let shared = MainServices()
     

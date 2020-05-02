@@ -621,8 +621,8 @@ class CustomDoctorClinicWorkingHoursView: CustomBaseView {
           return ss
       }
     
-    func getChoosenHours() -> [[String:Any]] {
-           let vv:[[String:Any]] = [
+    func getChoosenHours() -> [Any] {
+         let v =   [
                creates(day: 1, v: day1, t1: d1TXT1, t2: d1TXT1,t21: d12TXT1,t22: d12TXT2)
                ,
                creates(day: 2, v: day2, t1: d2TXT1, t2: d2TXT1,t21: d22TXT1,t22: d22TXT2),
@@ -633,16 +633,17 @@ class CustomDoctorClinicWorkingHoursView: CustomBaseView {
                creates(day: 7, v: day7, t1: d7TXT1, t2: d7TXT1,t21: d72TXT1,t22: d72TXT2)
                
            ]
-           return vv
+           return v
        }
-    func creates(day:Int,v:Bool?,t1:String? ,t2:String?,t21:String?,t22:String?) -> [String:Any] {
+    func creates(day:Int,v:Bool,t1:String? ,t2:String?,t21:String?,t22:String?) -> [String:Any] {
+        let xc = v == true ? 1 : 0
         
         return [   "part1_from": t1 ?? "00:00",
                    "part1_to":t2 ?? "00:00",
                    "part2_from": t21 ?? "00:00",
                    "part2_to": t22 ?? "00:00",
                    "day":day ,
-                   "active":v ?? false
+                   "active":xc
         ]
     }
 

@@ -8,7 +8,6 @@
 
 import UIKit
 import SVProgressHUD
-import PKHUD
 import MOLH
 
 class MainLoginsVC: CustomBaseViewVC {
@@ -37,9 +36,18 @@ class MainLoginsVC: CustomBaseViewVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLoginViewModelObserver()
+        seeee()
     }
     
     //MARK:-User methods
+    
+    func seeee()  {
+        RegistrationServices.shared.MainResendSmsCodeAgain(index: 0, user_id: 30) { (base, err) in
+            if let err=err{
+                SVProgressHUD.showError(withStatus: err.localizedDescription)
+            }
+        }
+    }
     
     fileprivate func setupLoginViewModelObserver(){
         
@@ -76,6 +84,14 @@ class MainLoginsVC: CustomBaseViewVC {
                      navigationController?.pushViewController(home, animated: true)
     }
     
+    func saveToken(doctr_id:Int,_ api_token:String)  {
+        let perform = index == 0 ? UserDefaultsConstants.DoctorPerformLogin : index == 1 ? UserDefaultsConstants.medicalCenterPerformLogin : index == 2 ? UserDefaultsConstants.labPerformLogin : index == 3 ? UserDefaultsConstants.radiologyPerformLogin : UserDefaultsConstants.pharamacyPerformLogin
+        
+        userDefaults.set(true, forKey: perform)
+                userDefaults.synchronize()
+         self.goToMainTab()
+    }
+    
     //TODO: -handle methods
     
     @objc  func handleRegister()  {
@@ -97,7 +113,8 @@ class MainLoginsVC: CustomBaseViewVC {
 //        self.saveToken(token: user.apiToken)
         
         DispatchQueue.main.async {
-            self.goToMainTab()
+            self.saveToken(doctr_id: user.id, "")
+           
         }
         }
         

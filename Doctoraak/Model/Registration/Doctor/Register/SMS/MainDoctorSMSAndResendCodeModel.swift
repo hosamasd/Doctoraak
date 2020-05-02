@@ -36,7 +36,7 @@ struct DoctorModel:Codable {
     let isHospital: Int
     var dataDescription: String?
     let isMedicalCenter: Int
-    let doctorInsurances: [DoctorInsuranceModel]
+    let doctorInsurances: [AllInsuranceModel]
     let degree, specialization: DegreeDoctorModel
     let insuranceCompany: [DegreeDoctorModel]
 

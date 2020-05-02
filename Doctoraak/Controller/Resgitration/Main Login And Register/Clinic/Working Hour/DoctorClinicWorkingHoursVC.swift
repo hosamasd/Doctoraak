@@ -10,7 +10,7 @@ import UIKit
 
 protocol MainClinicWorkingHoursProtocol {
     //    func getHoursChoosed(hours:[String])
-    func getHoursChoosed(hours:[[String:Any]])
+    func getHoursChoosed(hours:[Any])
     func getDays(indexs:[Int],days:[String])
     
     

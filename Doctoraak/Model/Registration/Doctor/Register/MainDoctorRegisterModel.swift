@@ -51,16 +51,31 @@ struct DoctorRegisterModel:Codable {
     }
 }
 
+struct AllInsuranceModel:Codable {
+    let id, labID, insuranceID: Int
+       let createdAt, updatedAt: String
+    
+       enum CodingKeys: String, CodingKey {
+           case id
+           case insuranceID = "insurance_id"
+           case createdAt = "created_at"
+           case updatedAt = "updated_at"
+        case labID = "lab_id"
+
+       }
+}
+
 struct DoctorInsuranceModel:Codable {
     let id, doctorID, insuranceID: Int
        let createdAt, updatedAt: String
-
+    
        enum CodingKeys: String, CodingKey {
            case id
            case doctorID = "doctor_id"
            case insuranceID = "insurance_id"
            case createdAt = "created_at"
            case updatedAt = "updated_at"
+
        }
 }
 
