@@ -41,10 +41,10 @@ class MainRegisterVC: CustomBaseViewVC {
             self.navigationController?.pushViewController(working, animated: true)
         }
         v.handlerChooseLocation = {[unowned self] in
-                   let loct = ChooseLocationVC()
-                   loct.delgate = self
-                   self.navigationController?.pushViewController(loct, animated: true)
-               }
+            let loct = ChooseLocationVC()
+            loct.delgate = self
+            self.navigationController?.pushViewController(loct, animated: true)
+        }
         return v
     }()
     
@@ -78,48 +78,9 @@ class MainRegisterVC: CustomBaseViewVC {
             .init(partFrom: "00:00", partTo: "00:00", day: 5, active: 0),
             .init(partFrom: "00:00", partTo: "00:00", day: 6, active: 0),
             .init(partFrom: "12:00", partTo: "15:00", day: 7, active: 1),
-                                      
-                                      ]
-
-        let jsonEncoder = JSONEncoder()
-        let jsonData = try? jsonEncoder.encode(singldata)
-        var theBody = Data()
-        if let a = "attendance_details=".data(using: .utf8) {
-//           theBody.append(a)
-        }
-//        let working = [
-//      [
-//        "part1_from":"10:00",
-//                "part1_to":"14:00",
-//                "day":1 ,
-//                "active":1],
-//
-//               [ "part1_from":"00:00",
-//                        "part1_to":"00:00",
-//                        "day":2 ,
-//                        "active":0],
-//               [ "part1_from":"00:00",
-//                                      "part1_to":"00:00",
-//                                      "day":3 ,
-//                                      "active":0],
-//               [ "part1_from":"00:00",
-//                                      "part1_to":"00:00",
-//                                      "day":4 ,
-//                                      "active":0],
-//               [ "part1_from":"00:00",
-//                                      "part1_to":"00:00",
-//                                      "day":5 ,
-//                                      "active":0],
-//               [ "part1_from":"00:00",
-//                                      "part1_to":"00:00",
-//                                      "day":6 ,
-//                                      "active":0],
-//               [ "part1_from":"00:00",
-//                                      "part1_to":"00:00",
-//                                      "day":7 ,
-//                                      "active":0]
-//        ]
-//
+            
+        ]
+        
         RegistrationServices.shared.mainRegister(index: index, photo: #imageLiteral(resourceName: "Group 4143-2"), name: "asd", email: "cxcddrdff@c.com", phone: "00012345331", password: "00000000", insurance: [1], delivery: 1, working_hours: singldata, latt: "51512.4555454", lang: "5451521.155151454545", city: 1, area: 1) { (base, err) in
             if let err=err{
                 print(err.localizedDescription)
@@ -137,12 +98,12 @@ class MainRegisterVC: CustomBaseViewVC {
         
         customMainRegisterView.registerViewModel.bindableIsResgiter.bind(observer: {  [unowned self] (isReg) in
             if isReg == true {
-                                UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
-                                SVProgressHUD.show(withStatus: "Login...".localized)
+                UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
+                SVProgressHUD.show(withStatus: "Login...".localized)
                 
             }else {
-                                SVProgressHUD.dismiss()
-                                self.activeViewsIfNoData()
+                SVProgressHUD.dismiss()
+                self.activeViewsIfNoData()
             }
         })
     }
@@ -162,27 +123,27 @@ class MainRegisterVC: CustomBaseViewVC {
         navigationController?.navigationBar.isHide(true)
     }
     
-
-
+    
+    
     func convertLatLongToAddress(latitude:Double,longitude:Double){
-
+        
         let geoCoder = CLGeocoder()
         let location = CLLocation(latitude: latitude, longitude: longitude)
         geoCoder.reverseGeocodeLocation(location, completionHandler: {[unowned self] (placemarks, error) -> Void in
-
+            
             // Place details
             var placeMark: CLPlacemark!
             placeMark = placemarks?[0]
-
+            
             // Location name
             guard let locationName = placeMark.locality , let street = placeMark.thoroughfare, let city = placeMark.subAdministrativeArea, let country = placeMark.country else {return}
-             self.customMainRegisterView.addressLabel.text = "\(locationName) - \(street) - \(city) - \(country)"
+            self.customMainRegisterView.addressLabel.text = "\(locationName) - \(street) - \(city) - \(country)"
         })
-
+        
         
     }
-
-
+    
+    
     
     //TODO: -handle methods
     
@@ -240,17 +201,12 @@ extension MainRegisterVC: UIImagePickerControllerDelegate, UINavigationControlle
 extension MainRegisterVC: MainClinicWorkingHoursssProtocol{
     
     func getDays(indexs: [Int], days: [String]) {
-           print(indexs,"              ",days)
-       }
+        print(indexs,"              ",days)
+    }
     
     func getHoursChoosed(hours: [ SecondWorkModel]) {
         print(hours)
     }
-    
-//    func getHoursChoosed(hours: [String]) {
-//        customMainRegisterView.workingHoursLabel.text = hours.first
-//    }
-    
     
     
 }
@@ -258,9 +214,9 @@ extension MainRegisterVC: MainClinicWorkingHoursssProtocol{
 extension MainRegisterVC: ChooseLocationVCProtocol{
     
     func getLatAndLong(lat: Double, long: Double) {
-//           customMainRegisterView.registerViewModel.lat = "\(lat)"
-//           customLapSearchView.registerViewModel.lng = "\(long)"
+        //           customMainRegisterView.registerViewModel.lat = "\(lat)"
+        //           customLapSearchView.registerViewModel.lng = "\(long)"
         convertLatLongToAddress(latitude: lat, longitude: long)
-           print(lat, "            ",long)
-       }
+        print(lat, "            ",long)
+    }
 }
