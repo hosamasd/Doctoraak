@@ -69,13 +69,15 @@ class MainRegisterVC: CustomBaseViewVC {
     
     func MAKEoPERATION()  {
         
-        let singldata:[WorkModel] = [ WorkModel(partFrom: "00:00", partTo: "00:00", day: 1, active: 0),
-                         WorkModel(partFrom: "00:00", partTo: "00:00", day: 2, active: 0),
-                         WorkModel(partFrom: "00:00", partTo: "00:00", day: 3, active: 0),
-                         WorkModel(partFrom: "00:00", partTo: "00:00", day: 4, active: 0),
-                         WorkModel(partFrom: "00:00", partTo: "00:00", day: 5, active: 0),
-                         WorkModel(partFrom: "00:00", partTo: "00:00", day: 6, active: 0),
-                         WorkModel(partFrom: "12:00", partTo: "15:00", day: 7, active: 1),
+        let singldata:[SecondWorkModel] = [
+            
+            .init(partFrom: "00:00", partTo: "00:00", day: 1, active: 0),
+            .init(partFrom: "00:00", partTo: "00:00", day: 2, active: 0),
+            .init(partFrom: "00:00", partTo: "00:00", day: 3, active: 0),
+            .init(partFrom: "00:00", partTo: "00:00", day: 4, active: 0),
+            .init(partFrom: "00:00", partTo: "00:00", day: 5, active: 0),
+            .init(partFrom: "00:00", partTo: "00:00", day: 6, active: 0),
+            .init(partFrom: "12:00", partTo: "15:00", day: 7, active: 1),
                                       
                                       ]
 

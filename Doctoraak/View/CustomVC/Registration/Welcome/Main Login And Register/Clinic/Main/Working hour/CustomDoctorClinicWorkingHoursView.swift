@@ -105,13 +105,13 @@ class CustomDoctorClinicWorkingHoursView: CustomBaseView {
     var shiftOne = true
     var shiftTwo = false
     
-    var day1:Bool = false
-    var day2:Bool = true
-    var day3:Bool = false
-    var day4:Bool = false
-    var day5:Bool = false
-    var day6:Bool = false
-    var day7:Bool = false
+    var day1:Int = 0
+    var day2:Int = 1
+    var day3:Int = 0
+    var day4:Int = 0
+    var day5:Int = 0
+    var day6:Int = 0
+    var day7:Int = 0
     
     var d1TXT1:String?  = "00:00"
     var d1TXT2:String?  = "00:00"
@@ -531,14 +531,14 @@ class CustomDoctorClinicWorkingHoursView: CustomBaseView {
            let d3 = userDefaults.bool(forKey: UserDefaultsConstants.day3);let d7 = userDefaults.bool(forKey: UserDefaultsConstants.day7)
            let d4 = userDefaults.bool(forKey: UserDefaultsConstants.day4)
            
-           day1 = d1;  day2=d2;    day3=d3;    day4=d4;    day5=d5;    day6=d6;    day7=d7
-           checkIfButtonsEnabled(enable: day1, vv: satButton)
-           checkIfButtonsEnabled(enable: day2, vv: sunButton)
-           checkIfButtonsEnabled(enable: day3, vv: monButton)
-           checkIfButtonsEnabled(enable: day4, vv: tuesButton)
-           checkIfButtonsEnabled(enable: day5, vv: wedButton)
-           checkIfButtonsEnabled(enable: day6, vv: thuButton)
-           checkIfButtonsEnabled(enable: day7, vv: friButton)
+//           day1 = d1;  day2=d2;    day3=d3;    day4=d4;    day5=d5;    day6=d6;    day7=d7
+//           checkIfButtonsEnabled(enable: day1, vv: satButton)
+//           checkIfButtonsEnabled(enable: day2, vv: sunButton)
+//           checkIfButtonsEnabled(enable: day3, vv: monButton)
+//           checkIfButtonsEnabled(enable: day4, vv: tuesButton)
+//           checkIfButtonsEnabled(enable: day5, vv: wedButton)
+//           checkIfButtonsEnabled(enable: day6, vv: thuButton)
+//           checkIfButtonsEnabled(enable: day7, vv: friButton)
        }
     
     func checkIfButtonsEnabled(enable:Bool,vv:UIButton)  {
@@ -554,25 +554,25 @@ class CustomDoctorClinicWorkingHoursView: CustomBaseView {
            switch tag {
            case 1:
                enalbes(t: first1TextField,first2TextField,mainSecondStack.first1TextField,mainSecondStack.first2TextField,enable:enable)
-               day1 =  enable ? true : false
+               day1 =  enable ? 1 : 0
            case 2:
                enalbes(t: second1TextField,second2TextField,mainSecondStack.second1TextField,mainSecondStack.second2TextField,enable:enable)
-               day2 = enable ? true : false
+               day2 = enable ? 1 : 0
            case 3:
                enalbes(t: third1TextField,third2TextField,mainSecondStack.third1TextField,mainSecondStack.third2TextField,enable:enable)
-               day3 = enable ? true : false
+               day3 = enable ? 1 : 0
            case 4:
                enalbes(t: forth1TextField,forth2TextField,mainSecondStack.forth1TextField,mainSecondStack.forth2TextField,enable:enable)
-               day4 = enable ? true : false
+               day4 = enable ? 1 : 0
            case 5:
                enalbes(t: fifth1TextField,fifth2TextField,mainSecondStack.fifth1TextField,mainSecondStack.fifth2TextField,enable:enable)
-               day5 = enable ? true : false
+               day5 = enable ? 1 : 0
            case 6:
                enalbes(t: sexth1TextField,sexth2TextField,mainSecondStack.sexth1TextField,mainSecondStack.sexth2TextField,enable:enable)
-               day6 = enable ? true : false
+               day6 = enable ? 1 : 0
            default:
                enalbes(t: seventh1TextField,seventh2TextField,mainSecondStack.seventh1TextField,mainSecondStack.seventh2TextField,enable:enable)
-               day7 = enable ? true : false
+               day7 = enable ? 1 : 0
            }
        }
     //    func enableTextFields(tag:Int)  {
@@ -608,43 +608,36 @@ class CustomDoctorClinicWorkingHoursView: CustomBaseView {
         print(969)
     }
     
+    func checkActiveDay(_ d:Int) -> Bool {
+        return d == 1 ? true : false
+    }
+    
     func getDays() -> [String] {
           var ss = [String]()
-          ss.append(day1 ? "Sat" : day2 ? "Sun" : day3 ? "Mon" : day4 ? "Tue" : day5 ? "Wed" : day6 ? "Thr" : "Fri" )
+          ss.append(checkActiveDay(day1) ? "Sat" : checkActiveDay(day2) ? "Sun" : checkActiveDay(day3) ? "Mon" : checkActiveDay(day4) ? "Tue" : checkActiveDay(day5) ? "Wed" : checkActiveDay(day6) ? "Thr" : "Fri" )
           return ss
       }
       
       func getDaysIndex() -> [Int] {
           var ss = [Int]()
-          ss.append(day1 ? 1 : day2 ? 2 : day3 ? 3 : day4 ? 4 : day5 ? 5 : day6 ? 6 : 7)
+          ss.append(checkActiveDay(day1) ? 1 : checkActiveDay(day2) ? 2 : checkActiveDay(day3) ? 3 : checkActiveDay(day4) ? 4 : checkActiveDay(day5) ? 5 : checkActiveDay(day6) ? 6 : 7)
           
           return ss
       }
     
-    func getChoosenHours() -> [Any] {
-         let v =   [
-               creates(day: 1, v: day1, t1: d1TXT1, t2: d1TXT1,t21: d12TXT1,t22: d12TXT2)
-               ,
-               creates(day: 2, v: day2, t1: d2TXT1, t2: d2TXT1,t21: d22TXT1,t22: d22TXT2),
-               creates(day: 3, v: day3, t1: d3TXT1, t2: d3TXT1,t21: d32TXT1,t22: d32TXT2),
-               creates(day: 4, v: day4, t1: d4TXT1, t2: d4TXT1,t21: d42TXT1,t22: d42TXT2),
-               creates(day: 5, v: day5, t1: d5TXT1, t2: d5TXT1,t21: d52TXT1,t22: d52TXT2),
-               creates(day: 6, v: day6, t1: d6TXT1, t2: d6TXT1,t21: d62TXT1,t22: d62TXT2),
-               creates(day: 7, v: day7, t1: d7TXT1, t2: d7TXT1,t21: d72TXT1,t22: d72TXT2)
-               
+    func getChoosenHours() -> [WorkModel] {
+        
+        let v:[WorkModel] =   [
+        .init(part1From: d1TXT2!, part1To: d1TXT2!, part2From: d12TXT1!, part2To: d12TXT2!, day: 1, active: day1),
+        .init(part1From: d1TXT2!, part1To: d1TXT2!, part2From: d12TXT1!, part2To: d12TXT2!, day: 2, active: day2),
+            .init(part1From: d1TXT2!, part1To: d1TXT2!, part2From: d12TXT1!, part2To: d12TXT2!, day: 1, active: day3),
+            .init(part1From: d1TXT2!, part1To: d1TXT2!, part2From: d12TXT1!, part2To: d12TXT2!, day: 1, active: day4),
+            .init(part1From: d1TXT2!, part1To: d1TXT2!, part2From: d12TXT1!, part2To: d12TXT2!, day: 1, active: day5),
+            .init(part1From: d1TXT2!, part1To: d1TXT2!, part2From: d12TXT1!, part2To: d12TXT2!, day: 1, active: day6),
+            .init(part1From: d1TXT2!, part1To: d1TXT2!, part2From: d12TXT1!, part2To: d12TXT2!, day: 1, active: day7)
+            
            ]
            return v
        }
-    func creates(day:Int,v:Bool,t1:String? ,t2:String?,t21:String?,t22:String?) -> [String:Any] {
-        let xc = v == true ? 1 : 0
-        
-        return [   "part1_from": t1 ?? "00:00",
-                   "part1_to":t2 ?? "00:00",
-                   "part2_from": t21 ?? "00:00",
-                   "part2_to": t22 ?? "00:00",
-                   "day":day ,
-                   "active":xc
-        ]
-    }
 
 }

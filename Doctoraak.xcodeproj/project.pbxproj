@@ -114,6 +114,7 @@
 		4EDBE29F242B9C7F00702C9A /* MainPaymentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDBE29E242B9C7F00702C9A /* MainPaymentVC.swift */; };
 		4EDBE2A2242BA06500702C9A /* DoctorNotificationsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDBE2A1242BA06500702C9A /* DoctorNotificationsVC.swift */; };
 		4EDBE2A5242BA28900702C9A /* CustomMainDoctorNotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDBE2A4242BA28900702C9A /* CustomMainDoctorNotificationView.swift */; };
+		4EE876EA245EA0CA0074DEB7 /* SecondWorkModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE876E9245EA0CA0074DEB7 /* SecondWorkModel.swift */; };
 		4EEBF7BE243D98F60039BF81 /* PatientCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEBF7BD243D98F60039BF81 /* PatientCell.swift */; };
 		4EEBF7C0243D99B10039BF81 /* PatientThirdDataVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEBF7BF243D99B10039BF81 /* PatientThirdDataVC.swift */; };
 		4EEBF7C3243D9A250039BF81 /* CustomPatientThirddDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEBF7C2243D9A250039BF81 /* CustomPatientThirddDataView.swift */; };
@@ -237,6 +238,7 @@
 		4EDBE29E242B9C7F00702C9A /* MainPaymentVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainPaymentVC.swift; sourceTree = "<group>"; };
 		4EDBE2A1242BA06500702C9A /* DoctorNotificationsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorNotificationsVC.swift; sourceTree = "<group>"; };
 		4EDBE2A4242BA28900702C9A /* CustomMainDoctorNotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMainDoctorNotificationView.swift; sourceTree = "<group>"; };
+		4EE876E9245EA0CA0074DEB7 /* SecondWorkModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondWorkModel.swift; sourceTree = "<group>"; };
 		4EEBF7BD243D98F60039BF81 /* PatientCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientCell.swift; sourceTree = "<group>"; };
 		4EEBF7BF243D99B10039BF81 /* PatientThirdDataVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientThirdDataVC.swift; sourceTree = "<group>"; };
 		4EEBF7C2243D9A250039BF81 /* CustomPatientThirddDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPatientThirddDataView.swift; sourceTree = "<group>"; };
@@ -823,6 +825,15 @@
 			path = "Doctor Scenrieo";
 			sourceTree = "<group>";
 		};
+		4EE876E8245EA0B70074DEB7 /* Working */ = {
+			isa = PBXGroup;
+			children = (
+				4EAAFFB8245DBF7E002C67EA /* WorkModel.swift */,
+				4EE876E9245EA0CA0074DEB7 /* SecondWorkModel.swift */,
+			);
+			path = Working;
+			sourceTree = "<group>";
+		};
 		4EEBF7BC243D98D30039BF81 /* Patients */ = {
 			isa = PBXGroup;
 			children = (
@@ -933,7 +944,7 @@
 			children = (
 				4EC1A8CD2447088800AD898E /* Registration */,
 				4EFD44FA2446ECC400B4CB35 /* Main */,
-				4EAAFFB8245DBF7E002C67EA /* WorkModel.swift */,
+				4EE876E8245EA0B70074DEB7 /* Working */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1159,6 +1170,7 @@
 				4ED34648244736FE00E29F03 /* ChooseLocationVC.swift in Sources */,
 				4EAAFFB9245DBF7E002C67EA /* WorkModel.swift in Sources */,
 				4EA112B82429E541005B64E3 /* LoginViewModel.swift in Sources */,
+				4EE876EA245EA0CA0074DEB7 /* SecondWorkModel.swift in Sources */,
 				4E111D7B2429C4EC000250AE /* MainRegisterVC.swift in Sources */,
 				4E333E13242663E400F82E00 /* DoctorWorkingDateCell.swift in Sources */,
 				4E28EC6E242A4DB900B54186 /* MainNewPassVC.swift in Sources */,

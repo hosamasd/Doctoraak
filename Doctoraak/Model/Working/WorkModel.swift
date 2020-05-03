@@ -9,12 +9,14 @@
 import UIKit
 
 struct WorkModel:Codable {
-    let partFrom, partTo: String
+    let part1From, part1To, part2From, part2To: String
        let day, active: Int
 
        enum CodingKeys: String, CodingKey {
-           case partFrom = "part_from"
-           case partTo = "part_to"
+           case part1From = "part1_from"
+           case part1To = "part1_to"
+           case part2From = "part2_from"
+           case part2To = "part2_to"
            case day, active
        }
 }
