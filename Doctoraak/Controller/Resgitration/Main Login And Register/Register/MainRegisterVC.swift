@@ -62,7 +62,7 @@ class MainRegisterVC: CustomBaseViewVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViewModelObserver()
-        MAKEoPERATION()
+//        MAKEoPERATION()
     }
     
     //MARK:-User methods
@@ -138,6 +138,8 @@ class MainRegisterVC: CustomBaseViewVC {
             // Location name
             guard let locationName = placeMark.locality , let street = placeMark.thoroughfare, let city = placeMark.subAdministrativeArea, let country = placeMark.country else {return}
             self.customMainRegisterView.addressLabel.text = "\(locationName) - \(street) - \(city) - \(country)"
+            self.customMainRegisterView.registerViewModel.latt = "\(latitude)"
+            self.customMainRegisterView.registerViewModel.lang = "\(longitude)"
         })
         
         

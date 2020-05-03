@@ -28,8 +28,8 @@ class CustomMainClinicWorkingHoursView: CustomBaseView {
     lazy var soonLabel = UILabel(text: "Fill your data", font: .systemFont(ofSize: 18), textColor: .white)
     
     
-  
-    lazy var sunButton = createButtons(title: "Sun",color: .white,tags: 2)
+    
+    lazy var sunButton = createButtons(title: "Sun",color: .black,tags: 2)
     lazy var first1TextField = createHoursButtons(tags: 1)
     lazy var first2TextField = createHoursButtons(tags: 11)
     
@@ -80,7 +80,7 @@ class CustomMainClinicWorkingHoursView: CustomBaseView {
         let v = getStack(views: buttonDaysStack,mainFirstSecondStack, spacing: 48, distribution: .fillProportionally, axis: .horizontal )
         return v
     }()
-  
+    
     
     lazy var doneButton:UIButton = {
         let button = CustomSiftButton(type: .system)
@@ -97,144 +97,146 @@ class CustomMainClinicWorkingHoursView: CustomBaseView {
     
     var handleShowPickers:((UIButton)->Void)?
     var day1:Int = 0
-       var day2:Int = 1
-       var day3:Int = 0
-       var day4:Int = 0
-       var day5:Int = 0
-       var day6:Int = 0
-       var day7:Int = 0
-       
-       var d1TXT1:String?  = "00:00"
-       var d1TXT2:String?  = "00:00"
-       var d2TXT1:String?  = "00:00"
-       var d2TXT2:String?  = "00:00"
-       var d3TXT1:String?  = "00:00"
-       var d3TXT2:String?  = "00:00"
-       var d4TXT1:String?  = "00:00"
-       var d4TXT2:String?  = "00:00"
-       var d5TXT1:String?  = "00:00"
-       var d5TXT2:String?  = "00:00"
-       var d6TXT1:String?  = "00:00"
-       var d6TXT2:String?  = "00:00"
-       var d7TXT1:String?  = "00:00"
-       var d7TXT2:String?  = "00:00"
+    var day2:Int = 1
+    var day3:Int = 0
+    var day4:Int = 0
+    var day5:Int = 0
+    var day6:Int = 0
+    var day7:Int = 0
+    
+    var d1TXT1:String?  = "00:00"
+    var d1TXT2:String?  = "00:00"
+    var d2TXT1:String?  = "00:00"
+    var d2TXT2:String?  = "00:00"
+    var d3TXT1:String?  = "00:00"
+    var d3TXT2:String?  = "00:00"
+    var d4TXT1:String?  = "00:00"
+    var d4TXT2:String?  = "00:00"
+    var d5TXT1:String?  = "00:00"
+    var d5TXT2:String?  = "00:00"
+    var d6TXT1:String?  = "00:00"
+    var d6TXT2:String?  = "00:00"
+    var d7TXT1:String?  = "00:00"
+    var d7TXT2:String?  = "00:00"
     
     
     override func layoutSubviews() {
         super.layoutSubviews()
-       
-        if sunButton.backgroundColor != nil && day2 != 0{
+        
+        if sunButton.backgroundColor != nil && !userDefaults.bool(forKey: UserDefaultsConstants.isWorkingHoursSaved){
             addGradientInSenderAndRemoveOther(sender: sunButton)
             sunButton.setTitleColor(.white, for: .normal)
         }
         
-//        putDefualValues()
     }
     
-   
+    
     
     func savedData()  {
-                  userDefaults.set(d1TXT1 , forKey: UserDefaultsConstants.mainfirst1)
-                  userDefaults.set(d1TXT2  , forKey: UserDefaultsConstants.mainfirst11)
-                  
-                  userDefaults.set(d2TXT1 , forKey: UserDefaultsConstants.mainfirst2)
-                  userDefaults.set(d2TXT2 , forKey: UserDefaultsConstants.mainfirst21)
-                  
-                  userDefaults.set(d3TXT1 , forKey: UserDefaultsConstants.mainfirst3)
-                  userDefaults.set(d3TXT2 , forKey: UserDefaultsConstants.mainfirst31)
-                 
-                  userDefaults.set(d4TXT1 , forKey: UserDefaultsConstants.mainfirst4)
-                  userDefaults.set(d4TXT2 , forKey: UserDefaultsConstants.mainfirst41)
-
-                  userDefaults.set(d5TXT1 , forKey: UserDefaultsConstants.mainfirst5)
-                  userDefaults.set(d5TXT2 , forKey: UserDefaultsConstants.mainfirst51)
-                 
-                  userDefaults.set(d6TXT1 , forKey: UserDefaultsConstants.mainfirst6)
-                  userDefaults.set(d6TXT2 , forKey: UserDefaultsConstants.mainfirst61)
-                  
-                  userDefaults.set(d7TXT1 , forKey: UserDefaultsConstants.mainfirst7)
-                  userDefaults.set(d7TXT2 , forKey: UserDefaultsConstants.mainfirst71)
-                 
-                  userDefaults.set(day1  , forKey: UserDefaultsConstants.mainday1)
-                  userDefaults.set(day2  , forKey: UserDefaultsConstants.mainday2)
-                  userDefaults.set(day3  , forKey: UserDefaultsConstants.mainday3)
-                  userDefaults.set(day4  , forKey: UserDefaultsConstants.mainday4)
-                  userDefaults.set(day5  , forKey: UserDefaultsConstants.mainday5)
-                  userDefaults.set(day6  , forKey: UserDefaultsConstants.mainday6)
-                  userDefaults.set(day7  , forKey: UserDefaultsConstants.mainday7)
-                  
-                  userDefaults.set(true, forKey: UserDefaultsConstants.isWorkingHoursSaved)
-                  userDefaults.synchronize()
-                  print(9999)
-              
-          }
-       
+        userDefaults.set(d1TXT1 , forKey: UserDefaultsConstants.mainfirst1)
+        userDefaults.set(d1TXT2  , forKey: UserDefaultsConstants.mainfirst11)
+        
+        userDefaults.set(d2TXT1 , forKey: UserDefaultsConstants.mainfirst2)
+        userDefaults.set(d2TXT2 , forKey: UserDefaultsConstants.mainfirst21)
+        
+        userDefaults.set(d3TXT1 , forKey: UserDefaultsConstants.mainfirst3)
+        userDefaults.set(d3TXT2 , forKey: UserDefaultsConstants.mainfirst31)
+        
+        userDefaults.set(d4TXT1 , forKey: UserDefaultsConstants.mainfirst4)
+        userDefaults.set(d4TXT2 , forKey: UserDefaultsConstants.mainfirst41)
+        
+        userDefaults.set(d5TXT1 , forKey: UserDefaultsConstants.mainfirst5)
+        userDefaults.set(d5TXT2 , forKey: UserDefaultsConstants.mainfirst51)
+        
+        userDefaults.set(d6TXT1 , forKey: UserDefaultsConstants.mainfirst6)
+        userDefaults.set(d6TXT2 , forKey: UserDefaultsConstants.mainfirst61)
+        
+        userDefaults.set(d7TXT1 , forKey: UserDefaultsConstants.mainfirst7)
+        userDefaults.set(d7TXT2 , forKey: UserDefaultsConstants.mainfirst71)
+        
+        userDefaults.set(day1  , forKey: UserDefaultsConstants.mainday1)
+        userDefaults.set(day2  , forKey: UserDefaultsConstants.mainday2)
+        userDefaults.set(day3  , forKey: UserDefaultsConstants.mainday3)
+        userDefaults.set(day4  , forKey: UserDefaultsConstants.mainday4)
+        userDefaults.set(day5  , forKey: UserDefaultsConstants.mainday5)
+        userDefaults.set(day6  , forKey: UserDefaultsConstants.mainday6)
+        userDefaults.set(day7  , forKey: UserDefaultsConstants.mainday7)
+        
+        userDefaults.set(true, forKey: UserDefaultsConstants.isWorkingHoursSaved)
+        userDefaults.synchronize()
+        print(9999)
+        
+    }
+    
     func putDataForVariables(_ ff:String...)  {
-           d1TXT1 = ff[0]
-           d1TXT2=ff[1]
-           d2TXT1=ff[2]
-           d2TXT2=ff[3]
-           d3TXT1=ff[4]
-           d3TXT2=ff[5]
-           d4TXT1=ff[6]
-           d4TXT2=ff[7]
-           d5TXT1=ff[8]
-           d5TXT2=ff[9]
-           d6TXT1=ff[10]
-           d6TXT2=ff[11]
-           d7TXT1=ff[12]
-           d7TXT2=ff[13]
-       }
+        d1TXT1 = ff[0]
+        d1TXT2=ff[1]
+        d2TXT1=ff[2]
+        d2TXT2=ff[3]
+        d3TXT1=ff[4]
+        d3TXT2=ff[5]
+        d4TXT1=ff[6]
+        d4TXT2=ff[7]
+        d5TXT1=ff[8]
+        d5TXT2=ff[9]
+        d6TXT1=ff[10]
+        d6TXT2=ff[11]
+        d7TXT1=ff[12]
+        d7TXT2=ff[13]
+    }
     
     func changeTimeForButtonTitle(_ values:String)->String  {
-          var ppp = "am"
-          guard let minute = values.strstr(needle: ":", beforeNeedle: false)?.toInt()  else { return "" }
-          guard var hours = values.strstr(needle: ":", beforeNeedle: true)?.toInt()  else { return "" }
-          ppp = hours > 12 ? "pm" : "am"
-          hours =   hours > 12 ? hours - 12 : hours
-          return "\(hours):\(minute) \(ppp)"
-      }
+        var ppp = "am"
+        guard let minute = values.strstr(needle: ":", beforeNeedle: false)?.toInt()  else { return "" }
+        guard var hours = values.strstr(needle: ":", beforeNeedle: true)?.toInt()  else { return "" }
+        ppp = hours > 12 ? "pm" : "am"
+        hours =   hours > 12 ? hours - 12 : hours
+        return "\(hours):\(minute) \(ppp)"
+    }
     
     func getSavedData()  {
-        if let f1 = userDefaults.string(forKey: UserDefaultsConstants.mainfirst1),let f11 = userDefaults.string(forKey: UserDefaultsConstants.mainfirst11),
-            let f2 = userDefaults.string(forKey: UserDefaultsConstants.mainfirst2),let f21 = userDefaults.string(forKey: UserDefaultsConstants.mainfirst21),
-            let f3 = userDefaults.string(forKey: UserDefaultsConstants.mainfirst3),let f31 = userDefaults.string(forKey: UserDefaultsConstants.mainfirst31),
-            let f4 = userDefaults.string(forKey: UserDefaultsConstants.mainfirst4),let f41 = userDefaults.string(forKey: UserDefaultsConstants.mainfirst41),
-            let f5 = userDefaults.string(forKey: UserDefaultsConstants.mainfirst5),let f51 = userDefaults.string(forKey: UserDefaultsConstants.mainfirst51),
-            let f6 = userDefaults.string(forKey: UserDefaultsConstants.mainfirst6),let f61 = userDefaults.string(forKey: UserDefaultsConstants.mainfirst61),
+        
+        if !userDefaults.bool(forKey: UserDefaultsConstants.isWorkingHoursSaved) { }else {
             
-            let f7 = userDefaults.string(forKey: UserDefaultsConstants.mainfirst7),let f71 = userDefaults.string(forKey: UserDefaultsConstants.mainfirst71)
-            
-            
-            
-            
-        {
-            putDataForVariables(f1,f11,f2,f21,f3,f31,f4,f41,f5,f51,f6,f61,f7,f71)
-
-            first1TextField.setTitle(changeTimeForButtonTitle(f1), for: .normal)
-            first2TextField.setTitle(changeTimeForButtonTitle(f11), for: .normal)
-         
-            second1TextField.setTitle(changeTimeForButtonTitle(f2), for: .normal)
-            second2TextField.setTitle(changeTimeForButtonTitle(f21), for: .normal)
-         
-            third1TextField.setTitle(changeTimeForButtonTitle(f3), for: .normal)
-            third2TextField.setTitle(changeTimeForButtonTitle(f31), for: .normal)
-          
-            forth1TextField.setTitle(changeTimeForButtonTitle(f4), for: .normal)
-            forth2TextField.setTitle(changeTimeForButtonTitle(f41), for: .normal)
-          
-            fifth1TextField.setTitle(changeTimeForButtonTitle(f5), for: .normal)
-            fifth2TextField.setTitle(changeTimeForButtonTitle(f51), for: .normal)
-         
-            
-            sexth1TextField.setTitle(changeTimeForButtonTitle(f6), for: .normal)
-            sexth2TextField.setTitle(changeTimeForButtonTitle(f61), for: .normal)
-         
-            
-            seventh1TextField.setTitle(changeTimeForButtonTitle(f7), for: .normal)
-            seventh2TextField.setTitle(changeTimeForButtonTitle(f71), for: .normal)
-         putDefualValues()
-            
+            if let f1 = userDefaults.string(forKey: UserDefaultsConstants.mainfirst1),let f11 = userDefaults.string(forKey: UserDefaultsConstants.mainfirst11),
+                let f2 = userDefaults.string(forKey: UserDefaultsConstants.mainfirst2),let f21 = userDefaults.string(forKey: UserDefaultsConstants.mainfirst21),
+                let f3 = userDefaults.string(forKey: UserDefaultsConstants.mainfirst3),let f31 = userDefaults.string(forKey: UserDefaultsConstants.mainfirst31),
+                let f4 = userDefaults.string(forKey: UserDefaultsConstants.mainfirst4),let f41 = userDefaults.string(forKey: UserDefaultsConstants.mainfirst41),
+                let f5 = userDefaults.string(forKey: UserDefaultsConstants.mainfirst5),let f51 = userDefaults.string(forKey: UserDefaultsConstants.mainfirst51),
+                let f6 = userDefaults.string(forKey: UserDefaultsConstants.mainfirst6),let f61 = userDefaults.string(forKey: UserDefaultsConstants.mainfirst61),
+                
+                let f7 = userDefaults.string(forKey: UserDefaultsConstants.mainfirst7),let f71 = userDefaults.string(forKey: UserDefaultsConstants.mainfirst71)
+                
+                
+                
+                
+            {
+                putDataForVariables(f1,f11,f2,f21,f3,f31,f4,f41,f5,f51,f6,f61,f7,f71)
+                
+                first1TextField.setTitle(changeTimeForButtonTitle(f1), for: .normal)
+                first2TextField.setTitle(changeTimeForButtonTitle(f11), for: .normal)
+                
+                second1TextField.setTitle(changeTimeForButtonTitle(f2), for: .normal)
+                second2TextField.setTitle(changeTimeForButtonTitle(f21), for: .normal)
+                
+                third1TextField.setTitle(changeTimeForButtonTitle(f3), for: .normal)
+                third2TextField.setTitle(changeTimeForButtonTitle(f31), for: .normal)
+                
+                forth1TextField.setTitle(changeTimeForButtonTitle(f4), for: .normal)
+                forth2TextField.setTitle(changeTimeForButtonTitle(f41), for: .normal)
+                
+                fifth1TextField.setTitle(changeTimeForButtonTitle(f5), for: .normal)
+                fifth2TextField.setTitle(changeTimeForButtonTitle(f51), for: .normal)
+                
+                
+                sexth1TextField.setTitle(changeTimeForButtonTitle(f6), for: .normal)
+                sexth2TextField.setTitle(changeTimeForButtonTitle(f61), for: .normal)
+                
+                
+                seventh1TextField.setTitle(changeTimeForButtonTitle(f7), for: .normal)
+                seventh2TextField.setTitle(changeTimeForButtonTitle(f71), for: .normal)
+                putDefualValues()
+            }
         }
     }
     
@@ -246,13 +248,13 @@ class CustomMainClinicWorkingHoursView: CustomBaseView {
         
         day1=d1;    day2=d2;    day3=d3;    day4=d4;    day5=d5;    day6=d6;day7=d7
         
-    checkIfButtonsEnabled(enable: day1, vv: satButton)
-                   checkIfButtonsEnabled(enable: day2, vv: sunButton)
-                   checkIfButtonsEnabled(enable: day3, vv: monButton)
-                   checkIfButtonsEnabled(enable: day4, vv: tuesButton)
-                   checkIfButtonsEnabled(enable: day5, vv: wedButton)
-                   checkIfButtonsEnabled(enable: day6, vv: thuButton)
-                   checkIfButtonsEnabled(enable: day7, vv: friButton)
+        checkIfButtonsEnabled(enable: day1, vv: satButton)
+        checkIfButtonsEnabled(enable: day2, vv: sunButton)
+        checkIfButtonsEnabled(enable: day3, vv: monButton)
+        checkIfButtonsEnabled(enable: day4, vv: tuesButton)
+        checkIfButtonsEnabled(enable: day5, vv: wedButton)
+        checkIfButtonsEnabled(enable: day6, vv: thuButton)
+        checkIfButtonsEnabled(enable: day7, vv: friButton)
     }
     
     func checkIfButtonsEnabled(enable:Int,vv:UIButton)  {
@@ -260,12 +262,12 @@ class CustomMainClinicWorkingHoursView: CustomBaseView {
             addGradientInSenderAndRemoveOtherss(sender: vv)
         }else { }
         enableTextFields(enable: true, tag: vv.tag)
-
+        
         
     }
     
     override func setupViews() {
-       
+        
         [first2TextField,first1TextField,second1TextField,second2TextField,third1TextField,third2TextField,forth1TextField,forth2TextField,fifth1TextField,fifth2TextField,sexth1TextField,sexth2TextField,seventh2TextField,seventh1TextField].forEach({$0
             .addTarget(self, action:#selector(handleShowPicker), for: .touchUpInside)})
         [second1TextField,second2TextField].forEach({$0.isEnabled = true})
@@ -285,7 +287,7 @@ class CustomMainClinicWorkingHoursView: CustomBaseView {
         
     }
     
-  
+    
     func createHoursButtons(tags:Int) -> UIButton {
         let t = UIButton()
         t.layer.borderWidth = 1
@@ -321,171 +323,171 @@ class CustomMainClinicWorkingHoursView: CustomBaseView {
         //        button.addTarget(self, action: #selector(handleOpen), for: .touchUpInside)
         return button
     }
-   
+    
     
     func titleForButton(fbt:UIButton,txt:String)  {
-             fbt.setTitle(txt, for: .normal)
-          }
-       
-      
+        fbt.setTitle(txt, for: .normal)
+    }
+    
+    
     
     func checkIfButtonsEnabled(enable:Bool,vv:UIButton)  {
-           if enable {
-               enableTextFields(enable: true, tag: vv.tag)
-               addGradientInSenderAndRemoveOtherss(sender: vv)
-           }else {}
-           
-           
-       }
+        if enable {
+            enableTextFields(enable: true, tag: vv.tag)
+            addGradientInSenderAndRemoveOtherss(sender: vv)
+        }else {}
+        
+        
+    }
     
-     func updateTextField(tag:Int,texts:String,hours:Int,mintue:Int,ppp:String)  {
-            var hs = 0
+    func updateTextField(tag:Int,texts:String,hours:Int,mintue:Int,ppp:String)  {
+        var hs = 0
+        
+        hs  = ppp ==  "pm" ? hours+12 : hours
+        
+        let ss = "\(hs):\(mintue)"
+        switch tag{
+        case 1:
+            d1TXT1 = ss
             
-            hs  = ppp ==  "pm" ? hours+12 : hours
+            titleForButton( fbt: first1TextField, txt: texts)
+        case 11:
+            d1TXT2 = ss
             
-            let ss = "\(hs):\(mintue)"
-            switch tag{
-            case 1:
-                    d1TXT1 = ss
-               
-                titleForButton( fbt: first1TextField, txt: texts)
-            case 11:
-                    d1TXT2 = ss
-               
-                titleForButton( fbt: first2TextField, txt: texts)
-                
-            case 2:
-                    d2TXT1 = ss
-                titleForButton( fbt: second1TextField, txt: texts)
-                
-                
-            case 22:
-                    d2TXT2 = ss
-              
-                titleForButton( fbt: second2TextField,  txt: texts)
-                
-                
-            case 3:
-                    d3TXT1 = ss
-               
-                titleForButton( fbt: third1TextField, txt: texts)
-                
-                
-            case 33:
-                    d3TXT2 = ss
-                
-                titleForButton( fbt: third2TextField, txt: texts)
-                
-                
-            case 4:
-                    d4TXT1 = ss
-                
-                titleForButton( fbt: forth1TextField, txt: texts)
-                
-            case 44:
-                    d4TXT2 = ss
-                
-                titleForButton(fbt: forth2TextField, txt: texts)
-                
-                
-            case 5:
-                    d5TXT1 = ss
-              
-                titleForButton( fbt: fifth1TextField,  txt: texts)
-                
-                
-            case 55:
-                    d5TXT2 = ss
-                
-                titleForButton( fbt: fifth2TextField, txt: texts)
-                
-            case 6:
-                    d6TXT1 = ss
-              
-                titleForButton(fbt: sexth2TextField, txt: texts)
-                
-                
-            case 66:
-                    d6TXT2 = ss
-              
-                titleForButton( fbt: sexth1TextField,txt: texts)
-                
-                
-            case 7:
-                    d7TXT1 = ss
-                
-                titleForButton( fbt: seventh1TextField,  txt: texts)
-            default:
-                    d7TXT2 = ss
-              
-                titleForButton(fbt: seventh2TextField,  txt: texts)
-            }
+            titleForButton( fbt: first2TextField, txt: texts)
             
+        case 2:
+            d2TXT1 = ss
+            titleForButton( fbt: second1TextField, txt: texts)
+            
+            
+        case 22:
+            d2TXT2 = ss
+            
+            titleForButton( fbt: second2TextField,  txt: texts)
+            
+            
+        case 3:
+            d3TXT1 = ss
+            
+            titleForButton( fbt: third1TextField, txt: texts)
+            
+            
+        case 33:
+            d3TXT2 = ss
+            
+            titleForButton( fbt: third2TextField, txt: texts)
+            
+            
+        case 4:
+            d4TXT1 = ss
+            
+            titleForButton( fbt: forth1TextField, txt: texts)
+            
+        case 44:
+            d4TXT2 = ss
+            
+            titleForButton(fbt: forth2TextField, txt: texts)
+            
+            
+        case 5:
+            d5TXT1 = ss
+            
+            titleForButton( fbt: fifth1TextField,  txt: texts)
+            
+            
+        case 55:
+            d5TXT2 = ss
+            
+            titleForButton( fbt: fifth2TextField, txt: texts)
+            
+        case 6:
+            d6TXT1 = ss
+            
+            titleForButton(fbt: sexth2TextField, txt: texts)
+            
+            
+        case 66:
+            d6TXT2 = ss
+            
+            titleForButton( fbt: sexth1TextField,txt: texts)
+            
+            
+        case 7:
+            d7TXT1 = ss
+            
+            titleForButton( fbt: seventh1TextField,  txt: texts)
+        default:
+            d7TXT2 = ss
+            
+            titleForButton(fbt: seventh2TextField,  txt: texts)
         }
-
+        
+    }
+    
     func titleForButton(fbt:UIButton,sbt:UIButton,txt:String)  {
-                fbt.setTitle(txt, for: .normal)
-          }
+        fbt.setTitle(txt, for: .normal)
+    }
     
     func enableTextFields(enable:Bool,tag:Int)  {
-              switch tag {
-              case 1:
-                  enalbes(t: first1TextField,first2TextField)
-                  day1 =  enable ? 1 : 0
-              case 2:
-                  enalbes(t: second1TextField,second2TextField)
-                  day2 = enable ? 1 : 0
-              case 3:
-                  enalbes(t: third1TextField,third2TextField)
-                  day3 = enable ? 1 : 0
-              case 4:
-                  enalbes(t: forth1TextField,forth2TextField)
-                  day4 = enable ? 1 : 0
-              case 5:
-                  enalbes(t: fifth1TextField,fifth2TextField)
-                  day5 = enable ? 1 : 0
-              case 6:
-                  enalbes(t: sexth1TextField,sexth2TextField)
-                  day6 = enable ? 1 : 0
-              default:
-                  enalbes(t: seventh1TextField,seventh2TextField)
-                  day7 = enable ? 1 : 0
-              }
-          }
+        switch tag {
+        case 1:
+            enalbes(t: first1TextField,first2TextField)
+            day1 =  enable ? 1 : 0
+        case 2:
+            enalbes(t: second1TextField,second2TextField)
+            day2 = enable ? 1 : 0
+        case 3:
+            enalbes(t: third1TextField,third2TextField)
+            day3 = enable ? 1 : 0
+        case 4:
+            enalbes(t: forth1TextField,forth2TextField)
+            day4 = enable ? 1 : 0
+        case 5:
+            enalbes(t: fifth1TextField,fifth2TextField)
+            day5 = enable ? 1 : 0
+        case 6:
+            enalbes(t: sexth1TextField,sexth2TextField)
+            day6 = enable ? 1 : 0
+        default:
+            enalbes(t: seventh1TextField,seventh2TextField)
+            day7 = enable ? 1 : 0
+        }
+    }
     
     
-   func checkActiveDay(_ d:Int) -> Bool {
-           return d == 1 ? true : false
-       }
-       
-       func getDays() -> [String] {
-             var ss = [String]()
-             ss.append(checkActiveDay(day1) ? "Sat" : checkActiveDay(day2) ? "Sun" : checkActiveDay(day3) ? "Mon" : checkActiveDay(day4) ? "Tue" : checkActiveDay(day5) ? "Wed" : checkActiveDay(day6) ? "Thr" : "Fri" )
-             return ss
-         }
-         
-         func getDaysIndex() -> [Int] {
-             var ss = [Int]()
-             ss.append(checkActiveDay(day1) ? 1 : checkActiveDay(day2) ? 2 : checkActiveDay(day3) ? 3 : checkActiveDay(day4) ? 4 : checkActiveDay(day5) ? 5 : checkActiveDay(day6) ? 6 : 7)
-             
-             return ss
-         }
+    func checkActiveDay(_ d:Int) -> Bool {
+        return d == 1 ? true : false
+    }
+    
+    func getDays() -> [String] {
+        var ss = [String]()
+        ss.append(checkActiveDay(day1) ? "Sat" : checkActiveDay(day2) ? "Sun" : checkActiveDay(day3) ? "Mon" : checkActiveDay(day4) ? "Tue" : checkActiveDay(day5) ? "Wed" : checkActiveDay(day6) ? "Thr" : "Fri" )
+        return ss
+    }
+    
+    func getDaysIndex() -> [Int] {
+        var ss = [Int]()
+        ss.append(checkActiveDay(day1) ? 1 : checkActiveDay(day2) ? 2 : checkActiveDay(day3) ? 3 : checkActiveDay(day4) ? 4 : checkActiveDay(day5) ? 5 : checkActiveDay(day6) ? 6 : 7)
+        
+        return ss
+    }
     
     func getChoosenHours() -> [SecondWorkModel] {
-           
-           let v:[SecondWorkModel] =   [
-          
+        
+        let v:[SecondWorkModel] =   [
+            
             .init(partFrom: d1TXT1!,partTo: d1TXT2!, day: 1, active: day1),
-               .init(partFrom: d2TXT1!,partTo: d2TXT2!, day: 2, active: day2),
-               .init(partFrom: d3TXT1!,partTo: d3TXT2!, day: 3, active: day3),
-               .init(partFrom: d4TXT1!,partTo: d4TXT2!, day: 4, active: day4),
-               .init(partFrom: d5TXT1!,partTo: d5TXT2!, day: 5, active: day5),
-               .init(partFrom: d6TXT1! ,partTo: d6TXT2!, day: 6, active: day6),
-               .init(partFrom: d7TXT1! ,partTo: d7TXT2!, day: 7, active: day7)
-               
-              ]
-              return v
-          }
+            .init(partFrom: d2TXT1!,partTo: d2TXT2!, day: 2, active: day2),
+            .init(partFrom: d3TXT1!,partTo: d3TXT2!, day: 3, active: day3),
+            .init(partFrom: d4TXT1!,partTo: d4TXT2!, day: 4, active: day4),
+            .init(partFrom: d5TXT1!,partTo: d5TXT2!, day: 5, active: day5),
+            .init(partFrom: d6TXT1! ,partTo: d6TXT2!, day: 6, active: day6),
+            .init(partFrom: d7TXT1! ,partTo: d7TXT2!, day: 7, active: day7)
+            
+        ]
+        return v
+    }
     
     @objc func handleShowPicker(sender:UIButton) {
         handleShowPickers?(sender)

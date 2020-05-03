@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import MaterialComponents.MaterialSnackbar
+
+
 extension UIView {
     
     func addGradientInSenderAndRemoveOtherss(sender:UIButton)  {
@@ -33,6 +36,12 @@ extension UIView {
         removeSublayer(vv, layerIndex:   0)
         vv.backgroundColor = ColorConstants.disabledButtonsGray
     }
+    
+    func creatMainSnackBar(message:String)  {
+             let messages = MDCSnackbarMessage()
+             messages.text = message
+             MDCSnackbarManager.show(messages)
+         }
     
     func removeGradientInSender(sender:UIButton)  {
         

@@ -27,8 +27,8 @@ class CustomDoctorClinicWorkingHoursView: CustomBaseView {
     lazy var soonLabel = UILabel(text: "Fill your data", font: .systemFont(ofSize: 18), textColor: .white)
     
     
-    lazy var shift1Button = creatShiftBTN(title: "Shift1")
-    lazy var shift2Button = creatShiftBTN(title: "Shift2")
+    lazy var shift1Button = creatShiftBTN(title: "Shift1", selector: #selector(handle1Shift))
+    lazy var shift2Button = creatShiftBTN(title: "Shift2", selector: #selector(handle2Shift(sender:)))
     
     
     lazy var sunButton = createButtons(title: "Sun",color: .white,tags: 2)
@@ -238,7 +238,7 @@ class CustomDoctorClinicWorkingHoursView: CustomBaseView {
         
     }
     
-    func creatShiftBTN(title:String) -> UIButton {
+    func creatShiftBTN(title:String,selector:Selector) -> UIButton {
         let button = UIButton(type: .system)
         button.backgroundColor = ColorConstants.disabledButtonsGray
         button.setTitle(title, for: .normal)
@@ -246,6 +246,8 @@ class CustomDoctorClinicWorkingHoursView: CustomBaseView {
         button.layer.cornerRadius = 16
         button.constrainHeight(constant: 60)
         button.clipsToBounds = true
+    
+        button.addTarget(self, action: selector, for: .touchUpInside)
         return button
         
     }
@@ -284,7 +286,7 @@ class CustomDoctorClinicWorkingHoursView: CustomBaseView {
         button.constrainHeight(constant: 50)
         button.tag = tags ?? 0
         button.layer.cornerRadius = 25
-        //        button.addTarget(self, action: #selector(handleOpen), for: .touchUpInside)
+        button.addTarget(self, action:#selector(handleOpen), for: .touchUpInside)
         return button
     }
     
@@ -352,28 +354,6 @@ class CustomDoctorClinicWorkingHoursView: CustomBaseView {
         
     }
     
-    
-    //    @objc func handleShowPicker(sender:UIButton) {
-    //        var texts = ""
-    //        let cc = Calendar.current
-    //        var ppp = "am"
-    //
-    //        setupTimeSelector(timeSelector)
-    //        timeSelector.timeSelected = {[unowned self] (timeSelector) in
-    //            print(timeSelector.date)
-    //            let dd = timeSelector.date
-    //
-    //            var hour = cc.component(.hour, from: dd)
-    //            ppp = hour > 12 ? "pm" : "am"
-    //            hour =   hour > 12 ? hour - 12 : hour
-    //
-    //            let minute = cc.component(.minute, from: dd)
-    //            texts = "\(hour):\(minute) \(ppp)"
-    //            DispatchQueue.main.async {
-    //                self.updateTextField(isShift1: self.shiftOne , tag: sender.tag, texts: texts,hours:hour,mintue:minute,ppp:ppp)
-    //            }
-    //        }
-    //    }
     
     func updateTextField(isShift1:Bool,tag:Int,texts:String,hours:Int,mintue:Int,ppp:String)  {
         var hs = 0
@@ -475,7 +455,7 @@ class CustomDoctorClinicWorkingHoursView: CustomBaseView {
             }else {
                 d62TXT1 = ss
             }
-            titleForButton(isShift1, fbt: sexth2TextField, sbt: mainSecondStack.sexth2TextField, txt: texts)
+            titleForButton(isShift1, fbt: sexth1TextField, sbt: mainSecondStack.sexth1TextField, txt: texts)
             
             
         case 66:
@@ -484,7 +464,7 @@ class CustomDoctorClinicWorkingHoursView: CustomBaseView {
             }else {
                 d62TXT2 = ss
             }
-            titleForButton(isShift1, fbt: sexth1TextField, sbt: mainSecondStack.sexth1TextField, txt: texts)
+            titleForButton(isShift1, fbt: sexth2TextField, sbt: mainSecondStack.sexth2TextField, txt: texts)
             
             
         case 7:
@@ -639,5 +619,109 @@ class CustomDoctorClinicWorkingHoursView: CustomBaseView {
         ]
         return v
     }
+ 
+    func showAndHide(fv:UIView,sv:UIView)  {
+           UIView.animate(withDuration: 0.6, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
+               fv.isHide(true)
+               sv.isHide(false)
+           })
+       }
+       
+       func changeShiftStates(sender:UIButton,second:UIButton,enable1:Bool,enable2:Bool,vv:UIView...)  {
+           if sender.backgroundColor == nil {
+                    
+                    return
+                }
+                addGradientInSenderAndRemoveOther(sender: sender, vv: second)
+                shiftTwo = enable2
+                shiftOne = enable1
+                showAndHide(fv: vv[0], sv: vv[1])
+       }
     
+    func checkValidteShifting(bol:Bool,ftf:String?,stf:String?,title:String,ftf2:String?,stf2:String?) -> Bool {
+           let ss = ftf !=  "00:00" && stf != "00:00"
+           let dd = stf == "00:00" && ftf == "00:00"
+           
+           let sss = ftf2 == "00:00" && stf2 == "00:00"
+           let ddd = stf2 != "00:00" && ftf2 != "00:00"
+           
+           if ss && ddd || (ss && sss)  ||  (ddd && dd  ) {
+               return true
+           }else {
+               creatMainSnackBar(message: "\(title) range should be choosen"); return  false
+               
+           }
+           
+       }
+       func checkDayActive(_ d:Int) -> Bool {
+           return d == 1 ? true : false
+       }
+    
+    func checkButtonDone() -> Bool {
+        if checkDayActive( day1 ){
+                   if checkValidteShifting(bol: checkDayActive( day1), ftf: d1TXT1, stf: d1TXT2, title: "Saturday ",ftf2: d12TXT1,stf2: d12TXT2){}else {return false}
+               }
+               if checkDayActive(day2) {
+                   if  checkValidteShifting(bol: checkDayActive(day2), ftf: d2TXT1, stf: d2TXT2, title: "Sunday",ftf2: d22TXT1,stf2: d22TXT2) {}else {return false}
+                   
+               }
+               if checkDayActive(day3) {
+                   if checkValidteShifting(bol: checkDayActive(day3), ftf: d3TXT1, stf: d3TXT2, title: "Monday",ftf2: d32TXT1,stf2: d32TXT2){}else {return false}
+               }
+               if checkDayActive(day4) {
+                   if checkValidteShifting(bol: checkDayActive(day4), ftf: d4TXT1, stf: d4TXT2, title: "Tuesday",ftf2: d42TXT1,stf2: d42TXT2){}else {return false}
+               }
+               if checkDayActive(day5) {
+                   if checkValidteShifting(bol: checkDayActive(day5), ftf: d5TXT1, stf: d5TXT2, title: "Wednsday",ftf2: d52TXT1,stf2: d52TXT2){}else {return false}
+               }
+               if checkDayActive(day6) {
+                   if checkValidteShifting(bol: checkDayActive(day6), ftf: d6TXT1, stf: d6TXT2, title: "Thrusday ",ftf2: d62TXT1,stf2: d62TXT2){}else {return false}
+               }
+               if checkDayActive(day7) {
+                   
+                   if checkValidteShifting(bol: checkDayActive(day7), ftf: d7TXT1, stf: d7TXT2, title: "Friday",ftf2: d72TXT1,stf2: d72TXT2) {}else {return false}
+               }
+        return true
+               
+    }
+    
+       @objc func handle1Shift(sender:UIButton)  {
+           
+           changeShiftStates(sender: sender, second: shift2Button, enable1: true, enable2: false, vv: mainSecondStack,mainFirstSecondStack)
+           
+           if sender.backgroundColor == nil {
+               
+               return
+               //               ClinicDataViewModel.male = false;return
+           }
+           addGradientInSenderAndRemoveOther(sender: sender, vv: shift2Button)
+           shiftTwo = false
+           shiftOne = true
+           showAndHide(fv: mainSecondStack, sv: mainFirstSecondStack)
+           //           doctorRegisterViewModel.male = false
+       }
+       
+       @objc func handle2Shift(sender:UIButton)  {
+           if sender.backgroundColor == nil {
+               return
+               //               doctorRegisterViewModel.male = true;return
+           }
+           addGradientInSenderAndRemoveOther(sender: sender, vv: shift1Button)
+           shiftTwo = true
+           shiftOne = false
+           showAndHide(fv: mainFirstSecondStack, sv: mainSecondStack)
+           
+       }
+    
+    @objc  func handleOpen(sender:UIButton)  {
+           if sender.backgroundColor == nil {
+               //disable button
+               removeGradientInSender(sender:sender)
+               enableTextFields(enable: false, tag: sender.tag)
+               return
+           }
+           //enable button
+           enableTextFields(enable: true, tag: sender.tag)
+           addGradientInSenderAndRemoveOtherss(sender: sender)
+       }
 }

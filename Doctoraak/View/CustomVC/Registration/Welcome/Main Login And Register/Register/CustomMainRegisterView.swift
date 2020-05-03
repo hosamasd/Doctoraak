@@ -95,14 +95,10 @@ class CustomMainRegisterView: CustomBaseView {
        lazy var addressLabel = UILabel(text: "Address", font: .systemFont(ofSize: 16), textColor: .lightGray,numberOfLines: 0)
 //    lazy var addressTextField = createMainTextFields(place: "Address")
     
-    lazy var mainDrop3View:UIView = {
-        let l = UIView(backgroundColor: .white)
-        l.layer.cornerRadius = 8
-        l.layer.borderWidth = 1
-        l.layer.borderColor = #colorLiteral(red: 0.4835817814, green: 0.4836651683, blue: 0.4835640788, alpha: 1).cgColor
-//        l.constrainHeight(constant: 50)
+    lazy var mainDrop3View:UIView =  {
+        let l = makeMainSubViewWithAppendView(vv: [doenImage,insuracneText])
         l.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpenCloseInsurance)))
-        //        l.addSubview(insuranceDrop)
+               l.hstack(insuracneText,doenImage).withMargins(.init(top: 0, left: 16, bottom: 0, right: 0))
         return l
     }()
     lazy var doenImage:UIImageView = {
@@ -145,7 +141,30 @@ class CustomMainRegisterView: CustomBaseView {
     lazy var deliveryView = makeMainSubViewWithAppendView(vv: [deliveryLabel,deliverySwitch])
       
       lazy var deliveryLabel = UILabel(text: "Delivery ?", font: .systemFont(ofSize: 20), textColor: .lightGray)
-    
+    lazy var mainDropView:UIView =  makeMainSubViewWithAppendView(vv: [cityDrop])
+       lazy var cityDrop:DropDown = {
+           let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
+           i.arrowSize = 20
+           i.placeholder = "City".localized
+           i.didSelect { (txt, index, _) in
+               self.getAreaAccordingToCityId(index: index)
+               
+               self.registerViewModel.city = self.cityIDSArray[index]//index+1
+               
+           }
+           return i
+       }()
+       lazy var mainDrop2View:UIView = makeMainSubViewWithAppendView(vv: [areaDrop])
+       lazy var areaDrop:DropDown = {
+           let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
+           i.arrowSize = 20
+           
+           i.placeholder = "Area".localized
+           i.didSelect { (txt, index, _) in
+               self.registerViewModel.area = self.areaIDSArray[index]//index+1
+           }
+           return i
+       }()
    
     lazy var nextButton:UIButton = {
         let button = UIButton()
@@ -166,6 +185,12 @@ class CustomMainRegisterView: CustomBaseView {
     var handlerChooseLocation:(()->Void)?
     var insuranceStringArray = [String]()
               var insuranceNumberArray = [Int]()
+    var cityArray = [String]() //["one","two","three","sdfdsfsd"]
+       var areaArray = [String]()
+       
+       var cityIDSArray = [Int]() //["one","two","three","sdfdsfsd"]
+       var areaIDSArray = [Int]()
+       
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -174,6 +199,34 @@ class CustomMainRegisterView: CustomBaseView {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    fileprivate func getAreaAccordingToCityId(index:Int)  {
+        areaIDSArray.removeAll()
+        areaArray.removeAll()
+        
+        if let  cityIdArra = userDefaults.value(forKey: UserDefaultsConstants.cityIdArray) as? [Int],let areaIdArra = userDefaults.value(forKey: UserDefaultsConstants.areaIdArray) as? [Int],let areaIdArray = userDefaults.value(forKey: UserDefaultsConstants.areaCityIdsArrays) as? [Int],let areasStringArray =  MOLHLanguage.isRTLLanguage() ? userDefaults.value(forKey: UserDefaultsConstants.areaNameARArray) as? [String] : userDefaults.value(forKey: UserDefaultsConstants.areaNameArray) as? [String]  {
+            //            self.areaNumberArray = cityIdArra
+            
+            let areas = self.cityIDSArray[index]
+            
+            let areasFilteredArray = areaIdArray.indexes(of: areas)
+            areasFilteredArray.forEach { (s) in
+                areaIDSArray.append(areaIdArra[s])
+            }
+            areasFilteredArray.forEach { (indexx) in
+                
+                
+                areaArray.append( areasStringArray[indexx])
+                
+            }
+            
+            self.areaDrop.optionArray = areaArray
+            
+            DispatchQueue.main.async {
+                self.layoutIfNeeded()
+            }
+        }
     }
     
     fileprivate func fetchEnglishData(isArabic:Bool) {
@@ -214,8 +267,6 @@ class CustomMainRegisterView: CustomBaseView {
        
         let textStack = getStack(views: fullNameTextField,mobileNumberTextField,emailTextField,passwordTextField,confirmPasswordTextField,addressMainView,mainDrop3View, spacing: 16, distribution: .fillEqually, axis: .vertical)
         
-        mainDrop3View.addSubViews(views: doenImage,insuracneText)
-        mainDrop3View.hstack(insuracneText,doenImage).withMargins(.init(top: 0, left: 16, bottom: 0, right: 0))
         deliveryView.hstack(deliveryLabel,deliverySwitch).withMargins(.init(top: 16, left: 16, bottom: 8, right: 16))
 
         
@@ -246,7 +297,6 @@ class CustomMainRegisterView: CustomBaseView {
     
     @objc func textFieldDidChange(text: UITextField)  {
            registerViewModel.index = index
-           registerViewModel.insurance = "asd"
            guard let texts = text.text else { return  }
            if let floatingLabelTextField = text as? SkyFloatingLabelTextField {
                if text == mobileNumberTextField {
@@ -289,7 +339,7 @@ class CustomMainRegisterView: CustomBaseView {
                    }
                
                    
-               }else if text == fullNameTextField {
+               }else  {
                    if (texts.count < 3 ) {
                        floatingLabelTextField.errorMessage = "Invalid name".localized
                        registerViewModel.name = nil
@@ -300,17 +350,8 @@ class CustomMainRegisterView: CustomBaseView {
                        floatingLabelTextField.errorMessage = ""
                    }
                    
-               }else {
-                   if (texts.count < 3 ) {
-                       floatingLabelTextField.errorMessage = "Invalid working hours".localized
-                       registerViewModel.hours = nil
-                   }
-                   else {
-                       
-                       registerViewModel.hours = texts
-                       floatingLabelTextField.errorMessage = ""
-                   }
                }
+               
            }
        }
     
