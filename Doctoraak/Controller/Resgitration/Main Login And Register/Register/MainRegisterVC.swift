@@ -62,7 +62,7 @@ class MainRegisterVC: CustomBaseViewVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViewModelObserver()
-//        MAKEoPERATION()
+        //        MAKEoPERATION()
     }
     
     //MARK:-User methods
@@ -145,7 +145,55 @@ class MainRegisterVC: CustomBaseViewVC {
         
     }
     
+    func saveToken(mobile:String,index:Int,user_id:Int,_ sms:Int)  {
+        let aa = index == 2 ? UserDefaultsConstants.labRegisterUser_id : index == 3 ? UserDefaultsConstants.radiologyRegisterUser_id : UserDefaultsConstants.pharamcyRegisterUser_id
+        let dd = index == 2 ? UserDefaultsConstants.labRRegisterSMSCode : index == 3 ? UserDefaultsConstants.radiologyRegisterSMSCode : UserDefaultsConstants.pharamcyRegisterSMSCode
+        let m = index == 2 ? UserDefaultsConstants.labRegisterMobile : index == 3 ? UserDefaultsConstants.radiologyRegisterMobile : UserDefaultsConstants.pharamcyRegisterMobile
+        //         let s = index == 2 ? UserDefaultsConstants.labRegisterMobile : index == 3 ? UserDefaultsConstants.radiologyRegisterMobile : UserDefaultsConstants.pharamcyRegisterMobile
+        
+        userDefaults.set(user_id, forKey: aa)
+        userDefaults.set(sms, forKey: dd)
+        
+        userDefaults.set(true, forKey: UserDefaultsConstants.isUserRegisterAndWaitForSMScODE)
+        userDefaults.set(false, forKey: UserDefaultsConstants.isDoctorSecondRegister)
+        userDefaults.set(mobile, forKey: m)
+        
+        userDefaults.set(index, forKey: UserDefaultsConstants.isUserRegisterAndWaitForSMScODEIndex)
+        removeOtherDefaults()
+        userDefaults.synchronize()
+        goToNext(id: user_id)
+    }
     
+    func removeOtherDefaults()  {
+        userDefaults.removeObject(forKey: UserDefaultsConstants.mainfirst1)
+        userDefaults.removeObject(forKey: UserDefaultsConstants.mainfirst11)
+        userDefaults.removeObject(forKey: UserDefaultsConstants.mainfirst2)
+        userDefaults.removeObject(forKey: UserDefaultsConstants.mainfirst21)
+        userDefaults.removeObject(forKey: UserDefaultsConstants.mainfirst3)
+        userDefaults.removeObject(forKey: UserDefaultsConstants.mainfirst31)
+        userDefaults.removeObject(forKey: UserDefaultsConstants.mainfirst4)
+        userDefaults.removeObject(forKey: UserDefaultsConstants.mainfirst41)
+        userDefaults.removeObject(forKey: UserDefaultsConstants.mainfirst5)
+        userDefaults.removeObject(forKey: UserDefaultsConstants.mainfirst51)
+        userDefaults.removeObject(forKey: UserDefaultsConstants.mainfirst6)
+        userDefaults.removeObject(forKey: UserDefaultsConstants.mainfirst61)
+        userDefaults.removeObject(forKey: UserDefaultsConstants.mainfirst7)
+        userDefaults.removeObject(forKey: UserDefaultsConstants.mainfirst71)
+        userDefaults.removeObject(forKey: UserDefaultsConstants.mainday1)
+        userDefaults.removeObject(forKey: UserDefaultsConstants.mainday3)
+        userDefaults.removeObject(forKey: UserDefaultsConstants.mainday2)
+        userDefaults.removeObject(forKey: UserDefaultsConstants.mainday4)
+        userDefaults.removeObject(forKey: UserDefaultsConstants.mainday5)
+        userDefaults.removeObject(forKey: UserDefaultsConstants.mainday6)
+        userDefaults.removeObject(forKey: UserDefaultsConstants.mainday7)
+    }
+    
+    func goToNext(id:Int)  {
+        let phone = customMainRegisterView.mobileNumberTextField.text ?? ""
+        
+        let verify = MainVerificationVC(indexx: index,isFromForgetPassw: false, phone: phone, user_id: id)
+        navigationController?.pushViewController(verify, animated: true)
+    }
     
     //TODO: -handle methods
     
@@ -164,9 +212,22 @@ class MainRegisterVC: CustomBaseViewVC {
     
     @objc  func handleNext()  {
         let phone = customMainRegisterView.mobileNumberTextField.text ?? ""
+
+        customMainRegisterView.registerViewModel.performRegister { (base, err) in
+            if let err = err {
+                SVProgressHUD.showError(withStatus: err.localizedDescription)
+                self.activeViewsIfNoData();return
+            }
+            SVProgressHUD.dismiss()
+            self.activeViewsIfNoData()
+            guard let user = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
+            
+            DispatchQueue.main.async {
+                self.saveToken(mobile: phone, index:self.index,user_id: user.id,user.smsCode)
+            }
+        }
         
-        let verify = MainVerificationVC(indexx: index,isFromForgetPassw: false, phone: phone, user_id: -1)
-        navigationController?.pushViewController(verify, animated: true)
+        
     }
     
 }

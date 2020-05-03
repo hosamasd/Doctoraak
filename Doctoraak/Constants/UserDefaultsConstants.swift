@@ -47,6 +47,19 @@ class UserDefaultsConstants {
     static let isUserRegisterAndWaitForClinicData="isUserRegisterAndWaitForClinicData"
     static let isUserRegisterAndWaitForClinicDataIndex="isUserRegisterAndWaitForClinicDataIndex"
     
+    //register all
+    static let radiologyRegisterUser_id = "radiologyRegisterUser_id"
+    static let labRegisterUser_id = "labRegisterUser_id"
+    static let pharamcyRegisterUser_id = "pharamcyRegisterUser_id"
+    static let pharamcyRegisterSMSCode="pharamcyRegisterSMSCode"
+    static let radiologyRegisterSMSCode="radiologyRegisterSMSCode"
+    static let labRRegisterSMSCode="labRRegisterSMSCode"
+    static let pharamcyRegisterMobile="pharamcyRegisterMobile"
+    static let labRegisterMobile="labRegisterMobile"
+    static let radiologyRegisterMobile="radiologyRegisterMobile"
+
+
+    
     //for english
     static let areaNameArray = "areaNameArray"
     static let specificationNameArray = "specificationNameArray"
