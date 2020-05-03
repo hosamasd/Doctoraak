@@ -39,7 +39,7 @@ class UserDefaultsConstants {
     
     //doctor clinic create
     static let DocotrClinicCreateCLINICID="DocotrClinicCreateCLINICID"
-static let DoctorPerformLoginWithMainIndex="DoctorPerformLoginWithMainIndex"
+    static let DoctorPerformLoginWithMainIndex="DoctorPerformLoginWithMainIndex"
     
     //register
     static let userMobileNumber="userMobileNumber"
@@ -81,7 +81,7 @@ static let DoctorPerformLoginWithMainIndex="DoctorPerformLoginWithMainIndex"
     static let isUserRegisterAndWaitForSMScODE = "isUserRegisterAndWaitForSMScODE"
     static let isUserRegisterAndWaitForSMScODEIndex = "isUserRegisterAndWaitForSMScODEIndex"
     
-    //for working hours
+    //for clinic working hours
     static let first1 = "first1"        ;  static let first211 = "first211"     ; static let first1pm = "first1pm" ;  static let first211pm = "first211pm"
     static let first11 = "first11"      ;  static let first2111 = "first2111"   ; static let first11pm = "first11pm" ; static let first2111pm = "first2111pm"
     static let first2 = "first2"        ;  static let first22 = "first22"       ; static let first2pm = "first2pm" ; static let first22pm = "first22pm"
@@ -99,5 +99,25 @@ static let DoctorPerformLoginWithMainIndex="DoctorPerformLoginWithMainIndex"
     
     static let day1 = "day1"            ; static let day2 = "day2"      ; static let day3 = "day3" ;  static let day4 = "day4"
     static let day5 = "day5"            ; static let day6 = "day6"      ; static let day7 = "day7"
+    static let isClinicWorkingHoursSaved = "isClinicWorkingHoursSaved"
+    
+    //for  working hours
+    static let mainfirst1 = "mainfirst1"
+    static let mainfirst11 = "mainfirst11"
+    static let mainfirst2 = "mainfirst2"
+    static let mainfirst21 = "mainfirst21"
+    static let mainfirst3 = "mainfirst3"
+    static let mainfirst31 = "mainfirst31"
+    static let mainfirst4 = "mainfirst4"
+    static let mainfirst41 = "mainfirst41"
+    static let mainfirst5 = "mainmainfirst5"
+    static let mainfirst51 = "mainfirst51"
+    static let mainfirst6 = "mainfirst6"
+    static let mainfirst61 = "mainfirst61"
+    static let mainfirst7 = "mainfirst7"
+    static let mainfirst71 = "mainfirst71"
+    
+    static let mainday1 = "mainday1"            ; static let mainday2 = "day2"      ; static let mainday3 = "mainday3" ;  static let mainday4 = "mainday4"
+    static let mainday5 = "mainday5"            ; static let mainday6 = "day6"      ; static let mainday7 = "mainday7"
     static let isWorkingHoursSaved = "isWorkingHoursSaved"
 }

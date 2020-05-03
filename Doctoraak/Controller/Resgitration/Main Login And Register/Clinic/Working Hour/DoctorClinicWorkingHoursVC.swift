@@ -10,7 +10,7 @@ import UIKit
 
 protocol MainClinicWorkingHoursProtocol {
     //    func getHoursChoosed(hours:[String])
-    func getHoursChoosed(hours:[Any])
+    func getHoursChoosed(hours:[WorkModel])
     func getDays(indexs:[Int],days:[String])
     
     
@@ -62,9 +62,9 @@ class DoctorClinicWorkingHoursVC: CustomBaseViewVC {
         print(9999999)
         //        userDefaults.set(false, forKey: UserDefaultsConstants.isWorkingHoursSaved)
         //        userDefaults.synchronize()
-        if userDefaults.bool(forKey: UserDefaultsConstants.isWorkingHoursSaved) {
-            //            customClinicWorkingHoursView.getSavedData()
-            getSavedData()
+        if userDefaults.bool(forKey: UserDefaultsConstants.isClinicWorkingHoursSaved) {
+                        customClinicWorkingHoursView.getSavedData()
+//            getSavedData()
             //            DispatchQueue.main.async {
             //                self.view.layoutIfNeeded()
             //            }
@@ -138,40 +138,6 @@ class DoctorClinicWorkingHoursVC: CustomBaseViewVC {
         }
     }
     
-//    func putDataForVariables(_ ff:String...)  {
-//        d1TXT1 = ff[0];     d12TXT1=ff[2]
-//        d1TXT2=ff[1];       d12TXT2=ff[3]
-//        d2TXT1=ff[4];       d22TXT1=ff[6]
-//        d2TXT2=ff[5];   d22TXT2=ff[7]
-//        d3TXT1=ff[8];       d32TXT1=ff[10]
-//        d3TXT2=ff[9];       d32TXT2=ff[11]
-//        d4TXT1=ff[12];      d42TXT1=ff[14]
-//        d4TXT2=ff[13];      d42TXT2=ff[15]
-//        d5TXT1=ff[16];      d52TXT1=ff[18]
-//        d5TXT2=ff[17];      d52TXT2=ff[19]
-//        d6TXT1=ff[20];      d62TXT1=ff[22]
-//        d6TXT2=ff[21];      d62TXT2=ff[23]
-//        d7TXT1=ff[24];      d72TXT1=ff[26]
-//        d7TXT2=ff[25];       d72TXT2=ff[27]
-//    }
-    
-//    func putOtherData()  {
-//        let d1 = userDefaults.bool(forKey: UserDefaultsConstants.day1);let d5 = userDefaults.bool(forKey: UserDefaultsConstants.day5)
-//        let d2 = userDefaults.bool(forKey: UserDefaultsConstants.day2);let d6 = userDefaults.bool(forKey: UserDefaultsConstants.day6)
-//        let d3 = userDefaults.bool(forKey: UserDefaultsConstants.day3);let d7 = userDefaults.bool(forKey: UserDefaultsConstants.day7)
-//        let d4 = userDefaults.bool(forKey: UserDefaultsConstants.day4)
-//
-//        day1 = d1;  day2=d2;    day3=d3;    day4=d4;    day5=d5;    day6=d6;    day7=d7
-//        checkIfButtonsEnabled(enable: day1, vv: customClinicWorkingHoursView.satButton)
-//        checkIfButtonsEnabled(enable: day2, vv: customClinicWorkingHoursView.sunButton)
-//        checkIfButtonsEnabled(enable: day3, vv: customClinicWorkingHoursView.monButton)
-//        checkIfButtonsEnabled(enable: day4, vv: customClinicWorkingHoursView.tuesButton)
-//        checkIfButtonsEnabled(enable: day5, vv: customClinicWorkingHoursView.wedButton)
-//        checkIfButtonsEnabled(enable: day6, vv: customClinicWorkingHoursView.thuButton)
-//        checkIfButtonsEnabled(enable: day7, vv: customClinicWorkingHoursView.friButton)
-//    }
-    
-    
     override  func setupNavigation()  {
         navigationController?.navigationBar.isHide(true)
     }
@@ -204,140 +170,6 @@ class DoctorClinicWorkingHoursVC: CustomBaseViewVC {
     func titleForButton(_ isShift1:Bool,fbt:UIButton,sbt:UIButton,txt:String)  {
         isShift1 ?    fbt.setTitle(txt, for: .normal) :  sbt.setTitle(txt, for: .normal)
     }
-    
-    
-    
-//    func updateTextField(isShift1:Bool,tag:Int,texts:String,hours:Int,mintue:Int,ppp:String)  {
-//        var hs = 0
-//
-//        hs  = ppp ==  "pm" ? hours+12 : hours
-//
-//        let ss = "\(hs):\(mintue)"
-//        switch tag{
-//        case 1:
-//            if isShift1 {
-//                d1TXT1 = ss
-//                //                chooseWorkingHoursViewModel.d1TXT1 = ss
-//            }else {
-//                d12TXT1 = ss
-//                //                chooseWorkingHoursViewModel.d12TXT1 = ss
-//            }
-//            titleForButton(isShift1, fbt: customClinicWorkingHoursView.first1TextField, sbt: customClinicWorkingHoursView.mainSecondStack.first1TextField, txt: texts)
-//        case 11:
-//            if isShift1 {
-//                d1TXT2 = ss
-//            }else {
-//                d12TXT2 = ss
-//            }
-//            titleForButton(isShift1, fbt: customClinicWorkingHoursView.first2TextField, sbt: customClinicWorkingHoursView.mainSecondStack.first2TextField, txt: texts)
-//
-//        case 2:
-//            if isShift1 {
-//                d2TXT1 = ss
-//            }else {
-//                d22TXT1 = ss
-//            }
-//            titleForButton(isShift1, fbt: customClinicWorkingHoursView.second1TextField, sbt: customClinicWorkingHoursView.mainSecondStack.second1TextField, txt: texts)
-//
-//
-//        case 22:
-//            if isShift1 {
-//                d2TXT2 = ss
-//            }else {
-//                d22TXT2 = ss
-//            }
-//            titleForButton(isShift1, fbt: customClinicWorkingHoursView.second2TextField, sbt: customClinicWorkingHoursView.mainSecondStack.second2TextField, txt: texts)
-//
-//
-//        case 3:
-//            if isShift1 {
-//                d3TXT1 = ss
-//            }else {
-//                d32TXT1 = ss
-//            }
-//            titleForButton(isShift1, fbt: customClinicWorkingHoursView.third1TextField, sbt: customClinicWorkingHoursView.mainSecondStack.third1TextField, txt: texts)
-//
-//
-//        case 33:
-//            if isShift1 {
-//                d3TXT2 = ss
-//            }else {
-//                d32TXT2 = ss
-//            }
-//            titleForButton(isShift1, fbt: customClinicWorkingHoursView.third2TextField, sbt: customClinicWorkingHoursView.mainSecondStack.third2TextField, txt: texts)
-//
-//
-//        case 4:
-//            if isShift1 {
-//                d4TXT1 = ss
-//            }else {
-//                d42TXT1 = ss
-//            }
-//            titleForButton(isShift1, fbt: customClinicWorkingHoursView.forth1TextField, sbt: customClinicWorkingHoursView.mainSecondStack.forth1TextField, txt: texts)
-//
-//        case 44:
-//            if isShift1 {
-//                d4TXT2 = ss
-//            }else {
-//                d42TXT2 = ss
-//            }
-//            titleForButton(isShift1, fbt: customClinicWorkingHoursView.forth2TextField, sbt: customClinicWorkingHoursView.mainSecondStack.forth2TextField, txt: texts)
-//
-//
-//        case 5:
-//            if isShift1 {
-//                d5TXT1 = ss
-//            }else {
-//                d52TXT1 = ss
-//            }
-//            titleForButton(isShift1, fbt: customClinicWorkingHoursView.fifth1TextField, sbt: customClinicWorkingHoursView.mainSecondStack.fifth1TextField, txt: texts)
-//
-//
-//        case 55:
-//            if isShift1 {
-//                d5TXT2 = ss
-//            }else {
-//                d52TXT2 = ss
-//            }
-//            titleForButton(isShift1, fbt: customClinicWorkingHoursView.fifth2TextField, sbt: customClinicWorkingHoursView.mainSecondStack.fifth2TextField, txt: texts)
-//
-//        case 6:
-//            if isShift1 {
-//                d6TXT1 = ss
-//            }else {
-//                d62TXT1 = ss
-//            }
-//            titleForButton(isShift1, fbt: customClinicWorkingHoursView.sexth2TextField, sbt: customClinicWorkingHoursView.mainSecondStack.sexth2TextField, txt: texts)
-//
-//
-//        case 66:
-//            if isShift1 {
-//                d6TXT2 = ss
-//            }else {
-//                d62TXT2 = ss
-//            }
-//            titleForButton(isShift1, fbt: customClinicWorkingHoursView.sexth1TextField, sbt: customClinicWorkingHoursView.mainSecondStack.sexth1TextField, txt: texts)
-//
-//
-//        case 7:
-//            if isShift1 {
-//                d7TXT1 = ss
-//            }else {
-//                d72TXT1 = ss
-//            }
-//            titleForButton(isShift1, fbt: customClinicWorkingHoursView.seventh1TextField, sbt: customClinicWorkingHoursView.mainSecondStack.seventh1TextField, txt: texts)
-//        default:
-//            if isShift1 {
-//                d7TXT2 = ss
-//            }else {
-//                d72TXT2 = ss
-//            }
-//            titleForButton(isShift1, fbt: customClinicWorkingHoursView.seventh2TextField, sbt: customClinicWorkingHoursView.mainSecondStack.seventh2TextField, txt: texts)
-//        }
-//
-//        choosedHours.append(texts)
-//    }
-    
     
     
     func changeTimeForButtonTitle(values:String)->String  {

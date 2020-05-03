@@ -36,7 +36,7 @@ class MainRegisterVC: CustomBaseViewVC {
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
         v.nextButton.addTarget(self, action: #selector(handleNext), for: .touchUpInside)
         v.handleChooseHours = {[unowned self] in
-            let working = DoctorClinicWorkingHoursVC()
+            let working = MainClinicWorkingHoursNotDoctorVC()
             working.delgate = self
             self.navigationController?.pushViewController(working, animated: true)
         }
@@ -120,7 +120,7 @@ class MainRegisterVC: CustomBaseViewVC {
 //                                      "active":0]
 //        ]
 //
-        RegistrationServices.shared.mainRegister(index: index, photo: #imageLiteral(resourceName: "Group 4143-2"), name: "asd", email: "cxcrdfdf@c.com", phone: "00012345691", password: "00000000", insurance: [1], delivery: 1, working_hours: singldata, latt: "51512.4555454", lang: "5451521.155151454545", city: 1, area: 1) { (base, err) in
+        RegistrationServices.shared.mainRegister(index: index, photo: #imageLiteral(resourceName: "Group 4143-2"), name: "asd", email: "cxcddrdff@c.com", phone: "00012345331", password: "00000000", insurance: [1], delivery: 1, working_hours: singldata, latt: "51512.4555454", lang: "5451521.155151454545", city: 1, area: 1) { (base, err) in
             if let err=err{
                 print(err.localizedDescription)
             }
@@ -237,13 +237,13 @@ extension MainRegisterVC: UIImagePickerControllerDelegate, UINavigationControlle
 }
 
 
-extension MainRegisterVC: MainClinicWorkingHoursProtocol{
+extension MainRegisterVC: MainClinicWorkingHoursssProtocol{
     
     func getDays(indexs: [Int], days: [String]) {
            print(indexs,"              ",days)
        }
     
-    func getHoursChoosed(hours: [ Any]) {
+    func getHoursChoosed(hours: [ SecondWorkModel]) {
         print(hours)
     }
     

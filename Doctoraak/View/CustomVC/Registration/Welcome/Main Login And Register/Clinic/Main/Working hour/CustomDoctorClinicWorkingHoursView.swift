@@ -289,8 +289,8 @@ class CustomDoctorClinicWorkingHoursView: CustomBaseView {
     }
     
     func titleForButton(_ isShift1:Bool,fbt:UIButton,sbt:UIButton,txt:String)  {
-           isShift1 ?    fbt.setTitle(txt, for: .normal) :  sbt.setTitle(txt, for: .normal)
-       }
+        isShift1 ?    fbt.setTitle(txt, for: .normal) :  sbt.setTitle(txt, for: .normal)
+    }
     
     func changeTimeForButtonTitle(values:String)->String  {
         var ppp = "am"
@@ -299,81 +299,81 @@ class CustomDoctorClinicWorkingHoursView: CustomBaseView {
         ppp = hours > 12 ? "pm" : "am"
         hours =   hours > 12 ? hours - 12 : hours
         return "\(hours):\(minute) \(ppp)"
-    
+        
     }
     
     func savedData()  {
-               userDefaults.set(d1TXT1 , forKey: UserDefaultsConstants.first1)
-               userDefaults.set(d1TXT2  , forKey: UserDefaultsConstants.first11)
-               userDefaults.set(d12TXT1 , forKey: UserDefaultsConstants.first211)
-               userDefaults.set(d12TXT2 , forKey: UserDefaultsConstants.first2111)
-               
-               userDefaults.set(d2TXT1 , forKey: UserDefaultsConstants.first2)
-               userDefaults.set(d2TXT2 , forKey: UserDefaultsConstants.first21)
-               userDefaults.set(d22TXT1 , forKey: UserDefaultsConstants.first22)
-               userDefaults.set(d22TXT2 , forKey: UserDefaultsConstants.first221)
-               
-               userDefaults.set(d3TXT1 , forKey: UserDefaultsConstants.first3)
-               userDefaults.set(d3TXT2 , forKey: UserDefaultsConstants.first31)
-               userDefaults.set(d32TXT1 , forKey: UserDefaultsConstants.first23)
-               userDefaults.set(d32TXT2 , forKey: UserDefaultsConstants.first231)
-               
-               userDefaults.set(d4TXT1 , forKey: UserDefaultsConstants.first4)
-               userDefaults.set(d4TXT2 , forKey: UserDefaultsConstants.first41)
-               userDefaults.set(d42TXT1  , forKey: UserDefaultsConstants.first24)
-               userDefaults.set(d42TXT2 , forKey: UserDefaultsConstants.first241)
-               
-               userDefaults.set(d5TXT1 , forKey: UserDefaultsConstants.first5)
-               userDefaults.set(d5TXT2 , forKey: UserDefaultsConstants.first51)
-               userDefaults.set(d52TXT1 , forKey: UserDefaultsConstants.first25)
-               userDefaults.set(d52TXT2 , forKey: UserDefaultsConstants.first251)
-               
-               userDefaults.set(d6TXT1 , forKey: UserDefaultsConstants.first6)
-               userDefaults.set(d6TXT2 , forKey: UserDefaultsConstants.first61)
-               userDefaults.set(d62TXT1 , forKey: UserDefaultsConstants.first26)
-               userDefaults.set(d62TXT2 , forKey: UserDefaultsConstants.first261)
-               
-               userDefaults.set(d7TXT1 , forKey: UserDefaultsConstants.first7)
-               userDefaults.set(d7TXT2 , forKey: UserDefaultsConstants.first71)
-               userDefaults.set(d72TXT1 , forKey: UserDefaultsConstants.first27)
-               userDefaults.set(d72TXT2 , forKey: UserDefaultsConstants.first271)
-               
-               userDefaults.set(day1  , forKey: UserDefaultsConstants.day1)
-               userDefaults.set(day2  , forKey: UserDefaultsConstants.day2)
-               userDefaults.set(day3  , forKey: UserDefaultsConstants.day3)
-               userDefaults.set(day4  , forKey: UserDefaultsConstants.day4)
-               userDefaults.set(day5  , forKey: UserDefaultsConstants.day5)
-               userDefaults.set(day6  , forKey: UserDefaultsConstants.day6)
-               userDefaults.set(day7  , forKey: UserDefaultsConstants.day7)
-               
-               userDefaults.set(true, forKey: UserDefaultsConstants.isWorkingHoursSaved)
-               userDefaults.synchronize()
-               print(9999)
-           
-       }
+        userDefaults.set(d1TXT1 , forKey: UserDefaultsConstants.first1)
+        userDefaults.set(d1TXT2  , forKey: UserDefaultsConstants.first11)
+        userDefaults.set(d12TXT1 , forKey: UserDefaultsConstants.first211)
+        userDefaults.set(d12TXT2 , forKey: UserDefaultsConstants.first2111)
+        
+        userDefaults.set(d2TXT1 , forKey: UserDefaultsConstants.first2)
+        userDefaults.set(d2TXT2 , forKey: UserDefaultsConstants.first21)
+        userDefaults.set(d22TXT1 , forKey: UserDefaultsConstants.first22)
+        userDefaults.set(d22TXT2 , forKey: UserDefaultsConstants.first221)
+        
+        userDefaults.set(d3TXT1 , forKey: UserDefaultsConstants.first3)
+        userDefaults.set(d3TXT2 , forKey: UserDefaultsConstants.first31)
+        userDefaults.set(d32TXT1 , forKey: UserDefaultsConstants.first23)
+        userDefaults.set(d32TXT2 , forKey: UserDefaultsConstants.first231)
+        
+        userDefaults.set(d4TXT1 , forKey: UserDefaultsConstants.first4)
+        userDefaults.set(d4TXT2 , forKey: UserDefaultsConstants.first41)
+        userDefaults.set(d42TXT1  , forKey: UserDefaultsConstants.first24)
+        userDefaults.set(d42TXT2 , forKey: UserDefaultsConstants.first241)
+        
+        userDefaults.set(d5TXT1 , forKey: UserDefaultsConstants.first5)
+        userDefaults.set(d5TXT2 , forKey: UserDefaultsConstants.first51)
+        userDefaults.set(d52TXT1 , forKey: UserDefaultsConstants.first25)
+        userDefaults.set(d52TXT2 , forKey: UserDefaultsConstants.first251)
+        
+        userDefaults.set(d6TXT1 , forKey: UserDefaultsConstants.first6)
+        userDefaults.set(d6TXT2 , forKey: UserDefaultsConstants.first61)
+        userDefaults.set(d62TXT1 , forKey: UserDefaultsConstants.first26)
+        userDefaults.set(d62TXT2 , forKey: UserDefaultsConstants.first261)
+        
+        userDefaults.set(d7TXT1 , forKey: UserDefaultsConstants.first7)
+        userDefaults.set(d7TXT2 , forKey: UserDefaultsConstants.first71)
+        userDefaults.set(d72TXT1 , forKey: UserDefaultsConstants.first27)
+        userDefaults.set(d72TXT2 , forKey: UserDefaultsConstants.first271)
+        
+        userDefaults.set(day1  , forKey: UserDefaultsConstants.day1)
+        userDefaults.set(day2  , forKey: UserDefaultsConstants.day2)
+        userDefaults.set(day3  , forKey: UserDefaultsConstants.day3)
+        userDefaults.set(day4  , forKey: UserDefaultsConstants.day4)
+        userDefaults.set(day5  , forKey: UserDefaultsConstants.day5)
+        userDefaults.set(day6  , forKey: UserDefaultsConstants.day6)
+        userDefaults.set(day7  , forKey: UserDefaultsConstants.day7)
+        
+        userDefaults.set(true, forKey: UserDefaultsConstants.isClinicWorkingHoursSaved)
+        userDefaults.synchronize()
+        print(9999)
+        
+    }
     
     
-//    @objc func handleShowPicker(sender:UIButton) {
-//        var texts = ""
-//        let cc = Calendar.current
-//        var ppp = "am"
-//        
-//        setupTimeSelector(timeSelector)
-//        timeSelector.timeSelected = {[unowned self] (timeSelector) in
-//            print(timeSelector.date)
-//            let dd = timeSelector.date
-//            
-//            var hour = cc.component(.hour, from: dd)
-//            ppp = hour > 12 ? "pm" : "am"
-//            hour =   hour > 12 ? hour - 12 : hour
-//            
-//            let minute = cc.component(.minute, from: dd)
-//            texts = "\(hour):\(minute) \(ppp)"
-//            DispatchQueue.main.async {
-//                self.updateTextField(isShift1: self.shiftOne , tag: sender.tag, texts: texts,hours:hour,mintue:minute,ppp:ppp)
-//            }
-//        }
-//    }
+    //    @objc func handleShowPicker(sender:UIButton) {
+    //        var texts = ""
+    //        let cc = Calendar.current
+    //        var ppp = "am"
+    //
+    //        setupTimeSelector(timeSelector)
+    //        timeSelector.timeSelected = {[unowned self] (timeSelector) in
+    //            print(timeSelector.date)
+    //            let dd = timeSelector.date
+    //
+    //            var hour = cc.component(.hour, from: dd)
+    //            ppp = hour > 12 ? "pm" : "am"
+    //            hour =   hour > 12 ? hour - 12 : hour
+    //
+    //            let minute = cc.component(.minute, from: dd)
+    //            texts = "\(hour):\(minute) \(ppp)"
+    //            DispatchQueue.main.async {
+    //                self.updateTextField(isShift1: self.shiftOne , tag: sender.tag, texts: texts,hours:hour,mintue:minute,ppp:ppp)
+    //            }
+    //        }
+    //    }
     
     func updateTextField(isShift1:Bool,tag:Int,texts:String,hours:Int,mintue:Int,ppp:String)  {
         var hs = 0
@@ -503,9 +503,9 @@ class CustomDoctorClinicWorkingHoursView: CustomBaseView {
             titleForButton(isShift1, fbt: seventh2TextField, sbt: mainSecondStack.seventh2TextField, txt: texts)
         }
         
-//        choosedHours.append(texts)
+        //        choosedHours.append(texts)
     }
-
+    
     
     
     func putDataForVariables(_ ff:String...)  {
@@ -526,23 +526,23 @@ class CustomDoctorClinicWorkingHoursView: CustomBaseView {
     }
     
     func putOtherData()  {
-           let d1 = userDefaults.bool(forKey: UserDefaultsConstants.day1);let d5 = userDefaults.bool(forKey: UserDefaultsConstants.day5)
-           let d2 = userDefaults.bool(forKey: UserDefaultsConstants.day2);let d6 = userDefaults.bool(forKey: UserDefaultsConstants.day6)
-           let d3 = userDefaults.bool(forKey: UserDefaultsConstants.day3);let d7 = userDefaults.bool(forKey: UserDefaultsConstants.day7)
-           let d4 = userDefaults.bool(forKey: UserDefaultsConstants.day4)
-           
-//           day1 = d1;  day2=d2;    day3=d3;    day4=d4;    day5=d5;    day6=d6;    day7=d7
-//           checkIfButtonsEnabled(enable: day1, vv: satButton)
-//           checkIfButtonsEnabled(enable: day2, vv: sunButton)
-//           checkIfButtonsEnabled(enable: day3, vv: monButton)
-//           checkIfButtonsEnabled(enable: day4, vv: tuesButton)
-//           checkIfButtonsEnabled(enable: day5, vv: wedButton)
-//           checkIfButtonsEnabled(enable: day6, vv: thuButton)
-//           checkIfButtonsEnabled(enable: day7, vv: friButton)
-       }
+        let d1 = userDefaults.integer(forKey: UserDefaultsConstants.day1);let d5 = userDefaults.integer(forKey: UserDefaultsConstants.day5)
+        let d2 = userDefaults.integer(forKey: UserDefaultsConstants.day2);let d6 = userDefaults.integer(forKey: UserDefaultsConstants.day6)
+        let d3 = userDefaults.integer(forKey: UserDefaultsConstants.day3);let d7 = userDefaults.integer(forKey: UserDefaultsConstants.day7)
+        let d4 = userDefaults.integer(forKey: UserDefaultsConstants.day4)
+        
+                   day1 = d1;  day2=d2;    day3=d3;    day4=d4;    day5=d5;    day6=d6;    day7=d7
+                   checkIfButtonsEnabled(enable: day1, vv: satButton)
+                   checkIfButtonsEnabled(enable: day2, vv: sunButton)
+                   checkIfButtonsEnabled(enable: day3, vv: monButton)
+                   checkIfButtonsEnabled(enable: day4, vv: tuesButton)
+                   checkIfButtonsEnabled(enable: day5, vv: wedButton)
+                   checkIfButtonsEnabled(enable: day6, vv: thuButton)
+                   checkIfButtonsEnabled(enable: day7, vv: friButton)
+    }
     
-    func checkIfButtonsEnabled(enable:Bool,vv:UIButton)  {
-        if enable {
+    func checkIfButtonsEnabled(enable:Int,vv:UIButton)  {
+        if enable == 1 {
             enableTextFields(enable: true, tag: vv.tag)
             addGradientInSenderAndRemoveOtherss(sender: vv)
         }else {}
@@ -551,30 +551,30 @@ class CustomDoctorClinicWorkingHoursView: CustomBaseView {
     }
     
     func enableTextFields(enable:Bool,tag:Int)  {
-           switch tag {
-           case 1:
-               enalbes(t: first1TextField,first2TextField,mainSecondStack.first1TextField,mainSecondStack.first2TextField,enable:enable)
-               day1 =  enable ? 1 : 0
-           case 2:
-               enalbes(t: second1TextField,second2TextField,mainSecondStack.second1TextField,mainSecondStack.second2TextField,enable:enable)
-               day2 = enable ? 1 : 0
-           case 3:
-               enalbes(t: third1TextField,third2TextField,mainSecondStack.third1TextField,mainSecondStack.third2TextField,enable:enable)
-               day3 = enable ? 1 : 0
-           case 4:
-               enalbes(t: forth1TextField,forth2TextField,mainSecondStack.forth1TextField,mainSecondStack.forth2TextField,enable:enable)
-               day4 = enable ? 1 : 0
-           case 5:
-               enalbes(t: fifth1TextField,fifth2TextField,mainSecondStack.fifth1TextField,mainSecondStack.fifth2TextField,enable:enable)
-               day5 = enable ? 1 : 0
-           case 6:
-               enalbes(t: sexth1TextField,sexth2TextField,mainSecondStack.sexth1TextField,mainSecondStack.sexth2TextField,enable:enable)
-               day6 = enable ? 1 : 0
-           default:
-               enalbes(t: seventh1TextField,seventh2TextField,mainSecondStack.seventh1TextField,mainSecondStack.seventh2TextField,enable:enable)
-               day7 = enable ? 1 : 0
-           }
-       }
+        switch tag {
+        case 1:
+            enalbes(t: first1TextField,first2TextField,mainSecondStack.first1TextField,mainSecondStack.first2TextField,enable:enable)
+            day1 =  enable ? 1 : 0
+        case 2:
+            enalbes(t: second1TextField,second2TextField,mainSecondStack.second1TextField,mainSecondStack.second2TextField,enable:enable)
+            day2 = enable ? 1 : 0
+        case 3:
+            enalbes(t: third1TextField,third2TextField,mainSecondStack.third1TextField,mainSecondStack.third2TextField,enable:enable)
+            day3 = enable ? 1 : 0
+        case 4:
+            enalbes(t: forth1TextField,forth2TextField,mainSecondStack.forth1TextField,mainSecondStack.forth2TextField,enable:enable)
+            day4 = enable ? 1 : 0
+        case 5:
+            enalbes(t: fifth1TextField,fifth2TextField,mainSecondStack.fifth1TextField,mainSecondStack.fifth2TextField,enable:enable)
+            day5 = enable ? 1 : 0
+        case 6:
+            enalbes(t: sexth1TextField,sexth2TextField,mainSecondStack.sexth1TextField,mainSecondStack.sexth2TextField,enable:enable)
+            day6 = enable ? 1 : 0
+        default:
+            enalbes(t: seventh1TextField,seventh2TextField,mainSecondStack.seventh1TextField,mainSecondStack.seventh2TextField,enable:enable)
+            day7 = enable ? 1 : 0
+        }
+    }
     //    func enableTextFields(tag:Int)  {
     //        switch tag {
     //        case 1:
@@ -613,31 +613,31 @@ class CustomDoctorClinicWorkingHoursView: CustomBaseView {
     }
     
     func getDays() -> [String] {
-          var ss = [String]()
-          ss.append(checkActiveDay(day1) ? "Sat" : checkActiveDay(day2) ? "Sun" : checkActiveDay(day3) ? "Mon" : checkActiveDay(day4) ? "Tue" : checkActiveDay(day5) ? "Wed" : checkActiveDay(day6) ? "Thr" : "Fri" )
-          return ss
-      }
-      
-      func getDaysIndex() -> [Int] {
-          var ss = [Int]()
-          ss.append(checkActiveDay(day1) ? 1 : checkActiveDay(day2) ? 2 : checkActiveDay(day3) ? 3 : checkActiveDay(day4) ? 4 : checkActiveDay(day5) ? 5 : checkActiveDay(day6) ? 6 : 7)
-          
-          return ss
-      }
+        var ss = [String]()
+        ss.append(checkActiveDay(day1) ? "Sat" : checkActiveDay(day2) ? "Sun" : checkActiveDay(day3) ? "Mon" : checkActiveDay(day4) ? "Tue" : checkActiveDay(day5) ? "Wed" : checkActiveDay(day6) ? "Thr" : "Fri" )
+        return ss
+    }
+    
+    func getDaysIndex() -> [Int] {
+        var ss = [Int]()
+        ss.append(checkActiveDay(day1) ? 1 : checkActiveDay(day2) ? 2 : checkActiveDay(day3) ? 3 : checkActiveDay(day4) ? 4 : checkActiveDay(day5) ? 5 : checkActiveDay(day6) ? 6 : 7)
+        
+        return ss
+    }
     
     func getChoosenHours() -> [WorkModel] {
         
         let v:[WorkModel] =   [
-        .init(part1From: d1TXT2!, part1To: d1TXT2!, part2From: d12TXT1!, part2To: d12TXT2!, day: 1, active: day1),
-        .init(part1From: d1TXT2!, part1To: d1TXT2!, part2From: d12TXT1!, part2To: d12TXT2!, day: 2, active: day2),
+            .init(part1From: d1TXT2!, part1To: d1TXT2!, part2From: d12TXT1!, part2To: d12TXT2!, day: 1, active: day1),
+            .init(part1From: d1TXT2!, part1To: d1TXT2!, part2From: d12TXT1!, part2To: d12TXT2!, day: 2, active: day2),
             .init(part1From: d1TXT2!, part1To: d1TXT2!, part2From: d12TXT1!, part2To: d12TXT2!, day: 1, active: day3),
             .init(part1From: d1TXT2!, part1To: d1TXT2!, part2From: d12TXT1!, part2To: d12TXT2!, day: 1, active: day4),
             .init(part1From: d1TXT2!, part1To: d1TXT2!, part2From: d12TXT1!, part2To: d12TXT2!, day: 1, active: day5),
             .init(part1From: d1TXT2!, part1To: d1TXT2!, part2From: d12TXT1!, part2To: d12TXT2!, day: 1, active: day6),
             .init(part1From: d1TXT2!, part1To: d1TXT2!, part2From: d12TXT1!, part2To: d12TXT2!, day: 1, active: day7)
             
-           ]
-           return v
-       }
-
+        ]
+        return v
+    }
+    
 }

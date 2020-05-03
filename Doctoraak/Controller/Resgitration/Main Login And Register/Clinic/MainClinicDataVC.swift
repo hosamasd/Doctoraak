@@ -206,20 +206,9 @@ extension MainClinicDataVC: MainClinicWorkingHoursProtocol {
         customClinicDataView.workingHoursLabel.text = days.joined(separator: "-")
     }
     
-    func getHoursChoosed(hours: [ Any]) {
-        print(hours)
+    func getHoursChoosed(hours: [ WorkModel]) {
         customClinicDataView.clinicDataViewModel.workingArrayHours = hours
     }
-    
-    
-    //    func getHoursChoosed(hours: [String]) {
-    //        let texts = hours.map{$0}.joined(separator: ",")
-    //
-    //        customClinicDataView.clinicWorkingHoursTextField.text = texts
-    //    }
-    
-    
-    
 }
 
 

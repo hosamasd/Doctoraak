@@ -29,7 +29,7 @@ class ClinicDataViewModel {
     var waitingHours:String?  {didSet {checkFormValidity()}}
     var index:Int? = -1 {didSet {checkFormValidity()}}
     var image:UIImage? {didSet {checkFormValidity()}}
-    var workingArrayHours:[ Any]?  {didSet {checkFormValidity()}}
+    var workingArrayHours:[ WorkModel]?  {didSet {checkFormValidity()}}
     
     
     func performRegister(completion:@escaping (MainDoctorClinicCreateModel?,Error?)->Void)    {

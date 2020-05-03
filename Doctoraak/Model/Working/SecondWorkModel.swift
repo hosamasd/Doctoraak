@@ -19,11 +19,4 @@ struct SecondWorkModel:Codable {
 
               case day, active
           }
-    
-//    init(partFrom:String,partTo:String,day:Int,active:Int) {
-//        self.day=day
-//        self.active=active
-//        self.partTo=partTo
-//        self.partFrom=partFrom
-//    }
 }

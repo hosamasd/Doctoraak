@@ -8,6 +8,14 @@
 
 import UIKit
 
+protocol MainClinicWorkingHoursssProtocol {
+    //    func getHoursChoosed(hours:[String])
+    func getHoursChoosed(hours:[SecondWorkModel])
+    func getDays(indexs:[Int],days:[String])
+    
+    
+}
+
 class MainClinicWorkingHoursNotDoctorVC: CustomBaseViewVC {
     
     
@@ -36,7 +44,7 @@ class MainClinicWorkingHoursNotDoctorVC: CustomBaseViewVC {
         return v
     }()
     let timeSelector = TimeSelector()
-    var delgate:MainClinicWorkingHoursProtocol?
+    var delgate:MainClinicWorkingHoursssProtocol?
     var choosedHours = [String]()
     
     override func viewDidLoad() {
@@ -54,7 +62,6 @@ class MainClinicWorkingHoursNotDoctorVC: CustomBaseViewVC {
             }
             
         }else{
-            //        chooseWorkingHoursViewModel.day2 = true
         }
     }
     
@@ -88,9 +95,7 @@ class MainClinicWorkingHoursNotDoctorVC: CustomBaseViewVC {
         timeSelector.presentOnView(view: self.view)
     }
     
-    func titleForButton(_ isShift1:Bool,fbt:UIButton,sbt:UIButton,txt:String)  {
-        isShift1 ?    fbt.setTitle(txt, for: .normal) :  sbt.setTitle(txt, for: .normal)
-    }
+
     
     
     
