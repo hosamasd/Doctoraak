@@ -9,7 +9,6 @@
 import UIKit
 
 protocol MainClinicWorkingHoursssProtocol {
-    //    func getHoursChoosed(hours:[String])
     func getHoursChoosed(hours:[SecondWorkModel])
     func getDays(indexs:[Int],days:[String])
     
@@ -19,7 +18,7 @@ protocol MainClinicWorkingHoursssProtocol {
 class MainClinicWorkingHoursNotDoctorVC: CustomBaseViewVC {
     
     
- lazy var scrollView: UIScrollView = {
+    lazy var scrollView: UIScrollView = {
         let v = UIScrollView()
         v.backgroundColor = .clear
         
@@ -35,8 +34,6 @@ class MainClinicWorkingHoursNotDoctorVC: CustomBaseViewVC {
         let v = CustomMainClinicWorkingHoursView()
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
         v.doneButton.addTarget(self, action: #selector(handleDone), for: .touchUpInside)
-        [v.sunButton,v.monButton,v.tuesButton,v.wedButton,v.thuButton,v.friButton,v.satButton].forEach({$0
-            .addTarget(self, action:#selector(handleOpen), for: .touchUpInside)})
         
         v.handleShowPickers = {[unowned self] sender in
             self.handleShowPicker(sender: sender)
@@ -49,14 +46,13 @@ class MainClinicWorkingHoursNotDoctorVC: CustomBaseViewVC {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //        setupViewModelObserver()
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if userDefaults.bool(forKey: UserDefaultsConstants.isWorkingHoursSaved) {
-            customClinicWorkingHoursView.getSavedData()
+                        customClinicWorkingHoursView.getSavedData()
             DispatchQueue.main.async {
                 self.view.layoutIfNeeded()
             }
@@ -83,7 +79,7 @@ class MainClinicWorkingHoursNotDoctorVC: CustomBaseViewVC {
         
     }
     
-   
+    
     
     
     fileprivate func setupTimeSelector(_ timeSelector: TimeSelector) {
@@ -95,12 +91,23 @@ class MainClinicWorkingHoursNotDoctorVC: CustomBaseViewVC {
         timeSelector.presentOnView(view: self.view)
     }
     
-
+    fileprivate func validateFirstShift() {
+        if customClinicWorkingHoursView.checkDoneEnabled() {
+            
+            delgate?.getHoursChoosed(hours: customClinicWorkingHoursView.getChoosenHours())
+            delgate?.getDays(indexs: customClinicWorkingHoursView.getDaysIndex(), days: customClinicWorkingHoursView.getDays())
+            customClinicWorkingHoursView.savedData()
+            navigationController?.popViewController(animated: true)
+        }else{}
+        
+    }
     
     
+    fileprivate func checkValidateDoneButton() {
+        validateFirstShift()
+    }
     
-   
-    
+    //TODO:- Handle methods
     
     @objc func handleShowPicker(sender:UIButton) {
         var texts = ""
@@ -124,111 +131,14 @@ class MainClinicWorkingHoursNotDoctorVC: CustomBaseViewVC {
         }
     }
     
-    func showAndHide(fv:UIView,sv:UIView)  {
-        UIView.animate(withDuration: 0.6, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
-            fv.isHide(true)
-            sv.isHide(false)
-        })
-    }
-    
-   
-    
-    func enalbes(t:UIButton...,enable:Bool? = true)   {
-        t.forEach({$0.isEnabled = enable ?? true})
-    }
-    
-   
-    @objc  func handleOpen(sender:UIButton)  {
-        if sender.backgroundColor == nil {
-            //disable button
-            removeGradientInSender(sender:sender)
-                customClinicWorkingHoursView.enableTextFields(enable: false, tag: sender.tag)
-            return
-        }
-        //enable button
-        customClinicWorkingHoursView.enableTextFields(enable: true, tag: sender.tag)
-        addGradientInSenderAndRemoveOtherss(sender: sender)
-    }
-    
     @objc func handleBack()  {
         navigationController?.popViewController(animated: true)
     }
     
-    func checkValidteShifting(bol:Bool?,ftf:String?,stf:String?,title:String,ftf2:String?,stf2:String?) ->Bool {
-        if bol ?? true  {
-            guard let _ = ftf,let _ = stf else {creatMainSnackBar(message: "\(title) range should be choosen"); return false }
-            //            guard let _ = ftf,let _ = stf else {creatMainSnackBar(message: "\(title) range should be choosen"); return  }
-            
-        }
-        return true
-    }
-    
-    func checkValidteShifting(bol:Bool,ftf:String?,stf:String?,title:String) -> Bool {
-           let ss = ftf !=  "00:00" && stf != "00:00"
-           let dd = stf == "00:00" && ftf == "00:00"
-           
-           
-           if ss   {
-               return true
-           }else {
-               creatMainSnackBar(message: "\(title) range should be choosen"); return  false
-               
-           }
-           
-       }
-    
-    func checkDayActive(_ d:Int) -> Bool {
-           return d == 1 ? true : false
-       }
-    
-    fileprivate func validateFirstShift() {
-       if checkDayActive( customClinicWorkingHoursView.day1 ){
-                   if checkValidteShifting(bol: checkDayActive( customClinicWorkingHoursView.day1), ftf: customClinicWorkingHoursView.d1TXT1, stf: customClinicWorkingHoursView.d1TXT2, title: "Saturday "){}else {return}
-                  }
-               if checkDayActive(customClinicWorkingHoursView.day2) {
-                   if  checkValidteShifting(bol: checkDayActive(customClinicWorkingHoursView.day2), ftf: customClinicWorkingHoursView.d2TXT1, stf: customClinicWorkingHoursView.d2TXT2, title: "Sunday") {}else {return}
-                      
-                  }
-               if checkDayActive(customClinicWorkingHoursView.day3) {
-                   if checkValidteShifting(bol: checkDayActive(customClinicWorkingHoursView.day3), ftf: customClinicWorkingHoursView.d3TXT1, stf: customClinicWorkingHoursView.d3TXT2, title: "Monday"){}else {return}
-                  }
-               if checkDayActive(customClinicWorkingHoursView.day4) {
-                   if checkValidteShifting(bol: checkDayActive(customClinicWorkingHoursView.day4), ftf: customClinicWorkingHoursView.d4TXT1, stf: customClinicWorkingHoursView.d4TXT2, title: "Tuesday"){}else {return}
-                  }
-               if checkDayActive(customClinicWorkingHoursView.day5) {
-                   if checkValidteShifting(bol: checkDayActive(customClinicWorkingHoursView.day5), ftf: customClinicWorkingHoursView.d5TXT1, stf: customClinicWorkingHoursView.d5TXT2, title: "Wednsday"){}else {return}
-                  }
-               if checkDayActive(customClinicWorkingHoursView.day6) {
-                   if checkValidteShifting(bol: checkDayActive(customClinicWorkingHoursView.day6), ftf: customClinicWorkingHoursView.d6TXT1, stf: customClinicWorkingHoursView.d6TXT2, title: "Thrusday "){}else {return}
-                  }
-               if checkDayActive(customClinicWorkingHoursView.day7) {
-                      
-                   if checkValidteShifting(bol: checkDayActive(customClinicWorkingHoursView.day7), ftf: customClinicWorkingHoursView.d7TXT1, stf: customClinicWorkingHoursView.d7TXT2, title: "Friday") {}else {return}
-                  }
-                  
-                  
-                  
-               delgate?.getHoursChoosed(hours: customClinicWorkingHoursView.getChoosenHours())
-               delgate?.getDays(indexs: customClinicWorkingHoursView.getDaysIndex(), days: customClinicWorkingHoursView.getDays())
-               customClinicWorkingHoursView.savedData()
-                  navigationController?.popViewController(animated: true)
-              
-    }
-    
-    
-    fileprivate func checkValidateDoneButton() {
-        validateFirstShift()
-        
-        
-    }
-    
-  
-    
     @objc func handleDone()  {
         checkValidateDoneButton()
-        
     }
     
-   
+    
 }
 

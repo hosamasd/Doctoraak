@@ -47,7 +47,7 @@ class DoctorClinicWorkingHoursVC: CustomBaseViewVC {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //        setupViewModelObserver()
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -72,15 +72,9 @@ class DoctorClinicWorkingHoursVC: CustomBaseViewVC {
         mainView.anchor(top: scrollView.topAnchor, leading: scrollView.leadingAnchor, bottom: scrollView.bottomAnchor, trailing: scrollView.trailingAnchor,padding: .init(top: -60, left: 0, bottom: 0, right: 0))
         mainView.addSubViews(views: customClinicWorkingHoursView)
         customClinicWorkingHoursView.fillSuperview()
-        
-        
-        
     }
     
-    
-    
-    
-    fileprivate func setupTimeSelector(_ timeSelector: TimeSelector) {
+      fileprivate func setupTimeSelector(_ timeSelector: TimeSelector) {
         timeSelector.overlayAlpha = 0.8
         timeSelector.clockTint = timeSelector_rgb(0, 230, 0)
         timeSelector.minutes = 30
@@ -89,69 +83,10 @@ class DoctorClinicWorkingHoursVC: CustomBaseViewVC {
         timeSelector.presentOnView(view: self.view)
     }
     
-    func titleForButton(_ isShift1:Bool,fbt:UIButton,sbt:UIButton,txt:String)  {
-        isShift1 ?    fbt.setTitle(txt, for: .normal) :  sbt.setTitle(txt, for: .normal)
-    }
+
+   
     
-    
-    func changeTimeForButtonTitle(values:String)->String  {
-        var ppp = "am"
-        guard let minute = values.strstr(needle: ":", beforeNeedle: false)?.toInt()  else { return "" }
-        guard var hours = values.strstr(needle: ":", beforeNeedle: true)?.toInt()  else { return "" }
-        ppp = hours > 12 ? "pm" : "am"
-        hours =   hours > 12 ? hours - 12 : hours
-        return "\(hours):\(minute) \(ppp)"
-    }
-    
-    @objc func handleShowPicker(sender:UIButton) {
-        var texts = ""
-        let cc = Calendar.current
-        var ppp = "am"
-        
-        setupTimeSelector(timeSelector)
-        timeSelector.timeSelected = {[unowned self] (timeSelector) in
-            print(timeSelector.date)
-            let dd = timeSelector.date
-            
-            var hour = cc.component(.hour, from: dd)
-            ppp = hour > 12 ? "pm" : "am"
-            hour =   hour > 12 ? hour - 12 : hour
-            
-            let minute = cc.component(.minute, from: dd)
-            texts = "\(hour):\(minute) \(ppp)"
-            DispatchQueue.main.async {
-                self.customClinicWorkingHoursView.updateTextField(isShift1: self.customClinicWorkingHoursView.shiftOne , tag: sender.tag, texts: texts,hours:hour,mintue:minute,ppp:ppp)
-            }
-        }
-    }
-    
-    func enalbes(t:UIButton...,enable:Bool? = true)   {
-        t.forEach({$0.isEnabled = enable ?? true})
-    }
-    
-    @objc func handleBack()  {
-        navigationController?.popViewController(animated: true)
-    }
-    
-    func checkValidteShifting(bol:Bool,ftf:String?,stf:String?,title:String,ftf2:String?,stf2:String?) -> Bool {
-        let ss = ftf !=  "00:00" && stf != "00:00"
-        let dd = stf == "00:00" && ftf == "00:00"
-        
-        let sss = ftf2 == "00:00" && stf2 == "00:00"
-        let ddd = stf2 != "00:00" && ftf2 != "00:00"
-        
-        if ss && ddd || (ss && sss)  ||  (ddd && dd  ) {
-            return true
-        }else {
-            creatMainSnackBar(message: "\(title) range should be choosen"); return  false
-            
-        }
-        
-    }
-    func checkDayActive(_ d:Int) -> Bool {
-        return d == 1 ? true : false
-    }
-    
+   
     fileprivate func checkValidateDoneButton() {
         if  customClinicWorkingHoursView.checkButtonDone() {
         delgate?.getHoursChoosed(hours: customClinicWorkingHoursView.getChoosenHours())
@@ -160,6 +95,34 @@ class DoctorClinicWorkingHoursVC: CustomBaseViewVC {
         navigationController?.popViewController(animated: true)
         }else {}
     }
+    
+    //TODO:Handle methods
+    
+    @objc func handleShowPicker(sender:UIButton) {
+           var texts = ""
+           let cc = Calendar.current
+           var ppp = "am"
+           
+           setupTimeSelector(timeSelector)
+           timeSelector.timeSelected = {[unowned self] (timeSelector) in
+               print(timeSelector.date)
+               let dd = timeSelector.date
+               
+               var hour = cc.component(.hour, from: dd)
+               ppp = hour > 12 ? "pm" : "am"
+               hour =   hour > 12 ? hour - 12 : hour
+               
+               let minute = cc.component(.minute, from: dd)
+               texts = "\(hour):\(minute) \(ppp)"
+               DispatchQueue.main.async {
+                   self.customClinicWorkingHoursView.updateTextField(isShift1: self.customClinicWorkingHoursView.shiftOne , tag: sender.tag, texts: texts,hours:hour,mintue:minute,ppp:ppp)
+               }
+           }
+       }
+    
+    @objc func handleBack()  {
+           navigationController?.popViewController(animated: true)
+       }
     
     @objc func handleDone()  {
         checkValidateDoneButton()

@@ -196,7 +196,7 @@ class CustomMainClinicWorkingHoursView: CustomBaseView {
     
     func getSavedData()  {
         
-        if !userDefaults.bool(forKey: UserDefaultsConstants.isWorkingHoursSaved) { }else {
+//        if !userDefaults.bool(forKey: UserDefaultsConstants.isWorkingHoursSaved) { }else {
             
             if let f1 = userDefaults.string(forKey: UserDefaultsConstants.mainfirst1),let f11 = userDefaults.string(forKey: UserDefaultsConstants.mainfirst11),
                 let f2 = userDefaults.string(forKey: UserDefaultsConstants.mainfirst2),let f21 = userDefaults.string(forKey: UserDefaultsConstants.mainfirst21),
@@ -237,7 +237,7 @@ class CustomMainClinicWorkingHoursView: CustomBaseView {
                 seventh2TextField.setTitle(changeTimeForButtonTitle(f71), for: .normal)
                 putDefualValues()
             }
-        }
+//        }
     }
     
     func putDefualValues()  {
@@ -304,8 +304,9 @@ class CustomMainClinicWorkingHoursView: CustomBaseView {
         return t
     }
     
-    func enalbes(t:UIButton...,enable:Bool? = true)   {
-        t.forEach({$0.isEnabled = enable ?? true})
+    func enalbes(t:UIButton...,enable:Bool )   {
+        
+        t.forEach({$0.isEnabled = enable })
     }
     
     func createButtons(title:String,color:UIColor,tags : Int? = 0) -> UIButton {
@@ -320,6 +321,7 @@ class CustomMainClinicWorkingHoursView: CustomBaseView {
         button.constrainHeight(constant: 50)
         button.tag = tags ?? 0
         button.layer.cornerRadius = 25
+        button.addTarget(self, action:#selector(handleOpen), for: .touchUpInside)
         //        button.addTarget(self, action: #selector(handleOpen), for: .touchUpInside)
         return button
     }
@@ -404,13 +406,13 @@ class CustomMainClinicWorkingHoursView: CustomBaseView {
         case 6:
             d6TXT1 = ss
             
-            titleForButton(fbt: sexth2TextField, txt: texts)
+            titleForButton(fbt: sexth1TextField, txt: texts)
             
             
         case 66:
             d6TXT2 = ss
             
-            titleForButton( fbt: sexth1TextField,txt: texts)
+            titleForButton( fbt: sexth2TextField,txt: texts)
             
             
         case 7:
@@ -432,25 +434,25 @@ class CustomMainClinicWorkingHoursView: CustomBaseView {
     func enableTextFields(enable:Bool,tag:Int)  {
         switch tag {
         case 1:
-            enalbes(t: first1TextField,first2TextField)
+            enalbes(t: first1TextField,first2TextField, enable: enable)
             day1 =  enable ? 1 : 0
         case 2:
-            enalbes(t: second1TextField,second2TextField)
+            enalbes(t: second1TextField,second2TextField,enable:enable)
             day2 = enable ? 1 : 0
         case 3:
-            enalbes(t: third1TextField,third2TextField)
+            enalbes(t: third1TextField,third2TextField, enable: enable)
             day3 = enable ? 1 : 0
         case 4:
-            enalbes(t: forth1TextField,forth2TextField)
+            enalbes(t: forth1TextField,forth2TextField, enable: enable)
             day4 = enable ? 1 : 0
         case 5:
-            enalbes(t: fifth1TextField,fifth2TextField)
+            enalbes(t: fifth1TextField,fifth2TextField, enable: enable)
             day5 = enable ? 1 : 0
         case 6:
-            enalbes(t: sexth1TextField,sexth2TextField)
+            enalbes(t: sexth1TextField,sexth2TextField, enable: enable)
             day6 = enable ? 1 : 0
         default:
-            enalbes(t: seventh1TextField,seventh2TextField)
+            enalbes(t: seventh1TextField,seventh2TextField, enable: enable)
             day7 = enable ? 1 : 0
         }
     }
@@ -459,6 +461,48 @@ class CustomMainClinicWorkingHoursView: CustomBaseView {
     func checkActiveDay(_ d:Int) -> Bool {
         return d == 1 ? true : false
     }
+    
+    func checkValidteShifting(bol:Bool,ftf:String?,stf:String?,title:String) -> Bool {
+        let ss = ftf !=  "00:00" && stf != "00:00"
+        
+        if ss   {
+            return true
+        }else {
+            creatMainSnackBar(message: "\(title) range should be choosen"); return  false
+        }
+    }
+    
+    func checkDayActive(_ d:Int) -> Bool {
+        return d == 1 ? true : false
+    }
+    
+    func checkDoneEnabled() -> Bool {
+        if checkDayActive( day1 ){
+            if checkValidteShifting(bol: checkDayActive( day1), ftf: d1TXT1, stf: d1TXT2, title: "Saturday "){}else {return false}
+        }
+        if checkDayActive(day2) {
+            if  checkValidteShifting(bol: checkDayActive(day2), ftf: d2TXT1, stf: d2TXT2, title: "Sunday") {}else {return false}
+            
+        }
+        if checkDayActive(day3) {
+            if checkValidteShifting(bol: checkDayActive(day3), ftf: d3TXT1, stf: d3TXT2, title: "Monday"){}else {return false}
+        }
+        if checkDayActive(day4) {
+            if checkValidteShifting(bol: checkDayActive(day4), ftf: d4TXT1, stf: d4TXT2, title: "Tuesday"){}else {return false}
+        }
+        if checkDayActive(day5) {
+            if checkValidteShifting(bol: checkDayActive(day5), ftf: d5TXT1, stf: d5TXT2, title: "Wednsday"){}else {return false}
+        }
+        if checkDayActive(day6) {
+            if checkValidteShifting(bol: checkDayActive(day6), ftf: d6TXT1, stf: d6TXT2, title: "Thrusday "){}else {return false}
+        }
+        if checkDayActive(day7) {
+            
+            if checkValidteShifting(bol: checkDayActive(day7), ftf: d7TXT1, stf: d7TXT2, title: "Friday") {}else {return false}
+        }
+        return true
+    }
+    
     
     func getDays() -> [String] {
         var ss = [String]()
@@ -497,6 +541,17 @@ class CustomMainClinicWorkingHoursView: CustomBaseView {
         print(969)
     }
     
+    @objc  func handleOpen(sender:UIButton)  {
+        if sender.backgroundColor == nil {
+            //disable button
+            removeGradientInSender(sender:sender)
+            enableTextFields(enable: false, tag: sender.tag)
+            return
+        }
+        //enable button
+        enableTextFields(enable: true, tag: sender.tag)
+        addGradientInSenderAndRemoveOtherss(sender: sender)
+    }
     
 }
 

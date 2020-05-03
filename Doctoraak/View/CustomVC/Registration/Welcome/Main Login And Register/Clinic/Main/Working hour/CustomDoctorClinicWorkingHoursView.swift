@@ -246,7 +246,7 @@ class CustomDoctorClinicWorkingHoursView: CustomBaseView {
         button.layer.cornerRadius = 16
         button.constrainHeight(constant: 60)
         button.clipsToBounds = true
-    
+        
         button.addTarget(self, action: selector, for: .touchUpInside)
         return button
         
@@ -511,14 +511,14 @@ class CustomDoctorClinicWorkingHoursView: CustomBaseView {
         let d3 = userDefaults.integer(forKey: UserDefaultsConstants.day3);let d7 = userDefaults.integer(forKey: UserDefaultsConstants.day7)
         let d4 = userDefaults.integer(forKey: UserDefaultsConstants.day4)
         
-                   day1 = d1;  day2=d2;    day3=d3;    day4=d4;    day5=d5;    day6=d6;    day7=d7
-                   checkIfButtonsEnabled(enable: day1, vv: satButton)
-                   checkIfButtonsEnabled(enable: day2, vv: sunButton)
-                   checkIfButtonsEnabled(enable: day3, vv: monButton)
-                   checkIfButtonsEnabled(enable: day4, vv: tuesButton)
-                   checkIfButtonsEnabled(enable: day5, vv: wedButton)
-                   checkIfButtonsEnabled(enable: day6, vv: thuButton)
-                   checkIfButtonsEnabled(enable: day7, vv: friButton)
+        day1 = d1;  day2=d2;    day3=d3;    day4=d4;    day5=d5;    day6=d6;    day7=d7
+        checkIfButtonsEnabled(enable: day1, vv: satButton)
+        checkIfButtonsEnabled(enable: day2, vv: sunButton)
+        checkIfButtonsEnabled(enable: day3, vv: monButton)
+        checkIfButtonsEnabled(enable: day4, vv: tuesButton)
+        checkIfButtonsEnabled(enable: day5, vv: wedButton)
+        checkIfButtonsEnabled(enable: day6, vv: thuButton)
+        checkIfButtonsEnabled(enable: day7, vv: friButton)
     }
     
     func checkIfButtonsEnabled(enable:Int,vv:UIButton)  {
@@ -619,109 +619,109 @@ class CustomDoctorClinicWorkingHoursView: CustomBaseView {
         ]
         return v
     }
- 
+    
     func showAndHide(fv:UIView,sv:UIView)  {
-           UIView.animate(withDuration: 0.6, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
-               fv.isHide(true)
-               sv.isHide(false)
-           })
-       }
-       
-       func changeShiftStates(sender:UIButton,second:UIButton,enable1:Bool,enable2:Bool,vv:UIView...)  {
-           if sender.backgroundColor == nil {
-                    
-                    return
-                }
-                addGradientInSenderAndRemoveOther(sender: sender, vv: second)
-                shiftTwo = enable2
-                shiftOne = enable1
-                showAndHide(fv: vv[0], sv: vv[1])
-       }
+        UIView.animate(withDuration: 0.6, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
+            fv.isHide(true)
+            sv.isHide(false)
+        })
+    }
+    
+    func changeShiftStates(sender:UIButton,second:UIButton,enable1:Bool,enable2:Bool,vv:UIView...)  {
+        if sender.backgroundColor == nil {
+            
+            return
+        }
+        addGradientInSenderAndRemoveOther(sender: sender, vv: second)
+        shiftTwo = enable2
+        shiftOne = enable1
+        showAndHide(fv: vv[0], sv: vv[1])
+    }
     
     func checkValidteShifting(bol:Bool,ftf:String?,stf:String?,title:String,ftf2:String?,stf2:String?) -> Bool {
-           let ss = ftf !=  "00:00" && stf != "00:00"
-           let dd = stf == "00:00" && ftf == "00:00"
-           
-           let sss = ftf2 == "00:00" && stf2 == "00:00"
-           let ddd = stf2 != "00:00" && ftf2 != "00:00"
-           
-           if ss && ddd || (ss && sss)  ||  (ddd && dd  ) {
-               return true
-           }else {
-               creatMainSnackBar(message: "\(title) range should be choosen"); return  false
-               
-           }
-           
-       }
-       func checkDayActive(_ d:Int) -> Bool {
-           return d == 1 ? true : false
-       }
+        let ss = ftf !=  "00:00" && stf != "00:00"
+        let dd = stf == "00:00" && ftf == "00:00"
+        
+        let sss = ftf2 == "00:00" && stf2 == "00:00"
+        let ddd = stf2 != "00:00" && ftf2 != "00:00"
+        
+        if ss && ddd || (ss && sss)  ||  (ddd && dd  ) {
+            return true
+        }else {
+            creatMainSnackBar(message: "\(title) range should be choosen"); return  false
+            
+        }
+        
+    }
+    func checkDayActive(_ d:Int) -> Bool {
+        return d == 1 ? true : false
+    }
     
     func checkButtonDone() -> Bool {
         if checkDayActive( day1 ){
-                   if checkValidteShifting(bol: checkDayActive( day1), ftf: d1TXT1, stf: d1TXT2, title: "Saturday ",ftf2: d12TXT1,stf2: d12TXT2){}else {return false}
-               }
-               if checkDayActive(day2) {
-                   if  checkValidteShifting(bol: checkDayActive(day2), ftf: d2TXT1, stf: d2TXT2, title: "Sunday",ftf2: d22TXT1,stf2: d22TXT2) {}else {return false}
-                   
-               }
-               if checkDayActive(day3) {
-                   if checkValidteShifting(bol: checkDayActive(day3), ftf: d3TXT1, stf: d3TXT2, title: "Monday",ftf2: d32TXT1,stf2: d32TXT2){}else {return false}
-               }
-               if checkDayActive(day4) {
-                   if checkValidteShifting(bol: checkDayActive(day4), ftf: d4TXT1, stf: d4TXT2, title: "Tuesday",ftf2: d42TXT1,stf2: d42TXT2){}else {return false}
-               }
-               if checkDayActive(day5) {
-                   if checkValidteShifting(bol: checkDayActive(day5), ftf: d5TXT1, stf: d5TXT2, title: "Wednsday",ftf2: d52TXT1,stf2: d52TXT2){}else {return false}
-               }
-               if checkDayActive(day6) {
-                   if checkValidteShifting(bol: checkDayActive(day6), ftf: d6TXT1, stf: d6TXT2, title: "Thrusday ",ftf2: d62TXT1,stf2: d62TXT2){}else {return false}
-               }
-               if checkDayActive(day7) {
-                   
-                   if checkValidteShifting(bol: checkDayActive(day7), ftf: d7TXT1, stf: d7TXT2, title: "Friday",ftf2: d72TXT1,stf2: d72TXT2) {}else {return false}
-               }
+            if checkValidteShifting(bol: checkDayActive( day1), ftf: d1TXT1, stf: d1TXT2, title: "Saturday ",ftf2: d12TXT1,stf2: d12TXT2){}else {return false}
+        }
+        if checkDayActive(day2) {
+            if  checkValidteShifting(bol: checkDayActive(day2), ftf: d2TXT1, stf: d2TXT2, title: "Sunday",ftf2: d22TXT1,stf2: d22TXT2) {}else {return false}
+            
+        }
+        if checkDayActive(day3) {
+            if checkValidteShifting(bol: checkDayActive(day3), ftf: d3TXT1, stf: d3TXT2, title: "Monday",ftf2: d32TXT1,stf2: d32TXT2){}else {return false}
+        }
+        if checkDayActive(day4) {
+            if checkValidteShifting(bol: checkDayActive(day4), ftf: d4TXT1, stf: d4TXT2, title: "Tuesday",ftf2: d42TXT1,stf2: d42TXT2){}else {return false}
+        }
+        if checkDayActive(day5) {
+            if checkValidteShifting(bol: checkDayActive(day5), ftf: d5TXT1, stf: d5TXT2, title: "Wednsday",ftf2: d52TXT1,stf2: d52TXT2){}else {return false}
+        }
+        if checkDayActive(day6) {
+            if checkValidteShifting(bol: checkDayActive(day6), ftf: d6TXT1, stf: d6TXT2, title: "Thrusday ",ftf2: d62TXT1,stf2: d62TXT2){}else {return false}
+        }
+        if checkDayActive(day7) {
+            
+            if checkValidteShifting(bol: checkDayActive(day7), ftf: d7TXT1, stf: d7TXT2, title: "Friday",ftf2: d72TXT1,stf2: d72TXT2) {}else {return false}
+        }
         return true
-               
+        
     }
     
-       @objc func handle1Shift(sender:UIButton)  {
-           
-           changeShiftStates(sender: sender, second: shift2Button, enable1: true, enable2: false, vv: mainSecondStack,mainFirstSecondStack)
-           
-           if sender.backgroundColor == nil {
-               
-               return
-               //               ClinicDataViewModel.male = false;return
-           }
-           addGradientInSenderAndRemoveOther(sender: sender, vv: shift2Button)
-           shiftTwo = false
-           shiftOne = true
-           showAndHide(fv: mainSecondStack, sv: mainFirstSecondStack)
-           //           doctorRegisterViewModel.male = false
-       }
-       
-       @objc func handle2Shift(sender:UIButton)  {
-           if sender.backgroundColor == nil {
-               return
-               //               doctorRegisterViewModel.male = true;return
-           }
-           addGradientInSenderAndRemoveOther(sender: sender, vv: shift1Button)
-           shiftTwo = true
-           shiftOne = false
-           showAndHide(fv: mainFirstSecondStack, sv: mainSecondStack)
-           
-       }
+    @objc func handle1Shift(sender:UIButton)  {
+        
+        changeShiftStates(sender: sender, second: shift2Button, enable1: true, enable2: false, vv: mainSecondStack,mainFirstSecondStack)
+        
+        if sender.backgroundColor == nil {
+            
+            return
+            //               ClinicDataViewModel.male = false;return
+        }
+        addGradientInSenderAndRemoveOther(sender: sender, vv: shift2Button)
+        shiftTwo = false
+        shiftOne = true
+        showAndHide(fv: mainSecondStack, sv: mainFirstSecondStack)
+        //           doctorRegisterViewModel.male = false
+    }
+    
+    @objc func handle2Shift(sender:UIButton)  {
+        if sender.backgroundColor == nil {
+            return
+            //               doctorRegisterViewModel.male = true;return
+        }
+        addGradientInSenderAndRemoveOther(sender: sender, vv: shift1Button)
+        shiftTwo = true
+        shiftOne = false
+        showAndHide(fv: mainFirstSecondStack, sv: mainSecondStack)
+        
+    }
     
     @objc  func handleOpen(sender:UIButton)  {
-           if sender.backgroundColor == nil {
-               //disable button
-               removeGradientInSender(sender:sender)
-               enableTextFields(enable: false, tag: sender.tag)
-               return
-           }
-           //enable button
-           enableTextFields(enable: true, tag: sender.tag)
-           addGradientInSenderAndRemoveOtherss(sender: sender)
-       }
+        if sender.backgroundColor == nil {
+            //disable button
+            removeGradientInSender(sender:sender)
+            enableTextFields(enable: false, tag: sender.tag)
+            return
+        }
+        //enable button
+        enableTextFields(enable: true, tag: sender.tag)
+        addGradientInSenderAndRemoveOtherss(sender: sender)
+    }
 }
