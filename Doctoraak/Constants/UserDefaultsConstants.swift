@@ -12,6 +12,15 @@ class UserDefaultsConstants {
     
     static let isCachedDriopLists = "isCachedDriopLists"
     
+    //welcome
+    static let isCityCached="isCityCached"
+    static let isAreaCached="isAreaCached"
+    static let isInsuranceCached="isInsuranceCached"
+    static let isDegreesCached="isDegreesCached"
+    static let isSpecificationsCached="isSpecificationsCached"
+
+    
+    
     //login or reigster done states
     static let DoctorPerformLogin="DoctorPerformLogin"
     static let medicalCenterPerformLogin="medicalCenterPerformLogin"

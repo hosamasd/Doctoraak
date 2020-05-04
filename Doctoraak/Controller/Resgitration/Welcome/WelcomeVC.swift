@@ -250,6 +250,12 @@ class WelcomeVC: CustomBaseViewVC {
             userDefaults.set(iNameARData, forKey: UserDefaultsConstants.insuranceNameARArray)
             userDefaults.set(iIdData, forKey: UserDefaultsConstants.insuranceIdArray)
             
+            userDefaults.set(true, forKey: UserDefaultsConstants.isCityCached)
+            userDefaults.set(true, forKey: UserDefaultsConstants.isAreaCached)
+            userDefaults.set(true, forKey: UserDefaultsConstants.isInsuranceCached)
+            userDefaults.set(true, forKey: UserDefaultsConstants.isDegreesCached)
+            userDefaults.set(true, forKey: UserDefaultsConstants.isSpecificationsCached)
+
             
             userDefaults.set(true, forKey: UserDefaultsConstants.isCachedDriopLists)
             userDefaults.synchronize()
