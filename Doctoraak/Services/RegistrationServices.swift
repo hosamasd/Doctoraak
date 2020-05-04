@@ -174,10 +174,10 @@ class RegistrationServices {
     //    }
     
     
-    func RegiasterClinicCreate(fees2:Int,fees:Int,lang:String,latt:String,phone:String,waiting_time:String,photo:UIImage,city:Int,area:Int,api_token:String,doctor_id:Int,working_hours:[Any],completion:@escaping (MainDoctorClinicCreateModel?,Error?)->Void)  {
+    func RegiasterClinicCreate(fees2:Int,fees:Int,lang:String,latt:String,phone:String,photo:UIImage,city:Int,area:Int,api_token:String,waiting_time:Int,doctor_id:Int,working_hours:[WorkModel],completion:@escaping (MainDoctorClinicCreateModel?,Error?)->Void)  {
         let urlString = baseUrl+"doctor_create_clinic".toSecrueHttps()
         
-        let postString = urlString+"?fees=\(fees)&lang=\(lang)&latt=\(latt)&phone=\(phone)&waiting_time=\(waiting_time)&city=\(city)&area=\(area)&api_token=\(api_token)&doctor_id=\(doctor_id)&working_hours=\(working_hours)&fees2=\(fees2)"
+        let postString = urlString+"?fees=\(fees)&lang=\(lang)&latt=\(latt)&phone=\(phone)&city=\(city)&area=\(area)&api_token=\(api_token)&doctor_id=\(doctor_id)&fees2=\(fees2)&waiting_time=\(waiting_time)"
         
         let urlsString = postString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
         
@@ -187,7 +187,9 @@ class RegistrationServices {
             if let data = photo.pngData() {
                 multipartFormData.append(data, withName: "photo", fileName: "asd.jpeg", mimeType: "image/jpeg")
             }
-            
+            let jsonEncoder = JSONEncoder()
+                       let jsonData = try? jsonEncoder.encode(working_hours)
+                       multipartFormData.append(jsonData ?? Data(), withName: "working_hours")
         }, to:urlsString!)
         { (result) in
             switch result {
@@ -219,47 +221,6 @@ class RegistrationServices {
             }
         }
     }
-    
-    
-    
-    //        guard let url = URL(string: urlString) else { return  }
-    //        var request = URLRequest(url: url)
-    //        request.httpMethod = "POST"
-    //        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-    //
-    //        let signUpDict : [String:Any] =
-    //            [
-    //                "fees":fees,
-    //                "lang":lang,
-    //                "latt":latt,
-    //                "phone":phone,
-    //                "waiting_time":waiting_time,
-    //                "city":city,
-    //                "area":area,
-    //                "api_token":api_token,
-    //                "doctor_id":doctor_id,
-    //                "photo":photo,
-    //                "working_hours":working_hours
-    //        ]
-    //        request.httpBody = try! JSONSerialization.data(withJSONObject: signUpDict)
-    //        Alamofire.request(request)
-    //            .responseJSON { response in
-    //                // do whatever you want here
-    //
-    //
-    //
-    //                switch response.result {
-    //                case .failure(let error):
-    //                    print(error)
-    //
-    //                    if let data = response.data, let responseString = String(data: data, encoding: .utf8) {
-    //                        print(responseString)
-    //                    }
-    //                case .success(let responseObject):
-    //                    print(responseObject)
-    //                }
-    //        }
-    
     
     
     

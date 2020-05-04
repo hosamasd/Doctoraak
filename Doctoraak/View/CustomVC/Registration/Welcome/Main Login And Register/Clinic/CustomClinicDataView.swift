@@ -303,7 +303,7 @@ class CustomClinicDataView: CustomBaseView {
                 }
                 else {
                     
-                    clinicDataViewModel.waitingHours = texts
+                    clinicDataViewModel.waitingHours = texts.toInt()
                     floatingLabelTextField.errorMessage = ""
                 }
                 

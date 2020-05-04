@@ -30,7 +30,7 @@ struct DoctorClinicCreateModel:Codable {
     let photo: String
     let degree, specialization: DegreeDoctorModel
     let freeDays: [FreeDayModel]
-    let doctor: DoctorModel
+    let doctor: DoctorSecondModel
     
     enum CodingKeys: String, CodingKey {
         case fees, fees2, lang, latt, phone, city, area
@@ -43,6 +43,51 @@ struct DoctorClinicCreateModel:Codable {
         case photo, degree, specialization
         case freeDays = "free_days"
         case doctor
+    }
+}
+
+struct DoctorSecondModel:Codable {
+    
+    let id: Int
+    let name: String
+    var nameAr, nameFr: String?
+    let gender, phone, smsCode, apiToken: String
+    var firebaseToken: String?
+    let email, password: String
+    let active, specializationID, degreeID: Int
+    let cv: String
+    let cv2: String
+    let photo: String
+    var reservationRate, degreeRate: String?
+    let createdAt, updatedAt: String
+    let isHospital: Int
+    var doctorDescription: String?
+    let isMedicalCenter, rate: Int
+    let insuranceCompany: [DegreeDoctorModel]
+    let degree, specialization: DegreeDoctorModel
+
+    enum CodingKeys: String, CodingKey {
+        case id, name
+        case nameAr = "name_ar"
+        case nameFr = "name_fr"
+        case gender, phone
+        case smsCode = "sms_code"
+        case apiToken = "api_token"
+        case firebaseToken = "firebase_token"
+        case email, password, active
+        case specializationID = "specialization_id"
+        case degreeID = "degree_id"
+        case cv, cv2, photo
+        case reservationRate = "reservation_rate"
+        case degreeRate = "degree_rate"
+        case createdAt = "created_at"
+        case updatedAt = "updated_at"
+        case isHospital
+        case doctorDescription = "description"
+        case isMedicalCenter = "is_medical_center"
+        case rate
+        case insuranceCompany = "insurance_company"
+        case degree, specialization
     }
 }
 

@@ -73,7 +73,7 @@ class DoctorSecondRegisterVC: CustomBaseViewVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViewModelObserver()
-        //        checkThis()
+                checkThis()
     }
     
     //MARK:-User methods
@@ -81,7 +81,7 @@ class DoctorSecondRegisterVC: CustomBaseViewVC {
     func checkThis()  {
         let img = #imageLiteral(resourceName: "lego(1)").pngData()
         
-        RegistrationServices.shared.registerDoctor(index: 0, isInsurance: true, coverImage: #imageLiteral(resourceName: "lego(1)"), cvName: "as", cvFile: img!, name: "asd", email: "xsa@s.com", phone: "00000006231", password: "00000000", gender: "male", specialization_id: 1, degree_id: 1, insurance: [1,2]) { (base, err) in
+        RegistrationServices.shared.registerDoctor(index: 0, isInsurance: true, coverImage: #imageLiteral(resourceName: "lego(1)"), cvName: "as", cvFile: img!, name: "asd", email: "xsfa@s.com", phone: "01001384592", password: "00000000", gender: "male", specialization_id: 1, degree_id: 1, insurance: [1,2]) { (base, err) in
             if let err = err {
                 SVProgressHUD.showError(withStatus: err.localizedDescription)
                 self.activeViewsIfNoData();return

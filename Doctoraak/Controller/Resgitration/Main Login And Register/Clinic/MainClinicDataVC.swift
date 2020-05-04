@@ -67,11 +67,32 @@ class MainClinicDataVC: CustomBaseViewVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViewModelObserver()
+        check()
         //        customClinicDataView.clinicWorkingHoursTextField.inputAccessoryView = UIView()
         
     }
     
     //MARK:-User methods
+    
+    func check()  {
+        let s = #imageLiteral(resourceName: "lego(1)")
+        let dd:[WorkModel] = [
+        .init(part1From: "00:00", part1To: "00:00", part2From: "00:00", part2To: "00:00", day: 1, active: 0),
+        .init(part1From: "00:00", part1To: "00:00", part2From: "00:00", part2To: "00:00", day: 2, active: 0),
+        .init(part1From: "00:00", part1To: "00:00", part2From: "00:00", part2To: "00:00", day: 3, active: 0),
+        .init(part1From: "00:00", part1To: "00:00", part2From: "00:00", part2To: "00:00", day: 4, active: 0),
+        .init(part1From: "00:00", part1To: "00:00", part2From: "00:00", part2To: "00:00", day: 5, active: 0),
+        .init(part1From: "00:00", part1To: "00:00", part2From: "00:00", part2To: "00:00", day: 6, active: 0),
+        .init(part1From: "15:00", part1To: "20:00", part2From: "00:00", part2To: "00:00", day: 7, active: 1),
+        ]
+        
+        
+        RegistrationServices.shared.RegiasterClinicCreate(fees2: 4, fees: 4, lang: "30.5653565965", latt: "30.5653565965", phone: "99999999632", photo:s , city: 1, area: 1, api_token: "Jb7LVajdcATjzD6ShfC1QPCsfMOndOt2jMk4DI1USrETbRwM5T", waiting_time: 20, doctor_id: 30, working_hours: dd) { (base, err) in
+            if let err=err{
+                print(err.localizedDescription)
+            }
+        }
+    }
     
     func setupViewModelObserver()  {
         customClinicDataView.clinicDataViewModel.bindableIsFormValidate.bind { [unowned self] (isValidForm) in
