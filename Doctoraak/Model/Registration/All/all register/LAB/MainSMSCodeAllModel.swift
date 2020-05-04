@@ -1,5 +1,5 @@
 //
-//  MainLoginAllModel.swift
+//  MainSMSCodeAllModel.swift
 //  Doctoraak
 //
 //  Created by hosam on 5/2/20.
@@ -7,11 +7,12 @@
 //
 
 import UIKit
-struct MainLoginAllModel:Codable {
+
+struct MainLabSMSCodeModel:Codable {
     
     let status: Int
     let message, messageEn: String
-    let data: LoginAllModel
+    var data:LabLoginModel?
 
     enum CodingKeys: String, CodingKey {
         case status, message
@@ -19,9 +20,7 @@ struct MainLoginAllModel:Codable {
         case data
     }
 }
-
-struct LoginAllModel:Codable {
-    
+struct LabLoginModel:Codable {
     let id: Int
     let name: String
     var nameAr, nameFr: String?
@@ -38,8 +37,8 @@ struct LoginAllModel:Codable {
     let photo: String
     let createdAt, updatedAt: String
     let labInsurances: [AllInsuranceModel]
-    let workingHours: [AllWorkingHoursModel]
-    let insuranceCompany: [InsurcaneModel]
+    let workingHours: [LabWorkingHoursModel]
+    let insuranceCompany: [InsurcaneCompanyModel]
 
     enum CodingKeys: String, CodingKey {
         case id, name

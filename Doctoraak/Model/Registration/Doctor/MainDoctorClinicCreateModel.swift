@@ -103,27 +103,44 @@ struct FreeDayModel:Codable {
 }
 
 
-struct AllWorkingHoursModel:Codable {
-    let id, labID, day: Int
-    let part1From, part1To, part2From, part2To: String
-    let active, reservationNumber1, reservationNumber2: Int
-    let createdAt, updatedAt: String
+struct LabWorkingHoursModel:Codable {
     
+    let id, labID, day: Int
+    let partFrom, partTo: String
+    let active: Int
+    let createdAt, updatedAt: String
+
     enum CodingKeys: String, CodingKey {
         case id
+        case labID = "lab_id"
         case day
-        case part1From = "part1_from"
-        case part1To = "part1_to"
-        case part2From = "part2_from"
-        case part2To = "part2_to"
+        case partFrom = "part_from"
+        case partTo = "part_to"
         case active
-        case reservationNumber1 = "reservation_number_1"
-        case reservationNumber2 = "reservation_number_2"
         case createdAt = "created_at"
         case updatedAt = "updated_at"
-        case labID = "lab_id"
-
     }
+    
+//    let id, labID, day: Int
+//    let part1From, part1To, part2From, part2To: String
+//    let active, reservationNumber1, reservationNumber2: Int
+//    let createdAt, updatedAt: String
+//
+//    enum CodingKeys: String, CodingKey {
+//        case id
+//        case day
+//        case part1From = "part1_from"
+//        case part1To = "part1_to"
+//        case part2From = "part2_from"
+//        case part2To = "part2_to"
+//        case active
+//        case reservationNumber1 = "reservation_number_1"
+//        case reservationNumber2 = "reservation_number_2"
+//        case createdAt = "created_at"
+//        case updatedAt = "updated_at"
+//        case labID = "lab_id"
+//
+//    }
 }
 
 struct DoctorWorkingHoursModel:Codable {

@@ -11,7 +11,7 @@ import UIKit
 struct MainAreaModel:Codable {
     let status: Int
     let message, messageEn: String
-    let data: [AreaModel]
+    var data: [AreaModel]?
     
     enum CodingKeys: String, CodingKey {
         case status, message

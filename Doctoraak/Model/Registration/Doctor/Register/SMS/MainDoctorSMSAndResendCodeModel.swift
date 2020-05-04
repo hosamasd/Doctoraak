@@ -11,7 +11,7 @@ struct MainDoctorSMSAndResendCodeModel:Codable {
     
     let status: Int
        let message, messageEn: String
-       var data: DoctorModel?
+       var data: DoctorLoginModel?
 
        enum CodingKeys: String, CodingKey {
            case status, message
@@ -20,7 +20,7 @@ struct MainDoctorSMSAndResendCodeModel:Codable {
        }
 }
 
-struct DoctorModel:Codable {
+struct DoctorLoginModel:Codable {
     let id: Int
     let name: String
     var nameAr, nameFr: String?
@@ -38,7 +38,7 @@ struct DoctorModel:Codable {
     let isMedicalCenter: Int
     let doctorInsurances: [AllInsuranceModel]
     let degree, specialization: DegreeDoctorModel
-    let insuranceCompany: [DegreeDoctorModel]
+    var insuranceCompany: [DegreeDoctorModel]?
 
     enum CodingKeys: String, CodingKey {
         case id, name

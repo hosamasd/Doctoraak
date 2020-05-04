@@ -36,7 +36,7 @@ class RegisterViewModel {
     var image:UIImage? {didSet {checkFormValidity()}}
     
     
-    func performRegister(completion:@escaping (MainRegisterAllModel?,Error?)->Void)  {
+    func performRegister(completion:@escaping (MainLabRegisterModel?,Error?)->Void)  {
         guard let email = email,let password = password,let name = name,let phone = phone, let insurance = insurance,let city=city,let area=area,let image=image,let delivery=delivery,let working_hours=working_hours,let latt=latt,let lang=lang,let index=index
             else { return  }
         bindableIsResgiter.value = true

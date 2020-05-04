@@ -28,9 +28,7 @@ class MainLoginsVC: CustomBaseViewVC {
           super.init(nibName: nil, bundle: nil)
       }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+   
     
     
     override func viewDidLoad() {
@@ -88,6 +86,7 @@ class MainLoginsVC: CustomBaseViewVC {
         let perform = index == 0 ? UserDefaultsConstants.DoctorPerformLogin : index == 1 ? UserDefaultsConstants.medicalCenterPerformLogin : index == 2 ? UserDefaultsConstants.labPerformLogin : index == 3 ? UserDefaultsConstants.radiologyPerformLogin : UserDefaultsConstants.pharamacyPerformLogin
         
         userDefaults.set(true, forKey: perform)
+        userDefaults.set(api_token, forKey: UserDefaultsConstants.mainCurrentUserApiToken)
                 userDefaults.synchronize()
          self.goToMainTab()
     }
@@ -113,7 +112,7 @@ class MainLoginsVC: CustomBaseViewVC {
 //        self.saveToken(token: user.apiToken)
         
         DispatchQueue.main.async {
-            self.saveToken(doctr_id: user.id, "")
+            self.saveToken(doctr_id: user.id, user.apiToken)
            
         }
         }
@@ -132,6 +131,8 @@ class MainLoginsVC: CustomBaseViewVC {
     }
    
    
-    
+    required init?(coder: NSCoder) {
+           fatalError("init(coder:) has not been implemented")
+       }
     
 }

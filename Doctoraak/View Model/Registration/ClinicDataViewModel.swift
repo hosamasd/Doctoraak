@@ -23,7 +23,6 @@ class ClinicDataViewModel {
  var latt:String? {didSet {checkFormValidity()}}
      var lang:String? {didSet {checkFormValidity()}}
     var area:Int? = -1 {didSet {checkFormValidity()}}
-    var workingHours:[WorkModel]? {didSet {checkFormValidity()}}
     var fees:Int? = -1 {didSet {checkFormValidity()}}
     var consultaionFees:Int? = -1 {didSet {checkFormValidity()}}
     var waitingHours:Int?  = -1 {didSet {checkFormValidity()}}
@@ -41,7 +40,6 @@ class ClinicDataViewModel {
     }
     
     func checkFormValidity() {
-//        let isFormValid = city?.isEmpty == false && area?.isEmpty == false && fees?.isEmpty == false  &&  phone?.isEmpty == false && waitingHours?.isEmpty == false && address?.isEmpty == false && workingHours?.isEmpty == false && consultaionFees?.isEmpty == false && index != -1 && image != nil && workingArrayHours?.isEmpty == false
         let isFormValid = city != -1 && area != -1 && fees != -1  &&  phone?.isEmpty == false && waitingHours != -1 && latt?.isEmpty == false  && lang?.isEmpty == false  && consultaionFees  != -1 && index != -1 && image != nil && workingArrayHours?.isEmpty == false && api_token?.isEmpty == false && doctor_id != -1
         bindableIsFormValidate.value = isFormValid
         

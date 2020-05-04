@@ -135,13 +135,21 @@ class MainVerificationVC: CustomBaseViewVC {
     }
     
     func updateStates(api_token:String,_ doctor_id:Int)  {
-        userDefaults.set(true, forKey: UserDefaultsConstants.isUserRegisterAndWaitForClinicData)
+        let ss = index == 0 ? UserDefaultsConstants.isUserRegisterAndWaitForClinicData  : index == 2 ? UserDefaultsConstants.labPerformLogin : index == 3 ? UserDefaultsConstants.radiologyPerformLogin : UserDefaultsConstants.pharamacyPerformLogin
+        let ids = index == 0 ? UserDefaultsConstants.DoctorVerificationDoctorId : index == 2 ? UserDefaultsConstants.labVerificationLabId : index == 3 ? UserDefaultsConstants.RadiologyVerificationRadiologyId : UserDefaultsConstants.PharamacyVerificationPharamacyId
+        
+        let sss = index == 0 ? UserDefaultsConstants.DoctorVerificationAPITOKEN : index == 2 ? UserDefaultsConstants.labVerificationAPITOKEN : index == 3 ? UserDefaultsConstants.RadiologyVerificationAPITOKEN : UserDefaultsConstants.PharamacyVerificationAPITOKEN
+        
+        userDefaults.set(true, forKey: ss)
         userDefaults.set(false, forKey: UserDefaultsConstants.isClinicWorkingHoursSaved)
+        
+        userDefaults.set(api_token, forKey: sss)
+        userDefaults.set(doctor_id, forKey: ids)
+        
+        if index == 0 || index == 1 {
+                    userDefaults.set(index, forKey: UserDefaultsConstants.isUserRegisterAndWaitForClinicDataIndex)
 
-        userDefaults.set(api_token, forKey: UserDefaultsConstants.DoctorVerificationAPITOKEN)
-        userDefaults.set(doctor_id, forKey: UserDefaultsConstants.DoctorVerificationDoctorId)
-
-        userDefaults.set(index, forKey: UserDefaultsConstants.isUserRegisterAndWaitForClinicDataIndex)
+        }
         userDefaults.synchronize()
     }
     

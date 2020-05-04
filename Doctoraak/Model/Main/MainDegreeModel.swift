@@ -12,7 +12,7 @@ struct MainDegreeModel:Codable {
     
     let status: Int
       let message, messageEn: String
-      let data: [DegreeModel]
+      var data: [DegreeModel]?
 
       enum CodingKeys: String, CodingKey {
           case status, message

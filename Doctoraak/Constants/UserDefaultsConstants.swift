@@ -12,6 +12,8 @@ class UserDefaultsConstants {
     
     static let isCachedDriopLists = "isCachedDriopLists"
     
+    static let mainCurrentUserApiToken="mainCurrentUserApiToken"
+    
     //welcome
     static let isCityCached="isCityCached"
     static let isAreaCached="isAreaCached"
@@ -45,6 +47,15 @@ class UserDefaultsConstants {
     //doctro verifcation
     static let DoctorVerificationAPITOKEN="DoctorVerificationAPITOKEN"
     static let DoctorVerificationDoctorId="DoctorVerificationDoctorId"
+    
+    static let labVerificationAPITOKEN="labVerificationAPITOKEN"
+       static let labVerificationLabId="labVerificationLabId"
+    
+    static let RadiologyVerificationAPITOKEN="RadiologyVerificationAPITOKEN"
+       static let RadiologyVerificationRadiologyId="RadiologyVerificationRadiologyId"
+    
+    static let PharamacyVerificationAPITOKEN="PharamacyVerificationAPITOKEN"
+       static let PharamacyVerificationPharamacyId="PharamacyVerificationPharamacyId"
     
     //doctor clinic create
     static let DocotrClinicCreateCLINICID="DocotrClinicCreateCLINICID"

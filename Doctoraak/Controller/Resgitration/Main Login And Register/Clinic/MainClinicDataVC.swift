@@ -67,7 +67,6 @@ class MainClinicDataVC: CustomBaseViewVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViewModelObserver()
-        check()
         //        customClinicDataView.clinicWorkingHoursTextField.inputAccessoryView = UIView()
         
     }
@@ -77,13 +76,13 @@ class MainClinicDataVC: CustomBaseViewVC {
     func check()  {
         let s = #imageLiteral(resourceName: "lego(1)")
         let dd:[WorkModel] = [
-        .init(part1From: "00:00", part1To: "00:00", part2From: "00:00", part2To: "00:00", day: 1, active: 0),
-        .init(part1From: "00:00", part1To: "00:00", part2From: "00:00", part2To: "00:00", day: 2, active: 0),
-        .init(part1From: "00:00", part1To: "00:00", part2From: "00:00", part2To: "00:00", day: 3, active: 0),
-        .init(part1From: "00:00", part1To: "00:00", part2From: "00:00", part2To: "00:00", day: 4, active: 0),
-        .init(part1From: "00:00", part1To: "00:00", part2From: "00:00", part2To: "00:00", day: 5, active: 0),
-        .init(part1From: "00:00", part1To: "00:00", part2From: "00:00", part2To: "00:00", day: 6, active: 0),
-        .init(part1From: "15:00", part1To: "20:00", part2From: "00:00", part2To: "00:00", day: 7, active: 1),
+            .init(part1From: "00:00", part1To: "00:00", part2From: "00:00", part2To: "00:00", day: 1, active: 0),
+            .init(part1From: "00:00", part1To: "00:00", part2From: "00:00", part2To: "00:00", day: 2, active: 0),
+            .init(part1From: "00:00", part1To: "00:00", part2From: "00:00", part2To: "00:00", day: 3, active: 0),
+            .init(part1From: "00:00", part1To: "00:00", part2From: "00:00", part2To: "00:00", day: 4, active: 0),
+            .init(part1From: "00:00", part1To: "00:00", part2From: "00:00", part2To: "00:00", day: 5, active: 0),
+            .init(part1From: "00:00", part1To: "00:00", part2From: "00:00", part2To: "00:00", day: 6, active: 0),
+            .init(part1From: "15:00", part1To: "20:00", part2From: "00:00", part2To: "00:00", day: 7, active: 1),
         ]
         
         
@@ -103,12 +102,12 @@ class MainClinicDataVC: CustomBaseViewVC {
         
         customClinicDataView.clinicDataViewModel.bindableIsResgiter.bind(observer: {  [unowned self] (isReg) in
             if isReg == true {
-                                UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
-                                SVProgressHUD.show(withStatus: "Looding...".localized)
+                UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
+                SVProgressHUD.show(withStatus: "Looding...".localized)
                 
             }else {
-                                SVProgressHUD.dismiss()
-                                self.activeViewsIfNoData()
+                SVProgressHUD.dismiss()
+                self.activeViewsIfNoData()
             }
         })
     }
@@ -152,25 +151,86 @@ class MainClinicDataVC: CustomBaseViewVC {
     
     func goToNext(_ clinic_id:Int)  {
         
-           self.updateStates(clinic_id)
+        self.updateStates(clinic_id,index: index)
         let main = DoctorHomeVC(inde: index)
         navigationController?.pushViewController(main, animated: true)
-//           if  isFromForgetPassw {
-//               let  vc =  MainNewPassVC(indexx: index)
-//               navigationController?.pushViewController(vc, animated: true)
-//           }else {
-//
-//               let vc =  MainClinicDataVC(indexx: index,api_token: api_token,doctor_id: doctor_id)
-//               navigationController?.pushViewController(vc, animated: true)
-//           }
-           
-       }
+        //           if  isFromForgetPassw {
+        //               let  vc =  MainNewPassVC(indexx: index)
+        //               navigationController?.pushViewController(vc, animated: true)
+        //           }else {
+        //
+        //               let vc =  MainClinicDataVC(indexx: index,api_token: api_token,doctor_id: doctor_id)
+        //               navigationController?.pushViewController(vc, animated: true)
+        //           }
+        
+    }
     
-    func updateStates(_ clinic_id:Int)  {
+    func updateStates(_ clinic_id:Int,index:Int)  {
+        let d = index == 0 ? UserDefaultsConstants.DoctorPerformLogin : UserDefaultsConstants.medicalCenterPerformLogin
+        
         userDefaults.set(clinic_id, forKey: UserDefaultsConstants.DocotrClinicCreateCLINICID)
-        userDefaults.set(true, forKey: UserDefaultsConstants.DoctorPerformLogin)
+        userDefaults.set(true, forKey: d)
         userDefaults.set(index, forKey: UserDefaultsConstants.DoctorPerformLoginWithMainIndex)
+        removeOtherDefults()
         userDefaults.synchronize()
+    }
+    
+    func removeOtherDefults()  {
+        userDefaults.removeObject(forKey: UserDefaultsConstants.first1)
+        userDefaults.removeObject(forKey: UserDefaultsConstants.first11)
+        userDefaults.removeObject(forKey: UserDefaultsConstants.first211)
+        userDefaults.removeObject(forKey: UserDefaultsConstants.first2111)
+        userDefaults.removeObject(forKey: UserDefaultsConstants.first21)
+        userDefaults.removeObject(forKey: UserDefaultsConstants.first2)
+        userDefaults.removeObject(forKey: UserDefaultsConstants.first22)
+        userDefaults.removeObject(forKey: UserDefaultsConstants.first221)
+        userDefaults.removeObject(forKey: UserDefaultsConstants.first3)
+        userDefaults.removeObject(forKey: UserDefaultsConstants.first31)
+        userDefaults.removeObject(forKey: UserDefaultsConstants.first23)
+        userDefaults.removeObject(forKey: UserDefaultsConstants.first231)
+        
+        userDefaults.removeObject(forKey: UserDefaultsConstants.first4)
+        userDefaults.removeObject(forKey: UserDefaultsConstants.first41)
+        userDefaults.removeObject(forKey: UserDefaultsConstants.first24)
+        userDefaults.removeObject(forKey: UserDefaultsConstants.first241)
+        userDefaults.removeObject(forKey: UserDefaultsConstants.first5)
+        userDefaults.removeObject(forKey: UserDefaultsConstants.first51)
+        userDefaults.removeObject(forKey: UserDefaultsConstants.first25)
+        
+        userDefaults.removeObject(forKey: UserDefaultsConstants.first251)
+        userDefaults.removeObject(forKey: UserDefaultsConstants.first6)
+        userDefaults.removeObject(forKey: UserDefaultsConstants.first61)
+        userDefaults.removeObject(forKey: UserDefaultsConstants.first26)
+        userDefaults.removeObject(forKey: UserDefaultsConstants.first261)
+        userDefaults.removeObject(forKey: UserDefaultsConstants.first1)
+        userDefaults.removeObject(forKey: UserDefaultsConstants.first1)
+        
+        userDefaults.removeObject(forKey: UserDefaultsConstants.first7)
+        userDefaults.removeObject(forKey: UserDefaultsConstants.first71)
+        userDefaults.removeObject(forKey: UserDefaultsConstants.first27)
+        userDefaults.removeObject(forKey: UserDefaultsConstants.first271)
+        userDefaults.removeObject(forKey: UserDefaultsConstants.day1)
+        userDefaults.removeObject(forKey: UserDefaultsConstants.day2)
+        userDefaults.removeObject(forKey: UserDefaultsConstants.day3)
+        userDefaults.removeObject(forKey: UserDefaultsConstants.day4)
+        userDefaults.removeObject(forKey: UserDefaultsConstants.day5)
+        userDefaults.removeObject(forKey: UserDefaultsConstants.day6)
+        userDefaults.removeObject(forKey: UserDefaultsConstants.day7)
+        
+        userDefaults.removeObject(forKey: UserDefaultsConstants.doctorRegisterImage)
+               userDefaults.removeObject(forKey: UserDefaultsConstants.doctorRegisterName)
+        userDefaults.removeObject(forKey: UserDefaultsConstants.doctorRegisterEmail)
+        userDefaults.removeObject(forKey: UserDefaultsConstants.doctorRegisterMobile)
+        userDefaults.removeObject(forKey: UserDefaultsConstants.doctorRegisterPassword)
+        userDefaults.removeObject(forKey: UserDefaultsConstants.doctorRegisterMale)
+        
+        userDefaults.removeObject(forKey: UserDefaultsConstants.doctorRegisterIndee)
+        userDefaults.set(false, forKey: UserDefaultsConstants.isDoctorSecondRegister)
+              userDefaults.removeObject(forKey: UserDefaultsConstants.doctorSecondRegisterSMSCode)
+              userDefaults.removeObject(forKey: UserDefaultsConstants.doctorRegisterMobile)
+              userDefaults.removeObject(forKey: UserDefaultsConstants.doctorRegisterPassword)
+              userDefaults.removeObject(forKey: UserDefaultsConstants.doctorRegisterMale)
+        
     }
     
     //TODO: -handle methods
@@ -183,16 +243,16 @@ class MainClinicDataVC: CustomBaseViewVC {
         
         customClinicDataView.clinicDataViewModel.performRegister { (base, err) in
             if let err = err {
-                      SVProgressHUD.showError(withStatus: err.localizedDescription)
-                      self.activeViewsIfNoData();return
-                  }
-                  SVProgressHUD.dismiss()
-                  self.activeViewsIfNoData()
-                  guard let user = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
-                  
-                  DispatchQueue.main.async {
-                      self.goToNext(user.id)
-                  }
+                SVProgressHUD.showError(withStatus: err.localizedDescription)
+                self.activeViewsIfNoData();return
+            }
+            SVProgressHUD.dismiss()
+            self.activeViewsIfNoData()
+            guard let user = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
+            
+            DispatchQueue.main.async {
+                self.goToNext(user.id)
+            }
         }
         
     }

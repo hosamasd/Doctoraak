@@ -11,7 +11,7 @@ import UIKit
 struct MainDoctorRegisterModel:Codable {
     let status: Int
     let message, messageEn: String
-    let data: DoctorRegisterModel
+    var data: DoctorRegisterModel?
     
     enum CodingKeys: String, CodingKey {
         case status, message

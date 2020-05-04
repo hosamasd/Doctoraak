@@ -8,10 +8,10 @@
 
 import UIKit
 
-struct MainRegisterAllModel:Codable {
+struct MainLabRegisterModel:Codable {
     let status: Int
     let message, messageEn: String
-    var data: RegisterAllModel?
+    var data: LabRegisterModel?
 
     enum CodingKeys: String, CodingKey {
         case status, message
@@ -20,7 +20,7 @@ struct MainRegisterAllModel:Codable {
     }
 }
 
-struct RegisterAllModel:Codable {
+struct LabRegisterModel:Codable {
     
 let name, email, phone: String
     var phone2: String?
@@ -31,8 +31,8 @@ let name, email, phone: String
     let id: Int
     let photo: String
     let labInsurances: [AllInsuranceModel]
-    let workingHours: [AllWorkingHoursModel]
-    let insuranceCompany: [InsurcaneModel]
+    let workingHours: [LabWorkingHoursModel]
+    let insuranceCompany: [InsurcaneCompanyModel]
 
     enum CodingKeys: String, CodingKey {
         case name, email, phone, phone2, delivery, password

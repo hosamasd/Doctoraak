@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import SkyFloatingLabelTextField
 import MapKit
 import SVProgressHUD
 import MOLH
@@ -23,7 +22,7 @@ class MainRegisterVC: CustomBaseViewVC {
     }()
     lazy var mainView:UIView = {
         let v = UIView(backgroundColor: .white)
-        v.constrainHeight(constant: 1200)
+        v.constrainHeight(constant: 1300)
         v.constrainWidth(constant: view.frame.width)
         return v
     }()
@@ -55,40 +54,53 @@ class MainRegisterVC: CustomBaseViewVC {
         super.init(nibName: nil, bundle: nil)
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViewModelObserver()
-        //        MAKEoPERATION()
     }
     
     //MARK:-User methods
     
-    func MAKEoPERATION()  {
+    //    func MAKEoPERATION()  {
+    //
+    //        let singldata:[SecondWorkModel] = [
+    //
+    //            .init(partFrom: "00:00", partTo: "00:00", day: 1, active: 0),
+    //            .init(partFrom: "00:00", partTo: "00:00", day: 2, active: 0),
+    //            .init(partFrom: "00:00", partTo: "00:00", day: 3, active: 0),
+    //            .init(partFrom: "00:00", partTo: "00:00", day: 4, active: 0),
+    //            .init(partFrom: "00:00", partTo: "00:00", day: 5, active: 0),
+    //            .init(partFrom: "00:00", partTo: "00:00", day: 6, active: 0),
+    //            .init(partFrom: "12:00", partTo: "15:00", day: 7, active: 1),
+    //
+    //        ]
+    //
+    //        RegistrationServices.shared.mainRegister(index: index, photo: #imageLiteral(resourceName: "Group 4143-2"), name: "asd", email: "cx1ss30ff@c.com", phone: "00065365331", password: "00000000", insurance: [1], delivery: 1, working_hours: singldata, latt: "51512.4555454", lang: "5451521.155151454545", city: 1, area: 1) { (base, err) in
+    //            if let err=err{
+    //                print(err.localizedDescription)
+    //            }
+    //        }
+    //    }
+    
+    
+    override func setupViews() {
         
-        let singldata:[SecondWorkModel] = [
-            
-            .init(partFrom: "00:00", partTo: "00:00", day: 1, active: 0),
-            .init(partFrom: "00:00", partTo: "00:00", day: 2, active: 0),
-            .init(partFrom: "00:00", partTo: "00:00", day: 3, active: 0),
-            .init(partFrom: "00:00", partTo: "00:00", day: 4, active: 0),
-            .init(partFrom: "00:00", partTo: "00:00", day: 5, active: 0),
-            .init(partFrom: "00:00", partTo: "00:00", day: 6, active: 0),
-            .init(partFrom: "12:00", partTo: "15:00", day: 7, active: 1),
-            
-        ]
         
-        RegistrationServices.shared.mainRegister(index: index, photo: #imageLiteral(resourceName: "Group 4143-2"), name: "asd", email: "cxcddrdff@c.com", phone: "00012345331", password: "00000000", insurance: [1], delivery: 1, working_hours: singldata, latt: "51512.4555454", lang: "5451521.155151454545", city: 1, area: 1) { (base, err) in
-            if let err=err{
-                print(err.localizedDescription)
-            }
-        }
+        view.addSubview(scrollView)
+        scrollView.fillSuperview()
+        scrollView.addSubview(mainView)
+        mainView.anchor(top: scrollView.topAnchor, leading: scrollView.leadingAnchor, bottom: scrollView.bottomAnchor, trailing: scrollView.trailingAnchor,padding: .init(top: -60, left: 0, bottom: 0, right: 0))
+        mainView.addSubViews(views: customMainRegisterView)
+        customMainRegisterView.fillSuperview()
     }
     
-    func setupViewModelObserver()  {
+    override func setupNavigation() {
+        navigationController?.navigationBar.isHide(true)
+    }
+    
+    fileprivate func setupViewModelObserver()  {
         customMainRegisterView.registerViewModel.bindableIsFormValidate.bind { [unowned self] (isValidForm) in
             guard let isValid = isValidForm else {return}
             //            self.customLoginView.loginButton.isEnabled = isValid
@@ -108,24 +120,7 @@ class MainRegisterVC: CustomBaseViewVC {
         })
     }
     
-    override func setupViews() {
-        
-        
-        view.addSubview(scrollView)
-        scrollView.fillSuperview()
-        scrollView.addSubview(mainView)
-        mainView.anchor(top: scrollView.topAnchor, leading: scrollView.leadingAnchor, bottom: scrollView.bottomAnchor, trailing: scrollView.trailingAnchor,padding: .init(top: -60, left: 0, bottom: 0, right: 0))
-        mainView.addSubViews(views: customMainRegisterView)
-        customMainRegisterView.fillSuperview()
-    }
-    
-    override func setupNavigation() {
-        navigationController?.navigationBar.isHide(true)
-    }
-    
-    
-    
-    func convertLatLongToAddress(latitude:Double,longitude:Double){
+    fileprivate func convertLatLongToAddress(latitude:Double,longitude:Double){
         
         let geoCoder = CLGeocoder()
         let location = CLLocation(latitude: latitude, longitude: longitude)
@@ -145,17 +140,14 @@ class MainRegisterVC: CustomBaseViewVC {
         
     }
     
-    func saveToken(mobile:String,index:Int,user_id:Int,_ sms:Int)  {
+    fileprivate func saveToken(mobile:String,index:Int,user_id:Int,_ sms:Int)  {
         let aa = index == 2 ? UserDefaultsConstants.labRegisterUser_id : index == 3 ? UserDefaultsConstants.radiologyRegisterUser_id : UserDefaultsConstants.pharamcyRegisterUser_id
-        let dd = index == 2 ? UserDefaultsConstants.labRRegisterSMSCode : index == 3 ? UserDefaultsConstants.radiologyRegisterSMSCode : UserDefaultsConstants.pharamcyRegisterSMSCode
+        //        let dd = index == 2 ? UserDefaultsConstants.labRRegisterSMSCode : index == 3 ? UserDefaultsConstants.radiologyRegisterSMSCode : UserDefaultsConstants.pharamcyRegisterSMSCode
         let m = index == 2 ? UserDefaultsConstants.labRegisterMobile : index == 3 ? UserDefaultsConstants.radiologyRegisterMobile : UserDefaultsConstants.pharamcyRegisterMobile
-        //         let s = index == 2 ? UserDefaultsConstants.labRegisterMobile : index == 3 ? UserDefaultsConstants.radiologyRegisterMobile : UserDefaultsConstants.pharamcyRegisterMobile
         
         userDefaults.set(user_id, forKey: aa)
-        userDefaults.set(sms, forKey: dd)
         
         userDefaults.set(true, forKey: UserDefaultsConstants.isUserRegisterAndWaitForSMScODE)
-        userDefaults.set(false, forKey: UserDefaultsConstants.isDoctorSecondRegister)
         userDefaults.set(mobile, forKey: m)
         
         userDefaults.set(index, forKey: UserDefaultsConstants.isUserRegisterAndWaitForSMScODEIndex)
@@ -164,7 +156,7 @@ class MainRegisterVC: CustomBaseViewVC {
         goToNext(id: user_id)
     }
     
-    func removeOtherDefaults()  {
+    fileprivate func removeOtherDefaults()  {
         userDefaults.removeObject(forKey: UserDefaultsConstants.mainfirst1)
         userDefaults.removeObject(forKey: UserDefaultsConstants.mainfirst11)
         userDefaults.removeObject(forKey: UserDefaultsConstants.mainfirst2)
@@ -188,7 +180,7 @@ class MainRegisterVC: CustomBaseViewVC {
         userDefaults.removeObject(forKey: UserDefaultsConstants.mainday7)
     }
     
-    func goToNext(id:Int)  {
+    fileprivate  func goToNext(id:Int)  {
         let phone = customMainRegisterView.mobileNumberTextField.text ?? ""
         
         let verify = MainVerificationVC(indexx: index,isFromForgetPassw: false, phone: phone, user_id: id)
@@ -212,7 +204,8 @@ class MainRegisterVC: CustomBaseViewVC {
     
     @objc  func handleNext()  {
         let phone = customMainRegisterView.mobileNumberTextField.text ?? ""
-
+        UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
+        
         customMainRegisterView.registerViewModel.performRegister { (base, err) in
             if let err = err {
                 SVProgressHUD.showError(withStatus: err.localizedDescription)
@@ -226,8 +219,10 @@ class MainRegisterVC: CustomBaseViewVC {
                 self.saveToken(mobile: phone, index:self.index,user_id: user.id,user.smsCode)
             }
         }
-        
-        
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
 }
@@ -264,11 +259,11 @@ extension MainRegisterVC: UIImagePickerControllerDelegate, UINavigationControlle
 extension MainRegisterVC: MainClinicWorkingHoursssProtocol{
     
     func getDays(indexs: [Int], days: [String]) {
-        print(indexs,"              ",days)
+        customMainRegisterView.workingHoursLabel.text = days.joined(separator: "-")
     }
     
     func getHoursChoosed(hours: [ SecondWorkModel]) {
-        print(hours)
+        customMainRegisterView.registerViewModel.working_hours = hours
     }
     
     
@@ -277,9 +272,6 @@ extension MainRegisterVC: MainClinicWorkingHoursssProtocol{
 extension MainRegisterVC: ChooseLocationVCProtocol{
     
     func getLatAndLong(lat: Double, long: Double) {
-        //           customMainRegisterView.registerViewModel.lat = "\(lat)"
-        //           customLapSearchView.registerViewModel.lng = "\(long)"
         convertLatLongToAddress(latitude: lat, longitude: long)
-        print(lat, "            ",long)
     }
 }

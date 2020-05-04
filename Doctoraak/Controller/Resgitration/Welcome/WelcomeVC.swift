@@ -106,7 +106,7 @@ class WelcomeVC: CustomBaseViewVC {
         var group11: [AreaModel]?
         var group111: [SpecificationModel]?
         var group0: [DegreeModel]?
-        var group01: [InsurcaneModel]?
+        var group01: [InsurcaneCompanyModel]?
         
         
         SVProgressHUD.show(withStatus: "Looding....".localized)
@@ -154,7 +154,7 @@ class WelcomeVC: CustomBaseViewVC {
         }
     }
     
-    fileprivate func reloadMainData(_ group:[CityModel]?,_ group2:[AreaModel]?,_ grou:[DegreeModel]?,_ group4:[SpecificationModel]?,_ group5:[InsurcaneModel]?)  {
+    fileprivate func reloadMainData(_ group:[CityModel]?,_ group2:[AreaModel]?,_ grou:[DegreeModel]?,_ group4:[SpecificationModel]?,_ group5:[InsurcaneCompanyModel]?)  {
         
         var cityNameArray = [String]()
         var cityNameARData = [String]()

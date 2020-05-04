@@ -13,18 +13,18 @@ class RegistrationServices {
     
     static let shared = RegistrationServices()
     
-    func mainAllRegister(index:Int,photo:UIImage,name:String,email:String,phone:String,password:String,insurance:[Int],working_hours:[Any] ,latt:Double,lang:Double,city:Int,area:Int,completion: @escaping (MainRegisterAllModel?, Error?) -> Void)  {
+    func mainAllRegister(index:Int,photo:UIImage,name:String,email:String,phone:String,password:String,insurance:[Int],working_hours:[Any] ,latt:Double,lang:Double,city:Int,area:Int,completion: @escaping (MainLabRegisterModel?, Error?) -> Void)  {
         let nn = index == 2 ? "lab_register" : index == 3 ? "radiology_register" : "pharmacy_register"
         
         let urlString = baseUrl+nn.toSecrueHttps()
         let postString = urlString+"?name=\(name)&email=\(email)&phone=\(phone)&password=\(password)&lang=\(lang)&latt=\(latt)&working_hours=\(working_hours)&insurance=\(insurance)&city=\(city)&area=\(area)"
     }
     
-    func mainRegister(index:Int,photo:UIImage,name:String,email:String,phone:String,password:String,insurance:[Int],delivery:Int,working_hours:[SecondWorkModel] ,latt:String,lang:String,city:Int,area:Int,completion: @escaping (MainRegisterAllModel?, Error?) -> Void)  {
+    func mainRegister(index:Int,photo:UIImage,name:String,email:String,phone:String,password:String,insurance:[Int],delivery:Int,working_hours:[SecondWorkModel] ,latt:String,lang:String,city:Int,area:Int,completion: @escaping (MainLabRegisterModel?, Error?) -> Void)  {
         let nn = index == 2 ? "lab_register" : index == 3 ? "radiology_register" : "pharmacy_register"
         
-        let urlString = "http://doctoraak.sphinxatapps.com/public/api/\(nn)".toSecrueHttps()
-        let postString = urlString+"?name=\(name)&email=\(email)&phone=\(phone)&password=\(password)&lang=\(lang)&latt=\(latt)&insurance=\(insurance)&city=\(city)&area=\(area)&working_hours=\(working_hours)&delivery=\(delivery)"
+        let urlString = baseUrl+"\(nn)".toSecrueHttps()
+        let postString = urlString+"?name=\(name)&email=\(email)&phone=\(phone)&password=\(password)&lang=\(lang)&latt=\(latt)&insurance=\(insurance)&city=\(city)&area=\(area)&delivery=\(delivery)"
         let urlsString = postString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
         Alamofire.upload(multipartFormData: { (multipartFormData) in
             
@@ -53,7 +53,7 @@ class RegistrationServices {
                     guard let data = response.data else {return}
                     
                     do {
-                        let objects = try JSONDecoder().decode(MainRegisterAllModel.self, from: data)
+                        let objects = try JSONDecoder().decode(MainLabRegisterModel.self, from: data)
                         // success
                         completion(objects,nil)
                     } catch let error {
@@ -234,7 +234,7 @@ class RegistrationServices {
         MainServices.registerationPostMethodGeneric(postString: postString, url: url, completion: completion)
     }
     
-    func MainLoginUser(index:Int,phone:String,password:String,completion:@escaping (MainLoginAllModel?,Error?)->Void)  {
+    func MainLoginUser(index:Int,phone:String,password:String,completion:@escaping (MainLabLoginModel?,Error?)->Void)  {
         let nnn = index == 0 || index == 1 ? "doctor_login" : index == 2 ? "lab_login" : index == 3 ? "radiology_login" : "pharmacy_login"
         let urlString = baseUrl+nnn.toSecrueHttps()
         guard  let url = URL(string: urlString) else { return  }

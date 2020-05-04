@@ -13,7 +13,7 @@ import Foundation
 struct MainSpecificationModel: Codable {
     let status: Int
     let message, messageEn: String
-    let data: [SpecificationModel]
+    var data: [SpecificationModel]?
     
     enum CodingKeys: String, CodingKey {
         case status, message
