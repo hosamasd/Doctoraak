@@ -118,61 +118,6 @@ class RegistrationServices {
         }
     }
     
-    //    func RegiasterClinicCreate(fees2:Int,fees:Int,lang:String,latt:String,phone:String,waiting_time:String,photo:UIImage,city:Int,area:Int,api_token:String,doctor_id:Int,working_hours:[Any],completion:@escaping (MainDoctorClinicCreateModel?,Error?)->Void)  {
-    //           let urlString = "http://doctoraak.sphinxatapps.com/public/api/doctor_create_clinic".toSecrueHttps()
-    //
-    //      let  signUpDict : [String:Any] =
-    //            [
-    //                "fees":fees,
-    //                "fees2":fees2,
-    //                "lang":lang,
-    //                "latt":latt,
-    //                "phone":phone,
-    //                "waiting_time":waiting_time,
-    //                "city":city,
-    //                "area":area,
-    //                "api_token":api_token,
-    //                "doctor_id":doctor_id,
-    ////                "photo":photo,
-    //                "working_hours":working_hours
-    //        ]
-    //        let jsonData = try? JSONSerialization.data(withJSONObject: signUpDict)
-    //        var request = URLRequest(url: URL(string: urlString)!)
-    //        request.httpMethod = "POST"
-    //        request.httpBody = jsonData
-    //
-    //        URLSession.shared.dataTask(with: request) { (data, resp, err) in
-    //                   if let err = err {
-    //                       completion(nil, err)
-    //                       return
-    //                   }
-    //                   do {
-    //                       let objects = try JSONDecoder().decode(MainDoctorClinicCreateModel.self, from: data!)
-    //                       // success
-    //                       completion(objects, err)
-    //                   } catch let error {
-    //                       completion(nil, error)
-    //                   }
-    //               }.resume()
-    //
-    ////        URLSession.shared.dataTask(with: request) { data, response, error in
-    ////            guard let data = data, error == nil else {
-    ////                print(error?.localizedDescription ?? "No data")
-    ////                return
-    ////            }
-    ////            let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
-    ////            if let responseJSON = responseJSON as? [String: Any] {
-    ////                print(responseJSON)
-    ////            }
-    ////        }.resume()
-    //
-    ////           let postString = urlString+"?fees=\(fees)&lang=\(lang)&latt=\(latt)&phone=\(phone)&waiting_time=\(waiting_time)&city=\(city)&area=\(area)&api_token=\(api_token)&doctor_id=\(doctor_id)&working_hours=\(working_hours)&fees2=\(fees2)"
-    ////
-    ////           let urlsString = postString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
-    //
-    //
-    //    }
-    
     
     func RegiasterClinicCreate(fees2:Int,fees:Int,lang:String,latt:String,phone:String,photo:UIImage,city:Int,area:Int,api_token:String,waiting_time:Int,doctor_id:Int,working_hours:[WorkModel],completion:@escaping (MainDoctorClinicCreateModel?,Error?)->Void)  {
         let urlString = baseUrl+"doctor_create_clinic".toSecrueHttps()
@@ -234,21 +179,54 @@ class RegistrationServices {
         MainServices.registerationPostMethodGeneric(postString: postString, url: url, completion: completion)
     }
     
-    func MainLoginUser(index:Int,phone:String,password:String,completion:@escaping (MainLabLoginModel?,Error?)->Void)  {
-        let nnn = index == 0 || index == 1 ? "doctor_login" : index == 2 ? "lab_login" : index == 3 ? "radiology_login" : "pharmacy_login"
+    func LabLoginUser(phone:String,password:String,completion:@escaping (MainLabLoginModel?,Error?)->Void)  {
+        let nnn = "lab_login"
         let urlString = baseUrl+nnn.toSecrueHttps()
         guard  let url = URL(string: urlString) else { return  }
         let postString = "phone=\(phone)&password=\(password)"
         MainServices.registerationPostMethodGeneric(postString: postString, url: url, completion: completion)
     }
+    
+    func PharamacyLoginUser(phone:String,password:String,completion:@escaping (MainPharamacyLoginModel?,Error?)->Void)  {
+        let nnn = "pharmacy_login"
+        let urlString = baseUrl+nnn.toSecrueHttps()
+        guard  let url = URL(string: urlString) else { return  }
+        let postString = "phone=\(phone)&password=\(password)"
+        MainServices.registerationPostMethodGeneric(postString: postString, url: url, completion: completion)
+    }
+    
+    func radiologyLoginUser(phone:String,password:String,completion:@escaping (MainPharamacyLoginModel?,Error?)->Void)  {
+        let nnn = "radiology_login"
+        let urlString = baseUrl+nnn.toSecrueHttps()
+        guard  let url = URL(string: urlString) else { return  }
+        let postString = "phone=\(phone)&password=\(password)"
+        MainServices.registerationPostMethodGeneric(postString: postString, url: url, completion: completion)
+    }
+    
     //
-    func MainForgetPassword(index:Int,phone:String,completion:@escaping (MainDoctorRegisterModel?,Error?)->Void)  { ////baseusermodel
-        let nnn = index == 0 || index == 1 ? "doctor_forget_password" : index == 2 ? "lab_forget_password" : index == 3 ? "radiology_forget_password" : "pharmacy_forget_password"
+    func LabForgetPassword(phone:String,completion:@escaping (MainDoctorRegisterModel?,Error?)->Void)  { ////baseusermodel
+        let nnn = "lab_forget_password"
         let urlString = baseUrl+nnn.toSecrueHttps()
         guard  let url = URL(string: urlString) else { return  }
         let postString = "phone=\(phone)"
         MainServices.registerationPostMethodGeneric(postString: postString, url: url, completion: completion)
     }
+    
+    func PharamacyForgetPassword(phone:String,completion:@escaping (MainDoctorRegisterModel?,Error?)->Void)  { ////baseusermodel
+           let nnn = "pharmacy_forget_password"
+           let urlString = baseUrl+nnn.toSecrueHttps()
+           guard  let url = URL(string: urlString) else { return  }
+           let postString = "phone=\(phone)"
+           MainServices.registerationPostMethodGeneric(postString: postString, url: url, completion: completion)
+       }
+    
+    func RdiologyForgetPassword(phone:String,completion:@escaping (MainDoctorRegisterModel?,Error?)->Void)  { ////baseusermodel
+              let nnn = "radiology_forget_password"
+              let urlString = baseUrl+nnn.toSecrueHttps()
+              guard  let url = URL(string: urlString) else { return  }
+              let postString = "phone=\(phone)"
+              MainServices.registerationPostMethodGeneric(postString: postString, url: url, completion: completion)
+          }
     
     
     func MainUpdateWithoutSMSPassword(index:Int,phone:String,old_password:String,new_password:String,completion:@escaping (MainDoctorRegisterModel?,Error?)->Void) {
@@ -288,6 +266,14 @@ class RegistrationServices {
         MainServices.registerationPostMethodGeneric(postString: postString, url: url, completion: completion)
     }
     
+    
+    func updateDoctorProfile(user_id:Int,api_token:String,name:String,completion:@escaping (MainDoctorLoginModel?,Error?)->Void)  {
+        let nnn = "doctor_update_profile"
+                  let urlString = baseUrl+nnn.toSecrueHttps()
+                  guard  let url = URL(string: urlString) else { return  }
+                  let postString = "api_token=\(api_token)&user_id=\(user_id)&name=\(name)"
+                  MainServices.registerationPostMethodGeneric(postString: postString, url: url, completion: completion)
+    }
     
     
 }

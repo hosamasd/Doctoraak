@@ -8,7 +8,21 @@
 
 import UIKit
 import iOSDropDown
+import SDWebImage
+
 class TopDoctorHomeCell: BaseCollectionCell {
+    
+    var doctor:DoctorLoginModel! {
+        didSet{
+            
+            let urlString =  doctor.photo
+            guard let url = URL(string: urlString) else { return  }
+            profileImage.sd_setImage(with: url)
+            doctorWelcomeLabel.text = "Welcome \n"+doctor.name
+//            doctorReservationLabel.text = doctor.reservationRate ?? "0" + " Reservations"
+        }
+    }
+    
     
     lazy var profileImage:UIImageView = {
         let i = UIImageView(backgroundColor: .gray)
@@ -19,7 +33,7 @@ class TopDoctorHomeCell: BaseCollectionCell {
         return i
     }()
     lazy var doctorWelcomeLabel = UILabel(text: "Welcome \n Dr. Bian Mohamed", font: .systemFont(ofSize: 16), textColor: .black,textAlignment: .left,numberOfLines: 2)
-
+    
     lazy var doctorReservationLabel = UILabel(text: " 10 Reservations", font: .systemFont(ofSize: 16), textColor: .black)
     
     lazy var mainDropView:UIView = {
@@ -43,7 +57,7 @@ class TopDoctorHomeCell: BaseCollectionCell {
     override func setupViews() {
         backgroundColor = .white
         let ss = stack(doctorWelcomeLabel,mainDropView,doctorReservationLabel)
-         doctorClinicDrop.fillSuperview(padding: .init(top: 8, left: 8, bottom: 8, right: 8))
+        doctorClinicDrop.fillSuperview(padding: .init(top: 8, left: 8, bottom: 8, right: 8))
         hstack(profileImage,ss,spacing:16).withMargins(.init(top: 8, left: 16, bottom: 8, right: 16))
     }
 }

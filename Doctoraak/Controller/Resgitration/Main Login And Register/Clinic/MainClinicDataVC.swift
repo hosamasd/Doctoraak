@@ -152,8 +152,11 @@ class MainClinicDataVC: CustomBaseViewVC {
     func goToNext(_ clinic_id:Int)  {
         
         self.updateStates(clinic_id,index: index)
-        let main = DoctorHomeVC(inde: index)
-        navigationController?.pushViewController(main, animated: true)
+        let base = BaseSlidingVC()
+//        base
+        
+//        let main = DoctorHomeVC(inde: index)
+//        navigationController?.pushViewController(main, animated: true)
         //           if  isFromForgetPassw {
         //               let  vc =  MainNewPassVC(indexx: index)
         //               navigationController?.pushViewController(vc, animated: true)

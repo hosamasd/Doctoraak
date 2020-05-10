@@ -34,7 +34,12 @@ class MainLoginsVC: CustomBaseViewVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLoginViewModelObserver()
-        seeee()
+//        seeee()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        customLoginsView.phoneNumberTextField.becomeFirstResponder()
     }
     
     //MARK:-User methods
@@ -77,9 +82,10 @@ class MainLoginsVC: CustomBaseViewVC {
     }
     
     func goToMainTab()  {
-        let home = BaseSlidingVC(indexx: index)
-                     //        present(home, animated: true, completion: nil)
-                     navigationController?.pushViewController(home, animated: true)
+//        let home = BaseSlidingVC(indexx: index)
+//        home.currentDoctor = doctor
+//                     //        present(home, animated: true, completion: nil)
+//                     navigationController?.pushViewController(home, animated: true)
     }
     
     func saveToken(doctr_id:Int,_ api_token:String)  {
@@ -91,6 +97,29 @@ class MainLoginsVC: CustomBaseViewVC {
          self.goToMainTab()
     }
     
+    func saveDoctorToken(doctor:DoctorLoginModel)  {
+        userDefaults.set(true, forKey: UserDefaultsConstants.DoctorPerformLogin)
+        userDefaults.set(doctor.apiToken, forKey: UserDefaultsConstants.doctorCurrentApiToken)
+        userDefaults.set(doctor.name, forKey: UserDefaultsConstants.doctorCurrentNAME)
+        userDefaults.set(doctor.id, forKey: UserDefaultsConstants.doctorCurrentUSERID)
+        userDefaults.set(index, forKey: UserDefaultsConstants.MainLoginINDEX)
+
+                       userDefaults.synchronize()
+                self.goToDoctorMainTab(doctor: doctor)
+    }
+    
+    func goToDoctorMainTab(doctor:DoctorLoginModel)  {
+        dismiss(animated: true) {
+            
+        }
+        
+         let home = BaseSlidingVC()
+        home.index=index
+//               home.currentDoctor = doctor
+                            //        present(home, animated: true, completion: nil)
+                            navigationController?.pushViewController(home, animated: true)
+    }
+    
     //TODO: -handle methods
     
     @objc  func handleRegister()  {
@@ -99,23 +128,40 @@ class MainLoginsVC: CustomBaseViewVC {
         
     }
     
+    func checkDoctorLoginState()  {
+        customLoginsView.loginViewModel.performDoctorLogging {[unowned self] (base, err) in
+             SVProgressHUD.dismiss()
+                    self.activeViewsIfNoData()
+                        guard let user = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
+            //        self.saveToken(token: user.apiToken)
+                    
+                    DispatchQueue.main.async {
+                        self.saveDoctorToken(doctor:user)
+                       
+                    }
+        }
+    }
+    
     @objc  func handleLogin()  {
         
-        customLoginsView.loginViewModel.performLogging { [unowned self] (base,err) in
-        if let err = err {
-            SVProgressHUD.showError(withStatus: err.localizedDescription)
-            self.activeViewsIfNoData();return
-        }
-        SVProgressHUD.dismiss()
-        self.activeViewsIfNoData()
-            guard let user = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
-//        self.saveToken(token: user.apiToken)
+        index == 0 ? checkDoctorLoginState() : ()
         
-        DispatchQueue.main.async {
-            self.saveToken(doctr_id: user.id, user.apiToken)
-           
-        }
-        }
+        
+//        customLoginsView.loginViewModel.performLogging { [unowned self] (base,err) in
+//        if let err = err {
+//            SVProgressHUD.showError(withStatus: err.localizedDescription)
+//            self.activeViewsIfNoData();return
+//        }
+//        SVProgressHUD.dismiss()
+//        self.activeViewsIfNoData()
+//            guard let user = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
+////        self.saveToken(token: user.apiToken)
+//
+//        DispatchQueue.main.async {
+//            self.saveToken(doctr_id: user.id, user.apiToken)
+//
+//        }
+//        }
         
        
         

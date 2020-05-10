@@ -27,17 +27,19 @@ struct DoctorLoginModel:Codable {
     let gender, phone, smsCode, apiToken: String
     var firebaseToken: String?
     let email, password: String
-    let active, specializationID, degreeID: Int
+    let active, specializationID: Int
     let cv: String
     var cv2: String?
     let photo: String
+    var degreeID:Int?
+    
     var reservationRate, degreeRate: String?
     let createdAt, updatedAt: String
     let isHospital: Int
     var dataDescription: String?
     let isMedicalCenter: Int
-    let doctorInsurances: [AllInsuranceModel]
-    let degree, specialization: DegreeDoctorModel
+    var doctorInsurances: [DoctorInsuranceModel]?
+    var degree, specialization: DegreeDoctorModel?
     var insuranceCompany: [DegreeDoctorModel]?
 
     enum CodingKeys: String, CodingKey {
@@ -46,11 +48,12 @@ struct DoctorLoginModel:Codable {
         case nameFr = "name_fr"
         case gender, phone
         case smsCode = "sms_code"
+        case degreeID = "degree_id"
+
         case apiToken = "api_token"
         case firebaseToken = "firebase_token"
         case email, password, active
         case specializationID = "specialization_id"
-        case degreeID = "degree_id"
         case cv, cv2, photo
         case reservationRate = "reservation_rate"
         case degreeRate = "degree_rate"

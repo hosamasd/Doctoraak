@@ -10,10 +10,11 @@ import UIKit
 
 class UserDefaultsConstants {
     
+    static let isWelcomeVCAppear="isWelcomeVCAppear"
     static let isCachedDriopLists = "isCachedDriopLists"
     
     static let mainCurrentUserApiToken="mainCurrentUserApiToken"
-    
+    static let MainLoginINDEX="MainLoginINDEX"
     //welcome
     static let isCityCached="isCityCached"
     static let isAreaCached="isAreaCached"
@@ -30,6 +31,8 @@ class UserDefaultsConstants {
     static let labPerformLogin="labPerformLogin"
     static let radiologyPerformLogin="radiologyPerformLogin"
     
+    
+    
     //doctor register
     static let doctorRegisterImage = "doctorRegisterImage"
     static let doctorRegisterName="doctorRegisterName"
@@ -43,7 +46,11 @@ class UserDefaultsConstants {
     //doctor second register
     static let doctorRegisterSecondIsFromForgetPassw="doctorRegisterSecondIsFromForgetPassw"
     static let doctorSecondRegisterSMSCode="doctorSecondRegisterSMSCode"
-    
+    //doctor login
+    static let doctorCurrentApiToken="doctorCurrentApiToken"
+    static let doctorCurrentNAME="doctorCurrentNAME"
+    static let doctorCurrentUSERID="doctorCurrentUSERID"
+
     //doctro verifcation
     static let DoctorVerificationAPITOKEN="DoctorVerificationAPITOKEN"
     static let DoctorVerificationDoctorId="DoctorVerificationDoctorId"
@@ -78,6 +85,24 @@ class UserDefaultsConstants {
     static let labRegisterMobile="labRegisterMobile"
     static let radiologyRegisterMobile="radiologyRegisterMobile"
 
+    
+    //lab login
+       static let labCurrentApiToken="labCurrentApiToken"
+       static let labCurrentNAME="labCurrentNAME"
+       static let labCurrentUSERID="labCurrentUSERID"
+
+    
+    //radiology login
+       static let radiologyCurrentApiToken="radiologyCurrentApiToken"
+       static let radiologyCurrentNAME="radiologyCurrentNAME"
+       static let radiologyCurrentUSERID="radiologyCurrentUSERID"
+
+    //pharamacy login
+       static let pharamacyCurrentApiToken="pharamacyCurrentApiToken"
+       static let pharamacyCurrentNAME="pharamacyCurrentNAME"
+       static let pharamacyCurrentUSERID="pharamacyCurrentUSERID"
+
+    
 
     
     //for english

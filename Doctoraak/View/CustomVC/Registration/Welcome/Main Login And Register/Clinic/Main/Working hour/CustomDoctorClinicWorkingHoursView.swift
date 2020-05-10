@@ -296,8 +296,8 @@ class CustomDoctorClinicWorkingHoursView: CustomBaseView {
     
     func changeTimeForButtonTitle(values:String)->String  {
         var ppp = "am"
-        guard let minute = values.strstr(needle: ":", beforeNeedle: false)?.toInt()  else { return "" }
-        guard var hours = values.strstr(needle: ":", beforeNeedle: true)?.toInt()  else { return "" }
+        guard let minute = values.removeSubstringAfterOrBefore(needle: ":", beforeNeedle: false)?.toInt()  else { return "" }
+        guard var hours = values.removeSubstringAfterOrBefore(needle: ":", beforeNeedle: true)?.toInt()  else { return "" }
         ppp = hours > 12 ? "pm" : "am"
         hours =   hours > 12 ? hours - 12 : hours
         return "\(hours):\(minute) \(ppp)"

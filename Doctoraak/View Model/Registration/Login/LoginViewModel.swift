@@ -20,13 +20,21 @@ class LoginViewModel {
     
     
     func performLogging(completion:@escaping (MainLabLoginModel?,Error?)->Void)  {
-        guard let phone = phone,let password = password
+        guard let phone = phone,let password = password,let index=index
             else { return  }
         bindableIsLogging.value = true
         
-        RegistrationServices.shared.MainLoginUser(index: 0, phone: phone, password: password, completion: completion)
+//        RegistrationServices.shared.MainLoginUser(index: index, phone: phone, password: password, completion: completion)
 //        RegistrationServices.shared.loginUser(phone: email, password: password, completion: completion)
     }
+    
+    func performDoctorLogging(completion:@escaping (MainDoctorLoginModel?,Error?)->Void)  {
+            guard let phone = phone,let password = password,let index=index
+                else { return  }
+            bindableIsLogging.value = true
+            
+             RegistrationServices.shared.DoctorLoginUser(index: index, phone: phone, password: password, completion: completion)
+        }
     
     func checkFormValidity() {
         let isFormValid = phone?.isEmpty == false && password?.isEmpty == false && index != -1

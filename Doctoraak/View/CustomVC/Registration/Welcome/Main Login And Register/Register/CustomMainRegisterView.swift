@@ -93,7 +93,6 @@ class CustomMainRegisterView: CustomBaseView {
         return v
     }()
     lazy var addressLabel = UILabel(text: "Address", font: .systemFont(ofSize: 16), textColor: .lightGray,numberOfLines: 0)
-    //    lazy var addressTextField = createMainTextFields(place: "Address")
     
     lazy var mainDrop3View:UIView =  {
         let l = makeMainSubViewWithAppendView(vv: [doenImage,insuracneText])

@@ -14,8 +14,8 @@ class WelcomeMainSecondVC: CustomBaseViewVC {
     
     lazy var customWelcomeMainSecondView:CustomWelcomeMainSecondView = {
         let v = CustomWelcomeMainSecondView()
-        v.mainFirstView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleMedicalCenter)))
-        v.main2View.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDoctor)))
+        v.main2View.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleMedicalCenter)))
+        v.mainFirstView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDoctor)))
         v.main3View.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleLab)))
         v.main4View.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleRadiology)))
         v.main5View.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handlePharamacy)))

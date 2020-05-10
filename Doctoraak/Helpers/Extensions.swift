@@ -187,7 +187,7 @@ extension Array where Element: Equatable {
 }
 extension String {
 
-    func strstr(needle: String, beforeNeedle: Bool = false) -> String? {
+    func removeSubstringAfterOrBefore(needle: String, beforeNeedle: Bool = false) -> String? {
         guard let range = self.range(of: needle) else { return nil }
 
         if beforeNeedle {

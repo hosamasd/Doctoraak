@@ -115,6 +115,9 @@
 		4ED4FFE724605AFF00C72AE5 /* MainPharamacySMSCodeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED4FFE624605AFF00C72AE5 /* MainPharamacySMSCodeModel.swift */; };
 		4ED4FFEA24605C1200C72AE5 /* MainPharamacyLoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED4FFE924605C1200C72AE5 /* MainPharamacyLoginModel.swift */; };
 		4ED4FFEC24605CD900C72AE5 /* MainRadiologyLoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED4FFEB24605CD900C72AE5 /* MainRadiologyLoginModel.swift */; };
+		4ED518CA2466ADBF00079248 /* MainClinicGetDoctorsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED518C92466ADBF00079248 /* MainClinicGetDoctorsModel.swift */; };
+		4ED518CC2466B1D100079248 /* MainDoctorGetPatientsFromClinicModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED518CB2466B1D100079248 /* MainDoctorGetPatientsFromClinicModel.swift */; };
+		4EDB37CE2466B87E00DA8B0C /* DoctorServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDB37CD2466B87E00DA8B0C /* DoctorServices.swift */; };
 		4EDBE29F242B9C7F00702C9A /* MainPaymentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDBE29E242B9C7F00702C9A /* MainPaymentVC.swift */; };
 		4EDBE2A2242BA06500702C9A /* DoctorNotificationsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDBE2A1242BA06500702C9A /* DoctorNotificationsVC.swift */; };
 		4EDBE2A5242BA28900702C9A /* CustomMainDoctorNotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDBE2A4242BA28900702C9A /* CustomMainDoctorNotificationView.swift */; };
@@ -244,6 +247,9 @@
 		4ED4FFE624605AFF00C72AE5 /* MainPharamacySMSCodeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPharamacySMSCodeModel.swift; sourceTree = "<group>"; };
 		4ED4FFE924605C1200C72AE5 /* MainPharamacyLoginModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPharamacyLoginModel.swift; sourceTree = "<group>"; };
 		4ED4FFEB24605CD900C72AE5 /* MainRadiologyLoginModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainRadiologyLoginModel.swift; sourceTree = "<group>"; };
+		4ED518C92466ADBF00079248 /* MainClinicGetDoctorsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainClinicGetDoctorsModel.swift; sourceTree = "<group>"; };
+		4ED518CB2466B1D100079248 /* MainDoctorGetPatientsFromClinicModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainDoctorGetPatientsFromClinicModel.swift; sourceTree = "<group>"; };
+		4EDB37CD2466B87E00DA8B0C /* DoctorServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorServices.swift; sourceTree = "<group>"; };
 		4EDBE29E242B9C7F00702C9A /* MainPaymentVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainPaymentVC.swift; sourceTree = "<group>"; };
 		4EDBE2A1242BA06500702C9A /* DoctorNotificationsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorNotificationsVC.swift; sourceTree = "<group>"; };
 		4EDBE2A4242BA28900702C9A /* CustomMainDoctorNotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMainDoctorNotificationView.swift; sourceTree = "<group>"; };
@@ -688,6 +694,7 @@
 			children = (
 				4E9145F22446CCAA00766D20 /* MainServices.swift */,
 				4EC1A8CB244705AA00AD898E /* RegistrationServices.swift */,
+				4EDB37CD2466B87E00DA8B0C /* DoctorServices.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -851,6 +858,15 @@
 			path = "all login";
 			sourceTree = "<group>";
 		};
+		4ED518C82466AD8400079248 /* Doctor */ = {
+			isa = PBXGroup;
+			children = (
+				4ED518C92466ADBF00079248 /* MainClinicGetDoctorsModel.swift */,
+				4ED518CB2466B1D100079248 /* MainDoctorGetPatientsFromClinicModel.swift */,
+			);
+			path = Doctor;
+			sourceTree = "<group>";
+		};
 		4EDBE2A0242BA00000702C9A /* Doctor Sceniro */ = {
 			isa = PBXGroup;
 			children = (
@@ -997,6 +1013,7 @@
 		7AB7E38724157FFA0033F347 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				4ED518C82466AD8400079248 /* Doctor */,
 				4EC1A8CD2447088800AD898E /* Registration */,
 				4EFD44FA2446ECC400B4CB35 /* Main */,
 				4EE876E8245EA0B70074DEB7 /* Working */,
@@ -1169,6 +1186,7 @@
 				4EC8DDAB242A346500CEC5DF /* PaymentViewModel.swift in Sources */,
 				4E28EC6A242A4A7E00B54186 /* CustomMainForgetPassView.swift in Sources */,
 				4E3E0383245DAAFC0021EA26 /* MainSMSCodeAllModel.swift in Sources */,
+				4EDB37CE2466B87E00DA8B0C /* DoctorServices.swift in Sources */,
 				4E580316242796DC00B5D502 /* CustomSkyTextFieldRightPadding.swift in Sources */,
 				4EA8D6D7242F3189004F043B /* ClinicDataViewModel.swift in Sources */,
 				4EAE7985242C7E1B00A2E20F /* BaseCollectionCell.swift in Sources */,
@@ -1179,6 +1197,7 @@
 				4EEBF7C8243D9BBE0039BF81 /* MedicineCollectionVC.swift in Sources */,
 				4EA5379424264090000AE7AD /* DeatilsVC.swift in Sources */,
 				4EC6372824572C1900D46B02 /* MainDoctorSMSAndResendCodeModel.swift in Sources */,
+				4ED518CC2466B1D100079248 /* MainDoctorGetPatientsFromClinicModel.swift in Sources */,
 				4E5E0BB5242891380031AE4A /* DoctorRegisterVC.swift in Sources */,
 				4E333E0A2426604900F82E00 /* DoctorSuggestShiftHorizentalVC.swift in Sources */,
 				4E58030E24278DDB00B5D502 /* CustomSecondWelcomeView.swift in Sources */,
@@ -1239,6 +1258,7 @@
 				4EC1A8CC244705AA00AD898E /* RegistrationServices.swift in Sources */,
 				4E3458EA2428B2FF00DA89A0 /* CustomSecondRegisterView.swift in Sources */,
 				4EF3397A244D960100A455E1 /* ChooseWorkingHoursViewModel.swift in Sources */,
+				4ED518CA2466ADBF00079248 /* MainClinicGetDoctorsModel.swift in Sources */,
 				4E75642B242F420F00A6C15F /* NotificationCell.swift in Sources */,
 				4E42DD672459CD8E00FC4C17 /* MainDoctorClinicCreateModel.swift in Sources */,
 				4E58030A24278A2700B5D502 /* CustomWelcomeView.swift in Sources */,

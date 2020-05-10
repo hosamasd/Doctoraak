@@ -40,6 +40,10 @@ class WelcomeVC: CustomBaseViewVC {
     
     //MARK: -user methods
     
+    override func setupNavigation() {
+        navigationController?.navigationBar.isHide(true)
+    }
+    
     func removeAll()  {
         userDefaults.removeObject(forKey: UserDefaultsConstants.cityNameArray)
         userDefaults.removeObject(forKey: UserDefaultsConstants.cityNameFRArray)
@@ -104,7 +108,7 @@ class WelcomeVC: CustomBaseViewVC {
         
         var group1: [CityModel]?
         var group11: [AreaModel]?
-        var group111: [SpecificationModel]?
+//        var group111: [SpecificationModel]?
         var group0: [DegreeModel]?
         var group01: [InsurcaneCompanyModel]?
         
@@ -130,11 +134,11 @@ class WelcomeVC: CustomBaseViewVC {
             }
             semaphore.wait()
             
-            MainServices.shared.getSpecificationss { (base, err) in
-                group111 = base?.data
-                semaphore.signal()
-            }
-            semaphore.wait()
+//            MainServices.shared.getSpecificationss { (base, err) in
+//                group111 = base?.data
+//                semaphore.signal()
+//            }
+//            semaphore.wait()
             
             MainServices.shared.getDegrees { (base, err) in
                 group0 = base?.data
@@ -149,12 +153,12 @@ class WelcomeVC: CustomBaseViewVC {
             semaphore.wait()
             
             semaphore.signal()
-            self.reloadMainData(group1, group11, group0, group111,group01)
+            self.reloadMainData(group1, group11, group0,group01)
             semaphore.wait()
         }
     }
     
-    fileprivate func reloadMainData(_ group:[CityModel]?,_ group2:[AreaModel]?,_ grou:[DegreeModel]?,_ group4:[SpecificationModel]?,_ group5:[InsurcaneCompanyModel]?)  {
+    fileprivate func reloadMainData(_ group:[CityModel]?,_ group2:[AreaModel]?,_ grou:[DegreeModel]?,_ group5:[InsurcaneCompanyModel]?)  {
         
         var cityNameArray = [String]()
         var cityNameARData = [String]()
@@ -167,10 +171,10 @@ class WelcomeVC: CustomBaseViewVC {
         var areaCityIdData = [Int]()
         var areaIdData = [Int]()
         
-        var spyNameArray = [String]()
-        var spyNameARData = [String]()
-        var spyNameFR = [String]()
-        var spyIdData = [Int]()
+//        var spyNameArray = [String]()
+//        var spyNameARData = [String]()
+//        var spyNameFR = [String]()
+//        var spyIdData = [Int]()
         
         var dNameArray = [String]()
         var dNameARData = [String]()
@@ -210,12 +214,12 @@ class WelcomeVC: CustomBaseViewVC {
                 dIdData.append(city.id)
             })
             
-            group4?.forEach({ (city) in
-                spyNameArray.append(city.name)
-                spyNameARData.append(city.nameAr)
-                spyNameFR.append(city.nameFr )
-                spyIdData.append(city.id)
-            })
+//            group4?.forEach({ (city) in
+//                spyNameArray.append(city.name)
+//                spyNameARData.append(city.nameAr)
+//                spyNameFR.append(city.nameFr )
+//                spyIdData.append(city.id)
+//            })
             
             group5?.forEach({ (city) in
                 iNameArray.append(city.name)
@@ -235,10 +239,10 @@ class WelcomeVC: CustomBaseViewVC {
             userDefaults.set(areaCityIdData, forKey: UserDefaultsConstants.areaCityIdsArrays)
             userDefaults.set(areaIdData, forKey: UserDefaultsConstants.areaIdArray)
             
-            userDefaults.set(spyNameArray, forKey: UserDefaultsConstants.specificationNameArray)
-            userDefaults.set(spyNameFR, forKey: UserDefaultsConstants.specificationNameFRArray)
-            userDefaults.set(spyNameARData, forKey: UserDefaultsConstants.specificationNameARArray)
-            userDefaults.set(spyIdData, forKey: UserDefaultsConstants.specificationIdArray)
+//            userDefaults.set(spyNameArray, forKey: UserDefaultsConstants.specificationNameArray)
+//            userDefaults.set(spyNameFR, forKey: UserDefaultsConstants.specificationNameFRArray)
+//            userDefaults.set(spyNameARData, forKey: UserDefaultsConstants.specificationNameARArray)
+//            userDefaults.set(spyIdData, forKey: UserDefaultsConstants.specificationIdArray)
             
             userDefaults.set(dNameArray, forKey: UserDefaultsConstants.degreeNameArray)
             userDefaults.set(dNameFR, forKey: UserDefaultsConstants.degreeNameFRArray)
@@ -310,12 +314,14 @@ class WelcomeVC: CustomBaseViewVC {
         let phoneNumber = userDefaults.string(forKey: UserDefaultsConstants.userMobileNumber) ?? ""
         
         let check = userDefaults.bool(forKey: UserDefaultsConstants.isUserRegisterAndWaitForSMScODE) ? MainVerificationVC(indexx: index, isFromForgetPassw: false, phone: phoneNumber, user_id: -1) : WelcomeMainSecondVC()
-        
-        let welcome = check//WelcomeMainSecondVC()
-        let nav = UINavigationController(rootViewController:welcome)
-        nav.modalPresentationStyle = .fullScreen
-        present(nav, animated: true)
+        userDefaults.set(false, forKey: UserDefaultsConstants.isWelcomeVCAppear)
+                      userDefaults.synchronize()
+        let welcome = !userDefaults.bool(forKey: UserDefaultsConstants.DoctorPerformLogin) ?  WelcomeMainSecondVC() : DoctorHomeVC()
+//        let nav = UINavigationController(rootViewController:welcome)
+//        welcome.modalPresentationStyle = .fullScreen
+//        present(welcome, animated: true)
         //        navigationController?.pushViewController(welcome, animated: true)
+        navigationController?.pushViewController(welcome, animated: true)
         
     }
 }

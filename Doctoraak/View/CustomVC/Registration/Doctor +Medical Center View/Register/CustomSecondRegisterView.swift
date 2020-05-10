@@ -45,17 +45,6 @@ class CustomSecondRegisterView: CustomBaseView {
         v.constrainWidth(constant: 50)
         return v
     }()
-    //    lazy var cvTextField:UITextField = {
-    //        let s = createMainTextFields(place: "CV")
-    //        let button = UIButton(type: .custom)
-    //        button.setImage(#imageLiteral(resourceName: "Group 4142-2"), for: .normal)
-    //        button.imageEdgeInsets = UIEdgeInsets(top: 0, left: -16, bottom: 0, right: 0)
-    //        button.frame = CGRect(x: CGFloat(s.frame.size.width - 25), y: CGFloat(5), width: CGFloat(25), height: CGFloat(55))
-    //        button.addTarget(self, action: #selector(handleUpload), for: .touchUpInside)
-    //        s.rightView = button
-    //        s.rightViewMode = .always
-    //        return s
-    //    }()
     lazy var discriptionTextField = createMainTextFields(place: "Description")
     lazy var mainDropView = makeMainSubViewWithAppendView(vv: [specializationDrop])
     

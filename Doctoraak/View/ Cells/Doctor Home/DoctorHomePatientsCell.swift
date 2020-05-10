@@ -7,7 +7,23 @@
 //
 
 import UIKit
+import SDWebImage
+
 class DoctorHomePatientsCell: BaseCollectionCell {
+    
+    var patient:ClinicGetDoctorsModel! {
+        didSet{
+            guard let ss = patient.photo.removeSubstringAfterOrBefore(needle: "http", beforeNeedle: false) else { return  }
+            let dd = "http"+ss ?? ""
+            
+                      let urlString = dd ?? patient.photo
+            guard let url = URL(string: urlString) else { return  }
+            doctorProfileImage.sd_setImage(with: url)
+            doctorNameLabel.text = patient.phone
+            doctorDateLabel.text = patient.createdAt
+        }
+    }
+    
     
     lazy var doctorProfileImage:UIImageView = {
         let i = UIImageView(backgroundColor: .gray)

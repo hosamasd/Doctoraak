@@ -8,6 +8,8 @@
 
 
 import UIKit
+import SVProgressHUD
+import MOLH
 
 class BaseSlidingVC: UIViewController {
     
@@ -31,28 +33,35 @@ class BaseSlidingVC: UIViewController {
         return v
     }()
     
+//    var currentDoctor:DoctorLoginModel!
+//    var currentLab:LabLoginModel!
+//    var currentRadiolog:RadiologyLoginModel!
+//    var currentPharamacy:MainPharamacyLoginModel!
+    
     //     var rightViewController: UIViewController = UINavigationController(rootViewController: HomeVC())
     
-    lazy var rightViewController: UIViewController = UINavigationController(rootViewController: index < 2 ?  DoctorHomeVC(inde: index) : MainHomeVC(inde: index))
+    lazy var rightViewController: UIViewController = UINavigationController(rootViewController: index < 2 ?  DoctorHomeVC() : MainHomeVC(inde: index))
     fileprivate let velocityThreshold: CGFloat = 500
     fileprivate let menuWidth:CGFloat = 300
     fileprivate var isMenuOpen:Bool = false
     var redViewTrailingConstraint: NSLayoutConstraint!
     var redViewLeadingConstarint:NSLayoutConstraint!
     
-    fileprivate let index:Int!
-    init(indexx:Int) {
-        self.index = indexx
-        super.init(nibName: nil, bundle: nil)
-    }
+    var index = 0
+    
+//    fileprivate let index:Int!
+//    init(indexx:Int) {
+//        self.index = indexx
+//        super.init(nibName: nil, bundle: nil)
+//    }
     
     
     
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+       
         setupViews()
         setupGesture()
         setupViewControllers()
@@ -60,11 +69,73 @@ class BaseSlidingVC: UIViewController {
         darkCoverView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTapped)))
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+//         check()
+    }
+    
+    func check()  {
+        if userDefaults.bool(forKey: UserDefaultsConstants.isWelcomeVCAppear) {
+                   let welcome = WelcomeVC()
+                   let nav = UINavigationController(rootViewController: welcome)
+                   nav.modalPresentationStyle = .fullScreen
+                   present(nav, animated: true)
+               }else {
+//                   checkData()
+               }
+    }
+    
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(animated)
+//        if userDefaults.bool(forKey: UserDefaultsConstants.isWelcomeVCAppear) {
+//            let welcome = WelcomeVC()
+//            let nav = UINavigationController(rootViewController: welcome)
+//            nav.modalPresentationStyle = .fullScreen
+//            present(nav, animated: true)
+//        }else {
+//            checkData()
+//        }
+////        checkData()
+//    }
+    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return isMenuOpen ? .lightContent : .default
     }
     
+    
+    
     //MARK: -user methods
+    
+//    func checkData()  {
+//        UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
+//        SVProgressHUD.show(withStatus: "Looding...")
+//         index = userDefaults.integer(forKey: UserDefaultsConstants.MainLoginINDEX)
+//        if index == 0 && currentDoctor == nil {
+//            let user_id = userDefaults.integer(forKey: UserDefaultsConstants.doctorCurrentUSERID)
+//            guard let api_Key = userDefaults.string(forKey: UserDefaultsConstants.doctorCurrentApiToken),let name = userDefaults.string(forKey: UserDefaultsConstants.doctorCurrentNAME) else { return  }
+//
+//            RegistrationServices.shared.updateDoctorProfile(user_id: user_id, api_token: api_Key, name: name) { (base, err) in
+//                if let err = err {
+//                    SVProgressHUD.showError(withStatus: err.localizedDescription)
+//                    self.activeViewsIfNoData();return
+//                }
+//                SVProgressHUD.dismiss()
+//                self.activeViewsIfNoData()
+//
+//                guard let user = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
+//
+//                self.currentDoctor = user
+//                DispatchQueue.main.async {
+//
+//                    self.view.layoutIfNeeded()
+//                }
+//
+//            }
+//        }
+        
+        
+        
+//    }
     
     fileprivate func setupViews()  {
         view.backgroundColor = .red
@@ -79,7 +150,7 @@ class BaseSlidingVC: UIViewController {
             blueView.trailingAnchor.constraint(equalTo: redView.leadingAnchor),
             blueView.widthAnchor.constraint(equalToConstant: menuWidth),
             blueView.bottomAnchor.constraint(equalTo: redView.bottomAnchor)
-            ])
+        ])
         self.redViewLeadingConstarint = redView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0)
         //        redViewLeadingConstraint.constant = 150
         redViewLeadingConstarint.isActive = true
@@ -159,25 +230,25 @@ class BaseSlidingVC: UIViewController {
         switch indexx.row {
         case 0:
             rightViewController = UINavigationController(rootViewController: DoctorProfileVC())
-//        case 1:
-//            rightViewController = UINavigationController(rootViewController: DoctorNotificationsVC())
-//        case 2:
-//            rightViewController = BookmarkVC()
+            //        case 1:
+            //            rightViewController = UINavigationController(rootViewController: DoctorNotificationsVC())
+            //        case 2:
+        //            rightViewController = BookmarkVC()
         default:
-             rightViewController = UINavigationController(rootViewController: MainDoctorNotificationVC(inde: index))
-//            let tabBarController = UITabBarController()
-//            let momentsController = UIViewController()
-//            momentsController.navigationItem.title = "Moments"
-//            momentsController.view.backgroundColor = .orange
-//            let navController = UINavigationController(rootViewController: momentsController)
-//            navController.tabBarItem.title = "Moments"
-//            tabBarController.viewControllers = [navController]
-//            rightViewController = tabBarController
+            rightViewController = UINavigationController(rootViewController: MainDoctorNotificationVC(inde: index))
+            //            let tabBarController = UITabBarController()
+            //            let momentsController = UIViewController()
+            //            momentsController.navigationItem.title = "Moments"
+            //            momentsController.view.backgroundColor = .orange
+            //            let navController = UINavigationController(rootViewController: momentsController)
+            //            navController.tabBarItem.title = "Moments"
+            //            tabBarController.viewControllers = [navController]
+            //            rightViewController = tabBarController
         }
         redView.addSubview(rightViewController.view)
         addChild(rightViewController)
         redView.bringSubviewToFront(darkCoverView)
-
+        
         
     }
     
@@ -228,7 +299,7 @@ class BaseSlidingVC: UIViewController {
     }
     
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+//    required init?(coder: NSCoder) {
+//        fatalError("init(coder:) has not been implemented")
+//    }
 }

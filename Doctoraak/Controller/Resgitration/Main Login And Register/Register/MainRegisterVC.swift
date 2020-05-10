@@ -127,12 +127,12 @@ class MainRegisterVC: CustomBaseViewVC {
         geoCoder.reverseGeocodeLocation(location, completionHandler: {[unowned self] (placemarks, error) -> Void in
             
             // Place details
-            var placeMark: CLPlacemark!
-            placeMark = placemarks?[0]
+//            var placeMark: CLPlacemark?
+            guard let   placeMark = placemarks?[0] else {return}
             
             // Location name
-            guard let locationName = placeMark.locality , let street = placeMark.thoroughfare, let city = placeMark.subAdministrativeArea, let country = placeMark.country else {return}
-            self.customMainRegisterView.addressLabel.text = "\(locationName) - \(street) - \(city) - \(country)"
+            guard  let street = placeMark.subLocality, let city = placeMark.administrativeArea, let country = placeMark.country else {return}
+            self.customMainRegisterView.addressLabel.text =  " \(street) - \(city) - \(country)"
             self.customMainRegisterView.registerViewModel.latt = "\(latitude)"
             self.customMainRegisterView.registerViewModel.lang = "\(longitude)"
         })

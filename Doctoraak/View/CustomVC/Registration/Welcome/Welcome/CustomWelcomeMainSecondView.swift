@@ -123,7 +123,7 @@ class CustomWelcomeMainSecondView: CustomBaseView {
          main3View.hstack(Image3,label3)
          main2View.hstack(Image2,label2)
          mainFirstView.hstack(Image1,label1)
-        let ss = getStack(views: mainFirstView,main2View,main3View,main4View,main5View, spacing: 8, distribution: .fillEqually, axis: .vertical)
+        let ss = getStack(views: main2View,mainFirstView,main3View,main4View,main5View, spacing: 8, distribution: .fillEqually, axis: .vertical)
         
         addSubViews(views: mainImage,docotrLabel,drImage,ss)
          mainImage.fillSuperview()
