@@ -89,7 +89,9 @@ struct DoctorModel:Codable {
        var nameAr, nameFr: String?
        let gender, phone, smsCode, apiToken: String
        let firebaseToken, email, password: String
-       let active, specializationID, degreeID: Int
+       let active, specializationID: Int
+    var degreeID:Int? 
+    
        let cv: String
        var cv2: String?
        let photo: String
@@ -98,7 +100,7 @@ struct DoctorModel:Codable {
        let isHospital: Int
        var doctorDescription: String?
        let isMedicalCenter: Int
-       let insuranceCompany: [InsurcaneCompanyModel]
+       var insuranceCompany: [InsurcaneCompanyModel]?
 
        enum CodingKeys: String, CodingKey {
            case id, name

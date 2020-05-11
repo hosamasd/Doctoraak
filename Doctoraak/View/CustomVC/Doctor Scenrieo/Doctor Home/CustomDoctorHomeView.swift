@@ -33,7 +33,7 @@ class CustomDoctorHomeView: CustomBaseView {
     lazy var titleLabel = UILabel(text: "Home", font: .systemFont(ofSize: 30), textColor: .white)
     
     lazy var topDoctorHomeCell = TopDoctorHomeCell()
-    lazy var allButton = createMainButtons(title: "All", color: .black, tags: 0)
+    lazy var allButton = createMainButtons(title: "All", color: .black, tags: 4)
     lazy var newButton = createMainButtons(title: "New", color: .black, tags: 1)
     lazy var consultaionButton = createMainButtons(title: "Consultation", color: .black, tags: 2)
     lazy var continueButton = createMainButtons(title: "Continue", color: .black, tags: 3)

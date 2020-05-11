@@ -12,7 +12,7 @@ class DoctorHomePatientsCollectionVC: BaseCollectionVC {
     
     var handleSelectedIndex:((IndexPath)->Void)?
 
-    var doctorPatientsArray = [ClinicGetDoctorsModel]()
+    var doctorPatientsArray = [DoctorGetPatientsFromClinicModel]()
     
     fileprivate let cellId = "cellId"
     
@@ -22,7 +22,7 @@ class DoctorHomePatientsCollectionVC: BaseCollectionVC {
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! DoctorHomePatientsCell
-        let pat = doctorPatientsArray[indexPath.item]
+        let pat = doctorPatientsArray[indexPath.item].patient
         cell.patient=pat
         return cell
     }

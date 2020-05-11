@@ -18,4 +18,11 @@ class DoctorServices {
         
         MainServices.mainGetMethodGenerics(urlString: urlString, completion: completion)
     }
+    
+    func getDocotrsPatientsInClinic(clinic_id:Int,api_token:String,doctor_id:Int,completion:@escaping (MainDoctorGetPatientsFromClinicModel?,Error?)->Void)  {
+           let urlString = "\(baseUrl)clinic/order/get?api_token=\(api_token)&doctor_id=\(doctor_id)&clinic_id=\(clinic_id)".toSecrueHttps()
+           
+           MainServices.mainGetMethodGenerics(urlString: urlString, completion: completion)
+       }
+    
 }

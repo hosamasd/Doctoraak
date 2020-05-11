@@ -11,15 +11,15 @@ import SDWebImage
 
 class DoctorHomePatientsCell: BaseCollectionCell {
     
-    var patient:ClinicGetDoctorsModel! {
+    var patient:PatientModel! {
         didSet{
-            guard let ss = patient.photo.removeSubstringAfterOrBefore(needle: "http", beforeNeedle: false) else { return  }
-            let dd = "http"+ss ?? ""
+//            guard let ss = patient.photo.removeSubstringAfterOrBefore(needle: "http", beforeNeedle: false) else { return  }
+//            let dd = "http"+ss ?? ""
             
-                      let urlString = dd ?? patient.photo
+            let urlString = patient.photo // dd ?? patient.photo
             guard let url = URL(string: urlString) else { return  }
             doctorProfileImage.sd_setImage(with: url)
-            doctorNameLabel.text = patient.phone
+            doctorNameLabel.text = patient.name
             doctorDateLabel.text = patient.createdAt
         }
     }
@@ -45,7 +45,7 @@ class DoctorHomePatientsCell: BaseCollectionCell {
         let ss = hstack(UIView(),doctorDateLabel)
         
         let mains = hstack(doctorProfileImage,s,spacing:8)
-        stack(ss,mains).withMargins(.init(top: 8, left: 8, bottom: 8, right: 8))
+        stack(ss,mains,spacing:8).withMargins(.init(top: 8, left: 8, bottom: 8, right: 8))
         
     }
 }
