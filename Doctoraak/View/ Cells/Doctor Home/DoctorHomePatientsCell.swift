@@ -21,6 +21,7 @@ class DoctorHomePatientsCell: BaseCollectionCell {
             doctorProfileImage.sd_setImage(with: url)
             doctorNameLabel.text = patient.name
             doctorDateLabel.text = patient.createdAt
+            doctorGenderLabel.text = patient.gender
         }
     }
     

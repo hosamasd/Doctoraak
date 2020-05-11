@@ -32,21 +32,28 @@ class DoctorHomeVC: CustomBaseViewVC {
             self.goToSpecifyIndex(indexPath)
         }
         [v.allButton,v.newButton,v.continueButton,v.consultaionButton].forEach({$0.addTarget(self, action: #selector(handleFilterData), for: .touchUpInside)})
+        v.handleChoosedClinicID = {[unowned self] index in
+            self.getDataAccordingToIndex(index)
+        }
         return v
     }()
     //     var currentDoctor:DoctorLoginModel?
     var currentDoctor:DoctorLoginModel!
     var currentLab:LabLoginModel!
     var currentRadiolog:RadiologyLoginModel!
-    var docotrClinicID = [Int]()
-    
     var currentPharamacy:MainPharamacyLoginModel!
+    
+    var docotrClinicID = [Int]()
+    var doctorApiToken:String = ""
+    var doctorId:Int = 0
+    
     var doctorPatientsArray = [PatientModel]()
-//    var filterDoctorPatientsArray = [PatientModel]()
-
+    //    var filterDoctorPatientsArray = [PatientModel]()
+    
     var docotrAllPatientsArray = [DoctorGetPatientsFromClinicModel]()
     
     var filterDoctorPatientsArray = [DoctorGetPatientsFromClinicModel]()
+    var isFilter:Bool = false
     
     //    fileprivate let index:Int!
     //    init(inde:Int) {
@@ -71,9 +78,9 @@ class DoctorHomeVC: CustomBaseViewVC {
             nav.modalPresentationStyle = .fullScreen
             present(nav, animated: true)
         }else {
-                        checkData()
+            checkData()
         }
-//                checkData()
+        //                checkData()
     }
     
     //MARK:-User methods
@@ -85,6 +92,8 @@ class DoctorHomeVC: CustomBaseViewVC {
         if index == 0 && currentDoctor == nil {
             let user_id = userDefaults.integer(forKey: UserDefaultsConstants.doctorCurrentUSERID)
             guard let api_Key = userDefaults.string(forKey: UserDefaultsConstants.doctorCurrentApiToken),let name = userDefaults.string(forKey: UserDefaultsConstants.doctorCurrentNAME) else { return  }
+            doctorApiToken=api_Key
+            doctorId=user_id
             var group2: MainClinicGetDoctorsModel?
             var group1:DoctorLoginModel?
             var group3:MainDoctorGetPatientsFromClinicModel?
@@ -99,7 +108,7 @@ class DoctorHomeVC: CustomBaseViewVC {
                 // using user location
                 
                 
-                RegistrationServices.shared.updateDoctorProfile(user_id: user_id, api_token: api_Key, name: name) { (base, err) in
+                RegistrationServices.shared.updateDoctorProfile(user_id: user_id, api_token: api_Key, name: name) {[unowned self] (base, err) in
                     if let err=err{
                         SVProgressHUD.showError(withStatus: err.localizedDescription)
                         self.activeViewsIfNoData();return
@@ -114,7 +123,7 @@ class DoctorHomeVC: CustomBaseViewVC {
                 }
                 semaphore.wait()
                 
-                DoctorServices.shared.getDocotrsClinic(api_token: api_Key, doctor_id: user_id) { (base, err) in
+                DoctorServices.shared.getDocotrsClinic(api_token: api_Key, doctor_id: user_id) {[unowned self] (base, err) in
                     
                     
                     if let err = err {
@@ -127,7 +136,7 @@ class DoctorHomeVC: CustomBaseViewVC {
                 }
                 semaphore.wait()
                 
-                DoctorServices.shared.getDocotrsPatientsInClinic(clinic_id: self.docotrClinicID.first ?? 1 , api_token: api_Key, doctor_id: user_id) { (base, err) in
+                DoctorServices.shared.getDocotrsPatientsInClinic(clinic_id: self.docotrClinicID.first ?? 1 , api_token: api_Key, doctor_id: user_id) {[unowned self] (base, err) in
                     if let err = err {
                         SVProgressHUD.showError(withStatus: err.localizedDescription)
                         self.activeViewsIfNoData();return
@@ -140,6 +149,32 @@ class DoctorHomeVC: CustomBaseViewVC {
                 semaphore.signal()
                 self.reloadMainData(group2: group2,group1,group3)
                 semaphore.wait()
+            }
+        }
+    }
+    
+    func getDataAccordingToIndex(_ index:Int)  {
+        let clinicId = self.docotrClinicID[index]
+        SVProgressHUD.show(withStatus: "Looding...")
+        UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
+        
+        DoctorServices.shared.getDocotrsPatientsInClinic(clinic_id: clinicId, api_token: doctorApiToken, doctor_id: doctorId) {[unowned self] (base, err) in
+            if let err = err {
+                SVProgressHUD.showError(withStatus: err.localizedDescription)
+                self.activeViewsIfNoData();return
+            }
+            SVProgressHUD.dismiss()
+            self.activeViewsIfNoData()
+            guard let patients = base?.data else {SVProgressHUD.showError(withStatus: base?.message); self.activeViewsIfNoData(); return}
+            self.docotrAllPatientsArray = patients
+            
+            self.customDoctorHomeView.docotrCollectionView.doctorPatientsArray = patients
+            
+            DispatchQueue.main.async {
+                self.customDoctorHomeView.topDoctorHomeCell.doctorReservationLabel.text = "\(patients.count) Reservation "
+                
+                self.customDoctorHomeView.docotrCollectionView.collectionView.reloadData()
+                //                                          self.view.layoutIfNeeded()
             }
         }
     }
@@ -166,14 +201,16 @@ class DoctorHomeVC: CustomBaseViewVC {
                     self.doctorPatientsArray.append(pp.patient)
                     
                 }
-                let dd = patients.count
-                for n in 1...dd  {
+                for n in 1...patients.count  {
                     let s = "Clinic \(n)"
                     clinicsss.append(s)
                 }
                 self.docotrAllPatientsArray = patients
                 self.customDoctorHomeView.topDoctorHomeCell.doctorClinicDrop.optionArray = clinicsss
-                self.customDoctorHomeView.topDoctorHomeCell.doctorReservationLabel.text = "\(dd) Reservation "
+                self.customDoctorHomeView.topDoctorHomeCell.doctorClinicDrop.text = "Clinic 1"
+                self.customDoctorHomeView.topDoctorHomeCell.doctorClinicDrop.selectedIndex = 0
+                
+                self.customDoctorHomeView.topDoctorHomeCell.doctorReservationLabel.text = "\(patients.count) Reservation "
                 self.customDoctorHomeView.topDoctorHomeCell.doctor = group1
                 self.customDoctorHomeView.docotrCollectionView.doctorPatientsArray = patients
                 self.customDoctorHomeView.docotrCollectionView.collectionView.reloadData()
@@ -216,7 +253,9 @@ class DoctorHomeVC: CustomBaseViewVC {
     
     func goToSpecifyIndex(_ indexx:IndexPath)  {
         print(indexx.item)
-        let patient = DoctorBookVC(inde: index)
+        let patients = isFilter ? filterDoctorPatientsArray[indexx.item] : docotrAllPatientsArray[indexx.item]
+        
+        let patient = DoctorPatientDataVC(patient: patients)
         navigationController?.pushViewController(patient, animated: true)
         
     }
@@ -232,13 +271,14 @@ class DoctorHomeVC: CustomBaseViewVC {
         switch sender.tag {
         case 1:
             takeTag(customDoctorHomeView.newButton, btns: customDoctorHomeView.allButton ,customDoctorHomeView.consultaionButton,customDoctorHomeView.continueButton,tag: 1)
-             case 2:
-                takeTag(customDoctorHomeView.consultaionButton, btns: customDoctorHomeView.newButton,customDoctorHomeView.allButton,customDoctorHomeView.continueButton,tag: 2)
-             case 3:
-                takeTag(customDoctorHomeView.continueButton, btns: customDoctorHomeView.newButton,customDoctorHomeView.consultaionButton,customDoctorHomeView.allButton,tag: 3)
+        case 2:
+            takeTag(customDoctorHomeView.consultaionButton, btns: customDoctorHomeView.newButton,customDoctorHomeView.allButton,customDoctorHomeView.continueButton,tag: 2)
+        case 3:
+            takeTag(customDoctorHomeView.continueButton, btns: customDoctorHomeView.newButton,customDoctorHomeView.consultaionButton,customDoctorHomeView.allButton,tag: 3)
         default:
             takeTag(customDoctorHomeView.allButton, btns: customDoctorHomeView.newButton,customDoctorHomeView.consultaionButton,customDoctorHomeView.continueButton,tag: 4)
         }
+        isFilter = true
     }
     
     func takeTag(_ bt:UIButton,btns:UIButton...,tag:Int)  {
@@ -247,6 +287,7 @@ class DoctorHomeVC: CustomBaseViewVC {
         customDoctorHomeView.docotrCollectionView.doctorPatientsArray = tag == 4 ? docotrAllPatientsArray : filterDoctorPatientsArray
         DispatchQueue.main.async {
             self.customDoctorHomeView.docotrCollectionView.collectionView.reloadData()
+            self.view.layoutIfNeeded()
         }
         print(filterDoctorPatientsArray.count)
     }

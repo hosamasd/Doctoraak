@@ -24,15 +24,22 @@ class DoctorPatientDataVC: CustomBaseViewVC {
         }()
         lazy var customDoctorDataView:CustomDoctorDataView = {
             let v = CustomDoctorDataView()
+            v.patient = patient
             v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
             return v
         }()
-        
-        fileprivate let index:Int!
-        init(inde:Int) {
-            self.index = inde
-            super.init(nibName: nil, bundle: nil)
-        }
+    
+    fileprivate let patient:DoctorGetPatientsFromClinicModel!
+    
+    init(patient:DoctorGetPatientsFromClinicModel) {
+        self.patient=patient
+        super.init(nibName: nil, bundle: nil)
+    }
+//        fileprivate let index:Int!
+//        init(inde:Int) {
+//            self.index = inde
+//            super.init(nibName: nil, bundle: nil)
+//        }
         
         override func viewDidLoad() {
             super.viewDidLoad()

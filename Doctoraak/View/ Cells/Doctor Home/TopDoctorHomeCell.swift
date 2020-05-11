@@ -47,12 +47,17 @@ class TopDoctorHomeCell: BaseCollectionCell {
     }()
     lazy var doctorClinicDrop:DropDown = {
         let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
-        i.optionArray = ["clinic1","clinic1","clinic3"]
+//        i.optionArray = ["clinic1","clinic1","clinic3"]
         i.arrowSize = 20
-        i.placeholder = "clinic1"
-        
+        i.placeholder = "clinic 1"
+        i.didSelect { (s, index, _) in
+            self.handleChoosedClinicID?(index)
+        }
         return i
     }()
+    
+    var handleChoosedClinicID:((Int)->Void)?
+    
     
     override func setupViews() {
         backgroundColor = .white

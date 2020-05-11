@@ -32,7 +32,13 @@ class CustomDoctorHomeView: CustomBaseView {
     }()
     lazy var titleLabel = UILabel(text: "Home", font: .systemFont(ofSize: 30), textColor: .white)
     
-    lazy var topDoctorHomeCell = TopDoctorHomeCell()
+    lazy var topDoctorHomeCell:TopDoctorHomeCell = {
+        let c=TopDoctorHomeCell()
+        c.handleChoosedClinicID = {[unowned self] ind in
+            self.handleChoosedClinicID?(ind)
+        }
+        return c
+    }()
     lazy var allButton = createMainButtons(title: "All", color: .black, tags: 4)
     lazy var newButton = createMainButtons(title: "New", color: .black, tags: 1)
     lazy var consultaionButton = createMainButtons(title: "Consultation", color: .black, tags: 2)
@@ -45,6 +51,7 @@ class CustomDoctorHomeView: CustomBaseView {
         return vc
     }()
     var handleSelectedIndex:((IndexPath)->Void)?
+    var handleChoosedClinicID:((Int)->Void)?
 
     
     override func layoutSubviews() {

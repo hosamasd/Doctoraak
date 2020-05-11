@@ -7,8 +7,36 @@
 //
 
 import UIKit
+import MOLH
+import SDWebImage
 
 class CustomDoctorDataView: CustomBaseView {
+    
+    var patient:DoctorGetPatientsFromClinicModel!{
+        didSet {
+            
+            
+            guard  let s = patient.type.toInt(),let urlString = patient.patient.insurance.url,let url = URL(string: urlString) else {return}
+            
+            let type = s == 1 ? "New" : s == 2 ? "Consultation" : s == 3 ? "Continue" : "All"
+            let number = patient.reservationNumber
+            
+            let first = makeAttributedTextssss(fir: "Reservation Type", sec: type)
+            let second = makeAttributedTextssss(fir: "Reservation  Number", sec: "\(number)")
+            let insuranceCompany = patient.patient.insurance.name
+            let notes = patient.notes ?? "No Notes Found"
+            
+            DispatchQueue.main.async {[unowned self] in
+                self.topLabel.attributedText = first
+                self.bottomLabel.attributedText = second
+                self.insuranceDetailLabel.text = insuranceCompany
+                self.notesDetailLabel.text = notes
+                self.patientCell.patient = self.patient.patient
+                self.insuranceImage.sd_setImage(with: url)
+            }
+            
+        }
+    }
     
     
     lazy var LogoImage:UIImageView = {
@@ -39,13 +67,15 @@ class CustomDoctorDataView: CustomBaseView {
     }()
     lazy var bottomView:UIView = {
         let v = makeMainSubViewWithAppendViewwww(vv: [mainStack], height: 161)
-          v.hstack(mainStack)
-          return v
-      }()
+        v.hstack(mainStack)
+        return v
+    }()
     lazy var topImage:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "download-(1)"))
         i.constrainWidth(constant: 100)
         i.contentMode = .scaleAspectFill
+        i.clipsToBounds = true
+
         return i
     }()
     lazy var bottomImage:UIImageView = {
@@ -53,10 +83,12 @@ class CustomDoctorDataView: CustomBaseView {
         i.constrainWidth(constant: 100)
         i.constrainHeight(constant: 60)
         i.contentMode = .scaleAspectFit
+        i.clipsToBounds = true
+
         return i
     }()
-    lazy var topLabel = makeAttributedTextssss(fir: "Reservation Type", sec: "Consultation")
-    lazy var bottomLabel = makeAttributedTextssss(fir: "Reservation Number", sec: "15")
+    lazy var topLabel = UILabel(text: "Reservation Type", font: .systemFont(ofSize: 16), textColor: .black, textAlignment: .left, numberOfLines: 2)//makeAttributedTextssss(fir: "Reservation Type", sec: "Consultation")
+    lazy var bottomLabel = UILabel(text: "Reservation Number", font: .systemFont(ofSize: 16), textColor: .black, textAlignment: .left, numberOfLines: 2)//makeAttributedTextssss(fir: "Reservation Number", sec: "15")
     lazy var seperatorView:UIView = {
         let v = UIView(backgroundColor: .gray)
         v.constrainHeight(constant: 1)
@@ -66,13 +98,15 @@ class CustomDoctorDataView: CustomBaseView {
     
     lazy var insuranceView:UIView = {
         let v = makeMainSubViewWithAppendViewwww(vv: [insuranceImage,insuranceDetailLabel], height: 80)
-        v.hstack(insuranceImage,insuranceDetailLabel,spacing:0,alignment:.center)
+        v.hstack(insuranceImage,insuranceDetailLabel,spacing:8,alignment:.center)
         return v
     }()
     lazy var insuranceImage:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "download-(1)"))
         i.constrainWidth(constant: 100)
         i.contentMode = .scaleAspectFill
+        i.clipsToBounds = true
+        
         return i
     }()
     lazy var insuranceDetailLabel = UILabel(text: "One Care Medical", font: .systemFont(ofSize: 20), textColor: .black)
@@ -86,6 +120,8 @@ class CustomDoctorDataView: CustomBaseView {
         let i = UIImageView(image: #imageLiteral(resourceName: "22741-NU3AN9-1"))
         i.contentMode = .scaleAspectFill
         i.constrainWidth(constant: 100)
+        i.clipsToBounds = true
+
         return i
     }()
     lazy var notesDetailLabel = UILabel(text: "There is no notes", font: .systemFont(ofSize: 16), textColor: .lightGray)
@@ -98,6 +134,7 @@ class CustomDoctorDataView: CustomBaseView {
         v.backgroundColor = .white
         return v
     }()
+    
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -141,15 +178,14 @@ class CustomDoctorDataView: CustomBaseView {
     }
     
     
-    func makeAttributedTextssss(fir:String,sec:String) -> UILabel {
-        let l = UILabel()
+    func makeAttributedTextssss(fir:String,sec:String) -> NSMutableAttributedString {
         let attrString = NSMutableAttributedString()
             .appendWith(color: .black, weight: .regular, ofSize: 18, fir+"\n")
             .appendWith(color:.lightGray, weight: .bold, ofSize: 16, sec)
-        l.attributedText = attrString
-        l.numberOfLines = 2
-        l.textAlignment = .left
-        return l
+        //        l.attributedText = attrString
+        //        l.numberOfLines = 2
+        //        l.textAlignment = .left
+        return attrString
     }
 }
 
