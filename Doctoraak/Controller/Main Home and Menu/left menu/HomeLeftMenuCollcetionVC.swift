@@ -10,7 +10,7 @@ import UIKit
 
 class HomeLeftMenuCollcetionVC: BaseCollectionVC {
     
-    var images:[UIImage] = [#imageLiteral(resourceName: "ic_language_24px"),#imageLiteral(resourceName: "ic_language_24px"),#imageLiteral(resourceName: "ic_language_24px"),#imageLiteral(resourceName: "ic_language_24px"),#imageLiteral(resourceName: "Group 4122"),#imageLiteral(resourceName: "ic_phone_24px"),#imageLiteral(resourceName: "ic_language_24px")]
+    var images:[UIImage] = [#imageLiteral(resourceName: "icon"),#imageLiteral(resourceName: "icond"),#imageLiteral(resourceName: "ic_add_circle_outline_24px-1"),#imageLiteral(resourceName: "Union 1"),#imageLiteral(resourceName: "Group 4122"),#imageLiteral(resourceName: "ic_phone_24px"),#imageLiteral(resourceName: "ic_language_24px")]
     var deatas = ["Profile","Calender","Add clinic","Clinic information","Analysis","Contact Us","Language"]
     
     
@@ -40,7 +40,7 @@ class HomeLeftMenuCollcetionVC: BaseCollectionVC {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        return .init(width: view.frame.width, height: 100)
+        return .init(width: view.frame.width, height: 60)
     }
     
      //TODO: -handle methods

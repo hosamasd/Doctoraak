@@ -170,7 +170,7 @@ class BaseSlidingVC: UIViewController {
         let homeView = rightViewController.view!
         
         //        let menuVC = MenuVC()
-        let menuVC = HomeLeftMenuVC()
+        let menuVC = DoctorHomeLeftMenuVC()
         let menuView = menuVC.view!
         
         homeView.translatesAutoresizingMaskIntoConstraints = false

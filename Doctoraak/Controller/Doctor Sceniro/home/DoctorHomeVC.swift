@@ -78,7 +78,7 @@ class DoctorHomeVC: CustomBaseViewVC {
             nav.modalPresentationStyle = .fullScreen
             present(nav, animated: true)
         }else {
-            checkData()
+//            checkData()
         }
         //                checkData()
     }
@@ -112,7 +112,6 @@ class DoctorHomeVC: CustomBaseViewVC {
                     if let err=err{
                         SVProgressHUD.showError(withStatus: err.localizedDescription)
                         self.activeViewsIfNoData();return
-                        //
                     }
                     guard let user = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn);  self.activeViewsIfNoData(); return}
                     //                group1 = user

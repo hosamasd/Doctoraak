@@ -79,7 +79,7 @@
 		4E9145FF2446D27B00766D20 /* MainMedicineModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9145FE2446D27B00766D20 /* MainMedicineModel.swift */; };
 		4E92AF65242B6AFA00BCF20E /* PatientDataVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E92AF64242B6AFA00BCF20E /* PatientDataVC.swift */; };
 		4E92AF67242B6B5C00BCF20E /* CustomPatientDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E92AF66242B6B5C00BCF20E /* CustomPatientDataView.swift */; };
-		4E92AF69242B6FF900BCF20E /* HomeLeftMenuCollectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E92AF68242B6FF900BCF20E /* HomeLeftMenuCollectionVC.swift */; };
+		4E92AF69242B6FF900BCF20E /* DoctorHomeLeftMenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E92AF68242B6FF900BCF20E /* DoctorHomeLeftMenuVC.swift */; };
 		4E92AF6C242B717200BCF20E /* CustomMainHomeLeftView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E92AF6B242B717200BCF20E /* CustomMainHomeLeftView.swift */; };
 		4EA112B52429E4DB005B64E3 /* Bindable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA112B42429E4DB005B64E3 /* Bindable.swift */; };
 		4EA112B82429E541005B64E3 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA112B72429E541005B64E3 /* LoginViewModel.swift */; };
@@ -211,7 +211,7 @@
 		4E9145FE2446D27B00766D20 /* MainMedicineModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMedicineModel.swift; sourceTree = "<group>"; };
 		4E92AF64242B6AFA00BCF20E /* PatientDataVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientDataVC.swift; sourceTree = "<group>"; };
 		4E92AF66242B6B5C00BCF20E /* CustomPatientDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPatientDataView.swift; sourceTree = "<group>"; };
-		4E92AF68242B6FF900BCF20E /* HomeLeftMenuCollectionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeLeftMenuCollectionVC.swift; sourceTree = "<group>"; };
+		4E92AF68242B6FF900BCF20E /* DoctorHomeLeftMenuVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorHomeLeftMenuVC.swift; sourceTree = "<group>"; };
 		4E92AF6B242B717200BCF20E /* CustomMainHomeLeftView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMainHomeLeftView.swift; sourceTree = "<group>"; };
 		4EA112B42429E4DB005B64E3 /* Bindable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bindable.swift; sourceTree = "<group>"; };
 		4EA112B72429E541005B64E3 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
@@ -459,7 +459,6 @@
 		4E35489D242B832200DD4E7A /* left menu */ = {
 			isa = PBXGroup;
 			children = (
-				4E92AF68242B6FF900BCF20E /* HomeLeftMenuCollectionVC.swift */,
 				4E35489E242B834300DD4E7A /* HomeLeftMenuCollcetionVC.swift */,
 			);
 			path = "left menu";
@@ -709,6 +708,14 @@
 			path = "Main Home and Menu";
 			sourceTree = "<group>";
 		};
+		4EA5C64F2469495A005FCABF /* Left menu */ = {
+			isa = PBXGroup;
+			children = (
+				4E92AF68242B6FF900BCF20E /* DoctorHomeLeftMenuVC.swift */,
+			);
+			path = "Left menu";
+			sourceTree = "<group>";
+		};
 		4EA94B9C242F6011001C4650 /* Main Home */ = {
 			isa = PBXGroup;
 			children = (
@@ -870,6 +877,7 @@
 		4EDBE2A0242BA00000702C9A /* Doctor Sceniro */ = {
 			isa = PBXGroup;
 			children = (
+				4EA5C64F2469495A005FCABF /* Left menu */,
 				4EC977ED242B524000C61F1B /* home */,
 				4E000B0B2431B750007CEC3C /* Notifications */,
 				4E75642C242F43F100A6C15F /* DoctorProfileVC.swift */,
@@ -1170,7 +1178,7 @@
 				4E5CE7AB2427545C001EE175 /* DoctorBookVC.swift in Sources */,
 				4E333E0524265B2800F82E00 /* DoctorDaysShiftCell.swift in Sources */,
 				4E9145F92446CF1000766D20 /* MainAreaModel.swift in Sources */,
-				4E92AF69242B6FF900BCF20E /* HomeLeftMenuCollectionVC.swift in Sources */,
+				4E92AF69242B6FF900BCF20E /* DoctorHomeLeftMenuVC.swift in Sources */,
 				4ED4FFEA24605C1200C72AE5 /* MainPharamacyLoginModel.swift in Sources */,
 				4E210D04243CCC2200955CF9 /* DoctorSecondRegisterViewModel.swift in Sources */,
 				4EEBF7C5243D9B380039BF81 /* MedicineCell.swift in Sources */,
