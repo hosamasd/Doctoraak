@@ -310,6 +310,7 @@ class WelcomeVC: CustomBaseViewVC {
     //TODO: -handle methods
     
     @objc func handleNext()  {
+        
         let index = userDefaults.integer(forKey: UserDefaultsConstants.isUserRegisterAndWaitForSMScODEIndex)
         let phoneNumber = userDefaults.string(forKey: UserDefaultsConstants.userMobileNumber) ?? ""
         

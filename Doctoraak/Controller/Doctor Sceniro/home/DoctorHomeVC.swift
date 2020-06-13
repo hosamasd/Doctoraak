@@ -205,6 +205,8 @@ class DoctorHomeVC: CustomBaseViewVC {
                     clinicsss.append(s)
                 }
                 self.docotrAllPatientsArray = patients
+                self.customDoctorHomeView.topDoctorHomeCell.doctorClinicDrop.isHide(clinicsss.count > 0 ? false : true)
+                self.customDoctorHomeView.topDoctorHomeCell.doctorReservationLabel.isHide(clinicsss.count > 0 ? false : true)
                 self.customDoctorHomeView.topDoctorHomeCell.doctorClinicDrop.optionArray = clinicsss
                 self.customDoctorHomeView.topDoctorHomeCell.doctorClinicDrop.text = "Clinic 1"
                 self.customDoctorHomeView.topDoctorHomeCell.doctorClinicDrop.selectedIndex = 0

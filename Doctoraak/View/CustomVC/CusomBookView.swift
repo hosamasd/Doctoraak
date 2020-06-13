@@ -22,16 +22,16 @@ class CusomBookView: CustomBaseView {
         let i = UIImageView(image: #imageLiteral(resourceName: "Icon - Keyboard Arrow - Left - Filled"))
         i.constrainWidth(constant: 30)
         i.constrainHeight(constant: 30)
-         i.isUserInteractionEnabled = true
+        i.isUserInteractionEnabled = true
         return i
     }()
-  
+    
     lazy var titleLabel = UILabel(text: "Book", font: .systemFont(ofSize: 30), textColor: .white)
     lazy var soonLabel = UILabel(text: "Select Your Location", font: .systemFont(ofSize: 18), textColor: .white)
     
     lazy var bookForMeButon = createButtons(title: "Book for me")
     lazy var bookforAnotherPersonButton:UIButton = {
-       let b = UIButton()//createButtons(title: "Book for another person")
+        let b = UIButton()//createButtons(title: "Book for another person")
         b.setTitle("Book for another person", for: .normal)
         b.backgroundColor = .lightGray
         return b
@@ -39,7 +39,7 @@ class CusomBookView: CustomBaseView {
     
     lazy var seg:CustomSegmentedControl = {
         let ss = ["one","two"]
-       let s = CustomSegmentedControl(items: ss)
+        let s = CustomSegmentedControl(items: ss)
         s.selectedSegmentIndex = 0
         return s
     }()
@@ -50,7 +50,7 @@ class CusomBookView: CustomBaseView {
         l.layer.borderWidth = 1
         l.layer.borderColor = #colorLiteral(red: 0.4835817814, green: 0.4836651683, blue: 0.4835640788, alpha: 1).cgColor
         l.addSubview(dateTextField)
-l.constrainHeight(constant: 50)
+        l.constrainHeight(constant: 50)
         return l
     }()
     lazy var dateTextField:UITextField = {
@@ -79,7 +79,7 @@ l.constrainHeight(constant: 50)
         return i
     }()
     lazy var shift1Button = secondButtons(title: "Shift 1")
-     lazy var shift2Button = secondButtons(title: "Shift 2")
+    lazy var shift2Button = secondButtons(title: "Shift 2")
     
     lazy var fullNameTextField = createMainTextFields(place: "Full name")
     lazy var mobileNumberTextField = createMainTextFields(place: "enter Mobile",type: .numberPad)
@@ -106,44 +106,28 @@ l.constrainHeight(constant: 50)
         
         let tx = getStack(views: dayTextField,monthTextField,yearTextField, spacing: 8, distribution: .fillEqually, axis: .horizontal)
         
-//        let mainStack = getStack(views: sV,sssd,fullNameTextField,mobileNumberTextField,tx, spacing: 8, distribution: .fillEqually, axis: .vertical)
+        //        let mainStack = getStack(views: sV,sssd,fullNameTextField,mobileNumberTextField,tx, spacing: 8, distribution: .fillEqually, axis: .vertical)
         
         
         backgroundColor = .white
         dateTextField.fillSuperview(padding: .init(top: 16, left: 16, bottom: 0, right: 16))
         typeDrop.fillSuperview(padding: .init(top: 16, left: 16, bottom: 16, right: 16))
         
-//        addSubViews(views:LogoImage,backImage,titleLabel,soonLabel,mainStack,bookButton)
+        //        addSubViews(views:LogoImage,backImage,titleLabel,soonLabel,mainStack,bookButton)
         addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,ss,bookButton,sV,sssd,ww,tx)
         
         LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
         backImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 60, left: 16, bottom: 0, right: 0))
         titleLabel.anchor(top: nil, leading: leadingAnchor, bottom: LogoImage.bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
         soonLabel.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
-  ss.anchor(top: soonLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 64, left: 32, bottom: 16, right: 32))
+        ss.anchor(top: soonLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 64, left: 32, bottom: 16, right: 32))
         sV.anchor(top: ss.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 32, left: 32, bottom: 16, right: 32))
-sssd.anchor(top: sV.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 32, left: 32, bottom: 16, right: 32))
-         ww.anchor(top: sssd.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 32, left: 32, bottom: 16, right: 32))
+        sssd.anchor(top: sV.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 32, left: 32, bottom: 16, right: 32))
+        ww.anchor(top: sssd.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 32, left: 32, bottom: 16, right: 32))
         tx.anchor(top: ww.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 32, left: 32, bottom: 16, right: 32))
         bookButton.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 32, left: 16, bottom: 16, right: 16))
-
+        
     }
-    
-//    func createMainTextFields(place:String,type:UIKeyboardType? = .emailAddress) -> UITextField {
-//        let t = SkyFloatingLabelTextField(backgroundColor: .white)
-//        t.constrainHeight(constant: 50)
-//        t.layer.cornerRadius = 8
-//        t.clipsToBounds = true
-//        t.placeholder = place
-//        t.keyboardType = type ?? .emailAddress
-//        t.layer.borderWidth = 1
-//        t.layer.borderColor = UIColor.lightGray.cgColor
-//        t.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: t.frame.height))
-//        t.leftViewMode = .always
-//         t.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)
-//        return t
-//    }
-    
     func secondButtons(title:String) ->UIButton {
         let b  = UIButton()
         b.setTitle(title, for: .normal)
@@ -171,9 +155,7 @@ sssd.anchor(top: sV.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing:
         views.forEach { (bt) in
             bt.setTitleColor(.black, for: .normal)
             bt.backgroundColor = .gray
-//            bt.
         }
-//        sender.backgroundColor = ColorConstant.mainBackgroundColor
     }
     
     @objc func tapDone(sender: Any, datePicker1: UIDatePicker) {
@@ -182,7 +164,7 @@ sssd.anchor(top: sV.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing:
             let dateformatter = DateFormatter() // 2.2
             dateformatter.setLocalizedDateFormatFromTemplate("yyyy")// 2.3
             self.dateTextField.text = dateformatter.string(from: datePicker.date) //2.4
-//            self.handleTextContents?(dateTextField.text ?? "",true)
+            //            self.handleTextContents?(dateTextField.text ?? "",true)
         }
         self.dateTextField.resignFirstResponder() // 2.5
     }

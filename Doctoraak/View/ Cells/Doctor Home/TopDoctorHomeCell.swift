@@ -19,7 +19,7 @@ class TopDoctorHomeCell: BaseCollectionCell {
             guard let url = URL(string: urlString) else { return  }
             profileImage.sd_setImage(with: url)
             doctorWelcomeLabel.text = "Welcome \n"+doctor.name
-//            doctorReservationLabel.text = doctor.reservationRate ?? "0" + " Reservations"
+            //            doctorReservationLabel.text = doctor.reservationRate ?? "0" + " Reservations"
         }
     }
     
@@ -47,12 +47,13 @@ class TopDoctorHomeCell: BaseCollectionCell {
     }()
     lazy var doctorClinicDrop:DropDown = {
         let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
-//        i.optionArray = ["clinic1","clinic1","clinic3"]
+        //        i.optionArray = ["clinic1","clinic1","clinic3"]
         i.arrowSize = 20
         i.placeholder = "clinic 1"
         i.didSelect { (s, index, _) in
             self.handleChoosedClinicID?(index)
         }
+        //        i.isHide(true)
         return i
     }()
     
@@ -60,6 +61,7 @@ class TopDoctorHomeCell: BaseCollectionCell {
     
     
     override func setupViews() {
+        [doctorClinicDrop,doctorReservationLabel].forEach({$0.isHide(true)})
         backgroundColor = .white
         let ss = stack(doctorWelcomeLabel,mainDropView,doctorReservationLabel)
         doctorClinicDrop.fillSuperview(padding: .init(top: 8, left: 8, bottom: 8, right: 8))

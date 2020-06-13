@@ -12,6 +12,41 @@ import MaterialComponents.MaterialSnackbar
 
 extension UIViewController {
     
+    func showMainAlertErrorMessages(vv:UIViewController,secondV:CustomAlertLoginView,text:String)  {
+       
+              vv.addCustomViewInCenter(views: secondV, height: 200)
+           secondV.discriptionInfoLabel.text = text
+              secondV.problemsView.loopMode = .loop
+              present(vv, animated: true)
+          }
+    
+    func addCustomViewInCenter(views:UIView,height:CGFloat)  {
+           
+           view.addSubview(views)
+           views.centerInSuperview(size: .init(width: view.frame.width-64, height: height))
+           views.transform = .init(translationX: -1000, y: 0)
+           UIView.animate(withDuration: 0.6, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
+               views.transform = .identity
+           })
+       }
+    
+     func showMainAlertLooder(cc:UIViewController,v:CustomAlertMainLoodingView)  {
+          cc.addCustomViewInCenter(views: v, height: 200)
+          v.problemsView.loopMode = .loop
+          present(cc, animated: true)
+      }
+    
+    func removeViewWithAnimation(vvv:UIView) {
+       DispatchQueue.main.async {
+           UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
+               vvv.transform = .init(translationX: 10000, y: 0)
+           }) { (_) in
+               
+               vvv.removeFromSuperview()
+           }
+       }
+    }
+    
     func removeGradientInSender(sender:UIButton)  {
               
               

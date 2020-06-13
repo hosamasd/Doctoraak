@@ -171,37 +171,7 @@ class RegistrationServices {
     
     //replace model
     
-    func DoctorLoginUser(index:Int,phone:String,password:String,completion:@escaping (MainDoctorLoginModel?,Error?)->Void)  {
-        let nnn = "doctor_login"
-        let urlString = baseUrl+nnn.toSecrueHttps()
-        guard  let url = URL(string: urlString) else { return  }
-        let postString = "phone=\(phone)&password=\(password)"
-        MainServices.registerationPostMethodGeneric(postString: postString, url: url, completion: completion)
-    }
-    
-    func LabLoginUser(phone:String,password:String,completion:@escaping (MainLabLoginModel?,Error?)->Void)  {
-        let nnn = "lab_login"
-        let urlString = baseUrl+nnn.toSecrueHttps()
-        guard  let url = URL(string: urlString) else { return  }
-        let postString = "phone=\(phone)&password=\(password)"
-        MainServices.registerationPostMethodGeneric(postString: postString, url: url, completion: completion)
-    }
-    
-    func PharamacyLoginUser(phone:String,password:String,completion:@escaping (MainPharamacyLoginModel?,Error?)->Void)  {
-        let nnn = "pharmacy_login"
-        let urlString = baseUrl+nnn.toSecrueHttps()
-        guard  let url = URL(string: urlString) else { return  }
-        let postString = "phone=\(phone)&password=\(password)"
-        MainServices.registerationPostMethodGeneric(postString: postString, url: url, completion: completion)
-    }
-    
-    func radiologyLoginUser(phone:String,password:String,completion:@escaping (MainPharamacyLoginModel?,Error?)->Void)  {
-        let nnn = "radiology_login"
-        let urlString = baseUrl+nnn.toSecrueHttps()
-        guard  let url = URL(string: urlString) else { return  }
-        let postString = "phone=\(phone)&password=\(password)"
-        MainServices.registerationPostMethodGeneric(postString: postString, url: url, completion: completion)
-    }
+   
     
     //
     func LabForgetPassword(phone:String,completion:@escaping (MainDoctorRegisterModel?,Error?)->Void)  { ////baseusermodel

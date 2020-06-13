@@ -2,6 +2,7 @@ PODS:
   - Alamofire (4.9.1)
   - iOSDropDown (0.3.4)
   - IQKeyboardManagerSwift (6.5.5)
+  - lottie-ios (3.1.6)
   - MaterialComponents/AnimationTiming (105.0.1)
   - MaterialComponents/Availability (105.0.1)
   - MaterialComponents/Buttons (105.0.1):
@@ -74,6 +75,7 @@ DEPENDENCIES:
   - Alamofire (~> 4.0)
   - iOSDropDown
   - IQKeyboardManagerSwift
+  - lottie-ios
   - MaterialComponents/Snackbar
   - MOLH
   - PKHUD (~> 5.0)
@@ -87,6 +89,7 @@ SPEC REPOS:
     - Alamofire
     - iOSDropDown
     - IQKeyboardManagerSwift
+    - lottie-ios
     - MaterialComponents
     - MDFInternationalization
     - MDFTextAccessibility
@@ -101,6 +104,7 @@ SPEC CHECKSUMS:
   Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
   iOSDropDown: c10a761f9a00c3f1cc9d3bce43ae504628e2f692
   IQKeyboardManagerSwift: 0fb93310284665245591f50f7a5e38de615960b7
+  lottie-ios: 85ce835dd8c53e02509f20729fc7d6a4e6645a0a
   MaterialComponents: cfc2fbc3a380238821ea1786d237e21b32d8514e
   MDFInternationalization: 010097556d6b09d2c4ea38e0820ea6d37be6a314
   MDFTextAccessibility: 85c09a1bd9c321f494348e632a25063bcda35a53
@@ -111,6 +115,6 @@ SPEC CHECKSUMS:
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   UIMultiPicker: 814ef851119183662347ed15ebbad26879c49073
 
-PODFILE CHECKSUM: 0609686aef2eb6b39890ce49a8a676ed5696a93d
+PODFILE CHECKSUM: a4da2e61478c7bf2d0f3d8e79a760159f04b4176
 
 COCOAPODS: 1.8.4

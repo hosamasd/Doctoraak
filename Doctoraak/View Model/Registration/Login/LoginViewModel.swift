@@ -18,23 +18,31 @@ class LoginViewModel {
     var password:String? {didSet {checkFormValidity()}}
     var index:Int?  = -1 {didSet {checkFormValidity()}}
     
-    
-    func performLogging(completion:@escaping (MainLabLoginModel?,Error?)->Void)  {
+    func performDoctorLogging(completion:@escaping (MainDoctorLoginModel?,Error?)->Void)  {
         guard let phone = phone,let password = password,let index=index
             else { return  }
         bindableIsLogging.value = true
-        
-//        RegistrationServices.shared.MainLoginUser(index: index, phone: phone, password: password, completion: completion)
-//        RegistrationServices.shared.loginUser(phone: email, password: password, completion: completion)
+        LoginServices.shared.DoctorLoginUser(index: index, phone: phone, password: password, completion: completion)
     }
     
-    func performDoctorLogging(completion:@escaping (MainDoctorLoginModel?,Error?)->Void)  {
-            guard let phone = phone,let password = password,let index=index
-                else { return  }
-            bindableIsLogging.value = true
-            
-             RegistrationServices.shared.DoctorLoginUser(index: index, phone: phone, password: password, completion: completion)
-        }
+    func performPharamacyLogging(completion:@escaping (MainPharamacyLoginModel?,Error?)->Void)  {
+        guard let phone = phone,let password = password   else { return  }
+        bindableIsLogging.value = true
+        LoginServices.shared.PharamacyLoginUser( phone: phone, password: password, completion: completion)
+    }
+    
+    func performLabLogging(completion:@escaping (MainLabLoginModel?,Error?)->Void)  {
+        guard let phone = phone,let password = password else { return  }
+        bindableIsLogging.value = true
+        LoginServices.shared.LabLoginUser( phone: phone, password: password, completion: completion)
+    }
+    
+    func performRadLogging(completion:@escaping (MainRadiologyLoginModel?,Error?)->Void)  {
+        guard let phone = phone,let password = password else { return  }
+        bindableIsLogging.value = true
+        LoginServices.shared.radiologyLoginUser( phone: phone, password: password, completion: completion)
+    }
+    
     
     func checkFormValidity() {
         let isFormValid = phone?.isEmpty == false && password?.isEmpty == false && index != -1
