@@ -69,10 +69,25 @@ class BaseSlidingVC: UIViewController {
         darkCoverView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTapped)))
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(true)
-//         check()
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+       index = userDefaults.integer(forKey: UserDefaultsConstants.MainLoginINDEX)
+         
+        if index == 0  {
+            
+        }
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+           super.viewDidAppear(true)
+           if userDefaults.bool(forKey: UserDefaultsConstants.isWelcomeVCAppear) {
+               let welcome = WelcomeVC()
+            let nav = UINavigationController(rootViewController: welcome)
+            
+               nav.modalPresentationStyle = .fullScreen
+               present(nav, animated: true)
+           }else {}
+       }
     
     func check()  {
         if userDefaults.bool(forKey: UserDefaultsConstants.isWelcomeVCAppear) {

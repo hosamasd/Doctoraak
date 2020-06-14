@@ -317,11 +317,12 @@ class WelcomeVC: CustomBaseViewVC {
         let check = userDefaults.bool(forKey: UserDefaultsConstants.isUserRegisterAndWaitForSMScODE) ? MainVerificationVC(indexx: index, isFromForgetPassw: false, phone: phoneNumber, user_id: -1) : WelcomeMainSecondVC()
         userDefaults.set(false, forKey: UserDefaultsConstants.isWelcomeVCAppear)
                       userDefaults.synchronize()
-        let welcome = !userDefaults.bool(forKey: UserDefaultsConstants.DoctorPerformLogin) ?  WelcomeMainSecondVC() : DoctorHomeVC()
+        let welcome = userDefaults.bool(forKey: UserDefaultsConstants.DoctorPerformLogin) ?  WelcomeMainSecondVC() : DoctorHomeVC()
 //        let nav = UINavigationController(rootViewController:welcome)
 //        welcome.modalPresentationStyle = .fullScreen
 //        present(welcome, animated: true)
         //        navigationController?.pushViewController(welcome, animated: true)
+        
         navigationController?.pushViewController(welcome, animated: true)
         
     }

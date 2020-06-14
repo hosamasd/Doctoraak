@@ -37,7 +37,7 @@ class MainClinicDataVC: CustomBaseViewVC {
         v.doneButton.addTarget(self, action: #selector(handleDone), for: .touchUpInside)
         
         //        v.clinicWorkingHoursTextField.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleChooseWorkingHours)))
-        v.clinicEditProfileImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpenGallery)))
+        v.clinicEditProfileImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(createAlertForChoposingImage)))
         
         v.handleChooseHours = {[unowned self] in
             self.handleChooseWorkingHours()
@@ -266,11 +266,30 @@ class MainClinicDataVC: CustomBaseViewVC {
         navigationController?.pushViewController(payment, animated: true)
     }
     
-    @objc func handleOpenGallery()  {
-        let imagePicker = UIImagePickerController()
-        imagePicker.delegate = self
-        imagePicker.sourceType = .photoLibrary
-        present(imagePicker, animated: true)
+    fileprivate func handleOpenGallery(sourceType:UIImagePickerController.SourceType)  {
+           let imagePicker = UIImagePickerController()
+           imagePicker.delegate = self
+           imagePicker.sourceType = sourceType
+           present(imagePicker, animated: true)
+       }
+    
+    @objc func createAlertForChoposingImage()  {
+        let alert = UIAlertController(title: "Choose Image".localized, message: "Choose image fROM ".localized, preferredStyle: .alert)
+        let camera = UIAlertAction(title: "Camera".localized, style: .default) {[unowned self] (_) in
+            self.handleOpenGallery(sourceType: .camera)
+            
+        }
+        let gallery = UIAlertAction(title: "Open From Gallery".localized, style: .default) {[unowned self] (_) in
+            self.handleOpenGallery(sourceType: .photoLibrary)
+        }
+        let cancel = UIAlertAction(title: "Cancel".localized, style: .cancel) {[unowned self] (_) in
+            alert.dismiss(animated: true)
+        }
+        
+        alert.addAction(camera)
+        alert.addAction(gallery)
+        alert.addAction(cancel)
+        present(alert, animated: true)
     }
     
     

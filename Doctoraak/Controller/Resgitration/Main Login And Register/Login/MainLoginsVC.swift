@@ -34,14 +34,14 @@ class MainLoginsVC: CustomBaseViewVC {
         return t
     }()
     lazy var customAlertLoginView:CustomAlertLoginView = {
-           let v = CustomAlertLoginView()
-           v.setupAnimation(name: "4970-unapproved-cross")
-           v.handleOkTap = {[unowned self] in
-               self.handleDismiss()
-           }
-           return v
-       }()
-       
+        let v = CustomAlertLoginView()
+        v.setupAnimation(name: "4970-unapproved-cross")
+        v.handleOkTap = {[unowned self] in
+            self.handleDismiss()
+        }
+        return v
+    }()
+    
     //check to go specific way
     fileprivate let index:Int!
     init(indexx:Int) {
@@ -83,10 +83,10 @@ class MainLoginsVC: CustomBaseViewVC {
         customLoginsView.loginViewModel.bindableIsLogging.bind(observer: {  [unowned self] (isReg) in
             if isReg == true {
                 UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
-//                SVProgressHUD.show(withStatus: "Login...".localized)
+                //                SVProgressHUD.show(withStatus: "Login...".localized)
                 self.showMainAlertLooder(cc: self.customMainAlertVC, v: self.customAlertMainLoodingView)
             }else {
-                SVProgressHUD.dismiss()
+                //                SVProgressHUD.dismiss()
                 self.activeViewsIfNoData()
             }
         })
@@ -102,14 +102,14 @@ class MainLoginsVC: CustomBaseViewVC {
         customLoginsView.fillSuperview()
     }
     
-//    func saveToken(doctr_id:Int,_ api_token:String)  {
-//        let perform = index == 0 ? UserDefaultsConstants.DoctorPerformLogin : index == 1 ? UserDefaultsConstants.medicalCenterPerformLogin : index == 2 ? UserDefaultsConstants.labPerformLogin : index == 3 ? UserDefaultsConstants.radiologyPerformLogin : UserDefaultsConstants.pharamacyPerformLogin
-//
-//        userDefaults.set(true, forKey: perform)
-//        userDefaults.set(api_token, forKey: UserDefaultsConstants.mainCurrentUserApiToken)
-//        userDefaults.synchronize()
-//        self.goToMainTab()
-//    }
+    //    func saveToken(doctr_id:Int,_ api_token:String)  {
+    //        let perform = index == 0 ? UserDefaultsConstants.DoctorPerformLogin : index == 1 ? UserDefaultsConstants.medicalCenterPerformLogin : index == 2 ? UserDefaultsConstants.labPerformLogin : index == 3 ? UserDefaultsConstants.radiologyPerformLogin : UserDefaultsConstants.pharamacyPerformLogin
+    //
+    //        userDefaults.set(true, forKey: perform)
+    //        userDefaults.set(api_token, forKey: UserDefaultsConstants.mainCurrentUserApiToken)
+    //        userDefaults.synchronize()
+    //        self.goToMainTab()
+    //    }
     
     func saveDoctorToken(doctor:DoctorLoginModel)  {
         userDefaults.set(true, forKey: UserDefaultsConstants.DoctorPerformLogin)
@@ -174,16 +174,19 @@ class MainLoginsVC: CustomBaseViewVC {
     
     func checkDoctorLoginState()  {
         customLoginsView.loginViewModel.performDoctorLogging {[unowned self] (base, err) in
-             if let err = err {
-                           //                SVProgressHUD.showError(withStatus: err.localizedDescription)
-                           self.showMainAlertErrorMessages(vv: self.customMainAlertVC, secondV: self.customAlertLoginView, text: err.localizedDescription)
-                           
-                           self.activeViewsIfNoData();return
-                       }
-                       //            SVProgressHUD.dismiss()
-                       self.handleDismiss()
-                       
-                       self.activeViewsIfNoData()
+            if let err = err {
+                //                                           SVProgressHUD.showError(withStatus: err.localizedDescription)
+                DispatchQueue.main.async {
+                    self.showMainAlertErrorMessages(vv: self.customMainAlertVC, secondV: self.customAlertLoginView, text: err.localizedDescription)
+                    
+                }
+                
+                self.activeViewsIfNoData();return
+            }
+            //            SVProgressHUD.dismiss()
+            self.handleDismiss()
+            
+            self.activeViewsIfNoData()
             guard let user = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
             //        self.saveToken(token: user.apiToken)
             
@@ -195,7 +198,17 @@ class MainLoginsVC: CustomBaseViewVC {
     
     func checkPharamacyLoginState()  {
         customLoginsView.loginViewModel.performPharamacyLogging {[unowned self] (base, err) in
-            SVProgressHUD.dismiss()
+             if let err = err {
+                           //                                           SVProgressHUD.showError(withStatus: err.localizedDescription)
+                           DispatchQueue.main.async {
+                               self.showMainAlertErrorMessages(vv: self.customMainAlertVC, secondV: self.customAlertLoginView, text: err.localizedDescription)
+                               
+                           }
+                           
+                           self.activeViewsIfNoData();return
+                       }
+            self.handleDismiss()
+            
             self.activeViewsIfNoData()
             guard let user = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
             //        self.saveToken(token: user.apiToken)
@@ -209,7 +222,17 @@ class MainLoginsVC: CustomBaseViewVC {
     
     func checkRadLoginState()  {
         customLoginsView.loginViewModel.performRadLogging {[unowned self] (base, err) in
-            SVProgressHUD.dismiss()
+            if let err = err {
+                           //                                           SVProgressHUD.showError(withStatus: err.localizedDescription)
+                           DispatchQueue.main.async {
+                               self.showMainAlertErrorMessages(vv: self.customMainAlertVC, secondV: self.customAlertLoginView, text: err.localizedDescription)
+                               
+                           }
+                           
+                           self.activeViewsIfNoData();return
+                       }
+            self.handleDismiss()
+            
             self.activeViewsIfNoData()
             guard let user = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
             //        self.saveToken(token: user.apiToken)
@@ -244,7 +267,7 @@ class MainLoginsVC: CustomBaseViewVC {
     }
     
     @objc func handleBack()  {
-        navigationController?.popToRootViewController(animated: true)
+        navigationController?.popViewController(animated: true)
     }
     
     @objc func handleDismiss()  {

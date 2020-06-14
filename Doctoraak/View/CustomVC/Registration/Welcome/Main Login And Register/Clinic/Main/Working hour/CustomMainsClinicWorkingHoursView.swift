@@ -123,7 +123,7 @@ class CustomMainClinicWorkingHoursView: CustomBaseView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        if sunButton.backgroundColor != nil && !userDefaults.bool(forKey: UserDefaultsConstants.isWorkingHoursSaved){
+        if sunButton.backgroundColor != nil && userDefaults.bool(forKey: UserDefaultsConstants.isWorkingHoursSaved){
             addGradientInSenderAndRemoveOther(sender: sunButton)
             sunButton.setTitleColor(.white, for: .normal)
         }
@@ -196,48 +196,48 @@ class CustomMainClinicWorkingHoursView: CustomBaseView {
     
     func getSavedData()  {
         
-//        if !userDefaults.bool(forKey: UserDefaultsConstants.isWorkingHoursSaved) { }else {
+        //        if !userDefaults.bool(forKey: UserDefaultsConstants.isWorkingHoursSaved) { }else {
+        
+        if let f1 = userDefaults.string(forKey: UserDefaultsConstants.mainfirst1),let f11 = userDefaults.string(forKey: UserDefaultsConstants.mainfirst11),
+            let f2 = userDefaults.string(forKey: UserDefaultsConstants.mainfirst2),let f21 = userDefaults.string(forKey: UserDefaultsConstants.mainfirst21),
+            let f3 = userDefaults.string(forKey: UserDefaultsConstants.mainfirst3),let f31 = userDefaults.string(forKey: UserDefaultsConstants.mainfirst31),
+            let f4 = userDefaults.string(forKey: UserDefaultsConstants.mainfirst4),let f41 = userDefaults.string(forKey: UserDefaultsConstants.mainfirst41),
+            let f5 = userDefaults.string(forKey: UserDefaultsConstants.mainfirst5),let f51 = userDefaults.string(forKey: UserDefaultsConstants.mainfirst51),
+            let f6 = userDefaults.string(forKey: UserDefaultsConstants.mainfirst6),let f61 = userDefaults.string(forKey: UserDefaultsConstants.mainfirst61),
             
-            if let f1 = userDefaults.string(forKey: UserDefaultsConstants.mainfirst1),let f11 = userDefaults.string(forKey: UserDefaultsConstants.mainfirst11),
-                let f2 = userDefaults.string(forKey: UserDefaultsConstants.mainfirst2),let f21 = userDefaults.string(forKey: UserDefaultsConstants.mainfirst21),
-                let f3 = userDefaults.string(forKey: UserDefaultsConstants.mainfirst3),let f31 = userDefaults.string(forKey: UserDefaultsConstants.mainfirst31),
-                let f4 = userDefaults.string(forKey: UserDefaultsConstants.mainfirst4),let f41 = userDefaults.string(forKey: UserDefaultsConstants.mainfirst41),
-                let f5 = userDefaults.string(forKey: UserDefaultsConstants.mainfirst5),let f51 = userDefaults.string(forKey: UserDefaultsConstants.mainfirst51),
-                let f6 = userDefaults.string(forKey: UserDefaultsConstants.mainfirst6),let f61 = userDefaults.string(forKey: UserDefaultsConstants.mainfirst61),
-                
-                let f7 = userDefaults.string(forKey: UserDefaultsConstants.mainfirst7),let f71 = userDefaults.string(forKey: UserDefaultsConstants.mainfirst71)
-                
-                
-                
-                
-            {
-                putDataForVariables(f1,f11,f2,f21,f3,f31,f4,f41,f5,f51,f6,f61,f7,f71)
-                
-                first1TextField.setTitle(changeTimeForButtonTitle(f1), for: .normal)
-                first2TextField.setTitle(changeTimeForButtonTitle(f11), for: .normal)
-                
-                second1TextField.setTitle(changeTimeForButtonTitle(f2), for: .normal)
-                second2TextField.setTitle(changeTimeForButtonTitle(f21), for: .normal)
-                
-                third1TextField.setTitle(changeTimeForButtonTitle(f3), for: .normal)
-                third2TextField.setTitle(changeTimeForButtonTitle(f31), for: .normal)
-                
-                forth1TextField.setTitle(changeTimeForButtonTitle(f4), for: .normal)
-                forth2TextField.setTitle(changeTimeForButtonTitle(f41), for: .normal)
-                
-                fifth1TextField.setTitle(changeTimeForButtonTitle(f5), for: .normal)
-                fifth2TextField.setTitle(changeTimeForButtonTitle(f51), for: .normal)
-                
-                
-                sexth1TextField.setTitle(changeTimeForButtonTitle(f6), for: .normal)
-                sexth2TextField.setTitle(changeTimeForButtonTitle(f61), for: .normal)
-                
-                
-                seventh1TextField.setTitle(changeTimeForButtonTitle(f7), for: .normal)
-                seventh2TextField.setTitle(changeTimeForButtonTitle(f71), for: .normal)
-                putDefualValues()
-            }
-//        }
+            let f7 = userDefaults.string(forKey: UserDefaultsConstants.mainfirst7),let f71 = userDefaults.string(forKey: UserDefaultsConstants.mainfirst71)
+            
+            
+            
+            
+        {
+            putDataForVariables(f1,f11,f2,f21,f3,f31,f4,f41,f5,f51,f6,f61,f7,f71)
+            
+            first1TextField.setTitle(changeTimeForButtonTitle(f1), for: .normal)
+            first2TextField.setTitle(changeTimeForButtonTitle(f11), for: .normal)
+            
+            second1TextField.setTitle(changeTimeForButtonTitle(f2), for: .normal)
+            second2TextField.setTitle(changeTimeForButtonTitle(f21), for: .normal)
+            
+            third1TextField.setTitle(changeTimeForButtonTitle(f3), for: .normal)
+            third2TextField.setTitle(changeTimeForButtonTitle(f31), for: .normal)
+            
+            forth1TextField.setTitle(changeTimeForButtonTitle(f4), for: .normal)
+            forth2TextField.setTitle(changeTimeForButtonTitle(f41), for: .normal)
+            
+            fifth1TextField.setTitle(changeTimeForButtonTitle(f5), for: .normal)
+            fifth2TextField.setTitle(changeTimeForButtonTitle(f51), for: .normal)
+            
+            
+            sexth1TextField.setTitle(changeTimeForButtonTitle(f6), for: .normal)
+            sexth2TextField.setTitle(changeTimeForButtonTitle(f61), for: .normal)
+            
+            
+            seventh1TextField.setTitle(changeTimeForButtonTitle(f7), for: .normal)
+            seventh2TextField.setTitle(changeTimeForButtonTitle(f71), for: .normal)
+            putDefualValues()
+        }
+        //        }
     }
     
     func putDefualValues()  {

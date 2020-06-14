@@ -30,7 +30,7 @@ class DoctorRegisterVC: CustomBaseViewVC {
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
         v.index = index
         v.nextButton.addTarget(self, action: #selector(handleNext), for: .touchUpInside)
-        v.userEditProfileImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpenGallery)))
+        v.userEditProfileImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(createAlertForChoposingImage)))
         return v
     }()
     
@@ -95,12 +95,30 @@ class DoctorRegisterVC: CustomBaseViewVC {
     
     
     
+    fileprivate func handleOpenGallery(sourceType:UIImagePickerController.SourceType)  {
+           let imagePicker = UIImagePickerController()
+           imagePicker.delegate = self
+           imagePicker.sourceType = sourceType
+           present(imagePicker, animated: true)
+       }
     
-    @objc func handleOpenGallery()  {
-        let imagePicker = UIImagePickerController()
-        imagePicker.delegate = self
-        imagePicker.sourceType = .photoLibrary
-        present(imagePicker, animated: true)
+    @objc func createAlertForChoposingImage()  {
+        let alert = UIAlertController(title: "Choose Image".localized, message: "Choose image fROM ".localized, preferredStyle: .alert)
+        let camera = UIAlertAction(title: "Camera".localized, style: .default) {[unowned self] (_) in
+            self.handleOpenGallery(sourceType: .camera)
+            
+        }
+        let gallery = UIAlertAction(title: "Open From Gallery".localized, style: .default) {[unowned self] (_) in
+            self.handleOpenGallery(sourceType: .photoLibrary)
+        }
+        let cancel = UIAlertAction(title: "Cancel".localized, style: .cancel) {[unowned self] (_) in
+            alert.dismiss(animated: true)
+        }
+        
+        alert.addAction(camera)
+        alert.addAction(gallery)
+        alert.addAction(cancel)
+        present(alert, animated: true)
     }
     
     @objc func handleBack()  {

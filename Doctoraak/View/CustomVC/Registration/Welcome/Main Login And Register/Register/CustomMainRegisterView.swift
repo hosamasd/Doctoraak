@@ -19,7 +19,7 @@ class CustomMainRegisterView: CustomBaseView {
             fullNameTextField.placeholder = index == 4 ? "Pharmacy Name" : index == 2 ? "Lap Name" : "Center Name"
             mobileNumberTextField.placeholder = index == 4 ? "Pharmacy phone"  : index == 2 ? "Lap phone" : "Center phone"
             soonLabel.text = index == 4 ? "Creat Pharmacy account"  : index == 2 ? "Creat Lap account" : "Creat Center account"
-            
+            registerViewModel.index = index
         }
     }
     
@@ -106,7 +106,7 @@ class CustomMainRegisterView: CustomBaseView {
         //        i.constrainHeight(constant: 50)
         return i
     }()
-    lazy var insuracneText = UILabel(text: "choose insurance", font: .systemFont(ofSize: 18), textColor: .black, textAlignment: .left)
+    lazy var insuracneText = UILabel(text: "choose insurance", font: .systemFont(ofSize: 16), textColor: .black, textAlignment: .left,numberOfLines: 0)
     lazy var insuranceDrop:UIMultiPicker = {
         let v = UIMultiPicker(backgroundColor: .white)
         //        v.options = insuracneArray
@@ -184,6 +184,8 @@ class CustomMainRegisterView: CustomBaseView {
     var handlerChooseLocation:(()->Void)?
     var insuranceStringArray = [String]()
     var insuranceNumberArray = [Int]()
+    var insuranceSelectedNumbersArray = [Int]()
+
     var cityArray = [String]() //["one","two","three","sdfdsfsd"]
     var areaArray = [String]()
     
@@ -194,6 +196,7 @@ class CustomMainRegisterView: CustomBaseView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         fetchData()
+        addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handelHided)))
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -235,6 +238,7 @@ class CustomMainRegisterView: CustomBaseView {
         areaIDSArray = did
         self.insuranceStringArray = insuranceNameArray
         self.insuranceNumberArray = insuranceNumberArray
+        self.insuracneArray=insuranceNameArray
     }
     
     fileprivate func fetchEnglishData(isArabic:Bool) {
@@ -304,7 +308,10 @@ class CustomMainRegisterView: CustomBaseView {
         
         nextButton.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 32, left: 32, bottom: 16, right: 32))
         
+        
     }
+    
+   
     
     @objc func textFieldDidChange(text: UITextField)  {
         registerViewModel.index = index
@@ -380,20 +387,19 @@ class CustomMainRegisterView: CustomBaseView {
     
     @objc func handleHidePicker(sender:UIMultiPicker)  {
         sender.selectedIndexes.forEach { (i) in
-            
+            insuranceSelectedNumbersArray.append(i+1)
             de += insuracneArray[i] + ","
         }
         iiii = de
         insuracneText.text = iiii
+        let ss =  insuranceSelectedNumbersArray.uniques
+        registerViewModel.insurance = ss
+        
         de = ""
     }
     
     @objc func handleOpenCloseInsurance()  {
         insuranceDrop.isHidden = !insuranceDrop.isHidden
-    }
-    
-    @objc func handleAgree(sender:UIButton)  {
-        sender.isSelected = !sender.isSelected
     }
     
     @objc func handleChoose()  {
@@ -406,9 +412,13 @@ class CustomMainRegisterView: CustomBaseView {
     
     @objc func handleDelvieryCheck(sender:UISwitch)  {
         sender.isOn = !sender.isOn
+        registerViewModel.delivery = sender.isOn ? 1 : 0
     }
     
-    
+    @objc func handelHided()  {
+        insuranceDrop.isHidden = true
+        
+    }
 }
 
 

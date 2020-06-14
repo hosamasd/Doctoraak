@@ -51,7 +51,7 @@ class MainClinicWorkingHoursNotDoctorVC: CustomBaseViewVC {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if userDefaults.bool(forKey: UserDefaultsConstants.isWorkingHoursSaved) {
+        if !userDefaults.bool(forKey: UserDefaultsConstants.isWorkingHoursSaved) {
                         customClinicWorkingHoursView.getSavedData()
             DispatchQueue.main.async {
                 self.view.layoutIfNeeded()

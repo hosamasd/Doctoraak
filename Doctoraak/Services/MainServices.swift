@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import Alamofire
 
-let baseUrl = "http://doctoraak.sphinxatapps.com/public/api/"
+let baseUrl = "http://doctoraak.com/public/api/"
 
 
 class MainServices {
@@ -78,24 +79,86 @@ class MainServices {
     }
     
     static func registerationPostMethodGeneric<T:Codable>(postString:String,url:URL,completion:@escaping (T?,Error?)->Void)  {
-           var request = URLRequest(url: url)
-           request.httpMethod = "POST"
-           
-           
-           request.httpBody = postString.data(using: .utf8)
-           
-           URLSession.shared.dataTask(with: request) { (data, response, err) in
-               if let error = err {
-                   completion(nil,error)
-               }
-               guard let data = data else {return}
-               do {
-                   let objects = try JSONDecoder().decode(T.self, from: data)
-                   // success
-                   completion(objects,nil)
-               } catch let error {
-                   completion(nil,error)
-               }
-               }.resume()
-       }
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        
+        
+        request.httpBody = postString.data(using: .utf8)
+        
+        URLSession.shared.dataTask(with: request) { (data, response, err) in
+            if let error = err {
+                completion(nil,error)
+            }
+            guard let data = data else {return}
+            do {
+                let objects = try JSONDecoder().decode(T.self, from: data)
+                // success
+                completion(objects,nil)
+            } catch let error {
+                completion(nil,error)
+            }
+        }.resume()
+    }
+    
+    func makeMainPostGenericUsingAlmofire<T:Codable>(urlString:String,postStrings:String,cvcs:Data? = nil,cvName:String? = nil,photo:UIImage,working_hours:[SecondWorkModel]? = nil,clinicWork:[WorkModel]? = nil,completion:@escaping (T?,Error?)->Void)  {
+        
+        
+        guard let urlsString = postStrings.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else { return  }
+        let ddd = urlString+"?"+urlsString
+        
+        //
+        Alamofire.upload(multipartFormData: { (multipartFormData) in
+                if let data = photo.pngData() {
+                    multipartFormData.append(data, withName: "photo", fileName: "asd.jpeg", mimeType: "image/jpeg")
+                }
+            
+             if  cvcs != nil && cvName != nil {
+            if let cvFile = cvcs,let cvName = cvName {
+               
+                    multipartFormData.append(cvFile, withName: "cv", fileName: cvName, mimeType:"application/pdf")
+                }
+            }
+            
+            let jsonEncoder = JSONEncoder()
+            let jsonData = try? jsonEncoder.encode(working_hours)
+            if working_hours?.isEmpty != nil {
+                
+                multipartFormData.append(jsonData ?? Data(), withName: "working_hours")
+            }
+            let jsonsEncoder = JSONEncoder()
+            let jsonsData = try? jsonsEncoder.encode(clinicWork)
+            if clinicWork?.isEmpty != nil {
+                multipartFormData.append(jsonsData ?? Data(), withName: "working_hours")
+            }
+        }, to:ddd)//urlsString)
+        { (result) in
+            switch result {
+            case .success(let upload, _, _):
+                
+                upload.uploadProgress(closure: { (progress) in
+                    //Print progress
+                    print(progress)
+                })
+                
+                upload.responseJSON { response in
+                    //print response.result
+                    print(response.result)
+                    guard let data = response.data else {return}
+                    
+                    do {
+                        let objects = try JSONDecoder().decode(T.self, from: data)
+                        // success
+                        completion(objects,nil)
+                    } catch let error {
+                        completion(nil,error)
+                    }
+                }
+                
+            case .failure( let encodingError):
+                completion(nil,encodingError)
+                break
+                //print encodingError.description
+            }
+        }
+    }
 }
