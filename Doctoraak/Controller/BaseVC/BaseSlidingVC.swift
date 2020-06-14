@@ -32,11 +32,31 @@ class BaseSlidingVC: UIViewController {
         v.translatesAutoresizingMaskIntoConstraints = false
         return v
     }()
+    lazy var customAlertChooseLanguageView:CustomAlertChooseLanguageView = {
+        let v = CustomAlertChooseLanguageView()
+        [v.englishButton,v.arabicButton,v.cancelButton].forEach({$0.addTarget(self, action: #selector(handleLanguages), for: .touchUpInside)})
+        return v
+    }()
+    lazy var customMainAlertVC:CustomMainAlertVC = {
+        let t = CustomMainAlertVC()
+        t.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
+        t.modalTransitionStyle = .crossDissolve
+        t.modalPresentationStyle = .overCurrentContext
+        return t
+    }()
     
-//    var currentDoctor:DoctorLoginModel!
-//    var currentLab:LabLoginModel!
-//    var currentRadiolog:RadiologyLoginModel!
-//    var currentPharamacy:MainPharamacyLoginModel!
+    lazy var customContactUsView:CustomContactUsView = {
+        let v = CustomContactUsView()
+        v.handleChoosedOption = {[unowned self] index in
+            self.takeSpecificAction(index)
+        }
+        return v
+    }()
+    
+    //    var currentDoctor:DoctorLoginModel!
+    //    var currentLab:LabLoginModel!
+    //    var currentRadiolog:RadiologyLoginModel!
+    //    var currentPharamacy:MainPharamacyLoginModel!
     
     //     var rightViewController: UIViewController = UINavigationController(rootViewController: HomeVC())
     
@@ -47,13 +67,16 @@ class BaseSlidingVC: UIViewController {
     var redViewTrailingConstraint: NSLayoutConstraint!
     var redViewLeadingConstarint:NSLayoutConstraint!
     
-    var index = 0
-    
-//    fileprivate let index:Int!
-//    init(indexx:Int) {
-//        self.index = indexx
-//        super.init(nibName: nil, bundle: nil)
-//    }
+    var index:Int = 0
+    var links = [
+        "http://sphinxat.com/",
+        "https://www.facebook.com/",
+    ]
+    //    fileprivate let index:Int!
+    //    init(indexx:Int) {
+    //        self.index = indexx
+    //        super.init(nibName: nil, bundle: nil)
+    //    }
     
     
     
@@ -61,7 +84,7 @@ class BaseSlidingVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       
+        
         setupViews()
         setupGesture()
         setupViewControllers()
@@ -71,47 +94,45 @@ class BaseSlidingVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-       index = userDefaults.integer(forKey: UserDefaultsConstants.MainLoginINDEX)
-         
-        if index == 0  {
-            
-        }
+        index = userDefaults.integer(forKey: UserDefaultsConstants.MainLoginINDEX)
+        
+    
     }
     
     override func viewDidAppear(_ animated: Bool) {
-           super.viewDidAppear(true)
-           if userDefaults.bool(forKey: UserDefaultsConstants.isWelcomeVCAppear) {
-               let welcome = WelcomeVC()
+        super.viewDidAppear(true)
+        if !userDefaults.bool(forKey: UserDefaultsConstants.isWelcomeVCAppear) {
+            let welcome = WelcomeVC()
             let nav = UINavigationController(rootViewController: welcome)
             
-               nav.modalPresentationStyle = .fullScreen
-               present(nav, animated: true)
-           }else {}
-       }
+            nav.modalPresentationStyle = .fullScreen
+            present(nav, animated: true)
+        }else {}
+    }
     
     func check()  {
         if userDefaults.bool(forKey: UserDefaultsConstants.isWelcomeVCAppear) {
-                   let welcome = WelcomeVC()
-                   let nav = UINavigationController(rootViewController: welcome)
-                   nav.modalPresentationStyle = .fullScreen
-                   present(nav, animated: true)
-               }else {
-//                   checkData()
-               }
+            let welcome = WelcomeVC()
+            let nav = UINavigationController(rootViewController: welcome)
+            nav.modalPresentationStyle = .fullScreen
+            present(nav, animated: true)
+        }else {
+            //                   checkData()
+        }
     }
     
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(animated)
-//        if userDefaults.bool(forKey: UserDefaultsConstants.isWelcomeVCAppear) {
-//            let welcome = WelcomeVC()
-//            let nav = UINavigationController(rootViewController: welcome)
-//            nav.modalPresentationStyle = .fullScreen
-//            present(nav, animated: true)
-//        }else {
-//            checkData()
-//        }
-////        checkData()
-//    }
+    //    override func viewWillAppear(_ animated: Bool) {
+    //        super.viewWillAppear(animated)
+    //        if userDefaults.bool(forKey: UserDefaultsConstants.isWelcomeVCAppear) {
+    //            let welcome = WelcomeVC()
+    //            let nav = UINavigationController(rootViewController: welcome)
+    //            nav.modalPresentationStyle = .fullScreen
+    //            present(nav, animated: true)
+    //        }else {
+    //            checkData()
+    //        }
+    ////        checkData()
+    //    }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return isMenuOpen ? .lightContent : .default
@@ -121,36 +142,36 @@ class BaseSlidingVC: UIViewController {
     
     //MARK: -user methods
     
-//    func checkData()  {
-//        UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
-//        SVProgressHUD.show(withStatus: "Looding...")
-//         index = userDefaults.integer(forKey: UserDefaultsConstants.MainLoginINDEX)
-//        if index == 0 && currentDoctor == nil {
-//            let user_id = userDefaults.integer(forKey: UserDefaultsConstants.doctorCurrentUSERID)
-//            guard let api_Key = userDefaults.string(forKey: UserDefaultsConstants.doctorCurrentApiToken),let name = userDefaults.string(forKey: UserDefaultsConstants.doctorCurrentNAME) else { return  }
-//
-//            RegistrationServices.shared.updateDoctorProfile(user_id: user_id, api_token: api_Key, name: name) { (base, err) in
-//                if let err = err {
-//                    SVProgressHUD.showError(withStatus: err.localizedDescription)
-//                    self.activeViewsIfNoData();return
-//                }
-//                SVProgressHUD.dismiss()
-//                self.activeViewsIfNoData()
-//
-//                guard let user = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
-//
-//                self.currentDoctor = user
-//                DispatchQueue.main.async {
-//
-//                    self.view.layoutIfNeeded()
-//                }
-//
-//            }
-//        }
-        
-        
-        
-//    }
+    //    func checkData()  {
+    //        UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
+    //        SVProgressHUD.show(withStatus: "Looding...")
+    //         index = userDefaults.integer(forKey: UserDefaultsConstants.MainLoginINDEX)
+    //        if index == 0 && currentDoctor == nil {
+    //            let user_id = userDefaults.integer(forKey: UserDefaultsConstants.doctorCurrentUSERID)
+    //            guard let api_Key = userDefaults.string(forKey: UserDefaultsConstants.doctorCurrentApiToken),let name = userDefaults.string(forKey: UserDefaultsConstants.doctorCurrentNAME) else { return  }
+    //
+    //            RegistrationServices.shared.updateDoctorProfile(user_id: user_id, api_token: api_Key, name: name) { (base, err) in
+    //                if let err = err {
+    //                    SVProgressHUD.showError(withStatus: err.localizedDescription)
+    //                    self.activeViewsIfNoData();return
+    //                }
+    //                SVProgressHUD.dismiss()
+    //                self.activeViewsIfNoData()
+    //
+    //                guard let user = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
+    //
+    //                self.currentDoctor = user
+    //                DispatchQueue.main.async {
+    //
+    //                    self.view.layoutIfNeeded()
+    //                }
+    //
+    //            }
+    //        }
+    
+    
+    
+    //    }
     
     fileprivate func setupViews()  {
         view.backgroundColor = .red
@@ -183,9 +204,12 @@ class BaseSlidingVC: UIViewController {
     
     fileprivate func setupViewControllers()  {
         let homeView = rightViewController.view!
+        index = userDefaults.integer(forKey: UserDefaultsConstants.MainLoginINDEX)
+
+        let vc = index == 0 || index == 1 ? DoctorHomeLeftMenuVC() : HomeLeftMenuVC(index: index)
         
         //        let menuVC = MenuVC()
-        let menuVC = DoctorHomeLeftMenuVC()
+        let menuVC = vc
         let menuView = menuVC.view!
         
         homeView.translatesAutoresizingMaskIntoConstraints = false
@@ -235,37 +259,37 @@ class BaseSlidingVC: UIViewController {
         
     }
     
-    func didSelectItemAtIndex(indexx:IndexPath)  {
-        
-        
-        
-        performRightViewCleanUp()
-        closeMenu()
-        
-        switch indexx.row {
-        case 0:
-            rightViewController = UINavigationController(rootViewController: DoctorProfileVC())
-            //        case 1:
-            //            rightViewController = UINavigationController(rootViewController: DoctorNotificationsVC())
-            //        case 2:
-        //            rightViewController = BookmarkVC()
-        default:
-            rightViewController = UINavigationController(rootViewController: MainDoctorNotificationVC(inde: index))
-            //            let tabBarController = UITabBarController()
-            //            let momentsController = UIViewController()
-            //            momentsController.navigationItem.title = "Moments"
-            //            momentsController.view.backgroundColor = .orange
-            //            let navController = UINavigationController(rootViewController: momentsController)
-            //            navController.tabBarItem.title = "Moments"
-            //            tabBarController.viewControllers = [navController]
-            //            rightViewController = tabBarController
-        }
-        redView.addSubview(rightViewController.view)
-        addChild(rightViewController)
-        redView.bringSubviewToFront(darkCoverView)
-        
-        
-    }
+//    func didSelectItemAtIndex(indexx:IndexPath)  {
+//        
+//        
+//        
+//        performRightViewCleanUp()
+//        closeMenu()
+//        
+//        switch indexx.row {
+//        case 0:
+//            rightViewController = UINavigationController(rootViewController: DoctorProfileVC())
+//            //        case 1:
+//            //            rightViewController = UINavigationController(rootViewController: DoctorNotificationsVC())
+//            //        case 2:
+//        //            rightViewController = BookmarkVC()
+//        default:
+//            rightViewController = UINavigationController(rootViewController: MainDoctorNotificationVC(inde: index))
+//            //            let tabBarController = UITabBarController()
+//            //            let momentsController = UIViewController()
+//            //            momentsController.navigationItem.title = "Moments"
+//            //            momentsController.view.backgroundColor = .orange
+//            //            let navController = UINavigationController(rootViewController: momentsController)
+//            //            navController.tabBarItem.title = "Moments"
+//            //            tabBarController.viewControllers = [navController]
+//            //            rightViewController = tabBarController
+//        }
+//        redView.addSubview(rightViewController.view)
+//        addChild(rightViewController)
+//        redView.bringSubviewToFront(darkCoverView)
+//        
+//        
+//    }
     
     func performRightViewCleanUp()  {
         rightViewController.view.removeFromSuperview()
@@ -294,6 +318,40 @@ class BaseSlidingVC: UIViewController {
         setNeedsStatusBarAppearanceUpdate() // for indicate system to any changes in status bar
     }
     
+    fileprivate func resetAppLanguage(_ isArabic:Bool) {
+        //reset language
+        //        self.navigationController?.popViewController(animated: true)
+        if isArabic {
+            MOLH.setLanguageTo(MOLHLanguage.currentAppleLanguage() == "en" ? "ar" : "ar")
+        }else {
+            MOLH.setLanguageTo(MOLHLanguage.currentAppleLanguage() == "ar" ? "en" : "en")
+        }
+        MOLH.reset()
+    }
+    
+    func callNumber(phoneNumber:String) {
+        if let phoneCallURL:URL = URL(string:"tel://\(phoneNumber)") {
+            let application:UIApplication = UIApplication.shared
+            if (application.canOpenURL(phoneCallURL)) {
+                application.open(phoneCallURL, options: [:])
+            }
+        }
+    }
+    
+    func sendUsingWhats()  {
+        let urlWhats = "whatsapp://send?text=\("Hello World")"
+        if let urlString = urlWhats.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed) {
+            if let whatsappURL = NSURL(string: urlString) {
+                if UIApplication.shared.canOpenURL(whatsappURL as URL) {
+                    UIApplication.shared.open(whatsappURL as URL)
+                }
+                else {
+                    showToast(context: self, msg: "please install whatsapp".localized)
+                }
+            }
+        }
+    }
+    
     //TODO: -handle methods
     
     @objc func handleTapped()  {
@@ -313,8 +371,48 @@ class BaseSlidingVC: UIViewController {
         }
     }
     
+    @objc func handleDismiss()  {
+        removeViewWithAnimation(vvv: customContactUsView)
+        removeViewWithAnimation(vvv: customAlertChooseLanguageView)
+        dismiss(animated: true, completion: nil)
+    }
     
-//    required init?(coder: NSCoder) {
-//        fatalError("init(coder:) has not been implemented")
-//    }
+    @objc func handleLanguages(sender:UIButton)  {
+        switch sender.tag {
+        case 0:
+            //english
+            print("english")
+            !MOLHLanguage.isArabic() ? () :                resetAppLanguage(false)
+            
+            
+        case 1:
+            //arabic
+            print("arabic")
+            MOLHLanguage.isArabic() ? () :               resetAppLanguage(true)
+            
+            
+        default:
+            ()
+        }
+        removeViewWithAnimation(vvv: customAlertChooseLanguageView)
+        customMainAlertVC.dismiss(animated: true)
+        
+    }
+    
+    func takeSpecificAction(_ index:Int)  {
+        if index == 2 {
+            self.callNumber(phoneNumber: "0123666")
+        }else if index == 3 {
+            self.sendUsingWhats()
+        }else {
+            guard let url = URL(string: self.links[index]) else { return  }
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }
+        removeViewWithAnimation(vvv: customContactUsView)
+        customMainAlertVC.dismiss(animated: true)
+    }
+    
+    //    required init?(coder: NSCoder) {
+    //        fatalError("init(coder:) has not been implemented")
+    //    }
 }

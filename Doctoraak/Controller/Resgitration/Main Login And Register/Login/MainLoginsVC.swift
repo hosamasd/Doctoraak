@@ -65,14 +65,6 @@ class MainLoginsVC: CustomBaseViewVC {
     
     //MARK:-User methods
     
-    func seeee()  {
-        RegistrationServices.shared.MainResendSmsCodeAgain(index: 0, user_id: 30) { (base, err) in
-            if let err=err{
-                SVProgressHUD.showError(withStatus: err.localizedDescription)
-            }
-        }
-    }
-    
     fileprivate func setupLoginViewModelObserver(){
         
         customLoginsView.loginViewModel.bindableIsFormValidate.bind {[unowned self] (isValidForm) in
@@ -101,15 +93,6 @@ class MainLoginsVC: CustomBaseViewVC {
         view.addSubview(customLoginsView)
         customLoginsView.fillSuperview()
     }
-    
-    //    func saveToken(doctr_id:Int,_ api_token:String)  {
-    //        let perform = index == 0 ? UserDefaultsConstants.DoctorPerformLogin : index == 1 ? UserDefaultsConstants.medicalCenterPerformLogin : index == 2 ? UserDefaultsConstants.labPerformLogin : index == 3 ? UserDefaultsConstants.radiologyPerformLogin : UserDefaultsConstants.pharamacyPerformLogin
-    //
-    //        userDefaults.set(true, forKey: perform)
-    //        userDefaults.set(api_token, forKey: UserDefaultsConstants.mainCurrentUserApiToken)
-    //        userDefaults.synchronize()
-    //        self.goToMainTab()
-    //    }
     
     func saveDoctorToken(doctor:DoctorLoginModel)  {
         userDefaults.set(true, forKey: UserDefaultsConstants.DoctorPerformLogin)
@@ -198,15 +181,15 @@ class MainLoginsVC: CustomBaseViewVC {
     
     func checkPharamacyLoginState()  {
         customLoginsView.loginViewModel.performPharamacyLogging {[unowned self] (base, err) in
-             if let err = err {
-                           //                                           SVProgressHUD.showError(withStatus: err.localizedDescription)
-                           DispatchQueue.main.async {
-                               self.showMainAlertErrorMessages(vv: self.customMainAlertVC, secondV: self.customAlertLoginView, text: err.localizedDescription)
-                               
-                           }
-                           
-                           self.activeViewsIfNoData();return
-                       }
+            if let err = err {
+                //                                           SVProgressHUD.showError(withStatus: err.localizedDescription)
+                DispatchQueue.main.async {
+                    self.showMainAlertErrorMessages(vv: self.customMainAlertVC, secondV: self.customAlertLoginView, text: err.localizedDescription)
+                    
+                }
+                
+                self.activeViewsIfNoData();return
+            }
             self.handleDismiss()
             
             self.activeViewsIfNoData()
@@ -223,14 +206,14 @@ class MainLoginsVC: CustomBaseViewVC {
     func checkRadLoginState()  {
         customLoginsView.loginViewModel.performRadLogging {[unowned self] (base, err) in
             if let err = err {
-                           //                                           SVProgressHUD.showError(withStatus: err.localizedDescription)
-                           DispatchQueue.main.async {
-                               self.showMainAlertErrorMessages(vv: self.customMainAlertVC, secondV: self.customAlertLoginView, text: err.localizedDescription)
-                               
-                           }
-                           
-                           self.activeViewsIfNoData();return
-                       }
+                //                                           SVProgressHUD.showError(withStatus: err.localizedDescription)
+                DispatchQueue.main.async {
+                    self.showMainAlertErrorMessages(vv: self.customMainAlertVC, secondV: self.customAlertLoginView, text: err.localizedDescription)
+                    
+                }
+                
+                self.activeViewsIfNoData();return
+            }
             self.handleDismiss()
             
             self.activeViewsIfNoData()
@@ -258,7 +241,7 @@ class MainLoginsVC: CustomBaseViewVC {
     
     @objc  func handleLogin()  {
         
-        index == 0 || index == 1 ? checkDoctorLoginState() : index == 2 ? checkPharamacyLoginState() : index == 3 ? checkLabLoginState() : checkRadLoginState()
+        index == 0 || index == 1 ? checkDoctorLoginState() : index == 4 ? checkPharamacyLoginState() : index == 2 ? checkLabLoginState() : checkRadLoginState()
     }
     
     @objc func handleForget()  {

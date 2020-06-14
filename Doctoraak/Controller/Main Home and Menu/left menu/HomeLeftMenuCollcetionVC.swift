@@ -11,6 +11,7 @@ import UIKit
 class HomeLeftMenuCollcetionVC: BaseCollectionVC {
     
     var images:[UIImage] = [#imageLiteral(resourceName: "icon"),#imageLiteral(resourceName: "icond"),#imageLiteral(resourceName: "ic_add_circle_outline_24px-1"),#imageLiteral(resourceName: "Union 1"),#imageLiteral(resourceName: "Group 4122"),#imageLiteral(resourceName: "ic_phone_24px"),#imageLiteral(resourceName: "ic_language_24px")]
+    
     var deatas = ["Profile","Calender","Add clinic","Clinic information","Analysis","Contact Us","Language"]
     
     
@@ -33,8 +34,9 @@ class HomeLeftMenuCollcetionVC: BaseCollectionVC {
     
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let baseSlid = UIApplication.shared.keyWindow?.rootViewController as? BaseSlidingVC
-               baseSlid?.didSelectItemAtIndex(indexx: indexPath)
+        handleCheckedIndex?(indexPath)
+//        let baseSlid = UIApplication.shared.keyWindow?.rootViewController as? BaseSlidingVC
+//               baseSlid?.didSelectItemAtIndex(indexx: indexPath)
 //        handleCheckedIndex?(indexPath)
     }
     

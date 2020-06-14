@@ -10,7 +10,7 @@ import UIKit
 
 struct MainPharamcyyRegisterModel:Codable {
     let status: Int
-    let message, messageEn: String
+    var message, messageEn: String?
     var data: PharamcyyRegisterModel?
     
     enum CodingKeys: String, CodingKey {

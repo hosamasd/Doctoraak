@@ -23,6 +23,27 @@ class MainVerificationVC: CustomBaseViewVC {
         
         return v
     }()
+    lazy var customAlertMainLoodingView:CustomAlertMainLoodingView = {
+        let v = CustomAlertMainLoodingView()
+        v.setupAnimation(name: "heart_loading")
+        return v
+    }()
+    
+    lazy var customMainAlertVC:CustomMainAlertVC = {
+        let t = CustomMainAlertVC()
+        t.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
+        t.modalTransitionStyle = .crossDissolve
+        t.modalPresentationStyle = .overCurrentContext
+        return t
+    }()
+    lazy var customAlertLoginView:CustomAlertLoginView = {
+        let v = CustomAlertLoginView()
+        v.setupAnimation(name: "4970-unapproved-cross")
+        v.handleOkTap = {[unowned self] in
+            self.handleDismiss()
+        }
+        return v
+    }()
     
     //check to go specific way
     fileprivate let index:Int!
@@ -62,8 +83,8 @@ class MainVerificationVC: CustomBaseViewVC {
         customVerificationView.sMSCodeViewModel.bindableIsLogging.bind(observer: {  [unowned self] (isReg) in
             if isReg == true {
                 UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
-                SVProgressHUD.show(withStatus: "Waiting...".localized)
-                
+                //                SVProgressHUD.show(withStatus: "Waiting...".localized)
+                self.showMainAlertLooder(cc: self.customMainAlertVC, v: self.customAlertMainLoodingView)
             }else {
                 SVProgressHUD.dismiss()
                 self.activeViewsIfNoData()
@@ -73,7 +94,8 @@ class MainVerificationVC: CustomBaseViewVC {
         customVerificationView.sMSCodeViewModel.bindableIsResendingSms.bind(observer: {  [unowned self] (isReg) in
             if isReg == true {
                 UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
-                SVProgressHUD.show(withStatus: "Resending SMS Code...".localized)
+                //                SVProgressHUD.show(withStatus: "Resending SMS Code...".localized)
+                self.showMainAlertLooder(cc: self.customMainAlertVC, v: self.customAlertMainLoodingView)
                 
             }else {
                 SVProgressHUD.dismiss()
@@ -147,29 +169,226 @@ class MainVerificationVC: CustomBaseViewVC {
         userDefaults.set(doctor_id, forKey: ids)
         
         if index == 0 || index == 1 {
-                    userDefaults.set(index, forKey: UserDefaultsConstants.isUserRegisterAndWaitForClinicDataIndex)
-
+            userDefaults.set(index, forKey: UserDefaultsConstants.isUserRegisterAndWaitForClinicDataIndex)
+            
         }
         userDefaults.synchronize()
     }
     
-    func goToNext(api_token:String,_ doctor_id:Int)  {
-        self.updateStates(api_token: api_token,doctor_id)
+    func goToNext()  {
+        //        self.updateStates(api_token: api_token,doctor_id)
         if  isFromForgetPassw {
             let  vc =  MainNewPassVC(indexx: index)
             navigationController?.pushViewController(vc, animated: true)
         }else {
+            guard let ss = cacheDoctorObjectCodabe.storedValue else{return}
             
-            let vc =  MainClinicDataVC(indexx: index,api_token: api_token,doctor_id: doctor_id)
+            let vc =  MainClinicDataVC(indexx: index,api_token: ss.apiToken,doctor_id: ss.id)
             navigationController?.pushViewController(vc, animated: true)
         }
         
     }
     
+    // Resending
+    
+    func checkLabLoginStateResend()  {
+        customVerificationView.sMSCodeViewModel.performResendLABSMSCode {[unowned self] (base, err) in
+            if let err = err {
+                //                                           SVProgressHUD.showError(withStatus: err.localizedDescription)
+                DispatchQueue.main.async {
+                    self.showMainAlertErrorMessages(vv: self.customMainAlertVC, secondV: self.customAlertLoginView, text: err.localizedDescription)
+                }
+                self.activeViewsIfNoData();return
+            }
+            self.handleDismiss()
+            self.activeViewsIfNoData()
+            guard (base?.data) != nil else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
+            SVProgressHUD.showSuccess(withStatus: "SMS Code is sent again....");return
+        }}
+    
+    func checkRadLoginStateResend()  {
+        customVerificationView.sMSCodeViewModel.performResendRADSMSCode {[unowned self] (base, err) in
+            if let err = err {
+                //                                           SVProgressHUD.showError(withStatus: err.localizedDescription)
+                DispatchQueue.main.async {
+                    self.showMainAlertErrorMessages(vv: self.customMainAlertVC, secondV: self.customAlertLoginView, text: err.localizedDescription)
+                }
+                self.activeViewsIfNoData();return
+            }
+            self.handleDismiss()
+            self.activeViewsIfNoData()
+            guard (base?.data) != nil else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
+            SVProgressHUD.showSuccess(withStatus: "SMS Code is sent again....");return
+        }}
+    
+    func checkDoctorLoginStateResend()  {
+        customVerificationView.sMSCodeViewModel.performResendDOCSMSCode {[unowned self] (base, err) in
+            if let err = err {
+                //                                           SVProgressHUD.showError(withStatus: err.localizedDescription)
+                DispatchQueue.main.async {
+                    self.showMainAlertErrorMessages(vv: self.customMainAlertVC, secondV: self.customAlertLoginView, text: err.localizedDescription)
+                }
+                self.activeViewsIfNoData();return
+            }
+            self.handleDismiss()
+            self.activeViewsIfNoData()
+            guard (base?.data) != nil else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
+            SVProgressHUD.showSuccess(withStatus: "SMS Code is sent again....");return
+        }}
+    
+    func checkPharamacyLoginStateResend()  {
+        customVerificationView.sMSCodeViewModel.performResendPHYSMSCode {[unowned self] (base, err) in
+            if let err = err {
+                //                                           SVProgressHUD.showError(withStatus: err.localizedDescription)
+                DispatchQueue.main.async {
+                    self.showMainAlertErrorMessages(vv: self.customMainAlertVC, secondV: self.customAlertLoginView, text: err.localizedDescription)
+                }
+                self.activeViewsIfNoData();return
+            }
+            self.handleDismiss()
+            self.activeViewsIfNoData()
+            guard (base?.data) != nil else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
+            SVProgressHUD.showSuccess(withStatus: "SMS Code is sent again....");return
+        }}
     
     
+    func checkPharamacyLoginState()  {
+        customVerificationView.sMSCodeViewModel.performPHARAMACYRegister {[unowned self] (base, err) in
+            if let err = err {
+                //                                           SVProgressHUD.showError(withStatus: err.localizedDescription)
+                DispatchQueue.main.async {
+                    self.showMainAlertErrorMessages(vv: self.customMainAlertVC, secondV: self.customAlertLoginView, text: err.localizedDescription)
+                }
+                self.activeViewsIfNoData();return
+            }
+            self.handleDismiss()
+            self.activeViewsIfNoData()
+            guard let user = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
+            DispatchQueue.main.async {
+                self.savePharToken(doctor: user)
+            } } }
+    
+    func checkDoctorLoginState()  {
+        customVerificationView.sMSCodeViewModel.performDoctorRegister {[unowned self] (base, err) in
+            if let err = err {
+                //                                           SVProgressHUD.showError(withStatus: err.localizedDescription)
+                DispatchQueue.main.async {
+                    self.showMainAlertErrorMessages(vv: self.customMainAlertVC, secondV: self.customAlertLoginView, text: err.localizedDescription)
+                    
+                }
+                
+                self.activeViewsIfNoData();return
+            }
+            self.handleDismiss()
+            
+            self.activeViewsIfNoData()
+            guard let user = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
+            
+            //        self.saveToken(token: user.apiToken)
+            
+            DispatchQueue.main.async {
+                self.saveDoctorToken(doctor: user)
+            }
+        }
+    }
+    
+    
+    func checkRadLoginState()  {
+        customVerificationView.sMSCodeViewModel.performRADRegister {[unowned self] (base, err) in
+            if let err = err {
+                //                                           SVProgressHUD.showError(withStatus: err.localizedDescription)
+                DispatchQueue.main.async {
+                    self.showMainAlertErrorMessages(vv: self.customMainAlertVC, secondV: self.customAlertLoginView, text: err.localizedDescription)
+                    
+                }
+                
+                self.activeViewsIfNoData();return
+            }
+            self.handleDismiss()
+            
+            self.activeViewsIfNoData()
+            guard let user = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
+            //        self.saveToken(token: user.apiToken)
+            
+            DispatchQueue.main.async {
+                self.saveRadToken(doctor: user)
+            }
+        }
+    }
+    
+    func checkLabLoginState()  {
+        customVerificationView.sMSCodeViewModel.performLABRegister {[unowned self] (base, err) in
+            if let err = err {
+                //                                           SVProgressHUD.showError(withStatus: err.localizedDescription)
+                DispatchQueue.main.async {
+                    self.showMainAlertErrorMessages(vv: self.customMainAlertVC, secondV: self.customAlertLoginView, text: err.localizedDescription)
+                    
+                }
+                
+                self.activeViewsIfNoData();return
+            }
+            self.handleDismiss()
+            
+            self.activeViewsIfNoData()
+            guard let user = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
+            DispatchQueue.main.async {
+                self.saveLabToken(doctor: user)
+                //                self.saveLABToken(mobile: phone, index: self.index, user_id: user.id)
+            }
+        }
+    }
+    
+    
+    func saveDoctorToken(doctor:DoctorLoginModel)  {
+        userDefaults.set(true, forKey: UserDefaultsConstants.DoctorPerformLogin)
+        userDefaults.set(false, forKey: UserDefaultsConstants.isUserRegisterAndWaitForSMScODE)
+        
+        userDefaults.set(index, forKey: UserDefaultsConstants.MainLoginINDEX)
+        
+        userDefaults.synchronize()
+        
+        cacheDoctorObjectCodabe.save(doctor)
+        goToNext()
+    }
+    
+    func saveRadToken(doctor:RadiologyLoginModel)  {
+        userDefaults.set(true, forKey: UserDefaultsConstants.radiologyPerformLogin)
+        
+        userDefaults.synchronize()
+        
+        cachdRADObjectCodabe.save(doctor)
+        goToNext()
+        
+    }
+    
+    func saveLabToken(doctor:LabLoginModel)  {
+        userDefaults.set(true, forKey: UserDefaultsConstants.labPerformLogin)
+        
+        userDefaults.synchronize()
+        
+        cacheLABObjectCodabe.save(doctor)
+        goToNext()
+        
+    }
+    
+    func savePharToken(doctor:PharamacyLoginModel)  {
+        userDefaults.set(true, forKey: UserDefaultsConstants.pharamacyPerformLogin)
+        
+        userDefaults.synchronize()
+        
+        cachdPHARMACYObjectCodabe.save(doctor)
+        goToNext()
+        
+    }
     
     //TODO: -handle Methods
+    
+    @objc func handleDismiss()  {
+        removeViewWithAnimation(vvv: customAlertMainLoodingView)
+        DispatchQueue.main.async {
+            self.dismiss(animated: true, completion: nil)
+        }
+    }
     
     @objc fileprivate func updateTimer() {
         if seconds == 0 {
@@ -182,38 +401,16 @@ class MainVerificationVC: CustomBaseViewVC {
     }
     
     @objc func handleResendCode()  {
+        
+        
+        index == 0 || index == 1 ? checkDoctorLoginStateResend() : index == 4 ? checkPharamacyLoginStateResend() : index == 2 ? checkLabLoginStateResend() : checkRadLoginStateResend()
         setupTimer()
         resetViewModel()
-        customVerificationView.sMSCodeViewModel.performResendSMSCode { (base, err) in
-            if let err = err {
-                SVProgressHUD.showError(withStatus: err.localizedDescription)
-                self.activeViewsIfNoData();return
-            }
-            SVProgressHUD.dismiss()
-            SVProgressHUD.showSuccess(withStatus: "SMS Code is sent again....")
-            self.activeViewsIfNoData()
-        }
     }
     
     @objc  func handleConfirm()  {
         resetViews()
-        customVerificationView.sMSCodeViewModel.performLogging { (base, err) in
-            if let err = err {
-                SVProgressHUD.showError(withStatus: err.localizedDescription)
-                self.activeViewsIfNoData();return
-            }
-            SVProgressHUD.dismiss()
-            self.activeViewsIfNoData()
-            guard let user = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn);self.setupTimer(); return}
-            
-            DispatchQueue.main.async {
-                self.goToNext(api_token: user.apiToken,user.id)
-            }
-        }
-        
-        
-        
-        
+        index == 0 || index == 1 ? checkDoctorLoginState() : index == 4 ? checkPharamacyLoginState() : index == 2 ? checkLabLoginState() : checkRadLoginState()
     }
     
     @objc func handleBack()  {

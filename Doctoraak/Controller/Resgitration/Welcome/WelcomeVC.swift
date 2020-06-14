@@ -34,8 +34,8 @@ class WelcomeVC: CustomBaseViewVC {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupAnimation()
-//        checks() // for c
-//        removeAll()
+        //        checks() // for c
+        //        removeAll()
     }
     
     //MARK: -user methods
@@ -51,45 +51,45 @@ class WelcomeVC: CustomBaseViewVC {
         userDefaults.removeObject(forKey: UserDefaultsConstants.cityIdArray)
         
         userDefaults.removeObject(forKey: UserDefaultsConstants.areaNameArray)
-              userDefaults.removeObject(forKey: UserDefaultsConstants.areaNameFRArray)
-              userDefaults.removeObject(forKey: UserDefaultsConstants.areaNameARArray)
-              userDefaults.removeObject(forKey: UserDefaultsConstants.areaCityIdsArrays)
+        userDefaults.removeObject(forKey: UserDefaultsConstants.areaNameFRArray)
+        userDefaults.removeObject(forKey: UserDefaultsConstants.areaNameARArray)
+        userDefaults.removeObject(forKey: UserDefaultsConstants.areaCityIdsArrays)
         userDefaults.removeObject(forKey: UserDefaultsConstants.areaIdArray)
         
         userDefaults.removeObject(forKey: UserDefaultsConstants.specificationNameArray)
-              userDefaults.removeObject(forKey: UserDefaultsConstants.specificationNameFRArray)
-              userDefaults.removeObject(forKey: UserDefaultsConstants.specificationNameARArray)
-              userDefaults.removeObject(forKey: UserDefaultsConstants.specificationIdArray)
+        userDefaults.removeObject(forKey: UserDefaultsConstants.specificationNameFRArray)
+        userDefaults.removeObject(forKey: UserDefaultsConstants.specificationNameARArray)
+        userDefaults.removeObject(forKey: UserDefaultsConstants.specificationIdArray)
         
         userDefaults.removeObject(forKey: UserDefaultsConstants.degreeNameFRArray)
-              userDefaults.removeObject(forKey: UserDefaultsConstants.degreeNameArray)
-              userDefaults.removeObject(forKey: UserDefaultsConstants.degreeNameARArray)
-              userDefaults.removeObject(forKey: UserDefaultsConstants.degreeIdArray)
+        userDefaults.removeObject(forKey: UserDefaultsConstants.degreeNameArray)
+        userDefaults.removeObject(forKey: UserDefaultsConstants.degreeNameARArray)
+        userDefaults.removeObject(forKey: UserDefaultsConstants.degreeIdArray)
         
         userDefaults.removeObject(forKey: UserDefaultsConstants.insuranceNameArray)
-              userDefaults.removeObject(forKey: UserDefaultsConstants.insuranceNameARArray)
-              userDefaults.removeObject(forKey: UserDefaultsConstants.insuranceNameFRArray)
-              userDefaults.removeObject(forKey: UserDefaultsConstants.insuranceIdArray)
+        userDefaults.removeObject(forKey: UserDefaultsConstants.insuranceNameARArray)
+        userDefaults.removeObject(forKey: UserDefaultsConstants.insuranceNameFRArray)
+        userDefaults.removeObject(forKey: UserDefaultsConstants.insuranceIdArray)
         
         
-                   
-//                   userDefaults.set(iNameArray, forKey: UserDefaultsConstants.insuranceNameArray)
-//                   userDefaults.set(iNameFR, forKey: UserDefaultsConstants.insuranceNameFRArray)
-//                   userDefaults.set(iNameARData, forKey: UserDefaultsConstants.insuranceNameARArray)
-//                   userDefaults.set(iIdData, forKey: UserDefaultsConstants.insuranceIdArray)
+        
+        //                   userDefaults.set(iNameArray, forKey: UserDefaultsConstants.insuranceNameArray)
+        //                   userDefaults.set(iNameFR, forKey: UserDefaultsConstants.insuranceNameFRArray)
+        //                   userDefaults.set(iNameARData, forKey: UserDefaultsConstants.insuranceNameARArray)
+        //                   userDefaults.set(iIdData, forKey: UserDefaultsConstants.insuranceIdArray)
     }
     
     func checks()  {
         
         print(userDefaults.value(forKey: UserDefaultsConstants.areaNameARArray))
-         print("            ",userDefaults.value(forKey: UserDefaultsConstants.cityNameFRArray))
-         print("                ",userDefaults.value(forKey: UserDefaultsConstants.specificationNameArray))
-         print("                        ",userDefaults.value(forKey: UserDefaultsConstants.insuranceNameARArray))
+        print("            ",userDefaults.value(forKey: UserDefaultsConstants.cityNameFRArray))
+        print("                ",userDefaults.value(forKey: UserDefaultsConstants.specificationNameArray))
+        print("                        ",userDefaults.value(forKey: UserDefaultsConstants.insuranceNameARArray))
         print(" ",userDefaults.value(forKey: UserDefaultsConstants.degreeNameFRArray))
         userDefaults.set(false, forKey: UserDefaultsConstants.isCachedDriopLists)
-//        userDefaults.removeObject(forKey: <#T##String#>)
+        //        userDefaults.removeObject(forKey: <#T##String#>)
         userDefaults.synchronize()
-
+        
     }
     
     override func setupViews() {
@@ -108,7 +108,7 @@ class WelcomeVC: CustomBaseViewVC {
         
         var group1: [CityModel]?
         var group11: [AreaModel]?
-//        var group111: [SpecificationModel]?
+        //        var group111: [SpecificationModel]?
         var group0: [DegreeModel]?
         var group01: [InsurcaneCompanyModel]?
         
@@ -134,11 +134,11 @@ class WelcomeVC: CustomBaseViewVC {
             }
             semaphore.wait()
             
-//            MainServices.shared.getSpecificationss { (base, err) in
-//                group111 = base?.data
-//                semaphore.signal()
-//            }
-//            semaphore.wait()
+            //            MainServices.shared.getSpecificationss { (base, err) in
+            //                group111 = base?.data
+            //                semaphore.signal()
+            //            }
+            //            semaphore.wait()
             
             MainServices.shared.getDegrees { (base, err) in
                 group0 = base?.data
@@ -171,10 +171,10 @@ class WelcomeVC: CustomBaseViewVC {
         var areaCityIdData = [Int]()
         var areaIdData = [Int]()
         
-//        var spyNameArray = [String]()
-//        var spyNameARData = [String]()
-//        var spyNameFR = [String]()
-//        var spyIdData = [Int]()
+        //        var spyNameArray = [String]()
+        //        var spyNameARData = [String]()
+        //        var spyNameFR = [String]()
+        //        var spyIdData = [Int]()
         
         var dNameArray = [String]()
         var dNameARData = [String]()
@@ -214,12 +214,12 @@ class WelcomeVC: CustomBaseViewVC {
                 dIdData.append(city.id)
             })
             
-//            group4?.forEach({ (city) in
-//                spyNameArray.append(city.name)
-//                spyNameARData.append(city.nameAr)
-//                spyNameFR.append(city.nameFr )
-//                spyIdData.append(city.id)
-//            })
+            //            group4?.forEach({ (city) in
+            //                spyNameArray.append(city.name)
+            //                spyNameARData.append(city.nameAr)
+            //                spyNameFR.append(city.nameFr )
+            //                spyIdData.append(city.id)
+            //            })
             
             group5?.forEach({ (city) in
                 iNameArray.append(city.name)
@@ -239,10 +239,10 @@ class WelcomeVC: CustomBaseViewVC {
             userDefaults.set(areaCityIdData, forKey: UserDefaultsConstants.areaCityIdsArrays)
             userDefaults.set(areaIdData, forKey: UserDefaultsConstants.areaIdArray)
             
-//            userDefaults.set(spyNameArray, forKey: UserDefaultsConstants.specificationNameArray)
-//            userDefaults.set(spyNameFR, forKey: UserDefaultsConstants.specificationNameFRArray)
-//            userDefaults.set(spyNameARData, forKey: UserDefaultsConstants.specificationNameARArray)
-//            userDefaults.set(spyIdData, forKey: UserDefaultsConstants.specificationIdArray)
+            //            userDefaults.set(spyNameArray, forKey: UserDefaultsConstants.specificationNameArray)
+            //            userDefaults.set(spyNameFR, forKey: UserDefaultsConstants.specificationNameFRArray)
+            //            userDefaults.set(spyNameARData, forKey: UserDefaultsConstants.specificationNameARArray)
+            //            userDefaults.set(spyIdData, forKey: UserDefaultsConstants.specificationIdArray)
             
             userDefaults.set(dNameArray, forKey: UserDefaultsConstants.degreeNameArray)
             userDefaults.set(dNameFR, forKey: UserDefaultsConstants.degreeNameFRArray)
@@ -259,7 +259,7 @@ class WelcomeVC: CustomBaseViewVC {
             userDefaults.set(true, forKey: UserDefaultsConstants.isInsuranceCached)
             userDefaults.set(true, forKey: UserDefaultsConstants.isDegreesCached)
             userDefaults.set(true, forKey: UserDefaultsConstants.isSpecificationsCached)
-
+            
             
             userDefaults.set(true, forKey: UserDefaultsConstants.isCachedDriopLists)
             userDefaults.synchronize()
@@ -310,20 +310,24 @@ class WelcomeVC: CustomBaseViewVC {
     //TODO: -handle methods
     
     @objc func handleNext()  {
-        
-        let index = userDefaults.integer(forKey: UserDefaultsConstants.isUserRegisterAndWaitForSMScODEIndex)
-        let phoneNumber = userDefaults.string(forKey: UserDefaultsConstants.userMobileNumber) ?? ""
-        
-        let check = userDefaults.bool(forKey: UserDefaultsConstants.isUserRegisterAndWaitForSMScODE) ? MainVerificationVC(indexx: index, isFromForgetPassw: false, phone: phoneNumber, user_id: -1) : WelcomeMainSecondVC()
-        userDefaults.set(false, forKey: UserDefaultsConstants.isWelcomeVCAppear)
-                      userDefaults.synchronize()
-        let welcome = userDefaults.bool(forKey: UserDefaultsConstants.DoctorPerformLogin) ?  WelcomeMainSecondVC() : DoctorHomeVC()
-//        let nav = UINavigationController(rootViewController:welcome)
-//        welcome.modalPresentationStyle = .fullScreen
-//        present(welcome, animated: true)
-        //        navigationController?.pushViewController(welcome, animated: true)
-        
-        navigationController?.pushViewController(welcome, animated: true)
-        
+//
+//        if userDefaults.bool(forKey: UserDefaultsConstants.DoctorPerformLogin) || userDefaults.bool(forKey: UserDefaultsConstants.labPerformLogin) || userDefaults.bool(forKey: UserDefaultsConstants.radiologyPerformLogin) || userDefaults.bool(forKey: UserDefaultsConstants.pharamacyPerformLogin) || userDefaults.bool(forKey: UserDefaultsConstants.medicalCenterPerformLogin)  {
+//            dismiss(animated: true)
+//        }else {
+            
+            let index = userDefaults.integer(forKey: UserDefaultsConstants.isUserRegisterAndWaitForSMScODEIndex)
+            let phoneNumber = userDefaults.string(forKey: UserDefaultsConstants.userMobileNumber) ?? ""
+            
+            let check = userDefaults.bool(forKey: UserDefaultsConstants.isUserRegisterAndWaitForSMScODE) ? MainVerificationVC(indexx: index, isFromForgetPassw: false, phone: phoneNumber, user_id: -1) : WelcomeMainSecondVC()
+            userDefaults.set(false, forKey: UserDefaultsConstants.isWelcomeVCAppear)
+            userDefaults.synchronize()
+            let welcome = userDefaults.bool(forKey: UserDefaultsConstants.DoctorPerformLogin) ?  WelcomeMainSecondVC() : DoctorHomeVC()
+            //        let nav = UINavigationController(rootViewController:welcome)
+            //        welcome.modalPresentationStyle = .fullScreen
+            //        present(welcome, animated: true)
+            //        navigationController?.pushViewController(welcome, animated: true)
+            
+            navigationController?.pushViewController(welcome, animated: true)
+//        }
     }
 }

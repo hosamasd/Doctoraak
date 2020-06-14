@@ -48,7 +48,11 @@ class CustomMainVerificationView: CustomBaseView {
         return button
     }()
     var index:Int = 0
-    var id:Int = 0
+    var id:Int = 0 {
+        didSet {
+            sMSCodeViewModel.id = id
+        }
+    }
     
     let sMSCodeViewModel = SMSCodeViewModel()
     
@@ -105,7 +109,7 @@ class CustomMainVerificationView: CustomBaseView {
             case forthNumberTextField:
                 sMSCodeViewModel.sms4Code = texts
                 fifthNumberTextField.becomeFirstResponder()
-                case fifthNumberTextField:
+            case fifthNumberTextField:
                 sMSCodeViewModel.sms5Code = texts
                 fifthNumberTextField.resignFirstResponder()
             default:

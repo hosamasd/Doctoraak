@@ -12,6 +12,24 @@ import MaterialComponents.MaterialSnackbar
 
 extension UIViewController {
     
+    func showToast(context ctx: UIViewController, msg: String) {
+           let la = UILabel(text: msg, font: .systemFont(ofSize: 16), textColor: .white, textAlignment: .center, numberOfLines: 0)
+           let height = msg.getFrameForText(text: msg)
+           la.constrainHeight(constant: height.height+20)
+           la.constrainWidth(constant: view.frame.width)
+           la.layer.cornerRadius=12
+           la.clipsToBounds=true
+           la.backgroundColor = UIColor.black
+           ctx.view.addSubview(la)
+           la.anchor(top: nil, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor,padding: .init(top: 0, left: 0, bottom: 16, right: 0))
+           UIView.animate(withDuration: 10.0, delay: 0.2,
+                          options: .curveEaseOut, animations: {
+                           la.alpha = 0.0
+           }, completion: {(isCompleted) in
+               la.removeFromSuperview()
+           })
+       }
+    
     func showMainAlertErrorMessages(vv:UIViewController,secondV:CustomAlertLoginView,text:String)  {
        
               vv.addCustomViewInCenter(views: secondV, height: 200)

@@ -6,24 +6,68 @@
 //  Copyright © 2020 Ahmad Eisa. All rights reserved.
 //
 
+
+
 import UIKit
 import SDWebImage
+import MOLH
 
 class CustomMainHomeLeftView: CustomBaseView {
     
-    var doctor:DoctorLoginModel! {
+    var index:Int? {
         didSet{
-            let urlString = doctor.photo // dd ?? patient.photo
-            guard let url = URL(string: urlString) else { return  }
-            DispatchQueue.main.async {[unowned self] in
-
-                self.userImage.sd_setImage(with: url)
-                self.userNameLabel.text=self.doctor.name
-                self.userSpecificationLabel.text = self.doctor.specialization?.name
-        }
+            guard let index = index else { return  }
+            let ss = index == 0 || index == 1 ? true : false
+            
+            homeLeftMenuCollectionVC.collectionView.isHide(!ss)
+            homeAllLeftMenuCollectionVC.collectionView.isHide(ss)
         }
     }
     
+    var doctor:DoctorLoginModel?{
+        didSet{
+            guard let lab = doctor else { return  }
+            let urlString = lab.photo
+            guard let url = URL(string: urlString) else { return  }
+            userImage.sd_setImage(with: url)
+            let name = MOLHLanguage.isRTLLanguage() ? lab.nameAr ?? lab.name : lab.name
+            let dd =  lab.phone
+            userNameLabel.text = name+"\n"+dd
+        }
+    }
+    var lab:LabLoginModel?{
+        didSet{
+            guard let lab = lab else { return  }
+            let urlString = lab.photo
+            guard let url = URL(string: urlString) else { return  }
+            userImage.sd_setImage(with: url)
+            let name = MOLHLanguage.isRTLLanguage() ? lab.nameAr ?? lab.name : lab.name
+            let dd =  lab.phone
+            userNameLabel.text = name+"\n"+dd
+        }
+    }
+    var phy:PharamacyLoginModel?{
+        didSet{
+            guard let phy = phy else { return  }
+            let urlString = phy.photo
+            guard let url = URL(string: urlString) else { return  }
+            userImage.sd_setImage(with: url)
+            let name = MOLHLanguage.isRTLLanguage() ? phy.nameAr ?? phy.name : phy.name
+            let dd =  phy.phone
+            userNameLabel.text = name+"\n"+dd
+        }
+    }
+    var rad:RadiologyLoginModel?{
+        didSet{
+            guard let lab = rad else { return  }
+            let urlString = lab.photo
+            guard let url = URL(string: urlString) else { return  }
+            userImage.sd_setImage(with: url)
+            let name = MOLHLanguage.isRTLLanguage() ? lab.nameAr ?? lab.name : lab.name
+            let dd =  lab.phone
+            userNameLabel.text = name+"\n"+dd
+        }
+    }
     
     lazy var LogoImage:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "Group 4142-5"))
@@ -32,49 +76,44 @@ class CustomMainHomeLeftView: CustomBaseView {
         return i
     }()
     lazy var userImage:UIImageView = {
-        let i = UIImageView(image: #imageLiteral(resourceName: "humberto-chavez-FVh_yqLR9eA-unsplash"))
-        //         i.contentMode = .scaleAspectFill
-        i.constrainWidth(constant: 60)
-        i.constrainHeight(constant: 60)
+        let i = UIImageView(image: #imageLiteral(resourceName: "Group 4143"))
+        i.constrainWidth(constant: 80)
+        i.constrainHeight(constant: 80)
+        i.layer.cornerRadius = 40
+        i.clipsToBounds = true
         return i
     }()
-    lazy var userNameLabel = UILabel(text: "Bian Mohamed", font: .systemFont(ofSize: 20), textColor: .white)
-    lazy var userSpecificationLabel = UILabel(text: "Cardiologist", font: .systemFont(ofSize: 16), textColor: .lightGray)
+    lazy var userNameLabel = UILabel(text: "", font: .systemFont(ofSize: 20), textColor: .white,textAlignment: MOLHLanguage.isRTLLanguage() ? .right : .left,numberOfLines: 2)
     
-    lazy var homeLeftMenuTableVC:HomeLeftMenuCollcetionVC  =  {
+    lazy var homeLeftMenuCollectionVC:HomeLeftMenuCollcetionVC  =  {
         let vc = HomeLeftMenuCollcetionVC()
         vc.handleCheckedIndex = {[unowned self ] index in
             self.handleCheckedIndex?(index)
         }
         return vc
     }()
-    lazy var Image8:UIImageView = {
-        let i = UIImageView(image: #imageLiteral(resourceName: "icon2"))
-        i.constrainWidth(constant: 30)
-        i.constrainHeight(constant: 30)
-        return i
+    lazy var homeAllLeftMenuCollectionVC:SecondHomeLeftMenuCollcetionVC  =  {
+        let vc = SecondHomeLeftMenuCollcetionVC()
+        vc.handleCheckedIndex = {[unowned self ] index in
+            self.handleCheckedIndex?(index)
+        }
+        vc.collectionView.isHide(true)
+        return vc
     }()
-    lazy var Label8 = UILabel(text: "Log Out", font: .systemFont(ofSize: 24), textColor: #colorLiteral(red: 0.6841606498, green: 0.6842750907, blue: 0.6841363311, alpha: 1))
-    lazy var first8Stack:UIStackView = {
-        let s = getStack(views: Image8,Label8, spacing: 16, alignment: .center, distribution: .fill, axis: .horizontal)
-        s.constrainHeight(constant: 60)
-        return s
-    }()
-    
-    var handleCheckedIndex:((IndexPath)->Void)? 
+    var handleCheckedIndex:((IndexPath)->Void)?
     
     
     override func setupViews() {
-        addSubViews(views: LogoImage,userImage,userNameLabel,userSpecificationLabel,homeLeftMenuTableVC.view,first8Stack)
-        //        addSubViews(views: LogoImage,userImage,userNameLabel,userSpecificationLabel,mainStack,first8Stack)//,ss,docotrCollectionView.view)
+        addSubViews(views: LogoImage,userImage,userNameLabel,homeLeftMenuCollectionVC.view,homeAllLeftMenuCollectionVC.view)
         
         LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
-        userImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 60, left: 24, bottom: 0, right: 0))
-        userNameLabel.anchor(top: userImage.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 0, left: 46, bottom: 0, right: 0))
+        userImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 20, left: 20, bottom: 0, right: 0))
+        userNameLabel.anchor(top: userImage.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 0, left: 24, bottom: 0, right: 0))
         
-        userSpecificationLabel.anchor(top: userNameLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: 0, right: 0))
-        homeLeftMenuTableVC.view.anchor(top: userSpecificationLabel.bottomAnchor, leading: leadingAnchor, bottom: first8Stack.topAnchor, trailing: trailingAnchor,padding: .init(top: 16, left: 46, bottom: 16, right: 0))
-        first8Stack.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: 8, right: 0))
+        homeLeftMenuCollectionVC.view.anchor(top: userNameLabel.bottomAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 100, left: 20, bottom: 16, right: 0))
+        homeAllLeftMenuCollectionVC.view.anchor(top: userNameLabel.bottomAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 100, left: 20, bottom: 16, right: 0))
+        
         
     }
 }
+

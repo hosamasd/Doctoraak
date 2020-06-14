@@ -19,7 +19,6 @@ class DoctorHomeLeftMenuVC: CustomBaseViewVC {
             print(index.item)
         }
         
-        v.first8Stack.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleLogout)))
         return v
     }()
     
@@ -55,7 +54,7 @@ class DoctorHomeLeftMenuVC: CustomBaseViewVC {
                 guard let user = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn);  self.activeViewsIfNoData(); return}
                 
                 self.currentDoctor = user
-                self.customMainHomeLeftView.doctor = user
+//                self.customMainHomeLeftView.doctor = user
 //                self.customMainHomeLeftView.doctor = user
                 
                 DispatchQueue.main.async {

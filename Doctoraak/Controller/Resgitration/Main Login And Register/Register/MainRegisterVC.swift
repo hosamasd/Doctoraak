@@ -80,30 +80,31 @@ class MainRegisterVC: CustomBaseViewVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViewModelObserver()
+//        MAKEoPERATION()
     }
     
     //MARK:-User methods
     
-    //    func MAKEoPERATION()  {
-    //
-    //        let singldata:[SecondWorkModel] = [
-    //
-    //            .init(partFrom: "00:00", partTo: "00:00", day: 1, active: 0),
-    //            .init(partFrom: "00:00", partTo: "00:00", day: 2, active: 0),
-    //            .init(partFrom: "00:00", partTo: "00:00", day: 3, active: 0),
-    //            .init(partFrom: "00:00", partTo: "00:00", day: 4, active: 0),
-    //            .init(partFrom: "00:00", partTo: "00:00", day: 5, active: 0),
-    //            .init(partFrom: "00:00", partTo: "00:00", day: 6, active: 0),
-    //            .init(partFrom: "12:00", partTo: "15:00", day: 7, active: 1),
-    //
-    //        ]
-    //
-    //        RegistrationServices.shared.mainRegister(index: index, photo: #imageLiteral(resourceName: "Group 4143-2"), name: "asd", email: "cx1ss30ff@c.com", phone: "00065365331", password: "00000000", insurance: [1], delivery: 1, working_hours: singldata, latt: "51512.4555454", lang: "5451521.155151454545", city: 1, area: 1) { (base, err) in
-    //            if let err=err{
-    //                print(err.localizedDescription)
-    //            }
-    //        }
-    //    }
+        func MAKEoPERATION()  {
+    
+            let singldata:[SecondWorkModel] = [
+    
+                .init(partFrom: "00:00", partTo: "00:00", day: 1, active: 0),
+                .init(partFrom: "00:00", partTo: "00:00", day: 2, active: 0),
+                .init(partFrom: "00:00", partTo: "00:00", day: 3, active: 0),
+                .init(partFrom: "00:00", partTo: "00:00", day: 4, active: 0),
+                .init(partFrom: "00:00", partTo: "00:00", day: 5, active: 0),
+                .init(partFrom: "00:00", partTo: "00:00", day: 6, active: 0),
+                .init(partFrom: "12:00", partTo: "15:00", day: 7, active: 1),
+    
+            ]
+    
+            RegistrationServices.shared.mainPHARAMACYRegister( photo: #imageLiteral(resourceName: "Group 4143-2"), name: "asd", email: "cx1ss30ff@c.com", phone: "00065365331", password: "00000000", insurance: [1], delivery: 1, working_hours: singldata, latt: 51512.4555454, lang: 5451521.155151454545, city: 1, area: 1) { (base, err) in
+                if let err=err{
+                    print(err.localizedDescription)
+                }
+            }
+        }
     
     
     override func setupViews() {
@@ -153,7 +154,7 @@ class MainRegisterVC: CustomBaseViewVC {
             guard let   placeMark = placemarks?[0] else {return}
             
             self.customMainRegisterView.addressLabel.text =  placeMark.locality ?? ""
-
+            
             // Location name
             guard  let street = placeMark.subLocality, let city = placeMark.administrativeArea, let country = placeMark.country else {return}
             self.customMainRegisterView.addressLabel.text =  " \(street) - \(city) - \(country)"
@@ -172,46 +173,46 @@ class MainRegisterVC: CustomBaseViewVC {
     }
     
     fileprivate func saveLABToken(mobile:String,index:Int,user_id:Int)  {
-           userDefaults.set(index, forKey: UserDefaultsConstants.MainLoginINDEX)
-           userDefaults.set(mobile, forKey: UserDefaultsConstants.pharamcyRegisterMobile)
-           userDefaults.set(user_id, forKey: UserDefaultsConstants.pharamcyRegisterUser_id)
-           userDefaults.set(true, forKey: UserDefaultsConstants.isUserRegisterAndWaitForSMScODE)
-           userDefaults.synchronize()
-           goToNext(id: user_id)
-       }
+        userDefaults.set(index, forKey: UserDefaultsConstants.MainLoginINDEX)
+        userDefaults.set(mobile, forKey: UserDefaultsConstants.pharamcyRegisterMobile)
+        userDefaults.set(user_id, forKey: UserDefaultsConstants.pharamcyRegisterUser_id)
+        userDefaults.set(true, forKey: UserDefaultsConstants.isUserRegisterAndWaitForSMScODE)
+        userDefaults.synchronize()
+        goToNext(id: user_id)
+    }
     
     fileprivate func savePharmacyToken(mobile:String,index:Int,user_id:Int)  {
-           userDefaults.set(index, forKey: UserDefaultsConstants.MainLoginINDEX)
-           userDefaults.set(mobile, forKey: UserDefaultsConstants.labRegisterMobile)
-           userDefaults.set(user_id, forKey: UserDefaultsConstants.labRegisterUser_id)
-           userDefaults.set(true, forKey: UserDefaultsConstants.isUserRegisterAndWaitForSMScODE)
-           userDefaults.synchronize()
-           goToNext(id: user_id)
-       }
+        userDefaults.set(index, forKey: UserDefaultsConstants.MainLoginINDEX)
+        userDefaults.set(mobile, forKey: UserDefaultsConstants.labRegisterMobile)
+        userDefaults.set(user_id, forKey: UserDefaultsConstants.labRegisterUser_id)
+        userDefaults.set(true, forKey: UserDefaultsConstants.isUserRegisterAndWaitForSMScODE)
+        userDefaults.synchronize()
+        goToNext(id: user_id)
+    }
     
     fileprivate func saveDoctorToken(mobile:String,index:Int,user_id:Int)  {
-           userDefaults.set(index, forKey: UserDefaultsConstants.MainLoginINDEX)
-           userDefaults.set(mobile, forKey: UserDefaultsConstants.doctorRegisterMobile)
-           userDefaults.set(user_id, forKey: UserDefaultsConstants.doctorSecondRegisterUser_id)
-           userDefaults.set(true, forKey: UserDefaultsConstants.isUserRegisterAndWaitForSMScODE)
-           userDefaults.synchronize()
-           goToNext(id: user_id)
-       }
-
+        userDefaults.set(index, forKey: UserDefaultsConstants.MainLoginINDEX)
+        userDefaults.set(mobile, forKey: UserDefaultsConstants.doctorRegisterMobile)
+        userDefaults.set(user_id, forKey: UserDefaultsConstants.doctorSecondRegisterUser_id)
+        userDefaults.set(true, forKey: UserDefaultsConstants.isUserRegisterAndWaitForSMScODE)
+        userDefaults.synchronize()
+        goToNext(id: user_id)
+    }
     
-//        let aa = index == 2 ? UserDefaultsConstants.labRegisterUser_id : index == 3 ? UserDefaultsConstants.radiologyRegisterUser_id : UserDefaultsConstants.pharamcyRegisterUser_id
-//        //        let dd = index == 2 ? UserDefaultsConstants.labRRegisterSMSCode : index == 3 ? UserDefaultsConstants.radiologyRegisterSMSCode : UserDefaultsConstants.pharamcyRegisterSMSCode
-//        let m = index == 2 ? UserDefaultsConstants.labRegisterMobile : index == 3 ? UserDefaultsConstants.radiologyRegisterMobile : UserDefaultsConstants.pharamcyRegisterMobile
-//
-//        userDefaults.set(user_id, forKey: aa)
-//
-//        userDefaults.set(true, forKey: UserDefaultsConstants.isUserRegisterAndWaitForSMScODE)
-//        userDefaults.set(mobile, forKey: m)
-//
-//        userDefaults.set(index, forKey: UserDefaultsConstants.isUserRegisterAndWaitForSMScODEIndex)
-//        removeOtherDefaults()
-        
-//    }
+    
+    //        let aa = index == 2 ? UserDefaultsConstants.labRegisterUser_id : index == 3 ? UserDefaultsConstants.radiologyRegisterUser_id : UserDefaultsConstants.pharamcyRegisterUser_id
+    //        //        let dd = index == 2 ? UserDefaultsConstants.labRRegisterSMSCode : index == 3 ? UserDefaultsConstants.radiologyRegisterSMSCode : UserDefaultsConstants.pharamcyRegisterSMSCode
+    //        let m = index == 2 ? UserDefaultsConstants.labRegisterMobile : index == 3 ? UserDefaultsConstants.radiologyRegisterMobile : UserDefaultsConstants.pharamcyRegisterMobile
+    //
+    //        userDefaults.set(user_id, forKey: aa)
+    //
+    //        userDefaults.set(true, forKey: UserDefaultsConstants.isUserRegisterAndWaitForSMScODE)
+    //        userDefaults.set(mobile, forKey: m)
+    //
+    //        userDefaults.set(index, forKey: UserDefaultsConstants.isUserRegisterAndWaitForSMScODEIndex)
+    //        removeOtherDefaults()
+    
+    //    }
     
     fileprivate func removeOtherDefaults()  {
         userDefaults.removeObject(forKey: UserDefaultsConstants.mainfirst1)
@@ -248,12 +249,12 @@ class MainRegisterVC: CustomBaseViewVC {
     
     
     
-   fileprivate func handleOpenGallery(sourceType:UIImagePickerController.SourceType)  {
-           let imagePicker = UIImagePickerController()
-           imagePicker.delegate = self
-           imagePicker.sourceType = sourceType
-           present(imagePicker, animated: true)
-       }
+    fileprivate func handleOpenGallery(sourceType:UIImagePickerController.SourceType)  {
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        imagePicker.sourceType = sourceType
+        present(imagePicker, animated: true)
+    }
     
     @objc func createAlertForChoposingImage()  {
         let alert = UIAlertController(title: "Choose Image".localized, message: "Choose image fROM ".localized, preferredStyle: .alert)
@@ -273,76 +274,76 @@ class MainRegisterVC: CustomBaseViewVC {
         alert.addAction(cancel)
         present(alert, animated: true)
     }
-       
-       func checkPharamacyLoginState(_ phone:String)  {
-           customMainRegisterView.registerViewModel.performPHARAMACYRegister {[unowned self] (base, err) in
-                if let err = err {
-                              //                                           SVProgressHUD.showError(withStatus: err.localizedDescription)
-                              DispatchQueue.main.async {
-                                  self.showMainAlertErrorMessages(vv: self.customMainAlertVC, secondV: self.customAlertLoginView, text: err.localizedDescription)
-                                  
-                              }
-                              
-                              self.activeViewsIfNoData();return
-                          }
-               self.handleDismiss()
-               
-               self.activeViewsIfNoData()
-               guard let user = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
-               //        self.saveToken(token: user.apiToken)
-               
-               DispatchQueue.main.async {
+    
+    func checkPharamacyLoginState(_ phone:String)  {
+        customMainRegisterView.registerViewModel.performPHARAMACYRegister {[unowned self] (base, err) in
+            if let err = err {
+                //                                           SVProgressHUD.showError(withStatus: err.localizedDescription)
+                DispatchQueue.main.async {
+                    self.showMainAlertErrorMessages(vv: self.customMainAlertVC, secondV: self.customAlertLoginView, text: err.localizedDescription)
+                    
+                }
+                
+                self.activeViewsIfNoData();return
+            }
+            self.handleDismiss()
+            
+            self.activeViewsIfNoData()
+            guard let user = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
+            //        self.saveToken(token: user.apiToken)
+            
+            DispatchQueue.main.async {
                 self.savePharmacyToken(mobile: phone, index: self.index, user_id: user.id)
-               }
-           }
-       }
-       
-       
-       func checkRadLoginState(_ phone:String)  {
-           customMainRegisterView.registerViewModel.performRADRegister {[unowned self] (base, err) in
-               if let err = err {
-                              //                                           SVProgressHUD.showError(withStatus: err.localizedDescription)
-                              DispatchQueue.main.async {
-                                  self.showMainAlertErrorMessages(vv: self.customMainAlertVC, secondV: self.customAlertLoginView, text: err.localizedDescription)
-                                  
-                              }
-                              
-                              self.activeViewsIfNoData();return
-                          }
-               self.handleDismiss()
-               
-               self.activeViewsIfNoData()
-               guard let user = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
-               //        self.saveToken(token: user.apiToken)
-               
-               DispatchQueue.main.async {
+            }
+        }
+    }
+    
+    
+    func checkRadLoginState(_ phone:String)  {
+        customMainRegisterView.registerViewModel.performRADRegister {[unowned self] (base, err) in
+            if let err = err {
+                //                                           SVProgressHUD.showError(withStatus: err.localizedDescription)
+                DispatchQueue.main.async {
+                    self.showMainAlertErrorMessages(vv: self.customMainAlertVC, secondV: self.customAlertLoginView, text: err.localizedDescription)
+                    
+                }
+                
+                self.activeViewsIfNoData();return
+            }
+            self.handleDismiss()
+            
+            self.activeViewsIfNoData()
+            guard let user = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
+            //        self.saveToken(token: user.apiToken)
+            
+            DispatchQueue.main.async {
                 self.saveRadToken(mobile: phone, index: self.index, user_id: user.id)
-               }
-           }
-       }
-       
+            }
+        }
+    }
+    
     func checkLabLoginState(_ phone:String)  {
-           customMainRegisterView.registerViewModel.performLABRegister {[unowned self] (base, err) in
-               if let err = err {
-                                            //                                           SVProgressHUD.showError(withStatus: err.localizedDescription)
-                                            DispatchQueue.main.async {
-                                                self.showMainAlertErrorMessages(vv: self.customMainAlertVC, secondV: self.customAlertLoginView, text: err.localizedDescription)
-                                                
-                                            }
-                                            
-                                            self.activeViewsIfNoData();return
-                                        }
-                             self.handleDismiss()
-                             
-                             self.activeViewsIfNoData()
-               guard let user = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
-               //        self.saveToken(token: user.apiToken)
-               
-               DispatchQueue.main.async {
+        customMainRegisterView.registerViewModel.performLABRegister {[unowned self] (base, err) in
+            if let err = err {
+                //                                           SVProgressHUD.showError(withStatus: err.localizedDescription)
+                DispatchQueue.main.async {
+                    self.showMainAlertErrorMessages(vv: self.customMainAlertVC, secondV: self.customAlertLoginView, text: err.localizedDescription)
+                    
+                }
+                
+                self.activeViewsIfNoData();return
+            }
+            self.handleDismiss()
+            
+            self.activeViewsIfNoData()
+            guard let user = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
+            //        self.saveToken(token: user.apiToken)
+            
+            DispatchQueue.main.async {
                 self.saveLABToken(mobile: phone, index: self.index, user_id: user.id)
-               }
-           }
-       }
+            }
+        }
+    }
     
     
     @objc func handleBack()  {
@@ -351,9 +352,8 @@ class MainRegisterVC: CustomBaseViewVC {
     
     @objc  func handleNext()  {
         let phone = customMainRegisterView.mobileNumberTextField.text ?? ""
-//        index == 0 || index == 1 ? checkDoctorLoginState() :
-         index == 2 ? checkPharamacyLoginState(phone) : index == 3 ? checkLabLoginState(phone) : checkRadLoginState(phone)
-  }
+        index == 4 ? checkPharamacyLoginState(phone) : index == 2 ? checkLabLoginState(phone) : checkRadLoginState(phone)
+    }
     
     @objc func handleDismiss()  {
         removeViewWithAnimation(vvv: customAlertMainLoodingView)
@@ -416,6 +416,6 @@ extension MainRegisterVC: ChooseLocationVCProtocol{
         convertLatLongToAddress(latitude: lat, longitude: long)
         customMainRegisterView.registerViewModel.latt = lat
         customMainRegisterView.registerViewModel.lang = long
-
+        
     }
 }
