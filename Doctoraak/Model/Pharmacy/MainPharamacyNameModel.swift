@@ -1,17 +1,18 @@
 //
-//  MainPharamacySMSCodeModel.swift
+//  MainPharamacyNameModel.swift
 //  Doctoraak
 //
-//  Created by hosam on 5/4/20.
+//  Created by hosam on 6/15/20.
 //  Copyright © 2020 Ahmad Eisa. All rights reserved.
 //
 
+
 import UIKit
 
-struct MainPharamacySMSCodeModel:Codable {
+struct MainPharamacyNameModel:Codable {
     let status: Int
     let message, messageEn: String
-    var data: PharamacyModel?
+    var data: [PharamacyNameModel]?
     
     enum CodingKeys: String, CodingKey {
         case status, message
@@ -20,22 +21,25 @@ struct MainPharamacySMSCodeModel:Codable {
     }
 }
 
-struct PharamacyModel:Codable {
+struct PharamacyNameModel:Codable {
     
     let id: Int
-    let name: String
-    var nameAr, nameFr: String?
-    let phone: String
-    var phone2, address, addressAr, addressFr: String?
-    let  apiToken: String
-    var latt,lang,firebaseToken: String?
-    let  smsCode, email, password: String
-    let active: Int
-    let delivery: String
-    let avaliableDays: Int
-    var pharmacyDoctorID: Int?
-    let photo: String
-    let createdAt, updatedAt: String
+       let name: String
+       var nameAr, nameFr: String?
+       let phone: String
+       let phone2, address, addressAr, addressFr: String?
+       let lang, apiToken: String
+       var firebaseToken: String?
+       let latt, smsCode: String
+       var email: String?
+       var city, area: Int?
+       let password: String
+       let active: Int
+       let delivery: String
+       let avaliableDays: Int
+       var pharmacyDoctorID: Int?
+       let photo: String
+       var createdAt, updatedAt: String?
     let pharmacyInsurances: [PharmacyInsuranceModel]
     let workingHours: [PharamacyWorkingHourModel]
     let insuranceCompany: [InsurcaneCompanyModel]
@@ -52,7 +56,7 @@ struct PharamacyModel:Codable {
         case firebaseToken = "firebase_token"
         case latt
         case smsCode = "sms_code"
-        case email, password, active, delivery
+        case email, city, area, password, active, delivery
         case avaliableDays = "avaliable_days"
         case pharmacyDoctorID = "pharmacy_doctor_id"
         case photo
@@ -63,3 +67,5 @@ struct PharamacyModel:Codable {
         case insuranceCompany = "insurance_company"
     }
 }
+
+

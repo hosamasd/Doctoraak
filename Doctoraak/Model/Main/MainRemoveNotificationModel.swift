@@ -1,18 +1,17 @@
 //
-//  MainLoginAllModel.swift
+//  MainRemoveNotificationModel.swift
 //  Doctoraak
 //
-//  Created by hosam on 5/2/20.
+//  Created by hosam on 6/15/20.
 //  Copyright © 2020 Ahmad Eisa. All rights reserved.
 //
 
 import UIKit
 
-struct MainLabLoginModel:Codable {
-    
+struct MainRemoveNotificationModel:Codable {
     let status: Int
     let message, messageEn: String
-    var data: LabModel?
+    var data: String?
 
     enum CodingKeys: String, CodingKey {
         case status, message

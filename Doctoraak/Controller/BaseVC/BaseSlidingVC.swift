@@ -102,11 +102,7 @@ class BaseSlidingVC: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         if !userDefaults.bool(forKey: UserDefaultsConstants.isWelcomeVCAppear) {
-            let welcome = WelcomeVC()
-            let nav = UINavigationController(rootViewController: welcome)
-            
-            nav.modalPresentationStyle = .fullScreen
-            present(nav, animated: true)
+            check()
         }else {}
     }
     
@@ -203,11 +199,14 @@ class BaseSlidingVC: UIViewController {
     }
     
     fileprivate func setupViewControllers()  {
-        let homeView = rightViewController.view!
+       
         index = userDefaults.integer(forKey: UserDefaultsConstants.MainLoginINDEX)
 
         let vc = index == 0 || index == 1 ? DoctorHomeLeftMenuVC() : HomeLeftMenuVC(index: index)
+        let dd = index < 2 ?  DoctorHomeVC() : MainHomeVC(inde: index)
         
+        rightViewController = UINavigationController(rootViewController: dd)
+         let homeView = rightViewController.view!
         //        let menuVC = MenuVC()
         let menuVC = vc
         let menuView = menuVC.view!

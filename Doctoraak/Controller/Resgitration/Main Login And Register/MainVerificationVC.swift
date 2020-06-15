@@ -351,7 +351,7 @@ class MainVerificationVC: CustomBaseViewVC {
         goToNext()
     }
     
-    func saveRadToken(doctor:RadiologyLoginModel)  {
+    func saveRadToken(doctor:RadiologyModel)  {
         userDefaults.set(true, forKey: UserDefaultsConstants.radiologyPerformLogin)
         
         userDefaults.synchronize()
@@ -361,7 +361,7 @@ class MainVerificationVC: CustomBaseViewVC {
         
     }
     
-    func saveLabToken(doctor:LabLoginModel)  {
+    func saveLabToken(doctor:LabModel)  {
         userDefaults.set(true, forKey: UserDefaultsConstants.labPerformLogin)
         
         userDefaults.synchronize()
@@ -371,7 +371,7 @@ class MainVerificationVC: CustomBaseViewVC {
         
     }
     
-    func savePharToken(doctor:PharamacyLoginModel)  {
+    func savePharToken(doctor:PharamacyModel)  {
         userDefaults.set(true, forKey: UserDefaultsConstants.pharamacyPerformLogin)
         
         userDefaults.synchronize()

@@ -22,32 +22,32 @@ class HomeLeftMenuVC: CustomBaseViewVC {
     }()
     
     var doctor:DoctorLoginModel?{
-           didSet{
-               guard let lab = doctor else { return  }
+        didSet{
+            guard let lab = doctor else { return  }
             customMainHomeLeftView.doctor=lab
-           }
-       }
-       var lab:LabLoginModel?{
-           didSet{
-               guard let lab = lab else { return  }
-                          customMainHomeLeftView.lab=lab
-
-           }
-       }
-       var phy:PharamacyLoginModel?{
-           didSet{
-               guard let phy = phy else { return  }
-                          customMainHomeLeftView.phy=phy
-
-           }
-       }
-       var rad:RadiologyLoginModel?{
-           didSet{
-               guard let lab = rad else { return  }
-                          customMainHomeLeftView.rad=lab
-
-           }
-       }
+        }
+    }
+    var lab:LabModel?{
+        didSet{
+            guard let lab = lab else { return  }
+            customMainHomeLeftView.lab=lab
+            
+        }
+    }
+    var phy:PharamacyModel?{
+        didSet{
+            guard let phy = phy else { return  }
+            customMainHomeLeftView.phy=phy
+            
+        }
+    }
+    var rad:RadiologyModel?{
+        didSet{
+            guard let lab = rad else { return  }
+            customMainHomeLeftView.rad=lab
+            
+        }
+    }
     
     fileprivate let index:Int!
     init(index:Int) {
@@ -55,7 +55,7 @@ class HomeLeftMenuVC: CustomBaseViewVC {
         super.init(nibName: nil, bundle: nil)
     }
     
-   
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -77,15 +77,13 @@ class HomeLeftMenuVC: CustomBaseViewVC {
             phy = cachdPHARMACYObjectCodabe.storedValue
         }
         
-        
-//        if userDefaults.bool(forKey: UserDefaultsConstants.isPatientLogin) {
-//            patient =    cacheObjectCodabe.storedValue
-//
-//        }else {}
     }
     
     //MARK: -user methods
     
+    func fetchOrders()  {
+        
+    }
     
     override func setupNavigation()  {
         //        navigationController?.navigationBar.isHide(true)
@@ -100,51 +98,15 @@ class HomeLeftMenuVC: CustomBaseViewVC {
     
     func checkIfLoggined(_ indexPath:IndexPath)  {
         guard let baseSlid = UIApplication.shared.windows.filter({$0.isKeyWindow}).first?.rootViewController as? BaseSlidingVC else {return}
-        print(indexPath.item)
-        //        guard let baseSlid = UIApplication.shared.keyWindow?.rootViewController as? BaseSlidingVC else {return}
-//        if indexPath.item ==  3 || indexPath.item == 4{
-//            if indexPath.item == 3 {
-//                baseSlid.closeMenu()
-//                showAlertForContacting()
-//            }else if indexPath.item == 4 {
-//                baseSlid.closeMenu()
-//                chooseLanguage()
-//            }
-//        }else if !userDefaults.bool(forKey: UserDefaultsConstants.isPatientLogin){
-//            baseSlid.closeMenu()
-//            showAlertForLogin()
-//        }else {
-//            guard let patient = patient else { return  }
-//
-//            if indexPath.item==0 {
-//                baseSlid.closeMenu()
-//                let profile = ProfileVC()
-//                let nav = UINavigationController(rootViewController: profile)
-//
-//                nav.modalPresentationStyle = .fullScreen
-//                present(nav, animated: true)
-//                //                navigationController?.pushViewController(profile, animated: true)
-//            }else if indexPath.item == 1 {
-//                baseSlid.closeMenu()
-//                let profile = AnaylticsVC()
-//                let nav = UINavigationController(rootViewController: profile)
-//
-//                nav.modalPresentationStyle = .fullScreen
-//                present(nav, animated: true)
-//
-//            }else if indexPath.item == 3 {
-//                baseSlid.closeMenu()
-//                showAlertForContacting()
-//            }else {
-//                baseSlid.closeMenu()
-//                let profile = NotificationVC(patient: patient, isFromMenu: true)
-//                let nav = UINavigationController(rootViewController: profile)
-//
-//                nav.modalPresentationStyle = .fullScreen
-//                present(nav, animated: true)
-//            }
-//
-//        }
+        if indexPath.section == 0 {
+            
+        }else {
+            if indexPath.item == 2 {
+                baseSlid.closeMenu()
+                createAlerts()
+            }
+            
+        }
     }
     
     
@@ -170,16 +132,45 @@ class HomeLeftMenuVC: CustomBaseViewVC {
     
     
     fileprivate  func performLogout()  {
-//        guard let patient = patient else { return  }
-//        cacheObjectCodabe.deleteFile(patient)
-//        userDefaults.set(false, forKey: UserDefaultsConstants.isPatientLogin)
-//        userDefaults.synchronize()
-//        self.patient = nil
-//        DispatchQueue.main.async {
-//            self.customMainHomeLeftView.first8Stack.isHide(true)
-//            self.customMainHomeLeftView.userNameLabel.text = ""
-//            self.customMainHomeLeftView.userImage.image =  #imageLiteral(resourceName: "Group 4143")
-//        }
+        if userDefaults.bool(forKey: UserDefaultsConstants.DoctorPerformLogin) {
+            cacheDoctorObjectCodabe.deleteFile(doctor!)
+            self.doctor=nil
+            userDefaults.set(false, forKey: UserDefaultsConstants.DoctorPerformLogin)
+        }else if userDefaults.bool(forKey: UserDefaultsConstants.labPerformLogin) {
+            cacheLABObjectCodabe.deleteFile(lab!)
+            userDefaults.set(false, forKey: UserDefaultsConstants.labPerformLogin)
+            self.lab=nil
+            
+        }else if userDefaults.bool(forKey: UserDefaultsConstants.radiologyPerformLogin) {
+            cachdRADObjectCodabe.deleteFile(rad!)
+            userDefaults.set(false, forKey: UserDefaultsConstants.radiologyPerformLogin)
+            self.rad=nil
+            
+        }else if userDefaults.bool(forKey: UserDefaultsConstants.pharamacyPerformLogin) {
+            cachdPHARMACYObjectCodabe.deleteFile(phy!)
+            userDefaults.set(false, forKey: UserDefaultsConstants.pharamacyPerformLogin)
+            self.phy=nil
+            
+        }
+        userDefaults.set(true, forKey: UserDefaultsConstants.isWelcomeVCAppear)
+        userDefaults.synchronize()
+        goToWelcome()
+        
+        DispatchQueue.main.async {
+            self.customMainHomeLeftView.userImage.image = #imageLiteral(resourceName: "Group 4143")
+            self.customMainHomeLeftView.userNameLabel.text = ""
+        }
+    }
+    
+    func goToWelcome()  {
+        let welcome = WelcomeVC()
+        let nav = UINavigationController(rootViewController: welcome)
+        nav.modalPresentationStyle = .fullScreen
+        present(nav, animated: true)
+    }
+    
+    func resetUserDefaults()  {
+        
     }
     
     fileprivate func createAlerts() {
@@ -206,7 +197,7 @@ class HomeLeftMenuVC: CustomBaseViewVC {
     
     
     required init?(coder: NSCoder) {
-           fatalError("init(coder:) has not been implemented")
-       }
+        fatalError("init(coder:) has not been implemented")
+    }
     
 }

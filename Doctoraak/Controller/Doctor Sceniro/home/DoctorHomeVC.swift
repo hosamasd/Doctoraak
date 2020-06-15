@@ -39,8 +39,8 @@ class DoctorHomeVC: CustomBaseViewVC {
     }()
     //     var currentDoctor:DoctorLoginModel?
     var currentDoctor:DoctorLoginModel!
-    var currentLab:LabLoginModel!
-    var currentRadiolog:RadiologyLoginModel!
+    var currentLab:LabModel!
+    var currentRadiolog:RadiologyModel!
     var currentPharamacy:MainPharamacyLoginModel!
     
     var docotrClinicID = [Int]()

@@ -7,8 +7,48 @@
 //
 
 import UIKit
+import MOLH
 
 class MainHomePatientsCell: BaseCollectionCell {
+    
+    var phy:PharmacyGetOrdersModel? {
+        didSet{
+            guard let notu = phy else { return  }
+            patienDateLabel.text = notu.createdAt
+            patientCityLabel.text = notu.patient.address
+            let title = MOLHLanguage.isRTLLanguage() ? notu.patient.nameAr ?? notu.patient.name :  notu.patient.name
+            patientNameLabel.text = title
+            let urlString = notu.photo
+            guard  let url = URL(string: urlString) else { return  }
+            patientProfileImage.sd_setImage(with: url)
+        }
+    }
+    
+    var rad:RadGetOrdersModel? {
+        didSet{
+            guard let notu = rad else { return  }
+            patienDateLabel.text = notu.createdAt
+            patientCityLabel.text = notu.patient.address
+            let title = MOLHLanguage.isRTLLanguage() ? notu.patient.nameAr ?? notu.patient.name :  notu.patient.name
+            patientNameLabel.text = title
+            let urlString = notu.photo
+            guard  let url = URL(string: urlString) else { return  }
+            patientProfileImage.sd_setImage(with: url)
+        }
+    }
+    
+    var lab:LABGetOrdersModel? {
+        didSet{
+            guard let notu = lab else { return  }
+            patienDateLabel.text = notu.createdAt
+            patientCityLabel.text = notu.patient.address
+            let title = MOLHLanguage.isRTLLanguage() ? notu.patient.nameAr ?? notu.patient.name :  notu.patient.name
+            patientNameLabel.text = title
+            let urlString = notu.photo
+            guard  let url = URL(string: urlString) else { return  }
+            patientProfileImage.sd_setImage(with: url)
+        }
+    }
     
     lazy var patientProfileImage:UIImageView = {
         let i = UIImageView(backgroundColor: .gray)

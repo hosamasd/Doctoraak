@@ -12,7 +12,7 @@ struct MainRadiologySMSCodeModel:Codable {
     
     let status: Int
     let message, messageEn: String
-    var data: RadiologyLoginModel?
+    var data: RadiologyModel?
     
     enum CodingKeys: String, CodingKey {
         case status, message
@@ -21,7 +21,7 @@ struct MainRadiologySMSCodeModel:Codable {
     }
 }
 
-struct RadiologyLoginModel:Codable {
+struct RadiologyModel:Codable {
     
     let id: Int
     let name: String

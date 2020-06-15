@@ -1,18 +1,18 @@
 //
-//  MainSMSCodeAllModel.swift
+//  MainGetLabModel.swift
 //  Doctoraak
 //
-//  Created by hosam on 5/2/20.
+//  Created by hosam on 6/15/20.
 //  Copyright © 2020 Ahmad Eisa. All rights reserved.
 //
 
+
 import UIKit
 
-struct MainLabSMSCodeModel:Codable {
-    
+struct MainGetLabModel:Codable {
     let status: Int
     let message, messageEn: String
-    var data:LabModel?
+    var data: [GetLabModel]?
 
     enum CodingKeys: String, CodingKey {
         case status, message
@@ -20,24 +20,22 @@ struct MainLabSMSCodeModel:Codable {
         case data
     }
 }
-struct LabModel:Codable {
+
+struct GetLabModel:Codable {
     let id: Int
     let name: String
     var nameAr, nameFr: String?
     let phone: String
-    var phone2: String?
-    let city, area: Int
+    let phone2: String?
+    let city, area: Int?
     let lang, latt, apiToken: String
-    var firebaseToken: String?
+    let firebaseToken: String?
     let smsCode, email, password: String
     let active: Int
     let delivery: String
     let avaliableDays: Int
-    var labDoctorID: String?
-    let photo: String
-    let createdAt, updatedAt: String
-    let labInsurances: [AllInsuranceModel]
-    let workingHours: [LabWorkingHoursModel]
+    var labDoctorID: Int?
+    let photo, createdAt, updatedAt: String
     let insuranceCompany: [InsurcaneCompanyModel]
 
     enum CodingKeys: String, CodingKey {
@@ -54,8 +52,6 @@ struct LabModel:Codable {
         case photo
         case createdAt = "created_at"
         case updatedAt = "updated_at"
-        case labInsurances = "lab_insurances"
-        case workingHours = "working_hours"
         case insuranceCompany = "insurance_company"
     }
 }

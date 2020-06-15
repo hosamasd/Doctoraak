@@ -22,17 +22,17 @@ struct MainDoctorGetPatientsFromClinicModel:Codable {
 struct PatientModel:Codable {
     let id: Int
     let name: String
-    var nameAr, nameFr: String?
-    let phone, smsCode, apiToken, firebaseToken: String
+    var nameAr, nameFr,apiToken: String?
+    let phone, smsCode, firebaseToken: String
     let email, gender, password: String
     let active, insuranceID: Int
     let birthdate: String
     let photo: String
     var insuranceCode: String?
     let address: String
-    var addressAr, addressFr: String?
+    var blockDate,addressAr, addressFr: String?
     let createdAt, updatedAt: String
-    var insuranceCodeID, blockDays, blockDate: String?
+    var insuranceCodeID, blockDays: Int?
     let url: String
     let insurance: InsurcaneCompanyModel
 

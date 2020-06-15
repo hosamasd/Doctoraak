@@ -133,7 +133,7 @@ class UserDefaultsConstants {
     static let specificationIdArray = "specificationIdArray"
     static let insuranceIdArray = "insuranceIdArray"
     static let degreeIdArray = "degreeIdArray"
-    
+    static let radiologyIdArray="radiologyIdArray"
     
     
     static let isUserRegisterAndWaitForSMScODE = "isUserRegisterAndWaitForSMScODE"
@@ -178,4 +178,76 @@ class UserDefaultsConstants {
     static let mainday1 = "mainday1"            ; static let mainday2 = "day2"      ; static let mainday3 = "mainday3" ;  static let mainday4 = "mainday4"
     static let mainday5 = "mainday5"            ; static let mainday6 = "day6"      ; static let mainday7 = "mainday7"
     static let isWorkingHoursSaved = "isWorkingHoursSaved"
+
+
+    
+    static let isDataFound = "isDataFound"
+    static let isRegisterDoneAfterBooking="isRegisterDoneAfterBooking"
+    static let patientPhotoUrl="patientPhotoUrl"
+    static let patientName="patientName"
+    
+    //welcome
+    static let isLabCached="isLabCached"
+    static let isRadiologyCached="isRadiologyCached"
+    static let isMedicineNameCached="isMedicineNameCached"
+    static let isMedicineTypeCached="isMedicineTypeCached"
+    static let isPaymentDetailsInfo = "isPaymentDetailsInfo"
+    static let isPharamacyCached = "isPharamacyCached"
+    static let isLabAnanysisDetailsInfo = "isLabAnanysisDetailsInfo"
+      static let isRadAnanlysisCached = "isRadAnanlysisCached"
+    
+    //register
+    static let patientID="patientID"
+    
+    static let patienMobileNumber="patienMobileNumber"
+    
+    
+    //verification
+    static let patientUserID="patientUserID"
+    static let patientAPITOKEN="patientAPITOKEN"
+    static let isPatientLogin="isPatientLogin"
+    
+    
+    //for english
+    static let labNameArray = "labNameArray"
+    static let radiologyNameArray = "radiologyNameArray"
+    
+    static let medicineNameArray = "medicineNameArray"
+    static let medicineTypeArray = "medicineTypeArray"
+    static let pharamacyNameArray = "pharamacyNameArray"
+    static let labAnalysisNameArray = "labAnalysisNameArray"
+    static let radAnalysisNameArray = "radAnalysisNameArray"
+    
+    
+    //for arabic
+    static let labNameARArray = "labNameARArray"
+    static let medicineNameARArray = "medicineNameARArray"
+    static let medicineTypeARArray = "medicineTypeARArray"
+    static let radiologyNameARArray = "radiologyNameARArray"
+    static let pharamacyNameARArray = "pharamacyNameARArray"
+    static let labAnalysisNameARArray = "labAnalysisNameARArray"
+    static let radAnalysisNameARArray = "radAnalysisNameARArray"
+    
+    //for French
+    static let labNameFRArray = "labNameFRArray"
+    static let medicineNameFTArray = "medicineNameFTArray"
+    static let medicineTypeFRArray = "medicineTypeFRArray"
+    static let radiologyNameFRArray = "radiologyNameFRArray"
+    static let pharamacyNameFRArray = "pharamacyNameFRArray"
+    static let labAnalysisNameFRArray = "labAnalysisNameFRArray"
+    static let radAnalysisNameFRArray = "radAnalysisNameFRArray"
+    
+    //ids
+    static let labIdArray = "labIdArray"
+    static let medicineNameIDSArray = "medicineNameIDSArray"
+    static let medicineTypeIDSArray = "medicineTypeIDSArray"
+    static let pharamacyIdrray = "pharamacyIdrray"
+    static let labAnalysisIdArray = "labAnalysisIdArray"
+    static let radAnalysisIdArray = "radAnalysisIdArray"
+    
+    static let paymentDetailsInfo = "paymentDetailsInfo"
+    
+    
+    
 }
+

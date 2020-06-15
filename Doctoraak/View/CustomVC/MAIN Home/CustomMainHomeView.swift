@@ -7,8 +7,29 @@
 //
 
 import UIKit
+import MOLH
+import SDWebImage
 
 class CustomMainHomeView: CustomBaseView {
+    
+    var lab:LabModel?{
+          didSet{
+              guard let lab = lab else { return  }
+              //                             customMainHomeLeftView.lab=lab
+          }
+      }
+      var phy:PharamacyModel?{
+          didSet{
+              guard let phy = phy else { return  }
+              //                             customMainHomeLeftView.phy=phy
+          }
+      }
+      var rad:RadiologyModel?{
+          didSet{
+              guard let lab = rad else { return  }
+              //            customMainHomeView.mainHomePatientsCollectionVC.notificationRADArray=lab
+          }
+      }
     
     lazy var LogoImage:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "Group 4116"))
@@ -37,14 +58,22 @@ class CustomMainHomeView: CustomBaseView {
    
     lazy var mainHomePatientsCollectionVC:MainHomePatientsCollectionVC = {
        let vc = MainHomePatientsCollectionVC()
-        vc.handleSelectedIndex = {[unowned self] indexPath in
-            self.handleSelectedIndex?(indexPath)
+        vc.handledisplayRADNotification = {[unowned self] indexPath in
+            self.handledisplayRADNotification?(indexPath)
         }
+        vc.handledisplayLABNotification = {[unowned self] indexPath in
+                   self.handledisplayLABNotification?(indexPath)
+               }
+        vc.handledisplayPHYNotification = {[unowned self] indexPath in
+                   self.handledisplayPHYNotification?(indexPath)
+               }
+        
         return vc
     }()
     
-    var handleSelectedIndex:((IndexPath)->Void)?
-    
+    var handledisplayRADNotification:((RadGetOrdersModel)->Void)?
+       var handledisplayLABNotification:((LABGetOrdersModel)->Void)?
+       var handledisplayPHYNotification:((PharmacyGetOrdersModel)->Void)?
     
     override func setupViews() {
         

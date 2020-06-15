@@ -11,9 +11,9 @@ import UIKit
 
 let cacheDoctorObjectCodabe: LocalJSONStore<DoctorLoginModel> = LocalJSONStore(storageType: .cache, filename: "repos.json")
 let cacheMedicalObjectCodabe: LocalJSONStore<DoctorLoginModel> = LocalJSONStore(storageType: .cache, filename: "mc.json")
-let cacheLABObjectCodabe: LocalJSONStore<LabLoginModel> = LocalJSONStore(storageType: .cache, filename: "lb.json")
-let cachdRADObjectCodabe: LocalJSONStore<RadiologyLoginModel> = LocalJSONStore(storageType: .cache, filename: "rd.json")
-let cachdPHARMACYObjectCodabe: LocalJSONStore<PharamacyLoginModel> = LocalJSONStore(storageType: .cache, filename: "ph.json")
+let cacheLABObjectCodabe: LocalJSONStore<LabModel> = LocalJSONStore(storageType: .cache, filename: "lb.json")
+let cachdRADObjectCodabe: LocalJSONStore<RadiologyModel> = LocalJSONStore(storageType: .cache, filename: "rd.json")
+let cachdPHARMACYObjectCodabe: LocalJSONStore<PharamacyModel> = LocalJSONStore(storageType: .cache, filename: "ph.json")
 
 
 class LocalJSONStore<T> where T : Codable {

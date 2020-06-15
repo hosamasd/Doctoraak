@@ -12,6 +12,12 @@ import MaterialComponents.MaterialSnackbar
 
 extension UIView {
     
+    func putAttributedText(la:UILabel,ft:String,st:String)  {
+           let attributeText = NSMutableAttributedString(string: ft, attributes:  [.font : UIFont.boldSystemFont(ofSize: 18),.foregroundColor:UIColor.black])
+              attributeText.append(NSAttributedString(string: st, attributes: [.font : UIFont.systemFont(ofSize: 14),.foregroundColor: UIColor.lightGray]))
+              la.attributedText = attributeText
+          }
+    
     func addGradientInSenderAndRemoveOtherss(sender:UIButton)  {
              
              let leftColor = #colorLiteral(red: 0.4747212529, green: 0.2048208416, blue: 1, alpha: 1).cgColor
@@ -25,6 +31,15 @@ extension UIView {
         let rightColor = right?.cgColor ?? #colorLiteral(red: 0.7187242508, green: 0.5294578671, blue: 0.9901599288, alpha: 1).cgColor
         sender.applyGradient(colors: [leftColor,rightColor], index: 0)
     }
+    
+    func addssGradientInSenderAndRemoveOther(senders:[UIButton],index:Int? = 0,lef:UIColor? = #colorLiteral(red: 0.4747212529, green: 0.2048208416, blue: 1, alpha: 1),right:UIColor? = #colorLiteral(red: 0.7187242508, green: 0.5294578671, blue: 0.9901599288, alpha: 1))  {
+        senders.forEach { s in
+            let leftColor = lef?.cgColor ?? #colorLiteral(red: 0.4747212529, green: 0.2048208416, blue: 1, alpha: 1).cgColor
+                      let rightColor = right?.cgColor ?? #colorLiteral(red: 0.7187242508, green: 0.5294578671, blue: 0.9901599288, alpha: 1).cgColor
+                      s.applyGradient(colors: [leftColor,rightColor], index: 0)
+        }
+          
+       }
     
     func addGradientInSenderAndRemoveOther(sender:UIButton,vv:UIButton)  {
         
@@ -139,7 +154,9 @@ extension UIView {
         t.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: t.frame.height))
         t.leftViewMode = .always
         t.isSecureTextEntry = secre ?? false
+        t.constrainHeight(constant: 60)
         return t
+        
     }
     
     func createMainTextFieldsWithoutPods(place:String) -> UITextField {

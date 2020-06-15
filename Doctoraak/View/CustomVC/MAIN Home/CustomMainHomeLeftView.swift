@@ -35,7 +35,7 @@ class CustomMainHomeLeftView: CustomBaseView {
             userNameLabel.text = name+"\n"+dd
         }
     }
-    var lab:LabLoginModel?{
+    var lab:LabModel?{
         didSet{
             guard let lab = lab else { return  }
             let urlString = lab.photo
@@ -46,7 +46,7 @@ class CustomMainHomeLeftView: CustomBaseView {
             userNameLabel.text = name+"\n"+dd
         }
     }
-    var phy:PharamacyLoginModel?{
+    var phy:PharamacyModel?{
         didSet{
             guard let phy = phy else { return  }
             let urlString = phy.photo
@@ -57,7 +57,7 @@ class CustomMainHomeLeftView: CustomBaseView {
             userNameLabel.text = name+"\n"+dd
         }
     }
-    var rad:RadiologyLoginModel?{
+    var rad:RadiologyModel?{
         didSet{
             guard let lab = rad else { return  }
             let urlString = lab.photo

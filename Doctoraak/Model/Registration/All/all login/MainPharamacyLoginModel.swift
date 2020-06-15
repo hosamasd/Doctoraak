@@ -11,7 +11,7 @@ import UIKit
 struct MainPharamacyLoginModel:Codable {
     let status: Int
     let message, messageEn: String
-    var data: PharamacyLoginModel?
+    var data: PharamacyModel?
 
     enum CodingKeys: String, CodingKey {
         case status, message

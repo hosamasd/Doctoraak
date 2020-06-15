@@ -11,7 +11,7 @@ struct MainRadiologyLoginModel:Codable {
     
     let status: Int
     let message, messageEn: String
-    var data: RadiologyLoginModel?
+    var data: RadiologyModel?
     
     enum CodingKeys: String, CodingKey {
         case status, message
