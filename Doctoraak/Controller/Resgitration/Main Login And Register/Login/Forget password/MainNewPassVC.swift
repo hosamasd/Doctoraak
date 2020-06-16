@@ -8,6 +8,8 @@
 
 import UIKit
 import SkyFloatingLabelTextField
+import SVProgressHUD
+import MOLH
 
 class MainNewPassVC: CustomBaseViewVC {
     
@@ -15,17 +17,35 @@ class MainNewPassVC: CustomBaseViewVC {
         let v = CustomMainNewPassView()
         v.index = index
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
-
+        v.newPassViewModel.mobile = self.mobile
+        v.resendSMSButton.addTarget(self, action: #selector(handleResendSMS), for: .touchUpInside)
+        
         v.doneButton.addTarget(self, action: #selector(handleNext), for: .touchUpInside)
         return v
+    }()
+    lazy var customAlertMainLoodingView:CustomAlertMainLoodingView = {
+        let v = CustomAlertMainLoodingView()
+        v.setupAnimation(name: "heart_loading")
+        return v
+    }()
+    
+    lazy var customMainAlertVC:CustomMainAlertVC = {
+        let t = CustomMainAlertVC()
+        t.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
+        t.modalTransitionStyle = .crossDissolve
+        t.modalPresentationStyle = .overCurrentContext
+        return t
     }()
     
     //check to go specific way
     fileprivate let index:Int!
-      init(indexx:Int) {
-          self.index = indexx
-          super.init(nibName: nil, bundle: nil)
-      }
+    fileprivate let mobile:String!
+    
+    init(indexx:Int,mobile:String) {
+        self.index = indexx
+        self.mobile=mobile
+        super.init(nibName: nil, bundle: nil)
+    }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -48,14 +68,28 @@ class MainNewPassVC: CustomBaseViewVC {
         
         customMainNewPassView.newPassViewModel.bindableIsLogging.bind(observer: {  [unowned self] (isReg) in
             if isReg == true {
-                //                UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
+                UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
                 //                SVProgressHUD.show(withStatus: "Login...".localized)
+                self.showMainAlertLooder(cc: self.customMainAlertVC, v: self.customAlertMainLoodingView)
                 
             }else {
                 //                SVProgressHUD.dismiss()
-                //                self.activeViewsIfNoData()
+                self.activeViewsIfNoData()
             }
         })
+        
+        customMainNewPassView.newPassViewModel.bindableIsResending.bind { [unowned self] (isReg) in
+            if isReg == true {
+                UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
+                //                SVProgressHUD.show(withStatus: "Login...".localized)
+                self.showMainAlertLooder(cc: self.customMainAlertVC, v: self.customAlertMainLoodingView)
+                
+            }else {
+                //                SVProgressHUD.dismiss()
+                self.activeViewsIfNoData()
+                
+            }
+        }
     }
     
     override  func setupNavigation()  {
@@ -68,17 +102,59 @@ class MainNewPassVC: CustomBaseViewVC {
         
     }
     
-      //TODO: -handle methods
-    
-  
-    
-    @objc func handleNext()  {
+    func goToNext()  {
         let login = MainLoginsVC(indexx: index)
         navigationController?.pushViewController(login, animated: true)
+    }
+    
+    //TODO: -handle methods
+    
+    @objc func handleResendSMS()  {
+        customMainNewPassView.newPassViewModel.performResendinging { (base, err) in
+            
+            if let err = err {
+                SVProgressHUD.showError(withStatus: err.localizedDescription)
+                 self.handleDismiss()
+                self.activeViewsIfNoData();return
+            }
+            //                SVProgressHUD.dismiss()
+            self.handleDismiss()
+            self.activeViewsIfNoData()
+            guard let user = base else {return}
+            SVProgressHUD.showSuccess(withStatus: MOLHLanguage.isRTLLanguage() ? user.message : user.messageEn)
+        }
+    }
+    
+    @objc func handleNext()  {
         
+        customMainNewPassView.newPassViewModel.performUpdatinging { (base, err) in
+            if let err = err {
+                SVProgressHUD.showError(withStatus: err.localizedDescription)
+                 self.handleDismiss()
+                self.activeViewsIfNoData();return
+            }
+            //                SVProgressHUD.dismiss()
+            self.handleDismiss()
+            self.activeViewsIfNoData()
+            guard let user = base else {return}
+            SVProgressHUD.showSuccess(withStatus: MOLHLanguage.isRTLLanguage() ? user.message : user.messageEn)
+            
+            DispatchQueue.main.async {
+                self.goToNext()
+            }
+            
+            
+        }
     }
     
     @objc func handleBack()  {
         navigationController?.popViewController(animated: true)
+    }
+    
+    @objc func handleDismiss()  {
+        removeViewWithAnimation(vvv: customAlertMainLoodingView)
+        DispatchQueue.main.async {
+            self.dismiss(animated: true, completion: nil)
+        }
     }
 }

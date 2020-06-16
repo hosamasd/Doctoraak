@@ -419,6 +419,8 @@ class CustomMainRegisterView: CustomBaseView {
         insuranceDrop.isHidden = true
         
     }
+    
+    
 }
 
 

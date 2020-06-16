@@ -278,12 +278,8 @@ class MainRegisterVC: CustomBaseViewVC {
     func checkPharamacyLoginState(_ phone:String)  {
         customMainRegisterView.registerViewModel.performPHARAMACYRegister {[unowned self] (base, err) in
             if let err = err {
-                //                                           SVProgressHUD.showError(withStatus: err.localizedDescription)
-                DispatchQueue.main.async {
-                    self.showMainAlertErrorMessages(vv: self.customMainAlertVC, secondV: self.customAlertLoginView, text: err.localizedDescription)
-                    
-                }
-                
+                                                           SVProgressHUD.showError(withStatus: err.localizedDescription)
+                 self.handleDismiss()
                 self.activeViewsIfNoData();return
             }
             self.handleDismiss()
@@ -302,12 +298,8 @@ class MainRegisterVC: CustomBaseViewVC {
     func checkRadLoginState(_ phone:String)  {
         customMainRegisterView.registerViewModel.performRADRegister {[unowned self] (base, err) in
             if let err = err {
-                //                                           SVProgressHUD.showError(withStatus: err.localizedDescription)
-                DispatchQueue.main.async {
-                    self.showMainAlertErrorMessages(vv: self.customMainAlertVC, secondV: self.customAlertLoginView, text: err.localizedDescription)
-                    
-                }
-                
+                                                           SVProgressHUD.showError(withStatus: err.localizedDescription)
+                 self.handleDismiss()
                 self.activeViewsIfNoData();return
             }
             self.handleDismiss()
@@ -325,12 +317,8 @@ class MainRegisterVC: CustomBaseViewVC {
     func checkLabLoginState(_ phone:String)  {
         customMainRegisterView.registerViewModel.performLABRegister {[unowned self] (base, err) in
             if let err = err {
-                //                                           SVProgressHUD.showError(withStatus: err.localizedDescription)
-                DispatchQueue.main.async {
-                    self.showMainAlertErrorMessages(vv: self.customMainAlertVC, secondV: self.customAlertLoginView, text: err.localizedDescription)
-                    
-                }
-                
+                                                           SVProgressHUD.showError(withStatus: err.localizedDescription)
+                 self.handleDismiss()
                 self.activeViewsIfNoData();return
             }
             self.handleDismiss()

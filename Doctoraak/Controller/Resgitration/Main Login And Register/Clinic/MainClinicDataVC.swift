@@ -50,6 +50,11 @@ class MainClinicDataVC: CustomBaseViewVC {
         //        v.cityDrop.addTarget(self, action: #selector(handleMulti), for: .touchUpInside)
         return v
     }()
+    lazy var customAlertMainLoodingView:CustomAlertMainLoodingView = {
+           let v = CustomAlertMainLoodingView()
+           v.setupAnimation(name: "heart_loading")
+           return v
+       }()
     
     //check to go specific way
     fileprivate let index:Int!
@@ -247,6 +252,7 @@ class MainClinicDataVC: CustomBaseViewVC {
         customClinicDataView.clinicDataViewModel.performRegister { (base, err) in
             if let err = err {
                 SVProgressHUD.showError(withStatus: err.localizedDescription)
+                 self.handleDismiss()
                 self.activeViewsIfNoData();return
             }
             SVProgressHUD.dismiss()
@@ -272,6 +278,13 @@ class MainClinicDataVC: CustomBaseViewVC {
            imagePicker.sourceType = sourceType
            present(imagePicker, animated: true)
        }
+    
+    @objc func handleDismiss()  {
+        removeViewWithAnimation(vvv: customAlertMainLoodingView)
+        DispatchQueue.main.async {
+            self.dismiss(animated: true, completion: nil)
+        }
+    }
     
     @objc func createAlertForChoposingImage()  {
         let alert = UIAlertController(title: "Choose Image".localized, message: "Choose image fROM ".localized, preferredStyle: .alert)

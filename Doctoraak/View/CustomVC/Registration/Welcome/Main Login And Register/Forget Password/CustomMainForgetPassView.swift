@@ -26,8 +26,9 @@ class CustomMainForgetPassView: CustomBaseView {
     
     lazy var titleLabel = UILabel(text: "Forget", font: .systemFont(ofSize: 30), textColor: .white)
     lazy var soonLabel = UILabel(text: "Password", font: .systemFont(ofSize: 30), textColor: .white)
+   
     lazy var choosePayLabel = UILabel(text: "Enter your phone number :", font: .systemFont(ofSize: 18), textColor: .black,textAlignment: .center)
-    
+
     lazy var numberTextField:UITextField = {
         let s = createMainTextFields(padding:100,place: "(324) 242-2457", type: .phonePad)
         s.textAlignment = .center
@@ -37,7 +38,7 @@ class CustomMainForgetPassView: CustomBaseView {
         s.leftViewMode = .always
         s.constrainHeight(constant: 60)
         s.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)
-        
+
         return s
     }()
     lazy var nextButton:UIButton = {
@@ -89,5 +90,7 @@ class CustomMainForgetPassView: CustomBaseView {
             
         }
     }
+    
+ 
     
 }

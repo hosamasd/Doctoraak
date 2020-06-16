@@ -40,6 +40,11 @@ class DoctorSecondRegisterVC: CustomBaseViewVC {
         
         return v
     }()
+    lazy var customAlertMainLoodingView:CustomAlertMainLoodingView = {
+        let v = CustomAlertMainLoodingView()
+        v.setupAnimation(name: "heart_loading")
+        return v
+    }()
     
     //check to go specific way
     fileprivate let index:Int!
@@ -84,6 +89,7 @@ class DoctorSecondRegisterVC: CustomBaseViewVC {
         RegistrationServices.shared.registerDoctor(index: 0, isInsurance: true, coverImage: #imageLiteral(resourceName: "lego(1)"), cvName: "as", cvFile: img!, name: "asd", email: "xsfa@s.com", phone: "01001384592", password: "00000000", gender: "male", specialization_id: 1, degree_id: 1, insurance: [1,2]) { (base, err) in
             if let err = err {
                 SVProgressHUD.showError(withStatus: err.localizedDescription)
+                 self.handleDismiss()
                 self.activeViewsIfNoData();return
             }
             SVProgressHUD.dismiss()
@@ -175,6 +181,7 @@ class DoctorSecondRegisterVC: CustomBaseViewVC {
         customCecondRegisterView.doctorSecondRegisterViewModel.performRegister { (base, err) in
             if let err = err {
                 SVProgressHUD.showError(withStatus: err.localizedDescription)
+                 self.handleDismiss()
                 self.activeViewsIfNoData();return
             }
             SVProgressHUD.dismiss()
@@ -186,6 +193,13 @@ class DoctorSecondRegisterVC: CustomBaseViewVC {
             }
         }
         
+    }
+    
+    @objc func handleDismiss()  {
+        removeViewWithAnimation(vvv: customAlertMainLoodingView)
+        DispatchQueue.main.async {
+            self.dismiss(animated: true, completion: nil)
+        }
     }
 }
 

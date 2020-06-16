@@ -37,6 +37,11 @@ class DoctorHomeVC: CustomBaseViewVC {
         }
         return v
     }()
+    lazy var customAlertMainLoodingView:CustomAlertMainLoodingView = {
+        let v = CustomAlertMainLoodingView()
+        v.setupAnimation(name: "heart_loading")
+        return v
+    }()
     //     var currentDoctor:DoctorLoginModel?
     var currentDoctor:DoctorLoginModel!
     var currentLab:LabModel!
@@ -127,6 +132,7 @@ class DoctorHomeVC: CustomBaseViewVC {
                     
                     if let err = err {
                         SVProgressHUD.showError(withStatus: err.localizedDescription)
+                         self.handleDismiss()
                         self.activeViewsIfNoData();return
                     }
                     group2 = base
@@ -138,6 +144,7 @@ class DoctorHomeVC: CustomBaseViewVC {
                 DoctorServices.shared.getDocotrsPatientsInClinic(clinic_id: self.docotrClinicID.first ?? 1 , api_token: api_Key, doctor_id: user_id) {[unowned self] (base, err) in
                     if let err = err {
                         SVProgressHUD.showError(withStatus: err.localizedDescription)
+                         self.handleDismiss()
                         self.activeViewsIfNoData();return
                     }
                     group3 = base
@@ -160,6 +167,7 @@ class DoctorHomeVC: CustomBaseViewVC {
         DoctorServices.shared.getDocotrsPatientsInClinic(clinic_id: clinicId, api_token: doctorApiToken, doctor_id: doctorId) {[unowned self] (base, err) in
             if let err = err {
                 SVProgressHUD.showError(withStatus: err.localizedDescription)
+                 self.handleDismiss()
                 self.activeViewsIfNoData();return
             }
             SVProgressHUD.dismiss()
@@ -262,6 +270,13 @@ class DoctorHomeVC: CustomBaseViewVC {
     }
     
     //TODO:-Handle methods
+    
+    @objc func handleDismiss()  {
+        removeViewWithAnimation(vvv: customAlertMainLoodingView)
+        DispatchQueue.main.async {
+            self.dismiss(animated: true, completion: nil)
+        }
+    }
     
     @objc func handleOpenMenu()  {
         (UIApplication.shared.keyWindow?.rootViewController as? BaseSlidingVC)?.openMenu()

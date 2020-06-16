@@ -150,6 +150,7 @@
 		4EDBE29F242B9C7F00702C9A /* MainPaymentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDBE29E242B9C7F00702C9A /* MainPaymentVC.swift */; };
 		4EDBE2A2242BA06500702C9A /* DoctorNotificationsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDBE2A1242BA06500702C9A /* DoctorNotificationsVC.swift */; };
 		4EDBE2A5242BA28900702C9A /* CustomMainDoctorNotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDBE2A4242BA28900702C9A /* CustomMainDoctorNotificationView.swift */; };
+		4EDC81D02498A506005102EE /* AcceptPaymentServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDC81CF2498A506005102EE /* AcceptPaymentServices.swift */; };
 		4EDCBB0E249647310045574D /* SecondHomeLeftMenuCollcetionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDCBB0D249647310045574D /* SecondHomeLeftMenuCollcetionVC.swift */; };
 		4EDCBB1024964B5E0045574D /* HomeLeftMenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDCBB0F24964B5E0045574D /* HomeLeftMenuVC.swift */; };
 		4EDCBB1224964D1E0045574D /* CustomAlertChooseLanguageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDCBB1124964D1E0045574D /* CustomAlertChooseLanguageView.swift */; };
@@ -324,6 +325,7 @@
 		4EDBE29E242B9C7F00702C9A /* MainPaymentVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainPaymentVC.swift; sourceTree = "<group>"; };
 		4EDBE2A1242BA06500702C9A /* DoctorNotificationsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorNotificationsVC.swift; sourceTree = "<group>"; };
 		4EDBE2A4242BA28900702C9A /* CustomMainDoctorNotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMainDoctorNotificationView.swift; sourceTree = "<group>"; };
+		4EDC81CF2498A506005102EE /* AcceptPaymentServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcceptPaymentServices.swift; sourceTree = "<group>"; };
 		4EDCBB0D249647310045574D /* SecondHomeLeftMenuCollcetionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondHomeLeftMenuCollcetionVC.swift; sourceTree = "<group>"; };
 		4EDCBB0F24964B5E0045574D /* HomeLeftMenuVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeLeftMenuVC.swift; sourceTree = "<group>"; };
 		4EDCBB1124964D1E0045574D /* CustomAlertChooseLanguageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertChooseLanguageView.swift; sourceTree = "<group>"; };
@@ -839,6 +841,7 @@
 		4EA5378F24263F3E000AE7AD /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				4EDC81CE2498A4F3005102EE /* Payment */,
 				4E9145F22446CCAA00766D20 /* MainServices.swift */,
 				4EB2622C249516040050E3CC /* Registration */,
 				4EDB37CD2466B87E00DA8B0C /* DoctorServices.swift */,
@@ -1054,6 +1057,14 @@
 				4E75642E242F447B00A6C15F /* CustomDoctorProfileView.swift */,
 			);
 			path = "Doctor Scenrieo";
+			sourceTree = "<group>";
+		};
+		4EDC81CE2498A4F3005102EE /* Payment */ = {
+			isa = PBXGroup;
+			children = (
+				4EDC81CF2498A506005102EE /* AcceptPaymentServices.swift */,
+			);
+			path = Payment;
 			sourceTree = "<group>";
 		};
 		4EDFFD3024974B4400256631 /* Others Profiles */ = {
@@ -1438,6 +1449,7 @@
 				4E333E0824265C2D00F82E00 /* CustomSiftButton.swift in Sources */,
 				4E92AF6C242B717200BCF20E /* CustomMainHomeLeftView.swift in Sources */,
 				4EC977F7242B54D000C61F1B /* TopDoctorHomeCell.swift in Sources */,
+				4EDC81D02498A506005102EE /* AcceptPaymentServices.swift in Sources */,
 				4ED3464B2447373800E29F03 /* CustomChooseUserLocationView.swift in Sources */,
 				4E333E0F2426607E00F82E00 /* BaseCollectionVC.swift in Sources */,
 				4EA8B1232430E895008473D3 /* DoctorEdirProfileViewModel.swift in Sources */,

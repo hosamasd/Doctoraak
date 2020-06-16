@@ -27,10 +27,10 @@ struct PharamacyNameModel:Codable {
        let name: String
        var nameAr, nameFr: String?
        let phone: String
-       let phone2, address, addressAr, addressFr: String?
-       let lang, apiToken: String
+       var phone2,lang,latt, address, addressAr, addressFr: String?
+       let  apiToken: String
        var firebaseToken: String?
-       let latt, smsCode: String
+       let  smsCode: String
        var email: String?
        var city, area: Int?
        let password: String

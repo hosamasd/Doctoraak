@@ -27,10 +27,11 @@ class CustomMainNewPassView: CustomBaseView {
     
     lazy var titleLabel = UILabel(text: "New", font: .systemFont(ofSize: 30), textColor: .white)
     lazy var soonLabel = UILabel(text: "Password", font: .systemFont(ofSize: 30), textColor: .white)
-    lazy var choosePayLabel = UILabel(text: "Please Enter your new password", font: .systemFont(ofSize: 18), textColor: .black,textAlignment: .center)
-    
+    lazy var choosePayLabel = UILabel(text: "Please Enter your code and  new password", font: .systemFont(ofSize: 18), textColor: .black,textAlignment: .center)
+    lazy var codeTextField = createMainTextFields(place: " code",type: .numberPad)
+
     lazy var passwordTextField:UITextField = {
-        let s = createMainTextFields(place: "Password", type: .default,secre: true)
+        let s = createMainTextFields(place: "New Password", type: .default,secre: true)
         let button = UIButton(type: .custom)
         button.setImage(#imageLiteral(resourceName: "visiblity"), for: .normal)
         button.imageEdgeInsets = UIEdgeInsets(top: 0, left: -16, bottom: 0, right: 0)
@@ -52,6 +53,14 @@ class CustomMainNewPassView: CustomBaseView {
         s.constrainHeight(constant: 60)
         return s
     }()
+    lazy var resendLabel = UILabel(text: "Don't receive an sms code ? ".localized, font: .systemFont(ofSize: 16), textColor: .black)
+       lazy var resendSMSButton:UIButton = {
+           let b = UIButton()
+           b.setTitle("Resend".localized, for: .normal)
+           b.setTitleColor(#colorLiteral(red: 0.7871699929, green: 0.09486690909, blue: 0, alpha: 1), for: .normal)
+           b.constrainHeight(constant: 50)
+           return b
+       }()
     lazy var doneButton:UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Done", for: .normal)
@@ -70,8 +79,10 @@ class CustomMainNewPassView: CustomBaseView {
 
     
     override func setupViews() {
-        [ passwordTextField,confirmPasswordTextField].forEach({$0.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)})
-        let textStack = getStack(views: passwordTextField,confirmPasswordTextField, spacing: 16, distribution: .fillEqually, axis: .vertical)
+        let resendStack = getStack(views: resendLabel,resendSMSButton, spacing: 0, distribution: .fill, axis: .horizontal)
+
+        [ codeTextField,passwordTextField,confirmPasswordTextField].forEach({$0.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)})
+        let textStack = getStack(views: passwordTextField,confirmPasswordTextField,codeTextField,resendStack, spacing: 16, distribution: .fillEqually, axis: .vertical)
 
         choosePayLabel.constrainHeight(constant: 40)
         addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,doneButton,choosePayLabel,textStack)
@@ -81,8 +92,6 @@ class CustomMainNewPassView: CustomBaseView {
             choosePayLabel.centerYAnchor.constraint(equalTo: centerYAnchor, constant: 0)
             ])
         
-//        textStack.centerInSuperview(size: .init(width: frame.width-64, height: 116))
-        //
         LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
         backImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 60, left: 16, bottom: 0, right: 0))
         titleLabel.anchor(top: nil, leading: leadingAnchor, bottom: LogoImage.bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
@@ -105,24 +114,32 @@ class CustomMainNewPassView: CustomBaseView {
           newPassViewModel.index = index
           guard let texts = text.text else { return  }
           if let floatingLabelTextField = text as? SkyFloatingLabelTextField {
-              if text == confirmPasswordTextField {
+            if text == codeTextField {
+                if texts.count < 5 {
+                    floatingLabelTextField.errorMessage = "Invalid code entered".localized
+                    newPassViewModel.password = nil
+                }
+                else {
+                    newPassViewModel.password = texts
+                    floatingLabelTextField.errorMessage = ""
+                }
+            
+          }else if text == confirmPasswordTextField {
                   if text.text != passwordTextField.text {
                       floatingLabelTextField.errorMessage = "Passowrd should be same".localized
-                      newPassViewModel.confirmPassword = nil
                   }
                   else {
-                      newPassViewModel.confirmPassword = texts
                       floatingLabelTextField.errorMessage = ""
                   }
               }else
               {
                   if(texts.count < 8 ) {
                       floatingLabelTextField.errorMessage = "password must have 8 character".localized
-                      newPassViewModel.password = nil
+                      newPassViewModel.confirmPassword = nil
                   }
                   else {
                       floatingLabelTextField.errorMessage = ""
-                      newPassViewModel.password = texts
+                      newPassViewModel.confirmPassword = texts
                   }
               }
               

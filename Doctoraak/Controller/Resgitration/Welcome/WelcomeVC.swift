@@ -495,7 +495,12 @@ class WelcomeVC: CustomBaseViewVC {
         let check = userDefaults.bool(forKey: UserDefaultsConstants.isUserRegisterAndWaitForSMScODE) ? MainVerificationVC(indexx: index, isFromForgetPassw: false, phone: phoneNumber, user_id: -1) : WelcomeMainSecondVC()
         userDefaults.set(false, forKey: UserDefaultsConstants.isWelcomeVCAppear)
         userDefaults.synchronize()
-        let welcome = userDefaults.bool(forKey: UserDefaultsConstants.DoctorPerformLogin) ?  WelcomeMainSecondVC() : DoctorHomeVC()
+        
+        if userDefaults.bool(forKey: UserDefaultsConstants.DoctorPerformLogin) || userDefaults.bool(forKey: UserDefaultsConstants.pharamacyPerformLogin) || userDefaults.bool(forKey: UserDefaultsConstants.labPerformLogin) || userDefaults.bool(forKey: UserDefaultsConstants.radiologyPerformLogin) {
+            dismiss(animated: true)
+        }else {
+        
+        let welcome =  WelcomeMainSecondVC() 
         //        let nav = UINavigationController(rootViewController:welcome)
         //        welcome.modalPresentationStyle = .fullScreen
         //        present(welcome, animated: true)
@@ -503,5 +508,6 @@ class WelcomeVC: CustomBaseViewVC {
         
         navigationController?.pushViewController(welcome, animated: true)
         //        }
+        }
     }
 }
