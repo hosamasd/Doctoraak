@@ -26,8 +26,8 @@ class CustomClinicDataView: CustomBaseView {
         return i
     }()
     
-    lazy var titleLabel = UILabel(text: "Clinic", font: .systemFont(ofSize: 30), textColor: .white)
-    lazy var soonLabel = UILabel(text: "Fill your data", font: .systemFont(ofSize: 18), textColor: .white)
+    lazy var titleLabel = UILabel(text: "Clinic".localized, font: .systemFont(ofSize: 30), textColor: .white)
+    lazy var soonLabel = UILabel(text: "Fill your data".localized, font: .systemFont(ofSize: 18), textColor: .white)
     
     lazy var clinicProfileImage:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "Ellipse 119-2"))
@@ -57,9 +57,9 @@ class CustomClinicDataView: CustomBaseView {
         
         return v
     }()
-    lazy var addressLabel = UILabel(text: "Address", font: .systemFont(ofSize: 16), textColor: .lightGray,numberOfLines: 0)
+    lazy var addressLabel = UILabel(text: "Address".localized, font: .systemFont(ofSize: 16), textColor: .lightGray,numberOfLines: 0)
     //    lazy var clinicAddressTextField = createMainTextFields(place: "Address")
-    lazy var clinicMobileNumberTextField = createMainTextFields(place: "Clinic phone",type: .numberPad)
+    lazy var clinicMobileNumberTextField = createMainTextFields(place: "Clinic phone".localized,type: .numberPad)
     
     lazy var mainDropView:UIView =  makeMainSubViewWithAppendView(vv: [cityDrop])
     lazy var cityDrop:DropDown = {
@@ -86,8 +86,8 @@ class CustomClinicDataView: CustomBaseView {
         return i
     }()
     lazy var feesTextField:UITextField = {
-        let s = createMainTextFields(place: "Fees", type: .numberPad)
-        let label = UILabel(text: "EGY  ", font: .systemFont(ofSize: 18), textColor: .lightGray)
+        let s = createMainTextFields(place: "Fees".localized, type: .numberPad)
+        let label = UILabel(text: "EGY  ".localized, font: .systemFont(ofSize: 18), textColor: .lightGray)
         label.frame = CGRect(x: CGFloat(s.frame.size.width - 60), y: CGFloat(5), width: CGFloat(60), height: CGFloat(25))
         s.rightView = label
         s.rightViewMode = .always
@@ -96,8 +96,8 @@ class CustomClinicDataView: CustomBaseView {
         return s
     }()
     lazy var consultationFeesTextField:UITextField = {
-        let s = createMainTextFields(place: "Consultation fees", type: .numberPad)
-        let label = UILabel(text: "EGY  ", font: .systemFont(ofSize: 18), textColor: .lightGray)
+        let s = createMainTextFields(place: "Consultation fees".localized, type: .numberPad)
+        let label = UILabel(text: "EGY  ".localized, font: .systemFont(ofSize: 18), textColor: .lightGray)
         label.frame = CGRect(x: CGFloat(s.frame.size.width - 60), y: CGFloat(5), width: CGFloat(60), height: CGFloat(25))
         s.rightView = label
         s.rightViewMode = .always
@@ -111,12 +111,12 @@ class CustomClinicDataView: CustomBaseView {
         v.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleChoose)))
         return v
     }()
-    lazy var workingHoursLabel = UILabel(text: "Working Hours", font: .systemFont(ofSize: 16), textColor: .lightGray,numberOfLines: 0)
+    lazy var workingHoursLabel = UILabel(text: "Working Hours".localized, font: .systemFont(ofSize: 16), textColor: .lightGray,numberOfLines: 0)
     
     //    lazy var clinicWorkingHoursTextField = createMainTextFields(place: "Work hours")
     lazy var waitingHoursTextField:UITextField = {
-        let s = createMainTextFields(place: "Waiting hours", type: .numberPad)
-        let label = UILabel(text: "Time in m    ", font: .systemFont(ofSize: 14), textColor: .lightGray)
+        let s = createMainTextFields(place: "Waiting hours".localized, type: .numberPad)
+        let label = UILabel(text: "Time in m    ".localized, font: .systemFont(ofSize: 14), textColor: .lightGray)
         label.frame = CGRect(x: CGFloat(s.frame.size.width - 80), y: CGFloat(5), width: CGFloat(80), height: CGFloat(25))
         s.rightView = label
         s.rightViewMode = .always
@@ -125,7 +125,7 @@ class CustomClinicDataView: CustomBaseView {
     }()
     lazy var doneButton:UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Done", for: .normal)
+        button.setTitle("Done".localized, for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.backgroundColor = ColorConstants.disabledButtonsGray
         button.layer.cornerRadius = 16

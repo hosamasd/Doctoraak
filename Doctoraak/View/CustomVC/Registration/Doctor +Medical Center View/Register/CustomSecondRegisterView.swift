@@ -27,8 +27,8 @@ class CustomSecondRegisterView: CustomBaseView {
         return i
     }()
     
-    lazy var titleLabel = UILabel(text: "Welcome", font: .systemFont(ofSize: 30), textColor: .white)
-    lazy var soonLabel = UILabel(text: "Create account", font: .systemFont(ofSize: 18), textColor: .white)
+    lazy var titleLabel = UILabel(text: "Welcome".localized, font: .systemFont(ofSize: 30), textColor: .white)
+    lazy var soonLabel = UILabel(text: "Create account".localized, font: .systemFont(ofSize: 18), textColor: .white)
     
     
     lazy var cvView:UIView = {
@@ -36,21 +36,21 @@ class CustomSecondRegisterView: CustomBaseView {
         v.hstack(cvLabel,cvImage).padLeft(16)
         return v
     }()
-    lazy var cvLabel = UILabel(text: "cv.pdf", font: .systemFont(ofSize: 16), textColor: .lightGray)
+    lazy var cvLabel = UILabel(text: "cv.pdf".localized, font: .systemFont(ofSize: 16), textColor: .lightGray)
     lazy var cvImage:UIImageView = {
         let v = UIImageView(image: #imageLiteral(resourceName: "Group 4142-2"))
         //        v.contentMode = .scaleToFill
         v.contentMode = .scaleAspectFit
-
+        
         v.constrainWidth(constant: 50)
         return v
     }()
-    lazy var discriptionTextField = createMainTextFields(place: "Description")
+    lazy var discriptionTextField = createMainTextFields(place: "Description".localized)
     lazy var mainDropView = makeMainSubViewWithAppendView(vv: [specializationDrop])
     
     lazy var specializationDrop:DropDown = {
         let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
-        i.optionArray = ["one","two","three"]
+        //        i.optionArray = ["one","two","three"]
         i.arrowSize = 20
         i.placeholder = "Specialization".localized
         i.didSelect { (txt, index, _) in
@@ -62,7 +62,6 @@ class CustomSecondRegisterView: CustomBaseView {
     
     lazy var degreeDrop:DropDown = {
         let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
-        i.optionArray = ["one","two","three"]
         i.arrowSize = 20
         i.placeholder = "Degree".localized
         i.didSelect { (txt, index, _) in
@@ -87,10 +86,10 @@ class CustomSecondRegisterView: CustomBaseView {
         i.constrainWidth(constant: 50)
         return i
     }()
-    lazy var insuracneText = UILabel(text: "choose insurance", font: .systemFont(ofSize: 16), textColor: .black, textAlignment: .left,numberOfLines: 0)
+    lazy var insuracneText = UILabel(text: "choose insurance".localized, font: .systemFont(ofSize: 16), textColor: .black, textAlignment: .left,numberOfLines: 0)
     lazy var insuranceDrop:UIMultiPicker = {
         let v = UIMultiPicker(backgroundColor: .white)
-//        v.options = insuracneArray
+        //        v.options = insuracneArray
         v.color = .gray
         v.tintColor = .green
         v.font = .systemFont(ofSize: 30, weight: .bold)
@@ -125,7 +124,7 @@ class CustomSecondRegisterView: CustomBaseView {
     lazy var signUpButton:UIButton = {
         let button = UIButton(type: .system)
         button.backgroundColor = ColorConstants.disabledButtonsGray
-        button.setTitle("Sign up", for: .normal)
+        button.setTitle("Sign up".localized, for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.layer.cornerRadius = 16
         button.constrainHeight(constant: 50)
@@ -134,7 +133,7 @@ class CustomSecondRegisterView: CustomBaseView {
         return button
     }()
     
-//    var index = 0
+    //    var index = 0
     var iiii = ""
     var de = ""
     let doctorSecondRegisterViewModel = DoctorSecondRegisterViewModel()
@@ -144,18 +143,18 @@ class CustomSecondRegisterView: CustomBaseView {
     var specificationArray = [String]()
     
     var insuracneIDSArray = [Int]() //["one","two","three","sdfdsfsd"]
-       var degreeIDSArray = [Int]()
-       var specificationIDSArray = [Int]()
+    var degreeIDSArray = [Int]()
+    var specificationIDSArray = [Int]()
     
-     var index:Int!
-     var name:String!
-     var email:String!
-     var mobile:String!
-     var passowrd:String!
-     var male:String!
-     var photo:UIImage!
-
-   
+    var index:Int!
+    var name:String!
+    var email:String!
+    var mobile:String!
+    var passowrd:String!
+    var male:String!
+    var photo:UIImage!
+    
+    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -165,7 +164,7 @@ class CustomSecondRegisterView: CustomBaseView {
     
     func putData()  {
         fetchEnglishData(isArabic: MOLHLanguage.isRTLLanguage())
-
+        
     }
     
     func putDataInDrops(sr:[String],sid:[Int],dr:[String],did:[Int],ir:[String],iid:[Int])  {
@@ -175,7 +174,7 @@ class CustomSecondRegisterView: CustomBaseView {
         self.insuracneIDSArray = iid
         specificationIDSArray = sid
         degreeIDSArray = did
-
+        
     }
     
     fileprivate func fetchEnglishData(isArabic:Bool) {
@@ -189,13 +188,13 @@ class CustomSecondRegisterView: CustomBaseView {
             }
         }else {
             if let specificationsArray = userDefaults.value(forKey: UserDefaultsConstants.specificationNameArray) as? [String],let specificationIds = userDefaults.value(forKey: UserDefaultsConstants.specificationIdArray) as? [Int],let degreeNames = userDefaults.value(forKey: UserDefaultsConstants.degreeNameArray) as? [String], let degreeIds =  userDefaults.value(forKey: UserDefaultsConstants.degreeIdArray) as? [Int],
-            let insuracneNames = userDefaults.value(forKey: UserDefaultsConstants.insuranceNameArray) as? [String], let insuranceIds =  userDefaults.value(forKey: UserDefaultsConstants.insuranceIdArray) as? [Int] {
+                let insuracneNames = userDefaults.value(forKey: UserDefaultsConstants.insuranceNameArray) as? [String], let insuranceIds =  userDefaults.value(forKey: UserDefaultsConstants.insuranceIdArray) as? [Int] {
                 putDataInDrops(sr: specificationsArray, sid: specificationIds, dr: degreeNames, did: degreeIds, ir: insuracneNames, iid: insuranceIds)
             }
         }
         self.specializationDrop.optionArray = self.specificationArray
-                   self.degreeDrop.optionArray = self.degreeArray
-                   self.insuranceDrop.options = self.insuracneArray
+        self.degreeDrop.optionArray = self.degreeArray
+        self.insuranceDrop.options = self.insuracneArray
         DispatchQueue.main.async {
             self.layoutIfNeeded()
         }
@@ -263,8 +262,8 @@ class CustomSecondRegisterView: CustomBaseView {
     @objc func handleOpenCloseInsurance()  {
         insuranceDrop.isHidden = !insuranceDrop.isHidden
     }
-
-   @objc func handlCloseInsurance()  {
+    
+    @objc func handlCloseInsurance()  {
         insuranceDrop.isHide(true)
     }
     

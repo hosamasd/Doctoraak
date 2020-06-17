@@ -178,8 +178,8 @@ class MainVerificationVC: CustomBaseViewVC {
     func goToNext()  {
         //        self.updateStates(api_token: api_token,doctor_id)
         if  isFromForgetPassw {
-//            let  vc =  MainNewPassVC(indexx: index)
-//            navigationController?.pushViewController(vc, animated: true)
+            //            let  vc =  MainNewPassVC(indexx: index)
+            //            navigationController?.pushViewController(vc, animated: true)
         }else {
             guard let ss = cacheDoctorObjectCodabe.storedValue else{return}
             
@@ -194,61 +194,61 @@ class MainVerificationVC: CustomBaseViewVC {
     func checkLabLoginStateResend()  {
         customVerificationView.sMSCodeViewModel.performResendLABSMSCode {[unowned self] (base, err) in
             if let err = err {
-                                                           SVProgressHUD.showError(withStatus: err.localizedDescription)
-                 self.handleDismiss()
+                SVProgressHUD.showError(withStatus: err.localizedDescription)
+                self.handleDismiss()
                 self.activeViewsIfNoData();return
             }
             self.handleDismiss()
             self.activeViewsIfNoData()
             guard (base?.data) != nil else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
-            SVProgressHUD.showSuccess(withStatus: "SMS Code is sent again....");return
+            SVProgressHUD.showSuccess(withStatus: "SMS Code is sent again....".localized);return
         }}
     
     func checkRadLoginStateResend()  {
         customVerificationView.sMSCodeViewModel.performResendRADSMSCode {[unowned self] (base, err) in
             if let err = err {
-                                                           SVProgressHUD.showError(withStatus: err.localizedDescription)
-                 self.handleDismiss()
+                SVProgressHUD.showError(withStatus: err.localizedDescription)
+                self.handleDismiss()
                 self.activeViewsIfNoData();return
             }
             self.handleDismiss()
             self.activeViewsIfNoData()
             guard (base?.data) != nil else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
-            SVProgressHUD.showSuccess(withStatus: "SMS Code is sent again....");return
+            SVProgressHUD.showSuccess(withStatus: "SMS Code is sent again....".localized);return
         }}
     
     func checkDoctorLoginStateResend()  {
         customVerificationView.sMSCodeViewModel.performResendDOCSMSCode {[unowned self] (base, err) in
             if let err = err {
-                                                           SVProgressHUD.showError(withStatus: err.localizedDescription)
- self.handleDismiss()
+                SVProgressHUD.showError(withStatus: err.localizedDescription)
+                self.handleDismiss()
                 self.activeViewsIfNoData();return
             }
             self.handleDismiss()
             self.activeViewsIfNoData()
             guard (base?.data) != nil else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
-            SVProgressHUD.showSuccess(withStatus: "SMS Code is sent again....");return
+            SVProgressHUD.showSuccess(withStatus: "SMS Code is sent again....".localized);return
         }}
     
     func checkPharamacyLoginStateResend()  {
         customVerificationView.sMSCodeViewModel.performResendPHYSMSCode {[unowned self] (base, err) in
             if let err = err {
-                                                           SVProgressHUD.showError(withStatus: err.localizedDescription)
-                 self.handleDismiss()
+                SVProgressHUD.showError(withStatus: err.localizedDescription)
+                self.handleDismiss()
                 self.activeViewsIfNoData();return
             }
             self.handleDismiss()
             self.activeViewsIfNoData()
             guard (base?.data) != nil else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
-            SVProgressHUD.showSuccess(withStatus: "SMS Code is sent again....");return
+            SVProgressHUD.showSuccess(withStatus: "SMS Code is sent again....".localized);return
         }}
     
     
     func checkPharamacyLoginState()  {
         customVerificationView.sMSCodeViewModel.performPHARAMACYRegister {[unowned self] (base, err) in
             if let err = err {
-                                                           SVProgressHUD.showError(withStatus: err.localizedDescription)
-                 self.handleDismiss()
+                SVProgressHUD.showError(withStatus: err.localizedDescription)
+                self.handleDismiss()
                 self.activeViewsIfNoData();return
             }
             self.handleDismiss()
@@ -261,8 +261,8 @@ class MainVerificationVC: CustomBaseViewVC {
     func checkDoctorLoginState()  {
         customVerificationView.sMSCodeViewModel.performDoctorRegister {[unowned self] (base, err) in
             if let err = err {
-                                                           SVProgressHUD.showError(withStatus: err.localizedDescription)
-                 self.handleDismiss()
+                SVProgressHUD.showError(withStatus: err.localizedDescription)
+                self.handleDismiss()
                 self.activeViewsIfNoData();return
             }
             self.handleDismiss()
@@ -282,8 +282,8 @@ class MainVerificationVC: CustomBaseViewVC {
     func checkRadLoginState()  {
         customVerificationView.sMSCodeViewModel.performRADRegister {[unowned self] (base, err) in
             if let err = err {
-                                                           SVProgressHUD.showError(withStatus: err.localizedDescription)
-                 self.handleDismiss()
+                SVProgressHUD.showError(withStatus: err.localizedDescription)
+                self.handleDismiss()
                 self.activeViewsIfNoData();return
             }
             self.handleDismiss()
@@ -301,8 +301,8 @@ class MainVerificationVC: CustomBaseViewVC {
     func checkLabLoginState()  {
         customVerificationView.sMSCodeViewModel.performLABRegister {[unowned self] (base, err) in
             if let err = err {
-                                                           SVProgressHUD.showError(withStatus: err.localizedDescription)
- self.handleDismiss()
+                SVProgressHUD.showError(withStatus: err.localizedDescription)
+                self.handleDismiss()
                 self.activeViewsIfNoData();return
             }
             self.handleDismiss()

@@ -33,13 +33,23 @@ class ProfileServices {
     }
     
     func removeNotification(notification_id:Int,completion: @escaping (MainRemoveNotificationModel?, Error?) ->Void)  {
-           
-           let nnn = "notification/remove"
-           
-           let urlString = baseUrl+nnn
-           guard  let url = URL(string: urlString.toSecrueHttps()) else { return  }
-           
-           let postString = "notification_id=\(notification_id)"
-           MainServices.registerationPostMethodGeneric(postString: postString, url: url, completion: completion)
-       }
+        
+        let nnn = "notification/remove"
+        
+        let urlString = baseUrl+nnn
+        guard  let url = URL(string: urlString.toSecrueHttps()) else { return  }
+        
+        let postString = "notification_id=\(notification_id)"
+        MainServices.registerationPostMethodGeneric(postString: postString, url: url, completion: completion)
+    }
+    
+    func updatePharamacyProfile(api_token:String,user_id:Int,photo:UIImage,name:String,insurance:[Int],delivery:Int,working_hours:[PharamacyWorkModel]? = nil ,latt:Double? = nil,lang:Double? = nil,completion: @escaping (MainPharamacyLoginModel?, Error?) ->Void)  {
+        let postString:String
+        let nnn =   "pharmacy_update_profile"
+        let urlString = baseUrl+nnn
+        postString =    latt == nil ? "api_token=\(api_token)&user_id=\(user_id)&name=\(name)&insurance=\(insurance)&delivery=\(delivery)"  :
+         "api_token=\(api_token)&user_id=\(user_id)&name=\(name)&lang=\(lang!)&latt=\(latt!)&insurance=\(insurance)&delivery=\(delivery)"
+        
+        MainServices.shared.makeMainPostGenericUsingAlmofire(urlString: urlString, postStrings: postString, photo: photo,working_hours: working_hours, completion: completion)
+     }
 }

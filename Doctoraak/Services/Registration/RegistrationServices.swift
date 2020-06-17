@@ -14,7 +14,7 @@ class RegistrationServices {
     static let shared = RegistrationServices()
     
     
-    func mainLABRegister(photo:UIImage,name:String,email:String,phone:String,password:String,insurance:[Int],delivery:Int,working_hours:[SecondWorkModel] ,latt:Double,lang:Double,city:Int,area:Int,completion: @escaping (MainLabRegisterModel?, Error?) -> Void)  {
+    func mainLABRegister(photo:UIImage,name:String,email:String,phone:String,password:String,insurance:[Int],delivery:Int,working_hours:[PharamacyWorkModel] ,latt:Double,lang:Double,city:Int,area:Int,completion: @escaping (MainLabRegisterModel?, Error?) -> Void)  {
         let nn = "lab_register"
         
         let urlString = "\(baseUrl)\(nn)".toSecrueHttps()
@@ -23,7 +23,7 @@ class RegistrationServices {
         
     }
     
-    func mainRADRegister(photo:UIImage,name:String,email:String,phone:String,password:String,insurance:[Int],delivery:Int,working_hours:[SecondWorkModel] ,latt:Double,lang:Double,city:Int,area:Int,completion: @escaping (MainRadiologyRegisterModel?, Error?) -> Void)  {
+    func mainRADRegister(photo:UIImage,name:String,email:String,phone:String,password:String,insurance:[Int],delivery:Int,working_hours:[PharamacyWorkModel] ,latt:Double,lang:Double,city:Int,area:Int,completion: @escaping (MainRadiologyRegisterModel?, Error?) -> Void)  {
         let nn = "radiology_register"
         
         let urlString = "\(baseUrl)\(nn)".toSecrueHttps()
@@ -32,7 +32,7 @@ class RegistrationServices {
         
     }
     
-    func mainPHARAMACYRegister(photo:UIImage,name:String,email:String,phone:String,password:String,insurance:[Int],delivery:Int,working_hours:[SecondWorkModel] ,latt:Double,lang:Double,city:Int,area:Int,completion: @escaping (MainPharamcyyRegisterModel?, Error?) -> Void)  {
+    func mainPHARAMACYRegister(photo:UIImage,name:String,email:String,phone:String,password:String,insurance:[Int],delivery:Int,working_hours:[PharamacyWorkModel] ,latt:Double,lang:Double,city:Int,area:Int,completion: @escaping (MainPharamcyyRegisterModel?, Error?) -> Void)  {
         let nn =  "pharmacy_register"
         
         let urlString = "\(baseUrl)\(nn)".toSecrueHttps()

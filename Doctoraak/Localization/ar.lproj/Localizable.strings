@@ -1,0 +1,45 @@
+/* 
+  Localizable.strings
+  Doctoraak
+
+  Created by hosam on 6/17/20.
+  Copyright © 2020 Ahmad Eisa. All rights reserved.
+*/
+"lang" = "ar";
+
+
+
+//WelcomeVC
+"Looding..."="تحميل...";"Copyright @"="حقوق محفوظه @";"Doctoraak "="دكتورك ";"Copyright @ Doctoraak "="حقوق محفوظه @ دكتورك ";
+
+//SecondWelcomeVC
+"LOGIN"="تسجيل الدخول";"SIGN UP"="حساب جديد";
+
+//LoginVC
+"Login..."="تسجيل الدخول...";"Hello"="مرحبا";"Sign up"="حساب جديد";
+"Sign in to your account"="سجل الدخول لحسابك";"Phone Number"="رقم المحمول";"Password"="الباسورد";
+"Forget Password ?"="نسيت الباسورد ?";"Don't have an account ? "="لا تملك حساب ? ";
+"Invalid   Phone"="رقم محمول غير صحيح";
+"password must have 8 character"="الباسورد يجب ان يكون ٨ ارقام";
+
+//ForgetPasswordVC
+"Resending password..."="اعاده ارسال الباسورد...";"Please login first"="سجل الدخول اولا";"OK"="موافق";
+"Forget"="نسيت";"Save"="حفظ";"code is not valid"="الكود خاطئ";
+
+//VerificationVC
+"SMS Code is sent again...."="رسالة النصية ارسلت من جديد....";"Verification"="نفعيل";
+"Check your mobile for verification Code"="افحص الهاتف للوصول لرساله التفعيل";
+"Please, enter the verification code \n we send to your mobile "="من فضلك افحص الرسايل  \n ارسلت للهاتف ";
+"Resend again "="ارسل مرة تانية ";"Confirm"="تفعيل";
+
+//NewPassVC
+"Saving password..."="حفظ الباسورد...";"New"="جديد";"Please Enter your new password"="ادخل الباسورد الجديد";
+"confirm Password"="تاكيد الباسورد";
+
+//RegisterVC
+"Cancel"="الغاء";"Camera"="الكاميرا";"enter email"="ادخل الايميل";
+"Open From Gallery"="فتح معرض الصور";"Choose Image"="اختر الصورة";"Choose image fROM "="اختر الصورة من خلال ";
+"Create account"="عمل حساب جديد";"Welcome"="مرحبا";" Name"=" الاسم";" phone"=" الموبايل";
+"Male"="ذكر";"Female"="انثي";"   Birthday"="   تاريخ الميلاد";
+"Insurance company"="شركة تامين";"Insurance code"="كود التامين";
+" Accept "=" موافق ";"Terms and Conditions"="الشروط والاحكام";"Reigster..."="عمل حساب جديد...";

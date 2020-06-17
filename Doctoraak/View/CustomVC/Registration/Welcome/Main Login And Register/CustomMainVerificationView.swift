@@ -24,12 +24,12 @@ class CustomMainVerificationView: CustomBaseView {
         return i
     }()
     
-    lazy var titleLabel = UILabel(text: "Verification", font: .systemFont(ofSize: 30), textColor: .white)
-    lazy var soonLabel = UILabel(text: "Check your mobile for verification Code", font: .systemFont(ofSize: 18), textColor: .white)
-    lazy var verificationLabel = UILabel(text: "Please, enter the verification code \n we send to your mobile ", font: .systemFont(ofSize: 16), textColor: .black, textAlignment: .center, numberOfLines: 2)
+    lazy var titleLabel = UILabel(text: "Verification".localized, font: .systemFont(ofSize: 30), textColor: .white)
+    lazy var soonLabel = UILabel(text: "Check your mobile for verification Code".localized, font: .systemFont(ofSize: 18), textColor: .white)
+    lazy var verificationLabel = UILabel(text: "Please, enter the verification code \n we send to your mobile ".localized, font: .systemFont(ofSize: 16), textColor: .black, textAlignment: .center, numberOfLines: 2)
     lazy var timerLabel = UILabel(text: "00:30", font: .systemFont(ofSize: 18), textColor: #colorLiteral(red: 0.2387362421, green: 0.8891445994, blue: 0.7412704825, alpha: 1),textAlignment: .center)
     
-    lazy var resendButton = UIButton(title: "Resend again ", titleColor: #colorLiteral(red: 0.8645762801, green: 0.8727034926, blue: 0.9021102786, alpha: 1), font: .systemFont(ofSize: 16), backgroundColor: .clear, target: self, action: #selector(handleASD))
+    lazy var resendButton = UIButton(title: "Resend again ".localized, titleColor: #colorLiteral(red: 0.8645762801, green: 0.8727034926, blue: 0.9021102786, alpha: 1), font: .systemFont(ofSize: 16), backgroundColor: .clear, target: self, action: #selector(handleASD))
     lazy var firstNumberTextField = createMainTextFieldsWithoutPods(place: "")
     lazy var secondNumberTextField = createMainTextFieldsWithoutPods(place: "")
     lazy var thirdNumberTextField = createMainTextFieldsWithoutPods(place: "")
@@ -39,7 +39,7 @@ class CustomMainVerificationView: CustomBaseView {
     lazy var confirmButton:UIButton = {
         let button = UIButton(type: .system)
         button.backgroundColor = ColorConstants.disabledButtonsGray
-        button.setTitle("Confirm", for: .normal)
+        button.setTitle("Confirm".localized, for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.layer.cornerRadius = 16
         button.constrainHeight(constant: 50)

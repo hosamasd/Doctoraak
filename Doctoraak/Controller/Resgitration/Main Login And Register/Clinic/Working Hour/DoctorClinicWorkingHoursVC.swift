@@ -47,17 +47,17 @@ class DoctorClinicWorkingHoursVC: CustomBaseViewVC {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if userDefaults.bool(forKey: UserDefaultsConstants.isClinicWorkingHoursSaved) {
             customClinicWorkingHoursView.getSavedData()
-                        DispatchQueue.main.async {
-                            self.view.layoutIfNeeded()
-                        }
-         }else{   }
+            DispatchQueue.main.async {
+                self.view.layoutIfNeeded()
+            }
+        }else{   }
     }
     
     override  func setupNavigation()  {
@@ -74,7 +74,7 @@ class DoctorClinicWorkingHoursVC: CustomBaseViewVC {
         customClinicWorkingHoursView.fillSuperview()
     }
     
-      fileprivate func setupTimeSelector(_ timeSelector: TimeSelector) {
+    fileprivate func setupTimeSelector(_ timeSelector: TimeSelector) {
         timeSelector.overlayAlpha = 0.8
         timeSelector.clockTint = timeSelector_rgb(0, 230, 0)
         timeSelector.minutes = 30
@@ -83,46 +83,46 @@ class DoctorClinicWorkingHoursVC: CustomBaseViewVC {
         timeSelector.presentOnView(view: self.view)
     }
     
-
-   
     
-   
+    
+    
+    
     fileprivate func checkValidateDoneButton() {
         if  customClinicWorkingHoursView.checkButtonDone() {
-        delgate?.getHoursChoosed(hours: customClinicWorkingHoursView.getChoosenHours())
-        delgate?.getDays(indexs: customClinicWorkingHoursView.getDaysIndex(), days: customClinicWorkingHoursView.getDays())
-        customClinicWorkingHoursView.savedData()
-        navigationController?.popViewController(animated: true)
+            delgate?.getHoursChoosed(hours: customClinicWorkingHoursView.getChoosenHours())
+            delgate?.getDays(indexs: customClinicWorkingHoursView.getDaysIndex(), days: customClinicWorkingHoursView.getDays())
+            customClinicWorkingHoursView.savedData()
+            navigationController?.popViewController(animated: true)
         }else {}
     }
     
     //TODO:Handle methods
     
     @objc func handleShowPicker(sender:UIButton) {
-           var texts = ""
-           let cc = Calendar.current
-           var ppp = "am"
-           
-           setupTimeSelector(timeSelector)
-           timeSelector.timeSelected = {[unowned self] (timeSelector) in
-               print(timeSelector.date)
-               let dd = timeSelector.date
-               
-               var hour = cc.component(.hour, from: dd)
-               ppp = hour > 12 ? "pm" : "am"
-               hour =   hour > 12 ? hour - 12 : hour
-               
-               let minute = cc.component(.minute, from: dd)
-               texts = "\(hour):\(minute) \(ppp)"
-               DispatchQueue.main.async {
-                   self.customClinicWorkingHoursView.updateTextField(isShift1: self.customClinicWorkingHoursView.shiftOne , tag: sender.tag, texts: texts,hours:hour,mintue:minute,ppp:ppp)
-               }
-           }
-       }
+        var texts = ""
+        let cc = Calendar.current
+        var ppp = "am"
+        
+        setupTimeSelector(timeSelector)
+        timeSelector.timeSelected = {[unowned self] (timeSelector) in
+            print(timeSelector.date)
+            let dd = timeSelector.date
+            
+            var hour = cc.component(.hour, from: dd)
+            ppp = hour > 12 ? "pm" : "am"
+            hour =   hour > 12 ? hour - 12 : hour
+            
+            let minute = cc.component(.minute, from: dd)
+            texts = "\(hour):\(minute) \(ppp)"
+            DispatchQueue.main.async {
+                self.customClinicWorkingHoursView.updateTextField(isShift1: self.customClinicWorkingHoursView.shiftOne , tag: sender.tag, texts: texts,hours:hour,mintue:minute,ppp:ppp)
+            }
+        }
+    }
     
     @objc func handleBack()  {
-           navigationController?.popViewController(animated: true)
-       }
+        navigationController?.popViewController(animated: true)
+    }
     
     @objc func handleDone()  {
         checkValidateDoneButton()

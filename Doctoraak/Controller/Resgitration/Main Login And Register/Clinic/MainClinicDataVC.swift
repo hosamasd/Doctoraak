@@ -52,10 +52,10 @@ class MainClinicDataVC: CustomBaseViewVC {
         return v
     }()
     lazy var customAlertMainLoodingView:CustomAlertMainLoodingView = {
-           let v = CustomAlertMainLoodingView()
-           v.setupAnimation(name: "heart_loading")
-           return v
-       }()
+        let v = CustomAlertMainLoodingView()
+        v.setupAnimation(name: "heart_loading")
+        return v
+    }()
     
     //check to go specific way
     fileprivate let index:Int!
@@ -159,10 +159,10 @@ class MainClinicDataVC: CustomBaseViewVC {
         
         self.updateStates(clinic_id,index: index)
         let base = BaseSlidingVC()
-//        base
+        //        base
         
-//        let main = DoctorHomeVC(inde: index)
-//        navigationController?.pushViewController(main, animated: true)
+        //        let main = DoctorHomeVC(inde: index)
+        //        navigationController?.pushViewController(main, animated: true)
         //           if  isFromForgetPassw {
         //               let  vc =  MainNewPassVC(indexx: index)
         //               navigationController?.pushViewController(vc, animated: true)
@@ -227,7 +227,7 @@ class MainClinicDataVC: CustomBaseViewVC {
         userDefaults.removeObject(forKey: UserDefaultsConstants.day7)
         
         userDefaults.removeObject(forKey: UserDefaultsConstants.doctorRegisterImage)
-               userDefaults.removeObject(forKey: UserDefaultsConstants.doctorRegisterName)
+        userDefaults.removeObject(forKey: UserDefaultsConstants.doctorRegisterName)
         userDefaults.removeObject(forKey: UserDefaultsConstants.doctorRegisterEmail)
         userDefaults.removeObject(forKey: UserDefaultsConstants.doctorRegisterMobile)
         userDefaults.removeObject(forKey: UserDefaultsConstants.doctorRegisterPassword)
@@ -235,10 +235,10 @@ class MainClinicDataVC: CustomBaseViewVC {
         
         userDefaults.removeObject(forKey: UserDefaultsConstants.doctorRegisterIndee)
         userDefaults.set(false, forKey: UserDefaultsConstants.isDoctorSecondRegister)
-              userDefaults.removeObject(forKey: UserDefaultsConstants.doctorSecondRegisterSMSCode)
-              userDefaults.removeObject(forKey: UserDefaultsConstants.doctorRegisterMobile)
-              userDefaults.removeObject(forKey: UserDefaultsConstants.doctorRegisterPassword)
-              userDefaults.removeObject(forKey: UserDefaultsConstants.doctorRegisterMale)
+        userDefaults.removeObject(forKey: UserDefaultsConstants.doctorSecondRegisterSMSCode)
+        userDefaults.removeObject(forKey: UserDefaultsConstants.doctorRegisterMobile)
+        userDefaults.removeObject(forKey: UserDefaultsConstants.doctorRegisterPassword)
+        userDefaults.removeObject(forKey: UserDefaultsConstants.doctorRegisterMale)
         
     }
     
@@ -253,7 +253,7 @@ class MainClinicDataVC: CustomBaseViewVC {
         customClinicDataView.clinicDataViewModel.performRegister { (base, err) in
             if let err = err {
                 SVProgressHUD.showError(withStatus: err.localizedDescription)
-                 self.handleDismiss()
+                self.handleDismiss()
                 self.activeViewsIfNoData();return
             }
             SVProgressHUD.dismiss()
@@ -268,17 +268,17 @@ class MainClinicDataVC: CustomBaseViewVC {
     }
     
     func handleChooseWorkingHours()  {
-        let payment = DoctorClinicWorkingHoursVC()
+        let payment = MainClinicWorkingHoursNotDoctorVC()
         payment.delgate = self
         navigationController?.pushViewController(payment, animated: true)
     }
     
     fileprivate func handleOpenGallery(sourceType:UIImagePickerController.SourceType)  {
-           let imagePicker = UIImagePickerController()
-           imagePicker.delegate = self
-           imagePicker.sourceType = sourceType
-           present(imagePicker, animated: true)
-       }
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        imagePicker.sourceType = sourceType
+        present(imagePicker, animated: true)
+    }
     
     @objc func handleDismiss()  {
         removeViewWithAnimation(vvv: customAlertMainLoodingView)
@@ -317,14 +317,14 @@ class MainClinicDataVC: CustomBaseViewVC {
 //MARK:-Extension
 
 
-extension MainClinicDataVC: MainClinicWorkingHoursProtocol {
+extension MainClinicDataVC: MainClinicWorkingHoursssProtocol {
     func getDays(indexs: [Int], days: [String]) {
         print(indexs,"              ",days)
         customClinicDataView.workingHoursLabel.text = days.joined(separator: "-")
     }
     
-    func getHoursChoosed(hours: [ WorkModel]) {
-        customClinicDataView.clinicDataViewModel.workingArrayHours = hours
+    func getHoursChoosed(hours: [ PharamacyWorkModel]) {
+        //        customClinicDataView.clinicDataViewModel.workingArrayHours = hours
     }
 }
 

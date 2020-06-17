@@ -9,7 +9,7 @@
 import UIKit
 
 protocol MainClinicWorkingHoursssProtocol {
-    func getHoursChoosed(hours:[SecondWorkModel])
+    func getHoursChoosed(hours:[PharamacyWorkModel])
     func getDays(indexs:[Int],days:[String])
     
     
@@ -52,7 +52,7 @@ class MainClinicWorkingHoursNotDoctorVC: CustomBaseViewVC {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if !userDefaults.bool(forKey: UserDefaultsConstants.isWorkingHoursSaved) {
-                        customClinicWorkingHoursView.getSavedData()
+            customClinicWorkingHoursView.getSavedData()
             DispatchQueue.main.async {
                 self.view.layoutIfNeeded()
             }
@@ -93,6 +93,7 @@ class MainClinicWorkingHoursNotDoctorVC: CustomBaseViewVC {
     
     fileprivate func validateFirstShift() {
         if customClinicWorkingHoursView.checkDoneEnabled() {
+            
             
             delgate?.getHoursChoosed(hours: customClinicWorkingHoursView.getChoosenHours())
             delgate?.getDays(indexs: customClinicWorkingHoursView.getDaysIndex(), days: customClinicWorkingHoursView.getDays())

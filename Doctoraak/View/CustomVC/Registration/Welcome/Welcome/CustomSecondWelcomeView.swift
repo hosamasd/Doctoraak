@@ -17,12 +17,10 @@ class CustomSecondWelcomeView: CustomBaseView {
     lazy var drImage:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "2367415"))
         i.contentMode = .scaleAspectFill
-//        i.constrainWidth(constant: 200)
-//        i.constrainHeight(constant: 200)
         return i
     }()
-     lazy var loginButton = createButtons(texzt: "LOGIN")
-      lazy var registerButton = createButtons(texzt: "SIGN UP")
+    lazy var loginButton = createButtons(texzt: "LOGIN".localized)
+    lazy var registerButton = createButtons(texzt: "SIGN UP".localized)
     
     override func setupViews() {
         let ss = getStack(views: loginButton,registerButton, spacing: 8, distribution: .fillEqually, axis: .vertical)

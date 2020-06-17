@@ -7,8 +7,25 @@
 //
 
 import UIKit
+import SDWebImage
+import MOLH
 
 class CustomSelectedPatientDataVC: CustomBaseView {
+    
+    var phy:PharmacyGetOrdersModel?{
+        didSet{
+            guard let phy = phy else { return  }
+            let urlString = phy.photo
+            guard let url = URL(string: urlString) else { return  }
+            sampleRosetaImage.sd_setImage(with: url)
+            //            DispatchQueue.main.async {
+            self.patientCell.patient = phy.patient
+            selectedPatientDataPHYCollectionvc.notificationPHYArray = phy.details
+            selectedPatientDataPHYCollectionvc.collectionView.reloadData()
+            //            }
+        }
+    }
+    
     
     lazy var LogoImage:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "Group 4116"))
@@ -62,11 +79,11 @@ class CustomSelectedPatientDataVC: CustomBaseView {
         titleLabel.anchor(top: nil, leading: leadingAnchor, bottom: LogoImage.bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
         patientCell.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 0, right: 32))
         prescriptionLabel.anchor(top: patientCell.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 60, left: 32, bottom: 0, right: 32))
-                sampleRosetaImage.anchor(top: prescriptionLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 40, right: 32))
-                titleSecondLabel.anchor(top: sampleRosetaImage.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 0, right: 32))
-                selectedPatientDataPHYCollectionvc.view.anchor(top: titleSecondLabel.bottomAnchor, leading: leadingAnchor, bottom: okButton.bottomAnchor, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 16, right: 32))
-                //
-                okButton.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 16, left: 46, bottom: 8, right: 32))
+        sampleRosetaImage.anchor(top: prescriptionLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 40, right: 32))
+        titleSecondLabel.anchor(top: sampleRosetaImage.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 0, right: 32))
+        selectedPatientDataPHYCollectionvc.view.anchor(top: titleSecondLabel.bottomAnchor, leading: leadingAnchor, bottom: okButton.bottomAnchor, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 16, right: 32))
+        //
+        okButton.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 16, left: 46, bottom: 8, right: 32))
         
     }
 }

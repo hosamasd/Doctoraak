@@ -21,7 +21,7 @@ class CustomWelcomeMainSecondView: CustomBaseView {
         i.constrainHeight(constant: 80)
         return i
     }()
-    lazy var docotrLabel = UILabel(text: "Doctoraak ", font: .systemFont(ofSize: 20), textColor: .white,textAlignment: .center)
+    lazy var docotrLabel = UILabel(text: "Doctoraak ".localized, font: .systemFont(ofSize: 20), textColor: .white,textAlignment: .center)
 
     lazy var mainFirstView:UIView = {
       let v = UIView(backgroundColor: .white)
@@ -72,11 +72,11 @@ class CustomWelcomeMainSecondView: CustomBaseView {
         return v
     }()
   
-    lazy var label1 =  makeAttributedText(fir: "Register as", sec: "Medical Center")
-    lazy var label2 =  makeAttributedText(fir: "Register as", sec: "a Doctor")
-    lazy var label3 =  makeAttributedText(fir: "Register as", sec: "Medical Lab")
-    lazy var label4 =  makeAttributedText(fir: "Register as", sec: "Radiology Center")
-    lazy var label5 =  makeAttributedText(fir: "Register as", sec: "a Pharmacy")
+    lazy var label1 =  makeAttributedText(fir: "Register as".localized, sec: "Medical Center".localized)
+    lazy var label2 =  makeAttributedText(fir: "Register as".localized, sec: "a Doctor".localized)
+    lazy var label3 =  makeAttributedText(fir: "Register as".localized, sec: "Medical Lab".localized)
+    lazy var label4 =  makeAttributedText(fir: "Register as".localized, sec: "Radiology Center".localized)
+    lazy var label5 =  makeAttributedText(fir: "Register as".localized, sec: "a Pharmacy".localized)
     
     lazy var Image1:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "Group 4142-4"))

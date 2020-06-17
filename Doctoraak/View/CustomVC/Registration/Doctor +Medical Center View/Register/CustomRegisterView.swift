@@ -25,8 +25,8 @@ class CustomRegisterView: CustomBaseView {
         return i
     }()
     
-    lazy var titleLabel = UILabel(text: "Welcome", font: .systemFont(ofSize: 30), textColor: .white)
-    lazy var soonLabel = UILabel(text: "Create account", font: .systemFont(ofSize: 18), textColor: .white)
+    lazy var titleLabel = UILabel(text: "Welcome".localized, font: .systemFont(ofSize: 30), textColor: .white)
+    lazy var soonLabel = UILabel(text: "Create account".localized, font: .systemFont(ofSize: 18), textColor: .white)
     
     lazy var userProfileImage:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "Group 4143"))
@@ -47,11 +47,11 @@ class CustomRegisterView: CustomBaseView {
         return i
     }()
     
-    lazy var fullNameTextField = createMainTextFields(place: "Full name")
-    lazy var mobileNumberTextField = createMainTextFields(place: "enter Mobile",type: .numberPad)
-    lazy var emailTextField = createMainTextFields(place: "enter email",type: .emailAddress)
+    lazy var fullNameTextField = createMainTextFields(place: "Full name".localized)
+    lazy var mobileNumberTextField = createMainTextFields(place: "enter Mobile".localized,type: .numberPad)
+    lazy var emailTextField = createMainTextFields(place: "enter email".localized,type: .emailAddress)
     lazy var passwordTextField:UITextField = {
-        let s = createMainTextFields(place: "Password", type: .default,secre: true)
+        let s = createMainTextFields(place: "Password".localized, type: .default,secre: true)
         let button = UIButton(type: .custom)
         button.setImage(#imageLiteral(resourceName: "visiblity"), for: .normal)
         button.imageEdgeInsets = UIEdgeInsets(top: 0, left: -16, bottom: 0, right: 0)
@@ -62,7 +62,7 @@ class CustomRegisterView: CustomBaseView {
         return s
     }()
     lazy var confirmPasswordTextField:UITextField = {
-        let s = createMainTextFields(place: "confirm Password", type: .default,secre: true)
+        let s = createMainTextFields(place: "confirm Password".localized, type: .default,secre: true)
         let button = UIButton(type: .custom)
         button.setImage(#imageLiteral(resourceName: "visiblity"), for: .normal)
         button.imageEdgeInsets = UIEdgeInsets(top: 0, left: -16, bottom: 0, right: 0)
@@ -76,7 +76,7 @@ class CustomRegisterView: CustomBaseView {
     lazy var boyButton:UIButton = {
         
         let button = UIButton(type: .system)
-        button.setTitle("Male", for: .normal)
+        button.setTitle("Male".localized, for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.layer.cornerRadius = 8
         button.layer.borderWidth = 1
@@ -90,7 +90,7 @@ class CustomRegisterView: CustomBaseView {
     }()
     lazy var girlButton:UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Female", for: .normal)
+        button.setTitle("Female".localized, for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.backgroundColor = .white
         button.layer.cornerRadius = 8
@@ -106,7 +106,7 @@ class CustomRegisterView: CustomBaseView {
     lazy var nextButton:UIButton = {
         let button = UIButton(type: .system)
         button.backgroundColor = ColorConstants.disabledButtonsGray
-        button.setTitle("Next", for: .normal)
+        button.setTitle("Next".localized, for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.layer.cornerRadius = 16
         button.constrainHeight(constant: 50)

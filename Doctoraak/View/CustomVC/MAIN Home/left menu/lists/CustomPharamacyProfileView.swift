@@ -15,6 +15,30 @@ import UIMultiPicker
 
 class CustomPharamacyProfileView: CustomBaseView {
     
+    var phy:PharamacyModel?{
+        didSet{
+            guard let phy = phy else { return  }
+            fullNameTextField.text = MOLHLanguage.isRTLLanguage() ? phy.nameAr ?? phy.name : phy.name
+            mobileNumberTextField.text = phy.phone2 ?? phy.phone
+            emailTextField.text = phy.email
+            workingHoursLabel.text = getDays(ind: phy.workingHours).joined(separator: "-") == "" ? "No Days Chossen" :  getDays(ind: phy.workingHours).joined(separator: "-")
+            deliverySwitch.isOn = phy.delivery.toInt() == 1 ? true : false
+            let urlstring = phy.photo
+            guard let url = URL(string: urlstring) else { return  }
+            getIncuracneNames(dd: phy.insuranceCompany)
+            doctorProfileImage.sd_setImage(with: url)
+            
+            edirProfileViewModel.image=doctorProfileImage.image
+            edirProfileViewModel.apiToekn = phy.apiToken
+            edirProfileViewModel.user_Id = phy.id
+            edirProfileViewModel.name = phy.name
+            edirProfileViewModel.delivery=phy.delivery.toInt()
+            edirProfileViewModel.latt = phy.latt?.toDouble()
+            edirProfileViewModel.lang=phy.lang?.toDouble()
+            edirProfileViewModel.working_hours = getWorkingHourss(ind: phy.workingHours)
+            
+        }
+    }
     
     lazy var LogoImage:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "Group 4116").withRenderingMode(.alwaysOriginal))
@@ -49,9 +73,9 @@ class CustomPharamacyProfileView: CustomBaseView {
         return i
     }()
     
-     lazy var fullNameTextField = createMainTextFields(place: " Name")
-       lazy var mobileNumberTextField = createMainTextFields(place: " phone",type: .numberPad)
-       lazy var emailTextField = createMainTextFields(place: "enter email",type: .emailAddress)
+    lazy var fullNameTextField = createMainTextFields(place: " Name")
+    lazy var mobileNumberTextField = createMainTextFields(place: " phone",type: .numberPad)
+    lazy var emailTextField = createMainTextFields(place: "enter email",type: .emailAddress)
     lazy var addressMainView:UIView = {
         let v = makeMainSubViewWithAppendView(vv: [addressLabel])
         v.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpenLocation)))
@@ -82,9 +106,6 @@ class CustomPharamacyProfileView: CustomBaseView {
         i.placeholder = "City".localized
         i.didSelect { (txt, index, _) in
             self.getAreaAccordingToCityId(index: index)
-            
-            self.edirProfileViewModel.city = self.cityIDSArray[index]//index+1
-            
         }
         return i
     }()
@@ -95,7 +116,7 @@ class CustomPharamacyProfileView: CustomBaseView {
         
         i.placeholder = "Area".localized
         i.didSelect { (txt, index, _) in
-            self.edirProfileViewModel.area = self.areaIDSArray[index]//index+1
+            //            self.edirProfileViewModel.area = self.areaIDSArray[index]//index+1
         }
         return i
     }()
@@ -142,7 +163,7 @@ class CustomPharamacyProfileView: CustomBaseView {
         v.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleChoose)))
         return v
     }()
-    lazy var workingHoursLabel = UILabel(text: "Working Hours", font: .systemFont(ofSize: 16), textColor: .lightGray)
+    lazy var workingHoursLabel = UILabel(text: "Working Hours", font: .systemFont(ofSize: 16), textColor: .lightGray,textAlignment: .left,numberOfLines: 2)
     lazy var nextButton:UIButton = {
         let button = UIButton()
         button.setTitle("Save".localized, for: .normal)
@@ -175,63 +196,82 @@ class CustomPharamacyProfileView: CustomBaseView {
     }
     
     override init(frame: CGRect) {
-          super.init(frame: frame)
-          fetchData()
-          addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handelHided)))
-      }
-      
-      required init?(coder aDecoder: NSCoder) {
-          fatalError("init(coder:) has not been implemented")
-      }
+        super.init(frame: frame)
+        fetchData()
+        addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handelHided)))
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func setupViews() {
         [titleLabel].forEach({$0.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left})
-    
+        
         
         [mobileNumberTextField,emailTextField].forEach({$0.isUserInteractionEnabled=false})
         
-    
+        
         
         let subView = UIView(backgroundColor: .clear)
-               subView.addSubViews(views: userProfileImage,userEditProfileImageView)
-               subView.constrainWidth(constant: 100)
-               subView.constrainHeight(constant: 100)
-               userEditProfileImageView.anchor(top: nil, leading: nil, bottom: userProfileImage.bottomAnchor, trailing: userProfileImage.trailingAnchor,padding: .init(top: 0, left:0 , bottom:10, right: 10))
-               
-               let textStack = getStack(views: fullNameTextField,mobileNumberTextField,emailTextField,addressMainView,mainDropView,mainDrop2View,mainDrop3View, spacing: 16, distribution: .fillEqually, axis: .vertical)
-               
-               deliveryView.hstack(deliveryLabel,deliverySwitch).withMargins(.init(top: 16, left: 16, bottom: 8, right: 16))
-               mainDropView.hstack(cityDrop).withMargins(.init(top: 16, left: 16, bottom: 8, right: 16))
-               mainDrop2View.hstack(areaDrop).withMargins(.init(top: 16, left: 16, bottom: 0, right: 16))
-               
-               
-               addSubViews(views: LogoImage,backImage,titleLabel,subView,textStack,workingHourView,deliveryView,insuranceDrop,nextButton)
-               
-               NSLayoutConstraint.activate([
-                   subView.centerXAnchor.constraint(equalTo: centerXAnchor)
-               ])
+        subView.addSubViews(views: userProfileImage,userEditProfileImageView)
+        subView.constrainWidth(constant: 100)
+        subView.constrainHeight(constant: 100)
+        userEditProfileImageView.anchor(top: nil, leading: nil, bottom: userProfileImage.bottomAnchor, trailing: userProfileImage.trailingAnchor,padding: .init(top: 0, left:0 , bottom:10, right: 10))
+        
+        let textStack = getStack(views: fullNameTextField,mobileNumberTextField,emailTextField,addressMainView,mainDropView,mainDrop2View,mainDrop3View, spacing: 16, distribution: .fillEqually, axis: .vertical)
+        
+        deliveryView.hstack(deliveryLabel,deliverySwitch).withMargins(.init(top: 16, left: 16, bottom: 8, right: 16))
+        mainDropView.hstack(cityDrop).withMargins(.init(top: 16, left: 16, bottom: 8, right: 16))
+        mainDrop2View.hstack(areaDrop).withMargins(.init(top: 16, left: 16, bottom: 0, right: 16))
+        
+        
+        addSubViews(views: LogoImage,backImage,titleLabel,subView,textStack,workingHourView,deliveryView,insuranceDrop,nextButton)
+        
+        NSLayoutConstraint.activate([
+            subView.centerXAnchor.constraint(equalTo: centerXAnchor)
+        ])
         
         if MOLHLanguage.isRTLLanguage() {
-                   LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 0, bottom: 0, right: -48))
-               }else {
-                   
-                   LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
+            LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 0, bottom: 0, right: -48))
+        }else {
+            
+            LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
+        }
+        
+        //               LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
+        subView.anchor(top: LogoImage.bottomAnchor, leading: nil, bottom: nil, trailing: nil,padding: .init(top: 50, left: 0, bottom: 0, right: 0))
+        backImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 60, left: 16, bottom: 0, right: 0))
+        titleLabel.anchor(top: nil, leading: leadingAnchor, bottom: LogoImage.bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
+        
+        textStack.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 128, left: 32, bottom: 16, right: 32))
+        insuranceDrop.anchor(top: textStack.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 0, right: 32))
+        //        genderStack.anchor(top: textStack.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 128, left: 32, bottom: 16, right: 32))
+        workingHourView.anchor(top: textStack.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 0, right: 32))
+        deliveryView.anchor(top: workingHourView.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 0, right: 32))
+        
+        
+        
+        nextButton.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 32, left: 32, bottom: 16, right: 32))
+        
+    }
+    
+
+    func getIncuracneNames(dd:[InsurcaneCompanyModel])  {
+        var sss = ""
+        var aaaa = ""
+        var eee = [Int]()
+        
+        dd.forEach { (s) in
+            
+            eee.append(s.id)
+            sss += insuracneArray[s.id] + ","
                }
-               
-//               LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
-               subView.anchor(top: LogoImage.bottomAnchor, leading: nil, bottom: nil, trailing: nil,padding: .init(top: 50, left: 0, bottom: 0, right: 0))
-               backImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 60, left: 16, bottom: 0, right: 0))
-               titleLabel.anchor(top: nil, leading: leadingAnchor, bottom: LogoImage.bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
-               
-               textStack.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 128, left: 32, bottom: 16, right: 32))
-               insuranceDrop.anchor(top: textStack.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 0, right: 32))
-               //        genderStack.anchor(top: textStack.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 128, left: 32, bottom: 16, right: 32))
-               workingHourView.anchor(top: textStack.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 0, right: 32))
-               deliveryView.anchor(top: workingHourView.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 0, right: 32))
-               
-               
-               
-               nextButton.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 32, left: 32, bottom: 16, right: 32))
+               aaaa = sss
+               insuracneText.text = aaaa
+
+        insuranceDrop.selectedIndexes = eee
+        edirProfileViewModel.insurance=eee
         
     }
     
@@ -301,6 +341,59 @@ class CustomPharamacyProfileView: CustomBaseView {
         t.isUserInteractionEnabled = userInteraction
         t.constrainHeight(constant: 60)
         return t
+        
+        
+    }
+    
+    func checkActiveDay(_ d:Int) -> Bool {
+        return d == 1 ? true : false
+    }
+    
+    
+    func getDays(ind:[PharamacyWorkingHourModel])  ->[String]{
+        var ss = [String]()
+        ind.forEach { (s) in
+            
+            if s.day == 1{
+                if checkActiveDay(s.active) {
+                    ss.append("Sat")
+                }
+            }else  if s.day == 2{
+                if checkActiveDay(s.active) {
+                    ss.append("Sun")
+                }
+            }else  if s.day == 3{
+                if checkActiveDay(s.active) {
+                    ss.append("Mon")
+                }
+            }else  if s.day == 4{
+                if checkActiveDay(s.active) {
+                    ss.append("Tue")
+                }
+            }else  if s.day == 5{
+                if checkActiveDay(s.active) {
+                    ss.append("Wed")
+                }
+            }else  if s.day == 6{
+                if checkActiveDay(s.active) {
+                    ss.append("Thr")
+                }
+            }else {
+                if checkActiveDay(s.active) {
+                    ss.append("Fri")
+                }
+            }
+        }
+        return ss
+    }
+    
+    func getWorkingHourss(ind:[PharamacyWorkingHourModel]) -> [PharamacyWorkModel]  {
+        var ss = [PharamacyWorkModel]()
+        ind.forEach { (v) in
+            let d = PharamacyWorkModel(partFrom: v.partFrom, partTo: v.partTo, day: v.day, active: v.active)
+            ss.append(d)
+        }
+        return ss
     }
     
     fileprivate func getAreaAccordingToCityId(index:Int)  {
@@ -380,11 +473,11 @@ class CustomPharamacyProfileView: CustomBaseView {
     }
     
     @objc func handelHided()  {
-           insuranceDrop.isHidden = true
-           
-       }
+        insuranceDrop.isHidden = true
+        
+    }
     
     @objc func handleOpenCloseInsurance()  {
-           insuranceDrop.isHidden = !insuranceDrop.isHidden
-       }
+        insuranceDrop.isHidden = !insuranceDrop.isHidden
+    }
 }

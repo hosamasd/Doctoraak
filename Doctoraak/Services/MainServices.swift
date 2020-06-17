@@ -124,7 +124,7 @@ class MainServices {
         }.resume()
     }
     
-    func makeMainPostGenericUsingAlmofire<T:Codable>(urlString:String,postStrings:String,cvcs:Data? = nil,cvName:String? = nil,photo:UIImage,working_hours:[SecondWorkModel]? = nil,clinicWork:[WorkModel]? = nil,completion:@escaping (T?,Error?)->Void)  {
+    func makeMainPostGenericUsingAlmofire<T:Codable>(urlString:String,postStrings:String,cvcs:Data? = nil,cvName:String? = nil,photo:UIImage,working_hours:[PharamacyWorkModel]? = nil,clinicWork:[WorkModel]? = nil,completion:@escaping (T?,Error?)->Void)  {
         
         
         guard let urlsString = postStrings.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else { return  }

@@ -87,7 +87,7 @@ class MainRegisterVC: CustomBaseViewVC {
     
         func MAKEoPERATION()  {
     
-            let singldata:[SecondWorkModel] = [
+            let singldata:[PharamacyWorkModel] = [
     
                 .init(partFrom: "00:00", partTo: "00:00", day: 1, active: 0),
                 .init(partFrom: "00:00", partTo: "00:00", day: 2, active: 0),
@@ -105,6 +105,7 @@ class MainRegisterVC: CustomBaseViewVC {
                 }
             }
         }
+    
     
     
     override func setupViews() {
@@ -391,7 +392,7 @@ extension MainRegisterVC: MainClinicWorkingHoursssProtocol{
         customMainRegisterView.workingHoursLabel.text = days.joined(separator: "-")
     }
     
-    func getHoursChoosed(hours: [ SecondWorkModel]) {
+    func getHoursChoosed(hours: [ PharamacyWorkModel]) {
         customMainRegisterView.registerViewModel.working_hours = hours
     }
     

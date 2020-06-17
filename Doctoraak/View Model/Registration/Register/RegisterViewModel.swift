@@ -28,7 +28,7 @@ class RegisterViewModel {
     var area:Int? = -1 {didSet {checkFormValidity()}}
     
     var insurance:[Int]? {didSet {checkFormValidity()}}
-    var working_hours:[SecondWorkModel]? {didSet {checkFormValidity()}}
+    var working_hours:[PharamacyWorkModel]? {didSet {checkFormValidity()}}
     
     var delivery:Int? = 1 {didSet {checkFormValidity()}}
 

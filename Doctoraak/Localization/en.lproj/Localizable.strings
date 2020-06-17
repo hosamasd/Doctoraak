@@ -1,0 +1,95 @@
+/* 
+  Localizable.strings
+  Doctoraak
+
+  Created by hosam on 6/17/20.
+  Copyright © 2020 Ahmad Eisa. All rights reserved.
+*/
+
+"lang" = "en";
+
+
+//WelcomeVC
+"Looding..."="Looding...";"Copyright @"="Copyright @";"Doctoraak "="Doctoraak ";
+//WelcomeMainSecondVC
+"Register as"="Register as";"Medical Center"="Medical Center";"a Doctor"="a Doctor";"Medical Lab"="Medical Lab";
+"Radiology Center"="Radiology Center";"a Pharmacy"="a Pharmacy";
+//SecondWelcomeVC
+"LOGIN"="LOGIN";"SIGN UP"="SIGN UP";
+//SecondWelcomeVC
+
+//LoginVC
+"Login..."="Login...";"Hello"="Hello";"Sign up"="Sign up";
+"Sign in to your account"="Sign in to your account";"Phone Number"="Phone Number";"Password"="Password";
+"Forget Password ?"="Forget Password ?";"Don't have an account ? "="Don't have an account ? ";
+"Sign up"="Sign up";
+"Invalid   Phone"="Invalid   Phone";
+"password must have 8 character"="password must have 8 character";
+
+//MainLoginsVC
+"Hello"="Hello";"Sign in to your account"="Sign in to your account";"Phone Number"="Phone Number";"Forget Password ?"="Forget Password ?";
+"Sign up"="Sign up";
+
+//MainClinicDataVC
+"Invalid waiing"="Invalid waiing";"Invalid consulation feez"="Invalid consulation feez";"Invalid fees"="Invalid fees";
+"Invalid fees"="Invalid fees";"Fees"="Fees";"Consultation fees"="Consultation fees";"Working Hours"="Working Hours";
+"Waiting hours"="Waiting hours";"Time in m    "="Time in m    ";
+
+//DoctorClinicWorkingHoursVC
+"Sun"="Sun";"Mon"="Mon";"Tue"="Tue";"Wed"="Wed";"Fri"="Fri";"Thu"="Thu";"Sat"="Sat";
+
+//MainClinicWorkingHoursNotDoctorVC
+
+//MainForgetPasswordVC
+"Enter your phone number :"="Enter your phone number :";"Next"="Next";
+
+//ForgetPasswordVC
+"Resending password..."="Resending password...";"Please login first"="Please login first";"OK"="OK";
+"Forget"="Forget";"Save"="Save";"code is not valid"="code is not valid";
+
+//MainNewPassVC
+"Please Enter your code and  new password"="Please Enter your code and  new password";"Check your mobile for verification Code"="Check your mobile for verification Code";"Please, enter the verification code \n we send to your mobile "="Please, enter the verification code \n we send to your mobile ";"Confirm"="Confirm";
+"New Password"="New Password";" code"=" code";"Done"="Done";"Verification"="Verification";
+//VerificationVC
+"SMS Code is sent again...."="SMS Code is sent again....";"Verification"="Verification";
+"Check your mobile for verification Code"="Check your mobile for verification Code";
+"Please, enter the verification code \n we send to your mobile "="Please, enter the verification code \n we send to your mobile ";
+"Resend again "="Resend again ";"Confirm"="Confirm";
+
+//MainVerificationVC
+"SMS Code is sent again...."="SMS Code is sent again....";
+//NewPassVC
+"Saving password..."="Saving password...";"New"="New";"Please Enter your new password"="Please Enter your new password";
+"confirm Password"="confirm Password";
+
+//RegisterVC
+"Cancel"="Cancel";"Camera"="Camera";"enter email"="enter email";
+"Open From Gallery"="Open From Gallery";"Choose Image"="Choose Image";"Choose image fROM "="Choose image fROM ";
+"Create account"="Create account";"Welcome"="Welcome";" Name"=" Name";" phone"=" phone";
+"Male"="Male";"Female"="Female";"   Birthday"="   Birthday";
+"Insurance company"="Insurance company";"Insurance code"="Insurance code";"Reigster..."="Reigster...";
+
+//DoctorRegisterVC
+
+//DoctorSecondRegisterVC
+"cv.pdf"="cv.pdf";"Specialization"="Specialization";"Degree"="Degree";"Description"="Description";"choose insurance"="choose insurance";
+"Terms and Conditions"="Terms and Conditions";
+
+//BaseSlidingVC
+"Choose Language"="اختر لغة البرنامج"; "English"= "English";"Arabic"="العربيه";"Cancel"="الغاء";"Contacts Us"="تواصل معنا";
+"please install whatsapp"="من فضلك قم تثبيت البرنامج الواتس اولا";
+
+
+//HomeLeftMenuVC
+"Log Out"="تسجيل الخروج";"Warring..."="تحذير...";"Do You Want To Log Out?"="هل تريد تسجيل الخروج?";
+
+//HomeLeftMenuCollcetionVC
+"Profile"="الملف الشخصي";"Anayltics"="احصائيات";"Notifications"="التنبيهات";"Contact Us"="تواصل معنا";"Language"="اللفه";
+//profile
+
+//NotificationsCollectionVC
+"No Data Added Yet"="لا توجد داتا مضافه لحد الان";"Choose Options"="اختر المناسب لك";
+"What do you want to make?"="ماذا تريد ان تفعل?";"Delete"="حذف";
+
+//ProfileVC
+"your information updated..."="معلوماتك الشخصية تم تعديلها...";

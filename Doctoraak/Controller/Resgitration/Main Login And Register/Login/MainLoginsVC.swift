@@ -108,7 +108,7 @@ class MainLoginsVC: CustomBaseViewVC {
     func saveRadToken(doctor:RadiologyModel)  {
         userDefaults.set(true, forKey: UserDefaultsConstants.radiologyPerformLogin)
         userDefaults.set(index, forKey: UserDefaultsConstants.MainLoginINDEX)
-
+        
         userDefaults.synchronize()
         
         cachdRADObjectCodabe.save(doctor)
@@ -119,7 +119,7 @@ class MainLoginsVC: CustomBaseViewVC {
     func saveLabToken(doctor:LabModel)  {
         userDefaults.set(true, forKey: UserDefaultsConstants.labPerformLogin)
         userDefaults.set(index, forKey: UserDefaultsConstants.MainLoginINDEX)
-
+        
         userDefaults.synchronize()
         
         cacheLABObjectCodabe.save(doctor)
@@ -160,8 +160,8 @@ class MainLoginsVC: CustomBaseViewVC {
     func checkDoctorLoginState()  {
         customLoginsView.loginViewModel.performDoctorLogging {[unowned self] (base, err) in
             if let err = err {
-                                                           SVProgressHUD.showError(withStatus: err.localizedDescription)
-                 self.handleDismiss()
+                SVProgressHUD.showError(withStatus: err.localizedDescription)
+                self.handleDismiss()
                 self.activeViewsIfNoData();return
             }
             //            SVProgressHUD.dismiss()
@@ -180,8 +180,8 @@ class MainLoginsVC: CustomBaseViewVC {
     func checkPharamacyLoginState()  {
         customLoginsView.loginViewModel.performPharamacyLogging {[unowned self] (base, err) in
             if let err = err {
-                                                           SVProgressHUD.showError(withStatus: err.localizedDescription)
-                 self.handleDismiss()
+                SVProgressHUD.showError(withStatus: err.localizedDescription)
+                self.handleDismiss()
                 self.activeViewsIfNoData();return
             }
             self.handleDismiss()
@@ -200,8 +200,8 @@ class MainLoginsVC: CustomBaseViewVC {
     func checkRadLoginState()  {
         customLoginsView.loginViewModel.performRadLogging {[unowned self] (base, err) in
             if let err = err {
-                                                           SVProgressHUD.showError(withStatus: err.localizedDescription)
-                 self.handleDismiss()
+                SVProgressHUD.showError(withStatus: err.localizedDescription)
+                self.handleDismiss()
                 self.activeViewsIfNoData();return
             }
             self.handleDismiss()
@@ -218,21 +218,15 @@ class MainLoginsVC: CustomBaseViewVC {
     
     func checkLabLoginState()  {
         customLoginsView.loginViewModel.performLabLogging {[unowned self] (base, err) in
-              if let err = err {
-                                SVProgressHUD.showError(withStatus: err.localizedDescription)
-                 self.handleDismiss()
-                                self.activeViewsIfNoData();return
-                            }
+            if let err = err {
+                SVProgressHUD.showError(withStatus: err.localizedDescription)
+                self.handleDismiss()
+                self.activeViewsIfNoData();return
+            }
             //                SVProgressHUD.dismiss()
-                                self.handleDismiss()
-                            self.activeViewsIfNoData()
+            self.handleDismiss()
+            self.activeViewsIfNoData()
             guard let user = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn);return}
-                                
-//            SVProgressHUD.dismiss()
-//            self.activeViewsIfNoData()
-//            guard let user = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
-//            //        self.saveToken(token: user.apiToken)
-            
             DispatchQueue.main.async {
                 self.saveLabToken(doctor:user)
             }

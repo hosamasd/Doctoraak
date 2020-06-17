@@ -84,7 +84,7 @@ class DoctorRegisterVC: CustomBaseViewVC {
         userDefaults.set(password, forKey: UserDefaultsConstants.doctorRegisterPassword)
         userDefaults.set(male, forKey: UserDefaultsConstants.doctorRegisterMale)
         userDefaults.set(index, forKey: UserDefaultsConstants.doctorRegisterIndee)
-         userDefaults.set(true, forKey: UserDefaultsConstants.isDoctorSecondRegister)
+        userDefaults.set(true, forKey: UserDefaultsConstants.isDoctorSecondRegister)
         userDefaults.synchronize()
     }
     
@@ -96,11 +96,11 @@ class DoctorRegisterVC: CustomBaseViewVC {
     
     
     fileprivate func handleOpenGallery(sourceType:UIImagePickerController.SourceType)  {
-           let imagePicker = UIImagePickerController()
-           imagePicker.delegate = self
-           imagePicker.sourceType = sourceType
-           present(imagePicker, animated: true)
-       }
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        imagePicker.sourceType = sourceType
+        present(imagePicker, animated: true)
+    }
     
     @objc func createAlertForChoposingImage()  {
         let alert = UIAlertController(title: "Choose Image".localized, message: "Choose image fROM ".localized, preferredStyle: .alert)

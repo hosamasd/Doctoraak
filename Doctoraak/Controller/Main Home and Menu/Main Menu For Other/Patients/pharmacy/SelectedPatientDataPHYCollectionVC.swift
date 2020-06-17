@@ -12,17 +12,19 @@ class SelectedPatientDataPHYCollectionVC: BaseCollectionVC {
     
     fileprivate  let cellID = "cellID"
        
-       var notificationPHYArray = [PharmacyNotificationModel]()
+       var notificationPHYArray = [PharmacyDetailModel]()
        //        var handledisplayDOCNotification:((PatientNotificationModel,IndexPath)->Void)?
        
        override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-          return 10
+        return notificationPHYArray.count
        }
        
        override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! SelectedPatientDataPHYCell
-          
-           
+        let dd = notificationPHYArray[indexPath.item]
+        
+        cell.order = dd
+        
            return cell
            
        }

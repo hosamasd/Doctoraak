@@ -248,8 +248,8 @@ class NotificationVC: CustomBaseViewVC {
         self.showMainAlertLooder()
         ProfileServices.shared.removeNotification(notification_id: id) { (base, err) in
             if let err = err {
-                                SVProgressHUD.showError(withStatus: err.localizedDescription)
-                 self.handleDismiss()
+                SVProgressHUD.showError(withStatus: err.localizedDescription)
+                self.handleDismiss()
                 
                 self.activeViewsIfNoData();return
             }

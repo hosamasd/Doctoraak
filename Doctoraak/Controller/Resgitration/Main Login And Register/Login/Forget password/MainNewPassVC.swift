@@ -114,7 +114,7 @@ class MainNewPassVC: CustomBaseViewVC {
             
             if let err = err {
                 SVProgressHUD.showError(withStatus: err.localizedDescription)
-                 self.handleDismiss()
+                self.handleDismiss()
                 self.activeViewsIfNoData();return
             }
             //                SVProgressHUD.dismiss()
@@ -130,7 +130,7 @@ class MainNewPassVC: CustomBaseViewVC {
         customMainNewPassView.newPassViewModel.performUpdatinging { (base, err) in
             if let err = err {
                 SVProgressHUD.showError(withStatus: err.localizedDescription)
-                 self.handleDismiss()
+                self.handleDismiss()
                 self.activeViewsIfNoData();return
             }
             //                SVProgressHUD.dismiss()

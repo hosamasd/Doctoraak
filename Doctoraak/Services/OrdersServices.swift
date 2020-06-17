@@ -32,6 +32,13 @@ class OrdersServices {
         MainServices.registerationPostMethodGeneric(postString: postString, url: url, completion: completion)
     }
     
+    func acceptPharmacyOrders(api_token:String,pharmacy_id:Int,order_id:Int,completion: @escaping (MainAddFavoriteModel?, Error?) ->Void)  {
+           let urlString = "\(baseUrl)pharmacy/accept/order".toSecrueHttps()
+           guard  let url = URL(string: urlString) else { return  }
+           let postString = "api_token=\(api_token)&order_id=\(order_id)&pharmacy_id=\(pharmacy_id)"
+           MainServices.registerationPostMethodGeneric(postString: postString, url: url, completion: completion)
+       }
+    
     //    func fetchDOCOrders(api_token:String,pharmacy_id:Int,completion: @escaping (madogeo?, Error?) ->Void)  {
     //       let urlString = "\(baseUrl)pharmacy/order/get".toSecrueHttps()
     //       guard  let url = URL(string: urlString) else { return  }

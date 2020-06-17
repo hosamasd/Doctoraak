@@ -52,13 +52,16 @@ class MainHomePatientsCollectionVC: BaseCollectionVC     {
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if index == 2  {
             let dd = notificationLABArray[indexPath.item]
-            makePostLABAlert(post: dd)
+            self.handledisplayLABNotification?(dd)
+//            makePostLABAlert(post: dd)
         }else if index == 3  {
             let dd = notificationRADArray[indexPath.item]
-            makePostRADAlert(post: dd)
+            handledisplayRADNotification?(dd)
+//            makePostRADAlert(post: dd)
         }else   {
             let dd = notificationPHYArray[indexPath.item]
-            makePostPHYAlert(post: dd)
+            self.handledisplayPHYNotification?(dd)
+//            makePostPHYAlert(post: dd)
         }
     }
     

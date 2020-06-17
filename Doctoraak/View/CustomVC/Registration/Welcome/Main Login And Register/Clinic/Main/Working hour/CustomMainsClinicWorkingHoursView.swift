@@ -24,36 +24,36 @@ class CustomMainClinicWorkingHoursView: CustomBaseView {
         return i
     }()
     
-    lazy var titleLabel = UILabel(text: "Clinic", font: .systemFont(ofSize: 30), textColor: .white)
-    lazy var soonLabel = UILabel(text: "Fill your data", font: .systemFont(ofSize: 18), textColor: .white)
+    lazy var titleLabel = UILabel(text: "Clinic".localized, font: .systemFont(ofSize: 30), textColor: .white)
+    lazy var soonLabel = UILabel(text: "Fill your data".localized, font: .systemFont(ofSize: 18), textColor: .white)
     
     
     
-    lazy var sunButton = createButtons(title: "Sun",color: .black,tags: 2)
+    lazy var sunButton = createButtons(title: "Sun".localized,color: .black,tags: 2)
     lazy var first1TextField = createHoursButtons(tags: 1)
     lazy var first2TextField = createHoursButtons(tags: 11)
     
-    lazy var monButton = createButtons(title: "Mon",color: .black,tags: 3)
+    lazy var monButton = createButtons(title: "Mon".localized,color: .black,tags: 3)
     lazy var second1TextField = createHoursButtons(tags: 2)
     lazy var second2TextField = createHoursButtons(tags: 22)
     
-    lazy var tuesButton = createButtons(title: "Tue",color: .black,tags: 4)
+    lazy var tuesButton = createButtons(title: "Tue".localized,color: .black,tags: 4)
     lazy var third1TextField = createHoursButtons(tags: 3)
     lazy var third2TextField = createHoursButtons(tags: 33)
     
-    lazy var wedButton = createButtons(title: "Wed",color: .black,tags: 5)
+    lazy var wedButton = createButtons(title: "Wed".localized,color: .black,tags: 5)
     lazy var forth1TextField = createHoursButtons(tags: 4)
     lazy var forth2TextField = createHoursButtons(tags: 44)
     
-    lazy var thuButton = createButtons(title: "Thu",color: .black,tags: 6)
+    lazy var thuButton = createButtons(title: "Thu".localized,color: .black,tags: 6)
     lazy var fifth1TextField = createHoursButtons(tags: 5)
     lazy var fifth2TextField = createHoursButtons(tags: 55)
     
-    lazy var friButton = createButtons(title: "Fri",color: .black,tags: 7)
+    lazy var friButton = createButtons(title: "Fri".localized,color: .black,tags: 7)
     lazy var sexth1TextField = createHoursButtons(tags: 6)
     lazy var sexth2TextField = createHoursButtons(tags: 66)
     
-    lazy var satButton = createButtons(title: "Sat",color: .black,tags: 1)
+    lazy var satButton = createButtons(title: "Sat".localized,color: .black,tags: 1)
     lazy var seventh1TextField = createHoursButtons(tags: 7)
     lazy var seventh2TextField = createHoursButtons(tags: 77)
     
@@ -84,7 +84,7 @@ class CustomMainClinicWorkingHoursView: CustomBaseView {
     
     lazy var doneButton:UIButton = {
         let button = CustomSiftButton(type: .system)
-        button.setTitle("Done", for: .normal)
+        button.setTitle("Done".localized, for: .normal)
         button.setTitleColor(.white, for: .normal)
         //                button.backgroundColor = ColorConstants.disabledButtonsGray
         button.layer.cornerRadius = 16
@@ -506,7 +506,27 @@ class CustomMainClinicWorkingHoursView: CustomBaseView {
     
     func getDays() -> [String] {
         var ss = [String]()
-        ss.append(checkActiveDay(day1) ? "Sat" : checkActiveDay(day2) ? "Sun" : checkActiveDay(day3) ? "Mon" : checkActiveDay(day4) ? "Tue" : checkActiveDay(day5) ? "Wed" : checkActiveDay(day6) ? "Thr" : "Fri" )
+        if checkActiveDay(day1) {
+            ss.append("Sat")
+        }
+        if checkActiveDay(day2) {
+            ss.append("Sun")
+        }
+        if checkActiveDay(day3) {
+            ss.append("Mon")
+        }
+        if checkActiveDay(day4) {
+            ss.append("Tue")
+        }
+        if checkActiveDay(day5) {
+            ss.append("Wed")
+        }
+        if checkActiveDay(day6) {
+            ss.append("Thr")
+        }
+        if checkActiveDay(day7) {
+            ss.append("Fri")
+        }
         return ss
     }
     
@@ -517,9 +537,9 @@ class CustomMainClinicWorkingHoursView: CustomBaseView {
         return ss
     }
     
-    func getChoosenHours() -> [SecondWorkModel] {
+    func getChoosenHours() -> [PharamacyWorkModel] {
         
-        let v:[SecondWorkModel] =   [
+        let v:[PharamacyWorkModel] =   [
             
             .init(partFrom: d1TXT1!,partTo: d1TXT2!, day: 1, active: day1),
             .init(partFrom: d2TXT1!,partTo: d2TXT2!, day: 2, active: day2),

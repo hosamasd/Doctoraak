@@ -23,39 +23,39 @@ class CustomDoctorClinicWorkingHoursView: CustomBaseView {
         return i
     }()
     
-    lazy var titleLabel = UILabel(text: "Clinic", font: .systemFont(ofSize: 30), textColor: .white)
-    lazy var soonLabel = UILabel(text: "Fill your data", font: .systemFont(ofSize: 18), textColor: .white)
+    lazy var titleLabel = UILabel(text: "Clinic".localized, font: .systemFont(ofSize: 30), textColor: .white)
+    lazy var soonLabel = UILabel(text: "Fill your data".localized, font: .systemFont(ofSize: 18), textColor: .white)
     
     
-    lazy var shift1Button = creatShiftBTN(title: "Shift1", selector: #selector(handle1Shift))
-    lazy var shift2Button = creatShiftBTN(title: "Shift2", selector: #selector(handle2Shift(sender:)))
+    lazy var shift1Button = creatShiftBTN(title: "Shift1".localized, selector: #selector(handle1Shift))
+    lazy var shift2Button = creatShiftBTN(title: "Shift2".localized, selector: #selector(handle2Shift(sender:)))
     
     
-    lazy var sunButton = createButtons(title: "Sun",color: .white,tags: 2)
+    lazy var sunButton = createButtons(title: "Sun".localized,color: .white,tags: 2)
     lazy var first1TextField = createHoursButtons(tags: 1)
     lazy var first2TextField = createHoursButtons(tags: 11)
     
-    lazy var monButton = createButtons(title: "Mon",color: .black,tags: 3)
+    lazy var monButton = createButtons(title: "Mon".localized,color: .black,tags: 3)
     lazy var second1TextField = createHoursButtons(tags: 2)
     lazy var second2TextField = createHoursButtons(tags: 22)
     
-    lazy var tuesButton = createButtons(title: "Tue",color: .black,tags: 4)
+    lazy var tuesButton = createButtons(title: "Tue".localized,color: .black,tags: 4)
     lazy var third1TextField = createHoursButtons(tags: 3)
     lazy var third2TextField = createHoursButtons(tags: 33)
     
-    lazy var wedButton = createButtons(title: "Wed",color: .black,tags: 5)
+    lazy var wedButton = createButtons(title: "Wed".localized,color: .black,tags: 5)
     lazy var forth1TextField = createHoursButtons(tags: 4)
     lazy var forth2TextField = createHoursButtons(tags: 44)
     
-    lazy var thuButton = createButtons(title: "Thu",color: .black,tags: 6)
+    lazy var thuButton = createButtons(title: "Thu".localized,color: .black,tags: 6)
     lazy var fifth1TextField = createHoursButtons(tags: 5)
     lazy var fifth2TextField = createHoursButtons(tags: 55)
     
-    lazy var friButton = createButtons(title: "Fri",color: .black,tags: 7)
+    lazy var friButton = createButtons(title: "Fri".localized,color: .black,tags: 7)
     lazy var sexth1TextField = createHoursButtons(tags: 6)
     lazy var sexth2TextField = createHoursButtons(tags: 66)
     
-    lazy var satButton = createButtons(title: "Sat",color: .black,tags: 1)
+    lazy var satButton = createButtons(title: "Sat".localized,color: .black,tags: 1)
     lazy var seventh1TextField = createHoursButtons(tags: 7)
     lazy var seventh2TextField = createHoursButtons(tags: 77)
     
@@ -90,7 +90,7 @@ class CustomDoctorClinicWorkingHoursView: CustomBaseView {
     
     lazy var doneButton:UIButton = {
         let button = CustomSiftButton(type: .system)
-        button.setTitle("Done", for: .normal)
+        button.setTitle("Done".localized, for: .normal)
         button.setTitleColor(.white, for: .normal)
         //                button.backgroundColor = ColorConstants.disabledButtonsGray
         button.layer.cornerRadius = 16
@@ -608,6 +608,7 @@ class CustomDoctorClinicWorkingHoursView: CustomBaseView {
     func getChoosenHours() -> [WorkModel] {
         
         let v:[WorkModel] =   [
+        
             .init(part1From: d1TXT2!, part1To: d1TXT2!, part2From: d12TXT1!, part2To: d12TXT2!, day: 1, active: day1),
             .init(part1From: d1TXT2!, part1To: d1TXT2!, part2From: d12TXT1!, part2To: d12TXT2!, day: 2, active: day2),
             .init(part1From: d1TXT2!, part1To: d1TXT2!, part2From: d12TXT1!, part2To: d12TXT2!, day: 1, active: day3),
