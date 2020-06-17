@@ -20,6 +20,11 @@ class DoctorLeftMenuCell: UICollectionViewCell {
     }()
     lazy var Label6 = UILabel(text: "Contact Us", font: .systemFont(ofSize: 24), textColor: .black)
     
+    override var isSelected: Bool{
+           didSet{
+               backgroundColor = isSelected ? #colorLiteral(red: 0.4410271694, green: 0.3507713137, blue: 1, alpha: 1) : .white
+           }
+       }
     
     override init(frame: CGRect) {
         super.init(frame: frame)

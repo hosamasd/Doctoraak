@@ -86,9 +86,7 @@ class CustomMainRegisterView: CustomBaseView {
     
     lazy var addressMainView:UIView = {
         let v = makeMainSubViewWithAppendView(vv: [addressLabel])
-        //        v.addSubViews(views: addressImage,addressLabel)
         v.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpenLocation)))
-        
         v.hstack(addressLabel).withMargins(.init(top: 0, left: 16, bottom: 0, right: 8))
         return v
     }()
@@ -100,6 +98,7 @@ class CustomMainRegisterView: CustomBaseView {
         l.hstack(insuracneText,doenImage).withMargins(.init(top: 0, left: 16, bottom: 0, right: 0))
         return l
     }()
+    
     lazy var doenImage:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "Group 4142-6"))
         i.constrainWidth(constant: 50)
@@ -167,7 +166,7 @@ class CustomMainRegisterView: CustomBaseView {
     
     lazy var nextButton:UIButton = {
         let button = UIButton()
-        button.setTitle("Next", for: .normal)
+        button.setTitle("Save", for: .normal)
         button.backgroundColor = ColorConstants.disabledButtonsGray
         button.setTitleColor(.black, for: .normal)
         button.layer.cornerRadius = 16

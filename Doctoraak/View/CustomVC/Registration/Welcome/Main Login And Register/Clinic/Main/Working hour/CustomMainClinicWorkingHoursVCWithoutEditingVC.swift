@@ -10,6 +10,16 @@ import UIKit
 
 class CustomMainClinicWorkingHoursVCWithoutEditingVC: CustomBaseView {
     
+    var workingHours:[PharamacyWorkingHourModel]?{
+        didSet{
+            guard let work = workingHours else { return  }
+            work.forEach { (w) in
+                putTheses(w: w)
+              }
+        }
+    }
+    
+    
     lazy var LogoImage:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "Group 4116"))
         i.contentMode = .scaleAspectFill
@@ -27,7 +37,7 @@ class CustomMainClinicWorkingHoursVCWithoutEditingVC: CustomBaseView {
     lazy var soonLabel = UILabel(text: "Deterimine Working Times", font: .systemFont(ofSize: 18), textColor: .white)
     
     
-    lazy var sunButton = createButtons(title: "Sun",color: .white,tags: 2)
+    lazy var sunButton = createButtons(title: "Sun",color: .black,tags: 2)
     lazy var first1TextField = createHoursButtons(tags: 1)
     lazy var first2TextField = createHoursButtons(tags: 11)
     
@@ -79,12 +89,6 @@ class CustomMainClinicWorkingHoursVCWithoutEditingVC: CustomBaseView {
         return v
     }()
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        addssGradientInSenderAndRemoveOther(senders:[sunButton,friButton,satButton,thuButton,wedButton,tuesButton,monButton])
-    }
-    
     
     
     override func setupViews() {
@@ -119,7 +123,38 @@ class CustomMainClinicWorkingHoursVCWithoutEditingVC: CustomBaseView {
         
     }
     
-    
+    func putTheses(w:PharamacyWorkingHourModel)  {
+           switch w.day {
+        case 1:
+            putTitleForButtons(bt: first1TextField, text: w.partFrom)
+            putTitleForButtons(bt: first2TextField, text: w.partTo)
+            activeOrNot(v: satButton, d: w.active)
+        case 2:
+            putTitleForButtons(bt: second1TextField, text: w.partFrom)
+            putTitleForButtons(bt: second2TextField, text: w.partTo)
+            activeOrNot(v: sunButton, d: w.active)
+        case 3:
+            putTitleForButtons(bt: third1TextField, text: w.partFrom)
+                                putTitleForButtons(bt: third2TextField, text: w.partTo)
+            activeOrNot(v: monButton, d: w.active)
+        case 4:
+             putTitleForButtons(bt: forth1TextField, text: w.partFrom)
+                  putTitleForButtons(bt: forth2TextField, text: w.partTo)
+            activeOrNot(v: tuesButton, d: w.active)
+        case 5:
+            putTitleForButtons(bt: fifth1TextField, text: w.partFrom)
+            putTitleForButtons(bt: fifth2TextField, text: w.partTo)
+            activeOrNot(v: wedButton, d: w.active)
+        case 6:
+            putTitleForButtons(bt: sexth1TextField, text: w.partFrom)
+                   putTitleForButtons(bt: sexth2TextField, text: w.partTo)
+            activeOrNot(v: thuButton, d: w.active)
+        default:
+            putTitleForButtons(bt: seventh1TextField, text: w.partFrom)
+            putTitleForButtons(bt: seventh2TextField, text: w.partTo)
+            activeOrNot(v: friButton, d: w.active)
+        }
+    }
     
     func createHoursButtons(tags:Int) -> UIButton {
         let t = UIButton()
@@ -158,16 +193,33 @@ class CustomMainClinicWorkingHoursVCWithoutEditingVC: CustomBaseView {
     }
     
     
+    func putTitleForButtons(bt:UIButton,text:String)  {
+        bt.setTitle(changeTimeForButtonTitle(values: text), for: .normal)
+    }
     
     
-    
-    
+    func changeTimeForButtonTitle(values:String)->String  {
+        var ppp = "am"
+        guard let minute = values.removeSubstringAfterOrBefore(needle: ":", beforeNeedle: false)?.toInt()  else { return "" }
+        guard var hours = values.removeSubstringAfterOrBefore(needle: ":", beforeNeedle: true)?.toInt()  else { return "" }
+        ppp = hours > 12 ? "pm" : "am"
+        hours =   hours > 12 ? hours - 12 : hours
+        return "\(hours):\(minute) \(ppp)"
+        
+    }
     
     
     
     
     func checkActiveDay(_ d:Int) -> Bool {
         return d == 1 ? true : false
+    }
+    
+    func activeOrNot(v:UIButton,d:Int)  {
+        v.isEnabled = checkActiveDay(d)
+        if v.isEnabled {
+            addGradientInSenderAndRemoveOther(sender: v)
+        }else {}
     }
     
     
@@ -191,5 +243,7 @@ class CustomMainClinicWorkingHoursVCWithoutEditingVC: CustomBaseView {
     func checkDayActive(_ d:Int) -> Bool {
         return d == 1 ? true : false
     }
+    
+    
 }
 

@@ -100,6 +100,11 @@
 		4E9675382497ACB7006CE497 /* MainLABAanalysisModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9675372497ACB7006CE497 /* MainLABAanalysisModel.swift */; };
 		4E96753A2497ACD0006CE497 /* MainRadiologyAanalysisModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9675392497ACD0006CE497 /* MainRadiologyAanalysisModel.swift */; };
 		4E96753C2497AD0C006CE497 /* MainPharamacyNameModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E96753B2497AD0C006CE497 /* MainPharamacyNameModel.swift */; };
+		4E971DE42499FDAD00EBFFD9 /* EdirProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E971DE32499FDAD00EBFFD9 /* EdirProfileViewModel.swift */; };
+		4E9FFEFF2499EE9300D27463 /* AnaylticsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9FFEFE2499EE9300D27463 /* AnaylticsVC.swift */; };
+		4E9FFF032499EEB700D27463 /* CustomAnaylticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9FFF022499EEB700D27463 /* CustomAnaylticsView.swift */; };
+		4E9FFF052499F2EF00D27463 /* PharamacyProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9FFF042499F2EF00D27463 /* PharamacyProfileVC.swift */; };
+		4E9FFF072499F33D00D27463 /* CustomPharamacyProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9FFF062499F33D00D27463 /* CustomPharamacyProfileView.swift */; };
 		4EA112B52429E4DB005B64E3 /* Bindable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA112B42429E4DB005B64E3 /* Bindable.swift */; };
 		4EA112B82429E541005B64E3 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA112B72429E541005B64E3 /* LoginViewModel.swift */; };
 		4EA112BA2429E557005B64E3 /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA112B92429E557005B64E3 /* RegisterViewModel.swift */; };
@@ -275,6 +280,11 @@
 		4E9675372497ACB7006CE497 /* MainLABAanalysisModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainLABAanalysisModel.swift; sourceTree = "<group>"; };
 		4E9675392497ACD0006CE497 /* MainRadiologyAanalysisModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainRadiologyAanalysisModel.swift; sourceTree = "<group>"; };
 		4E96753B2497AD0C006CE497 /* MainPharamacyNameModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPharamacyNameModel.swift; sourceTree = "<group>"; };
+		4E971DE32499FDAD00EBFFD9 /* EdirProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EdirProfileViewModel.swift; sourceTree = "<group>"; };
+		4E9FFEFE2499EE9300D27463 /* AnaylticsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnaylticsVC.swift; sourceTree = "<group>"; };
+		4E9FFF022499EEB700D27463 /* CustomAnaylticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAnaylticsView.swift; sourceTree = "<group>"; };
+		4E9FFF042499F2EF00D27463 /* PharamacyProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PharamacyProfileVC.swift; sourceTree = "<group>"; };
+		4E9FFF062499F33D00D27463 /* CustomPharamacyProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPharamacyProfileView.swift; sourceTree = "<group>"; };
 		4EA112B42429E4DB005B64E3 /* Bindable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bindable.swift; sourceTree = "<group>"; };
 		4EA112B72429E541005B64E3 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		4EA112B92429E557005B64E3 /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
@@ -577,6 +587,7 @@
 		4E35489D242B832200DD4E7A /* left menu */ = {
 			isa = PBXGroup;
 			children = (
+				4E9FFEFD2499EE8500D27463 /* Lists */,
 				4EDCBB0F24964B5E0045574D /* HomeLeftMenuVC.swift */,
 				4E35489E242B834300DD4E7A /* HomeLeftMenuCollcetionVC.swift */,
 				4EDCBB0D249647310045574D /* SecondHomeLeftMenuCollcetionVC.swift */,
@@ -738,7 +749,6 @@
 			children = (
 				4E4AAEDD2428CBA700023720 /* MainClinicDataVC.swift */,
 				4E4F800124544ED10037D7D4 /* Working Hour */,
-				4EA83C672497641600C9AB7E /* MainClinicWorkingHoursVCWithoutEditingVC.swift */,
 			);
 			path = Clinic;
 			sourceTree = "<group>";
@@ -758,6 +768,7 @@
 		4E92AF6A242B714200BCF20E /* MAIN Home */ = {
 			isa = PBXGroup;
 			children = (
+				4E9FFF002499EEA800D27463 /* left menu */,
 				4E92AF6B242B717200BCF20E /* CustomMainHomeLeftView.swift */,
 				4EA94B9A242F5FB6001C4650 /* CustomMainHomeView.swift */,
 				4EEBF7C1243D9A030039BF81 /* Patients */,
@@ -803,9 +814,45 @@
 			path = pharmacy;
 			sourceTree = "<group>";
 		};
+		4E971DE22499FDA500EBFFD9 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				4E971DE32499FDAD00EBFFD9 /* EdirProfileViewModel.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		4E9FFEFD2499EE8500D27463 /* Lists */ = {
+			isa = PBXGroup;
+			children = (
+				4E9FFEFE2499EE9300D27463 /* AnaylticsVC.swift */,
+				4EA83C672497641600C9AB7E /* MainClinicWorkingHoursVCWithoutEditingVC.swift */,
+				4E9FFF042499F2EF00D27463 /* PharamacyProfileVC.swift */,
+			);
+			path = Lists;
+			sourceTree = "<group>";
+		};
+		4E9FFF002499EEA800D27463 /* left menu */ = {
+			isa = PBXGroup;
+			children = (
+				4E9FFF012499EEB100D27463 /* lists */,
+			);
+			path = "left menu";
+			sourceTree = "<group>";
+		};
+		4E9FFF012499EEB100D27463 /* lists */ = {
+			isa = PBXGroup;
+			children = (
+				4E9FFF022499EEB700D27463 /* CustomAnaylticsView.swift */,
+				4E9FFF062499F33D00D27463 /* CustomPharamacyProfileView.swift */,
+			);
+			path = lists;
+			sourceTree = "<group>";
+		};
 		4EA112B32429E4A8005B64E3 /* View Model */ = {
 			isa = PBXGroup;
 			children = (
+				4E971DE22499FDA500EBFFD9 /* Profile */,
 				4EA112B42429E4DB005B64E3 /* Bindable.swift */,
 				4EA112B62429E52E005B64E3 /* Registration */,
 				4EA8B1222430E895008473D3 /* DoctorEdirProfileViewModel.swift */,
@@ -1387,6 +1434,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E971DE42499FDAD00EBFFD9 /* EdirProfileViewModel.swift in Sources */,
 				4EA83C6224975FAA00C9AB7E /* MainPharamacyUpdateProfileModel.swift in Sources */,
 				4E333E1524266A7700F82E00 /* Extensions.swift in Sources */,
 				4E115DBA24951A2B00B64936 /* CustomBaseView.swift in Sources */,
@@ -1414,6 +1462,7 @@
 				4EC977FB242B59D900C61F1B /* DoctorHomePatientsCell.swift in Sources */,
 				4EDFFD3224974B5500256631 /* NotificationVC.swift in Sources */,
 				4E3E0381245DA80E0021EA26 /* MainLabRegisterModel.swift in Sources */,
+				4E9FFF072499F33D00D27463 /* CustomPharamacyProfileView.swift in Sources */,
 				4E9145FD2446D1FF00766D20 /* MainMedicineTypeModel.swift in Sources */,
 				4E9145FB2446CF9C00766D20 /* MainInsurcaneModel.swift in Sources */,
 				7AE60E3F241914EC002E9AF6 /* MainSpecificationModel.swift in Sources */,
@@ -1437,12 +1486,14 @@
 				4E9145F32446CCAA00766D20 /* MainServices.swift in Sources */,
 				4E14F23B242B462400107FA7 /* DoctorRegisterViewModel.swift in Sources */,
 				4E5CE7AB2427545C001EE175 /* DoctorBookVC.swift in Sources */,
+				4E9FFF032499EEB700D27463 /* CustomAnaylticsView.swift in Sources */,
 				4E333E0524265B2800F82E00 /* DoctorDaysShiftCell.swift in Sources */,
 				4E9145F92446CF1000766D20 /* MainAreaModel.swift in Sources */,
 				4E92AF69242B6FF900BCF20E /* DoctorHomeLeftMenuVC.swift in Sources */,
 				4ED4FFEA24605C1200C72AE5 /* MainPharamacyLoginModel.swift in Sources */,
 				4EB262272495115E0050E3CC /* LocalJSONStore.swift in Sources */,
 				4E9675292497A19F006CE497 /* SelectedPatientDataVC.swift in Sources */,
+				4E9FFF052499F2EF00D27463 /* PharamacyProfileVC.swift in Sources */,
 				4E210D04243CCC2200955CF9 /* DoctorSecondRegisterViewModel.swift in Sources */,
 				4EEBF7C5243D9B380039BF81 /* MedicineCell.swift in Sources */,
 				4E8F180E243DBD7100C00044 /* CustomClinicDataView.swift in Sources */,
@@ -1451,6 +1502,7 @@
 				4EC977F7242B54D000C61F1B /* TopDoctorHomeCell.swift in Sources */,
 				4EDC81D02498A506005102EE /* AcceptPaymentServices.swift in Sources */,
 				4ED3464B2447373800E29F03 /* CustomChooseUserLocationView.swift in Sources */,
+				4E9FFEFF2499EE9300D27463 /* AnaylticsVC.swift in Sources */,
 				4E333E0F2426607E00F82E00 /* BaseCollectionVC.swift in Sources */,
 				4EA8B1232430E895008473D3 /* DoctorEdirProfileViewModel.swift in Sources */,
 				4EDFFD3A249751DF00256631 /* ProfileServices.swift in Sources */,
