@@ -10,39 +10,76 @@ import UIKit
 
 class SelectedPatientDataPHYCollectionVC: BaseCollectionVC {
     
+    var index = 0
+    
     fileprivate  let cellID = "cellID"
-       
-       var notificationPHYArray = [PharmacyDetailModel]()
-       //        var handledisplayDOCNotification:((PatientNotificationModel,IndexPath)->Void)?
-       
-       override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return notificationPHYArray.count
-       }
-       
-       override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-           let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! SelectedPatientDataPHYCell
-        let dd = notificationPHYArray[indexPath.item]
+    
+    var notificationPHYArray = [PharmacyDetailModel]()
+    var notificationRADArray = [RADDetailModel]()
+    var notificationLABArray = [RADDetailModel]()
+    
+    //        var handledisplayDOCNotification:((PatientNotificationModel,IndexPath)->Void)?
+    
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        //        if index==0 || index == 1 {
+        //                   collectionView.noDataFound(notificationDocArray.count, text: "No Data Added Yet".localized)
+        //                   return notificationDocArray.count
+        //               }else
+        if index == 2 {
+            collectionView.noDataFound(notificationLABArray.count, text: "No Data Added Yet".localized)
+            return notificationLABArray.count
+        }else if index == 3 {
+            collectionView.noDataFound(notificationRADArray.count, text: "No Data Added Yet".localized)
+            return notificationRADArray.count
+        }else {
+            collectionView.noDataFound(notificationPHYArray.count, text: "No Data Added Yet".localized)
+            return notificationPHYArray.count
+        }
+//        return notificationPHYArray.count
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! SelectedPatientDataPHYCell
         
-        cell.order = dd
+        //        if index == 0 || index == 1 {
+        //            let epoisde = notificationDocArray[indexPath.row]
+        //            cell.doc = epoisde
+        //        }else
+        if index == 2 {
+            let epoisde = notificationLABArray[indexPath.row]
+            cell.orderLAB = epoisde
+        }else if index == 3 {
+            let epoisde = notificationRADArray[indexPath.row]
+            cell.orderRAD = epoisde
+        }else {
+            let epoisde = notificationPHYArray[indexPath.row]
+            cell.order = epoisde
+        }
         
-           return cell
-           
-       }
-       
-       
-       func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-          
-           return .init(width: view.frame.width, height: 100)
-           
-       }
-       
-       
-       //MARK:-User methods
-       
-      
-       
-       override func setupCollection() {
-           collectionView.backgroundColor = .white
-           collectionView.register(SelectedPatientDataPHYCell.self, forCellWithReuseIdentifier: cellID)
-       }
+        [cell.countLabel,cell.typeLabel].forEach({$0.isHide(index == 4 ? false : true)})
+        
+        //        let dd = notificationPHYArray[indexPath.item]
+        //
+        //        cell.order = dd
+        
+        return cell
+        
+    }
+    
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        return .init(width: view.frame.width, height: 100)
+        
+    }
+    
+    
+    //MARK:-User methods
+    
+    
+    
+    override func setupCollection() {
+        collectionView.backgroundColor = .white
+        collectionView.register(SelectedPatientDataPHYCell.self, forCellWithReuseIdentifier: cellID)
+    }
 }

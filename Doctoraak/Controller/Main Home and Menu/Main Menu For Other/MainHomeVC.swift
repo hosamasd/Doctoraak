@@ -30,22 +30,24 @@ class MainHomeVC: CustomBaseViewVC {
         v.listImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpenMenu)))
         v.notifyImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpenNotifications)))
         v.handledisplayRADNotification = {[unowned self] noty in
-            //            self.makeDeleteDOCNotify(index: 2, id: noty.id,index)
-            
-            //            self.makeDeleteRADNotify(id: noty.id,index)
+            guard let phy=self.rad else {return}
+            let patient = SelectedPharmacyPatientDataVC(inde: self.index)//SelectedPharmacyPatientDataVC(inde: self.index, phy: noty, pharmacy: phy)
+            patient.radOrder = noty
+            patient.rad=self.rad
+            self.navigationController?.pushViewController(patient, animated: true)
         }
         v.handledisplayLABNotification = {[unowned self] noty in
-            //            self.makeDeleteDOCNotify(index: 3, id: noty.id,index)
+            guard let phy=self.lab else {return}
+            let patient = SelectedPharmacyPatientDataVC(inde: self.index)//SelectedPharmacyPatientDataVC(inde: self.index, phy: noty, pharmacy: phy)
+            patient.labOrder = noty
+            patient.lab=self.lab
             
-            //            self.makeDeleteLABNotify(id: noty.id,index)
+            self.navigationController?.pushViewController(patient, animated: true)
         }
         v.handledisplayPHYNotification = {[unowned self] noty in
             guard let phy=self.phy else {return}
-            let patient = SelectedPharmacyPatientDataVC(inde: self.index, phy: noty, pharmacy: phy)
+            let patient = SelectedPharmacyPatientDataVC(inde: self.index)//SelectedPharmacyPatientDataVC(inde: self.index, phy: noty, pharmacy: phy)
             self.navigationController?.pushViewController(patient, animated: true)
-            //            self.makeDeletePHYNotify(id: noty.id,index)
-            //            self.makeDeleteDOCNotify(index: 4, id: noty.id,index)
-            
         }
         return v
     }()
@@ -74,14 +76,14 @@ class MainHomeVC: CustomBaseViewVC {
             guard let lab = lab else { return  }
             customMainHomeView.topMainHomeCell.lab=lab
             
-            fetchOrders()
+            userDefaults.bool(forKey: UserDefaultsConstants.isAllMainHomeObjectsFetched) ? () : fetchOrders()
         }
     }
     var phy:PharamacyModel?{
         didSet{
             guard let phy = phy else { return  }
             customMainHomeView.topMainHomeCell.phy=phy
-            fetchOrders()
+            userDefaults.bool(forKey: UserDefaultsConstants.isAllMainHomeObjectsFetched) ? () : fetchOrders()
         }
     }
     var rad:RadiologyModel?{
@@ -89,7 +91,7 @@ class MainHomeVC: CustomBaseViewVC {
             guard let lab = rad else { return  }
             customMainHomeView.topMainHomeCell.rad=lab
             
-            fetchOrders()
+            userDefaults.bool(forKey: UserDefaultsConstants.isAllMainHomeObjectsFetched) ? () : fetchOrders()
         }
     }
     fileprivate let index:Int!
@@ -106,8 +108,8 @@ class MainHomeVC: CustomBaseViewVC {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        getObjects()
         
+        getObjects()
         //        fetchOrders()
     }
     
@@ -133,15 +135,17 @@ class MainHomeVC: CustomBaseViewVC {
         self.showMainAlertLooder()
         OrdersServices.shared.fetchLABOrders(api_token: phy.apiToken, lab_id: phy.id) { (base, err) in
             if let  err = err {
-                //                SVProgressHUD.showError(withStatus: err.localizedDescription)
-                self.showMainAlertErrorMessages(vv: self.customMainAlertVC, secondV: self.customAlertLoginView, text: err.localizedDescription)
-                
+                SVProgressHUD.showError(withStatus: err.localizedDescription)
+                //                self.showMainAlertErrorMessages(vv: self.customMainAlertVC, secondV: self.customAlertLoginView, text: err.localizedDescription)
+                self.handleDismiss()
                 self.activeViewsIfNoData();return
             }
             self.handleDismiss()
             self.activeViewsIfNoData()
             guard let user = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
             
+            userDefaults.set(true, forKey: UserDefaultsConstants.isAllMainHomeObjectsFetched)
+            userDefaults.synchronize()
             DispatchQueue.main.async {
                 self.customMainHomeView.mainHomePatientsCollectionVC.notificationLABArray=user
                 self.customMainHomeView.topMainHomeCell.reservation = user.count-1
@@ -157,15 +161,16 @@ class MainHomeVC: CustomBaseViewVC {
         self.showMainAlertLooder()
         OrdersServices.shared.fetchRADOrders(api_token: phy.apiToken, radiology_id: phy.id) { (base, err) in
             if let  err = err {
-                //                SVProgressHUD.showError(withStatus: err.localizedDescription)
-                self.showMainAlertErrorMessages(vv: self.customMainAlertVC, secondV: self.customAlertLoginView, text: err.localizedDescription)
-                
+                SVProgressHUD.showError(withStatus: err.localizedDescription)
+                //                self.showMainAlertErrorMessages(vv: self.customMainAlertVC, secondV: self.customAlertLoginView, text: err.localizedDescription)
+                self.handleDismiss()
                 self.activeViewsIfNoData();return
             }
             self.handleDismiss()
             self.activeViewsIfNoData()
             guard let user = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
-            
+            userDefaults.set(true, forKey: UserDefaultsConstants.isAllMainHomeObjectsFetched)
+            userDefaults.synchronize()
             DispatchQueue.main.async {
                 self.customMainHomeView.mainHomePatientsCollectionVC.notificationRADArray=user
                 self.customMainHomeView.topMainHomeCell.reservation = user.count > 0 ?  user.count-1 : 0
@@ -181,15 +186,16 @@ class MainHomeVC: CustomBaseViewVC {
         self.showMainAlertLooder()
         OrdersServices.shared.fetchPharmacyOrders(api_token: phy.apiToken, pharmacy_id: phy.id) { (base, err) in
             if let  err = err {
-                //                SVProgressHUD.showError(withStatus: err.localizedDescription)
-                self.showMainAlertErrorMessages(vv: self.customMainAlertVC, secondV: self.customAlertLoginView, text: err.localizedDescription)
-                
+                SVProgressHUD.showError(withStatus: err.localizedDescription)
+                //                self.showMainAlertErrorMessages(vv: self.customMainAlertVC, secondV: self.customAlertLoginView, text: err.localizedDescription)
+                self.handleDismiss()
                 self.activeViewsIfNoData();return
             }
             self.handleDismiss()
             self.activeViewsIfNoData()
             guard let user = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
-            
+            userDefaults.set(true, forKey: UserDefaultsConstants.isAllMainHomeObjectsFetched)
+            userDefaults.synchronize()
             DispatchQueue.main.async {
                 self.customMainHomeView.mainHomePatientsCollectionVC.notificationPHYArray=user
                 self.customMainHomeView.topMainHomeCell.reservation = user.count-1

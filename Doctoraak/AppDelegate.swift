@@ -20,6 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,MOLHResetable {
         // Override point for customization aft/Users/hosam/Documents/xcode projects/syphinx/Doctoraak/Doctoraak.xcodeprojer application launch.
          keyboardChanges()
         userDefaults.set(true, forKey: UserDefaultsConstants.isWelcomeVCAppear)
+        userDefaults.set(false, forKey: UserDefaultsConstants.isAllMainHomeObjectsFetched)
 
                userDefaults.synchronize()
         MOLH.shared.activate(true)
@@ -33,6 +34,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate,MOLHResetable {
 
     func reset() {
              userDefaults.set(true, forKey: UserDefaultsConstants.isWelcomeVCAppear)
+        userDefaults.set(false, forKey: UserDefaultsConstants.isAllMainHomeObjectsFetched)
+
              userDefaults.synchronize()
              window?.rootViewController = BaseSlidingVC()
          }

@@ -52,4 +52,24 @@ class ProfileServices {
         
         MainServices.shared.makeMainPostGenericUsingAlmofire(urlString: urlString, postStrings: postString, photo: photo,working_hours: working_hours, completion: completion)
      }
+    
+    func updateRADProfile(api_token:String,user_id:Int,photo:UIImage,name:String,insurance:[Int],delivery:Int,working_hours:[PharamacyWorkModel]? = nil ,latt:Double? = nil,lang:Double? = nil,completion: @escaping (MainRadiologyLoginModel?, Error?) ->Void)  {
+           let postString:String
+           let nnn =   "radiology_update_profile"
+           let urlString = baseUrl+nnn
+           postString =    latt == nil ? "api_token=\(api_token)&user_id=\(user_id)&name=\(name)&insurance=\(insurance)&delivery=\(delivery)"  :
+            "api_token=\(api_token)&user_id=\(user_id)&name=\(name)&lang=\(lang!)&latt=\(latt!)&insurance=\(insurance)&delivery=\(delivery)"
+           
+           MainServices.shared.makeMainPostGenericUsingAlmofire(urlString: urlString, postStrings: postString, photo: photo,working_hours: working_hours, completion: completion)
+        }
+    
+    func updateLABProfile(api_token:String,user_id:Int,photo:UIImage,name:String,insurance:[Int],delivery:Int,working_hours:[PharamacyWorkModel]? = nil ,latt:Double? = nil,lang:Double? = nil,completion: @escaping (MainLabLoginModel?, Error?) ->Void)  {
+           let postString:String
+           let nnn =   "lab_update_profile"
+           let urlString = baseUrl+nnn
+           postString =    latt == nil ? "api_token=\(api_token)&user_id=\(user_id)&name=\(name)&insurance=\(insurance)&delivery=\(delivery)"  :
+            "api_token=\(api_token)&user_id=\(user_id)&name=\(name)&lang=\(lang!)&latt=\(latt!)&insurance=\(insurance)&delivery=\(delivery)"
+           
+           MainServices.shared.makeMainPostGenericUsingAlmofire(urlString: urlString, postStrings: postString, photo: photo,working_hours: working_hours, completion: completion)
+        }
 }

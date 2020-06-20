@@ -24,6 +24,8 @@
 		4E115DBC24951D2800B64936 /* CustomAlertLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E115DBB24951D2800B64936 /* CustomAlertLoginView.swift */; };
 		4E13DDDA24308E1F00421737 /* ForgetPassViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E13DDD924308E1F00421737 /* ForgetPassViewModel.swift */; };
 		4E14F23B242B462400107FA7 /* DoctorRegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E14F23A242B462400107FA7 /* DoctorRegisterViewModel.swift */; };
+		4E1AEFDD249E2F3C00497375 /* SelectedLABRADDataVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1AEFDC249E2F3C00497375 /* SelectedLABRADDataVC.swift */; };
+		4E1AEFDF249E2FA400497375 /* CustomSelectedLABRADDataVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1AEFDE249E2FA400497375 /* CustomSelectedLABRADDataVC.swift */; };
 		4E210D04243CCC2200955CF9 /* DoctorSecondRegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E210D03243CCC2200955CF9 /* DoctorSecondRegisterViewModel.swift */; };
 		4E28EC67242A49B100B54186 /* MainForgetPasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E28EC66242A49B100B54186 /* MainForgetPasswordVC.swift */; };
 		4E28EC6A242A4A7E00B54186 /* CustomMainForgetPassView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E28EC69242A4A7E00B54186 /* CustomMainForgetPassView.swift */; };
@@ -205,6 +207,8 @@
 		4E115DBB24951D2800B64936 /* CustomAlertLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertLoginView.swift; sourceTree = "<group>"; };
 		4E13DDD924308E1F00421737 /* ForgetPassViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgetPassViewModel.swift; sourceTree = "<group>"; };
 		4E14F23A242B462400107FA7 /* DoctorRegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorRegisterViewModel.swift; sourceTree = "<group>"; };
+		4E1AEFDC249E2F3C00497375 /* SelectedLABRADDataVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedLABRADDataVC.swift; sourceTree = "<group>"; };
+		4E1AEFDE249E2FA400497375 /* CustomSelectedLABRADDataVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSelectedLABRADDataVC.swift; sourceTree = "<group>"; };
 		4E210D03243CCC2200955CF9 /* DoctorSecondRegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorSecondRegisterViewModel.swift; sourceTree = "<group>"; };
 		4E28EC66242A49B100B54186 /* MainForgetPasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainForgetPasswordVC.swift; sourceTree = "<group>"; };
 		4E28EC69242A4A7E00B54186 /* CustomMainForgetPassView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMainForgetPassView.swift; sourceTree = "<group>"; };
@@ -508,6 +512,14 @@
 			path = Register;
 			sourceTree = "<group>";
 		};
+		4E1AEFDB249E2F1E00497375 /* LAB&RADIOLOGY */ = {
+			isa = PBXGroup;
+			children = (
+				4E1AEFDC249E2F3C00497375 /* SelectedLABRADDataVC.swift */,
+			);
+			path = "LAB&RADIOLOGY";
+			sourceTree = "<group>";
+		};
 		4E210D02243CCC0B00955CF9 /* Doctor */ = {
 			isa = PBXGroup;
 			children = (
@@ -759,6 +771,7 @@
 		4E92AF63242B6AE300BCF20E /* Patients */ = {
 			isa = PBXGroup;
 			children = (
+				4E1AEFDB249E2F1E00497375 /* LAB&RADIOLOGY */,
 				4E96752E2497A2DC006CE497 /* pharmacy */,
 				4E92AF64242B6AFA00BCF20E /* PatientDataVC.swift */,
 				4E0923AE243DA86D0068E10F /* PatientSecondDataVC.swift */,
@@ -775,6 +788,7 @@
 				4E92AF6B242B717200BCF20E /* CustomMainHomeLeftView.swift */,
 				4EA94B9A242F5FB6001C4650 /* CustomMainHomeView.swift */,
 				4EEBF7C1243D9A030039BF81 /* Patients */,
+				4E1AEFDE249E2FA400497375 /* CustomSelectedLABRADDataVC.swift */,
 			);
 			path = "MAIN Home";
 			sourceTree = "<group>";
@@ -1530,6 +1544,7 @@
 				4EDFFD3A249751DF00256631 /* ProfileServices.swift in Sources */,
 				4EA112BC2429E612005B64E3 /* SMSCodeViewModel.swift in Sources */,
 				4EC8DDAB242A346500CEC5DF /* PaymentViewModel.swift in Sources */,
+				4E1AEFDF249E2FA400497375 /* CustomSelectedLABRADDataVC.swift in Sources */,
 				4E9675302497A2E4006CE497 /* SelectedPatientDataPHYCollectionVC.swift in Sources */,
 				4E28EC6A242A4A7E00B54186 /* CustomMainForgetPassView.swift in Sources */,
 				4E3E0383245DAAFC0021EA26 /* MainSMSCodeAllModel.swift in Sources */,
@@ -1551,6 +1566,7 @@
 				4E58030E24278DDB00B5D502 /* CustomSecondWelcomeView.swift in Sources */,
 				4EFD44F72446EBE300B4CB35 /* MainRaysModel.swift in Sources */,
 				4ED4FFE42460589600C72AE5 /* MainRadiologySMSCodeModel.swift in Sources */,
+				4E1AEFDD249E2F3C00497375 /* SelectedLABRADDataVC.swift in Sources */,
 				4EA83C6024975F3F00C9AB7E /* MainDoctorsUpdateProfileModel.swift in Sources */,
 				4E58030C24278DB500B5D502 /* SecondWelcomeVC.swift in Sources */,
 				4EC977F2242B52AC00C61F1B /* CustomDoctorHomeView.swift in Sources */,

@@ -16,7 +16,7 @@ class EdirProfileViewModel {
     //variables
     var apiToekn:String? {didSet {checkFormValidity()}}
     var user_Id:Int? = -1 {didSet {checkFormValidity()}}
-
+    
     var name:String? {didSet {checkFormValidity()}}
     var phone:String? {didSet {checkFormValidity()}}
     var email:String? {didSet {checkFormValidity()}}
@@ -39,7 +39,23 @@ class EdirProfileViewModel {
         ProfileServices.shared.updatePharamacyProfile(api_token: api_token, user_id: user_id, photo: image, name: name, insurance: insurance, delivery: delivery,working_hours:working_hours, latt: latt, lang: lang, completion: completion)
     }
     
-  
+    func performLABUpdating(completion:@escaping (MainLabLoginModel?,Error?)->Void)  {
+        guard let name = name, let insurance = insurance,let image=image,let delivery=delivery,let working_hours=working_hours,let api_token=apiToekn , let user_id = user_Id
+            else { return  }
+        bindableIsResgiter.value = true
+        
+        ProfileServices.shared.updateLABProfile(api_token: api_token, user_id: user_id, photo: image, name: name, insurance: insurance, delivery: delivery,working_hours:working_hours, latt: latt, lang: lang, completion: completion)
+    }
+    
+    func performRADUpdating(completion:@escaping (MainRadiologyLoginModel?,Error?)->Void)  {
+        guard let name = name, let insurance = insurance,let image=image,let delivery=delivery,let working_hours=working_hours,let api_token=apiToekn , let user_id = user_Id
+            else { return  }
+        bindableIsResgiter.value = true
+        
+        ProfileServices.shared.updateRADProfile(api_token: api_token, user_id: user_id, photo: image, name: name, insurance: insurance, delivery: delivery,working_hours:working_hours, latt: latt, lang: lang, completion: completion)
+    }
+    
+    
     
     func checkFormValidity() {
         let isFormValid =    name?.isEmpty == false   && insurance?.isEmpty == false  && image != nil && apiToekn?.isEmpty == false && user_Id != -1

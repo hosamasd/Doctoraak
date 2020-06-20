@@ -14,6 +14,7 @@ class UserDefaultsConstants {
     static let isCachedDriopLists = "isCachedDriopLists"
     static let isWaitForMainNewPassVC="isWaitForMainNewPassVC"
     static let isWaitForMainNewPassVCMobile="isWaitForMainNewPassVCMobile"
+    static let isAllMainHomeObjectsFetched="isAllMainHomeObjectsFetched"
     
     static let mainCurrentUserApiToken="mainCurrentUserApiToken"
     static let MainLoginINDEX="MainLoginINDEX"

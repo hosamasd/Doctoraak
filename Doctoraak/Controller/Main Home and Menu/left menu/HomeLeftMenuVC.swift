@@ -113,7 +113,8 @@ class HomeLeftMenuVC: CustomBaseViewVC {
                 baseSlid.closeMenu()
                 let profile = MainClinicWorkingHoursVCWithoutEditingVC()
                 profile.phy=phy
-                
+                profile.lab=lab
+                profile.rad=rad
                 let nav = UINavigationController(rootViewController: profile)
                 
                 nav.modalPresentationStyle = .fullScreen
@@ -132,16 +133,16 @@ class HomeLeftMenuVC: CustomBaseViewVC {
                 present(nav, animated: true)
             }
         }else if indexPath.item == 3 {
-                baseSlid.closeMenu()
-                let profile = AnaylticsVC()
-                profile.phy=phy
-                profile.lab=lab
-                profile.doctor=doctor
-                profile.rad=rad
-                let nav = UINavigationController(rootViewController: profile)
-                
-                nav.modalPresentationStyle = .fullScreen
-                present(nav, animated: true)
+            baseSlid.closeMenu()
+            let profile = AnaylticsVC()
+            profile.phy=phy
+            profile.lab=lab
+            profile.doctor=doctor
+            profile.rad=rad
+            let nav = UINavigationController(rootViewController: profile)
+            
+            nav.modalPresentationStyle = .fullScreen
+            present(nav, animated: true)
             
         }else {
             if indexPath.item == 2 {

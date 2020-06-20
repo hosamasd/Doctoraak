@@ -20,9 +20,42 @@ class CustomSelectedPatientDataVC: CustomBaseView {
             sampleRosetaImage.sd_setImage(with: url)
             //            DispatchQueue.main.async {
             self.patientCell.patient = phy.patient
+            let acccepts = phy.accept == "0" ? false : true
+            bottomStack.isHide(acccepts)
             selectedPatientDataPHYCollectionvc.notificationPHYArray = phy.details
             selectedPatientDataPHYCollectionvc.collectionView.reloadData()
-            //            }
+        }
+    }
+    
+    var rad:RadGetOrdersModel?{
+        didSet{
+            guard let phy = rad else { return  }
+            let urlString = phy.photo
+            guard let url = URL(string: urlString) else { return  }
+            sampleRosetaImage.sd_setImage(with: url)
+            //            DispatchQueue.main.async {
+            self.patientCell.patient = phy.patient
+            let acccepts = phy.accept == "0" ? false : true
+            bottomStack.isHide(acccepts)
+            selectedPatientDataPHYCollectionvc.notificationRADArray = phy.details
+            selectedPatientDataPHYCollectionvc.collectionView.reloadData()
+        }
+    }
+    
+    var lab:LABGetOrdersModel?{
+        didSet{
+            guard let phy = lab else { return  }
+            let urlString = phy.photo
+            guard let url = URL(string: urlString) else { return  }
+            sampleRosetaImage.sd_setImage(with: url)
+            //            DispatchQueue.main.async {
+            self.patientCell.patient = phy.patient
+            let acccepts = phy.accept == "0" ? false : true
+            bottomStack.isHide(acccepts)
+            selectedPatientDataPHYCollectionvc.notificationLABArray = phy.details
+            selectedPatientDataPHYCollectionvc.collectionView.reloadData()
+            
+            
         }
     }
     
@@ -52,16 +85,28 @@ class CustomSelectedPatientDataVC: CustomBaseView {
     lazy var titleSecondLabel = UILabel(text: "Medicines", font: .systemFont(ofSize: 20), textColor: .black)
     lazy var selectedPatientDataPHYCollectionvc :SelectedPatientDataPHYCollectionVC =  {
         let vc = SelectedPatientDataPHYCollectionVC()
-        
         return vc
     }()
     
-    lazy var okButton = createMainButtons(title: "Accept", color: .white)
+    lazy var okButton=createButtonsBottom(title: "Accept", bg: .green)
+    lazy var cancelButton=createButtonsBottom(title: "Refuse", bg: .red)
+    lazy var bottomStack:UIStackView = {
+        let sta = getStack(views: okButton,cancelButton, spacing: 16, distribution: .fillEqually, axis: .horizontal)
+        return sta
+    }()
+    
     lazy var patientCell:PatientCell = {
         let v = PatientCell()
         v.backgroundColor = .white
         return v
     }()
+    
+    var isAcceptOrRefused:Bool = false {
+        didSet {
+            bottomStack.isHide(isAcceptOrRefused)
+        }
+    }
+    
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -71,7 +116,7 @@ class CustomSelectedPatientDataVC: CustomBaseView {
     
     override func setupViews() {
         
-        addSubViews(views: LogoImage,backImage,titleLabel,patientCell,prescriptionLabel,sampleRosetaImage,titleSecondLabel,selectedPatientDataPHYCollectionvc.view,okButton)
+        addSubViews(views: LogoImage,backImage,titleLabel,patientCell,prescriptionLabel,sampleRosetaImage,titleSecondLabel,selectedPatientDataPHYCollectionvc.view,bottomStack)
         //        addSubViews(views: LogoImage,backImage,titleLabel,doctorHomePatientsCell,ss)//,ss,docotrCollectionView.view)
         
         LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
@@ -83,8 +128,14 @@ class CustomSelectedPatientDataVC: CustomBaseView {
         titleSecondLabel.anchor(top: sampleRosetaImage.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 0, right: 32))
         selectedPatientDataPHYCollectionvc.view.anchor(top: titleSecondLabel.bottomAnchor, leading: leadingAnchor, bottom: okButton.bottomAnchor, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 16, right: 32))
         //
-        okButton.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 16, left: 46, bottom: 8, right: 32))
+        bottomStack.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 16, left: 46, bottom: 8, right: 32))
         
+    }
+    
+    func createButtonsBottom(title:String,bg:UIColor) -> UIButton {
+        let b = UIButton(title: title, titleColor: .white, font: .systemFont(ofSize: 18), backgroundColor: bg, target: self, action: nil)
+        b.constrainHeight(constant: 50)
+        return b
     }
 }
 

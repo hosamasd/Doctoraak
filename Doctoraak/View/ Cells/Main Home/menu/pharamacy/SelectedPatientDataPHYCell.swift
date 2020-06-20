@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import MOLH
+
 
 class SelectedPatientDataPHYCell: BaseCollectionCell {
     
@@ -16,6 +18,21 @@ class SelectedPatientDataPHYCell: BaseCollectionCell {
             nameLabel.text = getNameFromIndex(order.medicineID)
             typeLabel.text = getTypeFromIndex(order.medicineTypeID)
             countLabel.text = "Quantity : \(order.amount)"
+        }
+    }
+    
+    var orderLAB:RADDetailModel?{
+        didSet{
+            guard let order = orderLAB else { return  }
+            nameLabel.text = getNameFromLABIndex(order.raysID, index: 0)
+            
+        }
+    }
+    
+    var orderRAD:RADDetailModel?{
+        didSet{
+            guard let order = orderRAD else { return  }
+            nameLabel.text = getNameFromLABIndex(order.raysID, index: 1)
         }
     }
     
@@ -92,6 +109,35 @@ class SelectedPatientDataPHYCell: BaseCollectionCell {
         return citName[ff - 1 ]
     }
     
+    func getNameFromLABIndex(_ indezx:Int,index:Int) -> String {
+        var citName = [String]()
+        var cityId = [Int]()
+        
+        if index == 0 {
+            let f = MOLHLanguage.isRTLLanguage() ? UserDefaultsConstants.labAnalysisNameARArray :  UserDefaultsConstants.labAnalysisNameArray
+            let ff = UserDefaultsConstants.labAnalysisIdArray
+            
+            checkLanguage(citName: &citName, cityId: &cityId, nameEn: f, nameId: ff)
+            
+        }else {
+            let f = MOLHLanguage.isRTLLanguage() ? UserDefaultsConstants.radAnalysisNameARArray :  UserDefaultsConstants.radAnalysisNameArray
+            let ff = UserDefaultsConstants.radAnalysisIdArray
+            
+            checkLanguage(citName: &citName, cityId: &cityId, nameEn: f, nameId: ff)
+        }
+        let ss = cityId.filter{$0 == indezx}
+        let ff = ss.first ?? 1
+        
+        return citName[ff - 1 ]
+    }
+    
+    func checkLanguage(citName: inout [String], cityId:inout [Int],nameEn:String,nameId:String)  {
+           if let  cityArray = userDefaults.value(forKey: nameEn) as? [String],let cityIds = userDefaults.value(forKey: nameId) as? [Int]{
+               
+               citName = cityArray
+               cityId = cityIds
+           }
+         }
 }
 
 

@@ -31,7 +31,7 @@ struct RadiologyRegisterModel:Codable {
     let updatedAt, createdAt: String
     let id: Int
     let radiologyInsurances: [RadiologyInsuranceModel]
-    let workingHours: [radiologyWorkingHoursModel]
+    let workingHours: [RadiologyWorkingHourModel]
     let photo: String
     let insuranceCompany: [InsurcaneCompanyModel]
 
@@ -62,20 +62,20 @@ struct RadiologyInsuranceModel:Codable {
        }
 }
 
-struct radiologyWorkingHoursModel:Codable {
-     let id, radiologyID, day: Int
-       let partFrom, partTo: String
-       let active: Int
-       let createdAt, updatedAt: String
-
-       enum CodingKeys: String, CodingKey {
-           case id
-           case radiologyID = "radiology_id"
-           case day
-           case partFrom = "part_from"
-           case partTo = "part_to"
-           case active
-           case createdAt = "created_at"
-           case updatedAt = "updated_at"
-       }
-}
+//struct RadiologyWorkingHoursModel:Codable {
+//     let id, radiologyID, day: Int
+//       let partFrom, partTo: String
+//       let active: Int
+//       let createdAt, updatedAt: String
+//
+//       enum CodingKeys: String, CodingKey {
+//           case id
+//           case radiologyID = "radiology_id"
+//           case day
+//           case partFrom = "part_from"
+//           case partTo = "part_to"
+//           case active
+//           case createdAt = "created_at"
+//           case updatedAt = "updated_at"
+//       }
+//}

@@ -15,9 +15,29 @@ class CustomMainClinicWorkingHoursVCWithoutEditingVC: CustomBaseView {
             guard let work = workingHours else { return  }
             work.forEach { (w) in
                 putTheses(w: w)
-              }
+            }
         }
     }
+    
+    var workingHoursLAB:[LabWorkingHoursModel]?{
+        didSet{
+            guard let work = workingHoursLAB else { return  }
+            work.forEach { (w) in
+                putThesesLAB(w: w)
+            }
+        }
+    }
+    
+    var workingHoursRAD:[RadiologyWorkingHourModel]?{
+        didSet{
+            guard let work = workingHoursRAD else { return  }
+            work.forEach { (w) in
+                putThesesRAD(w: w)
+            }
+        }
+    }
+    
+    
     
     
     lazy var LogoImage:UIImageView = {
@@ -124,7 +144,53 @@ class CustomMainClinicWorkingHoursVCWithoutEditingVC: CustomBaseView {
     }
     
     func putTheses(w:PharamacyWorkingHourModel)  {
-           switch w.day {
+        switch w.day {
+        case 1:
+            putTitleForButtons(bt: first1TextField, text: w.partFrom)
+            putTitleForButtons(bt: first2TextField, text: w.partTo)
+            activeOrNot(v: satButton, d: w.active)
+//            checkButtonsTextx(w.active, vv: [first1TextField,first1TextField])
+        case 2:
+            putTitleForButtons(bt: second1TextField, text: w.partFrom)
+            putTitleForButtons(bt: second2TextField, text: w.partTo)
+            activeOrNot(v: sunButton, d: w.active)
+//            checkButtonsTextx(w.active, vv: [second1TextField,second2TextField])
+            
+        case 3:
+            putTitleForButtons(bt: third1TextField, text: w.partFrom)
+            putTitleForButtons(bt: third2TextField, text: w.partTo)
+            activeOrNot(v: monButton, d: w.active)
+//            checkButtonsTextx(w.active, vv: [third1TextField,third2TextField])
+            
+        case 4:
+            putTitleForButtons(bt: forth1TextField, text: w.partFrom)
+            putTitleForButtons(bt: forth2TextField, text: w.partTo)
+            activeOrNot(v: tuesButton, d: w.active)
+//            checkButtonsTextx(w.active, vv: [forth1TextField,forth2TextField])
+            
+        case 5:
+            putTitleForButtons(bt: fifth1TextField, text: w.partFrom)
+            putTitleForButtons(bt: fifth2TextField, text: w.partTo)
+            activeOrNot(v: wedButton, d: w.active)
+//            checkButtonsTextx(w.active, vv: [fifth1TextField,fifth2TextField])
+            
+        case 6:
+            putTitleForButtons(bt: sexth1TextField, text: w.partFrom)
+            putTitleForButtons(bt: sexth2TextField, text: w.partTo)
+            activeOrNot(v: thuButton, d: w.active)
+//            checkButtonsTextx(w.active, vv: [sexth1TextField,sexth2TextField])
+            
+        default:
+            putTitleForButtons(bt: seventh1TextField, text: w.partFrom)
+            putTitleForButtons(bt: seventh2TextField, text: w.partTo)
+            activeOrNot(v: friButton, d: w.active)
+//            checkButtonsTextx(w.active, vv: [seventh1TextField,seventh2TextField])
+            
+        }
+    }
+    
+    func putThesesRAD(w:RadiologyWorkingHourModel)  {
+        switch w.day {
         case 1:
             putTitleForButtons(bt: first1TextField, text: w.partFrom)
             putTitleForButtons(bt: first2TextField, text: w.partTo)
@@ -135,11 +201,11 @@ class CustomMainClinicWorkingHoursVCWithoutEditingVC: CustomBaseView {
             activeOrNot(v: sunButton, d: w.active)
         case 3:
             putTitleForButtons(bt: third1TextField, text: w.partFrom)
-                                putTitleForButtons(bt: third2TextField, text: w.partTo)
+            putTitleForButtons(bt: third2TextField, text: w.partTo)
             activeOrNot(v: monButton, d: w.active)
         case 4:
-             putTitleForButtons(bt: forth1TextField, text: w.partFrom)
-                  putTitleForButtons(bt: forth2TextField, text: w.partTo)
+            putTitleForButtons(bt: forth1TextField, text: w.partFrom)
+            putTitleForButtons(bt: forth2TextField, text: w.partTo)
             activeOrNot(v: tuesButton, d: w.active)
         case 5:
             putTitleForButtons(bt: fifth1TextField, text: w.partFrom)
@@ -147,7 +213,40 @@ class CustomMainClinicWorkingHoursVCWithoutEditingVC: CustomBaseView {
             activeOrNot(v: wedButton, d: w.active)
         case 6:
             putTitleForButtons(bt: sexth1TextField, text: w.partFrom)
-                   putTitleForButtons(bt: sexth2TextField, text: w.partTo)
+            putTitleForButtons(bt: sexth2TextField, text: w.partTo)
+            activeOrNot(v: thuButton, d: w.active)
+        default:
+            putTitleForButtons(bt: seventh1TextField, text: w.partFrom)
+            putTitleForButtons(bt: seventh2TextField, text: w.partTo)
+            activeOrNot(v: friButton, d: w.active)
+        }
+    }
+    
+    func putThesesLAB(w:LabWorkingHoursModel)  {
+        switch w.day {
+        case 1:
+            putTitleForButtons(bt: first1TextField, text: w.partFrom)
+            putTitleForButtons(bt: first2TextField, text: w.partTo)
+            activeOrNot(v: satButton, d: w.active)
+        case 2:
+            putTitleForButtons(bt: second1TextField, text: w.partFrom)
+            putTitleForButtons(bt: second2TextField, text: w.partTo)
+            activeOrNot(v: sunButton, d: w.active)
+        case 3:
+            putTitleForButtons(bt: third1TextField, text: w.partFrom)
+            putTitleForButtons(bt: third2TextField, text: w.partTo)
+            activeOrNot(v: monButton, d: w.active)
+        case 4:
+            putTitleForButtons(bt: forth1TextField, text: w.partFrom)
+            putTitleForButtons(bt: forth2TextField, text: w.partTo)
+            activeOrNot(v: tuesButton, d: w.active)
+        case 5:
+            putTitleForButtons(bt: fifth1TextField, text: w.partFrom)
+            putTitleForButtons(bt: fifth2TextField, text: w.partTo)
+            activeOrNot(v: wedButton, d: w.active)
+        case 6:
+            putTitleForButtons(bt: sexth1TextField, text: w.partFrom)
+            putTitleForButtons(bt: sexth2TextField, text: w.partTo)
             activeOrNot(v: thuButton, d: w.active)
         default:
             putTitleForButtons(bt: seventh1TextField, text: w.partFrom)
@@ -200,8 +299,10 @@ class CustomMainClinicWorkingHoursVCWithoutEditingVC: CustomBaseView {
     
     func changeTimeForButtonTitle(values:String)->String  {
         var ppp = "am"
-        guard let minute = values.removeSubstringAfterOrBefore(needle: ":", beforeNeedle: false)?.toInt()  else { return "" }
         guard var hours = values.removeSubstringAfterOrBefore(needle: ":", beforeNeedle: true)?.toInt()  else { return "" }
+        guard let minutes = values.removeSubstringAfterOrBefore(needle: "\(hours):", beforeNeedle: false)  else { return "" }
+        guard let minute = minutes.removeSubstringAfterOrBefore(needle: ":", beforeNeedle: true)?.toInt()  else { return "" }
+        
         ppp = hours > 12 ? "pm" : "am"
         hours =   hours > 12 ? hours - 12 : hours
         return "\(hours):\(minute) \(ppp)"
@@ -215,8 +316,12 @@ class CustomMainClinicWorkingHoursVCWithoutEditingVC: CustomBaseView {
         return d == 1 ? true : false
     }
     
+    func checkButtonsTextx(_ d:Int,vv:[UIButton])  {
+        vv.forEach({$0.isEnabled = d == 0 ? false : true})
+    }
+    
     func activeOrNot(v:UIButton,d:Int)  {
-        v.isEnabled = checkActiveDay(d)
+//        v.isEnabled = checkActiveDay(d)
         if v.isEnabled {
             addGradientInSenderAndRemoveOther(sender: v)
         }else {}
