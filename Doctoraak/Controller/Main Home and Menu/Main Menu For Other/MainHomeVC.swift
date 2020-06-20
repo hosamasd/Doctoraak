@@ -168,7 +168,7 @@ class MainHomeVC: CustomBaseViewVC {
             
             DispatchQueue.main.async {
                 self.customMainHomeView.mainHomePatientsCollectionVC.notificationRADArray=user
-                self.customMainHomeView.topMainHomeCell.reservation = user.count-1
+                self.customMainHomeView.topMainHomeCell.reservation = user.count > 0 ?  user.count-1 : 0
                 
                 self.customMainHomeView.mainHomePatientsCollectionVC.collectionView.reloadData()
             }

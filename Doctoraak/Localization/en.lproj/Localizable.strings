@@ -75,21 +75,4 @@
 "cv.pdf"="cv.pdf";"Specialization"="Specialization";"Degree"="Degree";"Description"="Description";"choose insurance"="choose insurance";
 "Terms and Conditions"="Terms and Conditions";
 
-//BaseSlidingVC
-"Choose Language"="اختر لغة البرنامج"; "English"= "English";"Arabic"="العربيه";"Cancel"="الغاء";"Contacts Us"="تواصل معنا";
-"please install whatsapp"="من فضلك قم تثبيت البرنامج الواتس اولا";
 
-
-//HomeLeftMenuVC
-"Log Out"="تسجيل الخروج";"Warring..."="تحذير...";"Do You Want To Log Out?"="هل تريد تسجيل الخروج?";
-
-//HomeLeftMenuCollcetionVC
-"Profile"="الملف الشخصي";"Anayltics"="احصائيات";"Notifications"="التنبيهات";"Contact Us"="تواصل معنا";"Language"="اللفه";
-//profile
-
-//NotificationsCollectionVC
-"No Data Added Yet"="لا توجد داتا مضافه لحد الان";"Choose Options"="اختر المناسب لك";
-"What do you want to make?"="ماذا تريد ان تفعل?";"Delete"="حذف";
-
-//ProfileVC
-"your information updated..."="معلوماتك الشخصية تم تعديلها...";

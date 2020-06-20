@@ -18,6 +18,7 @@ class MainLoginsVC: CustomBaseViewVC {
         
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
         v.forgetPasswordButton.addTarget(self, action: #selector(handleForget), for: .touchUpInside)
+        v.createAccountButton.addTarget(self, action: #selector(handleSignUp), for: .touchUpInside)
         return v
     }()
     lazy var customAlertMainLoodingView:CustomAlertMainLoodingView = {
@@ -252,6 +253,12 @@ class MainLoginsVC: CustomBaseViewVC {
         DispatchQueue.main.async {
             self.dismiss(animated: true, completion: nil)
         }
+    }
+    
+  @objc  func handleSignUp()  {
+        let register = MainRegisterVC(indexx: index)
+        
+        navigationController?.pushViewController(register, animated: true)
     }
     
     required init?(coder: NSCoder) {

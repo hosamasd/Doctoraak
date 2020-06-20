@@ -103,6 +103,9 @@ class MainNewPassVC: CustomBaseViewVC {
     }
     
     func goToNext()  {
+        userDefaults.set(false, forKey: UserDefaultsConstants.isWaitForMainNewPassVC)
+        userDefaults.removeObject(forKey: UserDefaultsConstants.isWaitForMainNewPassVCMobile)
+        userDefaults.synchronize()
         let login = MainLoginsVC(indexx: index)
         navigationController?.pushViewController(login, animated: true)
     }
@@ -136,13 +139,17 @@ class MainNewPassVC: CustomBaseViewVC {
             //                SVProgressHUD.dismiss()
             self.handleDismiss()
             self.activeViewsIfNoData()
-            guard let user = base else {return}
-            SVProgressHUD.showSuccess(withStatus: MOLHLanguage.isRTLLanguage() ? user.message : user.messageEn)
+            guard let user = base,let dd = user.messageEn?.trimmingCharacters(in: .whitespaces) else {SVProgressHUD.showError(withStatus: base?.messageEn); return}
             
-            DispatchQueue.main.async {
-                self.goToNext()
+            if dd.contains("Password Error") {
+                SVProgressHUD.showError(withStatus:user.messageEn)
+            }else {
+                SVProgressHUD.showSuccess(withStatus: MOLHLanguage.isRTLLanguage() ? user.message : user.messageEn)
+                
+                DispatchQueue.main.async {
+                    self.goToNext()
+                }
             }
-            
             
         }
     }

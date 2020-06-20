@@ -101,9 +101,10 @@ class HomeLeftMenuVC: CustomBaseViewVC {
         if indexPath.section == 0 {
             if indexPath.item == 0  {
                 baseSlid.closeMenu()
-                let profile = PharamacyProfileVC()
+                let profile = PharamacyProfileVC(index: index)
                 profile.phy=phy
-                
+                profile.lab=lab
+                profile.rad=rad
                 let nav = UINavigationController(rootViewController: profile)
                 
                 nav.modalPresentationStyle = .fullScreen
@@ -118,7 +119,19 @@ class HomeLeftMenuVC: CustomBaseViewVC {
                 nav.modalPresentationStyle = .fullScreen
                 present(nav, animated: true)
                 
-            }else if indexPath.item == 3 {
+            }else if indexPath.item == 2 {
+                baseSlid.closeMenu()
+                let profile = NotificationVC(index: index, isFromMenu: true)
+                profile.phy=phy
+                profile.lab=lab
+                profile.doctor=doctor
+                profile.rad=rad
+                let nav = UINavigationController(rootViewController: profile)
+                
+                nav.modalPresentationStyle = .fullScreen
+                present(nav, animated: true)
+            }
+        }else if indexPath.item == 3 {
                 baseSlid.closeMenu()
                 let profile = AnaylticsVC()
                 profile.phy=phy
@@ -129,7 +142,7 @@ class HomeLeftMenuVC: CustomBaseViewVC {
                 
                 nav.modalPresentationStyle = .fullScreen
                 present(nav, animated: true)
-            }
+            
         }else {
             if indexPath.item == 2 {
                 baseSlid.closeMenu()

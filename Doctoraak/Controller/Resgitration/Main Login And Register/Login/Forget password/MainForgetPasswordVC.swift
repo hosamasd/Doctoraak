@@ -19,6 +19,7 @@ class MainForgetPasswordVC: CustomBaseViewVC {
         let v = CustomMainForgetPassView()
         v.index = index
         v.nextButton.addTarget(self, action: #selector(handleNext), for: .touchUpInside)
+        v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
         return v
     }()
     lazy var customAlertMainLoodingView:CustomAlertMainLoodingView = {
@@ -89,8 +90,13 @@ class MainForgetPasswordVC: CustomBaseViewVC {
     }
     
     func goToNext()  {
+        
         let mobile = customMainForgetPassView.forgetPassViewModel.phone ?? ""
         
+        userDefaults.set(true, forKey: UserDefaultsConstants.isWaitForMainNewPassVC)
+        userDefaults.set(mobile, forKey: UserDefaultsConstants.isWaitForMainNewPassVCMobile)
+
+        userDefaults.synchronize()
         let newPass = MainNewPassVC(indexx: index, mobile: mobile)
         navigationController?.pushViewController(newPass, animated: true)
         
@@ -123,6 +129,10 @@ class MainForgetPasswordVC: CustomBaseViewVC {
         DispatchQueue.main.async {
             self.dismiss(animated: true, completion: nil)
         }
+    }
+    
+   @objc func handleBack()  {
+        navigationController?.popViewController(animated: true)
     }
     
     required init?(coder: NSCoder) {

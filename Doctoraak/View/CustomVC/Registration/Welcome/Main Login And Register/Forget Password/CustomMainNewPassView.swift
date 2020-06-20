@@ -82,7 +82,7 @@ class CustomMainNewPassView: CustomBaseView {
         let resendStack = getStack(views: resendLabel,resendSMSButton, spacing: 0, distribution: .fill, axis: .horizontal)
         
         [ codeTextField,passwordTextField,confirmPasswordTextField].forEach({$0.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)})
-        let textStack = getStack(views: passwordTextField,confirmPasswordTextField,codeTextField,resendStack, spacing: 16, distribution: .fillEqually, axis: .vertical)
+        let textStack = getStack(views: codeTextField,passwordTextField,confirmPasswordTextField,resendStack, spacing: 16, distribution: .fillEqually, axis: .vertical)
         
         choosePayLabel.constrainHeight(constant: 40)
         addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,doneButton,choosePayLabel,textStack)
@@ -127,9 +127,12 @@ class CustomMainNewPassView: CustomBaseView {
             }else if text == confirmPasswordTextField {
                 if text.text != passwordTextField.text {
                     floatingLabelTextField.errorMessage = "Passowrd should be same".localized
+                    newPassViewModel.confirms2Password=nil
                 }
                 else {
+                    newPassViewModel.confirms2Password=texts
                     floatingLabelTextField.errorMessage = ""
+                    
                 }
             }else
             {

@@ -12,6 +12,7 @@ import SkyFloatingLabelTextField
 import iOSDropDown
 import SDWebImage
 import UIMultiPicker
+import MapKit
 
 class CustomPharamacyProfileView: CustomBaseView {
     
@@ -21,6 +22,9 @@ class CustomPharamacyProfileView: CustomBaseView {
             fullNameTextField.text = MOLHLanguage.isRTLLanguage() ? phy.nameAr ?? phy.name : phy.name
             mobileNumberTextField.text = phy.phone2 ?? phy.phone
             emailTextField.text = phy.email
+            addressLabel.text = MOLHLanguage.isRTLLanguage() ? phy.addressAr ?? phy.address :  phy.address
+            //            let city = getAreaAccordingToCityId(index: phy.)
+            
             workingHoursLabel.text = getDays(ind: phy.workingHours).joined(separator: "-") == "" ? "No Days Chossen" :  getDays(ind: phy.workingHours).joined(separator: "-")
             deliverySwitch.isOn = phy.delivery.toInt() == 1 ? true : false
             let urlstring = phy.photo
@@ -36,7 +40,70 @@ class CustomPharamacyProfileView: CustomBaseView {
             edirProfileViewModel.latt = phy.latt?.toDouble()
             edirProfileViewModel.lang=phy.lang?.toDouble()
             edirProfileViewModel.working_hours = getWorkingHourss(ind: phy.workingHours)
+        }
+    }
+    
+    var rad:RadiologyModel?{
+        didSet{
+            guard let phy = rad else { return  }
+            fullNameTextField.text = MOLHLanguage.isRTLLanguage() ? phy.nameAr ?? phy.name : phy.name
+            mobileNumberTextField.text = phy.phone2 ?? phy.phone
+            emailTextField.text = phy.email
+            getNameANdCity(lat: phy.latt.toDouble() ?? 0.0, lng: phy.lang.toDouble() ?? 0.0)
+            //            addressLabel.text = MOLHLanguage.isRTLLanguage() ? phy.ad ?? phy.address :  phy.address
+            let city = getCityFromIndex(phy.city)
+            let area = getAreassFromIndex( phy.area)
+            areaDrop.text = area
+            areaDrop.selectedIndex = phy.area-1
+            cityDrop.selectedIndex = phy.city-1
+            cityDrop.text = city
+            workingHoursLabel.text = getDaysRAD(ind: phy.workingHours).joined(separator: "-") == "" ? "No Days Chossen" :  getDaysRAD(ind: phy.workingHours).joined(separator: "-")
+            deliverySwitch.isOn = phy.delivery.toInt() == 1 ? true : false
+            let urlstring = phy.photo
+            guard let url = URL(string: urlstring) else { return  }
+            getIncuracneNames(dd: phy.insuranceCompany)
+            doctorProfileImage.sd_setImage(with: url)
             
+            edirProfileViewModel.image=doctorProfileImage.image
+            edirProfileViewModel.apiToekn = phy.apiToken
+            edirProfileViewModel.user_Id = phy.id
+            edirProfileViewModel.name = phy.name
+            edirProfileViewModel.delivery=phy.delivery.toInt()
+            edirProfileViewModel.latt = phy.latt.toDouble()
+            edirProfileViewModel.lang=phy.lang.toDouble()
+            edirProfileViewModel.working_hours = getWorkingHourssRAD(ind: phy.workingHours)
+        }
+    }
+    
+    var lab:LabModel?{
+        didSet{
+            guard let phy = lab else { return  }
+            fullNameTextField.text = MOLHLanguage.isRTLLanguage() ? phy.nameAr ?? phy.name : phy.name
+            mobileNumberTextField.text = phy.phone2 ?? phy.phone
+            emailTextField.text = phy.email
+            getNameANdCity(lat: phy.latt.toDouble() ?? 0.0, lng: phy.lang.toDouble() ?? 0.0)
+            
+            let city = getCityFromIndex(phy.city)
+            let area = getAreassFromIndex( phy.area)
+            areaDrop.text = area
+            areaDrop.selectedIndex = phy.area-1
+            cityDrop.selectedIndex = phy.city-1
+            cityDrop.text = city
+            workingHoursLabel.text = getDaysLab(ind: phy.workingHours).joined(separator: "-") == "" ? "No Days Chossen" :  getDaysLab(ind: phy.workingHours).joined(separator: "-")
+            deliverySwitch.isOn = phy.delivery.toInt() == 1 ? true : false
+            let urlstring = phy.photo
+            guard let url = URL(string: urlstring) else { return  }
+            getIncuracneNames(dd: phy.insuranceCompany)
+            doctorProfileImage.sd_setImage(with: url)
+            
+            edirProfileViewModel.image=doctorProfileImage.image
+            edirProfileViewModel.apiToekn = phy.apiToken
+            edirProfileViewModel.user_Id = phy.id
+            edirProfileViewModel.name = phy.name
+            edirProfileViewModel.delivery=phy.delivery.toInt()
+            edirProfileViewModel.latt = phy.latt.toDouble()
+            edirProfileViewModel.lang=phy.lang.toDouble()
+            edirProfileViewModel.working_hours = getWorkingHourssLAB(ind: phy.workingHours)
         }
     }
     
@@ -256,7 +323,7 @@ class CustomPharamacyProfileView: CustomBaseView {
         
     }
     
-
+    
     func getIncuracneNames(dd:[InsurcaneCompanyModel])  {
         var sss = ""
         var aaaa = ""
@@ -266,10 +333,10 @@ class CustomPharamacyProfileView: CustomBaseView {
             
             eee.append(s.id)
             sss += insuracneArray[s.id] + ","
-               }
-               aaaa = sss
-               insuracneText.text = aaaa
-
+        }
+        aaaa = sss
+        insuracneText.text = aaaa
+        
         insuranceDrop.selectedIndexes = eee
         edirProfileViewModel.insurance=eee
         
@@ -387,6 +454,80 @@ class CustomPharamacyProfileView: CustomBaseView {
         return ss
     }
     
+    func getDaysLab(ind:[LabWorkingHoursModel])  ->[String]{
+        var ss = [String]()
+        ind.forEach { (s) in
+            
+            if s.day == 1{
+                if checkActiveDay(s.active) {
+                    ss.append("Sat")
+                }
+            }else  if s.day == 2{
+                if checkActiveDay(s.active) {
+                    ss.append("Sun")
+                }
+            }else  if s.day == 3{
+                if checkActiveDay(s.active) {
+                    ss.append("Mon")
+                }
+            }else  if s.day == 4{
+                if checkActiveDay(s.active) {
+                    ss.append("Tue")
+                }
+            }else  if s.day == 5{
+                if checkActiveDay(s.active) {
+                    ss.append("Wed")
+                }
+            }else  if s.day == 6{
+                if checkActiveDay(s.active) {
+                    ss.append("Thr")
+                }
+            }else {
+                if checkActiveDay(s.active) {
+                    ss.append("Fri")
+                }
+            }
+        }
+        return ss
+    }
+    
+    func getDaysRAD(ind:[RadiologyWorkingHourModel])  ->[String]{
+        var ss = [String]()
+        ind.forEach { (s) in
+            
+            if s.day == 1{
+                if checkActiveDay(s.active) {
+                    ss.append("Sat")
+                }
+            }else  if s.day == 2{
+                if checkActiveDay(s.active) {
+                    ss.append("Sun")
+                }
+            }else  if s.day == 3{
+                if checkActiveDay(s.active) {
+                    ss.append("Mon")
+                }
+            }else  if s.day == 4{
+                if checkActiveDay(s.active) {
+                    ss.append("Tue")
+                }
+            }else  if s.day == 5{
+                if checkActiveDay(s.active) {
+                    ss.append("Wed")
+                }
+            }else  if s.day == 6{
+                if checkActiveDay(s.active) {
+                    ss.append("Thr")
+                }
+            }else {
+                if checkActiveDay(s.active) {
+                    ss.append("Fri")
+                }
+            }
+        }
+        return ss
+    }
+    
     func getWorkingHourss(ind:[PharamacyWorkingHourModel]) -> [PharamacyWorkModel]  {
         var ss = [PharamacyWorkModel]()
         ind.forEach { (v) in
@@ -394,6 +535,87 @@ class CustomPharamacyProfileView: CustomBaseView {
             ss.append(d)
         }
         return ss
+    }
+    
+    func getWorkingHourssRAD(ind:[RadiologyWorkingHourModel]) -> [PharamacyWorkModel]  {
+        var ss = [PharamacyWorkModel]()
+        ind.forEach { (v) in
+            let d = PharamacyWorkModel(partFrom: v.partFrom, partTo: v.partTo, day: v.day, active: v.active)
+            ss.append(d)
+        }
+        return ss
+    }
+    
+    func getWorkingHourssLAB(ind:[LabWorkingHoursModel]) -> [PharamacyWorkModel]  {
+        var ss = [PharamacyWorkModel]()
+        ind.forEach { (v) in
+            let d = PharamacyWorkModel(partFrom: v.partFrom, partTo: v.partTo, day: v.day, active: v.active)
+            ss.append(d)
+        }
+        return ss
+    }
+    
+    func getCityFromIndex(_ index:Int) -> String {
+        var citName = [String]()
+        var cityId = [Int]()
+        
+        if MOLHLanguage.isRTLLanguage() {
+            
+            
+            
+            if let  cityArray = userDefaults.value(forKey: UserDefaultsConstants.cityNameARArray) as? [String],let cityIds = userDefaults.value(forKey: UserDefaultsConstants.cityIdArray) as? [Int]{
+                
+                citName = cityArray
+                cityId = cityIds
+                
+                
+                
+            }}else {
+            if let cityArray = userDefaults.value(forKey: UserDefaultsConstants.cityNameArray) as? [String],let cityIds = userDefaults.value(forKey: UserDefaultsConstants.cityIdArray) as? [Int] {
+                citName = cityArray
+                cityId = cityIds
+            }
+        }
+        let ss = cityId.filter{$0 == index}
+        let ff = ss.first ?? 1
+        
+        return citName[ff - 1 ]
+    }
+    
+    func getAreassFromIndex(_ index:Int) -> String {
+        var citName = [String]()
+        var cityId = [Int]()
+        
+        if MOLHLanguage.isRTLLanguage() {
+            
+            
+            
+            if let  cityArray = userDefaults.value(forKey: UserDefaultsConstants.areaNameARArray) as? [String],let cityIds = userDefaults.value(forKey: UserDefaultsConstants.areaIdArray) as? [Int]{
+                
+                citName = cityArray
+                cityId = cityIds
+                
+                
+                
+            }}else {
+            if let cityArray = userDefaults.value(forKey: UserDefaultsConstants.areaNameArray) as? [String],let cityIds = userDefaults.value(forKey: UserDefaultsConstants.areaIdArray) as? [Int] {
+                citName = cityArray
+                cityId = cityIds
+            }
+        }
+        let ss = cityId.filter{$0 == index}
+        let ff = ss.first ?? 1
+        
+        return citName[ff - 1 ]
+    }
+    
+    func getNameANdCity(lat:Double,lng:Double)  {
+        let location = CLLocation(latitude: lat, longitude: lng)
+        location.fetchCityAndCountry { city, country, error in
+            guard let city = city, let country = country, error == nil else { return }
+            self.addressLabel.text = city+" - "+country
+            print(city + ", " + country)  // Rio de Janeiro, Brazil
+        }
     }
     
     fileprivate func getAreaAccordingToCityId(index:Int)  {

@@ -47,12 +47,12 @@ class MainVerificationVC: CustomBaseViewVC {
     
     //check to go specific way
     fileprivate let index:Int!
-    fileprivate let isFromForgetPassw:Bool!
+    fileprivate let isFromDoctor:Bool!
     fileprivate let phoneNumber:String!
     fileprivate let user_id:Int!
     init(indexx:Int,isFromForgetPassw:Bool,phone:String,user_id:Int) {
         self.index = indexx
-        self.isFromForgetPassw = isFromForgetPassw
+        self.isFromDoctor = isFromForgetPassw
         self.phoneNumber = phone
         self.user_id = user_id
         super.init(nibName: nil, bundle: nil)
@@ -176,15 +176,14 @@ class MainVerificationVC: CustomBaseViewVC {
     }
     
     func goToNext()  {
-        //        self.updateStates(api_token: api_token,doctor_id)
-        if  isFromForgetPassw {
-            //            let  vc =  MainNewPassVC(indexx: index)
-            //            navigationController?.pushViewController(vc, animated: true)
-        }else {
+        if  isFromDoctor {
             guard let ss = cacheDoctorObjectCodabe.storedValue else{return}
-            
-            let vc =  MainClinicDataVC(indexx: index,api_token: ss.apiToken,doctor_id: ss.id)
-            navigationController?.pushViewController(vc, animated: true)
+                       
+                       let vc =  MainClinicDataVC(indexx: index,api_token: ss.apiToken,doctor_id: ss.id)
+                       navigationController?.pushViewController(vc, animated: true)
+        }else {
+           dismiss(animated: true)
+
         }
         
     }
@@ -331,7 +330,9 @@ class MainVerificationVC: CustomBaseViewVC {
     
     func saveRadToken(doctor:RadiologyModel)  {
         userDefaults.set(true, forKey: UserDefaultsConstants.radiologyPerformLogin)
-        
+        userDefaults.set(index, forKey: UserDefaultsConstants.MainLoginINDEX)
+        userDefaults.set(false, forKey: UserDefaultsConstants.isUserRegisterAndWaitForSMScODE)
+
         userDefaults.synchronize()
         
         cachdRADObjectCodabe.save(doctor)
@@ -341,7 +342,9 @@ class MainVerificationVC: CustomBaseViewVC {
     
     func saveLabToken(doctor:LabModel)  {
         userDefaults.set(true, forKey: UserDefaultsConstants.labPerformLogin)
-        
+        userDefaults.set(index, forKey: UserDefaultsConstants.MainLoginINDEX)
+        userDefaults.set(false, forKey: UserDefaultsConstants.isUserRegisterAndWaitForSMScODE)
+
         userDefaults.synchronize()
         
         cacheLABObjectCodabe.save(doctor)
@@ -351,7 +354,9 @@ class MainVerificationVC: CustomBaseViewVC {
     
     func savePharToken(doctor:PharamacyModel)  {
         userDefaults.set(true, forKey: UserDefaultsConstants.pharamacyPerformLogin)
-        
+        userDefaults.set(index, forKey: UserDefaultsConstants.MainLoginINDEX)
+        userDefaults.set(false, forKey: UserDefaultsConstants.isUserRegisterAndWaitForSMScODE)
+
         userDefaults.synchronize()
         
         cachdPHARMACYObjectCodabe.save(doctor)

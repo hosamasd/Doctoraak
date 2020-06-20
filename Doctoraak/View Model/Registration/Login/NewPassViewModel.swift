@@ -20,6 +20,8 @@ class NewPassViewModel {
     var mobile:String? {didSet {checkFormValidity()}}
 
     var confirmPassword:String? {didSet {checkFormValidity()}}
+    var confirms2Password:String? {didSet {checkFormValidity()}}
+
     var index:Int?  = -1 {didSet {checkFormValidity()}}
     
     
@@ -40,7 +42,7 @@ class NewPassViewModel {
        }
     
     func checkFormValidity() {
-        let isFormValid = password?.isEmpty == false && confirmPassword?.isEmpty == false && index != -1 && mobile?.isEmpty == false
+        let isFormValid = password?.isEmpty == false && confirmPassword?.isEmpty == false && confirms2Password?.isEmpty == false && confirms2Password == confirmPassword && index != -1 && mobile?.isEmpty == false
         
         bindableIsFormValidate.value = isFormValid
         

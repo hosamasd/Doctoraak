@@ -8,7 +8,7 @@
 
 import UIKit
 import MaterialComponents.MaterialSnackbar
-
+import MapKit
 
 extension UIView {
     
@@ -214,4 +214,10 @@ extension String {
         return self.substring(from: range.upperBound)
     }
 
+}
+
+extension CLLocation {
+    func fetchCityAndCountry(completion: @escaping (_ city: String?, _ country:  String?, _ error: Error?) -> ()) {
+        CLGeocoder().reverseGeocodeLocation(self) { completion($0?.first?.locality, $0?.first?.country, $1) }
+    }
 }

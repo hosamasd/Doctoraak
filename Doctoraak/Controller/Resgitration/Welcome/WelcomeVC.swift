@@ -499,15 +499,23 @@ class WelcomeVC: CustomBaseViewVC {
         if userDefaults.bool(forKey: UserDefaultsConstants.DoctorPerformLogin) || userDefaults.bool(forKey: UserDefaultsConstants.pharamacyPerformLogin) || userDefaults.bool(forKey: UserDefaultsConstants.labPerformLogin) || userDefaults.bool(forKey: UserDefaultsConstants.radiologyPerformLogin) {
             dismiss(animated: true)
         }else {
-        
-        let welcome =  WelcomeMainSecondVC() 
-        //        let nav = UINavigationController(rootViewController:welcome)
-        //        welcome.modalPresentationStyle = .fullScreen
-        //        present(welcome, animated: true)
-        //        navigationController?.pushViewController(welcome, animated: true)
-        
-        navigationController?.pushViewController(welcome, animated: true)
-        //        }
+            
+            if userDefaults.bool(forKey: UserDefaultsConstants.isWaitForMainNewPassVC) {
+                let index = userDefaults.integer(forKey: UserDefaultsConstants.MainLoginINDEX)
+                let mobile = userDefaults.string(forKey: UserDefaultsConstants.isWaitForMainNewPassVCMobile)
+                
+                let newPass = MainNewPassVC(indexx: index, mobile: mobile ?? "")
+                navigationController?.pushViewController(newPass, animated: true)
+            }else{
+                let welcome =  WelcomeMainSecondVC() 
+                //        let nav = UINavigationController(rootViewController:welcome)
+                //        welcome.modalPresentationStyle = .fullScreen
+                //        present(welcome, animated: true)
+                //        navigationController?.pushViewController(welcome, animated: true)
+                
+                navigationController?.pushViewController(welcome, animated: true)
+                //        }
+            }
         }
     }
 }
