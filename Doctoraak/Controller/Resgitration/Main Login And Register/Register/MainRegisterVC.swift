@@ -35,7 +35,7 @@ class MainRegisterVC: CustomBaseViewVC {
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
         v.nextButton.addTarget(self, action: #selector(handleNext), for: .touchUpInside)
         v.handleChooseHours = {[unowned self] in
-            let working = MainClinicWorkingHoursNotDoctorVC(index: self.index)
+            let working = MainClinicWorkingHoursNotDoctorVC(index: self.index, isFromUpdateProfile: true,isFromRegister: true)
             working.delgate = self
             self.navigationController?.pushViewController(working, animated: true)
         }

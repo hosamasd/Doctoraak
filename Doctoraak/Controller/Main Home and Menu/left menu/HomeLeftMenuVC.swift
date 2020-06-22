@@ -111,7 +111,7 @@ class HomeLeftMenuVC: CustomBaseViewVC {
                 present(nav, animated: true)
             }else if indexPath.item == 1 {
                 baseSlid.closeMenu()
-                let profile = MainClinicWorkingHoursVCWithoutEditingVC()
+                let profile = MainClinicWorkingHoursNotDoctorVC(index: index, isFromUpdateProfile: false,isFromRegister: false)//MainClinicWorkingHoursVCWithoutEditingVC()
                 profile.phy=phy
                 profile.lab=lab
                 profile.rad=rad
@@ -131,29 +131,32 @@ class HomeLeftMenuVC: CustomBaseViewVC {
                 
                 nav.modalPresentationStyle = .fullScreen
                 present(nav, animated: true)
+            }else if indexPath.item == 3 {
+                baseSlid.closeMenu()
+                let profile = AnaylticsVC()
+                profile.phy=phy
+                profile.lab=lab
+                profile.doctor=doctor
+                profile.rad=rad
+                let nav = UINavigationController(rootViewController: profile)
+                
+                nav.modalPresentationStyle = .fullScreen
+                present(nav, animated: true)
+                
             }
-        }else if indexPath.item == 3 {
-            baseSlid.closeMenu()
-            let profile = AnaylticsVC()
-            profile.phy=phy
-            profile.lab=lab
-            profile.doctor=doctor
-            profile.rad=rad
-            let nav = UINavigationController(rootViewController: profile)
-            
-            nav.modalPresentationStyle = .fullScreen
-            present(nav, animated: true)
-            
         }else {
             if indexPath.item == 2 {
                 baseSlid.closeMenu()
                 createAlerts()
+            }else if indexPath.item == 0 {
+                baseSlid.closeMenu()
+                showAlertForContacting()
+            }else{
+                baseSlid.closeMenu()
+                chooseLanguage()
             }
-            
         }
     }
-    
-    
     
     
     fileprivate func chooseLanguage()  {

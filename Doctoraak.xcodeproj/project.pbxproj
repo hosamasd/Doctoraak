@@ -667,9 +667,10 @@
 		4E4F800224544EFF0037D7D4 /* Working hour */ = {
 			isa = PBXGroup;
 			children = (
-				4EA83C69249764D200C9AB7E /* CustomMainClinicWorkingHoursVCWithoutEditingVC.swift */,
+				4EC23D3524A081BB00D5A1C1 /* not used */,
 				4E8F1809243DBD3300C00044 /* CustomDoctorClinicWorkingHoursView.swift */,
 				4E4F800324544F160037D7D4 /* CustomMainsClinicWorkingHoursView.swift */,
+				4EB847D4244EBB060042DD35 /* CustomMainCliView.swift */,
 			);
 			path = "Working hour";
 			sourceTree = "<group>";
@@ -974,7 +975,6 @@
 			isa = PBXGroup;
 			children = (
 				4E4F800224544EFF0037D7D4 /* Working hour */,
-				4EB847D4244EBB060042DD35 /* CustomMainCliView.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -996,6 +996,14 @@
 				4E3E0386245DACC80021EA26 /* All */,
 			);
 			path = Registration;
+			sourceTree = "<group>";
+		};
+		4EC23D3524A081BB00D5A1C1 /* not used */ = {
+			isa = PBXGroup;
+			children = (
+				4EA83C69249764D200C9AB7E /* CustomMainClinicWorkingHoursVCWithoutEditingVC.swift */,
+			);
+			path = "not used";
 			sourceTree = "<group>";
 		};
 		4EC551E3249A0BB8005EAFD7 /* New Group */ = {

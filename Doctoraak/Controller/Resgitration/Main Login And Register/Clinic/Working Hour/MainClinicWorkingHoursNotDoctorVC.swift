@@ -38,7 +38,7 @@ class MainClinicWorkingHoursNotDoctorVC: CustomBaseViewVC {
         let v = CustomMainClinicWorkingHoursView()
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
         v.doneButton.addTarget(self, action: #selector(handleDone), for: .touchUpInside)
-        
+        v.isFromUpdateProfile=self.isBeenUpdated
         v.handleShowPickers = {[unowned self] sender in
             self.handleShowPicker(sender: sender)
         }
@@ -48,10 +48,36 @@ class MainClinicWorkingHoursNotDoctorVC: CustomBaseViewVC {
     var delgate:MainClinicWorkingHoursssProtocol?
     var choosedHours = [String]()
     
-    fileprivate let index:Int!
+    var phy:PharamacyModel?{
+        didSet{
+            guard let phy = phy else { return  }
+            customClinicWorkingHoursView.workingHours=phy.workingHours
+            
+        }
+    }
+    var rad:RadiologyModel?{
+        didSet{
+            guard let phyy = rad else { return  }
+            customClinicWorkingHoursView.workingHoursRAD = phyy.workingHours
+            
+        }
+    }
+    var lab:LabModel?{
+        didSet{
+            guard let phy = lab else { return  }
+            customClinicWorkingHoursView.workingHoursLAB=phy.workingHours
+            
+        }
+    }
     
-    init(index:Int) {
+    fileprivate let index:Int!
+    fileprivate let isBeenUpdated:Bool
+    fileprivate let isFromRegister:Bool
+
+    init(index:Int,isFromUpdateProfile:Bool,isFromRegister:Bool) {
         self.index=index
+        self.isFromRegister=isFromRegister
+        self.isBeenUpdated=isFromUpdateProfile
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -66,15 +92,18 @@ class MainClinicWorkingHoursNotDoctorVC: CustomBaseViewVC {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        if isFromRegister {
+            
         
         if userDefaults.bool(forKey: UserDefaultsConstants.isLabWorkingHoursCached) {
             customClinicWorkingHoursView.workingHoursCachedLAB = cacheLABObjectWorkingHours.storedValue
         }else if userDefaults.bool(forKey: UserDefaultsConstants.isRADWorkingHoursCached) {
             customClinicWorkingHoursView.workingHoursCachedRAD = cachdRADObjectWorkingHours.storedValue
-
+            
         }else if userDefaults.bool(forKey: UserDefaultsConstants.isPHYWorkingHoursCached){
             customClinicWorkingHoursView.workingHoursCachedPHY = cachdPHARMACYObjectWorkingHours.storedValue
-
+            
+        }
         }
         
     }
@@ -115,7 +144,7 @@ class MainClinicWorkingHoursNotDoctorVC: CustomBaseViewVC {
             
             delgate?.getHoursChoosed(hours: customClinicWorkingHoursView.getChoosenHours())
             delgate?.getDays(indexs: customClinicWorkingHoursView.getDaysIndex(), days: customClinicWorkingHoursView.getDays())
-//            customClinicWorkingHoursView.savedData()
+            //            customClinicWorkingHoursView.savedData()
             saveCached(vv:customClinicWorkingHoursView.getChoosenHours())
             navigationController?.popViewController(animated: true)
         }else{}
@@ -124,18 +153,18 @@ class MainClinicWorkingHoursNotDoctorVC: CustomBaseViewVC {
     
     func saveCached(vv:[PharamacyWorkModel])  {
         if index == 2 {
-           
+            
             cacheLABObjectWorkingHours.save(vv)
             userDefaults.set(true, forKey: UserDefaultsConstants.isLabWorkingHoursCached)
-                       userDefaults.synchronize()
+            userDefaults.synchronize()
         }else if index == 3 {
             cachdRADObjectWorkingHours.save(vv)
             userDefaults.set(true, forKey: UserDefaultsConstants.isRADWorkingHoursCached)
-                       userDefaults.synchronize()
+            userDefaults.synchronize()
         }else {
             cachdPHARMACYObjectWorkingHours.save(vv)
             userDefaults.set(true, forKey: UserDefaultsConstants.isPHYWorkingHoursCached)
-                       userDefaults.synchronize()
+            userDefaults.synchronize()
         }
     }
     
@@ -168,7 +197,9 @@ class MainClinicWorkingHoursNotDoctorVC: CustomBaseViewVC {
     }
     
     @objc func handleBack()  {
-        navigationController?.popViewController(animated: true)
+        if isFromRegister {
+                    navigationController?.popViewController(animated: true)
+  }else {  dismiss(animated: true)  }
     }
     
     @objc func handleDone()  {

@@ -52,6 +52,7 @@ class BaseSlidingVC: UIViewController {
         }
         return v
     }()
+   
     
     lazy var rightViewController: UIViewController = UINavigationController(rootViewController: index < 2 ?  DoctorHomeVC() : MainHomeVC(inde: index))
     fileprivate let velocityThreshold: CGFloat = 500

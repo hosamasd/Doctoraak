@@ -10,32 +10,71 @@ import UIKit
 
 class CustomMainClinicWorkingHoursView: CustomBaseView {
     
+    var isFromUpdateProfile:Bool!{
+        didSet {
+            [sunButton,satButton,monButton,tuesButton,thuButton,wedButton,friButton,fifth1TextField,fifth2TextField,second1TextField,second2TextField,third1TextField,third2TextField,forth1TextField,forth2TextField,fifth2TextField,fifth1TextField,sexth1TextField,sexth2TextField,seventh1TextField,seventh2TextField].forEach({$0.isUserInteractionEnabled = isFromUpdateProfile})
+            doneButton.isHidden = isFromUpdateProfile ? false : true
+        }
+    }
+    
+    var workingHours:[PharamacyWorkingHourModel]?{
+        didSet{
+            guard let work = workingHours else { return  }
+            work.forEach { (w) in
+                putTheses(w: w)
+                putDefaultPHY(l:w)
+            }
+        }
+    }
+    
+    var workingHoursLAB:[LabWorkingHoursModel]?{
+        didSet{
+            guard let work = workingHoursLAB else { return  }
+            work.forEach { (w) in
+                putThesesLAB(w: w)
+                putDefaultLab(l:w)
+
+            }
+        }
+    }
+    
+    var workingHoursRAD:[RadiologyWorkingHourModel]?{
+        didSet{
+            guard let work = workingHoursRAD else { return  }
+            work.forEach { (w) in
+                putThesesRAD(w: w)
+                putDefaultRAD(l:w)
+
+            }
+        }
+    }
+    
     var workingHoursCachedLAB:[PharamacyWorkModel]?{
-          didSet{
-              guard let work = workingHoursCachedLAB else { return  }
-              work.forEach { (w) in
-                  putThesesCached(w: w)
-              }
-          }
-      }
-      
-      var workingHoursCachedRAD:[PharamacyWorkModel]?{
-          didSet{
-              guard let work = workingHoursCachedRAD else { return  }
-              work.forEach { (w) in
-                  putThesesCached(w: w)
-              }
-          }
-      }
-      
-      var workingHoursCachedPHY:[PharamacyWorkModel]?{
-          didSet{
-              guard let work = workingHoursCachedPHY else { return  }
-              work.forEach { (w) in
-                  putThesesCached(w: w)
-              }
-          }
-      }
+        didSet{
+            guard let work = workingHoursCachedLAB else { return  }
+            work.forEach { (w) in
+                putThesesCached(w: w)
+            }
+        }
+    }
+    
+    var workingHoursCachedRAD:[PharamacyWorkModel]?{
+        didSet{
+            guard let work = workingHoursCachedRAD else { return  }
+            work.forEach { (w) in
+                putThesesCached(w: w)
+            }
+        }
+    }
+    
+    var workingHoursCachedPHY:[PharamacyWorkModel]?{
+        didSet{
+            guard let work = workingHoursCachedPHY else { return  }
+            work.forEach { (w) in
+                putThesesCached(w: w)
+            }
+        }
+    }
     
     lazy var LogoImage:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "Group 4116"))
@@ -123,7 +162,7 @@ class CustomMainClinicWorkingHoursView: CustomBaseView {
     
     var handleShowPickers:((UIButton)->Void)?
     var day1:Int = 0
-    var day2:Int = 1
+    var day2:Int = 0//1
     var day3:Int = 0
     var day4:Int = 0
     var day5:Int = 0
@@ -149,67 +188,30 @@ class CustomMainClinicWorkingHoursView: CustomBaseView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        if sunButton.backgroundColor != nil && userDefaults.bool(forKey: UserDefaultsConstants.isWorkingHoursSaved){
-            addGradientInSenderAndRemoveOther(sender: sunButton)
-            sunButton.setTitleColor(.white, for: .normal)
-        }
+        //        if sunButton.backgroundColor != nil && userDefaults.bool(forKey: UserDefaultsConstants.isWorkingHoursSaved){
+        //            addGradientInSenderAndRemoveOther(sender: sunButton)
+        //            sunButton.setTitleColor(.white, for: .normal)
+        //        }
         
     }
     
     
-    
-    func savedData()  {
-        userDefaults.set(d1TXT1 , forKey: UserDefaultsConstants.mainfirst1)
-        userDefaults.set(d1TXT2  , forKey: UserDefaultsConstants.mainfirst11)
-        
-        userDefaults.set(d2TXT1 , forKey: UserDefaultsConstants.mainfirst2)
-        userDefaults.set(d2TXT2 , forKey: UserDefaultsConstants.mainfirst21)
-        
-        userDefaults.set(d3TXT1 , forKey: UserDefaultsConstants.mainfirst3)
-        userDefaults.set(d3TXT2 , forKey: UserDefaultsConstants.mainfirst31)
-        
-        userDefaults.set(d4TXT1 , forKey: UserDefaultsConstants.mainfirst4)
-        userDefaults.set(d4TXT2 , forKey: UserDefaultsConstants.mainfirst41)
-        
-        userDefaults.set(d5TXT1 , forKey: UserDefaultsConstants.mainfirst5)
-        userDefaults.set(d5TXT2 , forKey: UserDefaultsConstants.mainfirst51)
-        
-        userDefaults.set(d6TXT1 , forKey: UserDefaultsConstants.mainfirst6)
-        userDefaults.set(d6TXT2 , forKey: UserDefaultsConstants.mainfirst61)
-        
-        userDefaults.set(d7TXT1 , forKey: UserDefaultsConstants.mainfirst7)
-        userDefaults.set(d7TXT2 , forKey: UserDefaultsConstants.mainfirst71)
-        
-        userDefaults.set(day1  , forKey: UserDefaultsConstants.mainday1)
-        userDefaults.set(day2  , forKey: UserDefaultsConstants.mainday2)
-        userDefaults.set(day3  , forKey: UserDefaultsConstants.mainday3)
-        userDefaults.set(day4  , forKey: UserDefaultsConstants.mainday4)
-        userDefaults.set(day5  , forKey: UserDefaultsConstants.mainday5)
-        userDefaults.set(day6  , forKey: UserDefaultsConstants.mainday6)
-        userDefaults.set(day7  , forKey: UserDefaultsConstants.mainday7)
-        
-        userDefaults.set(true, forKey: UserDefaultsConstants.isWorkingHoursSaved)
-        userDefaults.synchronize()
-        print(9999)
-        
-    }
-    
-    func putDataForVariables(_ ff:String...)  {
-        d1TXT1 = ff[0]
-        d1TXT2=ff[1]
-        d2TXT1=ff[2]
-        d2TXT2=ff[3]
-        d3TXT1=ff[4]
-        d3TXT2=ff[5]
-        d4TXT1=ff[6]
-        d4TXT2=ff[7]
-        d5TXT1=ff[8]
-        d5TXT2=ff[9]
-        d6TXT1=ff[10]
-        d6TXT2=ff[11]
-        d7TXT1=ff[12]
-        d7TXT2=ff[13]
-    }
+    //    func putDataForVariables(_ ff:String...)  {
+    //        d1TXT1 = ff[0]
+    //        d1TXT2=ff[1]
+    //        d2TXT1=ff[2]
+    //        d2TXT2=ff[3]
+    //        d3TXT1=ff[4]
+    //        d3TXT2=ff[5]
+    //        d4TXT1=ff[6]
+    //        d4TXT2=ff[7]
+    //        d5TXT1=ff[8]
+    //        d5TXT2=ff[9]
+    //        d6TXT1=ff[10]
+    //        d6TXT2=ff[11]
+    //        d7TXT1=ff[12]
+    //        d7TXT2=ff[13]
+    //    }
     
     func changeTimeForButtonTitle(_ values:String)->String  {
         var ppp = "am"
@@ -218,69 +220,6 @@ class CustomMainClinicWorkingHoursView: CustomBaseView {
         ppp = hours > 12 ? "pm" : "am"
         hours =   hours > 12 ? hours - 12 : hours
         return "\(hours):\(minute) \(ppp)"
-    }
-    
-    func getSavedData()  {
-        
-        //        if !userDefaults.bool(forKey: UserDefaultsConstants.isWorkingHoursSaved) { }else {
-        
-        if let f1 = userDefaults.string(forKey: UserDefaultsConstants.mainfirst1),let f11 = userDefaults.string(forKey: UserDefaultsConstants.mainfirst11),
-            let f2 = userDefaults.string(forKey: UserDefaultsConstants.mainfirst2),let f21 = userDefaults.string(forKey: UserDefaultsConstants.mainfirst21),
-            let f3 = userDefaults.string(forKey: UserDefaultsConstants.mainfirst3),let f31 = userDefaults.string(forKey: UserDefaultsConstants.mainfirst31),
-            let f4 = userDefaults.string(forKey: UserDefaultsConstants.mainfirst4),let f41 = userDefaults.string(forKey: UserDefaultsConstants.mainfirst41),
-            let f5 = userDefaults.string(forKey: UserDefaultsConstants.mainfirst5),let f51 = userDefaults.string(forKey: UserDefaultsConstants.mainfirst51),
-            let f6 = userDefaults.string(forKey: UserDefaultsConstants.mainfirst6),let f61 = userDefaults.string(forKey: UserDefaultsConstants.mainfirst61),
-            
-            let f7 = userDefaults.string(forKey: UserDefaultsConstants.mainfirst7),let f71 = userDefaults.string(forKey: UserDefaultsConstants.mainfirst71)
-            
-            
-            
-            
-        {
-            putDataForVariables(f1,f11,f2,f21,f3,f31,f4,f41,f5,f51,f6,f61,f7,f71)
-            
-            first1TextField.setTitle(changeTimeForButtonTitle(f1), for: .normal)
-            first2TextField.setTitle(changeTimeForButtonTitle(f11), for: .normal)
-            
-            second1TextField.setTitle(changeTimeForButtonTitle(f2), for: .normal)
-            second2TextField.setTitle(changeTimeForButtonTitle(f21), for: .normal)
-            
-            third1TextField.setTitle(changeTimeForButtonTitle(f3), for: .normal)
-            third2TextField.setTitle(changeTimeForButtonTitle(f31), for: .normal)
-            
-            forth1TextField.setTitle(changeTimeForButtonTitle(f4), for: .normal)
-            forth2TextField.setTitle(changeTimeForButtonTitle(f41), for: .normal)
-            
-            fifth1TextField.setTitle(changeTimeForButtonTitle(f5), for: .normal)
-            fifth2TextField.setTitle(changeTimeForButtonTitle(f51), for: .normal)
-            
-            
-            sexth1TextField.setTitle(changeTimeForButtonTitle(f6), for: .normal)
-            sexth2TextField.setTitle(changeTimeForButtonTitle(f61), for: .normal)
-            
-            
-            seventh1TextField.setTitle(changeTimeForButtonTitle(f7), for: .normal)
-            seventh2TextField.setTitle(changeTimeForButtonTitle(f71), for: .normal)
-            putDefualValues()
-        }
-        //        }
-    }
-    
-    func putDefualValues()  {
-        let d1 = userDefaults.integer(forKey: UserDefaultsConstants.mainday1);let d2 = userDefaults.integer(forKey: UserDefaultsConstants.mainday2)
-        let d3 = userDefaults.integer(forKey: UserDefaultsConstants.mainday3);let d4 = userDefaults.integer(forKey: UserDefaultsConstants.mainday4)
-        let d5 = userDefaults.integer(forKey: UserDefaultsConstants.mainday5);let d6 = userDefaults.integer(forKey: UserDefaultsConstants.mainday6)
-        let d7 = userDefaults.integer(forKey: UserDefaultsConstants.mainday7)
-        
-        day1=d1;    day2=d2;    day3=d3;    day4=d4;    day5=d5;    day6=d6;day7=d7
-        
-        checkIfButtonsEnabled(enable: day1, vv: satButton)
-        checkIfButtonsEnabled(enable: day2, vv: sunButton)
-        checkIfButtonsEnabled(enable: day3, vv: monButton)
-        checkIfButtonsEnabled(enable: day4, vv: tuesButton)
-        checkIfButtonsEnabled(enable: day5, vv: wedButton)
-        checkIfButtonsEnabled(enable: day6, vv: thuButton)
-        checkIfButtonsEnabled(enable: day7, vv: friButton)
     }
     
     func checkIfButtonsEnabled(enable:Int,vv:UIButton)  {
@@ -529,8 +468,122 @@ class CustomMainClinicWorkingHoursView: CustomBaseView {
         return true
     }
     
+    func putTheses(w:PharamacyWorkingHourModel)  {
+        switch w.day {
+        case 1:
+            putTitleForButtons(b: true, bt: first1TextField, text: w.partFrom)
+            putTitleForButtons(b: true,bt: first2TextField, text: w.partTo)
+            activeOrNot(v: satButton, d: w.active)
+        //            checkButtonsTextx(w.active, vv: [first1TextField,first1TextField])
+        case 2:
+            putTitleForButtons(b: true,bt: second1TextField, text: w.partFrom)
+            putTitleForButtons(b: true,bt: second2TextField, text: w.partTo)
+            activeOrNot(v: sunButton, d: w.active)
+            //            checkButtonsTextx(w.active, vv: [second1TextField,second2TextField])
+            
+        case 3:
+            putTitleForButtons(b: true,bt: third1TextField, text: w.partFrom)
+            putTitleForButtons(b: true,bt: third2TextField, text: w.partTo)
+            activeOrNot(v: monButton, d: w.active)
+            //            checkButtonsTextx(w.active, vv: [third1TextField,third2TextField])
+            
+        case 4:
+            putTitleForButtons(b: true,bt: forth1TextField, text: w.partFrom)
+            putTitleForButtons(b: true,bt: forth2TextField, text: w.partTo)
+            activeOrNot(v: tuesButton, d: w.active)
+            //            checkButtonsTextx(w.active, vv: [forth1TextField,forth2TextField])
+            
+        case 5:
+            putTitleForButtons(b: true,bt: fifth1TextField, text: w.partFrom)
+            putTitleForButtons(b: true,bt: fifth2TextField, text: w.partTo)
+            activeOrNot(v: wedButton, d: w.active)
+            //            checkButtonsTextx(w.active, vv: [fifth1TextField,fifth2TextField])
+            
+        case 6:
+            putTitleForButtons(b: true,bt: sexth1TextField, text: w.partFrom)
+            putTitleForButtons(b: true,bt: sexth2TextField, text: w.partTo)
+            activeOrNot(v: thuButton, d: w.active)
+            //            checkButtonsTextx(w.active, vv: [sexth1TextField,sexth2TextField])
+            
+        default:
+            putTitleForButtons(b: true,bt: seventh1TextField, text: w.partFrom)
+            putTitleForButtons(b: true,bt: seventh2TextField, text: w.partTo)
+            activeOrNot(v: friButton, d: w.active)
+            //            checkButtonsTextx(w.active, vv: [seventh1TextField,seventh2TextField])
+            
+        }
+    }
+    
+    func putThesesRAD(w:RadiologyWorkingHourModel)  {
+        switch w.day {
+        case 1:
+            putTitleForButtons(b: true,bt: first1TextField, text: w.partFrom)
+            putTitleForButtons(b: true,bt: first2TextField, text: w.partTo)
+            activeOrNot(v: satButton, d: w.active)
+        case 2:
+            putTitleForButtons(b: true,bt: second1TextField, text: w.partFrom)
+            putTitleForButtons(b: true,bt: second2TextField, text: w.partTo)
+            activeOrNot(v: sunButton, d: w.active)
+        case 3:
+            putTitleForButtons(b: true,bt: third1TextField, text: w.partFrom)
+            putTitleForButtons(b: true,bt: third2TextField, text: w.partTo)
+            activeOrNot(v: monButton, d: w.active)
+        case 4:
+            putTitleForButtons(b: true,bt: forth1TextField, text: w.partFrom)
+            putTitleForButtons(b: true,bt: forth2TextField, text: w.partTo)
+            activeOrNot(v: tuesButton, d: w.active)
+        case 5:
+            putTitleForButtons(b: true,bt: fifth1TextField, text: w.partFrom)
+            putTitleForButtons(b: true,bt: fifth2TextField, text: w.partTo)
+            activeOrNot(v: wedButton, d: w.active)
+        case 6:
+            putTitleForButtons(b: true,bt: sexth1TextField, text: w.partFrom)
+            putTitleForButtons(b: true,bt: sexth2TextField, text: w.partTo)
+            activeOrNot(v: thuButton, d: w.active)
+        default:
+            putTitleForButtons(b: true,bt: seventh1TextField, text: w.partFrom)
+            putTitleForButtons(b: true,bt: seventh2TextField, text: w.partTo)
+            activeOrNot(v: friButton, d: w.active)
+        }
+    }
+    
+    func putThesesLAB(w:LabWorkingHoursModel)  {
+        switch w.day {
+        case 1:
+            putTitleForButtons(b: true,bt: first1TextField, text: w.partFrom)
+            putTitleForButtons(b: true,bt: first2TextField, text: w.partTo)
+            activeOrNot(v: satButton, d: w.active)
+        case 2:
+            putTitleForButtons(b: true,bt: second1TextField, text: w.partFrom)
+            putTitleForButtons(b: true,bt: second2TextField, text: w.partTo)
+            activeOrNot(v: sunButton, d: w.active)
+        case 3:
+            putTitleForButtons(b: true,bt: third1TextField, text: w.partFrom)
+            putTitleForButtons(b: true,bt: third2TextField, text: w.partTo)
+            activeOrNot(v: monButton, d: w.active)
+        case 4:
+            putTitleForButtons(b: true,bt: forth1TextField, text: w.partFrom)
+            putTitleForButtons(b: true,bt: forth2TextField, text: w.partTo)
+            activeOrNot(v: tuesButton, d: w.active)
+        case 5:
+            putTitleForButtons(b: true,bt: fifth1TextField, text: w.partFrom)
+            putTitleForButtons(b: true,bt: fifth2TextField, text: w.partTo)
+            activeOrNot(v: wedButton, d: w.active)
+        case 6:
+            putTitleForButtons(b: true,bt: sexth1TextField, text: w.partFrom)
+            putTitleForButtons(b: true,bt: sexth2TextField, text: w.partTo)
+            activeOrNot(v: thuButton, d: w.active)
+        default:
+            putTitleForButtons(b: true,bt: seventh1TextField, text: w.partFrom)
+            putTitleForButtons(b: true,bt: seventh2TextField, text: w.partTo)
+            activeOrNot(v: friButton, d: w.active)
+        }
+    }
     
     func getDays() -> [String] {
+        
+        
+        
         var ss = [String]()
         if checkActiveDay(day1) {
             ss.append("Sat")
@@ -579,76 +632,149 @@ class CustomMainClinicWorkingHoursView: CustomBaseView {
         return v
     }
     
-    func putTitleForButtons(bt:UIButton,text:String)  {
-           bt.setTitle(changeTimeForButtonTitle(values: text), for: .normal)
+    func putDefaultLab(l:LabWorkingHoursModel)  {
+        switch l.day {
+        case 1:
+            d1TXT1 = l.partFrom ; d1TXT2=l.partTo;day1=l.active
+        case 2:
+            d2TXT1 = l.partFrom ; d2TXT2=l.partTo;day2=l.active
+        case 3:
+            d3TXT1 = l.partFrom ; d3TXT2=l.partTo;day3=l.active
+        case 4:
+            d4TXT1 = l.partFrom ; d4TXT2=l.partTo;day4=l.active
+        case 5:
+            d5TXT1 = l.partFrom ; d5TXT2=l.partTo;day5=l.active
+        case 6:
+            d6TXT1 = l.partFrom ; d6TXT2=l.partTo;day6=l.active
+        default:
+            d7TXT1 = l.partFrom ; d7TXT2=l.partTo;day7=l.active
+        }
+    }
+    
+    func putDefaultRAD(l:RadiologyWorkingHourModel)  {
+           switch l.day {
+           case 1:
+               d1TXT1 = l.partFrom ; d1TXT2=l.partTo;day1=l.active
+           case 2:
+               d2TXT1 = l.partFrom ; d2TXT2=l.partTo;day2=l.active
+           case 3:
+               d3TXT1 = l.partFrom ; d3TXT2=l.partTo;day3=l.active
+           case 4:
+               d4TXT1 = l.partFrom ; d4TXT2=l.partTo;day4=l.active
+           case 5:
+               d5TXT1 = l.partFrom ; d5TXT2=l.partTo;day5=l.active
+           case 6:
+               d6TXT1 = l.partFrom ; d6TXT2=l.partTo;day6=l.active
+           default:
+               d7TXT1 = l.partFrom ; d7TXT2=l.partTo;day7=l.active
+           }
        }
     
+    func putDefaultPHY(l:PharamacyWorkingHourModel)  {
+           switch l.day {
+           case 1:
+               d1TXT1 = l.partFrom ; d1TXT2=l.partTo;day1=l.active
+           case 2:
+               d2TXT1 = l.partFrom ; d2TXT2=l.partTo;day2=l.active
+           case 3:
+               d3TXT1 = l.partFrom ; d3TXT2=l.partTo;day3=l.active
+           case 4:
+               d4TXT1 = l.partFrom ; d4TXT2=l.partTo;day4=l.active
+           case 5:
+               d5TXT1 = l.partFrom ; d5TXT2=l.partTo;day5=l.active
+           case 6:
+               d6TXT1 = l.partFrom ; d6TXT2=l.partTo;day6=l.active
+           default:
+               d7TXT1 = l.partFrom ; d7TXT2=l.partTo;day7=l.active
+           }
+       }
+    
+    func putTitleForButtons(b:Bool,bt:UIButton,text:String)  {
+        bt.setTitle(b == true ? changeTimeForButtonTitle(values: text): changeTimeForButtonTitless(values: text), for: .normal)
+        print(999)
+    }
+    
     func changeTimeForButtonTitle(values:String)->String  {
+        var ppp = "am"
+        guard var hours = values.removeSubstringAfterOrBefore(needle: ":", beforeNeedle: true)?.toInt()  else { return "" }
+        guard let minutes = values.removeSubstringAfterOrBefore(needle: "\(hours):", beforeNeedle: false)  else { return "" }
+        guard let minute = minutes.removeSubstringAfterOrBefore(needle: ":", beforeNeedle: true)?.toInt()  else { return "" }
+        
+        ppp = hours > 12 ? "pm" : "am"
+        hours =   hours > 12 ? hours - 12 : hours
+        return "\(hours):\(minute) \(ppp)"
+        
+    }
+    
+    func changeTimeForButtonTitless(values:String)->String  {
         if values == "00:00" {
             return "00:00"
         }
-           var ppp = "am"
-           guard var hours = values.removeSubstringAfterOrBefore(needle: ":", beforeNeedle: true)?.toInt()  else { return "" }
-           guard let minute = values.removeSubstringAfterOrBefore(needle: ":", beforeNeedle: false)  else { return "" }
-           
-           ppp = hours > 12 ? "pm" : "am"
-           hours =   hours > 12 ? hours - 12 : hours
-           return "\(hours):\(minute) \(ppp)"
-           
-       }
+        var ppp = "am"
+        guard var hours = values.removeSubstringAfterOrBefore(needle: ":", beforeNeedle: true)?.toInt()  else { return "" }
+        guard let minute = values.removeSubstringAfterOrBefore(needle: ":", beforeNeedle: false)  else { return "" }
+        
+        ppp = hours > 12 ? "pm" : "am"
+        hours =   hours > 12 ? hours - 12 : hours
+        return "\(hours):\(minute) \(ppp)"
+        
+    }
     
     func activeOrNot(v:UIButton,d:Int)  {
-                   v.isEnabled = checkActiveDay(d)
-           if v.isEnabled {
-               addGradientInSenderAndRemoveOther(sender: v)
-           }else {}
-       }
+        //        if isFromUpdateProfile {
+        //             v.isEnabled = checkActiveDay(d)
+        //        }
+        //                   v.isEnabled = checkActiveDay(d)
+        if checkActiveDay(d) {
+            addGradientInSenderAndRemoveOther(sender: v)
+        }else {}
+    }
     
     func putThesesCached(w:PharamacyWorkModel)  {
-           switch w.day {
-           case 1:
-               putTitleForButtons(bt: first1TextField, text: w.partFrom)
-               putTitleForButtons(bt: first2TextField, text: w.partTo)
-               activeOrNot(v: satButton, d: w.active)
-           //            checkButtonsTextx(w.active, vv: [first1TextField,first1TextField])
-           case 2:
-               putTitleForButtons(bt: second1TextField, text: w.partFrom)
-               putTitleForButtons(bt: second2TextField, text: w.partTo)
-               activeOrNot(v: sunButton, d: w.active)
-               //            checkButtonsTextx(w.active, vv: [second1TextField,second2TextField])
-               
-           case 3:
-               putTitleForButtons(bt: third1TextField, text: w.partFrom)
-               putTitleForButtons(bt: third2TextField, text: w.partTo)
-               activeOrNot(v: monButton, d: w.active)
-               //            checkButtonsTextx(w.active, vv: [third1TextField,third2TextField])
-               
-           case 4:
-               putTitleForButtons(bt: forth1TextField, text: w.partFrom)
-               putTitleForButtons(bt: forth2TextField, text: w.partTo)
-               activeOrNot(v: tuesButton, d: w.active)
-               //            checkButtonsTextx(w.active, vv: [forth1TextField,forth2TextField])
-               
-           case 5:
-               putTitleForButtons(bt: fifth1TextField, text: w.partFrom)
-               putTitleForButtons(bt: fifth2TextField, text: w.partTo)
-               activeOrNot(v: wedButton, d: w.active)
-               //            checkButtonsTextx(w.active, vv: [fifth1TextField,fifth2TextField])
-               
-           case 6:
-               putTitleForButtons(bt: sexth1TextField, text: w.partFrom)
-               putTitleForButtons(bt: sexth2TextField, text: w.partTo)
-               activeOrNot(v: thuButton, d: w.active)
-               //            checkButtonsTextx(w.active, vv: [sexth1TextField,sexth2TextField])
-               
-           default:
-               putTitleForButtons(bt: seventh1TextField, text: w.partFrom)
-               putTitleForButtons(bt: seventh2TextField, text: w.partTo)
-               activeOrNot(v: friButton, d: w.active)
-               //            checkButtonsTextx(w.active, vv: [seventh1TextField,seventh2TextField])
-               
-           }
-       }
+        switch w.day {
+        case 1:
+            putTitleForButtons(b: false,bt: first1TextField, text: w.partFrom)
+            putTitleForButtons(b: false,bt: first2TextField, text: w.partTo)
+            activeOrNot(v: satButton, d: w.active)
+        //            checkButtonsTextx(w.active, vv: [first1TextField,first1TextField])
+        case 2:
+            putTitleForButtons(b: false,bt: second1TextField, text: w.partFrom)
+            putTitleForButtons(b: false,bt: second2TextField, text: w.partTo)
+            activeOrNot(v: sunButton, d: w.active)
+            //            checkButtonsTextx(w.active, vv: [second1TextField,second2TextField])
+            
+        case 3:
+            putTitleForButtons(b: false,bt: third1TextField, text: w.partFrom)
+            putTitleForButtons(b: false,bt: third2TextField, text: w.partTo)
+            activeOrNot(v: monButton, d: w.active)
+            //            checkButtonsTextx(w.active, vv: [third1TextField,third2TextField])
+            
+        case 4:
+            putTitleForButtons(b: false,bt: forth1TextField, text: w.partFrom)
+            putTitleForButtons(b: false,bt: forth2TextField, text: w.partTo)
+            activeOrNot(v: tuesButton, d: w.active)
+            //            checkButtonsTextx(w.active, vv: [forth1TextField,forth2TextField])
+            
+        case 5:
+            putTitleForButtons(b: false,bt: fifth1TextField, text: w.partFrom)
+            putTitleForButtons(b: false,bt: fifth2TextField, text: w.partTo)
+            activeOrNot(v: wedButton, d: w.active)
+            //            checkButtonsTextx(w.active, vv: [fifth1TextField,fifth2TextField])
+            
+        case 6:
+            putTitleForButtons(b: false,bt: sexth1TextField, text: w.partFrom)
+            putTitleForButtons(b: false,bt: sexth2TextField, text: w.partTo)
+            activeOrNot(v: thuButton, d: w.active)
+            //            checkButtonsTextx(w.active, vv: [sexth1TextField,sexth2TextField])
+            
+        default:
+            putTitleForButtons(b: false,bt: seventh1TextField, text: w.partFrom)
+            putTitleForButtons(b: false,bt: seventh2TextField, text: w.partTo)
+            activeOrNot(v: friButton, d: w.active)
+            //            checkButtonsTextx(w.active, vv: [seventh1TextField,seventh2TextField])
+            
+        }
+    }
     
     @objc func handleShowPicker(sender:UIButton) {
         handleShowPickers?(sender)
@@ -659,6 +785,7 @@ class CustomMainClinicWorkingHoursView: CustomBaseView {
     }
     
     @objc  func handleOpen(sender:UIButton)  {
+        
         if sender.backgroundColor == nil {
             //disable button
             removeGradientInSender(sender:sender)

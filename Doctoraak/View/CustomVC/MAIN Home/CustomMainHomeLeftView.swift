@@ -27,45 +27,49 @@ class CustomMainHomeLeftView: CustomBaseView {
     var doctor:DoctorLoginModel?{
         didSet{
             guard let lab = doctor else { return  }
-            let urlString = lab.photo
-            guard let url = URL(string: urlString) else { return  }
-            userImage.sd_setImage(with: url)
+          
             let name = MOLHLanguage.isRTLLanguage() ? lab.nameAr ?? lab.name : lab.name
             let dd =  lab.phone
             userNameLabel.text = name+"\n"+dd
+            let urlString = lab.photo
+                      guard let url = URL(string: urlString) else { return  }
+                      userImage.sd_setImage(with: url)
         }
     }
     var lab:LabModel?{
         didSet{
             guard let lab = lab else { return  }
-            let urlString = lab.photo
-            guard let url = URL(string: urlString) else { return  }
-            userImage.sd_setImage(with: url)
             let name = MOLHLanguage.isRTLLanguage() ? lab.nameAr ?? lab.name : lab.name
             let dd =  lab.phone
             userNameLabel.text = name+"\n"+dd
+            let urlString = lab.photo
+            guard let url = URL(string: urlString) else { return  }
+            userImage.sd_setImage(with: url)
+            
         }
     }
     var phy:PharamacyModel?{
         didSet{
             guard let phy = phy else { return  }
-            let urlString = phy.photo
-            guard let url = URL(string: urlString) else { return  }
-            userImage.sd_setImage(with: url)
+           
             let name = MOLHLanguage.isRTLLanguage() ? phy.nameAr ?? phy.name : phy.name
             let dd =  phy.phone
             userNameLabel.text = name+"\n"+dd
+            let urlString = phy.photo
+                       guard let url = URL(string: urlString) else { return  }
+                       userImage.sd_setImage(with: url)
         }
     }
     var rad:RadiologyModel?{
         didSet{
             guard let lab = rad else { return  }
-            let urlString = lab.photo
-            guard let url = URL(string: urlString) else { return  }
-            userImage.sd_setImage(with: url)
+           
             let name = MOLHLanguage.isRTLLanguage() ? lab.nameAr ?? lab.name : lab.name
             let dd =  lab.phone
             userNameLabel.text = name+"\n"+dd
+            let urlString = lab.photo
+                       guard let url = URL(string: urlString) else { return  }
+                       userImage.sd_setImage(with: url)
         }
     }
     
