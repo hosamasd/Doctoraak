@@ -10,6 +10,32 @@ import UIKit
 
 class CustomMainClinicWorkingHoursView: CustomBaseView {
     
+    var workingHoursCachedLAB:[PharamacyWorkModel]?{
+          didSet{
+              guard let work = workingHoursCachedLAB else { return  }
+              work.forEach { (w) in
+                  putThesesCached(w: w)
+              }
+          }
+      }
+      
+      var workingHoursCachedRAD:[PharamacyWorkModel]?{
+          didSet{
+              guard let work = workingHoursCachedRAD else { return  }
+              work.forEach { (w) in
+                  putThesesCached(w: w)
+              }
+          }
+      }
+      
+      var workingHoursCachedPHY:[PharamacyWorkModel]?{
+          didSet{
+              guard let work = workingHoursCachedPHY else { return  }
+              work.forEach { (w) in
+                  putThesesCached(w: w)
+              }
+          }
+      }
     
     lazy var LogoImage:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "Group 4116"))
@@ -552,6 +578,77 @@ class CustomMainClinicWorkingHoursView: CustomBaseView {
         ]
         return v
     }
+    
+    func putTitleForButtons(bt:UIButton,text:String)  {
+           bt.setTitle(changeTimeForButtonTitle(values: text), for: .normal)
+       }
+    
+    func changeTimeForButtonTitle(values:String)->String  {
+        if values == "00:00" {
+            return "00:00"
+        }
+           var ppp = "am"
+           guard var hours = values.removeSubstringAfterOrBefore(needle: ":", beforeNeedle: true)?.toInt()  else { return "" }
+           guard let minute = values.removeSubstringAfterOrBefore(needle: ":", beforeNeedle: false)  else { return "" }
+           
+           ppp = hours > 12 ? "pm" : "am"
+           hours =   hours > 12 ? hours - 12 : hours
+           return "\(hours):\(minute) \(ppp)"
+           
+       }
+    
+    func activeOrNot(v:UIButton,d:Int)  {
+                   v.isEnabled = checkActiveDay(d)
+           if v.isEnabled {
+               addGradientInSenderAndRemoveOther(sender: v)
+           }else {}
+       }
+    
+    func putThesesCached(w:PharamacyWorkModel)  {
+           switch w.day {
+           case 1:
+               putTitleForButtons(bt: first1TextField, text: w.partFrom)
+               putTitleForButtons(bt: first2TextField, text: w.partTo)
+               activeOrNot(v: satButton, d: w.active)
+           //            checkButtonsTextx(w.active, vv: [first1TextField,first1TextField])
+           case 2:
+               putTitleForButtons(bt: second1TextField, text: w.partFrom)
+               putTitleForButtons(bt: second2TextField, text: w.partTo)
+               activeOrNot(v: sunButton, d: w.active)
+               //            checkButtonsTextx(w.active, vv: [second1TextField,second2TextField])
+               
+           case 3:
+               putTitleForButtons(bt: third1TextField, text: w.partFrom)
+               putTitleForButtons(bt: third2TextField, text: w.partTo)
+               activeOrNot(v: monButton, d: w.active)
+               //            checkButtonsTextx(w.active, vv: [third1TextField,third2TextField])
+               
+           case 4:
+               putTitleForButtons(bt: forth1TextField, text: w.partFrom)
+               putTitleForButtons(bt: forth2TextField, text: w.partTo)
+               activeOrNot(v: tuesButton, d: w.active)
+               //            checkButtonsTextx(w.active, vv: [forth1TextField,forth2TextField])
+               
+           case 5:
+               putTitleForButtons(bt: fifth1TextField, text: w.partFrom)
+               putTitleForButtons(bt: fifth2TextField, text: w.partTo)
+               activeOrNot(v: wedButton, d: w.active)
+               //            checkButtonsTextx(w.active, vv: [fifth1TextField,fifth2TextField])
+               
+           case 6:
+               putTitleForButtons(bt: sexth1TextField, text: w.partFrom)
+               putTitleForButtons(bt: sexth2TextField, text: w.partTo)
+               activeOrNot(v: thuButton, d: w.active)
+               //            checkButtonsTextx(w.active, vv: [sexth1TextField,sexth2TextField])
+               
+           default:
+               putTitleForButtons(bt: seventh1TextField, text: w.partFrom)
+               putTitleForButtons(bt: seventh2TextField, text: w.partTo)
+               activeOrNot(v: friButton, d: w.active)
+               //            checkButtonsTextx(w.active, vv: [seventh1TextField,seventh2TextField])
+               
+           }
+       }
     
     @objc func handleShowPicker(sender:UIButton) {
         handleShowPickers?(sender)

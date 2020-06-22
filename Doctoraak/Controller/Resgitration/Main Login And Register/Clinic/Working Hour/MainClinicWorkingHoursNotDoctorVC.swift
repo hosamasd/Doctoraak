@@ -15,6 +15,10 @@ protocol MainClinicWorkingHoursssProtocol {
     
 }
 
+let cacheLABObjectWorkingHours: LocalJSONStore<[PharamacyWorkModel]> = LocalJSONStore(storageType: .cache, filename: "lbw.json")
+let cachdRADObjectWorkingHours: LocalJSONStore<[PharamacyWorkModel]> = LocalJSONStore(storageType: .cache, filename: "rdw.json")
+let cachdPHARMACYObjectWorkingHours: LocalJSONStore<[PharamacyWorkModel]> = LocalJSONStore(storageType: .cache, filename: "phw.json")
+
 class MainClinicWorkingHoursNotDoctorVC: CustomBaseViewVC {
     
     
@@ -44,6 +48,17 @@ class MainClinicWorkingHoursNotDoctorVC: CustomBaseViewVC {
     var delgate:MainClinicWorkingHoursssProtocol?
     var choosedHours = [String]()
     
+    fileprivate let index:Int!
+    
+    init(index:Int) {
+        self.index=index
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -51,14 +66,17 @@ class MainClinicWorkingHoursNotDoctorVC: CustomBaseViewVC {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if !userDefaults.bool(forKey: UserDefaultsConstants.isWorkingHoursSaved) {
-            customClinicWorkingHoursView.getSavedData()
-            DispatchQueue.main.async {
-                self.view.layoutIfNeeded()
-            }
-            
-        }else{
+        
+        if userDefaults.bool(forKey: UserDefaultsConstants.isLabWorkingHoursCached) {
+            customClinicWorkingHoursView.workingHoursCachedLAB = cacheLABObjectWorkingHours.storedValue
+        }else if userDefaults.bool(forKey: UserDefaultsConstants.isRADWorkingHoursCached) {
+            customClinicWorkingHoursView.workingHoursCachedRAD = cachdRADObjectWorkingHours.storedValue
+
+        }else if userDefaults.bool(forKey: UserDefaultsConstants.isPHYWorkingHoursCached){
+            customClinicWorkingHoursView.workingHoursCachedPHY = cachdPHARMACYObjectWorkingHours.storedValue
+
         }
+        
     }
     
     
@@ -97,12 +115,29 @@ class MainClinicWorkingHoursNotDoctorVC: CustomBaseViewVC {
             
             delgate?.getHoursChoosed(hours: customClinicWorkingHoursView.getChoosenHours())
             delgate?.getDays(indexs: customClinicWorkingHoursView.getDaysIndex(), days: customClinicWorkingHoursView.getDays())
-            customClinicWorkingHoursView.savedData()
+//            customClinicWorkingHoursView.savedData()
+            saveCached(vv:customClinicWorkingHoursView.getChoosenHours())
             navigationController?.popViewController(animated: true)
         }else{}
         
     }
     
+    func saveCached(vv:[PharamacyWorkModel])  {
+        if index == 2 {
+           
+            cacheLABObjectWorkingHours.save(vv)
+            userDefaults.set(true, forKey: UserDefaultsConstants.isLabWorkingHoursCached)
+                       userDefaults.synchronize()
+        }else if index == 3 {
+            cachdRADObjectWorkingHours.save(vv)
+            userDefaults.set(true, forKey: UserDefaultsConstants.isRADWorkingHoursCached)
+                       userDefaults.synchronize()
+        }else {
+            cachdPHARMACYObjectWorkingHours.save(vv)
+            userDefaults.set(true, forKey: UserDefaultsConstants.isPHYWorkingHoursCached)
+                       userDefaults.synchronize()
+        }
+    }
     
     fileprivate func checkValidateDoneButton() {
         validateFirstShift()

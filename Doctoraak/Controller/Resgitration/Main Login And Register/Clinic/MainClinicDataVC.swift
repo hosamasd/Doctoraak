@@ -16,6 +16,13 @@ import MOLH
 
 class MainClinicDataVC: CustomBaseViewVC {
     
+    var cachedClinics:PharamacyWorkingHourModel?{
+        didSet{
+            guard let ww = cachedClinics else { return  }
+            
+        }
+    }
+    
     
     lazy var scrollView: UIScrollView = {
         let v = UIScrollView()
@@ -268,7 +275,7 @@ class MainClinicDataVC: CustomBaseViewVC {
     }
     
     func handleChooseWorkingHours()  {
-        let payment = MainClinicWorkingHoursNotDoctorVC()
+        let payment = MainClinicWorkingHoursNotDoctorVC(index: index)
         payment.delgate = self
         navigationController?.pushViewController(payment, animated: true)
     }

@@ -26,7 +26,7 @@ struct LabModel:Codable {
     var nameAr, nameFr: String?
     let phone: String
     var phone2: String?
-    let city, area: Int
+    var city, area: Int?
     let lang, latt, apiToken: String
     var firebaseToken: String?
     let smsCode, email, password: String

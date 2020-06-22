@@ -83,11 +83,11 @@ class CustomPharamacyProfileView: CustomBaseView {
             emailTextField.text = phy.email
             getNameANdCity(lat: phy.latt.toDouble() ?? 0.0, lng: phy.lang.toDouble() ?? 0.0)
             
-            let city = getCityFromIndex(phy.city)
-            let area = getAreassFromIndex( phy.area)
+            let city = getCityFromIndex(phy.city ?? 1)
+            let area = getAreassFromIndex( phy.area ?? 1)
             areaDrop.text = area
-            areaDrop.selectedIndex = phy.area-1
-            cityDrop.selectedIndex = phy.city-1
+            areaDrop.selectedIndex = phy.area ?? 2-1
+            cityDrop.selectedIndex = phy.city ?? 2-1
             cityDrop.text = city
             workingHoursLabel.text = getDaysLab(ind: phy.workingHours).joined(separator: "-") == "" ? "No Days Chossen" :  getDaysLab(ind: phy.workingHours).joined(separator: "-")
             deliverySwitch.isOn = phy.delivery.toInt() == 1 ? true : false

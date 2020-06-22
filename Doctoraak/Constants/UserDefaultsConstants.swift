@@ -10,6 +10,11 @@ import UIKit
 
 class UserDefaultsConstants {
     
+    //cached working hours
+    static let isLabWorkingHoursCached="isLabWorkingHoursCached"
+    static let isRADWorkingHoursCached="isRADWorkingHoursCached"
+    static let isPHYWorkingHoursCached="isPHYWorkingHoursCached"
+
     static let isWelcomeVCAppear="isWelcomeVCAppear"
     static let isCachedDriopLists = "isCachedDriopLists"
     static let isWaitForMainNewPassVC="isWaitForMainNewPassVC"

@@ -58,7 +58,7 @@ class ChooseLocationVC: CustomBaseViewVC {
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.startUpdatingLocation()
+//        locationManager.startUpdatingLocation()
         
     }
     
@@ -76,6 +76,16 @@ class ChooseLocationVC: CustomBaseViewVC {
         view.addSubview(customChooseUserLocationView)
         customChooseUserLocationView.fillSuperview()
     }
+    
+    func setupAnnotaiotn(coordinate:CLLocationCoordinate2D)  {
+           let annote = MKPointAnnotation()
+           annote.title = "your location"
+           annote.coordinate = coordinate
+        customChooseUserLocationView.mapView.addAnnotation(annote)
+           
+          
+        customChooseUserLocationView.mapView.showAnnotations(customChooseUserLocationView.mapView.annotations, animated: true)
+       }
     
     @objc fileprivate func handleInfo()  {
                 SVProgressHUD.showInfo(withStatus: "Please press long to pick up location".localized)
@@ -113,6 +123,14 @@ extension ChooseLocationVC:MKMapViewDelegate  {
 
 extension ChooseLocationVC: CLLocationManagerDelegate{
     
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+           switch status {
+           case .authorizedWhenInUse:
+               locationManager.startUpdatingLocation()
+           default:
+               print("not active")
+           }
+       }
     
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -120,8 +138,9 @@ extension ChooseLocationVC: CLLocationManagerDelegate{
         currentLat = userLocation.coordinate.latitude
         currentLong = userLocation.coordinate.longitude
         
-        let region = MKCoordinateRegion(center: userLocation.coordinate, latitudinalMeters: 10000, longitudinalMeters: 10000)
+        let region = MKCoordinateRegion(center: userLocation.coordinate, latitudinalMeters: 0.2, longitudinalMeters: 0.2)
         customChooseUserLocationView.mapView.setRegion(region, animated: true)
+        setupAnnotaiotn(coordinate: userLocation.coordinate)
         locationManager.stopUpdatingLocation()
     }
 }
