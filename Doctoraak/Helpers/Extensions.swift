@@ -9,8 +9,36 @@
 import UIKit
 import MaterialComponents.MaterialSnackbar
 import MapKit
+import MOLH
 
 extension UIView {
+    
+    func getSpecizalitionFromIndex(_ index:Int) -> String {
+           var citName = [String]()
+           var cityId = [Int]()
+           
+           if MOLHLanguage.isRTLLanguage() {
+               
+               
+               
+               if let  cityArray = userDefaults.value(forKey: UserDefaultsConstants.specificationNameARArray) as? [String],let cityIds = userDefaults.value(forKey: UserDefaultsConstants.specificationIdArray) as? [Int]{
+                   
+                   citName = cityArray
+                   cityId = cityIds
+                   
+                   
+                   
+               }}else {
+               if let cityArray = userDefaults.value(forKey: UserDefaultsConstants.specificationNameArray) as? [String],let cityIds = userDefaults.value(forKey: UserDefaultsConstants.specificationIdArray) as? [Int] {
+                   citName = cityArray
+                   cityId = cityIds
+               }
+           }
+           let ss = cityId.filter{$0 == index}
+           let ff = ss.first ?? 1
+           
+           return citName[ff - 1 ]
+       }
     
     func putAttributedText(la:UILabel,ft:String,st:String)  {
            let attributeText = NSMutableAttributedString(string: ft, attributes:  [.font : UIFont.boldSystemFont(ofSize: 18),.foregroundColor:UIColor.black])

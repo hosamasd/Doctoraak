@@ -58,7 +58,6 @@ class TopDoctorHomeCell: BaseCollectionCell {
         i.didSelect { (s, index, _) in
             self.handleChoosedClinicID?(index)
         }
-        //        i.isHide(true)
         return i
     }()
     var numberOfReserve:Int = 0

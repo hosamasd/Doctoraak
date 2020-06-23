@@ -207,10 +207,10 @@ class WelcomeVC: CustomBaseViewVC {
             
             MainServices.shared.getSpecificationss { (base,err) in
                 
-            groupze = base?.data
-                           semaphore.signal()
-                       }
-                       semaphore.wait()
+                groupze = base?.data
+                semaphore.signal()
+            }
+            semaphore.wait()
             
             semaphore.signal()
             self.reloadMainData(group1, group11, group0,group01,groupL,groupR,groupMN,groupMTY,groupPayment,groupPY,groupray,grouprads,groupze)
@@ -282,9 +282,9 @@ class WelcomeVC: CustomBaseViewVC {
         var mNIdData = [Int]()
         
         var xxxNameArray = [String]()
-               var xxxNameARData = [String]()
-               var xxxNameFR = [String]()
-               var xxxIdData = [Int]()
+        var xxxNameARData = [String]()
+        var xxxNameFR = [String]()
+        var xxxIdData = [Int]()
         
         
         DispatchQueue.main.sync {
@@ -301,11 +301,11 @@ class WelcomeVC: CustomBaseViewVC {
             })
             
             xxxx?.forEach({ (city) in
-                           xxxNameArray.append(city.name)
-                                          xxxNameArray.append(city.nameAr)
-                                          xxxNameFR.append(city.nameFr )
-                                          xxxIdData.append(city.id)
-                       })
+                xxxNameArray.append(city.name)
+                xxxNameARData.append(city.nameAr)
+                xxxNameFR.append(city.nameFr )
+                xxxIdData.append(city.id)
+            })
             
             ss?.forEach({ (r) in
                 labAnaylsisNameArray.append(r.name)
@@ -437,9 +437,9 @@ class WelcomeVC: CustomBaseViewVC {
             userDefaults.set(iIdData, forKey: UserDefaultsConstants.insuranceIdArray)
             
             userDefaults.set(xxxNameArray,forKey: UserDefaultsConstants.specificationNameArray)
-                   userDefaults.set(xxxNameFR,forKey: UserDefaultsConstants.specificationNameFRArray)
-                   userDefaults.set(xxxNameARData,forKey: UserDefaultsConstants.specificationNameARArray)
-                   userDefaults.set(xxxIdData,forKey: UserDefaultsConstants.specificationIdArray)
+            userDefaults.set(xxxNameFR,forKey: UserDefaultsConstants.specificationNameFRArray)
+            userDefaults.set(xxxNameARData,forKey: UserDefaultsConstants.specificationNameARArray)
+            userDefaults.set(xxxIdData,forKey: UserDefaultsConstants.specificationIdArray)
             userDefaults.set(gPayment, forKey: UserDefaultsConstants.paymentDetailsInfo)
             
             

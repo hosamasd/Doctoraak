@@ -14,21 +14,30 @@ class HomeLeftMenuVC: CustomBaseViewVC {
     
     lazy var customMainHomeLeftView:CustomMainHomeLeftView = {
         let v = CustomMainHomeLeftView()
+        v.index = index
+        
         v.handleCheckedIndex = {[unowned self] index in
             self.checkIfLoggined(index)
         }
-        v.index = index
+//        v.handleCheckedDocIndex = {[unowned self] index in
+//            self.checkIfLogginedDoc(index)
+//        }
         return v
     }()
     
-   
+    
     var lab:LabModel?{
         didSet{
             guard let lab = lab else { return  }
             customMainHomeLeftView.lab=lab
-            
         }
     }
+//    var doctor:DoctorModel?{
+//        didSet{
+//            guard let lab = doctor else { return  }
+//            customMainHomeLeftView.doctor=lab
+//        }
+//    }
     var phy:PharamacyModel?{
         didSet{
             guard let phy = phy else { return  }
@@ -61,7 +70,6 @@ class HomeLeftMenuVC: CustomBaseViewVC {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
          if userDefaults.bool(forKey: UserDefaultsConstants.labPerformLogin) {
             lab = cacheLABObjectCodabe.storedValue
         }else if userDefaults.bool(forKey: UserDefaultsConstants.radiologyPerformLogin) {
@@ -89,6 +97,68 @@ class HomeLeftMenuVC: CustomBaseViewVC {
         customMainHomeLeftView.fillSuperview()
     }
     
+//    func checkIfLogginedDoc(_ indexPath:IndexPath)  {
+//        guard let baseSlid = UIApplication.shared.windows.filter({$0.isKeyWindow}).first?.rootViewController as? BaseSlidingVC else {return}
+//
+//        if indexPath.section == 0 {
+//            if indexPath.item == 0 {
+//                baseSlid.closeMenu()
+//                let profile = DoctorProfileVC(index: index)
+//                profile.doc=doctor
+//                let nav = UINavigationController(rootViewController: profile)
+//
+//                nav.modalPresentationStyle = .fullScreen
+//                present(nav, animated: true)
+//            }else if indexPath.item == 4 {
+//                goToSameNotification(baseSlid)
+//            }else if indexPath.item == 5 {
+//                goToSameAnayltics(baseSlid)
+//            }
+//        }else {
+//            makeSameActions(indexPath, baseSlid)
+//
+//        }
+//    }
+    
+    fileprivate func makeSameActions(_ indexPath: IndexPath, _ baseSlid: BaseSlidingVC) {
+        if indexPath.item == 2 {
+            baseSlid.closeMenu()
+            createAlerts()
+        }else if indexPath.item == 0 {
+            baseSlid.closeMenu()
+            showAlertForContacting()
+        }else{
+            baseSlid.closeMenu()
+            chooseLanguage()
+        }
+    }
+    
+    fileprivate func goToSameAnayltics(_ baseSlid: BaseSlidingVC) {
+        baseSlid.closeMenu()
+        let profile = AnaylticsVC()
+        profile.phy=phy
+        profile.lab=lab
+        profile.rad=rad
+//        profile.doctor=doctor
+        let nav = UINavigationController(rootViewController: profile)
+        
+        nav.modalPresentationStyle = .fullScreen
+        present(nav, animated: true)
+    }
+    
+    fileprivate func goToSameNotification(_ baseSlid: BaseSlidingVC) {
+        baseSlid.closeMenu()
+        let profile = NotificationVC(index: index, isFromMenu: true)
+        profile.phy=phy
+        profile.lab=lab
+//        profile.doctor=doctor
+        profile.rad=rad
+        let nav = UINavigationController(rootViewController: profile)
+        
+        nav.modalPresentationStyle = .fullScreen
+        present(nav, animated: true)
+    }
+    
     func checkIfLoggined(_ indexPath:IndexPath)  {
         guard let baseSlid = UIApplication.shared.windows.filter({$0.isKeyWindow}).first?.rootViewController as? BaseSlidingVC else {return}
         if indexPath.section == 0 {
@@ -114,39 +184,13 @@ class HomeLeftMenuVC: CustomBaseViewVC {
                 present(nav, animated: true)
                 
             }else if indexPath.item == 2 {
-                baseSlid.closeMenu()
-                let profile = NotificationVC(index: index, isFromMenu: true)
-                profile.phy=phy
-                profile.lab=lab
-//                profile.doctor=doctor
-                profile.rad=rad
-                let nav = UINavigationController(rootViewController: profile)
-                
-                nav.modalPresentationStyle = .fullScreen
-                present(nav, animated: true)
+                goToSameNotification(baseSlid)
             }else if indexPath.item == 3 {
-                baseSlid.closeMenu()
-                let profile = AnaylticsVC()
-                profile.phy=phy
-                profile.lab=lab
-                profile.rad=rad
-                let nav = UINavigationController(rootViewController: profile)
-                
-                nav.modalPresentationStyle = .fullScreen
-                present(nav, animated: true)
+                goToSameAnayltics(baseSlid)
                 
             }
         }else {
-            if indexPath.item == 2 {
-                baseSlid.closeMenu()
-                createAlerts()
-            }else if indexPath.item == 0 {
-                baseSlid.closeMenu()
-                showAlertForContacting()
-            }else{
-                baseSlid.closeMenu()
-                chooseLanguage()
-            }
+            makeSameActions(indexPath, baseSlid)
         }
     }
     
@@ -172,7 +216,12 @@ class HomeLeftMenuVC: CustomBaseViewVC {
     
     
     fileprivate  func performLogout()  {
-      
+        
+//        if userDefaults.bool(forKey: UserDefaultsConstants.DoctorPerformLogin) {
+//            cacheDoctorObjectCodabe.deleteFile(doctor!)
+//            userDefaults.set(false, forKey: UserDefaultsConstants.DoctorPerformLogin)
+//            self.doctor=nil
+//        } else
             if userDefaults.bool(forKey: UserDefaultsConstants.labPerformLogin) {
             cacheLABObjectCodabe.deleteFile(lab!)
             userDefaults.set(false, forKey: UserDefaultsConstants.labPerformLogin)

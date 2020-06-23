@@ -10,23 +10,23 @@ import UIKit
 
 class SecondHomeLeftMenuCollcetionVC: BaseCollectionVC {
     
-  var images:[UIImage] = [#imageLiteral(resourceName: "icon"),#imageLiteral(resourceName: "icond"),#imageLiteral(resourceName: "ic_add_circle_outline_24px-1"),#imageLiteral(resourceName: "Union 1"),#imageLiteral(resourceName: "Group 4122"),#imageLiteral(resourceName: "ic_phone_24px"),#imageLiteral(resourceName: "ic_language_24px")]
-    
+    var images:[UIImage] = [#imageLiteral(resourceName: "icon"),#imageLiteral(resourceName: "icond"),#imageLiteral(resourceName: "ic_add_circle_outline_24px-1"),#imageLiteral(resourceName: "Union 1"),#imageLiteral(resourceName: "Group 4122"),#imageLiteral(resourceName: "ic_phone_24px"),#imageLiteral(resourceName: "ic_language_24px")]
     var deatas = [["Profile","Calender","Notification","Analysis"],["Contact Us","Language","Log Out"]]
+
     
     
     
     fileprivate let cellId = "cellId"
     
     var handleCheckedIndex:((IndexPath)->Void)?
-
+    
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return deatas.count
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         let height:CGFloat = section == 0 ? 0 : 50
-
+        
         return .init(width: view.frame.width, height: height)
     }
     
@@ -37,7 +37,7 @@ class SecondHomeLeftMenuCollcetionVC: BaseCollectionVC {
     }
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-
+        
         let sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "SectionHeader", for: indexPath) as! SectionHeader
         sectionHeader.label.text = "Setting"
         
@@ -55,7 +55,7 @@ class SecondHomeLeftMenuCollcetionVC: BaseCollectionVC {
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         handleCheckedIndex?(indexPath)
-
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -63,7 +63,7 @@ class SecondHomeLeftMenuCollcetionVC: BaseCollectionVC {
         return .init(width: view.frame.width, height: 60)
     }
     
-     //TODO: -handle methods
+    //TODO: -handle methods
     
     override func setupCollection() {
         collectionView.backgroundColor = .white
@@ -74,20 +74,20 @@ class SecondHomeLeftMenuCollcetionVC: BaseCollectionVC {
 
 
 class SectionHeader: UICollectionReusableView {
-     var label: UILabel = {
-     let label: UILabel = UILabel()
-     label.textColor = .black
-     label.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
-     label.sizeToFit()
-     return label
- }()
-
-override init(frame: CGRect) {
-     super.init(frame: frame)
-
-    stack(label)
-}
-
+    var label: UILabel = {
+        let label: UILabel = UILabel()
+        label.textColor = .black
+        label.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
+        label.sizeToFit()
+        return label
+    }()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        stack(label)
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

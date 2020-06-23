@@ -53,11 +53,6 @@ class DoctorHomeVC: CustomBaseViewVC {
     var filterDoctorPatientsArray = [DoctorGetPatientsFromClinicModel]()
     var isFilter:Bool = false
     
-    //    fileprivate let index:Int!
-    //    init(inde:Int) {
-    //        self.index = inde
-    //        super.init(nibName: nil, bundle: nil)
-    //    }
     var doc:DoctorModel?{
         didSet{
             guard let lab = doc else { return  }
