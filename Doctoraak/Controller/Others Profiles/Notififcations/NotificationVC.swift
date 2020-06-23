@@ -30,23 +30,42 @@ class NotificationVC: CustomBaseViewVC {
         let v = CustomNotificationView()
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
         v.index=index
-        v.handledisplayDOCNotification = {[unowned self] noty,index in
-            self.makeDeleteDOCNotify(index: 0, id: noty.id,index)
+        v.handledisplayDOCNotification = {[unowned self] noty,index,display in
+            if display {
+//                self.goTOdiSPLAYOrder(l: noty)
+            }else {
+                self.makeDeleteDOCNotify(index: 0, id: noty.id,index)
+            }
+            
         }
-        v.handledisplayRADNotification = {[unowned self] noty,index in
-            self.makeDeleteDOCNotify(index: 2, id: noty.id,index)
+        v.handledisplayRADNotification = {[unowned self] noty,index ,display in
+        if display {
+            self.goTOdiSPLAYOrder(l: nil,r: noty.order)
+//            self.goTOdiSPLAYOrder(l: noty)
+        }else {
+            self.makeDeleteDOCNotify(index: 3, id: noty.id,index)
+            }
             
             //            self.makeDeleteRADNotify(id: noty.id,index)
         }
-        v.handledisplayLABNotification = {[unowned self] noty,index in
-            self.makeDeleteDOCNotify(index: 3, id: noty.id,index)
-            
+        v.handledisplayLABNotification = {[unowned self] noty,index ,display in
+        if display {
+            self.goTOdiSPLAYOrder(l: noty.order,r: nil)
+
+//            self.goTOdiSPLAYOrder(l: noty)
+        }else {
+            self.makeDeleteDOCNotify(index: 2, id: noty.id,index)
+            }
             //            self.makeDeleteLABNotify(id: noty.id,index)
         }
-        v.handledisplayPHYNotification = {[unowned self] noty,index in
+        v.handledisplayPHYNotification = {[unowned self] noty,index ,display in
+        if display {
+            self.goTOdiSPlayPHY(s: noty.order)
+//            self.goTOdiSPLAYOrder(l: noty)
+        }else {
             //            self.makeDeletePHYNotify(id: noty.id,index)
             self.makeDeleteDOCNotify(index: 4, id: noty.id,index)
-            
+            }
         }
         return v
     }()
@@ -107,12 +126,24 @@ class NotificationVC: CustomBaseViewVC {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
+           super.viewWillAppear(animated)
+           
+           getObjects()
         getNotifications()
-    }
-    
-    //MARK:-User methods
+           //        fetchOrders()
+       }
+       
+       //MARK: -user methods
+       
+       func getObjects()  {
+           if userDefaults.bool(forKey: UserDefaultsConstants.labPerformLogin) {
+               lab = cacheLABObjectCodabe.storedValue
+           }else if userDefaults.bool(forKey: UserDefaultsConstants.radiologyPerformLogin) {
+               rad = cachdRADObjectCodabe.storedValue
+           }else if userDefaults.bool(forKey: UserDefaultsConstants.pharamacyPerformLogin) {
+               phy = cachdPHARMACYObjectCodabe.storedValue
+           }
+       }
     
     func getNotifications()  {
         index == 0 || index == 1 ? getDoctNotifications() : index == 2 ? getLABtNotifications() : index == 3 ? getRADNotifications() : getPHYNotifications()
@@ -139,6 +170,19 @@ class NotificationVC: CustomBaseViewVC {
             }
         }
     }
+    
+    func goTOdiSPLAYOrder(l:LABOrderModel? = nil , r:RadiologyOrderModel? = nil)  {
+        let dd = SelectedPharmacyPatientDataVC(inde: 2)
+        dd.labOrderss=l
+        dd.radOrderss = r
+        navigationController?.pushViewController(dd, animated: true)
+    }
+    
+    func goTOdiSPlayPHY(s:PharmacyOrderModel? = nil)  {
+           let dd = SelectedPharmacyPatientDataVC(inde: 2)
+           dd.phyOrderss=s
+           navigationController?.pushViewController(dd, animated: true)
+       }
     
     func reloadDocData(user:[DOCTORNotificationModel])  {
         self.customNotificationView.notificationsCollectionVC.notificationDocArray=user

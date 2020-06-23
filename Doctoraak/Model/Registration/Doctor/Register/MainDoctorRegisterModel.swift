@@ -23,8 +23,9 @@ struct MainDoctorRegisterModel:Codable {
 struct DoctorRegisterModel:Codable {
     
     var isMedicalCenter: String?
-
-   let name, email, phone, gender: String
+    var email,title,phone2:String? 
+    
+   let name, phone, gender: String
     let specializationID, degreeID, password: String
     let smsCode, active: Int
     let updatedAt, createdAt: String

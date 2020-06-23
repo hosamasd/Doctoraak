@@ -41,36 +41,47 @@ class DoctorSecondRegisterVC: CustomBaseViewVC {
         return v
     }()
     lazy var customAlertMainLoodingView:CustomAlertMainLoodingView = {
-        let v = CustomAlertMainLoodingView()
-        v.setupAnimation(name: "heart_loading")
-        return v
-    }()
+           let v = CustomAlertMainLoodingView()
+           v.setupAnimation(name: "heart_loading")
+           return v
+       }()
+       
+       lazy var customMainAlertVC:CustomMainAlertVC = {
+           let t = CustomMainAlertVC()
+           t.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
+           t.modalTransitionStyle = .crossDissolve
+           t.modalPresentationStyle = .overCurrentContext
+           return t
+       }()
+    
+    var email:String? {
+        didSet {
+            customCecondRegisterView.doctorSecondRegisterViewModel.email=email
+        }
+    }
+    var secondPhone:String? {
+        didSet {
+            customCecondRegisterView.doctorSecondRegisterViewModel.secondPhone=secondPhone
+        }
+    }
     
     //check to go specific way
     fileprivate let index:Int!
     fileprivate let name:String!
-    fileprivate let email:String!
     fileprivate let mobile:String!
     fileprivate let passowrd:String!
     fileprivate let male:String!
     fileprivate let photo:UIImage!
     
-    init(indexx:Int,male:String,photo:UIImage,email:String,name:String,mobile:String,passowrd:String) {
+    init(indexx:Int,male:String,photo:UIImage,name:String,mobile:String,passowrd:String) {
         self.index = indexx
         self.name = name
-        self.email = email
         self.passowrd = passowrd
         self.photo = photo
         self.male = male
         self.mobile = mobile
         super.init(nibName: nil, bundle: nil)
     }
-    
-    //        init(indexx:Int) {
-    //            self.index = indexx
-    //            super.init(nibName: nil, bundle: nil)
-    //        }
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -78,35 +89,24 @@ class DoctorSecondRegisterVC: CustomBaseViewVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViewModelObserver()
-                checkThis()
+        //                checkThis()
     }
     
     //MARK:-User methods
     
     func checkThis()  {
-        let img = #imageLiteral(resourceName: "lego(1)").pngData()
+        let img = #imageLiteral(resourceName: "lego(1)")
         
-        RegistrationServices.shared.registerDoctor(index: 0, isInsurance: true, coverImage: #imageLiteral(resourceName: "lego(1)"), cvName: "as", cvFile: img!, name: "asd", email: "xsfa@s.com", phone: "01001384592", password: "00000000", gender: "male", specialization_id: 1, degree_id: 1, insurance: [1,2]) { (base, err) in
+        RegistrationServices.shared.registerDoctor(index: index, coverImage: img, name: "sad",insurance: [1,2], phone: "00000003255", password: "00000000", gender: "male", specialization_id: 1, degree_id: 1) { (base, err) in
             if let err = err {
                 SVProgressHUD.showError(withStatus: err.localizedDescription)
-                 self.handleDismiss()
+                self.handleDismiss()
                 self.activeViewsIfNoData();return
             }
             SVProgressHUD.dismiss()
             self.activeViewsIfNoData()
             guard let user = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
         }
-    }
-    
-    func putSomeData()  {
-        customCecondRegisterView.doctorSecondRegisterViewModel.image = photo
-        customCecondRegisterView.doctorSecondRegisterViewModel.index = index
-        customCecondRegisterView.doctorSecondRegisterViewModel.name = name
-        customCecondRegisterView.doctorSecondRegisterViewModel.email = email
-        customCecondRegisterView.doctorSecondRegisterViewModel.phone = mobile
-        customCecondRegisterView.doctorSecondRegisterViewModel.password = passowrd
-        customCecondRegisterView.doctorSecondRegisterViewModel.male = male
-        
     }
     
     func setupViewModelObserver()  {
@@ -120,8 +120,8 @@ class DoctorSecondRegisterVC: CustomBaseViewVC {
         customCecondRegisterView.doctorSecondRegisterViewModel.bindableIsResgiter.bind(observer: {  [unowned self] (isReg) in
             if isReg == true {
                 UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
-                SVProgressHUD.show(withStatus: "Register...".localized)
-                
+//                SVProgressHUD.show(withStatus: "Register...".localized)
+                self.showMainAlertLooder(cc: self.customMainAlertVC, v: self.customAlertMainLoodingView)
             }else {
                 SVProgressHUD.dismiss()
                 self.activeViewsIfNoData()
@@ -143,9 +143,9 @@ class DoctorSecondRegisterVC: CustomBaseViewVC {
         customCecondRegisterView.fillSuperview()
     }
     func goToNext(id:Int)  {
-        let verify = MainVerificationVC(indexx: index, isFromForgetPassw: false, phone: mobile, user_id: id)
+        let verify = MainVerificationVC(indexx: index, isFromForgetPassw: false, isFromDoctor: true, phone: mobile, user_id: id)
         navigationController?.pushViewController(verify, animated: true)
-      }
+    }
     
     func saveToken(user_id:Int,_ sms:Int)  {
         userDefaults.set(user_id, forKey: UserDefaultsConstants.doctorSecondRegisterUser_id)
@@ -181,7 +181,7 @@ class DoctorSecondRegisterVC: CustomBaseViewVC {
         customCecondRegisterView.doctorSecondRegisterViewModel.performRegister { (base, err) in
             if let err = err {
                 SVProgressHUD.showError(withStatus: err.localizedDescription)
-                 self.handleDismiss()
+                self.handleDismiss()
                 self.activeViewsIfNoData();return
             }
             SVProgressHUD.dismiss()
@@ -221,5 +221,5 @@ extension DoctorSecondRegisterVC : UIDocumentPickerDelegate {
         } catch {
             print("Unable to load data: \(error)")
         }
-     }
+    }
 }

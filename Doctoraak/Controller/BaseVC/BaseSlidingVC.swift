@@ -143,7 +143,7 @@ class BaseSlidingVC: UIViewController {
         
         index = userDefaults.integer(forKey: UserDefaultsConstants.MainLoginINDEX)
         
-        let vc = index == 0 || index == 1 ? DoctorHomeLeftMenuVC() : HomeLeftMenuVC(index: index)
+        let vc = index == 0 || index == 1 ? DoctorHomeLeftMenuVC(index: index) : HomeLeftMenuVC(index: index)
         let dd = index < 2 ?  DoctorHomeVC() : MainHomeVC(inde: index)
         
         rightViewController = UINavigationController(rootViewController: dd)

@@ -29,7 +29,7 @@ struct GetRadiologyModel:Codable {
        let firebaseToken: String?
        let phone: String
        var phone2: String?
-       let city, area: Int
+       var city, area: Int?
        let lang, latt, smsCode, email: String
        let password: String
        let active: Int

@@ -26,6 +26,22 @@ class PatientCell: BaseCollectionCell {
         }
     }
     
+    var patientLab:PatientModelNotification?{
+          didSet{
+            guard let patientLab = patientLab else { return  }
+              let urlString = patientLab.photo
+              
+              guard let url = URL(string: urlString) else {return}
+              
+              DispatchQueue.main.async {
+                  self.PatientProfileImage.sd_setImage(with: url)
+                  self.PatientNameLabel.text = patientLab.name
+                  self.PatientGenderLabel.text = patientLab.gender
+                  self.PatientPhoneLabel.text = patientLab.phone
+              }
+          }
+      }
+    
     
     lazy var PatientProfileImage:UIImageView = {
         let i = UIImageView(backgroundColor: .gray)

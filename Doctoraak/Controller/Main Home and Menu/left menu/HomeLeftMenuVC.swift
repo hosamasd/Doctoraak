@@ -21,12 +21,7 @@ class HomeLeftMenuVC: CustomBaseViewVC {
         return v
     }()
     
-    var doctor:DoctorLoginModel?{
-        didSet{
-            guard let lab = doctor else { return  }
-            customMainHomeLeftView.doctor=lab
-        }
-    }
+   
     var lab:LabModel?{
         didSet{
             guard let lab = lab else { return  }
@@ -67,9 +62,7 @@ class HomeLeftMenuVC: CustomBaseViewVC {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        if userDefaults.bool(forKey: UserDefaultsConstants.DoctorPerformLogin) {
-            doctor = cacheDoctorObjectCodabe.storedValue
-        }else if userDefaults.bool(forKey: UserDefaultsConstants.labPerformLogin) {
+         if userDefaults.bool(forKey: UserDefaultsConstants.labPerformLogin) {
             lab = cacheLABObjectCodabe.storedValue
         }else if userDefaults.bool(forKey: UserDefaultsConstants.radiologyPerformLogin) {
             rad = cachdRADObjectCodabe.storedValue
@@ -125,7 +118,7 @@ class HomeLeftMenuVC: CustomBaseViewVC {
                 let profile = NotificationVC(index: index, isFromMenu: true)
                 profile.phy=phy
                 profile.lab=lab
-                profile.doctor=doctor
+//                profile.doctor=doctor
                 profile.rad=rad
                 let nav = UINavigationController(rootViewController: profile)
                 
@@ -136,7 +129,6 @@ class HomeLeftMenuVC: CustomBaseViewVC {
                 let profile = AnaylticsVC()
                 profile.phy=phy
                 profile.lab=lab
-                profile.doctor=doctor
                 profile.rad=rad
                 let nav = UINavigationController(rootViewController: profile)
                 
@@ -180,11 +172,8 @@ class HomeLeftMenuVC: CustomBaseViewVC {
     
     
     fileprivate  func performLogout()  {
-        if userDefaults.bool(forKey: UserDefaultsConstants.DoctorPerformLogin) {
-            cacheDoctorObjectCodabe.deleteFile(doctor!)
-            self.doctor=nil
-            userDefaults.set(false, forKey: UserDefaultsConstants.DoctorPerformLogin)
-        }else if userDefaults.bool(forKey: UserDefaultsConstants.labPerformLogin) {
+      
+            if userDefaults.bool(forKey: UserDefaultsConstants.labPerformLogin) {
             cacheLABObjectCodabe.deleteFile(lab!)
             userDefaults.set(false, forKey: UserDefaultsConstants.labPerformLogin)
             self.lab=nil

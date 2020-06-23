@@ -1,20 +1,18 @@
 //
-//  CustomMainHomeLeftView.swift
+//  CustomDoctorMainHomeLeftView.swift
 //  Doctoraak
 //
-//  Created by hosam on 3/25/20.
+//  Created by hosam on 6/23/20.
 //  Copyright © 2020 Ahmad Eisa. All rights reserved.
 //
 
-
-
 import UIKit
-import SDWebImage
 import MOLH
 
-class CustomMainHomeLeftView: CustomBaseView {
+class CustomDoctorMainHomeLeftView: CustomBaseView {
     
-    var index:Int? {
+    
+ var index:Int? {
         didSet{
             guard let index = index else { return  }
             let ss = index == 0 || index == 1 ? true : false
@@ -24,41 +22,16 @@ class CustomMainHomeLeftView: CustomBaseView {
         }
     }
     
-   
-    var lab:LabModel?{
+    var doctor:DoctorLoginModel?{
         didSet{
-            guard let lab = lab else { return  }
+            guard let lab = doctor else { return  }
+          
             let name = MOLHLanguage.isRTLLanguage() ? lab.nameAr ?? lab.name : lab.name
             let dd =  lab.phone
             userNameLabel.text = name+"\n"+dd
             let urlString = lab.photo
-            guard let url = URL(string: urlString) else { return  }
-            userImage.sd_setImage(with: url)
-            
-        }
-    }
-    var phy:PharamacyModel?{
-        didSet{
-            guard let phy = phy else { return  }
-           
-            let name = MOLHLanguage.isRTLLanguage() ? phy.nameAr ?? phy.name : phy.name
-            let dd =  phy.phone
-            userNameLabel.text = name+"\n"+dd
-            let urlString = phy.photo
-                       guard let url = URL(string: urlString) else { return  }
-                       userImage.sd_setImage(with: url)
-        }
-    }
-    var rad:RadiologyModel?{
-        didSet{
-            guard let lab = rad else { return  }
-           
-            let name = MOLHLanguage.isRTLLanguage() ? lab.nameAr ?? lab.name : lab.name
-            let dd =  lab.phone
-            userNameLabel.text = name+"\n"+dd
-            let urlString = lab.photo
-                       guard let url = URL(string: urlString) else { return  }
-                       userImage.sd_setImage(with: url)
+                      guard let url = URL(string: urlString) else { return  }
+                      userImage.sd_setImage(with: url)
         }
     }
     
@@ -109,4 +82,5 @@ class CustomMainHomeLeftView: CustomBaseView {
         
     }
 }
+
 

@@ -49,7 +49,9 @@ class CustomRegisterView: CustomBaseView {
     
     lazy var fullNameTextField = createMainTextFields(place: "Full name".localized)
     lazy var mobileNumberTextField = createMainTextFields(place: "enter Mobile".localized,type: .numberPad)
-    lazy var emailTextField = createMainTextFields(place: "enter email".localized,type: .emailAddress)
+    lazy var mobileSecondNumberTextField = createMainTextFields(place: "enter second mobile optional".localized,type: .numberPad)
+
+    lazy var emailTextField = createMainTextFields(place: "enter email optional".localized,type: .emailAddress)
     lazy var passwordTextField:UITextField = {
         let s = createMainTextFields(place: "Password".localized, type: .default,secre: true)
         let button = UIButton(type: .custom)
@@ -72,36 +74,37 @@ class CustomRegisterView: CustomBaseView {
         s.rightViewMode = .always
         return s
     }()
-    
-    lazy var boyButton:UIButton = {
-        
-        let button = UIButton(type: .system)
-        button.setTitle("Male".localized, for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.layer.cornerRadius = 8
-        button.layer.borderWidth = 1
-        button.layer.borderColor = UIColor.gray.cgColor
-        button.backgroundColor = ColorConstants.disabledButtonsGray
-        button.clipsToBounds = true
-        button.leftImage(image: #imageLiteral(resourceName: "toilet"), renderMode: .alwaysOriginal)
-        button.addTarget(self, action: #selector(handleBoy), for: .touchUpInside)
-        
-        return button
-    }()
-    lazy var girlButton:UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("Female".localized, for: .normal)
-        button.setTitleColor(.black, for: .normal)
-        button.backgroundColor = .white
-        button.layer.cornerRadius = 8
-        button.layer.borderWidth = 1
-        button.layer.borderColor = UIColor.gray.cgColor
-        button.clipsToBounds = true
-        button.leftImage(image: #imageLiteral(resourceName: "toile11t"), renderMode: .alwaysOriginal)
-        button.addTarget(self, action: #selector(handleGirl), for: .touchUpInside)
-        button.constrainHeight(constant: 60)
-        return button
-    }()
+    lazy var boyButton:UIButton = createMainButtonsForGenderss(title: "Male",img:#imageLiteral(resourceName: "toilet"), bg: false)
+       lazy var girlButton:UIButton = createMainButtonsForGenderss(title: "Female",img:#imageLiteral(resourceName: "toile11t"), bg: true)
+//    lazy var boyButton:UIButton = {
+//
+//        let button = UIButton(type: .system)
+//        button.setTitle("Male".localized, for: .normal)
+//        button.setTitleColor(.white, for: .normal)
+//        button.layer.cornerRadius = 8
+//        button.layer.borderWidth = 1
+//        button.layer.borderColor = UIColor.gray.cgColor
+//        button.backgroundColor = ColorConstants.disabledButtonsGray
+//        button.clipsToBounds = true
+//        button.leftImage(image: #imageLiteral(resourceName: "toilet"), renderMode: .alwaysOriginal)
+//        button.addTarget(self, action: #selector(handleBoy), for: .touchUpInside)
+//
+//        return button
+//    }()
+//    lazy var girlButton:UIButton = {
+//        let button = UIButton(type: .system)
+//        button.setTitle("Female".localized, for: .normal)
+//        button.setTitleColor(.black, for: .normal)
+//        button.backgroundColor = .white
+//        button.layer.cornerRadius = 8
+//        button.layer.borderWidth = 1
+//        button.layer.borderColor = UIColor.gray.cgColor
+//        button.clipsToBounds = true
+//        button.leftImage(image: #imageLiteral(resourceName: "toile11t"), renderMode: .alwaysOriginal)
+//        button.addTarget(self, action: #selector(handleGirl), for: .touchUpInside)
+//        button.constrainHeight(constant: 60)
+//        return button
+//    }()
     
     lazy var nextButton:UIButton = {
         let button = UIButton(type: .system)
@@ -121,7 +124,7 @@ class CustomRegisterView: CustomBaseView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        if boyButton.backgroundColor != nil {
+        if boyButton.backgroundColor == nil {
             addGradientInSenderAndRemoveOther(sender: boyButton)
             boyButton.setTitleColor(.white, for: .normal)
         }
@@ -130,7 +133,7 @@ class CustomRegisterView: CustomBaseView {
     
     override func setupViews() {
         
-        [ mobileNumberTextField,  passwordTextField,  emailTextField,fullNameTextField, confirmPasswordTextField].forEach({$0.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)})
+        [ mobileNumberTextField,mobileSecondNumberTextField,  passwordTextField,  emailTextField,fullNameTextField, confirmPasswordTextField].forEach({$0.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)})
         let subView = UIView(backgroundColor: .clear)
         subView.addSubViews(views: userProfileImage,userEditProfileImageView)
         subView.constrainWidth(constant: 100)
@@ -138,7 +141,7 @@ class CustomRegisterView: CustomBaseView {
         userEditProfileImageView.anchor(top: nil, leading: nil, bottom: userProfileImage.bottomAnchor, trailing: userProfileImage.trailingAnchor,padding: .init(top: 0, left:0 , bottom:10, right: 10))
         
         let genderStack = getStack(views: boyButton,girlButton, spacing: 16, distribution: .fillEqually, axis: .horizontal)
-        let textStack = getStack(views: fullNameTextField,mobileNumberTextField,emailTextField,passwordTextField,confirmPasswordTextField,genderStack, spacing: 16, distribution: .fillEqually, axis: .vertical)
+        let textStack = getStack(views: fullNameTextField,mobileNumberTextField,mobileSecondNumberTextField,emailTextField,passwordTextField,confirmPasswordTextField,genderStack, spacing: 16, distribution: .fillEqually, axis: .vertical)
         
         addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,subView,textStack,nextButton)
         NSLayoutConstraint.activate([
@@ -172,6 +175,15 @@ class CustomRegisterView: CustomBaseView {
                     doctorRegisterViewModel.phone = texts
                 }
                 
+            }else  if text == mobileSecondNumberTextField {
+                           if  !texts.isValidPhoneNumber    {
+                               floatingLabelTextField.errorMessage = "Invalid   Phone".localized
+                               doctorRegisterViewModel.secondPhone = nil
+                           }
+                           else {
+                               floatingLabelTextField.errorMessage = ""
+                               doctorRegisterViewModel.secondPhone = texts
+                           }
             }else if text == fullNameTextField {
                 if (texts.count < 3 ) {
                     floatingLabelTextField.errorMessage = "Invalid name".localized

@@ -52,12 +52,10 @@ class DoctorClinicWorkingHoursVC: CustomBaseViewVC {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if userDefaults.bool(forKey: UserDefaultsConstants.isClinicWorkingHoursSaved) {
-            customClinicWorkingHoursView.getSavedData()
-            DispatchQueue.main.async {
-                self.view.layoutIfNeeded()
-            }
-        }else{   }
+        if userDefaults.bool(forKey: UserDefaultsConstants.isClinicWorkingHoursCached){
+            customClinicWorkingHoursView.workingHoursCachedDoc = cachdDOCTORObjectCodabe.storedValue
+            
+        }
     }
     
     override  func setupNavigation()  {
@@ -91,9 +89,16 @@ class DoctorClinicWorkingHoursVC: CustomBaseViewVC {
         if  customClinicWorkingHoursView.checkButtonDone() {
             delgate?.getHoursChoosed(hours: customClinicWorkingHoursView.getChoosenHours())
             delgate?.getDays(indexs: customClinicWorkingHoursView.getDaysIndex(), days: customClinicWorkingHoursView.getDays())
-            customClinicWorkingHoursView.savedData()
+            saveCached(vv:customClinicWorkingHoursView.getChoosenHours())
+            
             navigationController?.popViewController(animated: true)
         }else {}
+    }
+    
+    func saveCached(vv:[WorkModel])  {
+        cachdDOCTORObjectCodabe.save(vv)
+        userDefaults.set(true, forKey: UserDefaultsConstants.isClinicWorkingHoursCached)
+        userDefaults.synchronize()
     }
     
     //TODO:Handle methods

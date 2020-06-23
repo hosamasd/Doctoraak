@@ -42,18 +42,65 @@ class RegistrationServices {
     }
     
     
-    func registerDoctor(index:Int,isInsurance:Bool,coverImage:UIImage,cvName:String,cvFile:Data,name:String,email:String,phone:String,password:String,gender:String,specialization_id:Int,degree_id:Int,insurance:[Int] ,completion: @escaping (MainDoctorRegisterModel?, Error?) -> Void ) {
+    func registerDoctor(index:Int,coverImage:UIImage,name:String,insurance:[Int]? = nil,cvName:String?=nil,cvFile:Data?=nil,email:String?=nil,secondPhone:String?=nil,title:String?=nil,phone:String,password:String,gender:String,specialization_id:Int,degree_id:Int ,completion: @escaping (MainDoctorRegisterModel?, Error?) -> Void ) {
         let urlString = "\(baseUrl)doctor_register".toSecrueHttps()
+        let basics:String
+        if email != nil && secondPhone != nil && title != nil && insurance != nil {
+                     basics = "name=\(name)&phone=\(phone)&password=\(password)&gender=\(gender)&specialization_id=\(specialization_id)&degree_id=\(degree_id)&is_medical_center=\(index)&phone2=\(secondPhone!)&title=\(title!)&email=\(email!)&insurance=\(insurance!)"
+        }else if email != nil && secondPhone != nil && insurance != nil{
+             basics = "name=\(name)&phone=\(phone)&password=\(password)&gender=\(gender)&specialization_id=\(specialization_id)&degree_id=\(degree_id)&is_medical_center=\(index)&phone2=\(secondPhone!))&email=\(email!)&insurance=\(insurance!)"
+
+        }else if email != nil && title != nil && insurance != nil {
+             basics = "name=\(name)&phone=\(phone)&password=\(password)&gender=\(gender)&specialization_id=\(specialization_id)&degree_id=\(degree_id)&is_medical_center=\(index)&title=\(title!)&email=\(email!)&insurance=\(insurance!)"
+
+        }else if email != nil && title != nil  {
+             basics = "name=\(name)&phone=\(phone)&password=\(password)&gender=\(gender)&specialization_id=\(specialization_id)&degree_id=\(degree_id)&is_medical_center=\(index)&title=\(title!)&email=\(email!)"
+
+        }else if email != nil && secondPhone != nil {
+             basics = "name=\(name)&phone=\(phone)&password=\(password)&gender=\(gender)&specialization_id=\(specialization_id)&degree_id=\(degree_id)&is_medical_center=\(index)&phone2=\(secondPhone!))&email=\(email!)"
+
+        }else if email != nil  && insurance != nil {
+             basics = "name=\(name)&phone=\(phone)&password=\(password)&gender=\(gender)&specialization_id=\(specialization_id)&degree_id=\(degree_id)&is_medical_center=\(index)&email=\(email!)&insurance=\(insurance!)"
+
+        }
+            
+        else if title != nil && secondPhone != nil && insurance != nil {
+             basics = "name=\(name)&phone=\(phone)&password=\(password)&gender=\(gender)&specialization_id=\(specialization_id)&degree_id=\(degree_id)&is_medical_center=\(index)&phone2=\(secondPhone!)&title=\(title!)&insurance=\(insurance!)"
+
+        } else if title != nil  && insurance != nil {
+             basics = "name=\(name)&phone=\(phone)&password=\(password)&gender=\(gender)&specialization_id=\(specialization_id)&degree_id=\(degree_id)&is_medical_center=\(index)&title=\(title!)&insurance=\(insurance!)"
+
+        } else if title != nil && secondPhone != nil {
+                    basics = "name=\(name)&phone=\(phone)&password=\(password)&gender=\(gender)&specialization_id=\(specialization_id)&degree_id=\(degree_id)&is_medical_center=\(index)&phone2=\(secondPhone!)&title=\(title!)"
+
+               }
+        else if  secondPhone != nil && insurance != nil {
+             basics = "name=\(name)&phone=\(phone)&password=\(password)&gender=\(gender)&specialization_id=\(specialization_id)&degree_id=\(degree_id)&is_medical_center=\(index)&phone2=\(secondPhone!)&insurance=\(insurance!)"
+
+        }else if email != nil {
+             basics = "name=\(name)&phone=\(phone)&password=\(password)&gender=\(gender)&specialization_id=\(specialization_id)&degree_id=\(degree_id)&is_medical_center=\(index)&email=\(email!)"
+
+        }else if title != nil {
+             basics = "name=\(name)&phone=\(phone)&password=\(password)&gender=\(gender)&specialization_id=\(specialization_id)&degree_id=\(degree_id)&is_medical_center=\(index)&title=\(title!)"
+
+        }else if secondPhone != nil {
+             basics = "name=\(name)&phone=\(phone)&password=\(password)&gender=\(gender)&specialization_id=\(specialization_id)&degree_id=\(degree_id)&is_medical_center=\(index)&phone2=\(secondPhone!)"
+        }else if insurance != nil {
+             basics = "name=\(name)&phone=\(phone)&password=\(password)&gender=\(gender)&specialization_id=\(specialization_id)&degree_id=\(degree_id)&is_medical_center=\(index)&insurance=\(insurance!)"
+        }else {
+              basics = "name=\(name)&phone=\(phone)&password=\(password)&gender=\(gender)&specialization_id=\(specialization_id)&degree_id=\(degree_id)&is_medical_center=\(index)"
+        }
+     
         
-        let basics = "name=\(name)&email=\(email)&phone=\(phone)&password=\(password)&gender=\(gender)&specialization_id=\(specialization_id)&degree_id=\(degree_id)&is_medical_center=\(index)"
+//        let basics = "name=\(name)&phone=\(phone)&password=\(password)&gender=\(gender)&specialization_id=\(specialization_id)&degree_id=\(degree_id)&is_medical_center=\(index)&phone2=\(secondPhone)&title=\(title)&email=\(email)"
         
-        let postString = !isInsurance ?  basics : basics+"&insurance=\(insurance)" //insurance if not empty
+        let postString = basics 
         
         MainServices.shared.makeMainPostGenericUsingAlmofire(urlString: urlString, postStrings: postString,cvcs: cvFile,cvName: name,photo: coverImage, completion: completion)
     }
     
     
-    func RegiasterClinicCreate(fees2:Int,fees:Int,lang:String,latt:String,phone:String,photo:UIImage,city:Int,area:Int,api_token:String,waiting_time:Int,doctor_id:Int,working_hours:[WorkModel],completion:@escaping (MainDoctorClinicCreateModel?,Error?)->Void)  {
+    func RegiasterClinicCreate(fees2:Int,fees:Int,lang:Double,latt:Double,phone:String,photo:UIImage,city:Int,area:Int,api_token:String,waiting_time:Int,doctor_id:Int,working_hours:[WorkModel],completion:@escaping (MainDoctorClinicCreateModel?,Error?)->Void)  {
         let urlString = "\(baseUrl)doctor_create_clinic".toSecrueHttps()
         
         let postString = "fees=\(fees)&lang=\(lang)&latt=\(latt)&phone=\(phone)&city=\(city)&area=\(area)&api_token=\(api_token)&doctor_id=\(doctor_id)&fees2=\(fees2)&waiting_time=\(waiting_time)"

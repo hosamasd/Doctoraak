@@ -12,6 +12,20 @@ import MOLH
 
 class CustomSelectedPatientDataVC: CustomBaseView {
     
+//    var phy:PharmacyOrderModel?{
+//           didSet{
+//               guard let phy = phy else { return  }
+//               let urlString = phy.photo
+//               guard let url = URL(string: urlString) else { return  }
+//               sampleRosetaImage.sd_setImage(with: url)
+//               //            DispatchQueue.main.async {
+//               self.patientCell.patient = phy.patient
+//               let acccepts = phy.accept == "0" ? false : true
+//               bottomStack.isHide(acccepts)
+//               selectedPatientDataPHYCollectionvc.notificationPHYArray = phy.details
+//               selectedPatientDataPHYCollectionvc.collectionView.reloadData()
+//           }
+//       }
     var phy:PharmacyGetOrdersModel?{
         didSet{
             guard let phy = phy else { return  }

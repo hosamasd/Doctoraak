@@ -107,6 +107,7 @@ class WelcomeVC: CustomBaseViewVC {
     
     fileprivate func cachedDropLists() {
         
+        var groupze: [SpecificationModel]?
         
         var group1: [CityModel]?
         var group11: [AreaModel]?
@@ -204,8 +205,15 @@ class WelcomeVC: CustomBaseViewVC {
             }
             semaphore.wait()
             
+            MainServices.shared.getSpecificationss { (base,err) in
+                
+            groupze = base?.data
+                           semaphore.signal()
+                       }
+                       semaphore.wait()
+            
             semaphore.signal()
-            self.reloadMainData(group1, group11, group0,group01,groupL,groupR,groupMN,groupMTY,groupPayment,groupPY,groupray,grouprads)
+            self.reloadMainData(group1, group11, group0,group01,groupL,groupR,groupMN,groupMTY,groupPayment,groupPY,groupray,grouprads,groupze)
             semaphore.wait()
             
             //            semaphore.signal()
@@ -215,7 +223,7 @@ class WelcomeVC: CustomBaseViewVC {
         }
     }
     
-    fileprivate func reloadMainData(_ group:[CityModel]?,_ group2:[AreaModel]?,_ grou:[DegreeModel]?,_ group5:[InsurcaneCompanyModel]?,_ gl:[GetLabModel]?,_ gr:[GetRadiologyModel]?,_ mN:[MedicineModel]?,_ mTY:[MedicineTypeModel]?,_ gPayment:[[String]]?,_ gppy:[PharamacyNameModel]?,_ ss:[LABAanalysisModel]? ,_ dd:[RadiologyAanalysisModel]?)  {
+    fileprivate func reloadMainData(_ group:[CityModel]?,_ group2:[AreaModel]?,_ grou:[DegreeModel]?,_ group5:[InsurcaneCompanyModel]?,_ gl:[GetLabModel]?,_ gr:[GetRadiologyModel]?,_ mN:[MedicineModel]?,_ mTY:[MedicineTypeModel]?,_ gPayment:[[String]]?,_ gppy:[PharamacyNameModel]?,_ ss:[LABAanalysisModel]? ,_ dd:[RadiologyAanalysisModel]?,_ xxxx:[SpecificationModel]?)  {
         
         var labAnaylsisNameArray = [String]()
         var labAnaylsisNameARData = [String]()
@@ -273,6 +281,10 @@ class WelcomeVC: CustomBaseViewVC {
         var mNNameFR = [String]()
         var mNIdData = [Int]()
         
+        var xxxNameArray = [String]()
+               var xxxNameARData = [String]()
+               var xxxNameFR = [String]()
+               var xxxIdData = [Int]()
         
         
         DispatchQueue.main.sync {
@@ -287,6 +299,13 @@ class WelcomeVC: CustomBaseViewVC {
                 radAnaylsisNameARData.append(r.nameFr)
                 radAnaylsisIdData.append(r.id)
             })
+            
+            xxxx?.forEach({ (city) in
+                           xxxNameArray.append(city.name)
+                                          xxxNameArray.append(city.nameAr)
+                                          xxxNameFR.append(city.nameFr )
+                                          xxxIdData.append(city.id)
+                       })
             
             ss?.forEach({ (r) in
                 labAnaylsisNameArray.append(r.name)
@@ -417,6 +436,10 @@ class WelcomeVC: CustomBaseViewVC {
             userDefaults.set(iNameARData, forKey: UserDefaultsConstants.insuranceNameARArray)
             userDefaults.set(iIdData, forKey: UserDefaultsConstants.insuranceIdArray)
             
+            userDefaults.set(xxxNameArray,forKey: UserDefaultsConstants.specificationNameArray)
+                   userDefaults.set(xxxNameFR,forKey: UserDefaultsConstants.specificationNameFRArray)
+                   userDefaults.set(xxxNameARData,forKey: UserDefaultsConstants.specificationNameARArray)
+                   userDefaults.set(xxxIdData,forKey: UserDefaultsConstants.specificationIdArray)
             userDefaults.set(gPayment, forKey: UserDefaultsConstants.paymentDetailsInfo)
             
             
@@ -492,7 +515,7 @@ class WelcomeVC: CustomBaseViewVC {
         let index = userDefaults.integer(forKey: UserDefaultsConstants.isUserRegisterAndWaitForSMScODEIndex)
         let phoneNumber = userDefaults.string(forKey: UserDefaultsConstants.userMobileNumber) ?? ""
         
-        let check = userDefaults.bool(forKey: UserDefaultsConstants.isUserRegisterAndWaitForSMScODE) ? MainVerificationVC(indexx: index, isFromForgetPassw: false, phone: phoneNumber, user_id: -1) : WelcomeMainSecondVC()
+        let check = userDefaults.bool(forKey: UserDefaultsConstants.isUserRegisterAndWaitForSMScODE) ? MainVerificationVC(indexx: index, isFromForgetPassw: false, isFromDoctor: false, phone: phoneNumber, user_id: -1) : WelcomeMainSecondVC()
         userDefaults.set(false, forKey: UserDefaultsConstants.isWelcomeVCAppear)
         userDefaults.synchronize()
         

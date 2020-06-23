@@ -64,18 +64,43 @@ class SelectedPharmacyPatientDataVC: CustomBaseViewVC {
         }
     }
     
+    var labOrderss:LABOrderModel?{
+           didSet{
+               guard let lab = labOrderss else { return  }
+            customSelectedPatientDataVC.patientCell.patientLab=lab.patient
+           }
+       }
+       var phyOrder:PharmacyGetOrdersModel?{
+           didSet{
+               guard let phy = phyOrder else { return  }
+               customSelectedPatientDataVC.patientCell.patient=phy.patient
+           }
+       }
+    var phyOrderss:PharmacyOrderModel?{
+              didSet{
+                  guard let phy = phyOrder else { return  }
+//                  customSelectedPatientDataVC.patientCell.patient=phy.patient
+              }
+          }
+       var radOrderss:RadiologyOrderModel?{
+           didSet{
+               guard let lab = radOrderss else { return  }
+               customSelectedPatientDataVC.patientCell.patient=lab.patient
+           }
+       }
+    
     var labOrder:LABGetOrdersModel?{
         didSet{
             guard let lab = labOrder else { return  }
             customSelectedPatientDataVC.patientCell.patient=lab.patient
         }
     }
-    var phyOrder:PharmacyGetOrdersModel?{
-        didSet{
-            guard let phy = phyOrder else { return  }
-            customSelectedPatientDataVC.patientCell.patient=phy.patient
-        }
-    }
+//    var phyOrder:PharmacyGetOrdersModel?{
+//        didSet{
+//            guard let phy = phyOrder else { return  }
+//            customSelectedPatientDataVC.patientCell.patient=phy.patient
+//        }
+//    }
     var radOrder:RadGetOrdersModel?{
         didSet{
             guard let lab = radOrder else { return  }
@@ -124,7 +149,7 @@ class SelectedPharmacyPatientDataVC: CustomBaseViewVC {
         UIApplication.shared.beginIgnoringInteractionEvents()
         self.showMainAlertLooder(cc: self.customMainAlertVC, v: self.customAlertMainLoodingView)
         
-        OrdersServices.shared.acceptPharmacyOrders(api_token: pharmacy.apiToken, pharmacy_id: phy.pharmacyID, order_id: phy.pharmacyOrderID) { (base, err) in
+        OrdersServices.shared.acceptPharmacyOrders(api_token: pharmacy.apiToken, pharmacy_id: phy.pharmacyID ?? 1, order_id: phy.pharmacyOrderID) { (base, err) in
             if let err = err {
                 SVProgressHUD.showError(withStatus: err.localizedDescription)
                 self.handleDismiss()

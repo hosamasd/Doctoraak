@@ -242,7 +242,7 @@ class MainRegisterVC: CustomBaseViewVC {
     fileprivate  func goToNext(id:Int)  {
         let phone = customMainRegisterView.mobileNumberTextField.text ?? ""
         
-        let verify = MainVerificationVC(indexx: index,isFromForgetPassw: false, phone: phone, user_id: id)
+        let verify = MainVerificationVC(indexx: index,isFromForgetPassw: false, isFromDoctor: false, phone: phone, user_id: id)
         navigationController?.pushViewController(verify, animated: true)
     }
     

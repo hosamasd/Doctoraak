@@ -29,8 +29,8 @@ struct LABNotificationModel:Codable {
        let titleAr: String
        let sent, seen: Int
        let createdAt, updatedAt: String
-       var orderType: String?
-       let order: LABOrderModel?
+       let orderType: JSONNull?
+       var order: LABOrderModel?
 
        enum CodingKeys: String, CodingKey {
            case id
@@ -50,28 +50,28 @@ struct LABNotificationModel:Codable {
        }
 }
 
-struct LABOrderModel:Codable {
-    let id, labID, patientID: Int
-       var notes: String?
-       let photo: String
-       var insuranceCode: String?
-       let insuranceAccept, createdAt, updatedAt: String
-       let accept: Int
-       let patient: PatientModel
-       let details: [LABDetailModel]
-
-       enum CodingKeys: String, CodingKey {
-           case id
-           case labID = "lab_id"
-           case patientID = "patient_id"
-           case notes, photo
-           case insuranceCode = "insurance_code"
-           case insuranceAccept = "insurance_accept"
-           case createdAt = "created_at"
-           case updatedAt = "updated_at"
-           case accept, patient, details
-       }
-}
+//struct LABOrderModel:Codable {
+//    let id, labID, patientID: Int
+//       var notes: String?
+//       let photo: String
+//       var insuranceCode: String?
+//       let insuranceAccept, createdAt, updatedAt: String
+//       let accept: Int
+//       let patient: PatientModelNotification
+//       let details: [LABDetailModel]
+//
+//       enum CodingKeys: String, CodingKey {
+//           case id
+//           case labID = "lab_id"
+//           case patientID = "patient_id"
+//           case notes, photo
+//           case insuranceCode = "insurance_code"
+//           case insuranceAccept = "insurance_accept"
+//           case createdAt = "created_at"
+//           case updatedAt = "updated_at"
+//           case accept, patient, details
+//       }
+//}
 
 struct LABDetailModel:Codable {
     let id, labOrder, analysisID: Int
@@ -104,4 +104,73 @@ struct LABInsuranceModel:Codable {
            case updatedAt = "updated_at"
            case photo, url
        }
+}
+
+struct PatientModelNotification:Codable {
+    let id: Int
+        let name: String
+        let nameAr, nameFr: JSONNull?
+        let phone, smsCode, apiToken, firebaseToken: String
+        let email, gender, password: String
+        let active, insuranceID: Int
+        let birthdate, photo: String
+        let insuranceCode: JSONNull?
+        let address: String
+        let addressAr, addressFr: JSONNull?
+        let createdAt, updatedAt: String
+        let insuranceCodeID, blockDays, blockDate: JSONNull?
+        let url: String
+        var insurance: InsurcaneCompanyModel?
+
+        enum CodingKeys: String, CodingKey {
+            case id, name
+            case nameAr = "name_ar"
+            case nameFr = "name_fr"
+            case phone
+            case smsCode = "sms_code"
+            case apiToken = "api_token"
+            case firebaseToken = "firebase_token"
+            case email, gender, password, active
+            case insuranceID = "insurance_id"
+            case birthdate, photo
+            case insuranceCode = "insurance_code"
+            case address
+            case addressAr = "address_ar"
+            case addressFr = "address_fr"
+            case createdAt = "created_at"
+            case updatedAt = "updated_at"
+            case insuranceCodeID = "insurance_code_id"
+            case blockDays = "block_days"
+            case blockDate = "block_date"
+            case url, insurance
+        }
+    
+}
+
+
+// MARK: - Encode/decode helpers
+
+class JSONNull: Codable, Hashable {
+
+    public static func == (lhs: JSONNull, rhs: JSONNull) -> Bool {
+        return true
+    }
+
+    public var hashValue: Int {
+        return 0
+    }
+
+    public init() {}
+
+    public required init(from decoder: Decoder) throws {
+        let container = try decoder.singleValueContainer()
+        if !container.decodeNil() {
+            throw DecodingError.typeMismatch(JSONNull.self, DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Wrong type for JSONNull"))
+        }
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.singleValueContainer()
+        try container.encodeNil()
+    }
 }

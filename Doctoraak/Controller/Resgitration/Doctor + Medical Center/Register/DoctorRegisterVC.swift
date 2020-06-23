@@ -20,7 +20,7 @@ class DoctorRegisterVC: CustomBaseViewVC {
     }()
     lazy var mainView:UIView = {
         let v = UIView(backgroundColor: .white)
-        v.constrainHeight(constant: 900)
+        v.constrainHeight(constant: 1000)
         v.constrainWidth(constant: view.frame.width)
         return v
     }()
@@ -75,12 +75,17 @@ class DoctorRegisterVC: CustomBaseViewVC {
         customRegisterView.fillSuperview()
     }
     
-    fileprivate func saveDefults(img:UIImage,name:String,mobile:String,email:String,password:String,male:String,index:Int)  {
+    fileprivate func saveDefults(img:UIImage,name:String,mobile:String,secondMobile:String?,email:String?,password:String,male:String,index:Int)  {
+        
         let data = img.pngData()
         userDefaults.set(data, forKey: UserDefaultsConstants.doctorRegisterImage)
         userDefaults.set(name, forKey: UserDefaultsConstants.doctorRegisterName)
-        userDefaults.set(email, forKey: UserDefaultsConstants.doctorRegisterEmail)
+        email != nil ?  userDefaults.set(email, forKey: UserDefaultsConstants.doctorRegisterEmail) : ()
         userDefaults.set(mobile, forKey: UserDefaultsConstants.doctorRegisterMobile)
+        secondMobile != nil ?  userDefaults.set(secondMobile!, forKey: UserDefaultsConstants.doctorRegisterSecondMobile) : ()
+
+        userDefaults.set(mobile, forKey: UserDefaultsConstants.doctorRegisterSecondMobile)
+
         userDefaults.set(password, forKey: UserDefaultsConstants.doctorRegisterPassword)
         userDefaults.set(male, forKey: UserDefaultsConstants.doctorRegisterMale)
         userDefaults.set(index, forKey: UserDefaultsConstants.doctorRegisterIndee)
@@ -129,9 +134,11 @@ class DoctorRegisterVC: CustomBaseViewVC {
         
         
         
-        customRegisterView.doctorRegisterViewModel.performRegister {[unowned self] (img, name, mobile, email, password, male, index) in
-            self.saveDefults(img: img, name: name, mobile: mobile, email: email, password: password, male: male, index: index)
-            let second = DoctorSecondRegisterVC(indexx: index, male: male, photo: img, email: email, name: name, mobile: mobile, passowrd: password)
+        customRegisterView.doctorRegisterViewModel.performRegister {[unowned self] (img, name, mobile,secondPhone, email, password, male, index) in
+            self.saveDefults(img: img, name: name, mobile: mobile,secondMobile: secondPhone, email: email, password: password, male: male, index: index)
+            let second = DoctorSecondRegisterVC(indexx: index, male: male, photo: img, name: name, mobile: mobile, passowrd: password)
+            second.secondPhone=secondPhone
+            second.email=email
             self.navigationController?.pushViewController(second, animated: true)
         }
         

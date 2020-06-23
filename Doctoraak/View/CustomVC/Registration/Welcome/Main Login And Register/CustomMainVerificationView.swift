@@ -58,6 +58,9 @@ class CustomMainVerificationView: CustomBaseView {
     
     
     override func setupViews() {
+        //for get code from message
+//        [firstNumberTextField,secondNumberTextField,thirdNumberTextField,forthNumberTextField,fifthNumberTextField].forEach({$0.textContentType = .oneTimeCode})
+        
         [firstNumberTextField,secondNumberTextField,thirdNumberTextField,forthNumberTextField,fifthNumberTextField].forEach({$0.delegate = self})
         [firstNumberTextField, secondNumberTextField,thirdNumberTextField, forthNumberTextField,fifthNumberTextField].forEach({$0.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)})
         

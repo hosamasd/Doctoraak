@@ -20,10 +20,10 @@ class NotificationsCollectionVC: BaseCollectionVC {
     
     var notificationRADArray = [RadiologyNotificationModel]()
     
-    var handledisplayDOCNotification:((DOCTORNotificationModel,IndexPath)->Void)?
-    var handledisplayRADNotification:((RadiologyNotificationModel,IndexPath)->Void)?
-    var handledisplayLABNotification:((LABNotificationModel,IndexPath)->Void)?
-    var handledisplayPHYNotification:((PharmacyNotificationModel,IndexPath)->Void)?
+    var handledisplayDOCNotification:((DOCTORNotificationModel,IndexPath,Bool)->Void)?
+    var handledisplayRADNotification:((RadiologyNotificationModel,IndexPath,Bool)->Void)?
+    var handledisplayLABNotification:((LABNotificationModel,IndexPath,Bool)->Void)?
+    var handledisplayPHYNotification:((PharmacyNotificationModel,IndexPath,Bool)->Void)?
     //        var handledisplayDOCNotification:((PatientNotificationModel,IndexPath)->Void)?
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -94,7 +94,7 @@ class NotificationsCollectionVC: BaseCollectionVC {
             let message = notificationPHYArray[indexPath.item]
             height = message.messageEn.getFrameForText(text: message.messageEn)
         }
-        return .init(width: view.frame.width, height: height.height+100)
+        return .init(width: view.frame.width, height: height.height+40)
         
     }
     
@@ -104,8 +104,7 @@ class NotificationsCollectionVC: BaseCollectionVC {
     func makePostDOCAlert(post:DOCTORNotificationModel,_ index:IndexPath)  {
         let alert = UIAlertController(title: "Choose Options".localized, message: "What do you want to make?".localized, preferredStyle: .actionSheet)
         let delete = UIAlertAction(title: "Delete".localized, style: .destructive) { (_) in
-            self.handledisplayDOCNotification?(post,index)
-            
+            self.handledisplayDOCNotification?(post,index,false)
         }
         let cancel = UIAlertAction(title: "Cancel".localized, style: .default) { (_) in
             alert.dismiss(animated: true)
@@ -118,12 +117,16 @@ class NotificationsCollectionVC: BaseCollectionVC {
     func makePostRADAlert(post:RadiologyNotificationModel,_ index:IndexPath)  {
         let alert = UIAlertController(title: "Choose Options".localized, message: "What do you want to make?".localized, preferredStyle: .actionSheet)
         let delete = UIAlertAction(title: "Delete".localized, style: .destructive) { (_) in
-            self.handledisplayRADNotification?(post,index)
+            self.handledisplayRADNotification?(post,index,false)
             
         }
         let cancel = UIAlertAction(title: "Cancel".localized, style: .default) { (_) in
             alert.dismiss(animated: true)
         }
+        let show = UIAlertAction(title: "Display".localized, style: .destructive) { (_) in
+            self.handledisplayRADNotification?(post,index,true)
+        }
+        alert.addAction(show)
         alert.addAction(delete)
         alert.addAction(cancel)
         present(alert, animated: true)
@@ -132,12 +135,16 @@ class NotificationsCollectionVC: BaseCollectionVC {
     func makePostLABAlert(post:LABNotificationModel,_ index:IndexPath)  {
         let alert = UIAlertController(title: "Choose Options".localized, message: "What do you want to make?".localized, preferredStyle: .actionSheet)
         let delete = UIAlertAction(title: "Delete".localized, style: .destructive) { (_) in
-            self.handledisplayLABNotification?(post,index)
+            self.handledisplayLABNotification?(post,index,false)
             
         }
         let cancel = UIAlertAction(title: "Cancel".localized, style: .default) { (_) in
             alert.dismiss(animated: true)
         }
+        let show = UIAlertAction(title: "Display".localized, style: .destructive) { (_) in
+            self.handledisplayLABNotification?(post,index,true)
+        }
+        alert.addAction(show)
         alert.addAction(delete)
         alert.addAction(cancel)
         present(alert, animated: true)
@@ -146,12 +153,16 @@ class NotificationsCollectionVC: BaseCollectionVC {
     func makePostPHYAlert(post:PharmacyNotificationModel,_ index:IndexPath)  {
         let alert = UIAlertController(title: "Choose Options".localized, message: "What do you want to make?".localized, preferredStyle: .actionSheet)
         let delete = UIAlertAction(title: "Delete".localized, style: .destructive) { (_) in
-            self.handledisplayPHYNotification?(post,index)
-            
+            self.handledisplayPHYNotification?(post,index,false)
         }
+        
         let cancel = UIAlertAction(title: "Cancel".localized, style: .default) { (_) in
             alert.dismiss(animated: true)
         }
+        let show = UIAlertAction(title: "Display".localized, style: .default) { (_) in
+            self.handledisplayPHYNotification?(post,index,true)
+        }
+        alert.addAction(show)
         alert.addAction(delete)
         alert.addAction(cancel)
         present(alert, animated: true)

@@ -42,20 +42,28 @@ class CustomNotificationView: CustomBaseView {
     
     lazy var notificationsCollectionVC:NotificationsCollectionVC = {
         let v = NotificationsCollectionVC()
-        //        v.handledisplayNotification = {[unowned self] index,ind in
-        //            self.handledisplayNotification?(index,ind)
-        //        }
-        
+        v.handledisplayDOCNotification = {[unowned self] d, inPath,f in
+            self.handledisplayDOCNotification?(d,inPath,f)
+        }
+        v.handledisplayPHYNotification = {[unowned self] d, inPath,f in
+            self.handledisplayPHYNotification?(d,inPath,f)
+        }
+        v.handledisplayLABNotification = {[unowned self] d, inPath,f in
+            self.handledisplayLABNotification?(d,inPath,f)
+        }
+        v.handledisplayRADNotification = {[unowned self] d, inPath,f in
+            self.handledisplayRADNotification?(d,inPath,f)
+        }
         return v
     }()
     
     
     
     
-    var handledisplayDOCNotification:((DOCTORNotificationModel,IndexPath)->Void)?
-    var handledisplayRADNotification:((RadiologyNotificationModel,IndexPath)->Void)?
-    var handledisplayLABNotification:((LABNotificationModel,IndexPath)->Void)?
-    var handledisplayPHYNotification:((PharmacyNotificationModel,IndexPath)->Void)?
+    var handledisplayDOCNotification:((DOCTORNotificationModel,IndexPath,Bool)->Void)?
+       var handledisplayRADNotification:((RadiologyNotificationModel,IndexPath,Bool)->Void)?
+       var handledisplayLABNotification:((LABNotificationModel,IndexPath,Bool)->Void)?
+       var handledisplayPHYNotification:((PharmacyNotificationModel,IndexPath,Bool)->Void)?
     
     override func setupViews() {
         

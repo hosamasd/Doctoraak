@@ -196,23 +196,6 @@ class CustomMainClinicWorkingHoursView: CustomBaseView {
     }
     
     
-    //    func putDataForVariables(_ ff:String...)  {
-    //        d1TXT1 = ff[0]
-    //        d1TXT2=ff[1]
-    //        d2TXT1=ff[2]
-    //        d2TXT2=ff[3]
-    //        d3TXT1=ff[4]
-    //        d3TXT2=ff[5]
-    //        d4TXT1=ff[6]
-    //        d4TXT2=ff[7]
-    //        d5TXT1=ff[8]
-    //        d5TXT2=ff[9]
-    //        d6TXT1=ff[10]
-    //        d6TXT2=ff[11]
-    //        d7TXT1=ff[12]
-    //        d7TXT2=ff[13]
-    //    }
-    
     func changeTimeForButtonTitle(_ values:String)->String  {
         var ppp = "am"
         guard let minute = values.removeSubstringAfterOrBefore(needle: ":", beforeNeedle: false)?.toInt()  else { return "" }
@@ -468,6 +451,8 @@ class CustomMainClinicWorkingHoursView: CustomBaseView {
         return true
     }
     
+    
+    
     func putTheses(w:PharamacyWorkingHourModel)  {
         switch w.day {
         case 1:
@@ -627,7 +612,6 @@ class CustomMainClinicWorkingHoursView: CustomBaseView {
             .init(partFrom: d5TXT1!,partTo: d5TXT2!, day: 5, active: day5),
             .init(partFrom: d6TXT1! ,partTo: d6TXT2!, day: 6, active: day6),
             .init(partFrom: d7TXT1! ,partTo: d7TXT2!, day: 7, active: day7)
-            
         ]
         return v
     }

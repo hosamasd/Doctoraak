@@ -17,11 +17,11 @@ class NotificationCell: BaseCollectionCell {
             guard let notu = phy else { return  }
             let title = MOLHLanguage.isRTLLanguage() ? notu.titleAr :  notu.titleEn
             let order = MOLHLanguage.isRTLLanguage() ? notu.messageAr :  notu.messageEn
-            notifyDetailsLabel.text = "\(title) \n \(order)"
-            guard let urlString = notu.order?.photo, let url = URL(string: urlString),let dd = notu.createdAt.toDates() else { return  }
-            notifyProfileImage.sd_setImage(with: url)
-            let dateString = notu.createdAt.timeAgoSinceDate( dd, currentDate: Date(), numericDates: true)
-            notifyDateLabel.text = dateString
+            notifyDetailsLabel.text = "\(title) \n \t \(order)"
+//            guard let urlString = notu.order?.photo, let url = URL(string: urlString),let dd = notu.createdAt.toDates() else { return  }
+//            notifyProfileImage.sd_setImage(with: url)
+//            let dateString = notu.createdAt.timeAgoSinceDate( dd, currentDate: Date(), numericDates: true)
+//            notifyDateLabel.text = dateString
         }
     }
     
@@ -31,10 +31,10 @@ class NotificationCell: BaseCollectionCell {
             let title = MOLHLanguage.isRTLLanguage() ? notu.titleAr :  notu.titleEn
             let order = MOLHLanguage.isRTLLanguage() ? notu.messageAr :  notu.messageEn
             notifyDetailsLabel.text = "\(title) \n \(order)"
-            guard let urlString = notu.order?.patient.photo, let url = URL(string: urlString),let dd = notu.createdAt.toDates() else { return  }
-            notifyProfileImage.sd_setImage(with: url)
-            let dateString = notu.createdAt.timeAgoSinceDate( dd, currentDate: Date(), numericDates: true)
-            notifyDateLabel.text = dateString
+//            guard let urlString = notu.order?.patient.photo, let url = URL(string: urlString),let dd = notu.createdAt.toDates() else { return  }
+//            notifyProfileImage.sd_setImage(with: url)
+//            let dateString = notu.createdAt.timeAgoSinceDate( dd, currentDate: Date(), numericDates: true)
+//            notifyDateLabel.text = dateString
         }
     }
     
@@ -44,10 +44,10 @@ class NotificationCell: BaseCollectionCell {
             let title = MOLHLanguage.isRTLLanguage() ? notu.titleAr :  notu.titleEn
             let order = MOLHLanguage.isRTLLanguage() ? notu.messageAr :  notu.messageEn
             notifyDetailsLabel.text = "\(title) \n \(order)"
-            guard let urlString = notu.order?.photo, let url = URL(string: urlString),let dd = notu.createdAt.toDates() else { return  }
-            notifyProfileImage.sd_setImage(with: url)
-            let dateString = notu.createdAt.timeAgoSinceDate( dd, currentDate: Date(), numericDates: true)
-            notifyDateLabel.text = dateString
+//            guard let urlString = notu.order?.photo, let url = URL(string: urlString),let dd = notu.createdAt.toDates() else { return  }
+//            notifyProfileImage.sd_setImage(with: url)
+//            let dateString = notu.createdAt.timeAgoSinceDate( dd, currentDate: Date(), numericDates: true)
+//            notifyDateLabel.text = dateString
         }
     }
     
@@ -57,22 +57,22 @@ class NotificationCell: BaseCollectionCell {
             let title = MOLHLanguage.isRTLLanguage() ? notu.titleAr :  notu.titleEn
             let order = MOLHLanguage.isRTLLanguage() ? notu.messageAr :  notu.messageEn
             notifyDetailsLabel.text = "\(title) \n \(order)"
-            guard let urlString = notu.order?.photo, let url = URL(string: urlString),let dd = notu.createdAt.toDates() else { return  }
-            notifyProfileImage.sd_setImage(with: url)
-            let dateString = notu.createdAt.timeAgoSinceDate( dd, currentDate: Date(), numericDates: true)
-            notifyDateLabel.text = dateString
+//            guard let urlString = notu.order?.photo, let url = URL(string: urlString),let dd = notu.createdAt.toDates() else { return  }
+//            notifyProfileImage.sd_setImage(with: url)
+//            let dateString = notu.createdAt.timeAgoSinceDate( dd, currentDate: Date(), numericDates: true)
+//            notifyDateLabel.text = dateString
         }
     }
     
     lazy var notifyProfileImage:UIImageView = {
-        let i = UIImageView(backgroundColor: .gray)
+        let i = UIImageView(image: #imageLiteral(resourceName: "Group 3795"))
         i.constrainWidth(constant: 80)
         i.constrainHeight(constant: 80)
         i.layer.cornerRadius = 8
         i.clipsToBounds = true
         return i
     }()
-    lazy var notifyDateLabel = UILabel(text: "12:30 pm", font: .systemFont(ofSize: 16), textColor: .lightGray)
+//    lazy var notifyDateLabel = UILabel(text: "12:30 pm", font: .systemFont(ofSize: 16), textColor: .lightGray)
     
     lazy var notifyDetailsLabel = UILabel(text: "", font: .systemFont(ofSize: 16), textColor: .black,textAlignment: .left,numberOfLines: 0)
     
@@ -99,13 +99,13 @@ class NotificationCell: BaseCollectionCell {
         layer.borderColor = UIColor.gray.cgColor
         layer.cornerRadius = 16
         clipsToBounds = true
-        notifyDateLabel.constrainHeight(constant: 20)
-        let s = hstack(UIView(),notifyDateLabel)
-        let ff = stack(notifyDetailsLabel,s,spacing:16)
+//        notifyDateLabel.constrainHeight(constant: 20)
+//        let s = hstack(UIView(),notifyDateLabel)
+//        let ff = stack(notifyDetailsLabel,spacing:16)
         
         let d = stack(notifyProfileImage,UIView()).padTop(16)
         
-        hstack(d,ff,spacing:16).withMargins(.init(top: 0, left: 16, bottom: 8, right: 8))
+        hstack(d,notifyDetailsLabel,spacing:16).withMargins(.init(top: 0, left: 16, bottom: 8, right: 8))
         
     }
 }

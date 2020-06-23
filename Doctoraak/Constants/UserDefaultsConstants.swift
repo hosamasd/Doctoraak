@@ -14,6 +14,8 @@ class UserDefaultsConstants {
     static let isLabWorkingHoursCached="isLabWorkingHoursCached"
     static let isRADWorkingHoursCached="isRADWorkingHoursCached"
     static let isPHYWorkingHoursCached="isPHYWorkingHoursCached"
+    static let isClinicWorkingHoursCached="isClinicWorkingHoursCached"
+
 
     static let isWelcomeVCAppear="isWelcomeVCAppear"
     static let isCachedDriopLists = "isCachedDriopLists"
@@ -31,6 +33,15 @@ class UserDefaultsConstants {
     static let isSpecificationsCached="isSpecificationsCached"
 
     
+    //verfiy smsm
+    static let isDoctorWwaitForSMSCode="isDoctorWwaitForSMSCode"
+    static let isMedicalWwaitForSMSCode="isMedicalWwaitForSMSCode"
+    static let isRADWwaitForSMSCode="isRADWwaitForSMSCode"
+    static let isLABWwaitForSMSCode="isLABWwaitForSMSCode"
+    static let isPHYWwaitForSMSCode="isPHYWwaitForSMSCode"
+
+    static let isDoctorWaitForClinic="isDoctorWaitForClinic"
+
     
     //login or reigster done states
     static let DoctorPerformLogin="DoctorPerformLogin"
@@ -46,6 +57,7 @@ class UserDefaultsConstants {
     static let doctorRegisterName="doctorRegisterName"
     static let doctorRegisterEmail="doctorRegisterEmail"
     static let doctorRegisterMobile="doctorRegisterMobile"
+    static let doctorRegisterSecondMobile="doctorRegisterSecondMobile"
     static let doctorRegisterPassword="doctorRegisterPassword"
     static let doctorRegisterMale="doctorRegisterMale"
     static let doctorRegisterIndee="doctorRegisterIndee"
@@ -165,7 +177,7 @@ class UserDefaultsConstants {
     
     static let day1 = "day1"            ; static let day2 = "day2"      ; static let day3 = "day3" ;  static let day4 = "day4"
     static let day5 = "day5"            ; static let day6 = "day6"      ; static let day7 = "day7"
-    static let isClinicWorkingHoursSaved = "isClinicWorkingHoursSaved"
+//    static let isClinicWorkingHoursSaved = "isClinicWorkingHoursSaved"
     
     //for  working hours
     static let mainfirst1 = "mainfirst1"

@@ -48,11 +48,14 @@ class MainVerificationVC: CustomBaseViewVC {
     //check to go specific way
     fileprivate let index:Int!
     fileprivate let isFromDoctor:Bool!
+    fileprivate let isFromForgetPassw:Bool!
+
     fileprivate let phoneNumber:String!
     fileprivate let user_id:Int!
-    init(indexx:Int,isFromForgetPassw:Bool,phone:String,user_id:Int) {
+    init(indexx:Int,isFromForgetPassw:Bool,isFromDoctor:Bool,phone:String,user_id:Int) {
         self.index = indexx
-        self.isFromDoctor = isFromForgetPassw
+        self.isFromForgetPassw = isFromForgetPassw
+        self.isFromDoctor=isFromDoctor
         self.phoneNumber = phone
         self.user_id = user_id
         super.init(nibName: nil, bundle: nil)
@@ -163,7 +166,7 @@ class MainVerificationVC: CustomBaseViewVC {
         let sss = index == 0 ? UserDefaultsConstants.DoctorVerificationAPITOKEN : index == 2 ? UserDefaultsConstants.labVerificationAPITOKEN : index == 3 ? UserDefaultsConstants.RadiologyVerificationAPITOKEN : UserDefaultsConstants.PharamacyVerificationAPITOKEN
         
         userDefaults.set(true, forKey: ss)
-        userDefaults.set(false, forKey: UserDefaultsConstants.isClinicWorkingHoursSaved)
+        userDefaults.set(false, forKey: UserDefaultsConstants.isClinicWorkingHoursCached)
         
         userDefaults.set(api_token, forKey: sss)
         userDefaults.set(doctor_id, forKey: ids)
@@ -179,11 +182,13 @@ class MainVerificationVC: CustomBaseViewVC {
         if  isFromDoctor {
             guard let ss = cacheDoctorObjectCodabe.storedValue else{return}
             
-            let vc =  MainClinicDataVC(indexx: index,api_token: ss.apiToken,doctor_id: ss.id)
+            let vc =  DoctorClinicDataVC(indexx: index,api_token: ss.apiToken,doctor_id: ss.id)
             navigationController?.pushViewController(vc, animated: true)
+        }else if isFromForgetPassw {
+            let login = MainLoginsVC(indexx: index)
+            navigationController?.pushViewController(login, animated: true)
         }else {
             dismiss(animated: true)
-            
         }
         
     }
@@ -317,7 +322,8 @@ class MainVerificationVC: CustomBaseViewVC {
     
     
     func saveDoctorToken(doctor:DoctorLoginModel)  {
-        userDefaults.set(true, forKey: UserDefaultsConstants.DoctorPerformLogin)
+        userDefaults.set(true, forKey: UserDefaultsConstants.isDoctorWaitForClinic)
+//        userDefaults.set(true, forKey: UserDefaultsConstants.DoctorPerformLogin)
         userDefaults.set(false, forKey: UserDefaultsConstants.isUserRegisterAndWaitForSMScODE)
         
         userDefaults.set(index, forKey: UserDefaultsConstants.MainLoginINDEX)
