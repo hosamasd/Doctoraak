@@ -72,4 +72,15 @@ class ProfileServices {
            
            MainServices.shared.makeMainPostGenericUsingAlmofire(urlString: urlString, postStrings: postString, photo: photo,working_hours: working_hours, completion: completion)
         }
+    
+    func updateDoctorProfile(api_token:String,user_id:Int,photo:UIImage,name:String,insurance:[Int],degree_id:Int,cvName:String? = nil ,cvFile:Data? = nil,completion: @escaping (MainDoctorLoginModel?, Error?) ->Void)  {
+              let postString:String
+              let nnn =   "doctor_update_profile"
+        let urlString = "\(baseUrl)\(nnn)".toSecrueHttps()
+              postString =    "api_token=\(api_token)&user_id=\(user_id)&name=\(name)&insurance=\(insurance)&degree_id=\(degree_id)"
+              
+        MainServices.shared.makeMainPostGenericUsingAlmofire(urlString: urlString, postStrings: postString,cvcs: cvFile,cvName: name,photo: photo, completion: completion)
+
+//              MainServices.shared.makeMainPostGenericUsingAlmofire(urlString: urlString, postStrings: postString, photo: photo,working_hours: working_hours, completion: completion)
+           }
 }

@@ -53,7 +53,7 @@ class DoctorClinicWorkingHoursVC: CustomBaseViewVC {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if userDefaults.bool(forKey: UserDefaultsConstants.isClinicWorkingHoursCached){
-            customClinicWorkingHoursView.workingHoursCachedDoc = cachdDOCTORObjectCodabe.storedValue
+            customClinicWorkingHoursView.workingHoursCachedDoc = cachdDOCTORWorkingHourObjectCodabe.storedValue
             
         }
     }
@@ -96,7 +96,7 @@ class DoctorClinicWorkingHoursVC: CustomBaseViewVC {
     }
     
     func saveCached(vv:[WorkModel])  {
-        cachdDOCTORObjectCodabe.save(vv)
+        cachdDOCTORWorkingHourObjectCodabe.save(vv)
         userDefaults.set(true, forKey: UserDefaultsConstants.isClinicWorkingHoursCached)
         userDefaults.synchronize()
     }
