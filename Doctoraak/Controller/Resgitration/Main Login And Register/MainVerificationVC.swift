@@ -321,7 +321,7 @@ class MainVerificationVC: CustomBaseViewVC {
     }
     
     
-    func saveDoctorToken(doctor:DoctorLoginModel)  {
+    func saveDoctorToken(doctor:DoctorModel)  {
         userDefaults.set(true, forKey: UserDefaultsConstants.isDoctorWaitForClinic)
 //        userDefaults.set(true, forKey: UserDefaultsConstants.DoctorPerformLogin)
         userDefaults.set(false, forKey: UserDefaultsConstants.isUserRegisterAndWaitForSMScODE)

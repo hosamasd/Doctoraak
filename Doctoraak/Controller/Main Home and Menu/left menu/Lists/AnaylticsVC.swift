@@ -24,7 +24,7 @@ class AnaylticsVC: CustomBaseViewVC {
         return v
     }()
     
-    var doctor:DoctorLoginModel?{
+    var doctor:DoctorModel?{
         didSet{
             guard let lab = doctor else { return  }
             let id = lab.id

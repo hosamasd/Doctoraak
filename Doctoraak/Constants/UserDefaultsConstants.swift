@@ -22,7 +22,9 @@ class UserDefaultsConstants {
     static let isWaitForMainNewPassVC="isWaitForMainNewPassVC"
     static let isWaitForMainNewPassVCMobile="isWaitForMainNewPassVCMobile"
     static let isAllMainHomeObjectsFetched="isAllMainHomeObjectsFetched"
-    
+    static let isAllMainHomeObjectsFetchedDoctor="isAllMainHomeObjectsFetchedDoctor"
+    static let DoctornumberOfClinicsAvaiable="DoctornumberOfClinicsAvaiable"
+
     static let mainCurrentUserApiToken="mainCurrentUserApiToken"
     static let MainLoginINDEX="MainLoginINDEX"
     //welcome
@@ -53,6 +55,8 @@ class UserDefaultsConstants {
     
     
     //doctor register
+    
+    
     static let doctorRegisterImage = "doctorRegisterImage"
     static let doctorRegisterName="doctorRegisterName"
     static let doctorRegisterEmail="doctorRegisterEmail"

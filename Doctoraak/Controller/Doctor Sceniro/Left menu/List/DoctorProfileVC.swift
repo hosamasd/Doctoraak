@@ -117,7 +117,7 @@ class DoctorProfileVC:   CustomBaseViewVC {
     }
     
    
-    fileprivate func cachedATA(_ patient:DoctorLoginModel? = nil)  {
+    fileprivate func cachedATA(_ patient:DoctorModel? = nil)  {
         patient != nil ?    cacheDoctorObjectCodabe.save(patient!) : ()
     }
     

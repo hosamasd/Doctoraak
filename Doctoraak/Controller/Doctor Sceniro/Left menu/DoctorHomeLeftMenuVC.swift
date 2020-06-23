@@ -22,7 +22,7 @@ class DoctorHomeLeftMenuVC: CustomBaseViewVC {
         return v
     }()
     
-    var doctor:DoctorLoginModel?{
+    var doctor:DoctorModel?{
            didSet{
                guard let lab = doctor else { return  }
                customDoctorMainHomeLeftView.doctor=lab
@@ -99,7 +99,8 @@ class DoctorHomeLeftMenuVC: CustomBaseViewVC {
             if indexPath.section == 0 {
                 if indexPath.item == 0  {
                     baseSlid.closeMenu()
-                    let profile = PharamacyProfileVC(index: index)
+                    let profile = DoctorProfileVC(index: index)
+                    profile.doc = doctor
                     let nav = UINavigationController(rootViewController: profile)
                     
                     nav.modalPresentationStyle = .fullScreen

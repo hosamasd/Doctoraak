@@ -22,7 +22,7 @@ class CustomDoctorMainHomeLeftView: CustomBaseView {
         }
     }
     
-    var doctor:DoctorLoginModel?{
+    var doctor:DoctorModel?{
         didSet{
             guard let lab = doctor else { return  }
           

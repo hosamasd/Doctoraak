@@ -95,7 +95,7 @@ class MainLoginsVC: CustomBaseViewVC {
         customLoginsView.fillSuperview()
     }
     
-    func saveDoctorToken(doctor:DoctorLoginModel)  {
+    func saveDoctorToken(doctor:DoctorModel)  {
         userDefaults.set(true, forKey: UserDefaultsConstants.DoctorPerformLogin)
         userDefaults.set(index, forKey: UserDefaultsConstants.MainLoginINDEX)
         
