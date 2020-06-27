@@ -57,7 +57,6 @@ class DoctorHomeVC: CustomBaseViewVC {
     var docotrClinicID = [Int]()
     
     var doctorPatientsArray = [PatientModel]()
-    //    var filterDoctorPatientsArray = [PatientModel]()
     
     var docotrAllPatientsArray = [DoctorGetPatientsFromClinicModel]()
     
@@ -87,7 +86,6 @@ class DoctorHomeVC: CustomBaseViewVC {
         super.viewDidLoad()
         setupViews()
         setupNavigation()
-        //        fetchData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -202,7 +200,7 @@ class DoctorHomeVC: CustomBaseViewVC {
                 }
                 self.docotrAllPatientsArray = patients
                 self.customDoctorHomeView.topDoctorHomeCell.numberOfReserve = patients.count
-
+                
                 self.customDoctorHomeView.topDoctorHomeCell.doctorReservationLabel.text = "\(patients.count) Reservation "
                 self.customDoctorHomeView.topDoctorHomeCell.doctor = self.doc
                 self.customDoctorHomeView.docotrCollectionView.doctorPatientsArray = patients
@@ -220,7 +218,7 @@ class DoctorHomeVC: CustomBaseViewVC {
                     self.customDoctorHomeView.topDoctorHomeCell.numberOfClinics = self.numberOfClinicsAvaiable.count
                     self.customDoctorHomeView.topDoctorHomeCell.mainDropView.isHide(self.numberOfClinicsAvaiable.count > 0 ? false : true)
                     self.customDoctorHomeView.topDoctorHomeCell.doctorReservationLabel.isHide(self.numberOfClinicsAvaiable.count > 0 ? false : true)
-
+                    
                     //                self.customDoctorHomeView.topDoctorHomeCell.doctorReservationLabel.isHide(self.numberOfClinicsAvaiable.count > 0 ? false : true)
                     self.customDoctorHomeView.topDoctorHomeCell.doctorClinicDrop.optionArray = self.numberOfClinicsAvaiable
                     self.customDoctorHomeView.topDoctorHomeCell.doctorClinicDrop.text = "Clinic 1"
