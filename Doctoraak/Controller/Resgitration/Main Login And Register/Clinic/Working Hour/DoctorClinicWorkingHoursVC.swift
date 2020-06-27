@@ -43,6 +43,13 @@ class DoctorClinicWorkingHoursVC: CustomBaseViewVC {
     }()
     let timeSelector = TimeSelector()
     var delgate:MainClinicWorkingHoursProtocol?
+    var doctor:ClinicGetDoctorsModel?{
+        didSet{
+            guard let doc = doctor else { return  }
+            
+            customClinicWorkingHoursView.workingHours = doc.workingHours
+        }
+    }
     
     
     override func viewDidLoad() {
@@ -126,6 +133,7 @@ class DoctorClinicWorkingHoursVC: CustomBaseViewVC {
     }
     
     @objc func handleBack()  {
+       
         navigationController?.popViewController(animated: true)
     }
     

@@ -27,9 +27,18 @@ class CustomDoctorHomeView: CustomBaseView {
         i.constrainWidth(constant: 30)
         i.constrainHeight(constant: 30)
         i.isUserInteractionEnabled = true
-
+        
         return i
     }()
+    lazy var drImage:UIImageView = {
+        let i = UIImageView(image: #imageLiteral(resourceName: "Group 3795"))
+        i.contentMode = .scaleToFill
+        i.clipsToBounds = true
+        i.constrainWidth(constant: 80)
+        //           i.constrainHeight(constant: 400)
+        return i
+    }()
+    lazy var docotrLabel = UILabel(text: "Doctoraak ", font: .systemFont(ofSize: 20), textColor: .white,textAlignment: .center)
     lazy var titleLabel = UILabel(text: "Home", font: .systemFont(ofSize: 30), textColor: .white)
     
     lazy var topDoctorHomeCell:TopDoctorHomeCell = {
@@ -52,48 +61,33 @@ class CustomDoctorHomeView: CustomBaseView {
     }()
     var handleSelectedIndex:((IndexPath)->Void)?
     var handleChoosedClinicID:((Int)->Void)?
-
+    
     
     override func layoutSubviews() {
         super.layoutSubviews()
         if allButton.backgroundColor != nil {
             addGradientInSenderAndRemoveOther(sender: allButton)
-             allButton.setTitleColor(.white, for: .normal)
+            allButton.setTitleColor(.white, for: .normal)
         }
-//        allButton.applyGradient(colors: [ColorConstants.firstColorBangsegy,ColorConstants.secondColorBangsegy], index: 0)
-//        allButton.setTitleColor(.white, for: .normal)
     }
     
     override func setupViews() {
         let ss = getStack(views: allButton,newButton,consultaionButton,continueButton, spacing: 8, distribution: .fillProportionally, axis: .horizontal)
         
-        addSubViews(views: LogoImage,listImage,notifyImage,titleLabel,topDoctorHomeCell,ss,docotrCollectionView.view)
+        addSubViews(views: LogoImage,listImage,notifyImage,drImage,docotrLabel,titleLabel,topDoctorHomeCell,ss,docotrCollectionView.view)
         
         LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
         listImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 60, left: 16, bottom: 0, right: 0))
+        
+        drImage.anchor(top: topAnchor, leading: listImage.trailingAnchor, bottom: nil, trailing: nil,padding: .init(top: 60, left: 24, bottom: 0, right: 0))
+        docotrLabel.anchor(top: topAnchor, leading: drImage.trailingAnchor, bottom: nil, trailing: nil,padding: .init(top: 65, left: 16, bottom: 0, right: 0))
+        
         notifyImage.anchor(top: topAnchor, leading: nil, bottom: nil, trailing: trailingAnchor,padding: .init(top: 60, left: 0, bottom: 0, right: 16))
         titleLabel.anchor(top: nil, leading: leadingAnchor, bottom: LogoImage.bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
         topDoctorHomeCell.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 16, left: 46, bottom: 0, right: 32))
-          ss.anchor(top: topDoctorHomeCell.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 16, left: 46, bottom: 0, right: 32))
-
+        ss.anchor(top: topDoctorHomeCell.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 16, left: 46, bottom: 0, right: 32))
+        
         docotrCollectionView.view.anchor(top: ss.bottomAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 16, left: 46, bottom: 8, right: 32))
-
+        
     }
-    
-//    func createButtons(title:String,color:UIColor,tags : Int? = 0) -> UIButton {
-//        let button = UIButton(type: .system)
-//        button.layer.cornerRadius = 8
-//        button.layer.borderWidth = 1
-//        button.layer.borderColor = UIColor.gray.cgColor
-//        button.clipsToBounds = true
-//        button.setTitle(title, for: .normal)
-//        button.setTitleColor(color, for: .normal)
-//        button.constrainHeight(constant: 50)
-//        button.tag = tags ?? 0
-//        button.layer.cornerRadius = 16
-//        button.backgroundColor = #colorLiteral(red: 0.9214958549, green: 0.9216470122, blue: 0.9214636683, alpha: 1)
-////        button.clipsToBounds =
-////        button.addTarget(self, action: #selector(handleOpen), for: .touchUpInside)
-//        return button
-//    }
 }

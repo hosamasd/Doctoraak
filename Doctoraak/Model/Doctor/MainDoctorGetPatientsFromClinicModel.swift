@@ -22,8 +22,8 @@ struct MainDoctorGetPatientsFromClinicModel:Codable {
 struct PatientModel:Codable {
     let id: Int
     let name: String
-    var nameAr, nameFr,apiToken: String?
-    let phone, smsCode, firebaseToken: String
+    var nameAr, nameFr,apiToken,firebaseToken: String?
+    let phone, smsCode: String
     let email, gender, password: String
     let active, insuranceID: Int
     let birthdate: String
@@ -86,9 +86,9 @@ struct DoctorGetPatientsFromClinicModel:Codable {
 struct DoctorModel:Codable {
     let id: Int
        let name: String
-       var nameAr, nameFr: String?
+    var nameAr, nameFr,firebaseToken: String?
        let gender, phone, smsCode, apiToken: String
-       let firebaseToken, password: String
+       let  password: String
     var email,phone2,title:String?
     
        let active, specializationID: Int

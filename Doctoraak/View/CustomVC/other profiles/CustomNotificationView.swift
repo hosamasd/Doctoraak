@@ -19,7 +19,15 @@ class CustomNotificationView: CustomBaseView {
         }
     }
     
-    
+    lazy var drImage:UIImageView = {
+        let i = UIImageView(image: #imageLiteral(resourceName: "Group 3795"))
+        i.contentMode = .scaleToFill
+        i.clipsToBounds = true
+        i.constrainWidth(constant: 80)
+        //           i.constrainHeight(constant: 400)
+        return i
+    }()
+    lazy var docotrLabel = UILabel(text: "Doctoraak ".localized, font: .systemFont(ofSize: 20), textColor: .white,textAlignment: .center)
     lazy var LogoImage:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "Group 4116"))
         i.contentMode = .scaleAspectFill
@@ -61,14 +69,14 @@ class CustomNotificationView: CustomBaseView {
     
     
     var handledisplayDOCNotification:((DOCTORNotificationModel,IndexPath,Bool)->Void)?
-       var handledisplayRADNotification:((RadiologyNotificationModel,IndexPath,Bool)->Void)?
-       var handledisplayLABNotification:((LABNotificationModel,IndexPath,Bool)->Void)?
-       var handledisplayPHYNotification:((PharmacyNotificationModel,IndexPath,Bool)->Void)?
+    var handledisplayRADNotification:((RadiologyNotificationModel,IndexPath,Bool)->Void)?
+    var handledisplayLABNotification:((LABNotificationModel,IndexPath,Bool)->Void)?
+    var handledisplayPHYNotification:((PharmacyNotificationModel,IndexPath,Bool)->Void)?
     
     override func setupViews() {
         
         [titleLabel,soonLabel].forEach({$0.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left})
-        addSubViews(views: LogoImage,backImage,soonLabel,titleLabel,notificationsCollectionVC.view)
+        addSubViews(views: LogoImage,backImage,drImage,docotrLabel,soonLabel,titleLabel,notificationsCollectionVC.view)
         //        addSubViews(views: LogoImage,backImage,titleLabel,doctorHomePatientsCell,ss)//,ss,docotrCollectionView.view)
         
         if MOLHLanguage.isRTLLanguage() {
@@ -78,7 +86,10 @@ class CustomNotificationView: CustomBaseView {
             LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
         }
         //        LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
+       
         backImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 60, left: 16, bottom: 0, right: 0))
+        drImage.anchor(top: topAnchor, leading: backImage.trailingAnchor, bottom: nil, trailing: nil,padding: .init(top: 60, left: 24, bottom: 0, right: 0))
+               docotrLabel.anchor(top: topAnchor, leading: drImage.trailingAnchor, bottom: nil, trailing: nil,padding: .init(top: 65, left: 16, bottom: 0, right: 0))
         soonLabel.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
         titleLabel.anchor(top: nil, leading: leadingAnchor, bottom: LogoImage.bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
         notificationsCollectionVC.view.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 128, left: 32, bottom: 16, right: 32))

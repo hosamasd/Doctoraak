@@ -22,11 +22,25 @@ class CustomDoctorClinicWorkingHoursView: CustomBaseView {
     //           }
     //       }
     
+    var workingHours:[ClinicWorkingHourModel]?{
+           didSet{
+               guard let work = workingHours else { return  }
+            
+               work.forEach { (w) in
+                let sd = WorkModel(part1From: w.part1From, part1To: w.part1To, part2From: w.part2From, part2To: w.part2To, day: w.day, active: w.active)
+                
+                putThesesCached(w: sd, bols: false)
+                   putOtherDXXXS(sd)
+               }
+           }
+       }
+    
     var workingHoursCachedDoc:[WorkModel]?{
         didSet{
             guard let work = workingHoursCachedDoc else { return  }
             work.forEach { (w) in
-                putThesesCached(w: w)
+                putThesesCached(w: w, bols: true)
+                putOtherDXXXS(w)
             }
         }
     }
@@ -421,6 +435,26 @@ class CustomDoctorClinicWorkingHoursView: CustomBaseView {
         d7TXT2=ff[25];       d72TXT2=ff[27]
     }
     
+    func putOtherDXXXS(_ w:WorkModel)  {
+        switch w.day {
+        case 1:
+            d1TXT1=w.part1From;d1TXT2=w.part1To;d12TXT1=w.part2From;d12TXT2=w.part2To
+            case 2:
+                       d2TXT1=w.part1From;d2TXT2=w.part1To;d22TXT1=w.part2From;d22TXT2=w.part2To
+            case 3:
+                       d3TXT1=w.part1From;d3TXT2=w.part1To;d32TXT1=w.part2From;d32TXT2=w.part2To
+            case 4:
+                       d4TXT1=w.part1From;d4TXT2=w.part1To;d42TXT1=w.part2From;d42TXT2=w.part2To
+            case 5:
+                       d5TXT1=w.part1From;d5TXT2=w.part1To;d52TXT1=w.part2From;d52TXT2=w.part2To
+            case 6:
+                       d6TXT1=w.part1From;d6TXT2=w.part1To;d62TXT1=w.part2From;d62TXT2=w.part2To
+        default:
+                       d7TXT1=w.part1From;d7TXT2=w.part1To;d72TXT1=w.part2From;d72TXT2=w.part2To
+        }
+
+    }
+    
     func putOtherData()  {
         let d1 = userDefaults.integer(forKey: UserDefaultsConstants.day1);let d5 = userDefaults.integer(forKey: UserDefaultsConstants.day5)
         let d2 = userDefaults.integer(forKey: UserDefaultsConstants.day2);let d6 = userDefaults.integer(forKey: UserDefaultsConstants.day6)
@@ -619,60 +653,60 @@ class CustomDoctorClinicWorkingHoursView: CustomBaseView {
         }else {}
     }
     
-    func putThesesCached(w:WorkModel)  {
+    func putThesesCached(w:WorkModel,bols:Bool)  {
         switch w.day {
         case 1:
-            putTitleForButtons(b: true, bt: first1TextField, text: w.part1From)
-            putTitleForButtons(b: true,bt: first2TextField, text: w.part1To)
-            putTitleForButtons(b: true, bt:mainSecondStack.first1TextField , text: w.part2From)
-            putTitleForButtons(b: true,bt: mainSecondStack.first2TextField, text: w.part2To)
+            putTitleForButtons(b: bols, bt: first1TextField, text: w.part1From)
+            putTitleForButtons(b: bols,bt: first2TextField, text: w.part1To)
+            putTitleForButtons(b: bols, bt:mainSecondStack.first1TextField , text: w.part2From)
+            putTitleForButtons(b: bols,bt: mainSecondStack.first2TextField, text: w.part2To)
             activeOrNot(v: satButton, d: w.active)
         //            checkButtonsTextx(w.active, vv: [first1TextField,first1TextField])
         case 2:
-            putTitleForButtons(b: true,bt: second1TextField, text: w.part1From)
-            putTitleForButtons(b: true,bt: second2TextField, text: w.part1To)
-            putTitleForButtons(b: true,bt: mainSecondStack.second1TextField, text: w.part2From)
-            putTitleForButtons(b: true,bt: mainSecondStack.second2TextField, text: w.part2To)
+            putTitleForButtons(b: bols,bt: second1TextField, text: w.part1From)
+            putTitleForButtons(b: bols,bt: second2TextField, text: w.part1To)
+            putTitleForButtons(b: bols,bt: mainSecondStack.second1TextField, text: w.part2From)
+            putTitleForButtons(b: bols,bt: mainSecondStack.second2TextField, text: w.part2To)
             activeOrNot(v: sunButton, d: w.active)
             //            checkButtonsTextx(w.active, vv: [second1TextField,second2TextField])
             
         case 3:
-            putTitleForButtons(b: true,bt: third1TextField, text: w.part1From)
-            putTitleForButtons(b: true,bt: third2TextField, text: w.part1To)
-            putTitleForButtons(b: true,bt: mainSecondStack.third1TextField, text: w.part2From)
-            putTitleForButtons(b: true,bt: mainSecondStack.third2TextField, text: w.part2To)
+            putTitleForButtons(b: bols,bt: third1TextField, text: w.part1From)
+            putTitleForButtons(b: bols,bt: third2TextField, text: w.part1To)
+            putTitleForButtons(b: bols,bt: mainSecondStack.third1TextField, text: w.part2From)
+            putTitleForButtons(b: bols,bt: mainSecondStack.third2TextField, text: w.part2To)
             activeOrNot(v: monButton, d: w.active)
             //            checkButtonsTextx(w.active, vv: [third1TextField,third2TextField])
             
         case 4:
-            putTitleForButtons(b: true,bt: forth1TextField, text: w.part1From)
-            putTitleForButtons(b: true,bt: forth2TextField, text: w.part1To)
-            putTitleForButtons(b: true,bt: mainSecondStack.forth1TextField, text: w.part2From)
-            putTitleForButtons(b: true,bt: mainSecondStack.forth2TextField, text: w.part2To)
+            putTitleForButtons(b: bols,bt: forth1TextField, text: w.part1From)
+            putTitleForButtons(b: bols,bt: forth2TextField, text: w.part1To)
+            putTitleForButtons(b: bols,bt: mainSecondStack.forth1TextField, text: w.part2From)
+            putTitleForButtons(b: bols,bt: mainSecondStack.forth2TextField, text: w.part2To)
             activeOrNot(v: tuesButton, d: w.active)
             //            checkButtonsTextx(w.active, vv: [forth1TextField,forth2TextField])
             
         case 5:
-            putTitleForButtons(b: true,bt: fifth1TextField, text: w.part1From)
-            putTitleForButtons(b: true,bt: fifth2TextField, text: w.part1To)
-            putTitleForButtons(b: true,bt: mainSecondStack.fifth1TextField, text: w.part2From)
-            putTitleForButtons(b: true,bt: mainSecondStack.fifth2TextField, text: w.part2To)
+            putTitleForButtons(b: bols,bt: fifth1TextField, text: w.part1From)
+            putTitleForButtons(b: bols,bt: fifth2TextField, text: w.part1To)
+            putTitleForButtons(b: bols,bt: mainSecondStack.fifth1TextField, text: w.part2From)
+            putTitleForButtons(b: bols,bt: mainSecondStack.fifth2TextField, text: w.part2To)
             activeOrNot(v: wedButton, d: w.active)
             //            checkButtonsTextx(w.active, vv: [fifth1TextField,fifth2TextField])
             
         case 6:
-            putTitleForButtons(b: true,bt: sexth1TextField, text: w.part1From)
-            putTitleForButtons(b: true,bt: sexth2TextField, text: w.part1To)
-            putTitleForButtons(b: true,bt: mainSecondStack.sexth1TextField, text: w.part2From)
-            putTitleForButtons(b: true,bt: mainSecondStack.sexth2TextField, text: w.part2To)
+            putTitleForButtons(b: bols,bt: sexth1TextField, text: w.part1From)
+            putTitleForButtons(b: bols,bt: sexth2TextField, text: w.part1To)
+            putTitleForButtons(b: bols,bt: mainSecondStack.sexth1TextField, text: w.part2From)
+            putTitleForButtons(b: bols,bt: mainSecondStack.sexth2TextField, text: w.part2To)
             activeOrNot(v: thuButton, d: w.active)
             //            checkButtonsTextx(w.active, vv: [sexth1TextField,sexth2TextField])
             
         default:
-            putTitleForButtons(b: true,bt: seventh1TextField, text: w.part1From)
-            putTitleForButtons(b: true,bt: seventh2TextField, text: w.part1To)
-            putTitleForButtons(b: true,bt: mainSecondStack.seventh1TextField, text: w.part2From)
-            putTitleForButtons(b: true,bt: mainSecondStack.seventh2TextField, text: w.part2To)
+            putTitleForButtons(b: bols,bt: seventh1TextField, text: w.part1From)
+            putTitleForButtons(b: bols,bt: seventh2TextField, text: w.part1To)
+            putTitleForButtons(b: bols,bt: mainSecondStack.seventh1TextField, text: w.part2From)
+            putTitleForButtons(b: bols,bt: mainSecondStack.seventh2TextField, text: w.part2To)
             activeOrNot(v: friButton, d: w.active)
             //            checkButtonsTextx(w.active, vv: [seventh1TextField,seventh2TextField])
             

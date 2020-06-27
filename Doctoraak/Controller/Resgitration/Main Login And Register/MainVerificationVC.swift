@@ -182,7 +182,7 @@ class MainVerificationVC: CustomBaseViewVC {
         if  isFromDoctor {
             guard let ss = cacheDoctorObjectCodabe.storedValue else{return}
             
-            let vc =  DoctorClinicDataVC(indexx: index,api_token: ss.apiToken,doctor_id: ss.id)
+            let vc =  DoctorClinicDataVC(indexx: index,api_token: ss.apiToken,doctor_id: ss.id, isFromProfile: false)
             navigationController?.pushViewController(vc, animated: true)
         }else if isFromForgetPassw {
             let login = MainLoginsVC(indexx: index)

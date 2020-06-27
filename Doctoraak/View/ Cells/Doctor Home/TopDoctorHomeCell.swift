@@ -27,7 +27,8 @@ class TopDoctorHomeCell: BaseCollectionCell {
     lazy var profileImage:UIImageView = {
         let i = UIImageView(backgroundColor: .gray)
         i.constrainWidth(constant: 80)
-        i.constrainHeight(constant: 150)
+        i.contentMode = .scaleAspectFill
+//        i.constrainHeight(constant: 150)
         i.layer.cornerRadius = 8
         i.clipsToBounds = true
         return i
@@ -43,6 +44,8 @@ class TopDoctorHomeCell: BaseCollectionCell {
         l.layer.borderColor = #colorLiteral(red: 0.4835817814, green: 0.4836651683, blue: 0.4835640788, alpha: 1).cgColor
         l.constrainHeight(constant: 60)
 //        l.addSubview(doctorClinicDrop)
+        l.isHide(numberOfClinics > 0 ? false : true)
+
         l.stack(doctorClinicDrop).withMargins(.allSides(8))
         return l
     }()
@@ -61,16 +64,19 @@ class TopDoctorHomeCell: BaseCollectionCell {
         return i
     }()
     var numberOfReserve:Int = 0
+    var numberOfClinics = 0
     
     
     var handleChoosedClinicID:((Int)->Void)?
     
     
     override func setupViews() {
+        doctorReservationLabel.isHide(true)//isHide(numberOfReserve>0 ? false : true)
+
 //        [doctorClinicDrop,doctorReservationLabel,mainDropView].forEach({$0.isHide(true)})
         backgroundColor = .white
-        let ss = stack(doctorWelcomeLabel,mainDropView,doctorReservationLabel,spacing:8)
+        let ss = stack(doctorWelcomeLabel,mainDropView,doctorReservationLabel,spacing:16)
 //        doctorClinicDrop.fillSuperview(padding: .init(top: 8, left: 8, bottom: 8, right: 8))
-        hstack(profileImage,ss,spacing:16).withMargins(.init(top: 8, left: 16, bottom: 8, right: 16))
+        hstack(profileImage,ss,spacing:16).withMargins(.init(top: 16, left: 16, bottom: 16, right: 16))
     }
 }

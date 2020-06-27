@@ -27,6 +27,8 @@
 		4E1AEFDD249E2F3C00497375 /* SelectedLABRADDataVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1AEFDC249E2F3C00497375 /* SelectedLABRADDataVC.swift */; };
 		4E1AEFDF249E2FA400497375 /* CustomSelectedLABRADDataVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1AEFDE249E2FA400497375 /* CustomSelectedLABRADDataVC.swift */; };
 		4E210D04243CCC2200955CF9 /* DoctorSecondRegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E210D03243CCC2200955CF9 /* DoctorSecondRegisterViewModel.swift */; };
+		4E215B3724A25E350099C727 /* CustomUpdateSserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E215B3624A25E350099C727 /* CustomUpdateSserProfileView.swift */; };
+		4E215B3924A25E760099C727 /* 15179-confirm-popup.json in Resources */ = {isa = PBXBuildFile; fileRef = 4E215B3824A25E760099C727 /* 15179-confirm-popup.json */; };
 		4E28EC67242A49B100B54186 /* MainForgetPasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E28EC66242A49B100B54186 /* MainForgetPasswordVC.swift */; };
 		4E28EC6A242A4A7E00B54186 /* CustomMainForgetPassView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E28EC69242A4A7E00B54186 /* CustomMainForgetPassView.swift */; };
 		4E28EC6C242A4D9E00B54186 /* CustomMainNewPassView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E28EC6B242A4D9E00B54186 /* CustomMainNewPassView.swift */; };
@@ -48,6 +50,7 @@
 		4E3548A1242B83C300DD4E7A /* DoctorLeftMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3548A0242B83C300DD4E7A /* DoctorLeftMenuCell.swift */; };
 		4E382D7024290B74006B0E8D /* WelcomeMainSecondVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E382D6F24290B74006B0E8D /* WelcomeMainSecondVC.swift */; };
 		4E382D7224290BA5006B0E8D /* CustomWelcomeMainSecondView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E382D7124290BA5006B0E8D /* CustomWelcomeMainSecondView.swift */; };
+		4E3ABBFD24A77AB9003BEA8A /* DownloadCVServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3ABBFC24A77AB9003BEA8A /* DownloadCVServices.swift */; };
 		4E3E0381245DA80E0021EA26 /* MainLabRegisterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3E0380245DA80E0021EA26 /* MainLabRegisterModel.swift */; };
 		4E3E0383245DAAFC0021EA26 /* MainSMSCodeAllModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3E0382245DAAFC0021EA26 /* MainSMSCodeAllModel.swift */; };
 		4E3E0385245DAC310021EA26 /* MainLabLoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3E0384245DAC310021EA26 /* MainLabLoginModel.swift */; };
@@ -216,6 +219,8 @@
 		4E1AEFDC249E2F3C00497375 /* SelectedLABRADDataVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedLABRADDataVC.swift; sourceTree = "<group>"; };
 		4E1AEFDE249E2FA400497375 /* CustomSelectedLABRADDataVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSelectedLABRADDataVC.swift; sourceTree = "<group>"; };
 		4E210D03243CCC2200955CF9 /* DoctorSecondRegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorSecondRegisterViewModel.swift; sourceTree = "<group>"; };
+		4E215B3624A25E350099C727 /* CustomUpdateSserProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUpdateSserProfileView.swift; sourceTree = "<group>"; };
+		4E215B3824A25E760099C727 /* 15179-confirm-popup.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "15179-confirm-popup.json"; sourceTree = "<group>"; };
 		4E28EC66242A49B100B54186 /* MainForgetPasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainForgetPasswordVC.swift; sourceTree = "<group>"; };
 		4E28EC69242A4A7E00B54186 /* CustomMainForgetPassView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMainForgetPassView.swift; sourceTree = "<group>"; };
 		4E28EC6B242A4D9E00B54186 /* CustomMainNewPassView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMainNewPassView.swift; sourceTree = "<group>"; };
@@ -237,6 +242,7 @@
 		4E3548A0242B83C300DD4E7A /* DoctorLeftMenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorLeftMenuCell.swift; sourceTree = "<group>"; };
 		4E382D6F24290B74006B0E8D /* WelcomeMainSecondVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeMainSecondVC.swift; sourceTree = "<group>"; };
 		4E382D7124290BA5006B0E8D /* CustomWelcomeMainSecondView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomWelcomeMainSecondView.swift; sourceTree = "<group>"; };
+		4E3ABBFC24A77AB9003BEA8A /* DownloadCVServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadCVServices.swift; sourceTree = "<group>"; };
 		4E3E0380245DA80E0021EA26 /* MainLabRegisterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainLabRegisterModel.swift; sourceTree = "<group>"; };
 		4E3E0382245DAAFC0021EA26 /* MainSMSCodeAllModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSMSCodeAllModel.swift; sourceTree = "<group>"; };
 		4E3E0384245DAC310021EA26 /* MainLabLoginModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainLabLoginModel.swift; sourceTree = "<group>"; };
@@ -472,6 +478,7 @@
 				4E115DAF2495196000B64936 /* 4970-unapproved-cross.json */,
 				4E115DAD2495195F00B64936 /* heart_loading.json */,
 				4E115DAE2495195F00B64936 /* success.json */,
+				4E215B3824A25E760099C727 /* 15179-confirm-popup.json */,
 			);
 			path = Lottie;
 			sourceTree = "<group>";
@@ -483,6 +490,7 @@
 				4E115DBB24951D2800B64936 /* CustomAlertLoginView.swift */,
 				4EDCBB1124964D1E0045574D /* CustomAlertChooseLanguageView.swift */,
 				4EDCBB1324964D7E0045574D /* CustomContactUsView.swift */,
+				4E215B3624A25E350099C727 /* CustomUpdateSserProfileView.swift */,
 			);
 			path = "Custom Alerts";
 			sourceTree = "<group>";
@@ -929,6 +937,7 @@
 				4EDB37CD2466B87E00DA8B0C /* DoctorServices.swift */,
 				4EDFFD39249751DF00256631 /* ProfileServices.swift */,
 				4E41F87324978169003066FB /* OrdersServices.swift */,
+				4E3ABBFC24A77AB9003BEA8A /* DownloadCVServices.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -1472,6 +1481,7 @@
 				4E115DB12495196000B64936 /* success.json in Resources */,
 				7A52BB5F24153A30008ED1F9 /* LaunchScreen.storyboard in Resources */,
 				7A52BB5C24153A30008ED1F9 /* Assets.xcassets in Resources */,
+				4E215B3924A25E760099C727 /* 15179-confirm-popup.json in Resources */,
 				4EB24894249A3AC500CD6535 /* Localizable.strings in Resources */,
 				7A52BB5A24153A28008ED1F9 /* Main.storyboard in Resources */,
 				4E115DB22495196000B64936 /* 4970-unapproved-cross.json in Resources */,
@@ -1541,6 +1551,7 @@
 				4E111D842429C690000250AE /* CustomMainRegisterView.swift in Sources */,
 				4EA94BA0242F60C4001C4650 /* MainHomePatientsCollectionVC.swift in Sources */,
 				4E8F40392428EA1700C0B455 /* CustomMainPaymentView.swift in Sources */,
+				4E215B3724A25E350099C727 /* CustomUpdateSserProfileView.swift in Sources */,
 				4E75642F242F447B00A6C15F /* CustomDoctorProfileViewtests.swift in Sources */,
 				4EDFFD402497556C00256631 /* MainRadiologyNotificationModel.swift in Sources */,
 				4E4F800024544E370037D7D4 /* MainClinicWorkingHoursNotDoctorVC.swift in Sources */,
@@ -1632,6 +1643,7 @@
 				4EBBF0B024A1EC1A00B24CE7 /* DoctorClinicDataVC.swift in Sources */,
 				4EA94BA2242F60FF001C4650 /* MainHomePatientsCell.swift in Sources */,
 				4EDCBB1224964D1E0045574D /* CustomAlertChooseLanguageView.swift in Sources */,
+				4E3ABBFD24A77AB9003BEA8A /* DownloadCVServices.swift in Sources */,
 				4E382D7024290B74006B0E8D /* WelcomeMainSecondVC.swift in Sources */,
 				4EE29B6F24A2414B00DAF1F3 /* HomeDoctorLeftMenuCollcetionVC.swift in Sources */,
 				4EEBF7C3243D9A250039BF81 /* CustomPatientThirddDataView.swift in Sources */,

@@ -31,7 +31,7 @@ class DoctorProfileVC:   CustomBaseViewVC {
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
         v.userEditProfileImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(createAlertForChoposingImage)))
         v.nextButton.addTarget(self, action: #selector(handleSave), for: .touchUpInside)
-    
+        v.cvView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleUpload)))
         return v
     }()
     lazy var customMainAlertVC:CustomMainAlertVC = {
@@ -55,7 +55,7 @@ class DoctorProfileVC:   CustomBaseViewVC {
         }
     }
     
-   
+    
     fileprivate let index:Int!
     init(index:Int) {
         self.index=index
@@ -116,7 +116,7 @@ class DoctorProfileVC:   CustomBaseViewVC {
         present(imagePicker, animated: true)
     }
     
-   
+    
     fileprivate func cachedATA(_ patient:DoctorModel? = nil)  {
         patient != nil ?    cacheDoctorObjectCodabe.save(patient!) : ()
     }
@@ -142,6 +142,37 @@ class DoctorProfileVC:   CustomBaseViewVC {
                 self.showToast(context: self, msg: "your information updated...".localized)
             }
         }
+    }
+    
+    func uploadCV()  {
+        let documentPicker = UIDocumentPickerViewController(documentTypes: ["public.text", "com.apple.iwork.pages.pages", "public.data"], in: .import)
+        
+        documentPicker.delegate = self
+        present(documentPicker, animated: true, completion: nil)
+    }
+    
+    func handleDownload()  {
+        guard let doc = doc else { return  }
+        let urlString = doc.cv
+        guard let url = URL(string: urlString) else { return  }
+        self.showMainAlertLooder(cc: customMainAlertVC, v: customAlertMainLoodingView)
+        DownloadCVServices.shared.loadAndDownloadCVFile(url: url) { (path, err) in
+            if let err = err {
+                SVProgressHUD.showError(withStatus: err.localizedDescription)
+                //                               self.showMainAlertErrorMessages(vv: self.customMainAlertVC, secondV: self.customAlertLoginView, text: err.localizedDescription)
+                self.handleDismiss()
+                self.activeViewsIfNoData();return
+            }
+            //            SVProgressHUD.dismiss()
+            self.handleDismiss()
+            
+            self.activeViewsIfNoData()
+            guard let path = path else {return}
+            DispatchQueue.main.async {
+                self.showToast(context: self, msg: path)
+            }
+        }
+        
     }
     
     //TODO: -handle methods
@@ -181,9 +212,25 @@ class DoctorProfileVC:   CustomBaseViewVC {
     
     @objc func handleSave()  {
         checkRadLoginState()
+    }
+    
+    
+    @objc func handleUpload()  {
+        let alert = UIAlertController(title: "Choose Options".localized, message: "What do you want to make?".localized, preferredStyle: .actionSheet)
+        let delete = UIAlertAction(title: "Upload".localized, style: .destructive) { (_) in
+            self.uploadCV()
+        }
         
-        
-        
+        let download = UIAlertAction(title: "Download".localized, style: .default) { (_) in
+            self.handleDownload()
+        }
+        let cancel = UIAlertAction(title: "Cancel".localized, style: .default) { (_) in
+            alert.dismiss(animated: true)
+        }
+        alert.addAction(delete)
+        alert.addAction(download)
+        alert.addAction(cancel)
+        present(alert, animated: true)
     }
 }
 
@@ -209,4 +256,24 @@ extension DoctorProfileVC: UIImagePickerControllerDelegate, UINavigationControll
     }
     
     
+    
+    
+}
+
+
+extension DoctorProfileVC : UIDocumentPickerDelegate {
+    
+    func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentAt url: URL) {
+        
+        let cico = url as URL
+        
+        self.customDoctorProfileView.cvLabel.text = url.lastPathComponent
+        self.customDoctorProfileView.edirProfileViewModel.cvName = url.lastPathComponent
+        do {
+            //                let imageData = try Data(contentsOf: cico as URL)
+            try  self.customDoctorProfileView.edirProfileViewModel.cvFile = Data(contentsOf: cico)
+        } catch {
+            print("Unable to load data: \(error)")
+        }
+    }
 }

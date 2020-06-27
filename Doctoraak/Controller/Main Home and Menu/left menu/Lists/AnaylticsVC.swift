@@ -20,9 +20,23 @@ class AnaylticsVC: CustomBaseViewVC {
     
     lazy var customAnaylticsView:CustomAnaylticsView = {
         let v = CustomAnaylticsView()
+        v.mainWebView.navigationDelegate = self
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
         return v
     }()
+    lazy var customAlertMainLoodingView:CustomAlertMainLoodingView = {
+          let v = CustomAlertMainLoodingView()
+          v.setupAnimation(name: "heart_loading")
+          return v
+      }()
+      
+      lazy var customMainAlertVC:CustomMainAlertVC = {
+          let t = CustomMainAlertVC()
+          t.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
+          t.modalTransitionStyle = .crossDissolve
+          t.modalPresentationStyle = .overCurrentContext
+          return t
+      }()
     
     var doctor:DoctorModel?{
         didSet{
@@ -86,5 +100,23 @@ class AnaylticsVC: CustomBaseViewVC {
     @objc func handleBack()  {
         dismiss(animated: true)
         navigationController?.popViewController(animated: true)
+    }
+    
+    @objc func handleDismiss()  {
+           removeViewWithAnimation(vvv: customAlertMainLoodingView)
+           DispatchQueue.main.async {
+               self.dismiss(animated: true, completion: nil)
+           }
+       }
+}
+
+extension AnaylticsVC :WKNavigationDelegate {
+    func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
+        UIApplication.shared.beginIgnoringInteractionEvents()
+        self.showMainAlertLooder(cc: customMainAlertVC, v: customAlertMainLoodingView)
+    }
+
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        handleDismiss();self.activeViewsIfNoData()
     }
 }

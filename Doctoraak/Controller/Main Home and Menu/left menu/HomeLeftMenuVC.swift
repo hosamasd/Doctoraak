@@ -19,9 +19,6 @@ class HomeLeftMenuVC: CustomBaseViewVC {
         v.handleCheckedIndex = {[unowned self] index in
             self.checkIfLoggined(index)
         }
-//        v.handleCheckedDocIndex = {[unowned self] index in
-//            self.checkIfLogginedDoc(index)
-//        }
         return v
     }()
     
@@ -32,12 +29,6 @@ class HomeLeftMenuVC: CustomBaseViewVC {
             customMainHomeLeftView.lab=lab
         }
     }
-//    var doctor:DoctorModel?{
-//        didSet{
-//            guard let lab = doctor else { return  }
-//            customMainHomeLeftView.doctor=lab
-//        }
-//    }
     var phy:PharamacyModel?{
         didSet{
             guard let phy = phy else { return  }

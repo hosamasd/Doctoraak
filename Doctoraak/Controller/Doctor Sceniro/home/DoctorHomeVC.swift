@@ -11,6 +11,9 @@ import SVProgressHUD
 import MOLH
 //import 
 
+var chossedClinic:ClinicGetDoctorsModel?
+
+
 class DoctorHomeVC: CustomBaseViewVC {
     
     lazy var scrollView: UIScrollView = {
@@ -28,6 +31,7 @@ class DoctorHomeVC: CustomBaseViewVC {
     lazy var customDoctorHomeView:CustomDoctorHomeView = {
         let v = CustomDoctorHomeView()
         v.listImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpenMenu)))
+        v.notifyImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleNotification)))
         v.handleSelectedIndex = {[unowned self] indexPath in
             self.goToSpecifyIndex(indexPath)
         }
@@ -42,7 +46,14 @@ class DoctorHomeVC: CustomBaseViewVC {
         v.setupAnimation(name: "heart_loading")
         return v
     }()
-  
+    
+    lazy var customMainAlertVC:CustomMainAlertVC = {
+        let t = CustomMainAlertVC()
+        t.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
+        t.modalTransitionStyle = .crossDissolve
+        t.modalPresentationStyle = .overCurrentContext
+        return t
+    }()
     var docotrClinicID = [Int]()
     
     var doctorPatientsArray = [PatientModel]()
@@ -61,7 +72,7 @@ class DoctorHomeVC: CustomBaseViewVC {
         }
     }
     var numberOfClinicsAvaiable = [String]()
-
+    
     fileprivate let index:Int!
     init(inde:Int) {
         self.index = inde
@@ -85,70 +96,62 @@ class DoctorHomeVC: CustomBaseViewVC {
         if userDefaults.bool(forKey: UserDefaultsConstants.DoctorPerformLogin) {
             doc = cacheDoctorObjectCodabe.storedValue
         }
-        
-//        if !userDefaults.bool(forKey: UserDefaultsConstants.isWelcomeVCAppear) {
-//            let welcome = WelcomeVC()
-//            let nav = UINavigationController(rootViewController: welcome)
-//            nav.modalPresentationStyle = .fullScreen
-//            present(nav, animated: true)
-//        }else {
-//            //            checkData()
-//        }
-        //                checkData()
     }
     
     //MARK:-User methods
     
+    
     func checkData()  {
         guard let doc = doc else { return  }
         UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
-        SVProgressHUD.show(withStatus: "Looding...")
-            var group2: MainClinicGetDoctorsModel?
-            var group3:MainDoctorGetPatientsFromClinicModel?
-            
-            
-            let semaphore = DispatchSemaphore(value: 0)
-            
-            let dispatchQueue = DispatchQueue.global(qos: .background)
-            
-            
-            dispatchQueue.async {
+        self.showMainAlertLooder(cc: self.customMainAlertVC, v: self.customAlertMainLoodingView)
+        //        SVProgressHUD.show(withStatus: "Looding...")
+        var group2: MainClinicGetDoctorsModel?
+        var group3:MainDoctorGetPatientsFromClinicModel?
+        
+        
+        let semaphore = DispatchSemaphore(value: 0)
+        
+        let dispatchQueue = DispatchQueue.global(qos: .background)
+        
+        
+        dispatchQueue.async {
+            DoctorServices.shared.getDocotrsClinic(api_token: doc.apiToken, doctor_id: doc.id) {[unowned self] (base, err) in
                 
-                DoctorServices.shared.getDocotrsClinic(api_token: doc.apiToken, doctor_id: doc.id) {[unowned self] (base, err) in
-                    
-                    
-                    if let err = err {
-                        SVProgressHUD.showError(withStatus: err.localizedDescription)
-                        self.handleDismiss()
-                        self.activeViewsIfNoData();return
-                    }
-                    group2 = base
-                    self.putClinics(group2)
-                    semaphore.signal()
+                
+                if let err = err {
+                    SVProgressHUD.showError(withStatus: err.localizedDescription)
+                    self.handleDismiss()
+                    self.activeViewsIfNoData();return
                 }
-                semaphore.wait()
-                
-                DoctorServices.shared.getDocotrsPatientsInClinic(clinic_id: self.docotrClinicID.first ?? 1 , api_token: doc.apiToken, doctor_id: doc.id) {[unowned self] (base, err) in
-                    if let err = err {
-                        SVProgressHUD.showError(withStatus: err.localizedDescription)
-                        self.handleDismiss()
-                        self.activeViewsIfNoData();return
-                    }
-                    group3 = base
-                    semaphore.signal()
-                }
-                semaphore.wait()
-                
+                group2 = base
+                self.putClinics(group2)
                 semaphore.signal()
-                self.reloadMainData(group2: group2,group3)
-                semaphore.wait()
             }
+            semaphore.wait()
+            
+            DoctorServices.shared.getDocotrsPatientsInClinic(clinic_id: self.docotrClinicID.first ?? 1 , api_token: doc.apiToken, doctor_id: doc.id) {[unowned self] (base, err) in
+                if let err = err {
+                    SVProgressHUD.showError(withStatus: err.localizedDescription)
+                    self.handleDismiss()
+                    self.activeViewsIfNoData();return
+                }
+                group3 = base
+                semaphore.signal()
+            }
+            semaphore.wait()
+            
+            semaphore.signal()
+            self.reloadMainData(group2: group2,group3)
+            semaphore.wait()
+        }
         
     }
     
     func getDataAccordingToIndex(_ index:Int)  {
         let clinicId = self.docotrClinicID[index]
-        guard let doc = doc else { return  }
+        guard   let qq = customDoctorHomeView.topDoctorHomeCell.doctorClinicDrop.selectedIndex,let doc = doc else {return}
+        chossedClinic=doctorsClinicArray[qq]
         SVProgressHUD.show(withStatus: "Looding...")
         UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
         
@@ -182,48 +185,57 @@ class DoctorHomeVC: CustomBaseViewVC {
         }
     }
     
+    var doctorsClinicArray:[ClinicGetDoctorsModel] = [ClinicGetDoctorsModel]()
+    
+    
     fileprivate func reloadMainData(group2:MainClinicGetDoctorsModel?,_ mains:MainDoctorGetPatientsFromClinicModel?) {
         
         DispatchQueue.main.async {
             
-            
-            SVProgressHUD.dismiss()
+            self.handleDismiss()
+            //            SVProgressHUD.dismiss()
             UIApplication.shared.endIgnoringInteractionEvents() // disbale all events in the screen
-            if let clinics = group2?.data,let patients=mains?.data {
+            if let patients=mains?.data {
                 patients.forEach { (pp) in
                     self.doctorPatientsArray.append(pp.patient)
                     
                 }
-                for n in 1...clinics.count  {
-                    let s = "Clinic \(n)"
-                    self.numberOfClinicsAvaiable.append(s)
-                }
                 self.docotrAllPatientsArray = patients
-                self.customDoctorHomeView.topDoctorHomeCell.doctorClinicDrop.isHide(self.numberOfClinicsAvaiable.count > 0 ? false : true)
-                self.customDoctorHomeView.topDoctorHomeCell.doctorReservationLabel.isHide(self.numberOfClinicsAvaiable.count > 0 ? false : true)
-                self.customDoctorHomeView.topDoctorHomeCell.doctorClinicDrop.optionArray = self.numberOfClinicsAvaiable
-                self.customDoctorHomeView.topDoctorHomeCell.doctorClinicDrop.text = "Clinic 1"
-                self.customDoctorHomeView.topDoctorHomeCell.doctorClinicDrop.selectedIndex = 0
-                
+                self.customDoctorHomeView.topDoctorHomeCell.numberOfReserve = patients.count
+
                 self.customDoctorHomeView.topDoctorHomeCell.doctorReservationLabel.text = "\(patients.count) Reservation "
                 self.customDoctorHomeView.topDoctorHomeCell.doctor = self.doc
                 self.customDoctorHomeView.docotrCollectionView.doctorPatientsArray = patients
-                self.customDoctorHomeView.docotrCollectionView.collectionView.reloadData()
-                userDefaults.set(true, forKey: UserDefaultsConstants.isAllMainHomeObjectsFetchedDoctor)
-                userDefaults.set(self.numberOfClinicsAvaiable, forKey: UserDefaultsConstants.DoctornumberOfClinicsAvaiable)
-
-                userDefaults.synchronize()
-                self.view.layoutIfNeeded()
-//                UIApplication.shared.endIgnoringInteractionEvents() // disbale all events in the screen
-            }
-            
                 
-            
-            
-            
-            //           }
-            
-        }
+                
+            }
+            if group2?.data != nil && group2!.data!.count > 0 {
+                if let clinics = group2?.data {
+                    self.doctorsClinicArray=clinics
+                    for n in 1...clinics.count  {
+                        let s = "Clinic \(n)"
+                        self.numberOfClinicsAvaiable.append(s)
+                    }
+                    
+                    self.customDoctorHomeView.topDoctorHomeCell.numberOfClinics = self.numberOfClinicsAvaiable.count
+                    self.customDoctorHomeView.topDoctorHomeCell.mainDropView.isHide(self.numberOfClinicsAvaiable.count > 0 ? false : true)
+                    self.customDoctorHomeView.topDoctorHomeCell.doctorReservationLabel.isHide(self.numberOfClinicsAvaiable.count > 0 ? false : true)
+
+                    //                self.customDoctorHomeView.topDoctorHomeCell.doctorReservationLabel.isHide(self.numberOfClinicsAvaiable.count > 0 ? false : true)
+                    self.customDoctorHomeView.topDoctorHomeCell.doctorClinicDrop.optionArray = self.numberOfClinicsAvaiable
+                    self.customDoctorHomeView.topDoctorHomeCell.doctorClinicDrop.text = "Clinic 1"
+                    self.customDoctorHomeView.topDoctorHomeCell.doctorClinicDrop.selectedIndex = 0
+                    
+                    
+                    self.customDoctorHomeView.docotrCollectionView.collectionView.reloadData()
+                    userDefaults.set(true, forKey: UserDefaultsConstants.isAllMainHomeObjectsFetchedDoctor)
+                    userDefaults.set(self.numberOfClinicsAvaiable, forKey: UserDefaultsConstants.DoctornumberOfClinicsAvaiable)
+                    
+                    userDefaults.synchronize()
+                }
+                self.view.layoutIfNeeded()
+                
+            } }
     }
     
     func putUserPhoto(doctor:DoctorModel)  {
@@ -233,7 +245,7 @@ class DoctorHomeVC: CustomBaseViewVC {
     }
     
     
- 
+    
     override func setupNavigation()  {
         navigationController?.navigationBar.isHide(true)
     }
@@ -293,12 +305,19 @@ class DoctorHomeVC: CustomBaseViewVC {
         customDoctorHomeView.docotrCollectionView.doctorPatientsArray = tag == 4 ? docotrAllPatientsArray : filterDoctorPatientsArray
         DispatchQueue.main.async {
             self.customDoctorHomeView.docotrCollectionView.collectionView.reloadData()
-            self.view.layoutIfNeeded()
+            //            self.view.layoutIfNeeded()
         }
-        print(filterDoctorPatientsArray.count)
     }
     
-    //    required init?(coder: NSCoder) {
-    //        fatalError("init(coder:) has not been implemented")
-    //    }
+    @objc func handleNotification()  {
+        let profile = NotificationVC(index: index, isFromMenu: false)
+        profile.doctor=doc
+        
+        let nav = UINavigationController(rootViewController: profile)
+        
+        nav.modalPresentationStyle = .fullScreen
+        present(nav, animated: true)
+        
+    }
 }
+

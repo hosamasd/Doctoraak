@@ -69,7 +69,7 @@ extension UIViewController {
               
               
               sender.setTitleColor(.black, for: .normal)
-              removeSublayer(sender, layerIndex:   0)
+              removeSublayer(sender)
               sender.backgroundColor = ColorConstants.disabledButtonsGray
           }
     
@@ -103,40 +103,40 @@ extension UIViewController {
         sender.applyGradient(colors: [leftColor,rightColor], index: 0)
         
         vv.setTitleColor(.black, for: .normal)
-        removeSublayer(vv, layerIndex:  0)
+        removeSublayer(vv)
         vv.backgroundColor = ColorConstants.disabledButtonsGray
     }
     
     func addGradientInSenderAndRemoveOtherss(sender:UIButton,vvv:[UIButton])  {
         
+        if sender.backgroundColor == nil {
+               }else {
         let leftColor = #colorLiteral(red: 0.4747212529, green: 0.2048208416, blue: 1, alpha: 1).cgColor
         let rightColor = #colorLiteral(red: 0.7187242508, green: 0.5294578671, blue: 0.9901599288, alpha: 1).cgColor
         sender.applyGradient(colors: [leftColor,rightColor], index: 0)
+            sender.setTitleColor(.white, for: .normal)
+        
         
         vvv.forEach { (vv) in
-             vv.setTitleColor(.black, for: .normal)
             if vv.backgroundColor == nil {
-                removeSublayer(vv, layerIndex:  0)
+                removeSublayer(vv)
                 vv.backgroundColor = ColorConstants.disabledButtonsGray
             }else {
                 vv.backgroundColor = ColorConstants.disabledButtonsGray
             }
-             
-            
-                   
-                  
+            vv.setTitleColor(.black, for: .normal)
         }
-       
+    }
     }
     
     // SWIFT 4 update
-    func removeSublayer(_ view: UIView, layerIndex index: Int) {
+    func removeSublayer(_ view: UIView) {
         guard let sublayers = view.layer.sublayers else {
             print("The view does not have any sublayers.")
             return
         }
-        if sublayers.count > index {
-            view.layer.sublayers!.remove(at: index)
+        if sublayers.count > 0 {
+            view.layer.sublayers!.remove(at: 0)
             
         } else {
             print("There are not enough sublayers to remove that index.")
@@ -166,7 +166,7 @@ extension UIViewController {
             
         }else {
             if vv.backgroundColor == nil {
-                removeSublayer(vv, layerIndex: 0)
+                removeSublayer(vv)
                 vv.backgroundColor =  ColorConstants.disabledButtonsGray
                 vv.setTitleColor(.black, for: .normal)
                  vv.isEnabled = false

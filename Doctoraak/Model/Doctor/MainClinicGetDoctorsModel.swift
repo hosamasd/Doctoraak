@@ -59,9 +59,9 @@ struct ClinicDoctorLoginModel:Codable {
     
     let id: Int
     let name: String
-    var nameAr, nameFr: String?
+    var nameAr, nameFr,firebaseToken: String?
     let gender, phone, smsCode, apiToken: String
-    let firebaseToken, email, password: String
+    let  email, password: String
     let active, specializationID: Int
     let cv: String
     let cv2: String
@@ -103,16 +103,16 @@ struct ClinicDoctorLoginModel:Codable {
 
 struct ClinicDegreeModel:Codable {
     let id: Int
-    let name: Name
-    let nameAr: NameAr
-    let nameFr: Name
+    let name: String
+    let nameAr: String
+    let nameFr: String
     let createdAt: String?
     let updatedAt: String?
     //       let createdAt: CreatedAt?
     //       let updatedAt: UpdatedAt?
-    let photo: Photo?
+    let photo: String?
     let url: String?
-    let icon: Icon?
+    let icon: String?
     
     enum CodingKeys: String, CodingKey {
         case id, name
