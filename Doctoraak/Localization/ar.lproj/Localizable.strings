@@ -12,6 +12,10 @@
 //WelcomeVC
 "Looding..."="تحميل...";"Copyright @"="حقوق محفوظه @";"Doctoraak "="دكتورك ";"Copyright @ Doctoraak "="حقوق محفوظه @ دكتورك ";
 
+//WelcomeMainSecondVC
+"Register as"="تسجيل الدخول ك ";"Medical Center"="مركز طبي";"a Doctor"="دكتور";"Medical Lab"="معمل طبي"; "Radiology Center"= "مركز اشعه تحاليل ";
+"a Pharmacy"="صيدلية";
+
 //SecondWelcomeVC
 "LOGIN"="تسجيل الدخول";"SIGN UP"="حساب جديد";
 
@@ -21,6 +25,9 @@
 "Forget Password ?"="نسيت الباسورد ?";"Don't have an account ? "="لا تملك حساب ? ";
 "Invalid   Phone"="رقم محمول غير صحيح";
 "password must have 8 character"="الباسورد يجب ان يكون ٨ ارقام";
+
+//MainForgetPasswordVC
+"Enter your phone number :"="ادخل رقم تليفونك :";"phone number"="رقم التليفون";"Send"="ارسال";
 
 //ForgetPasswordVC
 "Resending password..."="اعاده ارسال الباسورد...";"Please login first"="سجل الدخول اولا";"OK"="موافق";

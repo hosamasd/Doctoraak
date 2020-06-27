@@ -14,6 +14,8 @@ class SecondWelcomeVC: CustomBaseViewVC {
         let v = CustomSecondWelcomeView()
         v.loginButton.addTarget(self, action: #selector(handleLogin), for: .touchUpInside)
         v.registerButton.addTarget(self, action: #selector(handleRegister), for: .touchUpInside)
+        v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
+        
         return v
     }()
     
@@ -58,6 +60,11 @@ class SecondWelcomeVC: CustomBaseViewVC {
     
     @objc func handleRegister()  {
         goToRegisterNextVC(index: index )
+    }
+    
+    @objc func handleBack()  {
+        
+        navigationController?.popViewController(animated: true)
     }
     
     required init?(coder: NSCoder) {

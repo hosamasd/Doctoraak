@@ -76,6 +76,8 @@ class DoctorHomeLeftMenuVC: CustomBaseViewVC {
     }
     
     func checkIfLogginedDoc(_ indexPath:IndexPath)  {
+//        guard let baseSlid = UIApplication.shared.windows.filter({$0.isKeyWindow}).first?.rootViewController as? BaseSlidingVC else {return}
+
         guard let baseSlid = UIApplication.shared.windows.filter({$0.isKeyWindow}).first?.rootViewController as? BaseSlidingVC ,let doc = doctor else {return}
         
         if indexPath.section == 0 {
@@ -89,18 +91,18 @@ class DoctorHomeLeftMenuVC: CustomBaseViewVC {
                 present(nav, animated: true)
             }else if indexPath.item == 1 {
                 baseSlid.closeMenu()
-//                let profile = DoctorClinicDataVC(indexx: index, api_token: doc.apiToken, doctor_id: doc.id, isFromProfile: true)
-//                let nav = UINavigationController(rootViewController: profile)
-//                
-//                nav.modalPresentationStyle = .fullScreen
-//                present(nav, animated: true)
+                                let profile = DoctorClinicDataVC(indexx: index, api_token: doc.apiToken, doctor_id: doc.id, isFromProfile: true)
+                                let nav = UINavigationController(rootViewController: profile)
+                
+                                nav.modalPresentationStyle = .fullScreen
+                                present(nav, animated: true)
             }else if indexPath.item == 2 {
                 baseSlid.closeMenu()
-                let profile = DoctorClinicDataVC(indexx: index, api_token: doc.apiToken, doctor_id: doc.id, isFromProfile: true)
-                let nav = UINavigationController(rootViewController: profile)
-                
-                nav.modalPresentationStyle = .fullScreen
-                present(nav, animated: true)
+//                let profile = DoctorClinicDataVC(indexx: index, api_token: doc.apiToken, doctor_id: doc.id, isFromProfile: true)
+//                let nav = UINavigationController(rootViewController: profile)
+//
+//                nav.modalPresentationStyle = .fullScreen
+//                present(nav, animated: true)
             }else if indexPath.item == 3 {
                 baseSlid.closeMenu()
                 let profile = DoctorClinicWorkingHoursVC()//DoctorClinicDataVC(indexx: index, api_token: doc.apiToken, doctor_id: doc.id, isFromProfile: true)
@@ -173,7 +175,6 @@ class DoctorHomeLeftMenuVC: CustomBaseViewVC {
         
         //        guard let baseSlid = UIApplication.shared.keyWindow?.rootViewController as? BaseSlidingVC else {return}
         
-        baseSlid.closeMenu()
         baseSlid.customMainAlertVC.addCustomViewInCenter(views: baseSlid.customAlertChooseLanguageView, height: 200)
         baseSlid.present(baseSlid.customMainAlertVC, animated: true)
     }

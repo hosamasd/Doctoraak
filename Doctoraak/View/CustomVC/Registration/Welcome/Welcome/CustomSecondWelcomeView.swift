@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MOLH
 
 class CustomSecondWelcomeView: CustomBaseView {
     
@@ -19,18 +20,25 @@ class CustomSecondWelcomeView: CustomBaseView {
         i.contentMode = .scaleAspectFill
         return i
     }()
+    lazy var backImage:UIImageView = {
+          let i = UIImageView(image: MOLHLanguage.isRTLLanguage() ? #imageLiteral(resourceName: "left-arrow") : #imageLiteral(resourceName: "Icon - Keyboard Arrow - Left - Filled"))
+          i.constrainWidth(constant: 30)
+          i.constrainHeight(constant: 30)
+          i.isUserInteractionEnabled = true
+          return i
+      }()
     lazy var loginButton = createButtons(texzt: "LOGIN".localized)
     lazy var registerButton = createButtons(texzt: "SIGN UP".localized)
     
     override func setupViews() {
         let ss = getStack(views: loginButton,registerButton, spacing: 8, distribution: .fillEqually, axis: .vertical)
         
-        addSubViews(views: mainImage,drImage,ss)
+        addSubViews(views: mainImage,backImage,drImage,ss)
         
         mainImage.fillSuperview()
         drImage.centerInSuperview()
         ss.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 16, bottom: 48, right: 16))
-        
+        backImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 16, left: 16, bottom: 0, right: 0))
     }
     
     func createButtons(texzt:String) -> UIButton {

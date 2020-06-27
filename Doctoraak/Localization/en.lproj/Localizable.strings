@@ -11,6 +11,14 @@
 
 //WelcomeVC
 "Looding..."="Looding...";"Copyright @"="Copyright @";"Doctoraak "="Doctoraak ";
+
+//WelcomeMainSecondVC
+"Register as"="Register as";"Medical Center"="Medical Center";"a Doctor"="a Doctor";"Medical Lab"="Medical Lab"; "Radiology Center"= "Radiology Center";
+"a Pharmacy"="a Pharmacy";
+
+//SecondWelcomeVC
+"LOGIN"="LOGIN";"SIGN UP"="SIGN UP";
+
 //WelcomeMainSecondVC
 "Register as"="Register as";"Medical Center"="Medical Center";"a Doctor"="a Doctor";"Medical Lab"="Medical Lab";
 "Radiology Center"="Radiology Center";"a Pharmacy"="a Pharmacy";
@@ -29,6 +37,9 @@
 //MainLoginsVC
 "Hello"="Hello";"Sign in to your account"="Sign in to your account";"Phone Number"="Phone Number";"Forget Password ?"="Forget Password ?";
 "Sign up"="Sign up";
+
+//MainForgetPasswordVC
+"Enter your phone number :"="Enter your phone number :";"phone number"="phone number";"Send"="Send";
 
 //MainClinicDataVC
 "Invalid waiing"="Invalid waiing";"Invalid consulation feez"="Invalid consulation feez";"Invalid fees"="Invalid fees";

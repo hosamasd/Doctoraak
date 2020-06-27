@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MOLH
 
 class CustomWelcomeMainSecondView: CustomBaseView {
     
@@ -22,15 +23,15 @@ class CustomWelcomeMainSecondView: CustomBaseView {
         return i
     }()
     lazy var docotrLabel = UILabel(text: "Doctoraak ".localized, font: .systemFont(ofSize: 20), textColor: .white,textAlignment: .center)
-
+    
     lazy var mainFirstView:UIView = {
-      let v = UIView(backgroundColor: .white)
+        let v = UIView(backgroundColor: .white)
         v.layer.cornerRadius = 8
         v.layer.borderWidth = 1
         v.layer.borderColor = UIColor.lightGray.cgColor
         v.clipsToBounds = true
-//        v.constrainHeight(constant: 80)
-         v.addSubViews(views: Image1,label1)
+        //        v.constrainHeight(constant: 80)
+        v.addSubViews(views: Image1,label1)
         return v
     }()
     lazy var main2View:UIView = {
@@ -67,11 +68,11 @@ class CustomWelcomeMainSecondView: CustomBaseView {
         v.layer.borderWidth = 1
         v.layer.borderColor = UIColor.lightGray.cgColor
         v.clipsToBounds = true
-//        v.constrainHeight(constant: 80)
+        //        v.constrainHeight(constant: 80)
         v.addSubViews(views: Image5,label5)
         return v
     }()
-  
+    
     lazy var label1 =  makeAttributedText(fir: "Register as".localized, sec: "Medical Center".localized)
     lazy var label2 =  makeAttributedText(fir: "Register as".localized, sec: "a Doctor".localized)
     lazy var label3 =  makeAttributedText(fir: "Register as".localized, sec: "Medical Lab".localized)
@@ -82,7 +83,7 @@ class CustomWelcomeMainSecondView: CustomBaseView {
         let i = UIImageView(image: #imageLiteral(resourceName: "Group 4142-4"))
         i.contentMode = .scaleAspectFill
         i.constrainWidth(constant: 80)
-       
+        
         return i
     }()
     
@@ -117,39 +118,39 @@ class CustomWelcomeMainSecondView: CustomBaseView {
     override func setupViews() {
         
         
-       
+        
         main5View.hstack(Image5,label5)
-         main4View.hstack(Image4,label4)
-         main3View.hstack(Image3,label3)
-         main2View.hstack(Image2,label2)
-         mainFirstView.hstack(Image1,label1)
+        main4View.hstack(Image4,label4)
+        main3View.hstack(Image3,label3)
+        main2View.hstack(Image2,label2)
+        mainFirstView.hstack(Image1,label1)
         let ss = getStack(views: main2View,mainFirstView,main3View,main4View,main5View, spacing: 8, distribution: .fillEqually, axis: .vertical)
         
         addSubViews(views: mainImage,docotrLabel,drImage,ss)
-         mainImage.fillSuperview()
-//        drImage.centerInSuperview()
+        mainImage.fillSuperview()
+        //        drImage.centerInSuperview()
         NSLayoutConstraint.activate([
             drImage.centerXAnchor.constraint(equalTo: centerXAnchor),
             drImage.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -200)
-            ])
+        ])
         docotrLabel.anchor(top: drImage.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 0, bottom: 16, right: 0))
-
+        
         ss.anchor(top: docotrLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 32, left: 32, bottom: 32, right: 32))
-
+        
         
     }
     
     func makeAttributedText(fir:String,sec:String) -> UILabel {
         let l = UILabel()
-       let attrString = NSMutableAttributedString()
-        .appendWith(color: #colorLiteral(red: 0.246225208, green: 0.2462718487, blue: 0.2462153137, alpha: 1), weight: .regular, ofSize: 16, fir+"\n")
-        .appendWith(color: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), weight: .bold, ofSize: 16, sec)
+        let attrString = NSMutableAttributedString()
+            .appendWith(color: #colorLiteral(red: 0.246225208, green: 0.2462718487, blue: 0.2462153137, alpha: 1), weight: .regular, ofSize: 16, fir+"\n")
+            .appendWith(color: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), weight: .bold, ofSize: 16, sec)
         l.attributedText = attrString
         l.numberOfLines = 2
         l.textAlignment = .center
         return l
     }
     
-   
+    
     
 }
