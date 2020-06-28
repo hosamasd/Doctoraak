@@ -63,9 +63,7 @@ class CustomClinicDataView: CustomBaseView {
     
     lazy var mainDropView:UIView =  makeMainSubViewWithAppendView(vv: [cityDrop])
     lazy var cityDrop:DropDown = {
-        let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
-        i.arrowSize = 20
-        i.placeholder = "City".localized
+        let i = returnMainDropDown( plcae:  "City".localized)
         i.didSelect { (txt, index, _) in
             self.getAreaAccordingToCityId(index: index)
             
@@ -76,10 +74,7 @@ class CustomClinicDataView: CustomBaseView {
     }()
     lazy var mainDrop2View:UIView = makeMainSubViewWithAppendView(vv: [areaDrop])
     lazy var areaDrop:DropDown = {
-        let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
-        i.arrowSize = 20
-        
-        i.placeholder = "Area".localized
+        let i = returnMainDropDown( plcae:  "Area".localized)
         i.didSelect { (txt, index, _) in
             self.clinicDataViewModel.area = self.areaIDSArray[index]//index+1
         }

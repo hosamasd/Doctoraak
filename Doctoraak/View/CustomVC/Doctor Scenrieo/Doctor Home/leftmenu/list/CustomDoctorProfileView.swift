@@ -103,19 +103,14 @@ class CustomDoctorProfileView: CustomBaseView {
     lazy var mainDropView = makeMainSubViewWithAppendView(vv: [specializationDrop])
     
     lazy var specializationDrop:DropDown = {
-        let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
-        //        i.optionArray = ["one","two","three"]
-        i.arrowSize = 20
-        i.placeholder = "Specialization".localized
+        let i = returnMainDropDown( plcae:  "Specialization".localized)
         i.isUserInteractionEnabled = false
         return i
     }()
     lazy var mainDrop2View = makeMainSubViewWithAppendView(vv: [degreeDrop])
     
     lazy var degreeDrop:DropDown = {
-        let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
-        i.arrowSize = 20
-        i.placeholder = "Degree".localized
+        let i = returnMainDropDown( plcae:  "Degree".localized)
         i.didSelect { (txt, index, _) in
             self.edirProfileViewModel.degreeId =  self.degreeIDSArray[index]//index+1
         }

@@ -83,6 +83,11 @@ class MainRegisterVC: CustomBaseViewVC {
         //        MAKEoPERATION()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+              super.viewWillAppear(animated)
+           customMainRegisterView.fullNameTextField.becomeFirstResponder()
+          }
+    
     //MARK:-User methods
     
     func MAKEoPERATION()  {
@@ -198,45 +203,6 @@ class MainRegisterVC: CustomBaseViewVC {
         userDefaults.set(true, forKey: UserDefaultsConstants.isUserRegisterAndWaitForSMScODE)
         userDefaults.synchronize()
         goToNext(id: user_id)
-    }
-    
-    
-    //        let aa = index == 2 ? UserDefaultsConstants.labRegisterUser_id : index == 3 ? UserDefaultsConstants.radiologyRegisterUser_id : UserDefaultsConstants.pharamcyRegisterUser_id
-    //        //        let dd = index == 2 ? UserDefaultsConstants.labRRegisterSMSCode : index == 3 ? UserDefaultsConstants.radiologyRegisterSMSCode : UserDefaultsConstants.pharamcyRegisterSMSCode
-    //        let m = index == 2 ? UserDefaultsConstants.labRegisterMobile : index == 3 ? UserDefaultsConstants.radiologyRegisterMobile : UserDefaultsConstants.pharamcyRegisterMobile
-    //
-    //        userDefaults.set(user_id, forKey: aa)
-    //
-    //        userDefaults.set(true, forKey: UserDefaultsConstants.isUserRegisterAndWaitForSMScODE)
-    //        userDefaults.set(mobile, forKey: m)
-    //
-    //        userDefaults.set(index, forKey: UserDefaultsConstants.isUserRegisterAndWaitForSMScODEIndex)
-    //        removeOtherDefaults()
-    
-    //    }
-    
-    fileprivate func removeOtherDefaults()  {
-        userDefaults.removeObject(forKey: UserDefaultsConstants.mainfirst1)
-        userDefaults.removeObject(forKey: UserDefaultsConstants.mainfirst11)
-        userDefaults.removeObject(forKey: UserDefaultsConstants.mainfirst2)
-        userDefaults.removeObject(forKey: UserDefaultsConstants.mainfirst21)
-        userDefaults.removeObject(forKey: UserDefaultsConstants.mainfirst3)
-        userDefaults.removeObject(forKey: UserDefaultsConstants.mainfirst31)
-        userDefaults.removeObject(forKey: UserDefaultsConstants.mainfirst4)
-        userDefaults.removeObject(forKey: UserDefaultsConstants.mainfirst41)
-        userDefaults.removeObject(forKey: UserDefaultsConstants.mainfirst5)
-        userDefaults.removeObject(forKey: UserDefaultsConstants.mainfirst51)
-        userDefaults.removeObject(forKey: UserDefaultsConstants.mainfirst6)
-        userDefaults.removeObject(forKey: UserDefaultsConstants.mainfirst61)
-        userDefaults.removeObject(forKey: UserDefaultsConstants.mainfirst7)
-        userDefaults.removeObject(forKey: UserDefaultsConstants.mainfirst71)
-        userDefaults.removeObject(forKey: UserDefaultsConstants.mainday1)
-        userDefaults.removeObject(forKey: UserDefaultsConstants.mainday3)
-        userDefaults.removeObject(forKey: UserDefaultsConstants.mainday2)
-        userDefaults.removeObject(forKey: UserDefaultsConstants.mainday4)
-        userDefaults.removeObject(forKey: UserDefaultsConstants.mainday5)
-        userDefaults.removeObject(forKey: UserDefaultsConstants.mainday6)
-        userDefaults.removeObject(forKey: UserDefaultsConstants.mainday7)
     }
     
     fileprivate  func goToNext(id:Int)  {

@@ -16,9 +16,9 @@ class CustomMainRegisterView: CustomBaseView {
     
     var index:Int! {
         didSet{
-            fullNameTextField.placeholder = index == 4 ? "Pharmacy Name" : index == 2 ? "Lap Name" : "Center Name"
-            mobileNumberTextField.placeholder = index == 4 ? "Pharmacy phone"  : index == 2 ? "Lap phone" : "Center phone"
-            soonLabel.text = index == 4 ? "Creat Pharmacy account"  : index == 2 ? "Creat Lap account" : "Creat Center account"
+            fullNameTextField.placeholder = index == 4 ? "Pharmacy Name".localized : index == 2 ? "Lap Name".localized : "Radiology Name".localized
+            mobileNumberTextField.placeholder = index == 4 ? "Pharmacy phone".localized  : index == 2 ? "Lap phone".localized : "Radiology phone".localized
+            soonLabel.text = index == 4 ? "Create Pharmacy account".localized  : index == 2 ? "Create Lap account".localized : "Create Radiology account".localized
             registerViewModel.index = index
         }
     }
@@ -36,8 +36,8 @@ class CustomMainRegisterView: CustomBaseView {
         return i
     }()
     
-    lazy var titleLabel = UILabel(text: "Welcome", font: .systemFont(ofSize: 30), textColor: .white)
-    lazy var soonLabel = UILabel(text: "Creat Pharmacy account", font: .systemFont(ofSize: 18), textColor: .white)
+    lazy var titleLabel = UILabel(text: "Welcome".localized, font: .systemFont(ofSize: 30), textColor: .white)
+    lazy var soonLabel = UILabel(text: "", font: .systemFont(ofSize: 18), textColor: .white)
     
     lazy var userProfileImage:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "Group 4143"))
@@ -58,14 +58,14 @@ class CustomMainRegisterView: CustomBaseView {
         return i
     }()
     
-    lazy var fullNameTextField = createMainTextFields(place: " Name")
-    lazy var mobileNumberTextField = createMainTextFields(place: " phone",type: .numberPad)
-    lazy var emailTextField = createMainTextFields(place: "enter email",type: .emailAddress)
+    lazy var fullNameTextField = createMainTextFields(place: " Name".localized)
+    lazy var mobileNumberTextField = createMainTextFields(place: " phone".localized,type: .numberPad)
+    lazy var emailTextField = createMainTextFields(place: "enter email".localized,type: .emailAddress)
     lazy var passwordTextField:UITextField = {
-        let s = createMainTextFields(place: "Password", type: .default,secre: true)
+        let s = createMainTextFields(place: "Password".localized, type: .default,secre: true)
         let button = UIButton(type: .custom)
         button.setImage(#imageLiteral(resourceName: "visiblity"), for: .normal)
-        button.imageEdgeInsets = UIEdgeInsets(top: 0, left: -16, bottom: 0, right: 0)
+        button.imageEdgeInsets = self.showPassword
         button.frame = CGRect(x: CGFloat(s.frame.size.width - 25), y: CGFloat(5), width: CGFloat(25), height: CGFloat(25))
         button.addTarget(self, action: #selector(handleASD), for: .touchUpInside)
         s.rightView = button
@@ -73,10 +73,10 @@ class CustomMainRegisterView: CustomBaseView {
         return s
     }()
     lazy var confirmPasswordTextField:UITextField = {
-        let s = createMainTextFields(place: "confirm Password", type: .default,secre: true)
+        let s = createMainTextFields(place: "confirm Password".localized, type: .default,secre: true)
         let button = UIButton(type: .custom)
         button.setImage(#imageLiteral(resourceName: "visiblity"), for: .normal)
-        button.imageEdgeInsets = UIEdgeInsets(top: 0, left: -16, bottom: 0, right: 0)
+        button.imageEdgeInsets = self.showPassword
         button.frame = CGRect(x: CGFloat(s.frame.size.width - 25), y: CGFloat(5), width: CGFloat(25), height: CGFloat(25))
         button.addTarget(self, action: #selector(handleASDs), for: .touchUpInside)
         s.rightView = button
@@ -87,15 +87,15 @@ class CustomMainRegisterView: CustomBaseView {
     lazy var addressMainView:UIView = {
         let v = makeMainSubViewWithAppendView(vv: [addressLabel])
         v.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpenLocation)))
-        v.hstack(addressLabel).withMargins(.init(top: 0, left: 16, bottom: 0, right: 8))
+        v.hstack(addressLabel).withMargins(.init(top: 0, left: 16, bottom: 0, right: 16))
         return v
     }()
-    lazy var addressLabel = UILabel(text: "Address", font: .systemFont(ofSize: 16), textColor: .lightGray,numberOfLines: 0)
+    lazy var addressLabel = UILabel(text: "Address".localized, font: .systemFont(ofSize: 16), textColor: .lightGray,numberOfLines: 0)
     
     lazy var mainDrop3View:UIView =  {
         let l = makeMainSubViewWithAppendView(vv: [doenImage,insuracneText])
         l.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpenCloseInsurance)))
-        l.hstack(insuracneText,doenImage).withMargins(.init(top: 0, left: 16, bottom: 0, right: 0))
+        l.hstack(insuracneText,doenImage).withMargins(.init(top: 0, left: 0, bottom: 0, right: 0))
         return l
     }()
     
@@ -105,7 +105,7 @@ class CustomMainRegisterView: CustomBaseView {
         //        i.constrainHeight(constant: 50)
         return i
     }()
-    lazy var insuracneText = UILabel(text: "choose insurance", font: .systemFont(ofSize: 16), textColor: .black, textAlignment: .left,numberOfLines: 0)
+    lazy var insuracneText = UILabel(text: "choose insurance".localized, font: .systemFont(ofSize: 16), textColor: .black, textAlignment: .left,numberOfLines: 0)
     lazy var insuranceDrop:UIMultiPicker = {
         let v = UIMultiPicker(backgroundColor: .white)
         //        v.options = insuracneArray
@@ -120,11 +120,11 @@ class CustomMainRegisterView: CustomBaseView {
     }()
     lazy var workingHourView:UIView = {
         let v = makeMainSubViewWithAppendView(vv: [workingHoursLabel])
-        v.hstack(workingHoursLabel).withMargins(.init(top: 0, left: 16, bottom: 0, right: 0))
+        v.hstack(workingHoursLabel).withMargins(.init(top: 0, left: 16, bottom: 0, right: 16))
         v.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleChoose)))
         return v
     }()
-    lazy var workingHoursLabel = UILabel(text: "Working Hours", font: .systemFont(ofSize: 16), textColor: .lightGray)
+    lazy var workingHoursLabel = UILabel(text: "Working Hours".localized, font: .systemFont(ofSize: 16), textColor: .lightGray)
     //    lazy var pharamacyWorkingHoursTextField = createMainTextFields(place: "Work hours")
     
     lazy var deliverySwitch:UISwitch = {
@@ -138,12 +138,10 @@ class CustomMainRegisterView: CustomBaseView {
     
     lazy var deliveryView = makeMainSubViewWithAppendView(vv: [deliveryLabel,deliverySwitch])
     
-    lazy var deliveryLabel = UILabel(text: "Delivery ?", font: .systemFont(ofSize: 20), textColor: .lightGray)
+    lazy var deliveryLabel = UILabel(text: "Delivery ?".localized, font: .systemFont(ofSize: 20), textColor: .lightGray)
     lazy var mainDropView:UIView =  makeMainSubViewWithAppendView(vv: [cityDrop])
     lazy var cityDrop:DropDown = {
-        let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
-        i.arrowSize = 20
-        i.placeholder = "City".localized
+        let i = returnMainDropDown( plcae:  "City".localized)
         i.didSelect { (txt, index, _) in
             self.getAreaAccordingToCityId(index: index)
             
@@ -154,10 +152,7 @@ class CustomMainRegisterView: CustomBaseView {
     }()
     lazy var mainDrop2View:UIView = makeMainSubViewWithAppendView(vv: [areaDrop])
     lazy var areaDrop:DropDown = {
-        let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
-        i.arrowSize = 20
-        
-        i.placeholder = "Area".localized
+        let i = returnMainDropDown(bg: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1), plcae:  "Area".localized)
         i.didSelect { (txt, index, _) in
             self.registerViewModel.area = self.areaIDSArray[index]//index+1
         }
@@ -166,7 +161,7 @@ class CustomMainRegisterView: CustomBaseView {
     
     lazy var nextButton:UIButton = {
         let button = UIButton()
-        button.setTitle("Save", for: .normal)
+        button.setTitle("Save".localized, for: .normal)
         button.backgroundColor = ColorConstants.disabledButtonsGray
         button.setTitleColor(.black, for: .normal)
         button.layer.cornerRadius = 16
@@ -190,7 +185,8 @@ class CustomMainRegisterView: CustomBaseView {
     
     var cityIDSArray = [Int]() //["one","two","three","sdfdsfsd"]
     var areaIDSArray = [Int]()
-    
+    let showPassword = MOLHLanguage.isRTLLanguage() ? UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -16) : UIEdgeInsets(top: 0, left: -16, bottom: 0, right: 0)
+
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -244,7 +240,7 @@ class CustomMainRegisterView: CustomBaseView {
         if isArabic {
             
             
-            if let insuranceNameArray = userDefaults.value(forKey: UserDefaultsConstants.insuranceNameARArray) as? [String],let insuranceIdArray = userDefaults.value(forKey: UserDefaultsConstants.insuranceIdArray) as? [Int], let cityArray = userDefaults.value(forKey: UserDefaultsConstants.cityNameArray) as? [String],let cityIds = userDefaults.value(forKey: UserDefaultsConstants.cityIdArray) as? [Int],let degreeNames = userDefaults.value(forKey: UserDefaultsConstants.areaNameArray) as? [String] , let degreeIds =  userDefaults.value(forKey: UserDefaultsConstants.areaIdArray) as? [Int]  {
+            if let insuranceNameArray = userDefaults.value(forKey: UserDefaultsConstants.insuranceNameARArray) as? [String],let insuranceIdArray = userDefaults.value(forKey: UserDefaultsConstants.insuranceIdArray) as? [Int], let cityArray = userDefaults.value(forKey: UserDefaultsConstants.cityNameARArray) as? [String],let cityIds = userDefaults.value(forKey: UserDefaultsConstants.cityIdArray) as? [Int],let degreeNames = userDefaults.value(forKey: UserDefaultsConstants.areaNameARArray) as? [String] , let degreeIds =  userDefaults.value(forKey: UserDefaultsConstants.areaIdArray) as? [Int]  {
                 
                 putDataInDrops(sr: cityArray, sid: cityIds, dr: degreeNames, did:degreeIds , insuranceNameArray: insuranceNameArray, insuranceNumberArray: insuranceIdArray)
                 
@@ -270,6 +266,8 @@ class CustomMainRegisterView: CustomBaseView {
     }
     
     override func setupViews() {
+        [titleLabel,soonLabel,insuracneText,addressLabel,workingHoursLabel,deliveryLabel].forEach({$0.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left})
+
         [mobileNumberTextField,passwordTextField,  emailTextField, fullNameTextField, confirmPasswordTextField].forEach({$0.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)})
         
         let subView = UIView(backgroundColor: .clear)
@@ -291,7 +289,12 @@ class CustomMainRegisterView: CustomBaseView {
             subView.centerXAnchor.constraint(equalTo: centerXAnchor)
         ])
         
-        LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
+        if MOLHLanguage.isRTLLanguage() {
+                       LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 0, bottom: 0, right: -48))
+                   }else {
+                       
+                       LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
+                  }
         subView.anchor(top: LogoImage.bottomAnchor, leading: nil, bottom: nil, trailing: nil,padding: .init(top: 50, left: 0, bottom: 0, right: 0))
         backImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 60, left: 16, bottom: 0, right: 0))
         titleLabel.anchor(top: nil, leading: leadingAnchor, bottom: LogoImage.bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))

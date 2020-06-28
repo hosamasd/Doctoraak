@@ -33,11 +33,21 @@
 "Resending password..."="اعاده ارسال الباسورد...";"Please login first"="سجل الدخول اولا";"OK"="موافق";
 "Forget"="نسيت";"Save"="حفظ";"code is not valid"="الكود خاطئ";
 
+//MainNewPassVC
+"Don't receive an sms code ? "="لم تستقبل اي رسائل؟ ";"Resend"="اعد الارسال";"Done"="تم";"New Password"="الباسورد الجديد";"enter code"="اجخل الكود المرسل";
+"Please Enter your code and  new password"="ادخل الكود والباسورد الجديد";
+
 //VerificationVC
 "SMS Code is sent again...."="رسالة النصية ارسلت من جديد....";"Verification"="نفعيل";
 "Check your mobile for verification Code"="افحص الهاتف للوصول لرساله التفعيل";
 "Please, enter the verification code \n we send to your mobile "="من فضلك افحص الرسايل  \n ارسلت للهاتف ";
 "Resend again "="ارسل مرة تانية ";"Confirm"="تفعيل";
+
+//MainRegisterVC
+"Create Pharmacy account"="حساب جديد للصيدليه";"Create Lap account"="حساب جديد لمعمل";"Create Radiology account"="حساب جديد لمركز اشعه";
+"Pharmacy Name"="اسم الصيدليه";"Lap Name"="اسم المعمل";"Radiology Name"="اسم مركز الاشعه";"Pharmacy phone"="رقم الصيدلية";"Lap phone"="رقم المعمل";
+"Radiology phone"="رقم مركز الاشعه";"City"="المدينه";"Area"="المنطقه";"Save"="حفظ";
+"Delivery ?"="متاح التوصيل؟";"Working Hours"="ساعات العمل";"choose insurance"="اختر شركات التامين";"Address"="الموقع";
 
 //NewPassVC
 "Saving password..."="حفظ الباسورد...";"New"="جديد";"Please Enter your new password"="ادخل الباسورد الجديد";

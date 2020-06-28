@@ -57,6 +57,11 @@ class MainForgetPasswordVC: CustomBaseViewVC {
         setupViewModelObserver()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+           super.viewWillAppear(animated)
+        customMainForgetPassView.numberTextField.becomeFirstResponder()
+       }
+    
     //MARK:-User methods
     
     func setupViewModelObserver()  {

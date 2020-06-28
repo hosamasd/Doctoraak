@@ -38,8 +38,18 @@
 "Hello"="Hello";"Sign in to your account"="Sign in to your account";"Phone Number"="Phone Number";"Forget Password ?"="Forget Password ?";
 "Sign up"="Sign up";
 
+//MainNewPassVC
+"Don't receive an sms code ? "="Don't receive an sms code ? ";"Resend"="Resend";"Done"="Done";"New Password"="New Password";"enter code"="enter code";
+"Please Enter your code and  new password"="Please Enter your code and  new password";
 //MainForgetPasswordVC
 "Enter your phone number :"="Enter your phone number :";"phone number"="phone number";"Send"="Send";
+
+//MainRegisterVC
+"Create Pharmacy account"="Create Pharmacy account";"Create Lap account"="Create Lap account";"Create Radiology account"="Create Radiology account";
+"Pharmacy Name"="Pharmacy Name";"Lap Name"="Lap Name";"Radiology Name"="Radiology Name";"Pharmacy phone"="Pharmacy phone";"Lap phone"="Lap phone";
+"Radiology phone"="Radiology phone";"City"="City";"Area"="Area";"Save"="Save";
+"Delivery ?"="Delivery ?";"Working Hours"="Working Hours";"choose insurance"="choose insurance";"Address"="Address";
+
 
 //MainClinicDataVC
 "Invalid waiing"="Invalid waiing";"Invalid consulation feez"="Invalid consulation feez";"Invalid fees"="Invalid fees";

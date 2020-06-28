@@ -29,13 +29,13 @@ class CustomMainNewPassView: CustomBaseView {
     lazy var titleLabel = UILabel(text: "New".localized, font: .systemFont(ofSize: 30), textColor: .white)
     lazy var soonLabel = UILabel(text: "Password".localized, font: .systemFont(ofSize: 30), textColor: .white)
     lazy var choosePayLabel = UILabel(text: "Please Enter your code and  new password".localized, font: .systemFont(ofSize: 18), textColor: .black,textAlignment: .center)
-    lazy var codeTextField = createMainTextFields(place: " code".localized,type: .numberPad)
+    lazy var codeTextField = createMainTextFields(place: "enter code".localized,type: .numberPad)
     
     lazy var passwordTextField:UITextField = {
         let s = createMainTextFields(place: "New Password".localized, type: .default,secre: true)
         let button = UIButton(type: .custom)
         button.setImage(#imageLiteral(resourceName: "visiblity"), for: .normal)
-        button.imageEdgeInsets = UIEdgeInsets(top: 0, left: -16, bottom: 0, right: 0)
+        button.imageEdgeInsets = MOLHLanguage.isRTLLanguage() ? UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -16) : UIEdgeInsets(top: 0, left: -16, bottom: 0, right: 0)
         button.frame = CGRect(x: CGFloat(s.frame.size.width - 25), y: CGFloat(5), width: CGFloat(25), height: CGFloat(25))
         button.addTarget(self, action: #selector(handleASD), for: .touchUpInside)
         s.rightView = button
@@ -46,7 +46,7 @@ class CustomMainNewPassView: CustomBaseView {
         let s = createMainTextFields(place: "confirm Password".localized, type: .default,secre: true)
         let button = UIButton(type: .custom)
         button.setImage(#imageLiteral(resourceName: "visiblity"), for: .normal)
-        button.imageEdgeInsets = UIEdgeInsets(top: 0, left: -16, bottom: 0, right: 0)
+        button.imageEdgeInsets = MOLHLanguage.isRTLLanguage() ? UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -16) : UIEdgeInsets(top: 0, left: -16, bottom: 0, right: 0)
         button.frame = CGRect(x: CGFloat(s.frame.size.width - 25), y: CGFloat(5), width: CGFloat(25), height: CGFloat(25))
         button.addTarget(self, action: #selector(handleASDs), for: .touchUpInside)
         s.rightView = button
@@ -80,7 +80,11 @@ class CustomMainNewPassView: CustomBaseView {
     
     
     override func setupViews() {
-        let resendStack = getStack(views: resendLabel,resendSMSButton, spacing: 0, distribution: .fill, axis: .horizontal)
+        codeTextField.textContentType = .oneTimeCode
+        [titleLabel,soonLabel].forEach({$0.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left})
+        resendSMSButton.isEnabled = false
+
+        let resendStack = getStack(views: resendLabel,resendSMSButton, spacing: 0, distribution: .fill, axis: .horizontal)//MOLHLanguage.isRTLLanguage() ? getStack(views: resendSMSButton,resendLabel, spacing: 0, distribution: .fill, axis: .horizontal) :  
         
         [ codeTextField,passwordTextField,confirmPasswordTextField].forEach({$0.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)})
         let textStack = getStack(views: codeTextField,passwordTextField,confirmPasswordTextField,resendStack, spacing: 16, distribution: .fillEqually, axis: .vertical)
@@ -93,7 +97,12 @@ class CustomMainNewPassView: CustomBaseView {
             choosePayLabel.centerYAnchor.constraint(equalTo: centerYAnchor, constant: 0)
         ])
         
-        LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
+        if MOLHLanguage.isRTLLanguage() {
+                          LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 0, bottom: 0, right: -48))
+                      }else {
+                          
+                          LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
+                      }
         backImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 60, left: 16, bottom: 0, right: 0))
         titleLabel.anchor(top: nil, leading: leadingAnchor, bottom: LogoImage.bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
         soonLabel.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))

@@ -10,8 +10,20 @@ import UIKit
 import MaterialComponents.MaterialSnackbar
 import MapKit
 import MOLH
-
+import iOSDropDown
 extension UIView {
+    
+    func returnMainDropDown(bg:UIColor? = #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1),plcae:String) -> DropDown {
+           let b = DropDown()
+           
+           b.backgroundColor = bg
+           b.arrowSize = 20
+           b.textColor = .black
+           b.rowBackgroundColor = .gray
+           b.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left
+           b.attributedPlaceholder = NSAttributedString(string: plcae.localized,attributes: [.foregroundColor: UIColor.black])
+       return b
+       }
     
     func getSpecizalitionFromIndex(_ index:Int) -> String {
            var citName = [String]()
