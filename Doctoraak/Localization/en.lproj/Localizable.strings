@@ -50,6 +50,12 @@
 "Radiology phone"="Radiology phone";"City"="City";"Area"="Area";"Save"="Save";
 "Delivery ?"="Delivery ?";"Working Hours"="Working Hours";"choose insurance"="choose insurance";"Address"="Address";
 
+//DoctorRegisterVC
+"Full name"="Full name";"enter Mobile"="enter Mobile";"enter second mobile optional"="enter second mobile optional";"Male"="Male";"Female"="Female";"Next"="Next";
+"enter email optional"="enter email optional";"Invalid   Phone"="Invalid   Phone"; "Invalid name"= "Invalid name";"Invalid   Email"="Invalid   Email";
+
+//DoctorSecondRegisterVC
+"cv.pdf"="cv.pdf";"Description"="Description";"Specialization"="Specialization";"Degree"="Degree";"enter title optional"="enter title optional";"Invalid   Description"="Invalid   Description";"Invalid   Title"="Invalid   Title";
 
 //MainClinicDataVC
 "Invalid waiing"="Invalid waiing";"Invalid consulation feez"="Invalid consulation feez";"Invalid fees"="Invalid fees";

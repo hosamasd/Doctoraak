@@ -89,25 +89,11 @@ class DoctorSecondRegisterVC: CustomBaseViewVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViewModelObserver()
-        //                checkThis()
+//        customCecondRegisterView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismissKeyboard)))
+
     }
     
     //MARK:-User methods
-    
-    func checkThis()  {
-        let img = #imageLiteral(resourceName: "lego(1)")
-        
-        RegistrationServices.shared.registerDoctor(index: index, coverImage: img, name: "sad",insurance: [1,2], phone: "00000003255", password: "00000000", gender: "male", specialization_id: 1, degree_id: 1) { (base, err) in
-            if let err = err {
-                SVProgressHUD.showError(withStatus: err.localizedDescription)
-                self.handleDismiss()
-                self.activeViewsIfNoData();return
-            }
-            SVProgressHUD.dismiss()
-            self.activeViewsIfNoData()
-            guard let user = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
-        }
-    }
     
     func setupViewModelObserver()  {
         customCecondRegisterView.doctorSecondRegisterViewModel.bindableIsFormValidate.bind { [unowned self] (isValidForm) in
@@ -194,6 +180,10 @@ class DoctorSecondRegisterVC: CustomBaseViewVC {
         }
         
     }
+    
+    @objc func handleDismissKeyboard()  {
+           view.endEditing(true)
+       }
     
     @objc func handleDismiss()  {
         removeViewWithAnimation(vvv: customAlertMainLoodingView)

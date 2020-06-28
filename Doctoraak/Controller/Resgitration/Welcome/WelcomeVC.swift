@@ -101,7 +101,7 @@ class WelcomeVC: CustomBaseViewVC {
     
     fileprivate func saveData() {
         
-        !userDefaults.bool(forKey: UserDefaultsConstants.isCachedDriopLists) ? cachedDropLists() : ()
+        userDefaults.bool(forKey: UserDefaultsConstants.isCachedDriopLists) ? cachedDropLists() : ()
     }
     
     
@@ -488,7 +488,7 @@ class WelcomeVC: CustomBaseViewVC {
     
     func goToNextVC()  {
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+12) {
-            self.handleNext()
+            userDefaults.bool(forKey: UserDefaultsConstants.isCachedDriopLists) ?    self.handleNext() : ()
         }
         
     }

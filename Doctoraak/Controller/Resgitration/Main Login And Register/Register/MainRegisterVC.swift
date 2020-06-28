@@ -80,36 +80,15 @@ class MainRegisterVC: CustomBaseViewVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViewModelObserver()
-        //        MAKEoPERATION()
+        customMainRegisterView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismissKeyboard)))
     }
     
     override func viewWillAppear(_ animated: Bool) {
-              super.viewWillAppear(animated)
-           customMainRegisterView.fullNameTextField.becomeFirstResponder()
-          }
+        super.viewWillAppear(animated)
+        customMainRegisterView.fullNameTextField.becomeFirstResponder()
+    }
     
     //MARK:-User methods
-    
-    func MAKEoPERATION()  {
-        
-        let singldata:[PharamacyWorkModel] = [
-            
-            .init(partFrom: "00:00", partTo: "00:00", day: 1, active: 0),
-            .init(partFrom: "00:00", partTo: "00:00", day: 2, active: 0),
-            .init(partFrom: "00:00", partTo: "00:00", day: 3, active: 0),
-            .init(partFrom: "00:00", partTo: "00:00", day: 4, active: 0),
-            .init(partFrom: "00:00", partTo: "00:00", day: 5, active: 0),
-            .init(partFrom: "00:00", partTo: "00:00", day: 6, active: 0),
-            .init(partFrom: "12:00", partTo: "15:00", day: 7, active: 1),
-            
-        ]
-        
-        RegistrationServices.shared.mainPHARAMACYRegister( photo: #imageLiteral(resourceName: "Group 4143-2"), name: "asd", email: "cx1ss30ff@c.com", phone: "00065365331", password: "00000000", insurance: [1], delivery: 1, working_hours: singldata, latt: 51512.4555454, lang: 5451521.155151454545, city: 1, area: 1) { (base, err) in
-            if let err=err{
-                print(err.localizedDescription)
-            }
-        }
-    }
     
     
     
@@ -315,6 +294,10 @@ class MainRegisterVC: CustomBaseViewVC {
         DispatchQueue.main.async {
             self.dismiss(animated: true, completion: nil)
         }
+    }
+    
+    @objc func handleDismissKeyboard()  {
+        view.endEditing(true)
     }
     
     required init?(coder: NSCoder) {

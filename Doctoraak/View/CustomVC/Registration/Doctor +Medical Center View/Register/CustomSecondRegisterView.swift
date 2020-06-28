@@ -33,7 +33,11 @@ class CustomSecondRegisterView: CustomBaseView {
     
     lazy var cvView:UIView = {
         let v = makeMainSubViewWithAppendView(vv: [cvLabel])
-        v.hstack(cvLabel,cvImage).padLeft(16)
+        if MOLHLanguage.isRTLLanguage() {
+                   v.hstack(cvLabel,cvImage).padRight(16)
+              }else {
+                   v.hstack(cvLabel,cvImage).padLeft(16)
+              }
         return v
     }()
     lazy var cvLabel = UILabel(text: "cv.pdf".localized, font: .systemFont(ofSize: 16), textColor: .lightGray)
@@ -49,10 +53,7 @@ class CustomSecondRegisterView: CustomBaseView {
     lazy var mainDropView = makeMainSubViewWithAppendView(vv: [specializationDrop])
     
     lazy var specializationDrop:DropDown = {
-        let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
-        //        i.optionArray = ["one","two","three"]
-        i.arrowSize = 20
-        i.placeholder = "Specialization".localized
+        let i = returnMainDropDown(plcae: "Specialization".localized)
         i.didSelect { (txt, index, _) in
             self.doctorSecondRegisterViewModel.specialization_id = self.specificationIDSArray[index]//index+1
         }
@@ -61,9 +62,7 @@ class CustomSecondRegisterView: CustomBaseView {
     lazy var mainDrop2View = makeMainSubViewWithAppendView(vv: [degreeDrop])
     
     lazy var degreeDrop:DropDown = {
-        let i = DropDown(backgroundColor: #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1))
-        i.arrowSize = 20
-        i.placeholder = "Degree".localized
+        let i = returnMainDropDown(plcae:  "Degree".localized)
         i.didSelect { (txt, index, _) in
             self.doctorSecondRegisterViewModel.degree_id =  self.degreeIDSArray[index]//index+1
         }
@@ -73,7 +72,11 @@ class CustomSecondRegisterView: CustomBaseView {
         
         let l = makeMainSubViewWithAppendView(vv: [doenImage,insuracneText])
         l.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpenCloseInsurance)))
-        l.hstack(insuracneText,doenImage).withMargins(.init(top: 0, left: 16, bottom: 0, right: 0))
+        if MOLHLanguage.isRTLLanguage() {
+             l.hstack(insuracneText,doenImage).withMargins(.init(top: 0, left: 0, bottom: 0, right: 16))
+        }else {
+             l.hstack(insuracneText,doenImage).withMargins(.init(top: 0, left: 16, bottom: 0, right: 0))
+        }
         return l
     }()
     
@@ -83,7 +86,7 @@ class CustomSecondRegisterView: CustomBaseView {
         //        i.constrainHeight(constant: 50)
         return i
     }()
-    lazy var insuracneText = UILabel(text: "choose insurance", font: .systemFont(ofSize: 16), textColor: .black, textAlignment: .left,numberOfLines: 0)
+    lazy var insuracneText = UILabel(text: "choose insurance".localized, font: .systemFont(ofSize: 16), textColor: .black, textAlignment: .left,numberOfLines: 0)
     lazy var insuranceDrop:UIMultiPicker = {
         let v = UIMultiPicker(backgroundColor: .white)
         //        v.options = insuracneArray
@@ -177,6 +180,7 @@ class CustomSecondRegisterView: CustomBaseView {
     }
     
     fileprivate func fetchEnglishData(isArabic:Bool) {
+        
         if isArabic {
             
             
@@ -205,6 +209,7 @@ class CustomSecondRegisterView: CustomBaseView {
     }
     
     override func setupViews() {
+        [titleLabel,soonLabel,cvLabel,insuracneText].forEach({$0.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left})
         
         [discriptionTextField,titleTextField].forEach({$0.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)})
         //        [ descriptionTextField].forEach({$0.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)})
@@ -222,7 +227,12 @@ class CustomSecondRegisterView: CustomBaseView {
             bottomStack.centerXAnchor.constraint(equalTo: centerXAnchor)
         ])
         
-        LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
+        if MOLHLanguage.isRTLLanguage() {
+            LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 0, bottom: 0, right: -48))
+        }else {
+            
+            LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
+        }
         backImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 60, left: 16, bottom: 0, right: 0))
         titleLabel.anchor(top: nil, leading: leadingAnchor, bottom: LogoImage.bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
         soonLabel.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
@@ -243,7 +253,7 @@ class CustomSecondRegisterView: CustomBaseView {
             de += insuracneArray[i] + ","
         }
         iiii = de
-        insuracneText.text = iiii == "" ? "Choose Insurancs" : iiii
+        insuracneText.text = iiii == "" ? "Choose Insurancs".localized : iiii
         let ss =  insuranceSelectedNumbersArray.uniques
         doctorSecondRegisterViewModel.insurance = ss
         
@@ -291,6 +301,6 @@ class CustomSecondRegisterView: CustomBaseView {
     }
     @objc func handelHided()  {
         insuranceDrop.isHidden = true
-        
+        endEditing(true)
     }
 }
