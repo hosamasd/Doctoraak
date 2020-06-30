@@ -78,19 +78,28 @@ class DoctorRegisterVC: CustomBaseViewVC {
     fileprivate func saveDefults(img:UIImage,name:String,mobile:String,secondMobile:String?,email:String?,password:String,male:String,index:Int)  {
         
         let data = img.pngData()
-        userDefaults.set(data, forKey: UserDefaultsConstants.doctorRegisterImage)
-        userDefaults.set(name, forKey: UserDefaultsConstants.doctorRegisterName)
-        email != nil ?  userDefaults.set(email, forKey: UserDefaultsConstants.doctorRegisterEmail) : ()
-        userDefaults.set(mobile, forKey: UserDefaultsConstants.doctorRegisterMobile)
-        secondMobile != nil ?  userDefaults.set(secondMobile!, forKey: UserDefaultsConstants.doctorRegisterSecondMobile) : ()
-
-        userDefaults.set(mobile, forKey: UserDefaultsConstants.doctorRegisterSecondMobile)
-
-        userDefaults.set(password, forKey: UserDefaultsConstants.doctorRegisterPassword)
+        email != nil  ?  userDefaults.set(name, forKey: UserDefaultsConstants.emailForAll) : ()
+        secondMobile != nil ?  userDefaults.set(secondMobile!, forKey: UserDefaultsConstants.secondMobikeForAll) : ()
+        
+        userDefaults.set(data, forKey: UserDefaultsConstants.imageForpecific)
+        userDefaults.set(mobile, forKey: UserDefaultsConstants.mobileForAll)
+        
+        userDefaults.set(password, forKey: UserDefaultsConstants.passwordForAll)
         userDefaults.set(male, forKey: UserDefaultsConstants.doctorRegisterMale)
-        userDefaults.set(index, forKey: UserDefaultsConstants.doctorRegisterIndee)
         userDefaults.set(true, forKey: UserDefaultsConstants.isDoctorSecondRegister)
+//        userDefaults.set(index, forKey: UserDefaultsConstants.indexForSMSCodeForSpecific)
+        
         userDefaults.synchronize()
+        //        let img = index == 0 ? UserDefaultsConstants.doctorRegisterImage : UserDefaultsConstants.medicalCenterRegisterImage
+        //         let name = index == 0 ? UserDefaultsConstants.doctorRegisterName : UserDefaultsConstants.medicalCenterRegisterName
+        //        let emails = index == 0 ? UserDefaultsConstants.doctorRegisterMale : UserDefaultsConstants.medicalCenterRegisterEmail
+        //         let fM = index == 0 ? UserDefaultsConstants.doctorRegisterMobile : UserDefaultsConstants.medicalCenterRegisterMobile
+        //          let sM = index == 0 ? UserDefaultsConstants.doctorRegisterSecondMobile : UserDefaultsConstants.medicalCenterRegisterSecondMobile
+        //        let pass = index == 0 ? UserDefaultsConstants.doctorRegisterMobile : UserDefaultsConstants.medicalCenterRegisterMobile
+        //                 let male = index == 0 ? UserDefaultsConstants.doctorRegisterSecondMobile : UserDefaultsConstants.medicalCenterRegisterSecondMobile
+        //        userDefaults.set(data, forKey:img )
+        //        userDefaults.set(name, forKey: name)
+        
     }
     
     //TODO: -handle methods

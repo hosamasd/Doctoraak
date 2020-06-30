@@ -13,57 +13,78 @@ import MOLH
 import iOSDropDown
 extension UIView {
     
+    func createMainButtonsForGenderss(title:String,img:UIImage,bg:Bool?) -> UIButton {
+        let button = UIButton(type: .system)
+        button.setTitle(title, for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        if (bg == true) {
+            button.backgroundColor = ColorConstants.disabledButtonsGray
+        }else{}
+        
+        button.layer.cornerRadius = 8
+        button.layer.borderWidth = 1
+        button.layer.borderColor = UIColor.gray.cgColor
+        button.clipsToBounds = true
+        if MOLHLanguage.isRTLLanguage() {
+            button.rightImage(image: img, renderMode: .alwaysOriginal)
+        }else {
+            button.leftImage(image: img, renderMode: .alwaysOriginal)
+        }
+        return button
+        
+    }
+    
     func returnMainDropDown(bg:UIColor? = #colorLiteral(red: 0.9591651559, green: 0.9593221545, blue: 0.9591317773, alpha: 1),plcae:String) -> DropDown {
-           let b = DropDown()
-           
-           b.backgroundColor = bg
-           b.arrowSize = 20
-           b.textColor = .black
-           b.rowBackgroundColor = .gray
-           b.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left
-           b.attributedPlaceholder = NSAttributedString(string: plcae.localized,attributes: [.foregroundColor: UIColor.black])
-       return b
-       }
+        let b = DropDown()
+        
+        b.backgroundColor = bg
+        b.arrowSize = 20
+        b.textColor = .black
+        b.rowBackgroundColor = .gray
+        b.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left
+        b.attributedPlaceholder = NSAttributedString(string: plcae.localized,attributes: [.foregroundColor: UIColor.black])
+        return b
+    }
     
     func getSpecizalitionFromIndex(_ index:Int) -> String {
-           var citName = [String]()
-           var cityId = [Int]()
-           
-           if MOLHLanguage.isRTLLanguage() {
-               
-               
-               
-               if let  cityArray = userDefaults.value(forKey: UserDefaultsConstants.specificationNameARArray) as? [String],let cityIds = userDefaults.value(forKey: UserDefaultsConstants.specificationIdArray) as? [Int]{
-                   
-                   citName = cityArray
-                   cityId = cityIds
-                   
-                   
-                   
-               }}else {
-               if let cityArray = userDefaults.value(forKey: UserDefaultsConstants.specificationNameArray) as? [String],let cityIds = userDefaults.value(forKey: UserDefaultsConstants.specificationIdArray) as? [Int] {
-                   citName = cityArray
-                   cityId = cityIds
-               }
-           }
-           let ss = cityId.filter{$0 == index}
-           let ff = ss.first ?? 1
-           
-           return citName[ff - 1 ]
-       }
+        var citName = [String]()
+        var cityId = [Int]()
+        
+        if MOLHLanguage.isRTLLanguage() {
+            
+            
+            
+            if let  cityArray = userDefaults.value(forKey: UserDefaultsConstants.specificationNameARArray) as? [String],let cityIds = userDefaults.value(forKey: UserDefaultsConstants.specificationIdArray) as? [Int]{
+                
+                citName = cityArray
+                cityId = cityIds
+                
+                
+                
+            }}else {
+            if let cityArray = userDefaults.value(forKey: UserDefaultsConstants.specificationNameArray) as? [String],let cityIds = userDefaults.value(forKey: UserDefaultsConstants.specificationIdArray) as? [Int] {
+                citName = cityArray
+                cityId = cityIds
+            }
+        }
+        let ss = cityId.filter{$0 == index}
+        let ff = ss.first ?? 1
+        
+        return citName[ff - 1 ]
+    }
     
     func putAttributedText(la:UILabel,ft:String,st:String)  {
-           let attributeText = NSMutableAttributedString(string: ft, attributes:  [.font : UIFont.boldSystemFont(ofSize: 18),.foregroundColor:UIColor.black])
-              attributeText.append(NSAttributedString(string: st, attributes: [.font : UIFont.systemFont(ofSize: 14),.foregroundColor: UIColor.lightGray]))
-              la.attributedText = attributeText
-          }
+        let attributeText = NSMutableAttributedString(string: ft, attributes:  [.font : UIFont.boldSystemFont(ofSize: 18),.foregroundColor:UIColor.black])
+        attributeText.append(NSAttributedString(string: st, attributes: [.font : UIFont.systemFont(ofSize: 14),.foregroundColor: UIColor.lightGray]))
+        la.attributedText = attributeText
+    }
     
     func addGradientInSenderAndRemoveOtherss(sender:UIButton)  {
-             
-             let leftColor = #colorLiteral(red: 0.4747212529, green: 0.2048208416, blue: 1, alpha: 1).cgColor
-             let rightColor = #colorLiteral(red: 0.7187242508, green: 0.5294578671, blue: 0.9901599288, alpha: 1).cgColor
-             sender.applyGradient(colors: [leftColor,rightColor], index: 0)
-          }
+        
+        let leftColor = #colorLiteral(red: 0.4747212529, green: 0.2048208416, blue: 1, alpha: 1).cgColor
+        let rightColor = #colorLiteral(red: 0.7187242508, green: 0.5294578671, blue: 0.9901599288, alpha: 1).cgColor
+        sender.applyGradient(colors: [leftColor,rightColor], index: 0)
+    }
     
     func addGradientInSenderAndRemoveOther(sender:UIButton,index:Int? = 0,lef:UIColor? = #colorLiteral(red: 0.4747212529, green: 0.2048208416, blue: 1, alpha: 1),right:UIColor? = #colorLiteral(red: 0.7187242508, green: 0.5294578671, blue: 0.9901599288, alpha: 1))  {
         
@@ -75,11 +96,11 @@ extension UIView {
     func addssGradientInSenderAndRemoveOther(senders:[UIButton],index:Int? = 0,lef:UIColor? = #colorLiteral(red: 0.4747212529, green: 0.2048208416, blue: 1, alpha: 1),right:UIColor? = #colorLiteral(red: 0.7187242508, green: 0.5294578671, blue: 0.9901599288, alpha: 1))  {
         senders.forEach { s in
             let leftColor = lef?.cgColor ?? #colorLiteral(red: 0.4747212529, green: 0.2048208416, blue: 1, alpha: 1).cgColor
-                      let rightColor = right?.cgColor ?? #colorLiteral(red: 0.7187242508, green: 0.5294578671, blue: 0.9901599288, alpha: 1).cgColor
-                      s.applyGradient(colors: [leftColor,rightColor], index: 0)
+            let rightColor = right?.cgColor ?? #colorLiteral(red: 0.7187242508, green: 0.5294578671, blue: 0.9901599288, alpha: 1).cgColor
+            s.applyGradient(colors: [leftColor,rightColor], index: 0)
         }
-          
-       }
+        
+    }
     
     func addGradientInSenderAndRemoveOther(sender:UIButton,vv:UIButton)  {
         
@@ -93,10 +114,10 @@ extension UIView {
     }
     
     func creatMainSnackBar(message:String)  {
-             let messages = MDCSnackbarMessage()
-             messages.text = message
-             MDCSnackbarManager.show(messages)
-         }
+        let messages = MDCSnackbarMessage()
+        messages.text = message
+        MDCSnackbarManager.show(messages)
+    }
     
     func removeGradientInSender(sender:UIButton)  {
         
@@ -167,8 +188,6 @@ extension UIView {
         button.tag = tags ?? 0
         button.layer.cornerRadius = 16
         button.backgroundColor = #colorLiteral(red: 0.9214958549, green: 0.9216470122, blue: 0.9214636683, alpha: 1)
-        //        button.clipsToBounds =
-        //        button.addTarget(self, action: #selector(handleOpen), for: .touchUpInside)
         return button
     }
     
@@ -209,9 +228,6 @@ extension UIView {
         t.keyboardType = .default
         t.layer.borderWidth = 1
         t.layer.borderColor = UIColor.lightGray.cgColor
-        //        t.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: t.frame.height))
-        //        t.leftViewMode = .always
-        //        t.isSecureTextEntry = secre ?? false
         return t
     }
     
@@ -243,17 +259,17 @@ extension Array where Element: Equatable {
     }
 }
 extension String {
-
+    
     func removeSubstringAfterOrBefore(needle: String, beforeNeedle: Bool = false) -> String? {
         guard let range = self.range(of: needle) else { return nil }
-
+        
         if beforeNeedle {
             return self.substring(to: range.lowerBound)
         }
-
+        
         return self.substring(from: range.upperBound)
     }
-
+    
 }
 
 extension CLLocation {

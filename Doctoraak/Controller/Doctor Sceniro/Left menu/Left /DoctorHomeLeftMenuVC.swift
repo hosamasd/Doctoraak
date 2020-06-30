@@ -29,6 +29,16 @@ class DoctorHomeLeftMenuVC: CustomBaseViewVC {
         }
     }
     
+    var meidicalCenter:DoctorModel?{
+        didSet{
+            guard let lab = meidicalCenter else { return  }
+            customDoctorMainHomeLeftView.meidicalCenter=lab
+
+
+        }
+    }
+    
+    
     fileprivate let index:Int!
     init(index:Int) {
         self.index=index
@@ -68,7 +78,6 @@ class DoctorHomeLeftMenuVC: CustomBaseViewVC {
         
         userDefaults.removeObject(forKey: UserDefaultsConstants.DoctorPerformLogin)
         userDefaults.removeObject(forKey: UserDefaultsConstants.doctorCurrentApiToken)
-        userDefaults.removeObject(forKey: UserDefaultsConstants.doctorRegisterIndee)
         userDefaults.removeObject(forKey: UserDefaultsConstants.doctorCurrentUSERID)
         
         userDefaults.set(true, forKey: UserDefaultsConstants.isWelcomeVCAppear)
@@ -190,24 +199,46 @@ class DoctorHomeLeftMenuVC: CustomBaseViewVC {
     
     
     fileprivate  func performLogout()  {
+        guard let baseSlid = UIApplication.shared.keyWindow?.rootViewController as? BaseSlidingVC else {return}
+//        removeDefults()
+        
+        
         if userDefaults.bool(forKey: UserDefaultsConstants.DoctorPerformLogin) {
             cacheDoctorObjectCodabe.deleteFile(doctor!)
             userDefaults.set(false, forKey: UserDefaultsConstants.DoctorPerformLogin)
+            userDefaults.set(false, forKey: UserDefaultsConstants.isAllMainHomeObjectsFetchedDoctor)
+            userDefaults.removeObject(forKey: UserDefaultsConstants.doctorCurrentApiToken)
+            userDefaults.removeObject(forKey: UserDefaultsConstants.doctorCurrentUSERID)
             self.doctor=nil
+        }else if userDefaults.bool(forKey: UserDefaultsConstants.medicalCenterPerformLogin){
+            cacheMedicalObjectCodabe.deleteFile(meidicalCenter!)
+            self.meidicalCenter=nil
+            userDefaults.set(false, forKey: UserDefaultsConstants.isAllMainHomeObjectsFetchedMedicalCenterr)
+            userDefaults.removeObject(forKey: UserDefaultsConstants.medicalCenterCurrentApiToken)
+            userDefaults.removeObject(forKey: UserDefaultsConstants.medicalCenterCurrentUSERID)
         }
+        userDefaults.removeObject(forKey: UserDefaultsConstants.MainLoginINDEX)
+        userDefaults.set(true, forKey: UserDefaultsConstants.isWelcomeVCAppear)
+        userDefaults.synchronize()
+        baseSlid.closeMenu()
+
+        DispatchQueue.main.async {
+                   self.customDoctorMainHomeLeftView.userImage.image = #imageLiteral(resourceName: "Group 4143")
+                   self.customDoctorMainHomeLeftView.userNameLabel.text = ""
+               }
     }
     
     //TODO: -handle methods
     
-    @objc func handleLogout()  {
-        
-        guard let baseSlid = UIApplication.shared.keyWindow?.rootViewController as? BaseSlidingVC else {return}
-        removeDefults()
-        
-        baseSlid.closeMenu()
-        
-        print(9999999)
-    }
+//    @objc func handleLogout()  {
+//        
+//        guard let baseSlid = UIApplication.shared.keyWindow?.rootViewController as? BaseSlidingVC else {return}
+//        removeDefults()
+//        
+//        baseSlid.closeMenu()
+//        
+//        print(9999999)
+//    }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

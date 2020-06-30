@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MOLH
 
 class DoctorLeftMenuCell: UICollectionViewCell {
     
@@ -37,6 +38,8 @@ class DoctorLeftMenuCell: UICollectionViewCell {
     }
     
      func setupViews() {
-        hstack(Image6,Label6,spacing:16,alignment: .center).withMargins(.init(top: 8, left: 0, bottom: 8, right: 0))
+        MOLHLanguage.isRTLLanguage() ? hstack(Image6,Label6,UIView(),spacing:16,alignment: .center).withMargins(.init(top: 8, left: 0, bottom: 8, right: 0)) : hstack(Image6,Label6,spacing:16,alignment: .center).withMargins(.init(top: 8, left: 0, bottom: 8, right: 0))
+
+//        hstack(Image6,Label6,spacing:16,alignment: .center).withMargins(.init(top: 8, left: 0, bottom: 8, right: 0))
     }
 }

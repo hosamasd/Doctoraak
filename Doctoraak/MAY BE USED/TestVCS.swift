@@ -11,32 +11,29 @@ import UIMultiPicker
 
 class TestVCS: CustomBaseViewVC {
     
-     let TASTES = [
-        "Sweet",
-        "Sour",
-        "Bitter",
-        "Salty",
-        "Umami"
-    ];
-    
-    lazy var tests:UIMultiPicker = {
-       let v = UIMultiPicker(backgroundColor: .white)
-        v.options = TASTES
-        v.selectedIndexes = [0,2]
-        v.color = .gray
-        v.tintColor = .green
-        v.font = .systemFont(ofSize: 30, weight: .bold)
-        
-        v.highlight(2, animated: true) // centering "Bitter"
-        return v
-    }()
+    lazy var customAlertMainLoodingView:CustomUpdateSserProfileView = {
+             let v = CustomUpdateSserProfileView()
+//             v.setupAnimation(name: "heart_loading")
+             return v
+         }()
+         
+         lazy var customMainAlertVC:CustomMainAlertVC = {
+             let t = CustomMainAlertVC()
+             t.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
+             t.modalTransitionStyle = .crossDissolve
+             t.modalPresentationStyle = .overCurrentContext
+             return t
+         }()
     
     override func setupViews() {
-        view.backgroundColor = .red
-        view.addSubview(tests)
-        tests.addTarget(self, action: #selector(selected), for: .valueChanged)
-
-        tests.centerInSuperview(size: .init(width: view.frame.width, height: 200))
+        view.backgroundColor = .white
+        customMainAlertVC.addCustomViewInCenter(views: customAlertMainLoodingView, height: 250)
+//        customAlertMainLoodingView.problemsView.loopMode = .loop
+        present(customMainAlertVC, animated: true)
+//        view.addSubview(tests)
+//        tests.addTarget(self, action: #selector(selected), for: .valueChanged)
+//
+//        tests.centerInSuperview(size: .init(width: view.frame.width, height: 200))
         
     }
     
@@ -46,6 +43,13 @@ class TestVCS: CustomBaseViewVC {
     
     @objc func selected(_ sender: UIMultiPicker) {
         print(sender.isMultipleTouchEnabled)
+    }
+    
+    @objc func handleDismiss()  {
+        removeViewWithAnimation(vvv: customAlertMainLoodingView)
+        DispatchQueue.main.async {
+            self.dismiss(animated: true, completion: nil)
+        }
     }
     
   @objc func handleLL()  {

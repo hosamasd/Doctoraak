@@ -75,6 +75,12 @@ class AnaylticsVC: CustomBaseViewVC {
         super.viewDidLoad()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        UIApplication.shared.beginIgnoringInteractionEvents()
+        self.showMainAlertLooder(cc: customMainAlertVC, v: customAlertMainLoodingView)
+    }
+    
     override func setupNavigation()  {
         navigationController?.navigationBar.isHide(true)
     }
@@ -112,8 +118,7 @@ class AnaylticsVC: CustomBaseViewVC {
 
 extension AnaylticsVC :WKNavigationDelegate {
     func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
-        UIApplication.shared.beginIgnoringInteractionEvents()
-        self.showMainAlertLooder(cc: customMainAlertVC, v: customAlertMainLoodingView)
+        
     }
 
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {

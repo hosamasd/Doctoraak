@@ -166,7 +166,7 @@ class MainVerificationVC: CustomBaseViewVC {
         let sss = index == 0 ? UserDefaultsConstants.DoctorVerificationAPITOKEN : index == 2 ? UserDefaultsConstants.labVerificationAPITOKEN : index == 3 ? UserDefaultsConstants.RadiologyVerificationAPITOKEN : UserDefaultsConstants.PharamacyVerificationAPITOKEN
         
         userDefaults.set(true, forKey: ss)
-        userDefaults.set(false, forKey: UserDefaultsConstants.isClinicWorkingHoursCached)
+        userDefaults.set(false, forKey: UserDefaultsConstants.isDoctorWorkingHoursCached)
         
         userDefaults.set(api_token, forKey: sss)
         userDefaults.set(doctor_id, forKey: ids)
@@ -324,60 +324,84 @@ class MainVerificationVC: CustomBaseViewVC {
     func saveDoctorToken(doctor:DoctorModel)  {
         userDefaults.set(true, forKey: UserDefaultsConstants.isDoctorWaitForClinic)
 //        userDefaults.set(true, forKey: UserDefaultsConstants.DoctorPerformLogin)
-        userDefaults.set(false, forKey: UserDefaultsConstants.isUserRegisterAndWaitForSMScODE)
-        
+        userDefaults.set(false, forKey: UserDefaultsConstants.isUserRegisterAndWaitForSMScODEDOC)
+        userDefaults.removeObject(forKey: UserDefaultsConstants.isUserRegisterAndWaitForClinicDataIndex)
+        userDefaults.removeObject(forKey: UserDefaultsConstants.doctorRegisterSecondMobile)
+
         userDefaults.set(index, forKey: UserDefaultsConstants.MainLoginINDEX)
         
         userDefaults.synchronize()
         
         cacheDoctorObjectCodabe.save(doctor)
         goToNext()
+        saveSomeDataInUserDefults()
+
     }
     
     func saveRadToken(doctor:RadiologyModel)  {
         userDefaults.set(true, forKey: UserDefaultsConstants.radiologyPerformLogin)
         userDefaults.set(index, forKey: UserDefaultsConstants.MainLoginINDEX)
-        userDefaults.set(false, forKey: UserDefaultsConstants.isUserRegisterAndWaitForSMScODE)
-        
+
         userDefaults.synchronize()
         
         cachdRADObjectCodabe.save(doctor)
         goToNext()
-        
+        saveSomeDataInUserDefults()
+
     }
     
-    func saveLabToken(doctor:LabModel)  {
+   fileprivate func saveSomeDataInUserDefults()  {
+    removeCachedWorkingHours()
+
+        userDefaults.removeObject(forKey: UserDefaultsConstants.mobileForAll)
+        userDefaults.removeObject(forKey: UserDefaultsConstants.user_idForAll)
+        userDefaults.removeObject(forKey: UserDefaultsConstants.indexForSMSCodeForSpecific)
+        userDefaults.set(false, forKey: UserDefaultsConstants.waitForSMSCodeForSpecific)
+    userDefaults.set(false, forKey: UserDefaultsConstants.isLabWorkingHoursCached)
+    userDefaults.set(false, forKey: UserDefaultsConstants.isPHYWorkingHoursCached)
+    userDefaults.set(false, forKey: UserDefaultsConstants.isRADWorkingHoursCached)
+
+        userDefaults.synchronize()
+    }
+    
+   fileprivate func saveLabToken(doctor:LabModel)  {
         userDefaults.set(true, forKey: UserDefaultsConstants.labPerformLogin)
         userDefaults.set(index, forKey: UserDefaultsConstants.MainLoginINDEX)
-        userDefaults.set(false, forKey: UserDefaultsConstants.isUserRegisterAndWaitForSMScODE)
         
         userDefaults.synchronize()
         
         cacheLABObjectCodabe.save(doctor)
         goToNext()
-        
+        saveSomeDataInUserDefults()
+
     }
     
-    func savePharToken(doctor:PharamacyModel)  {
+   fileprivate func savePharToken(doctor:PharamacyModel)  {
         userDefaults.set(true, forKey: UserDefaultsConstants.pharamacyPerformLogin)
         userDefaults.set(index, forKey: UserDefaultsConstants.MainLoginINDEX)
-        userDefaults.set(false, forKey: UserDefaultsConstants.isUserRegisterAndWaitForSMScODE)
+//        userDefaults.set(false, forKey: UserDefaultsConstants.isUserRegisterAndWaitForSMScODE)
         
         userDefaults.synchronize()
-        removeCachedWorkingHours()
         cachdPHARMACYObjectCodabe.save(doctor)
         goToNext()
-        
+        saveSomeDataInUserDefults()
     }
     
     func removeCachedWorkingHours()  {
+        
         if userDefaults.bool(forKey: UserDefaultsConstants.isLabWorkingHoursCached) {
             cacheLABObjectWorkingHours.deleteFile(cacheLABObjectWorkingHours.storedValue!)
         }else   if userDefaults.bool(forKey: UserDefaultsConstants.isPHYWorkingHoursCached) {
             cachdPHARMACYObjectWorkingHours.deleteFile(cachdPHARMACYObjectWorkingHours.storedValue!)
         }else   if userDefaults.bool(forKey: UserDefaultsConstants.isRADWorkingHoursCached) {
             cachdRADObjectWorkingHours.deleteFile(cachdRADObjectWorkingHours.storedValue!)
+        }else   if userDefaults.bool(forKey: UserDefaultsConstants.isDoctorWorkingHoursCached) {
+            cachdDOCTORWorkingHourObjectCodabe.deleteFile(cachdDOCTORWorkingHourObjectCodabe.storedValue!)
+        }else   if userDefaults.bool(forKey: UserDefaultsConstants.isMedicalCenterWorkingHoursCached) {
+            cachdMEDICALCenterWorkingHourObjectCodabe.deleteFile(cachdMEDICALCenterWorkingHourObjectCodabe.storedValue!)
         }
+        
+        
     }
     
     //TODO: -handle Methods

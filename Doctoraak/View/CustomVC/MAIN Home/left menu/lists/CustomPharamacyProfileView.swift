@@ -25,7 +25,7 @@ class CustomPharamacyProfileView: CustomBaseView {
             addressLabel.text = MOLHLanguage.isRTLLanguage() ? phy.addressAr ?? phy.address :  phy.address
             //            let city = getAreaAccordingToCityId(index: phy.)
             
-            workingHoursLabel.text = getDays(ind: phy.workingHours).joined(separator: "-") == "" ? "No Days Chossen" :  getDays(ind: phy.workingHours).joined(separator: "-")
+            workingHoursLabel.text = getDays(ind: phy.workingHours).joined(separator: "-") == "" ? "No Days Chossen".localized :  getDays(ind: phy.workingHours).joined(separator: "-")
             deliverySwitch.isOn = phy.delivery.toInt() == 1 ? true : false
             let urlstring = phy.photo
             guard let url = URL(string: urlstring) else { return  }
@@ -51,13 +51,15 @@ class CustomPharamacyProfileView: CustomBaseView {
             emailTextField.text = phy.email
             getNameANdCity(lat: phy.latt.toDouble() ?? 0.0, lng: phy.lang.toDouble() ?? 0.0)
             //            addressLabel.text = MOLHLanguage.isRTLLanguage() ? phy.ad ?? phy.address :  phy.address
-            let city = getCityFromIndex(phy.city)
-            let area = getAreassFromIndex( phy.area)
+            let cc = phy.city ?? 1 ;let aa = phy.area ?? 1
+            
+            let city = getCityFromIndex(cc)
+            let area = getAreassFromIndex( aa)
             areaDrop.text = area
-            areaDrop.selectedIndex = phy.area-1
-            cityDrop.selectedIndex = phy.city-1
+            areaDrop.selectedIndex = cc-1
+            cityDrop.selectedIndex = aa-1
             cityDrop.text = city
-            workingHoursLabel.text = getDaysRAD(ind: phy.workingHours).joined(separator: "-") == "" ? "No Days Chossen" :  getDaysRAD(ind: phy.workingHours).joined(separator: "-")
+            workingHoursLabel.text = getDaysRAD(ind: phy.workingHours).joined(separator: "-") == "" ? "No Days Chossen".localized :  getDaysRAD(ind: phy.workingHours).joined(separator: "-")
             deliverySwitch.isOn = phy.delivery.toInt() == 1 ? true : false
             let urlstring = phy.photo
             guard let url = URL(string: urlstring) else { return  }
@@ -89,7 +91,7 @@ class CustomPharamacyProfileView: CustomBaseView {
             areaDrop.selectedIndex = phy.area ?? 2-1
             cityDrop.selectedIndex = phy.city ?? 2-1
             cityDrop.text = city
-            workingHoursLabel.text = getDaysLab(ind: phy.workingHours).joined(separator: "-") == "" ? "No Days Chossen" :  getDaysLab(ind: phy.workingHours).joined(separator: "-")
+            workingHoursLabel.text = getDaysLab(ind: phy.workingHours).joined(separator: "-") == "" ? "No Days Chossen".localized :  getDaysLab(ind: phy.workingHours).joined(separator: "-")
             deliverySwitch.isOn = phy.delivery.toInt() == 1 ? true : false
             let urlstring = phy.photo
             guard let url = URL(string: urlstring) else { return  }
@@ -119,7 +121,7 @@ class CustomPharamacyProfileView: CustomBaseView {
         i.isUserInteractionEnabled = true
         return i
     }()
-    lazy var titleLabel = UILabel(text: "Profile", font: .systemFont(ofSize: 35), textColor: .white)
+    lazy var titleLabel = UILabel(text: "Profile".localized, font: .systemFont(ofSize: 35), textColor: .white)
     
     lazy var doctorProfileImage:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "Group 4143"))
@@ -140,16 +142,16 @@ class CustomPharamacyProfileView: CustomBaseView {
         return i
     }()
     
-    lazy var fullNameTextField = createMainTextFields(place: " Name")
-    lazy var mobileNumberTextField = createMainTextFields(place: " phone",type: .numberPad)
-    lazy var emailTextField = createMainTextFields(place: "enter email",type: .emailAddress)
+    lazy var fullNameTextField = createMainTextFields(place: " Name".localized)
+    lazy var mobileNumberTextField = createMainTextFields(place: " phone".localized,type: .numberPad)
+    lazy var emailTextField = createMainTextFields(place: "enter email".localized,type: .emailAddress)
     lazy var addressMainView:UIView = {
         let v = makeMainSubViewWithAppendView(vv: [addressLabel])
         v.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpenLocation)))
         v.hstack(addressLabel).withMargins(.init(top: 0, left: 16, bottom: 0, right: 8))
         return v
     }()
-    lazy var addressLabel = UILabel(text: "Address", font: .systemFont(ofSize: 16), textColor: .lightGray,numberOfLines: 0)
+    lazy var addressLabel = UILabel(text: "Address".localized, font: .systemFont(ofSize: 16), textColor: .lightGray,numberOfLines: 0)
     lazy var deliverySwitch:UISwitch = {
         let s = UISwitch()
         s.onTintColor = #colorLiteral(red: 0.3896943331, green: 0, blue: 0.8117204905, alpha: 1)
@@ -162,10 +164,16 @@ class CustomPharamacyProfileView: CustomBaseView {
     lazy var mainDrop3View:UIView =  {
         let l = makeMainSubViewWithAppendView(vv: [doenImage,insuracneText])
         l.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpenCloseInsurance)))
-        l.hstack(insuracneText,doenImage).withMargins(.init(top: 0, left: 16, bottom: 0, right: 0))
+        if MOLHLanguage.isRTLLanguage() {
+            l.hstack(insuracneText,doenImage).withMargins(.init(top: 0, left: 0, bottom: 0, right: 16))
+
+        }else {
+            l.hstack(insuracneText,doenImage).withMargins(.init(top: 0, left: 16, bottom: 0, right: 0))
+        }
+            l.constrainHeight(constant: 60)
         return l
     }()
-    lazy var deliveryLabel = UILabel(text: "Delivery ?", font: .systemFont(ofSize: 20), textColor: .lightGray)
+    lazy var deliveryLabel = UILabel(text: "Delivery ?".localized, font: .systemFont(ofSize: 20), textColor: .lightGray)
     lazy var mainDropView:UIView =  makeMainSubViewWithAppendView(vv: [cityDrop])
     lazy var cityDrop:DropDown = {
         let i = returnMainDropDown( plcae:  "City".localized)
@@ -206,7 +214,7 @@ class CustomPharamacyProfileView: CustomBaseView {
         //        i.constrainHeight(constant: 50)
         return i
     }()
-    lazy var insuracneText = UILabel(text: "choose insurance", font: .systemFont(ofSize: 16), textColor: .black, textAlignment: .left,numberOfLines: 0)
+    lazy var insuracneText = UILabel(text: "choose insurance".localized, font: .systemFont(ofSize: 16), textColor: .black, textAlignment: .left,numberOfLines: 0)
     lazy var insuranceDrop:UIMultiPicker = {
         let v = UIMultiPicker(backgroundColor: .white)
         //        v.options = insuracneArray
@@ -221,11 +229,11 @@ class CustomPharamacyProfileView: CustomBaseView {
     }()
     lazy var workingHourView:UIView = {
         let v = makeMainSubViewWithAppendView(vv: [workingHoursLabel])
-        v.hstack(workingHoursLabel).withMargins(.init(top: 0, left: 16, bottom: 0, right: 0))
+        v.hstack(workingHoursLabel).withMargins(.init(top: 0, left: 16, bottom: 0, right: 16))
         v.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleChoose)))
         return v
     }()
-    lazy var workingHoursLabel = UILabel(text: "Working Hours", font: .systemFont(ofSize: 16), textColor: .lightGray,textAlignment: .left,numberOfLines: 2)
+    lazy var workingHoursLabel = UILabel(text: "Working Hours".localized, font: .systemFont(ofSize: 16), textColor: .lightGray,textAlignment: .left,numberOfLines: 2)
     lazy var nextButton:UIButton = {
         let button = UIButton()
         button.setTitle("Save".localized, for: .normal)
@@ -268,7 +276,8 @@ class CustomPharamacyProfileView: CustomBaseView {
     }
     
     override func setupViews() {
-        [titleLabel].forEach({$0.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left})
+        [titleLabel,insuracneText,addressLabel,workingHoursLabel,deliveryLabel].forEach({$0.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left})
+
         
         
         [mobileNumberTextField,emailTextField].forEach({$0.isUserInteractionEnabled=false})
@@ -415,112 +424,129 @@ class CustomPharamacyProfileView: CustomBaseView {
     func getDays(ind:[PharamacyWorkingHourModel])  ->[String]{
         var ss = [String]()
         ind.forEach { (s) in
-            
-            if s.day == 1{
-                if checkActiveDay(s.active) {
-                    ss.append("Sat")
-                }
-            }else  if s.day == 2{
-                if checkActiveDay(s.active) {
-                    ss.append("Sun")
-                }
-            }else  if s.day == 3{
-                if checkActiveDay(s.active) {
-                    ss.append("Mon")
-                }
-            }else  if s.day == 4{
-                if checkActiveDay(s.active) {
-                    ss.append("Tue")
-                }
-            }else  if s.day == 5{
-                if checkActiveDay(s.active) {
-                    ss.append("Wed")
-                }
-            }else  if s.day == 6{
-                if checkActiveDay(s.active) {
-                    ss.append("Thr")
-                }
-            }else {
-                if checkActiveDay(s.active) {
-                    ss.append("Fri")
-                }
+            ss.append( getDaysForAll(s.active, day: s.day) ?? "")
+
+//            if s.day == 1{
+//                if checkActiveDay(s.active) {
+//                    ss.append("Sat")
+//                }
+//            }else  if s.day == 2{
+//                if checkActiveDay(s.active) {
+//                    ss.append("Sun")
+//                }
+//            }else  if s.day == 3{
+//                if checkActiveDay(s.active) {
+//                    ss.append("Mon")
+//                }
+//            }else  if s.day == 4{
+//                if checkActiveDay(s.active) {
+//                    ss.append("Tue")
+//                }
+//            }else  if s.day == 5{
+//                if checkActiveDay(s.active) {
+//                    ss.append("Wed")
+//                }
+//            }else  if s.day == 6{
+//                if checkActiveDay(s.active) {
+//                    ss.append("Thr")
+//                }
+//            }else {
+//                if checkActiveDay(s.active) {
+//                    ss.append("Fri")
+//                }
+//            }
+        }
+        let dd = ss.filter({$0 != "    "})
+               
+               return dd
+        
+    }
+    
+    fileprivate func getDaysForAll(_ ww:Int,day:Int ) ->String{
+        switch day {
+        case 1:
+            if checkActiveDay(ww) {
+                         return "Sat".localized
+                       }
+        case 2:
+            if checkActiveDay(ww) {
+               return "Sun".localized
+            }
+        case 3:
+            if checkActiveDay(ww) {
+               return "Mon".localized
+            }
+        case 4:
+            if checkActiveDay(ww) {
+                return "Tue".localized
+            }
+         case 5:
+            if checkActiveDay(ww) {
+               return "Wed".localized
+            }
+        case 6:
+            if checkActiveDay(ww) {
+                return "Thr".localized
+            }
+        default:
+            if checkActiveDay(ww) {
+              return "Fri".localized
             }
         }
-        return ss
+        return "    "
     }
     
     func getDaysLab(ind:[LabWorkingHoursModel])  ->[String]{
         var ss = [String]()
         ind.forEach { (s) in
             
-            if s.day == 1{
-                if checkActiveDay(s.active) {
-                    ss.append("Sat")
-                }
-            }else  if s.day == 2{
-                if checkActiveDay(s.active) {
-                    ss.append("Sun")
-                }
-            }else  if s.day == 3{
-                if checkActiveDay(s.active) {
-                    ss.append("Mon")
-                }
-            }else  if s.day == 4{
-                if checkActiveDay(s.active) {
-                    ss.append("Tue")
-                }
-            }else  if s.day == 5{
-                if checkActiveDay(s.active) {
-                    ss.append("Wed")
-                }
-            }else  if s.day == 6{
-                if checkActiveDay(s.active) {
-                    ss.append("Thr")
-                }
-            }else {
-                if checkActiveDay(s.active) {
-                    ss.append("Fri")
-                }
-            }
+            ss.append( getDaysForAll(s.active, day: s.day) )
         }
-        return ss
+        let dd = ss.filter({$0 != "    "})
+        
+        return dd
     }
     
     func getDaysRAD(ind:[RadiologyWorkingHourModel])  ->[String]{
         var ss = [String]()
+
         ind.forEach { (s) in
-            
-            if s.day == 1{
-                if checkActiveDay(s.active) {
-                    ss.append("Sat")
-                }
-            }else  if s.day == 2{
-                if checkActiveDay(s.active) {
-                    ss.append("Sun")
-                }
-            }else  if s.day == 3{
-                if checkActiveDay(s.active) {
-                    ss.append("Mon")
-                }
-            }else  if s.day == 4{
-                if checkActiveDay(s.active) {
-                    ss.append("Tue")
-                }
-            }else  if s.day == 5{
-                if checkActiveDay(s.active) {
-                    ss.append("Wed")
-                }
-            }else  if s.day == 6{
-                if checkActiveDay(s.active) {
-                    ss.append("Thr")
-                }
-            }else {
-                if checkActiveDay(s.active) {
-                    ss.append("Fri")
-                }
-            }
+            ss.append( getDaysForAll(s.active, day: s.day) ?? "")
+
+//            if s.day == 1{
+//                if checkActiveDay(s.active) {
+//                    ss.append("Sat")
+//                }
+//            }else  if s.day == 2{
+//                if checkActiveDay(s.active) {
+//                    ss.append("Sun")
+//                }
+//            }else  if s.day == 3{
+//                if checkActiveDay(s.active) {
+//                    ss.append("Mon")
+//                }
+//            }else  if s.day == 4{
+//                if checkActiveDay(s.active) {
+//                    ss.append("Tue")
+//                }
+//            }else  if s.day == 5{
+//                if checkActiveDay(s.active) {
+//                    ss.append("Wed")
+//                }
+//            }else  if s.day == 6{
+//                if checkActiveDay(s.active) {
+//                    ss.append("Thr")
+//                }
+//            }else {
+//                if checkActiveDay(s.active) {
+//                    ss.append("Fri")
+//                }
+//            }
         }
-        return ss
+        let dd = ss.filter({$0 != "    "})
+               
+               return dd
+        
     }
     
     func getWorkingHourss(ind:[PharamacyWorkingHourModel]) -> [PharamacyWorkModel]  {

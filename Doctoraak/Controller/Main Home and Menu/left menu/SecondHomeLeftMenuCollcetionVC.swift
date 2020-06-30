@@ -7,11 +7,12 @@
 //
 
 import UIKit
+import MOLH
 
 class SecondHomeLeftMenuCollcetionVC: BaseCollectionVC {
     
     var images:[UIImage] = [#imageLiteral(resourceName: "icon"),#imageLiteral(resourceName: "icond"),#imageLiteral(resourceName: "ic_add_circle_outline_24px-1"),#imageLiteral(resourceName: "Union 1"),#imageLiteral(resourceName: "Group 4122"),#imageLiteral(resourceName: "ic_phone_24px"),#imageLiteral(resourceName: "ic_language_24px")]
-    var deatas = [["Profile","Calender","Notification","Analysis"],["Contact Us","Language","Log Out"]]
+    var deatas = [["Profile".localized,"Calender".localized,"Notification".localized,"Anaylicts".localized],["Contact Us".localized,"Language".localized,"Log Out".localized]]
 
     
     
@@ -39,7 +40,7 @@ class SecondHomeLeftMenuCollcetionVC: BaseCollectionVC {
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         
         let sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "SectionHeader", for: indexPath) as! SectionHeader
-        sectionHeader.label.text = "Setting"
+        sectionHeader.label.text = "Setting".localized
         
         return sectionHeader
     }
@@ -79,6 +80,7 @@ class SectionHeader: UICollectionReusableView {
         label.textColor = .black
         label.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
         label.sizeToFit()
+        label.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left
         return label
     }()
     

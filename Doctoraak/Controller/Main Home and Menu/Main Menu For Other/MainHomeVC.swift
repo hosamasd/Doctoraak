@@ -20,18 +20,19 @@ class MainHomeVC: CustomBaseViewVC {
     }()
     lazy var mainView:UIView = {
         let v = UIView(backgroundColor: .white)
-        v.constrainHeight(constant: 1000)
+        v.constrainHeight(constant: 900)
         v.constrainWidth(constant: view.frame.width)
         return v
     }()
     lazy var customMainHomeView:CustomMainHomeView = {
         let v = CustomMainHomeView()
-        
+        v.index=index
         v.listImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpenMenu)))
         v.notifyImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpenNotifications)))
         v.handledisplayRADNotification = {[unowned self] noty in
             guard let phy=self.rad else {return}
             let patient = SelectedPharmacyPatientDataVC(inde: self.index)//SelectedPharmacyPatientDataVC(inde: self.index, phy: noty, pharmacy: phy)
+             patient.delgate = self
             patient.radOrder = noty
             patient.rad=self.rad
             self.navigationController?.pushViewController(patient, animated: true)
@@ -39,6 +40,7 @@ class MainHomeVC: CustomBaseViewVC {
         v.handledisplayLABNotification = {[unowned self] noty in
             guard let phy=self.lab else {return}
             let patient = SelectedPharmacyPatientDataVC(inde: self.index)//SelectedPharmacyPatientDataVC(inde: self.index, phy: noty, pharmacy: phy)
+            patient.delgate = self
             patient.labOrder = noty
             patient.lab=self.lab
             
@@ -47,6 +49,9 @@ class MainHomeVC: CustomBaseViewVC {
         v.handledisplayPHYNotification = {[unowned self] noty in
             guard let phy=self.phy else {return}
             let patient = SelectedPharmacyPatientDataVC(inde: self.index)//SelectedPharmacyPatientDataVC(inde: self.index, phy: noty, pharmacy: phy)
+            patient.phy = phy
+            patient.phyOrder=noty
+             patient.delgate = self
             self.navigationController?.pushViewController(patient, animated: true)
         }
         return v
@@ -75,23 +80,24 @@ class MainHomeVC: CustomBaseViewVC {
         didSet{
             guard let lab = lab else { return  }
             customMainHomeView.topMainHomeCell.lab=lab
-            
-            userDefaults.bool(forKey: UserDefaultsConstants.isAllMainHomeObjectsFetched) ? () : fetchOrders()
+//            fetchOrders()
+                        userDefaults.bool(forKey: UserDefaultsConstants.isAllMainHomeObjectsFetchedLAB) ? () : fetchOrders()
         }
     }
     var phy:PharamacyModel?{
         didSet{
             guard let phy = phy else { return  }
             customMainHomeView.topMainHomeCell.phy=phy
-            userDefaults.bool(forKey: UserDefaultsConstants.isAllMainHomeObjectsFetched) ? () : fetchOrders()
+//            fetchOrders()
+                        userDefaults.bool(forKey: UserDefaultsConstants.isAllMainHomeObjectsFetchedPHY) ? () : fetchOrders()
         }
     }
     var rad:RadiologyModel?{
         didSet{
             guard let lab = rad else { return  }
             customMainHomeView.topMainHomeCell.rad=lab
-            
-            userDefaults.bool(forKey: UserDefaultsConstants.isAllMainHomeObjectsFetched) ? () : fetchOrders()
+            fetchOrders()
+                        userDefaults.bool(forKey: UserDefaultsConstants.isAllMainHomeObjectsFetchedRAD) ? () : fetchOrders()
         }
     }
     fileprivate let index:Int!
@@ -144,11 +150,11 @@ class MainHomeVC: CustomBaseViewVC {
             self.activeViewsIfNoData()
             guard let user = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
             
-            userDefaults.set(true, forKey: UserDefaultsConstants.isAllMainHomeObjectsFetched)
+            userDefaults.set(true, forKey: UserDefaultsConstants.isAllMainHomeObjectsFetchedLAB)
             userDefaults.synchronize()
             DispatchQueue.main.async {
                 self.customMainHomeView.mainHomePatientsCollectionVC.notificationLABArray=user
-                self.customMainHomeView.topMainHomeCell.reservation = user.count > 0 ?  user.count-1 : 0
+                self.customMainHomeView.topMainHomeCell.reservation = user.count > 0 ?  user.count : 0
                 
                 self.customMainHomeView.mainHomePatientsCollectionVC.collectionView.reloadData()
             }
@@ -169,11 +175,12 @@ class MainHomeVC: CustomBaseViewVC {
             self.handleDismiss()
             self.activeViewsIfNoData()
             guard let user = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
-            userDefaults.set(true, forKey: UserDefaultsConstants.isAllMainHomeObjectsFetched)
+            userDefaults.set(true, forKey: UserDefaultsConstants.isAllMainHomeObjectsFetchedRAD)
             userDefaults.synchronize()
+            self.customMainHomeView.mainHomePatientsCollectionVC.notificationRADArray=user
+            
             DispatchQueue.main.async {
-                self.customMainHomeView.mainHomePatientsCollectionVC.notificationRADArray=user
-                self.customMainHomeView.topMainHomeCell.reservation = user.count > 0 ?  user.count-1 : 0
+                self.customMainHomeView.topMainHomeCell.reservation = user.count > 0 ?  user.count : 0
                 
                 self.customMainHomeView.mainHomePatientsCollectionVC.collectionView.reloadData()
             }
@@ -194,11 +201,11 @@ class MainHomeVC: CustomBaseViewVC {
             self.handleDismiss()
             self.activeViewsIfNoData()
             guard let user = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
-            userDefaults.set(true, forKey: UserDefaultsConstants.isAllMainHomeObjectsFetched)
+            userDefaults.set(true, forKey: UserDefaultsConstants.isAllMainHomeObjectsFetchedPHY)
             userDefaults.synchronize()
             DispatchQueue.main.async {
                 self.customMainHomeView.mainHomePatientsCollectionVC.notificationPHYArray=user
-                self.customMainHomeView.topMainHomeCell.reservation = user.count > 0 ?  user.count-1 : 0
+                self.customMainHomeView.topMainHomeCell.reservation = user.count > 0 ?  user.count : 0
                 self.customMainHomeView.mainHomePatientsCollectionVC.collectionView.reloadData()
             }
         }
@@ -246,17 +253,17 @@ class MainHomeVC: CustomBaseViewVC {
     
     @objc func handleOpenNotifications()  {
         let mainIndex = userDefaults.integer(forKey: UserDefaultsConstants.MainLoginINDEX)
-        if userDefaults.bool(forKey: UserDefaultsConstants.pharamacyPerformLogin) {
-            phy = cachdPHARMACYObjectCodabe.storedValue
-            guard let phy = phy else { return  }
-            let notify = NotificationVC( index: mainIndex, isFromMenu: false)
-            notify.phy=phy
-            notify.rad=rad
-            notify.lab=lab
-            let nav = UINavigationController(rootViewController: notify)
-            nav.modalPresentationStyle = .fullScreen
-            present(nav, animated: true)
-        }
+        //        if userDefaults.bool(forKey: UserDefaultsConstants.pharamacyPerformLogin) {
+        phy = cachdPHARMACYObjectCodabe.storedValue
+        //            guard let phy = phy else { return  }
+        let notify = NotificationVC( index: mainIndex, isFromMenu: false)
+        notify.phy=phy
+        notify.rad=rad
+        notify.lab=lab
+        let nav = UINavigationController(rootViewController: notify)
+        nav.modalPresentationStyle = .fullScreen
+        present(nav, animated: true)
+        //        }
     }
     
     @objc func handleDismiss()  {
@@ -267,4 +274,18 @@ class MainHomeVC: CustomBaseViewVC {
     }
     
     
+}
+
+extension MainHomeVC: SelectedPharmacyPatientDataProtocol {
+    
+    func deletePHY(indexPath: IndexPath, index: Int) {
+        if index == 2 {
+            customMainHomeView.mainHomePatientsCollectionVC.notificationLABArray.remove(at: indexPath.item)
+        }else if index == 3 {
+            customMainHomeView.mainHomePatientsCollectionVC.notificationRADArray.remove(at: indexPath.item)
+        }else if index == 4 {
+            customMainHomeView.mainHomePatientsCollectionVC.notificationPHYArray.remove(at: indexPath.item)
+        }
+        customMainHomeView.mainHomePatientsCollectionVC.collectionView.reloadData()
+    }
 }

@@ -30,6 +30,20 @@ class CustomDoctorMainHomeLeftView: CustomBaseView {
             userImage.sd_setImage(with: url)
         }
     }
+    var meidicalCenter:DoctorModel?{
+        didSet{
+            guard let lab = meidicalCenter else { return  }
+            
+            let name = MOLHLanguage.isRTLLanguage() ? lab.nameAr ?? lab.name : lab.name
+            let dd =  getSpecizalitionFromIndex(lab.specializationID)
+            userNameLabel.text = name+"\n"+dd
+            let urlString = lab.photo
+            guard let url = URL(string: urlString) else { return  }
+            userImage.sd_setImage(with: url)
+        }
+        
+    }
+    
     
     lazy var LogoImage:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "Group 4142-5"))

@@ -12,6 +12,14 @@ import SDWebImage
 
 class CustomMainHomeView: CustomBaseView {
     
+    var index:Int? {
+        didSet{
+            guard let index = index else { return  }
+            mainHomePatientsCollectionVC.index=index
+        }
+    }
+    
+    
     var lab:LabModel?{
         didSet{
             guard let lab = lab else { return  }
@@ -61,7 +69,7 @@ class CustomMainHomeView: CustomBaseView {
         
         return i
     }()
-    lazy var titleLabel = UILabel(text: "Home", font: .systemFont(ofSize: 30), textColor: .white)
+    lazy var titleLabel = UILabel(text: "Home".localized, font: .systemFont(ofSize: 30), textColor: .white)
     
     lazy var topMainHomeCell = TopMainHomeCell()
     
@@ -85,10 +93,16 @@ class CustomMainHomeView: CustomBaseView {
     var handledisplayPHYNotification:((PharmacyGetOrdersModel)->Void)?
     
     override func setupViews() {
-        
+        titleLabel.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left
         addSubViews(views: LogoImage,listImage,notifyImage,drImage,docotrLabel,titleLabel,topMainHomeCell,mainHomePatientsCollectionVC.view)
         
-        LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
+        
+        if MOLHLanguage.isRTLLanguage() {
+                LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 0, bottom: 0, right: -48))
+            }else {
+                
+                LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
+           }
         listImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 60, left: 16, bottom: 0, right: 0))
         
         drImage.anchor(top: topAnchor, leading: listImage.trailingAnchor, bottom: nil, trailing: nil,padding: .init(top: 60, left: 24, bottom: 0, right: 0))

@@ -82,7 +82,8 @@ class BaseSlidingVC: UIViewController {
         super.viewWillAppear(animated)
         index = userDefaults.integer(forKey: UserDefaultsConstants.MainLoginINDEX)
         
-        
+//        userDefaults.set(false, forKey: UserDefaultsConstants.isAllMainHomeObjectsFetchedRAD)
+//        userDefaults.synchronize()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -149,7 +150,7 @@ class BaseSlidingVC: UIViewController {
         rightViewController = UINavigationController(rootViewController: dd)
         let homeView = rightViewController.view!
         //        let menuVC = MenuVC()
-        let menuVC =  vc//HomeLeftMenuVC(index: index)
+        let menuVC =  vc//HomeLeftMenuVC(index: 2)
         let menuView = menuVC.view!
         
         homeView.translatesAutoresizingMaskIntoConstraints = false
@@ -267,17 +268,47 @@ class BaseSlidingVC: UIViewController {
     }
     
     @objc  func handlePaneed(gesture:UIPanGestureRecognizer)  {
-        let transltaion = gesture.translation(in: view)
-        var x = transltaion.x
-        x = isMenuOpen ? x+menuWidth : x
-        x = min(menuWidth, x)
-        x = max(0, x)
-        redViewLeadingConstarint.constant = x
-        darkCoverView.alpha = x / menuWidth
-        if gesture.state == .ended {
-            handleEnded(gesture: gesture)
-        }
-    }
+           if MOLHLanguage.isRTLLanguage() {
+               
+               let transltaion = gesture.translation(in: view)
+               //            if transltaion.x > 0 {
+               //                return
+               //            }
+               var x = -transltaion.x
+               x = isMenuOpen ? x+menuWidth : x
+               x = min(menuWidth, x)
+               x = max(0, x)
+               redViewLeadingConstarint.constant = x
+               darkCoverView.alpha = x / menuWidth
+               if gesture.state == .ended {
+                   handleEnded(gesture: gesture)
+               }
+           }else {
+               let transltaion = gesture.translation(in: view)
+               var x = transltaion.x
+               x = isMenuOpen ? x+menuWidth : x
+               x = min(menuWidth, x)
+               x = max(0, x)
+               redViewLeadingConstarint.constant = x
+               darkCoverView.alpha = x / menuWidth
+               if gesture.state == .ended {
+                   handleEnded(gesture: gesture)
+               }
+           }
+       }
+    
+//    @objc  func handlePaneed(gesture:UIPanGestureRecognizer)  {
+//        let transltaion = gesture.translation(in: view)
+//        var x = transltaion.x
+//        x = isMenuOpen ? x+menuWidth : x
+//        x = min(menuWidth, x)
+//        x = max(0, x)
+//        redViewLeadingConstarint.constant = x
+//        darkCoverView.alpha = x / menuWidth
+//        if gesture.state == .ended {
+//            handleEnded(gesture: gesture)
+//        }
+//    }
     
     @objc func handleDismiss()  {
         removeViewWithAnimation(vvv: customContactUsView)

@@ -12,6 +12,12 @@ import MOLH
 
 class CustomRegisterView: CustomBaseView {
     
+    var index:Int? {
+        didSet {
+            guard let index = index else { return  }
+            genderStack.isHide(index == 0 ? false : true)
+        }
+    }
     
     lazy var LogoImage:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "Group 4116"))
@@ -77,6 +83,10 @@ class CustomRegisterView: CustomBaseView {
     }()
     lazy var boyButton:UIButton = createMainButtonsForGenderss(title: "Male".localized,img:#imageLiteral(resourceName: "toilet"), bg: false)
     lazy var girlButton:UIButton = createMainButtonsForGenderss(title: "Female".localized,img:#imageLiteral(resourceName: "toile11t"), bg: true)
+    lazy var genderStack:UIStackView = {
+        let genderStack = getStack(views: boyButton,girlButton, spacing: 16, distribution: .fillEqually, axis: .horizontal)
+        return genderStack
+    }()
     lazy var nextButton:UIButton = {
         let button = UIButton(type: .system)
         button.backgroundColor = ColorConstants.disabledButtonsGray
@@ -90,9 +100,8 @@ class CustomRegisterView: CustomBaseView {
     }()
     
     let doctorRegisterViewModel = DoctorRegisterViewModel()
-    var index = 0
     let showPassword = MOLHLanguage.isRTLLanguage() ? UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -16) : UIEdgeInsets(top: 0, left: -16, bottom: 0, right: 0)
-
+    
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -113,7 +122,6 @@ class CustomRegisterView: CustomBaseView {
         subView.constrainHeight(constant: 100)
         userEditProfileImageView.anchor(top: nil, leading: nil, bottom: userProfileImage.bottomAnchor, trailing: userProfileImage.trailingAnchor,padding: .init(top: 0, left:0 , bottom:10, right: 10))
         
-        let genderStack = getStack(views: boyButton,girlButton, spacing: 16, distribution: .fillEqually, axis: .horizontal)
         let textStack = getStack(views: fullNameTextField,mobileNumberTextField,mobileSecondNumberTextField,emailTextField,passwordTextField,confirmPasswordTextField,genderStack, spacing: 16, distribution: .fillEqually, axis: .vertical)
         
         addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,subView,textStack,nextButton)

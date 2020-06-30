@@ -32,7 +32,7 @@ class PharamacyProfileVC: CustomBaseViewVC {
         v.userEditProfileImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(createAlertForChoposingImage)))
         v.nextButton.addTarget(self, action: #selector(handleSave), for: .touchUpInside)
         v.handleChooseHours = {[unowned self] in
-            let working = MainClinicWorkingHoursNotDoctorVC(index: self.index,isFromUpdateProfile:true,isFromRegister: true)
+            let working = MainClinicWorkingHoursNotDoctorVC(index: self.index,isFromUpdateProfile:true,isFromRegister: false)
             working.delgate = self
             working.lab=self.lab
             working.rad=self.rad

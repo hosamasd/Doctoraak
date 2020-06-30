@@ -34,7 +34,7 @@ class CustomMainDoctorNotificationView: CustomBaseView {
         i.contentMode = .scaleAspectFill
         return i
     }()
-    lazy var titleLabel = UILabel(text: "Notification", font: .systemFont(ofSize: 30), textColor: .white)
+    lazy var titleLabel = UILabel(text: "Notification".localized, font: .systemFont(ofSize: 30), textColor: .white)
     lazy var doctorNotificationsVC:DoctorNotificationsVC = {
         let v = DoctorNotificationsVC()
         

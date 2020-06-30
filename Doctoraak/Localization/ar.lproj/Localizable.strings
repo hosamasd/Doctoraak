@@ -52,9 +52,21 @@
 //DoctorRegisterVC
 "Full name"="الاسم بالكامل";"enter Mobile"="ادخل رقم التليفون";"enter second mobile optional"="ادخل رقم تليفون اخر اختياري";"Male"="رجل";"Female"="انثي";"Next"="التالي";"enter email optional"="ادخل الايميل اختياري";
 "Invalid   Phone"="  هناك خطا في التليفون"; "Invalid name"= "هناك خطا في الاسم";"Invalid   Email"="هناك خطا في الايميل";
+"Please press long to pick up location"="اضغط ضغطا مطولا للحصول علي الموقع";
 
 //DoctorSecondRegisterVC
 "cv.pdf"="cv.pdf";"Description"="الوصف";"Specialization"="التخصص";"Degree"="الدرجه";"enter title optional"="ادخل المكانه اختياري";"Invalid   Description"="هناك خطا في الوصف";"Invalid   Title"="هناك خطا في اسم المكانه";
+
+//DoctorClinicWorkingHoursVC
+"Sun"="الاحد";"Mon"="الاتنين";"Tue"="الثلاثاء";"Wed"="الاربعاء";"Fri"="الجمعه";"Thu"="الخميس";"Sat"="السبت"; "Shift1"= "الشفت الاول";"Shift2"="الشفت الثاني";
+" range should be choosen"=" يجب اختيار بداية ونهاية الفترة"; "Friday "= "الجمعه ";"Thrusday "="الخميس "; "Wednsday "= "الاربعاء ";"Tuesday "="الثلاثاء ";
+"Monday "="الاتنين ";"Sunday "="الاحد ";"Saturday "="السبت ";
+
+//MainClinicDataVC
+"Invalid waitting"="هناك خطا في ساعات الانتظار";"Invalid consulation feez"="هناك حطا في الادخال";"Invalid fees"="هناك خطا في الادخال";
+"Invalid fees"="Invalid fees";"Fees"="المصاريف";"Consultation fees"="مصاريف الكشف";
+"Waiting hours"="ساعات الانتظار";"     Time in m    "="     Time in m    ";
+"Clinic"="عياده";"Fill your data"="املا البيانات";"Clinic phone"="رقم تليفون العياده";"Fees"="المصاريف";"    EGY  "="   جنيه    ";
 
 //NewPassVC
 "Saving password..."="حفظ الباسورد...";"New"="جديد";"Please Enter your new password"="ادخل الباسورد الجديد";
@@ -88,3 +100,18 @@
 
 //ProfileVC
 "your information updated..."="معلوماتك الشخصية تم تعديلها...";
+
+//HomeLeftMenuVC
+"Profile"="البروفايل";"Calender"="Calender";"Notification"="الاشعارات";"Anaylicts"="الاحصائيات";"Contact Us"="تواصل معنا";"Language"="اللغة";"Log Out"="تسجيل الخروج";
+"Setting"="Setting";
+
+//MainHomeVC
+"Home"="الرئيسية";" Reservations"=" عدد الحجوزات";"Welcome \n\n"="مرحبا \n\n";"No Reservation Avaliable"="لا يوجد حجوزات ";"Setting"="الاعدادات";
+
+//PharamacyProfileVC
+"your information updated..."="تم تعديل البيانات بنجاح٫٫٫";"No Days Chossen"="لا يوجد ايام مختاره";
+
+
+//SelectedPharmacyPatientDataVC
+"Patient data"="   معلومات المريض";"Prescription"="الروشته";"Medicines"="الاةويه";"Accept"="قبول";
+"Refuse"="رفض";

@@ -148,41 +148,52 @@ class MainRegisterVC: CustomBaseViewVC {
         
     }
     
-    fileprivate func saveRadToken(mobile:String,index:Int,user_id:Int)  {
-        userDefaults.set(index, forKey: UserDefaultsConstants.MainLoginINDEX)
-        userDefaults.set(mobile, forKey: UserDefaultsConstants.radiologyRegisterMobile)
-        userDefaults.set(user_id, forKey: UserDefaultsConstants.radiologyRegisterUser_id)
-        userDefaults.set(true, forKey: UserDefaultsConstants.isUserRegisterAndWaitForSMScODE)
-        userDefaults.synchronize()
-        goToNext(id: user_id)
-    }
+    fileprivate func saveAllToken(mobile:String,index:Int,user_id:Int)  {
+           userDefaults.set(mobile, forKey: UserDefaultsConstants.mobileForAll)
+           userDefaults.set(user_id, forKey: UserDefaultsConstants.user_idForAll)
+           userDefaults.set(true, forKey: UserDefaultsConstants.waitForSMSCodeForSpecific)
+           userDefaults.set(index, forKey: UserDefaultsConstants.indexForSMSCodeForSpecific)
+
+           userDefaults.synchronize()
+           goToNext(id: user_id)
+       }
     
-    fileprivate func saveLABToken(mobile:String,index:Int,user_id:Int)  {
-        userDefaults.set(index, forKey: UserDefaultsConstants.MainLoginINDEX)
-        userDefaults.set(mobile, forKey: UserDefaultsConstants.pharamcyRegisterMobile)
-        userDefaults.set(user_id, forKey: UserDefaultsConstants.pharamcyRegisterUser_id)
-        userDefaults.set(true, forKey: UserDefaultsConstants.isUserRegisterAndWaitForSMScODE)
-        userDefaults.synchronize()
-        goToNext(id: user_id)
-    }
+//    fileprivate func saveRadToken(mobile:String,index:Int,user_id:Int)  {
+//        userDefaults.set(mobile, forKey: UserDefaultsConstants.mobileForAll)
+//        userDefaults.set(user_id, forKey: UserDefaultsConstants.user_idForAll)
+//        userDefaults.set(true, forKey: UserDefaultsConstants.waitForSMSCodeForSpecific)
+//        userDefaults.set(index, forKey: UserDefaultsConstants.indexForSMSCodeForSpecific)
+//
+//        userDefaults.synchronize()
+//        goToNext(id: user_id)
+//    }
+//
+//    fileprivate func saveLABToken(mobile:String,index:Int,user_id:Int)  {
+////        userDefaults.set(index, forKey: UserDefaultsConstants.MainLoginINDEX)
+//        userDefaults.set(mobile, forKey: UserDefaultsConstants.pharamcyRegisterMobile)
+//        userDefaults.set(user_id, forKey: UserDefaultsConstants.pharamcyRegisterUser_id)
+//        userDefaults.set(true, forKey: UserDefaultsConstants.isUserRegisterAndWaitForSMScODE)
+//        userDefaults.synchronize()
+//        goToNext(id: user_id)
+//    }
+//
+//    fileprivate func savePharmacyToken(mobile:String,index:Int,user_id:Int)  {
+////        userDefaults.set(index, forKey: UserDefaultsConstants.MainLoginINDEX)
+//        userDefaults.set(mobile, forKey: UserDefaultsConstants.labRegisterMobile)
+//        userDefaults.set(user_id, forKey: UserDefaultsConstants.labRegisterUser_id)
+//        userDefaults.set(true, forKey: UserDefaultsConstants.isUserRegisterAndWaitForSMScODE)
+//        userDefaults.synchronize()
+//        goToNext(id: user_id)
+//    }
     
-    fileprivate func savePharmacyToken(mobile:String,index:Int,user_id:Int)  {
-        userDefaults.set(index, forKey: UserDefaultsConstants.MainLoginINDEX)
-        userDefaults.set(mobile, forKey: UserDefaultsConstants.labRegisterMobile)
-        userDefaults.set(user_id, forKey: UserDefaultsConstants.labRegisterUser_id)
-        userDefaults.set(true, forKey: UserDefaultsConstants.isUserRegisterAndWaitForSMScODE)
-        userDefaults.synchronize()
-        goToNext(id: user_id)
-    }
-    
-    fileprivate func saveDoctorToken(mobile:String,index:Int,user_id:Int)  {
-        userDefaults.set(index, forKey: UserDefaultsConstants.MainLoginINDEX)
-        userDefaults.set(mobile, forKey: UserDefaultsConstants.doctorRegisterMobile)
-        userDefaults.set(user_id, forKey: UserDefaultsConstants.doctorSecondRegisterUser_id)
-        userDefaults.set(true, forKey: UserDefaultsConstants.isUserRegisterAndWaitForSMScODE)
-        userDefaults.synchronize()
-        goToNext(id: user_id)
-    }
+//    fileprivate func saveDoctorToken(mobile:String,index:Int,user_id:Int)  {
+//        userDefaults.set(index, forKey: UserDefaultsConstants.MainLoginINDEX)
+//        userDefaults.set(mobile, forKey: UserDefaultsConstants.doctorRegisterMobile)
+//        userDefaults.set(user_id, forKey: UserDefaultsConstants.doctorSecondRegisterUser_id)
+//        userDefaults.set(true, forKey: UserDefaultsConstants.isUserRegisterAndWaitForSMScODE)
+//        userDefaults.synchronize()
+//        goToNext(id: user_id)
+//    }
     
     fileprivate  func goToNext(id:Int)  {
         let phone = customMainRegisterView.mobileNumberTextField.text ?? ""
@@ -235,7 +246,7 @@ class MainRegisterVC: CustomBaseViewVC {
             //        self.saveToken(token: user.apiToken)
             
             DispatchQueue.main.async {
-                self.savePharmacyToken(mobile: phone, index: self.index, user_id: user.id)
+                self.saveAllToken(mobile: phone, index: self.index, user_id: user.id)
             }
         }
     }
@@ -255,7 +266,7 @@ class MainRegisterVC: CustomBaseViewVC {
             //        self.saveToken(token: user.apiToken)
             
             DispatchQueue.main.async {
-                self.saveRadToken(mobile: phone, index: self.index, user_id: user.id)
+                self.saveAllToken(mobile: phone, index: self.index, user_id: user.id)
             }
         }
     }
@@ -274,7 +285,7 @@ class MainRegisterVC: CustomBaseViewVC {
             //        self.saveToken(token: user.apiToken)
             
             DispatchQueue.main.async {
-                self.saveLABToken(mobile: phone, index: self.index, user_id: user.id)
+                self.saveAllToken(mobile: phone, index: self.index, user_id: user.id)
             }
         }
     }

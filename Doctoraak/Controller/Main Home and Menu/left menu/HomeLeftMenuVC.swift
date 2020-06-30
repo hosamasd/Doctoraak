@@ -73,10 +73,6 @@ class HomeLeftMenuVC: CustomBaseViewVC {
     
     //MARK: -user methods
     
-    func fetchOrders()  {
-        
-    }
-    
     override func setupNavigation()  {
         //        navigationController?.navigationBar.isHide(true)
     }
@@ -87,29 +83,6 @@ class HomeLeftMenuVC: CustomBaseViewVC {
         view.addSubview(customMainHomeLeftView)
         customMainHomeLeftView.fillSuperview()
     }
-    
-//    func checkIfLogginedDoc(_ indexPath:IndexPath)  {
-//        guard let baseSlid = UIApplication.shared.windows.filter({$0.isKeyWindow}).first?.rootViewController as? BaseSlidingVC else {return}
-//
-//        if indexPath.section == 0 {
-//            if indexPath.item == 0 {
-//                baseSlid.closeMenu()
-//                let profile = DoctorProfileVC(index: index)
-//                profile.doc=doctor
-//                let nav = UINavigationController(rootViewController: profile)
-//
-//                nav.modalPresentationStyle = .fullScreen
-//                present(nav, animated: true)
-//            }else if indexPath.item == 4 {
-//                goToSameNotification(baseSlid)
-//            }else if indexPath.item == 5 {
-//                goToSameAnayltics(baseSlid)
-//            }
-//        }else {
-//            makeSameActions(indexPath, baseSlid)
-//
-//        }
-//    }
     
     fileprivate func makeSameActions(_ indexPath: IndexPath, _ baseSlid: BaseSlidingVC) {
         if indexPath.item == 2 {
@@ -208,28 +181,31 @@ class HomeLeftMenuVC: CustomBaseViewVC {
     
     fileprivate  func performLogout()  {
         
-//        if userDefaults.bool(forKey: UserDefaultsConstants.DoctorPerformLogin) {
-//            cacheDoctorObjectCodabe.deleteFile(doctor!)
-//            userDefaults.set(false, forKey: UserDefaultsConstants.DoctorPerformLogin)
-//            self.doctor=nil
-//        } else
             if userDefaults.bool(forKey: UserDefaultsConstants.labPerformLogin) {
             cacheLABObjectCodabe.deleteFile(lab!)
             userDefaults.set(false, forKey: UserDefaultsConstants.labPerformLogin)
+                userDefaults.set(false, forKey: UserDefaultsConstants.isAllMainHomeObjectsFetchedLAB)
+
             self.lab=nil
             
         }else if userDefaults.bool(forKey: UserDefaultsConstants.radiologyPerformLogin) {
             cachdRADObjectCodabe.deleteFile(rad!)
             userDefaults.set(false, forKey: UserDefaultsConstants.radiologyPerformLogin)
+                userDefaults.set(false, forKey: UserDefaultsConstants.isAllMainHomeObjectsFetchedRAD)
+
             self.rad=nil
             
         }else if userDefaults.bool(forKey: UserDefaultsConstants.pharamacyPerformLogin) {
             cachdPHARMACYObjectCodabe.deleteFile(phy!)
             userDefaults.set(false, forKey: UserDefaultsConstants.pharamacyPerformLogin)
+                userDefaults.set(false, forKey: UserDefaultsConstants.isAllMainHomeObjectsFetchedPHY)
+
             self.phy=nil
             
         }
         userDefaults.set(true, forKey: UserDefaultsConstants.isWelcomeVCAppear)
+        userDefaults.removeObject(forKey: UserDefaultsConstants.MainLoginINDEX)
+
         userDefaults.synchronize()
         goToWelcome()
         

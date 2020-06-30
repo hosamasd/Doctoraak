@@ -30,7 +30,7 @@ class CustomClinicDataView: CustomBaseView {
     lazy var soonLabel = UILabel(text: "Fill your data".localized, font: .systemFont(ofSize: 18), textColor: .white)
     
     lazy var clinicProfileImage:UIImageView = {
-        let i = UIImageView(image: #imageLiteral(resourceName: "Ellipse 119-2"))
+        let i = UIImageView(image: #imageLiteral(resourceName: "Group 4143"))
         i.constrainWidth(constant: 100)
         i.constrainHeight(constant: 100)
         i.layer.cornerRadius = 50
@@ -82,8 +82,12 @@ class CustomClinicDataView: CustomBaseView {
     }()
     lazy var feesTextField:UITextField = {
         let s = createMainTextFields(place: "Fees".localized, type: .numberPad)
-        let label = UILabel(text: "EGY  ".localized, font: .systemFont(ofSize: 18), textColor: .lightGray)
-        label.frame = CGRect(x: CGFloat(s.frame.size.width - 60), y: CGFloat(5), width: CGFloat(60), height: CGFloat(25))
+        let label = UILabel(text: "    EGY  ".localized, font: .systemFont(ofSize: 18), textColor: .lightGray)
+      label.textAlignment = MOLHLanguage.isRTLLanguage() ? .right :.left
+
+            label.frame = CGRect(x: CGFloat(s.frame.size.width - 60), y: CGFloat(5), width: CGFloat(60), height: CGFloat(25))
+
+        
         s.rightView = label
         s.rightViewMode = .always
         s.keyboardType = .numberPad
@@ -92,7 +96,8 @@ class CustomClinicDataView: CustomBaseView {
     }()
     lazy var consultationFeesTextField:UITextField = {
         let s = createMainTextFields(place: "Consultation fees".localized, type: .numberPad)
-        let label = UILabel(text: "EGY  ".localized, font: .systemFont(ofSize: 18), textColor: .lightGray)
+        let label = UILabel(text: "    EGY  ".localized, font: .systemFont(ofSize: 18), textColor: .lightGray)
+        label.textAlignment = MOLHLanguage.isRTLLanguage() ? .right :.left
         label.frame = CGRect(x: CGFloat(s.frame.size.width - 60), y: CGFloat(5), width: CGFloat(60), height: CGFloat(25))
         s.rightView = label
         s.rightViewMode = .always
@@ -102,7 +107,12 @@ class CustomClinicDataView: CustomBaseView {
     }()
     lazy var workingHourView:UIView = {
         let v = makeMainSubViewWithAppendView(vv: [workingHoursLabel])
+        if MOLHLanguage.isRTLLanguage() {
+            v.hstack(workingHoursLabel).withMargins(.init(top: 0, left: 0, bottom: 0, right: 16))
+
+        }else {
         v.hstack(workingHoursLabel).withMargins(.init(top: 0, left: 16, bottom: 0, right: 0))
+        }
         v.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleChoose)))
         return v
     }()
@@ -111,7 +121,7 @@ class CustomClinicDataView: CustomBaseView {
     //    lazy var clinicWorkingHoursTextField = createMainTextFields(place: "Work hours")
     lazy var waitingHoursTextField:UITextField = {
         let s = createMainTextFields(place: "Waiting hours".localized, type: .numberPad)
-        let label = UILabel(text: "Time in m    ".localized, font: .systemFont(ofSize: 14), textColor: .lightGray)
+        let label = UILabel(text: "     Time in m    ".localized, font: .systemFont(ofSize: 14), textColor: .lightGray)
         label.frame = CGRect(x: CGFloat(s.frame.size.width - 80), y: CGFloat(5), width: CGFloat(80), height: CGFloat(25))
         s.rightView = label
         s.rightViewMode = .always
@@ -220,7 +230,8 @@ class CustomClinicDataView: CustomBaseView {
     }
     
     override func setupViews() {
-        
+        [titleLabel,soonLabel,addressLabel,workingHoursLabel].forEach({$0.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left})
+
         [ waitingHoursTextField, feesTextField,   clinicMobileNumberTextField, consultationFeesTextField].forEach({$0.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)})
         
         workingHourView.hstack(workingHoursLabel).padLeft(16)
@@ -238,8 +249,12 @@ class CustomClinicDataView: CustomBaseView {
         NSLayoutConstraint.activate([
             subView.centerXAnchor.constraint(equalTo: centerXAnchor)
         ])
-        //
-        LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
+        if MOLHLanguage.isRTLLanguage() {
+                              LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 0, bottom: 0, right: -48))
+                          }else {
+                              
+                              LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
+                         }
         subView.anchor(top: LogoImage.bottomAnchor, leading: nil, bottom: nil, trailing: nil,padding: .init(top: 50, left: 0, bottom: 0, right: 0))
         backImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 60, left: 16, bottom: 0, right: 0))
         titleLabel.anchor(top: nil, leading: leadingAnchor, bottom: LogoImage.bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
@@ -293,7 +308,7 @@ class CustomClinicDataView: CustomBaseView {
                 
             }else if text == waitingHoursTextField {
                 if (texts.count < 1 ) {
-                    floatingLabelTextField.errorMessage = "Invalid waiing".localized
+                    floatingLabelTextField.errorMessage = "Invalid waitting".localized
                     clinicDataViewModel.waitingHours = nil
                 }
                 else {

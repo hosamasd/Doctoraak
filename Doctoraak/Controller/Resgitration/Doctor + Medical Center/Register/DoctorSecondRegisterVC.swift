@@ -134,15 +134,20 @@ class DoctorSecondRegisterVC: CustomBaseViewVC {
     }
     
     func saveToken(user_id:Int,_ sms:Int)  {
-        userDefaults.set(user_id, forKey: UserDefaultsConstants.doctorSecondRegisterUser_id)
-        userDefaults.set(sms, forKey: UserDefaultsConstants.doctorSecondRegisterSMSCode)
+        let dd = index == 0 ? UserDefaultsConstants.doctorSecondRegisterUser_id : UserDefaultsConstants.medicalCenterSecondRegisterUser_id
+        let ss = index == 0 ? UserDefaultsConstants.doctorSecondRegisterSMSCode : UserDefaultsConstants.medicalCenterSecondRegisterSMSCode
+        let aa = index == 0 ? UserDefaultsConstants.isDoctorSecondRegister : UserDefaultsConstants.isMedicalCenterSecondRegister
+        let mm = index == 0 ? UserDefaultsConstants.doctorRegisterMobile : UserDefaultsConstants.medicalCenterRegisterMobile
         
-        userDefaults.set(true, forKey: UserDefaultsConstants.isUserRegisterAndWaitForSMScODE)
-        userDefaults.set(false, forKey: UserDefaultsConstants.isDoctorSecondRegister)
-        userDefaults.set(mobile, forKey: UserDefaultsConstants.doctorRegisterMobile)
+        userDefaults.set(user_id, forKey: dd)
+        userDefaults.set(sms, forKey: ss)
+        
+        userDefaults.set(true, forKey: UserDefaultsConstants.isUserRegisterAndWaitForSMScODEDOC)
+        userDefaults.set(false, forKey: aa)
+        userDefaults.set(mobile, forKey: mm)
         userDefaults.set(false, forKey: UserDefaultsConstants.doctorRegisterSecondIsFromForgetPassw)
         
-        userDefaults.set(index, forKey: UserDefaultsConstants.isUserRegisterAndWaitForSMScODEIndex)
+        userDefaults.set(index, forKey: UserDefaultsConstants.isUserRegisterAndWaitForSMScODEIndexDOC)
         userDefaults.synchronize()
         goToNext(id: user_id)
     }

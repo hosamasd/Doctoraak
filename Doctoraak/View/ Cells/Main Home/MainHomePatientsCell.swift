@@ -64,6 +64,7 @@ class MainHomePatientsCell: BaseCollectionCell {
     lazy var patientCityLabel = UILabel(text: "Cairo", font: .systemFont(ofSize: 16), textColor: .lightGray)
     
     override func setupViews() {
+        [patientNameLabel,patientCityLabel].forEach({$0.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left})
         let s = stack(patientNameLabel,patientCityLabel).padBottom(20)
         
         let ss = hstack(UIView(),patienDateLabel)

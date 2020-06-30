@@ -15,7 +15,8 @@ class BaseCollectionCell: UICollectionViewCell {
         super.init(frame: frame)
         setupBorder()
         setupViews()
-        
+        backgroundColor = .white
+
     }
     
     required init?(coder aDecoder: NSCoder) {

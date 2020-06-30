@@ -8,6 +8,7 @@
 
 import UIKit
 import SDWebImage
+import MOLH
 
 class PatientCell: BaseCollectionCell {
     
@@ -57,6 +58,7 @@ class PatientCell: BaseCollectionCell {
     lazy var PatientPhoneLabel = UILabel(text: "01063525215", font: .systemFont(ofSize: 16), textColor: .lightGray)
     
     override func setupViews() {
+        [PatientNameLabel,PatientGenderLabel,PatientPhoneLabel].forEach({$0.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left})
         let s = stack(PatientNameLabel,PatientGenderLabel,PatientPhoneLabel)
         
         hstack(PatientProfileImage,s,spacing:8).withMargins(.init(top: 8, left: 8, bottom: 8, right: 8))

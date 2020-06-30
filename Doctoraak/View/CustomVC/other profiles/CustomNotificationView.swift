@@ -46,7 +46,7 @@ class CustomNotificationView: CustomBaseView {
         return i
     }()
     lazy var titleLabel = UILabel(text: "Notification".localized, font: .systemFont(ofSize: 30), textColor: .white)
-    lazy var soonLabel = UILabel(text: "Get well soon!".localized, font: .systemFont(ofSize: 18), textColor: .white)
+//    lazy var soonLabel = UILabel(text: "Get well soon!".localized, font: .systemFont(ofSize: 18), textColor: .white)
     
     lazy var notificationsCollectionVC:NotificationsCollectionVC = {
         let v = NotificationsCollectionVC()
@@ -75,8 +75,8 @@ class CustomNotificationView: CustomBaseView {
     
     override func setupViews() {
         
-        [titleLabel,soonLabel].forEach({$0.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left})
-        addSubViews(views: LogoImage,backImage,drImage,docotrLabel,soonLabel,titleLabel,notificationsCollectionVC.view)
+        [titleLabel].forEach({$0.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left})
+        addSubViews(views: LogoImage,backImage,drImage,docotrLabel,titleLabel,notificationsCollectionVC.view)
         //        addSubViews(views: LogoImage,backImage,titleLabel,doctorHomePatientsCell,ss)//,ss,docotrCollectionView.view)
         
         if MOLHLanguage.isRTLLanguage() {
@@ -90,7 +90,7 @@ class CustomNotificationView: CustomBaseView {
         backImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 60, left: 16, bottom: 0, right: 0))
         drImage.anchor(top: topAnchor, leading: backImage.trailingAnchor, bottom: nil, trailing: nil,padding: .init(top: 60, left: 24, bottom: 0, right: 0))
                docotrLabel.anchor(top: topAnchor, leading: drImage.trailingAnchor, bottom: nil, trailing: nil,padding: .init(top: 65, left: 16, bottom: 0, right: 0))
-        soonLabel.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
+//        soonLabel.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
         titleLabel.anchor(top: nil, leading: leadingAnchor, bottom: LogoImage.bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
         notificationsCollectionVC.view.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 128, left: 32, bottom: 16, right: 32))
     }}

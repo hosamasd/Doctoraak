@@ -12,20 +12,20 @@ import MOLH
 
 class CustomSelectedPatientDataVC: CustomBaseView {
     
-//    var phy:PharmacyOrderModel?{
-//           didSet{
-//               guard let phy = phy else { return  }
-//               let urlString = phy.photo
-//               guard let url = URL(string: urlString) else { return  }
-//               sampleRosetaImage.sd_setImage(with: url)
-//               //            DispatchQueue.main.async {
-//               self.patientCell.patient = phy.patient
-//               let acccepts = phy.accept == "0" ? false : true
-//               bottomStack.isHide(acccepts)
-//               selectedPatientDataPHYCollectionvc.notificationPHYArray = phy.details
-//               selectedPatientDataPHYCollectionvc.collectionView.reloadData()
-//           }
-//       }
+    //    var phy:PharmacyOrderModel?{
+    //           didSet{
+    //               guard let phy = phy else { return  }
+    //               let urlString = phy.photo
+    //               guard let url = URL(string: urlString) else { return  }
+    //               sampleRosetaImage.sd_setImage(with: url)
+    //               //            DispatchQueue.main.async {
+    //               self.patientCell.patient = phy.patient
+    //               let acccepts = phy.accept == "0" ? false : true
+    //               bottomStack.isHide(acccepts)
+    //               selectedPatientDataPHYCollectionvc.notificationPHYArray = phy.details
+    //               selectedPatientDataPHYCollectionvc.collectionView.reloadData()
+    //           }
+    //       }
     var phy:PharmacyGetOrdersModel?{
         didSet{
             guard let phy = phy else { return  }
@@ -49,7 +49,9 @@ class CustomSelectedPatientDataVC: CustomBaseView {
             sampleRosetaImage.sd_setImage(with: url)
             //            DispatchQueue.main.async {
             self.patientCell.patient = phy.patient
-            let acccepts = phy.accept == "0" ? false : true
+            let ss = phy.accept.int ?? 0
+            
+            let acccepts = ss == 0 ? false : true
             bottomStack.isHide(acccepts)
             selectedPatientDataPHYCollectionvc.notificationRADArray = phy.details
             selectedPatientDataPHYCollectionvc.collectionView.reloadData()
@@ -93,17 +95,17 @@ class CustomSelectedPatientDataVC: CustomBaseView {
         i.constrainHeight(constant: 120)
         return i
     }()
-    lazy var titleLabel = UILabel(text: "Patient data", font: .systemFont(ofSize: 30), textColor: .white)
+    lazy var titleLabel = UILabel(text: "Patient data".localized, font: .systemFont(ofSize: 30), textColor: .white)
     
-    lazy var prescriptionLabel = UILabel(text: "Prescription", font: .systemFont(ofSize: 20), textColor: .black)
-    lazy var titleSecondLabel = UILabel(text: "Medicines", font: .systemFont(ofSize: 20), textColor: .black)
+    lazy var prescriptionLabel = UILabel(text: "Prescription".localized, font: .systemFont(ofSize: 20), textColor: .black)
+    lazy var titleSecondLabel = UILabel(text: "Medicines".localized, font: .systemFont(ofSize: 20), textColor: .black)
     lazy var selectedPatientDataPHYCollectionvc :SelectedPatientDataPHYCollectionVC =  {
         let vc = SelectedPatientDataPHYCollectionVC()
         return vc
     }()
     
-    lazy var okButton=createButtonsBottom(title: "Accept", bg: .green)
-    lazy var cancelButton=createButtonsBottom(title: "Refuse", bg: .red)
+    lazy var okButton=createButtonsBottom(title: "Accept".localized, bg: .green)
+    lazy var cancelButton=createButtonsBottom(title: "Refuse".localized, bg: .red)
     lazy var bottomStack:UIStackView = {
         let sta = getStack(views: okButton,cancelButton, spacing: 16, distribution: .fillEqually, axis: .horizontal)
         return sta
@@ -129,11 +131,17 @@ class CustomSelectedPatientDataVC: CustomBaseView {
     
     
     override func setupViews() {
+        [titleLabel,prescriptionLabel,titleSecondLabel].forEach({$0.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left})
         
         addSubViews(views: LogoImage,backImage,titleLabel,patientCell,prescriptionLabel,sampleRosetaImage,titleSecondLabel,selectedPatientDataPHYCollectionvc.view,bottomStack)
         //        addSubViews(views: LogoImage,backImage,titleLabel,doctorHomePatientsCell,ss)//,ss,docotrCollectionView.view)
         
-        LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
+        if MOLHLanguage.isRTLLanguage() {
+            LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 0, bottom: 0, right: -48))
+        }else {
+            
+            LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
+        }
         backImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 60, left: 16, bottom: 0, right: 0))
         titleLabel.anchor(top: nil, leading: leadingAnchor, bottom: LogoImage.bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
         patientCell.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 0, right: 32))
@@ -149,6 +157,8 @@ class CustomSelectedPatientDataVC: CustomBaseView {
     func createButtonsBottom(title:String,bg:UIColor) -> UIButton {
         let b = UIButton(title: title, titleColor: .white, font: .systemFont(ofSize: 18), backgroundColor: bg, target: self, action: nil)
         b.constrainHeight(constant: 50)
+        b.layer.cornerRadius = 16
+        b.clipsToBounds=true
         return b
     }
 }

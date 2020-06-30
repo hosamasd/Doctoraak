@@ -183,7 +183,7 @@ class DoctorClinicDataVC: CustomBaseViewVC {
     func removeSomeObjects()  {
         
         cachdDOCTORWorkingHourObjectCodabe.deleteFile(cachdDOCTORWorkingHourObjectCodabe.storedValue!)
-        userDefaults.set(false, forKey: UserDefaultsConstants.isClinicWorkingHoursCached)
+        userDefaults.set(false, forKey: UserDefaultsConstants.isDoctorWorkingHoursCached)
         userDefaults.set(false, forKey: UserDefaultsConstants.isAllMainHomeObjectsFetchedDoctor)
         userDefaults.synchronize()
         

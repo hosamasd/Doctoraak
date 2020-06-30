@@ -11,18 +11,6 @@ import MOLH
 
 class CustomDoctorClinicWorkingHoursView: CustomBaseView {
     
-    
-    //    var workingHours:[RadiologyWorkingHourModel]?{
-    //           didSet{
-    //               guard let work = workingHoursRAD else { return  }
-    //               work.forEach { (w) in
-    //                   putThesesRAD(w: w)
-    //                   putDefaultRAD(l:w)
-    //
-    //               }
-    //           }
-    //       }
-    
     var workingHours:[ClinicWorkingHourModel]?{
            didSet{
                guard let work = workingHours else { return  }
@@ -196,6 +184,8 @@ class CustomDoctorClinicWorkingHoursView: CustomBaseView {
     
     
     override func setupViews() {
+        [titleLabel,soonLabel].forEach({$0.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left})
+
         //        shift1Button.addTarget(self, action: #selector(handle1Shift), for: .touchUpInside)
         //               shift2Button.addTarget(self, action: #selector(handle2Shift), for: .touchUpInside)
         [first2TextField,first1TextField,second1TextField,second2TextField,third1TextField,third2TextField,forth1TextField,forth2TextField,fifth1TextField,fifth2TextField,sexth1TextField,sexth2TextField,seventh2TextField,seventh1TextField,
@@ -209,7 +199,12 @@ class CustomDoctorClinicWorkingHoursView: CustomBaseView {
         addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,ss,totalStack,doneButton)
         
         
-        LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
+        if MOLHLanguage.isRTLLanguage() {
+                   LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 0, bottom: 0, right: -48))
+               }else {
+                   
+                   LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
+               }
         backImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 60, left: 16, bottom: 0, right: 0))
         titleLabel.anchor(top: nil, leading: leadingAnchor, bottom: LogoImage.bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
         soonLabel.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
@@ -456,21 +451,21 @@ class CustomDoctorClinicWorkingHoursView: CustomBaseView {
 
     }
     
-    func putOtherData()  {
-        let d1 = userDefaults.integer(forKey: UserDefaultsConstants.day1);let d5 = userDefaults.integer(forKey: UserDefaultsConstants.day5)
-        let d2 = userDefaults.integer(forKey: UserDefaultsConstants.day2);let d6 = userDefaults.integer(forKey: UserDefaultsConstants.day6)
-        let d3 = userDefaults.integer(forKey: UserDefaultsConstants.day3);let d7 = userDefaults.integer(forKey: UserDefaultsConstants.day7)
-        let d4 = userDefaults.integer(forKey: UserDefaultsConstants.day4)
-        
-        day1 = d1;  day2=d2;    day3=d3;    day4=d4;    day5=d5;    day6=d6;    day7=d7
-        checkIfButtonsEnabled(enable: day1, vv: satButton)
-        checkIfButtonsEnabled(enable: day2, vv: sunButton)
-        checkIfButtonsEnabled(enable: day3, vv: monButton)
-        checkIfButtonsEnabled(enable: day4, vv: tuesButton)
-        checkIfButtonsEnabled(enable: day5, vv: wedButton)
-        checkIfButtonsEnabled(enable: day6, vv: thuButton)
-        checkIfButtonsEnabled(enable: day7, vv: friButton)
-    }
+//    func putOtherData()  {
+//        let d1 = userDefaults.integer(forKey: UserDefaultsConstants.day1);let d5 = userDefaults.integer(forKey: UserDefaultsConstants.day5)
+//        let d2 = userDefaults.integer(forKey: UserDefaultsConstants.day2);let d6 = userDefaults.integer(forKey: UserDefaultsConstants.day6)
+//        let d3 = userDefaults.integer(forKey: UserDefaultsConstants.day3);let d7 = userDefaults.integer(forKey: UserDefaultsConstants.day7)
+//        let d4 = userDefaults.integer(forKey: UserDefaultsConstants.day4)
+//        
+//        day1 = d1;  day2=d2;    day3=d3;    day4=d4;    day5=d5;    day6=d6;    day7=d7
+//        checkIfButtonsEnabled(enable: day1, vv: satButton)
+//        checkIfButtonsEnabled(enable: day2, vv: sunButton)
+//        checkIfButtonsEnabled(enable: day3, vv: monButton)
+//        checkIfButtonsEnabled(enable: day4, vv: tuesButton)
+//        checkIfButtonsEnabled(enable: day5, vv: wedButton)
+//        checkIfButtonsEnabled(enable: day6, vv: thuButton)
+//        checkIfButtonsEnabled(enable: day7, vv: friButton)
+//    }
     
     func checkIfButtonsEnabled(enable:Int,vv:UIButton)  {
         if enable == 1 {
@@ -521,7 +516,7 @@ class CustomDoctorClinicWorkingHoursView: CustomBaseView {
     
     func getDays() -> [String] {
         var ss = [String]()
-        ss.append(checkActiveDay(day1) ? "Sat" : checkActiveDay(day2) ? "Sun" : checkActiveDay(day3) ? "Mon" : checkActiveDay(day4) ? "Tue" : checkActiveDay(day5) ? "Wed" : checkActiveDay(day6) ? "Thr" : "Fri" )
+        ss.append(checkActiveDay(day1) ? "Sat".localized : checkActiveDay(day2) ? "Sun".localized : checkActiveDay(day3) ? "Mon".localized : checkActiveDay(day4) ? "Tue".localized : checkActiveDay(day5) ? "Wed".localized : checkActiveDay(day6) ? "Thr".localized : "Fri".localized )
         return ss
     }
     
@@ -576,7 +571,7 @@ class CustomDoctorClinicWorkingHoursView: CustomBaseView {
         if ss && ddd || (ss && sss)  ||  (ddd && dd  ) {
             return true
         }else {
-            creatMainSnackBar(message: "\(title) range should be choosen"); return  false
+            creatMainSnackBar(message: "\(title)"+" range should be choosen".localized); return  false
             
         }
         
@@ -587,27 +582,27 @@ class CustomDoctorClinicWorkingHoursView: CustomBaseView {
     
     func checkButtonDone() -> Bool {
         if checkDayActive( day1 ){
-            if checkValidteShifting(bol: checkDayActive( day1), ftf: d1TXT1, stf: d1TXT2, title: "Saturday ",ftf2: d12TXT1,stf2: d12TXT2){}else {return false}
+            if checkValidteShifting(bol: checkDayActive( day1), ftf: d1TXT1, stf: d1TXT2, title: "Saturday ".localized,ftf2: d12TXT1,stf2: d12TXT2){}else {return false}
         }
         if checkDayActive(day2) {
-            if  checkValidteShifting(bol: checkDayActive(day2), ftf: d2TXT1, stf: d2TXT2, title: "Sunday",ftf2: d22TXT1,stf2: d22TXT2) {}else {return false}
+            if  checkValidteShifting(bol: checkDayActive(day2), ftf: d2TXT1, stf: d2TXT2, title: "Sunday ".localized,ftf2: d22TXT1,stf2: d22TXT2) {}else {return false}
             
         }
         if checkDayActive(day3) {
-            if checkValidteShifting(bol: checkDayActive(day3), ftf: d3TXT1, stf: d3TXT2, title: "Monday",ftf2: d32TXT1,stf2: d32TXT2){}else {return false}
+            if checkValidteShifting(bol: checkDayActive(day3), ftf: d3TXT1, stf: d3TXT2, title: "Monday ".localized,ftf2: d32TXT1,stf2: d32TXT2){}else {return false}
         }
         if checkDayActive(day4) {
-            if checkValidteShifting(bol: checkDayActive(day4), ftf: d4TXT1, stf: d4TXT2, title: "Tuesday",ftf2: d42TXT1,stf2: d42TXT2){}else {return false}
+            if checkValidteShifting(bol: checkDayActive(day4), ftf: d4TXT1, stf: d4TXT2, title: "Tuesday ".localized,ftf2: d42TXT1,stf2: d42TXT2){}else {return false}
         }
         if checkDayActive(day5) {
-            if checkValidteShifting(bol: checkDayActive(day5), ftf: d5TXT1, stf: d5TXT2, title: "Wednsday",ftf2: d52TXT1,stf2: d52TXT2){}else {return false}
+            if checkValidteShifting(bol: checkDayActive(day5), ftf: d5TXT1, stf: d5TXT2, title: "Wednsday ".localized,ftf2: d52TXT1,stf2: d52TXT2){}else {return false}
         }
         if checkDayActive(day6) {
-            if checkValidteShifting(bol: checkDayActive(day6), ftf: d6TXT1, stf: d6TXT2, title: "Thrusday ",ftf2: d62TXT1,stf2: d62TXT2){}else {return false}
+            if checkValidteShifting(bol: checkDayActive(day6), ftf: d6TXT1, stf: d6TXT2, title: "Thrusday ".localized,ftf2: d62TXT1,stf2: d62TXT2){}else {return false}
         }
         if checkDayActive(day7) {
             
-            if checkValidteShifting(bol: checkDayActive(day7), ftf: d7TXT1, stf: d7TXT2, title: "Friday",ftf2: d72TXT1,stf2: d72TXT2) {}else {return false}
+            if checkValidteShifting(bol: checkDayActive(day7), ftf: d7TXT1, stf: d7TXT2, title: "Friday ".localized,ftf2: d72TXT1,stf2: d72TXT2) {}else {return false}
         }
         return true
         

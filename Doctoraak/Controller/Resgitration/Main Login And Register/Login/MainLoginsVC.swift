@@ -14,6 +14,7 @@ class MainLoginsVC: CustomBaseViewVC {
     
     lazy var customLoginsView:CustomLoginsView = {
         let v = CustomLoginsView()
+        v.index=index
         v.loginButton.addTarget(self, action: #selector(handleLogin), for: .touchUpInside)
         
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))

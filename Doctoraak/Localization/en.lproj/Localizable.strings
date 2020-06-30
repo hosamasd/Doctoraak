@@ -58,12 +58,16 @@
 "cv.pdf"="cv.pdf";"Description"="Description";"Specialization"="Specialization";"Degree"="Degree";"enter title optional"="enter title optional";"Invalid   Description"="Invalid   Description";"Invalid   Title"="Invalid   Title";
 
 //MainClinicDataVC
-"Invalid waiing"="Invalid waiing";"Invalid consulation feez"="Invalid consulation feez";"Invalid fees"="Invalid fees";
+"Invalid waitting"="Invalid waitting";"Invalid consulation feez"="Invalid consulation feez";"Invalid fees"="Invalid fees";
 "Invalid fees"="Invalid fees";"Fees"="Fees";"Consultation fees"="Consultation fees";"Working Hours"="Working Hours";
-"Waiting hours"="Waiting hours";"Time in m    "="Time in m    ";
+"Waiting hours"="Waiting hours";"     Time in m    "="     Time in m    ";;
+"Clinic"="Clinic";"Fill your data"="Fill your data";"Clinic phone"="Clinic phone";"Fees"="Fees";"    EGY  "="    EGY  ";
+"Please press long to pick up location"="Please press long to pick up location";
 
 //DoctorClinicWorkingHoursVC
-"Sun"="Sun";"Mon"="Mon";"Tue"="Tue";"Wed"="Wed";"Fri"="Fri";"Thu"="Thu";"Sat"="Sat";
+"Sun"="Sun";"Mon"="Mon";"Tue"="Tue";"Wed"="Wed";"Fri"="Fri";"Thu"="Thu";"Sat"="Sat"; "Shift1"= "Shift1";"Shift2"="Shift2";
+" range should be choosen"=" range should be choosen"; "Friday "= "Friday ";"Thrusday "="Thrusday "; "Wednsday "= "Wednsday ";"Tuesday "="Tuesday ";
+"Monday "="Monday ";"Sunday "="Sunday ";"Saturday "="Saturday ";
 
 //MainClinicWorkingHoursNotDoctorVC
 
@@ -103,3 +107,18 @@
 "Terms and Conditions"="Terms and Conditions";
 
 
+//HomeLeftMenuVC
+"Profile"="Profile";"Calender"="Calender";"Notification"="Notification";"Analysis"="Analysis";"Contact Us"="Contact Us";"Language"="Language";"Log Out"="Log Out";
+"Setting"="Setting";
+
+//MainHomeVC
+"Home"="Home";" Reservations"=" Reservations";"Welcome \n\n"="Welcome \n\n";"No Reservation Avaliable"="No Reservation Avaliable";
+
+//PharamacyProfileVC
+"your information updated..."="your information updated...";"No Days Chossen"="No Days Chossen";
+
+//MainClinicWorkingHoursNotDoctorVC
+
+//SelectedPharmacyPatientDataVC
+"Patient data"="Patientdata";"Prescription"="Prescription";"Medicines"="Medicines";"Accept"="Accept";
+"Refuse"="Refuse";

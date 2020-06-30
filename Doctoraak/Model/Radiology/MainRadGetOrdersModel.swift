@@ -27,8 +27,8 @@ struct RadGetOrdersModel:Codable {
        let insuranceAccept: String
        var insuranceCode: String?
        let createdAt, updatedAt: String
-       let pharmacyOrderID: Int
-       let accept: String
+//       let pharmacyOrderID: Int
+       let accept: AnyType
        let patient: PatientModel
        let details: [RADDetailModel]
 
@@ -41,7 +41,7 @@ struct RadGetOrdersModel:Codable {
            case insuranceCode = "insurance_code"
            case createdAt = "created_at"
            case updatedAt = "updated_at"
-           case pharmacyOrderID = "pharmacy_order_id"
+//           case pharmacyOrderID = "pharmacy_order_id"
            case accept, patient, details
        }
 }

@@ -16,14 +16,14 @@ class CustomDoctorDataView: CustomBaseView {
         didSet {
             
             
-            guard  let s = patient.type.toInt(),let urlString = patient.patient.insurance.url,let url = URL(string: urlString) else {return}
+            guard  let s = patient.type.toInt(),let urlString = patient.patient.insurance?.url,let url = URL(string: urlString) else {return}
             
             let type = s == 1 ? "New" : s == 2 ? "Consultation" : s == 3 ? "Continue" : "All"
             let number = patient.reservationNumber
             
             let first = makeAttributedTextssss(fir: "Reservation Type", sec: type)
             let second = makeAttributedTextssss(fir: "Reservation  Number", sec: "\(number)")
-            let insuranceCompany = patient.patient.insurance.name
+            let insuranceCompany = patient.patient.insurance?.name
             let notes = patient.notes ?? "No Notes Found"
             
             DispatchQueue.main.async {[unowned self] in

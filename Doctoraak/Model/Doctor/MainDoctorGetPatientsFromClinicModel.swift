@@ -25,16 +25,18 @@ struct PatientModel:Codable {
     var nameAr, nameFr,apiToken,firebaseToken: String?
     let phone, smsCode: String
     let email, gender, password: String
-    let active, insuranceID: Int
+    let active: Int
     let birthdate: String
     let photo: String
+    var insuranceID:Int? 
+    
     var insuranceCode: String?
     let address: String
     var blockDate,addressAr, addressFr: String?
     let createdAt, updatedAt: String
     var insuranceCodeID, blockDays: Int?
     let url: String
-    let insurance: InsurcaneCompanyModel
+    var insurance: InsurcaneCompanyModel?
 
     enum CodingKeys: String, CodingKey {
         case id, name

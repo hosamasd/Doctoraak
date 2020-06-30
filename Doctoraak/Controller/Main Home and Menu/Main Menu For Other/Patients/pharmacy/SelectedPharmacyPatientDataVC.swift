@@ -10,7 +10,15 @@ import UIKit
 import SVProgressHUD
 import MOLH
 
+protocol SelectedPharmacyPatientDataProtocol{
+    
+    func deletePHY(indexPath:IndexPath,index:Int)
+//    func deleteLAB(indexPath:IndexPath)
+//    func deleteRAD(indexPath:IndexPath)
+}
+
 class SelectedPharmacyPatientDataVC: CustomBaseViewVC {
+    
     lazy var scrollView: UIScrollView = {
         let v = UIScrollView()
         v.backgroundColor = .clear
@@ -45,12 +53,15 @@ class SelectedPharmacyPatientDataVC: CustomBaseViewVC {
         return v
     }()
     lazy var textView = UITextView(frame: CGRect.zero)
+    var delgate:SelectedPharmacyPatientDataProtocol?
+    var indexPath:IndexPath?
     
     
     fileprivate let index:Int!
     var lab:LabModel?{
         didSet{
             guard let lab = lab else { return  }
+            
         }
     }
     var phy:PharamacyModel?{
@@ -85,6 +96,7 @@ class SelectedPharmacyPatientDataVC: CustomBaseViewVC {
        var radOrderss:RadiologyOrderModel?{
            didSet{
                guard let lab = radOrderss else { return  }
+//            lab.details.first?.rays.
                customSelectedPatientDataVC.patientCell.patient=lab.patient
            }
        }
@@ -93,6 +105,8 @@ class SelectedPharmacyPatientDataVC: CustomBaseViewVC {
         didSet{
             guard let lab = labOrder else { return  }
             customSelectedPatientDataVC.patientCell.patient=lab.patient
+            customSelectedPatientDataVC.lab=lab
+
         }
     }
 //    var phyOrder:PharmacyGetOrdersModel?{
@@ -105,6 +119,7 @@ class SelectedPharmacyPatientDataVC: CustomBaseViewVC {
         didSet{
             guard let lab = radOrder else { return  }
             customSelectedPatientDataVC.patientCell.patient=lab.patient
+            customSelectedPatientDataVC.rad=lab
         }
     }
     //    fileprivate let phy:PharmacyGetOrdersModel!
@@ -161,6 +176,8 @@ class SelectedPharmacyPatientDataVC: CustomBaseViewVC {
             guard let user = base else {return}
             SVProgressHUD.showSuccess(withStatus: MOLHLanguage.isRTLLanguage() ? user.message : user.messageEn)
             self.customSelectedPatientDataVC.bottomStack.isHide(true)
+            self.makeAction()
+
         }
     }
     
@@ -197,9 +214,17 @@ class SelectedPharmacyPatientDataVC: CustomBaseViewVC {
             self.activeViewsIfNoData()
             guard let user = base else {return}
             SVProgressHUD.showSuccess(withStatus: MOLHLanguage.isRTLLanguage() ? user.message : user.messageEn)
+            self.makeAction()
             //            self.customSelectedPatientDataVC.bottomStack.isHide(true)
             //            self.customSelectedPatientDataVC.isAcceptOrRefused = true
         }
+    }
+    
+    func makeAction()  {
+       guard let indexPath = indexPath else { return  }
+        
+        delgate?.deletePHY(indexPath: indexPath, index: index)
+        navigationController?.popViewController(animated: true)
     }
     
     func createAlert(ind:Int)  {
@@ -259,6 +284,8 @@ class SelectedPharmacyPatientDataVC: CustomBaseViewVC {
                        self.activeViewsIfNoData()
                        guard let user = base else {return}
                        SVProgressHUD.showSuccess(withStatus: MOLHLanguage.isRTLLanguage() ? user.message : user.messageEn)
+            self.makeAction()
+
         }
     }
     

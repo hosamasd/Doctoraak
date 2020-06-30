@@ -19,19 +19,6 @@ class CustomMainHomeLeftView: CustomBaseView {
             guard let index = index else { return  }
         }
     }
-    
-//    var doctor:DoctorModel?{
-//          didSet{
-//              guard let lab = doctor else { return  }
-//              
-//              let name = MOLHLanguage.isRTLLanguage() ? lab.nameAr ?? lab.name : lab.name
-//              let dd =  getSpecizalitionFromIndex(lab.specializationID)
-//              userNameLabel.text = name+"\n"+dd
-//              let urlString = lab.photo
-//              guard let url = URL(string: urlString) else { return  }
-//              userImage.sd_setImage(with: url)
-//          }
-//      }
    
     var lab:LabModel?{
         didSet{
@@ -86,19 +73,12 @@ class CustomMainHomeLeftView: CustomBaseView {
     }()
     lazy var userNameLabel = UILabel(text: "", font: .systemFont(ofSize: 20), textColor: .white,textAlignment: MOLHLanguage.isRTLLanguage() ? .right : .left,numberOfLines: 2)
     
-//    lazy var homeLeftMenuCollectionVC:HomeLeftMenuCollcetionVC  =  {
-//        let vc = HomeLeftMenuCollcetionVC()
-//        vc.handleCheckedDocIndex = {[unowned self ] index in
-//            self.handleCheckedDocIndex?(index)
-//        }
-//        return vc
-//    }()
     lazy var homeAllLeftMenuCollectionVC:SecondHomeLeftMenuCollcetionVC  =  {
         let vc = SecondHomeLeftMenuCollcetionVC()
         vc.handleCheckedIndex = {[unowned self ] index in
             self.handleCheckedIndex?(index)
         }
-        vc.collectionView.isHide(true)
+//        vc.collectionView.isHide(true)
         return vc
     }()
     var handleCheckedIndex:((IndexPath)->Void)?

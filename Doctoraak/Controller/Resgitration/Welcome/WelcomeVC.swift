@@ -101,7 +101,7 @@ class WelcomeVC: CustomBaseViewVC {
     
     fileprivate func saveData() {
         
-        userDefaults.bool(forKey: UserDefaultsConstants.isCachedDriopLists) ? cachedDropLists() : ()
+        !userDefaults.bool(forKey: UserDefaultsConstants.isCachedDriopLists) ? cachedDropLists() : ()
     }
     
     
@@ -216,11 +216,6 @@ class WelcomeVC: CustomBaseViewVC {
             semaphore.signal()
             self.reloadMainData(group1, group11, group0,group01,groupL,groupR,groupMN,groupMTY,groupPayment,groupPY,groupray,grouprads,groupze)
             semaphore.wait()
-            
-            //            semaphore.signal()
-            //            self.handleNext()
-            //                       semaphore.wait()
-            
         }
     }
     
@@ -513,10 +508,10 @@ class WelcomeVC: CustomBaseViewVC {
         //            dismiss(animated: true)
         //        }else {
         
-        let index = userDefaults.integer(forKey: UserDefaultsConstants.isUserRegisterAndWaitForSMScODEIndex)
-        let phoneNumber = userDefaults.string(forKey: UserDefaultsConstants.userMobileNumber) ?? ""
+//        let index = userDefaults.integer(forKey: UserDefaultsConstants.isUserRegisterAndWaitForSMScODEIndex)
+//        let phoneNumber = userDefaults.string(forKey: UserDefaultsConstants.userMobileNumber) ?? ""
         
-        let check = userDefaults.bool(forKey: UserDefaultsConstants.isUserRegisterAndWaitForSMScODE) ? MainVerificationVC(indexx: index, isFromForgetPassw: false, isFromDoctor: false, phone: phoneNumber, user_id: -1) : WelcomeMainSecondVC()
+//        let check = userDefaults.bool(forKey: UserDefaultsConstants.isUserRegisterAndWaitForSMScODE) ? MainVerificationVC(indexx: index, isFromForgetPassw: false, isFromDoctor: false, phone: phoneNumber, user_id: -1) : WelcomeMainSecondVC()
         userDefaults.set(false, forKey: UserDefaultsConstants.isWelcomeVCAppear)
         userDefaults.synchronize()
         

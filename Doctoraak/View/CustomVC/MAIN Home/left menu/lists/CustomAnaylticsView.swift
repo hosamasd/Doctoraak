@@ -35,7 +35,6 @@ class CustomAnaylticsView: CustomBaseView {
     }()
     lazy var docotrLabel = UILabel(text: "Doctoraak ".localized, font: .systemFont(ofSize: 20), textColor: .white,textAlignment: .center)
     lazy var titleLabel = UILabel(text: "Anaylicts".localized, font: .systemFont(ofSize: 35), textColor: .white)
-    lazy var soonLabel = UILabel(text: "Get well soon!".localized, font: .systemFont(ofSize: 18), textColor: .white)
     
     lazy var mainWebView:WKWebView = {
         let v = WKWebView()
@@ -44,15 +43,21 @@ class CustomAnaylticsView: CustomBaseView {
     }()
     
     override func setupViews() {
-        addSubViews(views: LogoImage,backImage,titleLabel,drImage,docotrLabel,soonLabel,mainWebView)
+        titleLabel.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left
+
+        addSubViews(views: LogoImage,backImage,titleLabel,drImage,docotrLabel,mainWebView)
         
         
-        LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
+        if MOLHLanguage.isRTLLanguage() {
+             LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 0, bottom: 0, right: -48))
+         }else {
+             
+             LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
+        }
         backImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 60, left: 16, bottom: 0, right: 0))
         titleLabel.anchor(top: nil, leading: leadingAnchor, bottom: LogoImage.bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
         drImage.anchor(top: topAnchor, leading: backImage.trailingAnchor, bottom: nil, trailing: nil,padding: .init(top: 60, left: 24, bottom: 0, right: 0))
         docotrLabel.anchor(top: topAnchor, leading: drImage.trailingAnchor, bottom: nil, trailing: nil,padding: .init(top: 65, left: 16, bottom: 0, right: 0))
-        soonLabel.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
         mainWebView.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 86, left: 16, bottom: 0, right: 0))
     }
 }

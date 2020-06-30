@@ -16,6 +16,7 @@ protocol MainClinicWorkingHoursssProtocol {
 }
 
 let cachdDOCTORWorkingHourObjectCodabe: LocalJSONStore<[WorkModel]> = LocalJSONStore(storageType: .cache, filename: "docs.json")
+let cachdMEDICALCenterWorkingHourObjectCodabe: LocalJSONStore<[WorkModel]> = LocalJSONStore(storageType: .cache, filename: "docsss.json")
 
 let cacheLABObjectWorkingHours: LocalJSONStore<[PharamacyWorkModel]> = LocalJSONStore(storageType: .cache, filename: "lbw.json")
 let cachdRADObjectWorkingHours: LocalJSONStore<[PharamacyWorkModel]> = LocalJSONStore(storageType: .cache, filename: "rdw.json")
@@ -32,7 +33,7 @@ class MainClinicWorkingHoursNotDoctorVC: CustomBaseViewVC {
     }()
     lazy var mainView:UIView = {
         let v = UIView(backgroundColor: .white)
-        v.constrainHeight(constant: 900)
+        v.constrainHeight(constant: 930)
         v.constrainWidth(constant: view.frame.width)
         return v
     }()
@@ -106,6 +107,8 @@ class MainClinicWorkingHoursNotDoctorVC: CustomBaseViewVC {
             customClinicWorkingHoursView.workingHoursCachedPHY = cachdPHARMACYObjectWorkingHours.storedValue
             
         }
+        }else {
+            [customClinicWorkingHoursView.workingHoursCachedLAB,customClinicWorkingHoursView.workingHoursCachedRAD,customClinicWorkingHoursView.workingHoursCachedPHY].forEach({$0 == nil})
         }
         
     }
@@ -199,9 +202,9 @@ class MainClinicWorkingHoursNotDoctorVC: CustomBaseViewVC {
     }
     
     @objc func handleBack()  {
-        if isFromRegister {
+        if isFromRegister || isBeenUpdated {
                     navigationController?.popViewController(animated: true)
-  }else {  dismiss(animated: true)  }
+        }else {  dismiss(animated: true)  }
     }
     
     @objc func handleDone()  {

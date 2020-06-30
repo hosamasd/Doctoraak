@@ -22,8 +22,9 @@ class CustomMainClinicWorkingHoursView: CustomBaseView {
         didSet{
             guard let work = workingHours else { return  }
             work.forEach { (w) in
-                putTheses(w: w)
                 putDefaultPHY(l:w)
+                putTheses(w: w)
+                
             }
         }
     }
@@ -32,9 +33,9 @@ class CustomMainClinicWorkingHoursView: CustomBaseView {
         didSet{
             guard let work = workingHoursLAB else { return  }
             work.forEach { (w) in
-                putThesesLAB(w: w)
+                
                 putDefaultLab(l:w)
-
+                putThesesLAB(w: w)
             }
         }
     }
@@ -43,9 +44,8 @@ class CustomMainClinicWorkingHoursView: CustomBaseView {
         didSet{
             guard let work = workingHoursRAD else { return  }
             work.forEach { (w) in
-                putThesesRAD(w: w)
                 putDefaultRAD(l:w)
-
+                putThesesRAD(w: w)
             }
         }
     }
@@ -216,17 +216,23 @@ class CustomMainClinicWorkingHoursView: CustomBaseView {
     }
     
     override func setupViews() {
+        [titleLabel,soonLabel].forEach({$0.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left})
         
         [first2TextField,first1TextField,second1TextField,second2TextField,third1TextField,third2TextField,forth1TextField,forth2TextField,fifth1TextField,fifth2TextField,sexth1TextField,sexth2TextField,seventh2TextField,seventh1TextField].forEach({$0
             .addTarget(self, action:#selector(handleShowPicker), for: .touchUpInside)})
         [second1TextField,second2TextField].forEach({$0.isEnabled = true})
         
-        [satButton,sunButton,monButton,tuesButton,thuButton,wedButton,friButton].forEach({$0.constrainWidth(constant: 50)})
+        [satButton,sunButton,monButton,tuesButton,thuButton,wedButton,friButton].forEach({$0.constrainWidth(constant: 60)})
         
         addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,totalStack,doneButton)
         
         
-        LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
+        if MOLHLanguage.isRTLLanguage() {
+            LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 0, bottom: 0, right: -48))
+        }else {
+            
+            LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
+        }
         backImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 60, left: 16, bottom: 0, right: 0))
         titleLabel.anchor(top: nil, leading: leadingAnchor, bottom: LogoImage.bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
         soonLabel.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
@@ -246,7 +252,7 @@ class CustomMainClinicWorkingHoursView: CustomBaseView {
         t.setTitleColor(.black, for: .normal)
         t.backgroundColor = .white
         t.setTitle("00:00", for: .normal)
-        t.constrainHeight(constant: 50)
+        //        t.constrainHeight(constant: 50)
         t.tag = tags
         t.isEnabled = false
         
@@ -267,9 +273,9 @@ class CustomMainClinicWorkingHoursView: CustomBaseView {
         button.clipsToBounds = true
         button.setTitle(title, for: .normal)
         button.setTitleColor(color, for: .normal)
-        button.constrainHeight(constant: 50)
+        button.constrainHeight(constant: 60)
         button.tag = tags ?? 0
-        button.layer.cornerRadius = 25
+        button.layer.cornerRadius = 30
         button.addTarget(self, action:#selector(handleOpen), for: .touchUpInside)
         //        button.addTarget(self, action: #selector(handleOpen), for: .touchUpInside)
         return button
@@ -572,25 +578,25 @@ class CustomMainClinicWorkingHoursView: CustomBaseView {
         
         var ss = [String]()
         if checkActiveDay(day1) {
-            ss.append("Sat")
+            ss.append("Sat".localized)
         }
         if checkActiveDay(day2) {
-            ss.append("Sun")
+            ss.append("Sun".localized)
         }
         if checkActiveDay(day3) {
-            ss.append("Mon")
+            ss.append("Mon".localized)
         }
         if checkActiveDay(day4) {
-            ss.append("Tue")
+            ss.append("Tue".localized)
         }
         if checkActiveDay(day5) {
-            ss.append("Wed")
+            ss.append("Wed".localized)
         }
         if checkActiveDay(day6) {
-            ss.append("Thr")
+            ss.append("Thr".localized)
         }
         if checkActiveDay(day7) {
-            ss.append("Fri")
+            ss.append("Fri".localized)
         }
         return ss
     }
@@ -637,46 +643,45 @@ class CustomMainClinicWorkingHoursView: CustomBaseView {
     }
     
     func putDefaultRAD(l:RadiologyWorkingHourModel)  {
-           switch l.day {
-           case 1:
-               d1TXT1 = l.partFrom ; d1TXT2=l.partTo;day1=l.active
-           case 2:
-               d2TXT1 = l.partFrom ; d2TXT2=l.partTo;day2=l.active
-           case 3:
-               d3TXT1 = l.partFrom ; d3TXT2=l.partTo;day3=l.active
-           case 4:
-               d4TXT1 = l.partFrom ; d4TXT2=l.partTo;day4=l.active
-           case 5:
-               d5TXT1 = l.partFrom ; d5TXT2=l.partTo;day5=l.active
-           case 6:
-               d6TXT1 = l.partFrom ; d6TXT2=l.partTo;day6=l.active
-           default:
-               d7TXT1 = l.partFrom ; d7TXT2=l.partTo;day7=l.active
-           }
-       }
+        switch l.day {
+        case 1:
+            d1TXT1 = l.partFrom ; d1TXT2=l.partTo;day1=l.active
+        case 2:
+            d2TXT1 = l.partFrom ; d2TXT2=l.partTo;day2=l.active
+        case 3:
+            d3TXT1 = l.partFrom ; d3TXT2=l.partTo;day3=l.active
+        case 4:
+            d4TXT1 = l.partFrom ; d4TXT2=l.partTo;day4=l.active
+        case 5:
+            d5TXT1 = l.partFrom ; d5TXT2=l.partTo;day5=l.active
+        case 6:
+            d6TXT1 = l.partFrom ; d6TXT2=l.partTo;day6=l.active
+        default:
+            d7TXT1 = l.partFrom ; d7TXT2=l.partTo;day7=l.active
+        }
+    }
     
     func putDefaultPHY(l:PharamacyWorkingHourModel)  {
-           switch l.day {
-           case 1:
-               d1TXT1 = l.partFrom ; d1TXT2=l.partTo;day1=l.active
-           case 2:
-               d2TXT1 = l.partFrom ; d2TXT2=l.partTo;day2=l.active
-           case 3:
-               d3TXT1 = l.partFrom ; d3TXT2=l.partTo;day3=l.active
-           case 4:
-               d4TXT1 = l.partFrom ; d4TXT2=l.partTo;day4=l.active
-           case 5:
-               d5TXT1 = l.partFrom ; d5TXT2=l.partTo;day5=l.active
-           case 6:
-               d6TXT1 = l.partFrom ; d6TXT2=l.partTo;day6=l.active
-           default:
-               d7TXT1 = l.partFrom ; d7TXT2=l.partTo;day7=l.active
-           }
-       }
+        switch l.day {
+        case 1:
+            d1TXT1 = l.partFrom ; d1TXT2=l.partTo;day1=l.active
+        case 2:
+            d2TXT1 = l.partFrom ; d2TXT2=l.partTo;day2=l.active
+        case 3:
+            d3TXT1 = l.partFrom ; d3TXT2=l.partTo;day3=l.active
+        case 4:
+            d4TXT1 = l.partFrom ; d4TXT2=l.partTo;day4=l.active
+        case 5:
+            d5TXT1 = l.partFrom ; d5TXT2=l.partTo;day5=l.active
+        case 6:
+            d6TXT1 = l.partFrom ; d6TXT2=l.partTo;day6=l.active
+        default:
+            d7TXT1 = l.partFrom ; d7TXT2=l.partTo;day7=l.active
+        }
+    }
     
     func putTitleForButtons(b:Bool,bt:UIButton,text:String)  {
         bt.setTitle(b == true ? changeTimeForButtonTitle(values: text): changeTimeForButtonTitless(values: text), for: .normal)
-        print(999)
     }
     
     func changeTimeForButtonTitle(values:String)->String  {
@@ -706,10 +711,6 @@ class CustomMainClinicWorkingHoursView: CustomBaseView {
     }
     
     func activeOrNot(v:UIButton,d:Int)  {
-        //        if isFromUpdateProfile {
-        //             v.isEnabled = checkActiveDay(d)
-        //        }
-        //                   v.isEnabled = checkActiveDay(d)
         if checkActiveDay(d) {
             addGradientInSenderAndRemoveOther(sender: v)
         }else {}
@@ -763,10 +764,6 @@ class CustomMainClinicWorkingHoursView: CustomBaseView {
     
     @objc func handleShowPicker(sender:UIButton) {
         handleShowPickers?(sender)
-    }
-    
-    @objc func tapDone()  {
-        print(969)
     }
     
     @objc  func handleOpen(sender:UIButton)  {

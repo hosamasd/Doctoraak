@@ -18,10 +18,6 @@ class NotificationCell: BaseCollectionCell {
             let title = MOLHLanguage.isRTLLanguage() ? notu.titleAr :  notu.titleEn
             let order = MOLHLanguage.isRTLLanguage() ? notu.messageAr :  notu.messageEn
             notifyDetailsLabel.text = "\(title) \n \t \(order)"
-//            guard let urlString = notu.order?.photo, let url = URL(string: urlString),let dd = notu.createdAt.toDates() else { return  }
-//            notifyProfileImage.sd_setImage(with: url)
-//            let dateString = notu.createdAt.timeAgoSinceDate( dd, currentDate: Date(), numericDates: true)
-//            notifyDateLabel.text = dateString
         }
     }
     
@@ -31,10 +27,6 @@ class NotificationCell: BaseCollectionCell {
             let title = MOLHLanguage.isRTLLanguage() ? notu.titleAr :  notu.titleEn
             let order = MOLHLanguage.isRTLLanguage() ? notu.messageAr :  notu.messageEn
             notifyDetailsLabel.text = "\(title) \n \(order)"
-//            guard let urlString = notu.order?.patient.photo, let url = URL(string: urlString),let dd = notu.createdAt.toDates() else { return  }
-//            notifyProfileImage.sd_setImage(with: url)
-//            let dateString = notu.createdAt.timeAgoSinceDate( dd, currentDate: Date(), numericDates: true)
-//            notifyDateLabel.text = dateString
         }
     }
     
@@ -44,10 +36,6 @@ class NotificationCell: BaseCollectionCell {
             let title = MOLHLanguage.isRTLLanguage() ? notu.titleAr :  notu.titleEn
             let order = MOLHLanguage.isRTLLanguage() ? notu.messageAr :  notu.messageEn
             notifyDetailsLabel.text = "\(title) \n \(order)"
-//            guard let urlString = notu.order?.photo, let url = URL(string: urlString),let dd = notu.createdAt.toDates() else { return  }
-//            notifyProfileImage.sd_setImage(with: url)
-//            let dateString = notu.createdAt.timeAgoSinceDate( dd, currentDate: Date(), numericDates: true)
-//            notifyDateLabel.text = dateString
         }
     }
     
@@ -57,10 +45,6 @@ class NotificationCell: BaseCollectionCell {
             let title = MOLHLanguage.isRTLLanguage() ? notu.titleAr :  notu.titleEn
             let order = MOLHLanguage.isRTLLanguage() ? notu.messageAr :  notu.messageEn
             notifyDetailsLabel.text = "\(title) \n \(order)"
-//            guard let urlString = notu.order?.photo, let url = URL(string: urlString),let dd = notu.createdAt.toDates() else { return  }
-//            notifyProfileImage.sd_setImage(with: url)
-//            let dateString = notu.createdAt.timeAgoSinceDate( dd, currentDate: Date(), numericDates: true)
-//            notifyDateLabel.text = dateString
         }
     }
     
@@ -72,17 +56,24 @@ class NotificationCell: BaseCollectionCell {
         i.clipsToBounds = true
         return i
     }()
-//    lazy var notifyDateLabel = UILabel(text: "12:30 pm", font: .systemFont(ofSize: 16), textColor: .lightGray)
     
     lazy var notifyDetailsLabel = UILabel(text: "", font: .systemFont(ofSize: 16), textColor: .black,textAlignment: .left,numberOfLines: 0)
     
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+
+    }
     
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        
-        self.layer.cornerRadius = 5
-        self.contentView.layer.cornerRadius = 5
+        setupShadow(opacity: 10, radius: 50, offset: .zero, color: .red)
+
+//        self.layer.cornerRadius = 5
+//        self.contentView.layer.cornerRadius = 5
         let shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: 16)
         self.layer.masksToBounds = false
         self.layer.shadowColor = UIColor.gray.cgColor
@@ -94,39 +85,12 @@ class NotificationCell: BaseCollectionCell {
     
     
     override  func setupViews() {
-        backgroundColor = .white
-        layer.borderWidth = 0.5
-        layer.borderColor = UIColor.gray.cgColor
+        notifyDetailsLabel.textAlignment=MOLHLanguage.isRTLLanguage() ? .right : .left
         layer.cornerRadius = 16
         clipsToBounds = true
-//        notifyDateLabel.constrainHeight(constant: 20)
-//        let s = hstack(UIView(),notifyDateLabel)
-//        let ff = stack(notifyDetailsLabel,spacing:16)
-        
         let d = stack(notifyProfileImage,UIView()).padTop(16)
         
         hstack(d,notifyDetailsLabel,spacing:16).withMargins(.init(top: 0, left: 16, bottom: 8, right: 8))
         
     }
 }
-
-
-//    lazy var notifyProfileImage:UIImageView = {
-//        let i = UIImageView(backgroundColor: .gray)
-//        i.constrainWidth(constant: 120)
-//        i.layer.cornerRadius = 8
-//        i.clipsToBounds = true
-//        return i
-//    }()
-//    lazy var notifyNameLabel = UILabel(text: "Jana Helal", font: .systemFont(ofSize: 20), textColor: .black)
-//
-//    lazy var notifyDetailsLabel = UILabel(text: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.", font: .systemFont(ofSize: 16), textColor: .lightGray,textAlignment: .left,numberOfLines: 0)
-//
-//    override func setupViews() {
-//        notifyNameLabel.constrainHeight(constant: 30)
-//        let s = stack(notifyNameLabel,notifyDetailsLabel)
-//
-//     hstack(notifyProfileImage,s,spacing:8).withMargins(.init(top: 8, left: 8, bottom: 8, right: 8))
-//
-//    }
-//}
