@@ -23,6 +23,8 @@ class UserDefaultsConstants {
     static let doctorRegisterMale="doctorRegisterMale"
     static let imageForpecific="imageForpecific"
 
+    static let isdoctorWaitForAddClinic="isdoctorWaitForAddClinic"
+
 
     
     //cached working hours

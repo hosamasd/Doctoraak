@@ -16,6 +16,8 @@ import MapKit
 
 class CustomPharamacyProfileView: CustomBaseView {
     
+    
+    
     var phy:PharamacyModel?{
         didSet{
             guard let phy = phy else { return  }
@@ -32,16 +34,11 @@ class CustomPharamacyProfileView: CustomBaseView {
             getIncuracneNames(dd: phy.insuranceCompany)
             doctorProfileImage.sd_setImage(with: url)
             
-            edirProfileViewModel.image=doctorProfileImage.image
-            edirProfileViewModel.apiToekn = phy.apiToken
-            edirProfileViewModel.user_Id = phy.id
-            edirProfileViewModel.name = phy.name
-            edirProfileViewModel.delivery=phy.delivery.toInt()
-            edirProfileViewModel.latt = phy.latt?.toDouble()
-            edirProfileViewModel.lang=phy.lang?.toDouble()
-            edirProfileViewModel.working_hours = getWorkingHourss(ind: phy.workingHours)
+            putPHYViewModel(phy)
         }
     }
+    
+    
     
     var rad:RadiologyModel?{
         didSet{
@@ -66,16 +63,11 @@ class CustomPharamacyProfileView: CustomBaseView {
             getIncuracneNames(dd: phy.insuranceCompany)
             doctorProfileImage.sd_setImage(with: url)
             
-            edirProfileViewModel.image=doctorProfileImage.image
-            edirProfileViewModel.apiToekn = phy.apiToken
-            edirProfileViewModel.user_Id = phy.id
-            edirProfileViewModel.name = phy.name
-            edirProfileViewModel.delivery=phy.delivery.toInt()
-            edirProfileViewModel.latt = phy.latt.toDouble()
-            edirProfileViewModel.lang=phy.lang.toDouble()
-            edirProfileViewModel.working_hours = getWorkingHourssRAD(ind: phy.workingHours)
+            putRADViewModel(phy)
         }
     }
+    
+    
     
     var lab:LabModel?{
         didSet{
@@ -98,14 +90,7 @@ class CustomPharamacyProfileView: CustomBaseView {
             getIncuracneNames(dd: phy.insuranceCompany)
             doctorProfileImage.sd_setImage(with: url)
             
-            edirProfileViewModel.image=doctorProfileImage.image
-            edirProfileViewModel.apiToekn = phy.apiToken
-            edirProfileViewModel.user_Id = phy.id
-            edirProfileViewModel.name = phy.name
-            edirProfileViewModel.delivery=phy.delivery.toInt()
-            edirProfileViewModel.latt = phy.latt.toDouble()
-            edirProfileViewModel.lang=phy.lang.toDouble()
-            edirProfileViewModel.working_hours = getWorkingHourssLAB(ind: phy.workingHours)
+            putLABViewModel(phy)
         }
     }
     
@@ -124,7 +109,7 @@ class CustomPharamacyProfileView: CustomBaseView {
     lazy var titleLabel = UILabel(text: "Profile".localized, font: .systemFont(ofSize: 35), textColor: .white)
     
     lazy var doctorProfileImage:UIImageView = {
-        let i = UIImageView(image: #imageLiteral(resourceName: "Group 4143"))
+        let i = UIImageView(backgroundColor: .gray)//UIImageView(image: #imageLiteral(resourceName: "Group 4143"))
         i.constrainWidth(constant: 100)
         i.constrainHeight(constant: 100)
         i.layer.cornerRadius = 50
@@ -166,11 +151,11 @@ class CustomPharamacyProfileView: CustomBaseView {
         l.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpenCloseInsurance)))
         if MOLHLanguage.isRTLLanguage() {
             l.hstack(insuracneText,doenImage).withMargins(.init(top: 0, left: 0, bottom: 0, right: 16))
-
+            
         }else {
             l.hstack(insuracneText,doenImage).withMargins(.init(top: 0, left: 16, bottom: 0, right: 0))
         }
-            l.constrainHeight(constant: 60)
+        l.constrainHeight(constant: 60)
         return l
     }()
     lazy var deliveryLabel = UILabel(text: "Delivery ?".localized, font: .systemFont(ofSize: 20), textColor: .lightGray)
@@ -277,7 +262,7 @@ class CustomPharamacyProfileView: CustomBaseView {
     
     override func setupViews() {
         [titleLabel,insuracneText,addressLabel,workingHoursLabel,deliveryLabel].forEach({$0.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left})
-
+        
         
         
         [mobileNumberTextField,emailTextField].forEach({$0.isUserInteractionEnabled=false})
@@ -327,8 +312,29 @@ class CustomPharamacyProfileView: CustomBaseView {
         
     }
     
+    fileprivate func putLABViewModel(_ phy: LabModel) {
+        edirProfileViewModel.image=doctorProfileImage.image
+        edirProfileViewModel.apiToekn = phy.apiToken
+        edirProfileViewModel.user_Id = phy.id
+        edirProfileViewModel.name = phy.name
+        edirProfileViewModel.delivery=phy.delivery.toInt()
+        edirProfileViewModel.latt = phy.latt.toDouble()
+        edirProfileViewModel.lang=phy.lang.toDouble()
+        edirProfileViewModel.working_hours = getWorkingHourssLAB(ind: phy.workingHours)
+    }
     
-    func getIncuracneNames(dd:[InsurcaneCompanyModel])  {
+    fileprivate func putPHYViewModel(_ phy: PharamacyModel) {
+        edirProfileViewModel.image=doctorProfileImage.image
+        edirProfileViewModel.apiToekn = phy.apiToken
+        edirProfileViewModel.user_Id = phy.id
+        edirProfileViewModel.name = phy.name
+        edirProfileViewModel.delivery=phy.delivery.toInt()
+        edirProfileViewModel.latt = phy.latt?.toDouble()
+        edirProfileViewModel.lang=phy.lang?.toDouble()
+        edirProfileViewModel.working_hours = getWorkingHourss(ind: phy.workingHours)
+    }
+    
+    fileprivate  func getIncuracneNames(dd:[InsurcaneCompanyModel])  {
         var sss = ""
         var aaaa = ""
         var eee = [Int]()
@@ -347,7 +353,7 @@ class CustomPharamacyProfileView: CustomBaseView {
     }
     
     
-    func putDataInDrops(sr:[String],sid:[Int],dr:[String],did:[Int],insuranceNameArray:[String],insuranceNumberArray:[Int])  {
+    fileprivate func putDataInDrops(sr:[String],sid:[Int],dr:[String],did:[Int],insuranceNameArray:[String],insuranceNumberArray:[Int])  {
         self.cityArray = sr
         self.areaArray = dr
         self.cityIDSArray = sid
@@ -386,20 +392,7 @@ class CustomPharamacyProfileView: CustomBaseView {
         fetchEnglishData(isArabic: MOLHLanguage.isRTLLanguage())
     }
     
-    func putOtherData(_ patient:PharamacyModel) {
-        //            edirProfileViewModel.name=patient.name
-        //            edirProfileViewModel.email=patient.email
-        //            edirProfileViewModel.birthday=patient.birthdate
-        //            edirProfileViewModel.male=patient.gender
-        //            edirProfileViewModel.address=patient.address
-        //            edirProfileViewModel.user_id=patient.id
-        //            edirProfileViewModel.api_token=patient.apiToken
-        //            edirProfileViewModel.image=doctorEditProfileImageView.image ?? UIImage()
-        //            edirProfileViewModel.isPhotoEdit=false
-        //            edirProfileViewModel.phone=patient.phone
-    }
-    
-    func createTexts(type:UIKeyboardType,placeholder:String,title:String,userInteraction:Bool) -> SkyFloatingLabelTextField {
+    fileprivate func createTexts(type:UIKeyboardType,placeholder:String,title:String,userInteraction:Bool) -> SkyFloatingLabelTextField {
         let t = SkyFloatingLabelTextField()
         t.keyboardType = UIKeyboardType.default
         t.placeholder = placeholder
@@ -416,49 +409,19 @@ class CustomPharamacyProfileView: CustomBaseView {
         
     }
     
-    func checkActiveDay(_ d:Int) -> Bool {
+    fileprivate  func checkActiveDay(_ d:Int) -> Bool {
         return d == 1 ? true : false
     }
     
     
-    func getDays(ind:[PharamacyWorkingHourModel])  ->[String]{
+    fileprivate  func getDays(ind:[PharamacyWorkingHourModel])  ->[String]{
         var ss = [String]()
         ind.forEach { (s) in
             ss.append( getDaysForAll(s.active, day: s.day) ?? "")
-
-//            if s.day == 1{
-//                if checkActiveDay(s.active) {
-//                    ss.append("Sat")
-//                }
-//            }else  if s.day == 2{
-//                if checkActiveDay(s.active) {
-//                    ss.append("Sun")
-//                }
-//            }else  if s.day == 3{
-//                if checkActiveDay(s.active) {
-//                    ss.append("Mon")
-//                }
-//            }else  if s.day == 4{
-//                if checkActiveDay(s.active) {
-//                    ss.append("Tue")
-//                }
-//            }else  if s.day == 5{
-//                if checkActiveDay(s.active) {
-//                    ss.append("Wed")
-//                }
-//            }else  if s.day == 6{
-//                if checkActiveDay(s.active) {
-//                    ss.append("Thr")
-//                }
-//            }else {
-//                if checkActiveDay(s.active) {
-//                    ss.append("Fri")
-//                }
-//            }
         }
         let dd = ss.filter({$0 != "    "})
-               
-               return dd
+        
+        return dd
         
     }
     
@@ -466,23 +429,23 @@ class CustomPharamacyProfileView: CustomBaseView {
         switch day {
         case 1:
             if checkActiveDay(ww) {
-                         return "Sat".localized
-                       }
+                return "Sat".localized
+            }
         case 2:
             if checkActiveDay(ww) {
-               return "Sun".localized
+                return "Sun".localized
             }
         case 3:
             if checkActiveDay(ww) {
-               return "Mon".localized
+                return "Mon".localized
             }
         case 4:
             if checkActiveDay(ww) {
                 return "Tue".localized
             }
-         case 5:
+        case 5:
             if checkActiveDay(ww) {
-               return "Wed".localized
+                return "Wed".localized
             }
         case 6:
             if checkActiveDay(ww) {
@@ -490,13 +453,13 @@ class CustomPharamacyProfileView: CustomBaseView {
             }
         default:
             if checkActiveDay(ww) {
-              return "Fri".localized
+                return "Fri".localized
             }
         }
         return "    "
     }
     
-    func getDaysLab(ind:[LabWorkingHoursModel])  ->[String]{
+    fileprivate func getDaysLab(ind:[LabWorkingHoursModel])  ->[String]{
         var ss = [String]()
         ind.forEach { (s) in
             
@@ -507,49 +470,20 @@ class CustomPharamacyProfileView: CustomBaseView {
         return dd
     }
     
-    func getDaysRAD(ind:[RadiologyWorkingHourModel])  ->[String]{
+    fileprivate func getDaysRAD(ind:[RadiologyWorkingHourModel])  ->[String]{
         var ss = [String]()
-
+        
         ind.forEach { (s) in
             ss.append( getDaysForAll(s.active, day: s.day) ?? "")
-
-//            if s.day == 1{
-//                if checkActiveDay(s.active) {
-//                    ss.append("Sat")
-//                }
-//            }else  if s.day == 2{
-//                if checkActiveDay(s.active) {
-//                    ss.append("Sun")
-//                }
-//            }else  if s.day == 3{
-//                if checkActiveDay(s.active) {
-//                    ss.append("Mon")
-//                }
-//            }else  if s.day == 4{
-//                if checkActiveDay(s.active) {
-//                    ss.append("Tue")
-//                }
-//            }else  if s.day == 5{
-//                if checkActiveDay(s.active) {
-//                    ss.append("Wed")
-//                }
-//            }else  if s.day == 6{
-//                if checkActiveDay(s.active) {
-//                    ss.append("Thr")
-//                }
-//            }else {
-//                if checkActiveDay(s.active) {
-//                    ss.append("Fri")
-//                }
-//            }
+            
         }
         let dd = ss.filter({$0 != "    "})
-               
-               return dd
+        
+        return dd
         
     }
     
-    func getWorkingHourss(ind:[PharamacyWorkingHourModel]) -> [PharamacyWorkModel]  {
+    fileprivate func getWorkingHourss(ind:[PharamacyWorkingHourModel]) -> [PharamacyWorkModel]  {
         var ss = [PharamacyWorkModel]()
         ind.forEach { (v) in
             let d = PharamacyWorkModel(partFrom: v.partFrom, partTo: v.partTo, day: v.day, active: v.active)
@@ -558,7 +492,7 @@ class CustomPharamacyProfileView: CustomBaseView {
         return ss
     }
     
-    func getWorkingHourssRAD(ind:[RadiologyWorkingHourModel]) -> [PharamacyWorkModel]  {
+    fileprivate func getWorkingHourssRAD(ind:[RadiologyWorkingHourModel]) -> [PharamacyWorkModel]  {
         var ss = [PharamacyWorkModel]()
         ind.forEach { (v) in
             let d = PharamacyWorkModel(partFrom: v.partFrom, partTo: v.partTo, day: v.day, active: v.active)
@@ -567,7 +501,7 @@ class CustomPharamacyProfileView: CustomBaseView {
         return ss
     }
     
-    func getWorkingHourssLAB(ind:[LabWorkingHoursModel]) -> [PharamacyWorkModel]  {
+    fileprivate func getWorkingHourssLAB(ind:[LabWorkingHoursModel]) -> [PharamacyWorkModel]  {
         var ss = [PharamacyWorkModel]()
         ind.forEach { (v) in
             let d = PharamacyWorkModel(partFrom: v.partFrom, partTo: v.partTo, day: v.day, active: v.active)
@@ -576,7 +510,7 @@ class CustomPharamacyProfileView: CustomBaseView {
         return ss
     }
     
-    func getCityFromIndex(_ index:Int) -> String {
+    fileprivate func getCityFromIndex(_ index:Int) -> String {
         var citName = [String]()
         var cityId = [Int]()
         
@@ -603,7 +537,7 @@ class CustomPharamacyProfileView: CustomBaseView {
         return citName[ff - 1 ]
     }
     
-    func getAreassFromIndex(_ index:Int) -> String {
+    fileprivate func getAreassFromIndex(_ index:Int) -> String {
         var citName = [String]()
         var cityId = [Int]()
         
@@ -630,13 +564,24 @@ class CustomPharamacyProfileView: CustomBaseView {
         return citName[ff - 1 ]
     }
     
-    func getNameANdCity(lat:Double,lng:Double)  {
+    fileprivate func getNameANdCity(lat:Double,lng:Double)  {
         let location = CLLocation(latitude: lat, longitude: lng)
         location.fetchCityAndCountry { city, country, error in
             guard let city = city, let country = country, error == nil else { return }
             self.addressLabel.text = city+" - "+country
             print(city + ", " + country)  // Rio de Janeiro, Brazil
         }
+    }
+    
+    fileprivate func putRADViewModel(_ phy: RadiologyModel) {
+        edirProfileViewModel.image=doctorProfileImage.image
+        edirProfileViewModel.apiToekn = phy.apiToken
+        edirProfileViewModel.user_Id = phy.id
+        edirProfileViewModel.name = phy.name
+        edirProfileViewModel.delivery=phy.delivery.toInt()
+        edirProfileViewModel.latt = phy.latt.toDouble()
+        edirProfileViewModel.lang=phy.lang.toDouble()
+        edirProfileViewModel.working_hours = getWorkingHourssRAD(ind: phy.workingHours)
     }
     
     fileprivate func getAreaAccordingToCityId(index:Int)  {

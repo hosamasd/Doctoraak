@@ -31,7 +31,6 @@ class DoctorSecondRegisterVC: CustomBaseViewVC {
         v.name = name
         v.email = email
         v.passowrd = passowrd
-        v.male = male
         v.mobile = mobile
         //        putSomeData()
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
@@ -65,20 +64,24 @@ class DoctorSecondRegisterVC: CustomBaseViewVC {
         }
     }
     
+    var male:String? {
+        didSet{
+            guard let male = male else { return  }
+            customCecondRegisterView.male=male
+        }
+    }
     //check to go specific way
     fileprivate let index:Int!
     fileprivate let name:String!
     fileprivate let mobile:String!
     fileprivate let passowrd:String!
-    fileprivate let male:String!
     fileprivate let photo:UIImage!
     
-    init(indexx:Int,male:String,photo:UIImage,name:String,mobile:String,passowrd:String) {
+    init(indexx:Int,photo:UIImage,name:String,mobile:String,passowrd:String) {
         self.index = indexx
         self.name = name
         self.passowrd = passowrd
         self.photo = photo
-        self.male = male
         self.mobile = mobile
         super.init(nibName: nil, bundle: nil)
     }
@@ -133,23 +136,42 @@ class DoctorSecondRegisterVC: CustomBaseViewVC {
         navigationController?.pushViewController(verify, animated: true)
     }
     
-    func saveToken(user_id:Int,_ sms:Int)  {
-        let dd = index == 0 ? UserDefaultsConstants.doctorSecondRegisterUser_id : UserDefaultsConstants.medicalCenterSecondRegisterUser_id
-        let ss = index == 0 ? UserDefaultsConstants.doctorSecondRegisterSMSCode : UserDefaultsConstants.medicalCenterSecondRegisterSMSCode
-        let aa = index == 0 ? UserDefaultsConstants.isDoctorSecondRegister : UserDefaultsConstants.isMedicalCenterSecondRegister
-        let mm = index == 0 ? UserDefaultsConstants.doctorRegisterMobile : UserDefaultsConstants.medicalCenterRegisterMobile
+    fileprivate func saveAllTokens(_ user_id: Int) {
         
-        userDefaults.set(user_id, forKey: dd)
-        userDefaults.set(sms, forKey: ss)
+        userDefaults.set(true, forKey: UserDefaultsConstants.waitForSMSCodeForSpecific)
         
-        userDefaults.set(true, forKey: UserDefaultsConstants.isUserRegisterAndWaitForSMScODEDOC)
-        userDefaults.set(false, forKey: aa)
-        userDefaults.set(mobile, forKey: mm)
-        userDefaults.set(false, forKey: UserDefaultsConstants.doctorRegisterSecondIsFromForgetPassw)
+        userDefaults.set(index, forKey: UserDefaultsConstants.indexForSMSCodeForSpecific)
+        userDefaults.set(user_id, forKey: UserDefaultsConstants.user_idForAll)
         
-        userDefaults.set(index, forKey: UserDefaultsConstants.isUserRegisterAndWaitForSMScODEIndexDOC)
+        userDefaults.removeObject(forKey: UserDefaultsConstants.emailForAll)
+        userDefaults.removeObject(forKey: UserDefaultsConstants.nameForAll)
+        userDefaults.removeObject(forKey: UserDefaultsConstants.secondMobikeForAll)
+        userDefaults.removeObject(forKey: UserDefaultsConstants.passwordForAll)
+        userDefaults.removeObject(forKey: UserDefaultsConstants.imageForpecific)
+        userDefaults.removeObject(forKey: UserDefaultsConstants.doctorRegisterMale)
         userDefaults.synchronize()
+        
+        //        let dd = index == 0 ? UserDefaultsConstants.doctorSecondRegisterUser_id : UserDefaultsConstants.medicalCenterSecondRegisterUser_id
+        //        let ss = index == 0 ? UserDefaultsConstants.doctorSecondRegisterSMSCode : UserDefaultsConstants.medicalCenterSecondRegisterSMSCode
+        //        let aa = index == 0 ? UserDefaultsConstants.isDoctorSecondRegister : UserDefaultsConstants.isMedicalCenterSecondRegister
+        //        let mm = index == 0 ? UserDefaultsConstants.doctorRegisterMobile : UserDefaultsConstants.medicalCenterRegisterMobile
+        //
+        //        userDefaults.set(user_id, forKey: dd)
+        //        userDefaults.set(sms, forKey: ss)
+        
+        
+    }
+    
+    func saveToken(user_id:Int,_ sms:Int)  {
+        saveAllTokens(user_id)
         goToNext(id: user_id)
+
+
+//        userDefaults.set(false, forKey: aa)
+//        userDefaults.set(mobile, forKey: mm)
+//        userDefaults.set(false, forKey: UserDefaultsConstants.doctorRegisterSecondIsFromForgetPassw)
+//
+//        userDefaults.set(index, forKey: UserDefaultsConstants.isUserRegisterAndWaitForSMScODEIndexDOC)
     }
     
     //TODO: -handle methods

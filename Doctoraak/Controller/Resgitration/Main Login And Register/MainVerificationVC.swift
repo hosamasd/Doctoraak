@@ -322,13 +322,16 @@ class MainVerificationVC: CustomBaseViewVC {
     
     
     func saveDoctorToken(doctor:DoctorModel)  {
-        userDefaults.set(true, forKey: UserDefaultsConstants.isDoctorWaitForClinic)
+        userDefaults.set(true, forKey: UserDefaultsConstants.isdoctorWaitForAddClinic)
 //        userDefaults.set(true, forKey: UserDefaultsConstants.DoctorPerformLogin)
-        userDefaults.set(false, forKey: UserDefaultsConstants.isUserRegisterAndWaitForSMScODEDOC)
-        userDefaults.removeObject(forKey: UserDefaultsConstants.isUserRegisterAndWaitForClinicDataIndex)
-        userDefaults.removeObject(forKey: UserDefaultsConstants.doctorRegisterSecondMobile)
+        userDefaults.set(false, forKey: UserDefaultsConstants.waitForSMSCodeForSpecific)
+        
+    
 
-        userDefaults.set(index, forKey: UserDefaultsConstants.MainLoginINDEX)
+        
+        userDefaults.set(index, forKey: UserDefaultsConstants.indexForSMSCodeForSpecific)
+              userDefaults.set(user_id, forKey: UserDefaultsConstants.user_idForAll)
+//        userDefaults.set(index, forKey: UserDefaultsConstants.MainLoginINDEX)
         
         userDefaults.synchronize()
         
@@ -354,8 +357,8 @@ class MainVerificationVC: CustomBaseViewVC {
     removeCachedWorkingHours()
 
         userDefaults.removeObject(forKey: UserDefaultsConstants.mobileForAll)
-        userDefaults.removeObject(forKey: UserDefaultsConstants.user_idForAll)
-        userDefaults.removeObject(forKey: UserDefaultsConstants.indexForSMSCodeForSpecific)
+//        userDefaults.removeObject(forKey: UserDefaultsConstants.user_idForAll)
+//        userDefaults.removeObject(forKey: UserDefaultsConstants.indexForSMSCodeForSpecific)
         userDefaults.set(false, forKey: UserDefaultsConstants.waitForSMSCodeForSpecific)
     userDefaults.set(false, forKey: UserDefaultsConstants.isLabWorkingHoursCached)
     userDefaults.set(false, forKey: UserDefaultsConstants.isPHYWorkingHoursCached)

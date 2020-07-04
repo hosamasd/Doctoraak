@@ -190,12 +190,8 @@ class DoctorClinicDataVC: CustomBaseViewVC {
     }
     
     func updateStates(_ clinic_id:Int,index:Int)  {
-        let d = index == 0 ? UserDefaultsConstants.DoctorPerformLogin : UserDefaultsConstants.medicalCenterPerformLogin
-        
-        userDefaults.set(clinic_id, forKey: UserDefaultsConstants.DocotrClinicCreateCLINICID)
-        userDefaults.set(true, forKey: d)
-        userDefaults.set(index, forKey: UserDefaultsConstants.DoctorPerformLoginWithMainIndex)
-        //        removeOtherDefults()
+        userDefaults.removeObject(forKey: UserDefaultsConstants.indexForSMSCodeForSpecific)
+            userDefaults.removeObject(forKey: UserDefaultsConstants.user_idForAll)
         userDefaults.synchronize()
     }
     

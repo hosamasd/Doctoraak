@@ -94,12 +94,10 @@ class BaseSlidingVC: UIViewController {
     }
     
     func check()  {
-        if userDefaults.bool(forKey: UserDefaultsConstants.isWelcomeVCAppear) {
             let welcome = WelcomeVC()
             let nav = UINavigationController(rootViewController: welcome)
             nav.modalPresentationStyle = .fullScreen
             present(nav, animated: true)
-        }else { }
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {

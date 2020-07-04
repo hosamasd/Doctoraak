@@ -32,7 +32,7 @@ class MainHomeVC: CustomBaseViewVC {
         v.handledisplayRADNotification = {[unowned self] noty in
             guard let phy=self.rad else {return}
             let patient = SelectedPharmacyPatientDataVC(inde: self.index)//SelectedPharmacyPatientDataVC(inde: self.index, phy: noty, pharmacy: phy)
-             patient.delgate = self
+            patient.delgate = self
             patient.radOrder = noty
             patient.rad=self.rad
             self.navigationController?.pushViewController(patient, animated: true)
@@ -51,7 +51,7 @@ class MainHomeVC: CustomBaseViewVC {
             let patient = SelectedPharmacyPatientDataVC(inde: self.index)//SelectedPharmacyPatientDataVC(inde: self.index, phy: noty, pharmacy: phy)
             patient.phy = phy
             patient.phyOrder=noty
-             patient.delgate = self
+            patient.delgate = self
             self.navigationController?.pushViewController(patient, animated: true)
         }
         return v
@@ -80,24 +80,24 @@ class MainHomeVC: CustomBaseViewVC {
         didSet{
             guard let lab = lab else { return  }
             customMainHomeView.topMainHomeCell.lab=lab
-//            fetchOrders()
-                        userDefaults.bool(forKey: UserDefaultsConstants.isAllMainHomeObjectsFetchedLAB) ? () : fetchOrders()
+            //            fetchOrders()
+            userDefaults.bool(forKey: UserDefaultsConstants.isAllMainHomeObjectsFetchedLAB) ? () : fetchOrders()
         }
     }
     var phy:PharamacyModel?{
         didSet{
             guard let phy = phy else { return  }
             customMainHomeView.topMainHomeCell.phy=phy
-//            fetchOrders()
-                        userDefaults.bool(forKey: UserDefaultsConstants.isAllMainHomeObjectsFetchedPHY) ? () : fetchOrders()
+            //            fetchOrders()
+            userDefaults.bool(forKey: UserDefaultsConstants.isAllMainHomeObjectsFetchedPHY) ? () : fetchOrders()
         }
     }
     var rad:RadiologyModel?{
         didSet{
             guard let lab = rad else { return  }
             customMainHomeView.topMainHomeCell.rad=lab
-            fetchOrders()
-                        userDefaults.bool(forKey: UserDefaultsConstants.isAllMainHomeObjectsFetchedRAD) ? () : fetchOrders()
+            //            fetchOrders()
+            userDefaults.bool(forKey: UserDefaultsConstants.isAllMainHomeObjectsFetchedRAD) ? () : fetchOrders()
         }
     }
     fileprivate let index:Int!
@@ -109,16 +109,18 @@ class MainHomeVC: CustomBaseViewVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         //        fetchOrders()
-        
+        if userDefaults.bool(forKey: UserDefaultsConstants.isWelcomeVCAppear) {
+            getObjects()
+        }else {}  
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        getObjects()
-        //        fetchOrders()
+        //        if userDefaults.bool(forKey: UserDefaultsConstants.isWelcomeVCAppear) {
+        //            getObjects()
+        //        }else {}  }
     }
-    
     //MARK: -user methods
     
     func getObjects()  {
@@ -163,7 +165,7 @@ class MainHomeVC: CustomBaseViewVC {
     
     func fetchOrdersRAD()  {
         guard let phy = rad else { return  }
-        UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
+        //        UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
         self.showMainAlertLooder()
         OrdersServices.shared.fetchRADOrders(api_token: phy.apiToken, radiology_id: phy.id) { (base, err) in
             if let  err = err {
@@ -267,6 +269,8 @@ class MainHomeVC: CustomBaseViewVC {
     }
     
     @objc func handleDismiss()  {
+        
+        
         removeViewWithAnimation(vvv: customAlertMainLoodingView)
         DispatchQueue.main.async {
             self.dismiss(animated: true, completion: nil)

@@ -13,8 +13,6 @@ import MOLH
 protocol SelectedPharmacyPatientDataProtocol{
     
     func deletePHY(indexPath:IndexPath,index:Int)
-//    func deleteLAB(indexPath:IndexPath)
-//    func deleteRAD(indexPath:IndexPath)
 }
 
 class SelectedPharmacyPatientDataVC: CustomBaseViewVC {
@@ -76,45 +74,39 @@ class SelectedPharmacyPatientDataVC: CustomBaseViewVC {
     }
     
     var labOrderss:LABOrderModel?{
-           didSet{
-               guard let lab = labOrderss else { return  }
+        didSet{
+            guard let lab = labOrderss else { return  }
             customSelectedPatientDataVC.patientCell.patientLab=lab.patient
-           }
-       }
-       var phyOrder:PharmacyGetOrdersModel?{
-           didSet{
-               guard let phy = phyOrder else { return  }
-               customSelectedPatientDataVC.patientCell.patient=phy.patient
-           }
-       }
+        }
+    }
+    var phyOrder:PharmacyGetOrdersModel?{
+        didSet{
+            guard let phy = phyOrder else { return  }
+            customSelectedPatientDataVC.patientCell.patient=phy.patient
+        }
+    }
     var phyOrderss:PharmacyOrderModel?{
-              didSet{
-                  guard let phy = phyOrder else { return  }
-//                  customSelectedPatientDataVC.patientCell.patient=phy.patient
-              }
-          }
-       var radOrderss:RadiologyOrderModel?{
-           didSet{
-               guard let lab = radOrderss else { return  }
-//            lab.details.first?.rays.
-               customSelectedPatientDataVC.patientCell.patient=lab.patient
-           }
-       }
+        didSet{
+            guard let phy = phyOrder else { return  }
+            //                  customSelectedPatientDataVC.patientCell.patient=phy.patient
+        }
+    }
+    var radOrderss:RadiologyOrderModel?{
+        didSet{
+            guard let lab = radOrderss else { return  }
+            //            lab.details.first?.rays.
+            customSelectedPatientDataVC.patientCell.patient=lab.patient
+        }
+    }
     
     var labOrder:LABGetOrdersModel?{
         didSet{
             guard let lab = labOrder else { return  }
             customSelectedPatientDataVC.patientCell.patient=lab.patient
             customSelectedPatientDataVC.lab=lab
-
+            
         }
     }
-//    var phyOrder:PharmacyGetOrdersModel?{
-//        didSet{
-//            guard let phy = phyOrder else { return  }
-//            customSelectedPatientDataVC.patientCell.patient=phy.patient
-//        }
-//    }
     var radOrder:RadGetOrdersModel?{
         didSet{
             guard let lab = radOrder else { return  }
@@ -122,8 +114,7 @@ class SelectedPharmacyPatientDataVC: CustomBaseViewVC {
             customSelectedPatientDataVC.rad=lab
         }
     }
-    //    fileprivate let phy:PharmacyGetOrdersModel!
-    //    fileprivate let pharmacy:PharamacyModel!
+    
     init(inde:Int) {
         self.index = inde
         super.init(nibName: nil, bundle: nil)
@@ -164,7 +155,7 @@ class SelectedPharmacyPatientDataVC: CustomBaseViewVC {
         UIApplication.shared.beginIgnoringInteractionEvents()
         self.showMainAlertLooder(cc: self.customMainAlertVC, v: self.customAlertMainLoodingView)
         
-        OrdersServices.shared.acceptPharmacyOrders(api_token: pharmacy.apiToken, pharmacy_id: phy.pharmacyID ?? 1, order_id: phy.pharmacyOrderID) { (base, err) in
+        OrdersServices.shared.acceptPharmacyOrders(api_token: pharmacy.apiToken, pharmacy_id: phy.pharmacyID , order_id: phy.pharmacyOrderID) { (base, err) in
             if let err = err {
                 SVProgressHUD.showError(withStatus: err.localizedDescription)
                 self.handleDismiss()
@@ -177,7 +168,7 @@ class SelectedPharmacyPatientDataVC: CustomBaseViewVC {
             SVProgressHUD.showSuccess(withStatus: MOLHLanguage.isRTLLanguage() ? user.message : user.messageEn)
             self.customSelectedPatientDataVC.bottomStack.isHide(true)
             self.makeAction()
-
+            
         }
     }
     
@@ -221,7 +212,7 @@ class SelectedPharmacyPatientDataVC: CustomBaseViewVC {
     }
     
     func makeAction()  {
-       guard let indexPath = indexPath else { return  }
+        guard let indexPath = indexPath else { return  }
         
         delgate?.deletePHY(indexPath: indexPath, index: index)
         navigationController?.popViewController(animated: true)
@@ -252,22 +243,22 @@ class SelectedPharmacyPatientDataVC: CustomBaseViewVC {
     
     func makeActionForCancel(ind:Int,message:String)  {
         var apiToekn:String
-               var userId:Int
-               var orderId:Int
-               
-               if ind==2 {
-                   guard let pharmacy = lab,let  phyy = labOrder else { return  }
-                   apiToekn = pharmacy.apiToken
-                   userId=phyy.id
-                   orderId=phyy.labID
-                   
-               }else {
-                   guard let pharmacy = rad,let  phyy = radOrder else { return  }
-                   apiToekn = pharmacy.apiToken
-                   userId=phyy.id
-                   orderId=phyy.radiologyID
-                   
-               }
+        var userId:Int
+        var orderId:Int
+        
+        if ind==2 {
+            guard let pharmacy = lab,let  phyy = labOrder else { return  }
+            apiToekn = pharmacy.apiToken
+            userId=phyy.id
+            orderId=phyy.labID
+            
+        }else {
+            guard let pharmacy = rad,let  phyy = radOrder else { return  }
+            apiToekn = pharmacy.apiToken
+            userId=phyy.id
+            orderId=phyy.radiologyID
+            
+        }
         //           guard let patient = patient else { return  }
         UIApplication.shared.beginIgnoringInteractionEvents()
         
@@ -275,17 +266,17 @@ class SelectedPharmacyPatientDataVC: CustomBaseViewVC {
         self.showMainAlertLooder(cc: customMainAlertVC, v: customAlertMainLoodingView)
         OrdersServices.shared.cancelRADORLABOrders(message: message, index: ind, api_token: apiToekn, user_id: userId, order_id: orderId) { (base, err) in
             if let err = err {
-                           SVProgressHUD.showError(withStatus: err.localizedDescription)
-                           self.handleDismiss()
-                           self.activeViewsIfNoData();return
-                       }
-                       //                SVProgressHUD.dismiss()
-                       self.handleDismiss()
-                       self.activeViewsIfNoData()
-                       guard let user = base else {return}
-                       SVProgressHUD.showSuccess(withStatus: MOLHLanguage.isRTLLanguage() ? user.message : user.messageEn)
+                SVProgressHUD.showError(withStatus: err.localizedDescription)
+                self.handleDismiss()
+                self.activeViewsIfNoData();return
+            }
+            //                SVProgressHUD.dismiss()
+            self.handleDismiss()
+            self.activeViewsIfNoData()
+            guard let user = base else {return}
+            SVProgressHUD.showSuccess(withStatus: MOLHLanguage.isRTLLanguage() ? user.message : user.messageEn)
             self.makeAction()
-
+            
         }
     }
     
@@ -318,7 +309,7 @@ class SelectedPharmacyPatientDataVC: CustomBaseViewVC {
     @objc  func handleCancelOrder()  {
         
         self.createAlert(ind:2)
-
+        
     }
     
     required init?(coder: NSCoder) {
