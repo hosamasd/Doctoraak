@@ -17,7 +17,7 @@ class SelectedPatientDataPHYCell: BaseCollectionCell {
             guard let order = order else { return  }
             nameLabel.text = getNameFromIndex(order.medicineID)
             typeLabel.text = getTypeFromIndex(order.medicineTypeID)
-            countLabel.text = "Quantity : \(order.amount)"
+            countLabel.text = "Quantity".localized+" : \(order.amount)"
         }
     }
     
@@ -37,9 +37,9 @@ class SelectedPatientDataPHYCell: BaseCollectionCell {
     }
     
     
-    lazy var nameLabel = UILabel(text: "Name", font: .systemFont(ofSize: 20), textColor: .black)
-    lazy var typeLabel = UILabel(text: "Type", font: .systemFont(ofSize: 16), textColor: .gray)
-    lazy var countLabel = UILabel(text: "3", font: .systemFont(ofSize: 16), textColor: .lightGray )
+    lazy var nameLabel = UILabel(text: "", font: .systemFont(ofSize: 20), textColor: .black)
+    lazy var typeLabel = UILabel(text: "", font: .systemFont(ofSize: 16), textColor: .gray)
+    lazy var countLabel = UILabel(text: "", font: .systemFont(ofSize: 16), textColor: .lightGray )
     lazy var leftImage:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "Rectangle 1758"))
         i.constrainWidth(constant: 8)

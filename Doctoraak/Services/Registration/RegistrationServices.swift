@@ -46,53 +46,53 @@ class RegistrationServices {
         let urlString = "\(baseUrl)doctor_register".toSecrueHttps()
         let basics:String
         if email != nil && secondPhone != nil && title != nil && insurance != nil {
-                     basics = "name=\(name)&phone=\(phone)&password=\(password)&gender=\(gender)&specialization_id=\(specialization_id)&degree_id=\(degree_id)&is_medical_center=\(index)&phone2=\(secondPhone!)&title=\(title!)&email=\(email!)&insurance=\(insurance!)"
+            basics = "name=\(name)&phone=\(phone)&password=\(password)&gender=\(gender)&specialization_id=\(specialization_id)&degree_id=\(degree_id)&is_medical_center=\(index)&phone2=\(secondPhone!)&title=\(title!)&email=\(email!)&insurance=\(insurance!)"
         }else if email != nil && secondPhone != nil && insurance != nil{
-             basics = "name=\(name)&phone=\(phone)&password=\(password)&gender=\(gender)&specialization_id=\(specialization_id)&degree_id=\(degree_id)&is_medical_center=\(index)&phone2=\(secondPhone!))&email=\(email!)&insurance=\(insurance!)"
-
+            basics = "name=\(name)&phone=\(phone)&password=\(password)&gender=\(gender)&specialization_id=\(specialization_id)&degree_id=\(degree_id)&is_medical_center=\(index)&phone2=\(secondPhone!))&email=\(email!)&insurance=\(insurance!)"
+            
         }else if email != nil && title != nil && insurance != nil {
-             basics = "name=\(name)&phone=\(phone)&password=\(password)&gender=\(gender)&specialization_id=\(specialization_id)&degree_id=\(degree_id)&is_medical_center=\(index)&title=\(title!)&email=\(email!)&insurance=\(insurance!)"
-
+            basics = "name=\(name)&phone=\(phone)&password=\(password)&gender=\(gender)&specialization_id=\(specialization_id)&degree_id=\(degree_id)&is_medical_center=\(index)&title=\(title!)&email=\(email!)&insurance=\(insurance!)"
+            
         }else if email != nil && title != nil  {
-             basics = "name=\(name)&phone=\(phone)&password=\(password)&gender=\(gender)&specialization_id=\(specialization_id)&degree_id=\(degree_id)&is_medical_center=\(index)&title=\(title!)&email=\(email!)"
-
+            basics = "name=\(name)&phone=\(phone)&password=\(password)&gender=\(gender)&specialization_id=\(specialization_id)&degree_id=\(degree_id)&is_medical_center=\(index)&title=\(title!)&email=\(email!)"
+            
         }else if email != nil && secondPhone != nil {
-             basics = "name=\(name)&phone=\(phone)&password=\(password)&gender=\(gender)&specialization_id=\(specialization_id)&degree_id=\(degree_id)&is_medical_center=\(index)&phone2=\(secondPhone!))&email=\(email!)"
-
+            basics = "name=\(name)&phone=\(phone)&password=\(password)&gender=\(gender)&specialization_id=\(specialization_id)&degree_id=\(degree_id)&is_medical_center=\(index)&phone2=\(secondPhone!))&email=\(email!)"
+            
         }else if email != nil  && insurance != nil {
-             basics = "name=\(name)&phone=\(phone)&password=\(password)&gender=\(gender)&specialization_id=\(specialization_id)&degree_id=\(degree_id)&is_medical_center=\(index)&email=\(email!)&insurance=\(insurance!)"
-
+            basics = "name=\(name)&phone=\(phone)&password=\(password)&gender=\(gender)&specialization_id=\(specialization_id)&degree_id=\(degree_id)&is_medical_center=\(index)&email=\(email!)&insurance=\(insurance!)"
+            
         }
             
         else if title != nil && secondPhone != nil && insurance != nil {
-             basics = "name=\(name)&phone=\(phone)&password=\(password)&gender=\(gender)&specialization_id=\(specialization_id)&degree_id=\(degree_id)&is_medical_center=\(index)&phone2=\(secondPhone!)&title=\(title!)&insurance=\(insurance!)"
-
+            basics = "name=\(name)&phone=\(phone)&password=\(password)&gender=\(gender)&specialization_id=\(specialization_id)&degree_id=\(degree_id)&is_medical_center=\(index)&phone2=\(secondPhone!)&title=\(title!)&insurance=\(insurance!)"
+            
         } else if title != nil  && insurance != nil {
-             basics = "name=\(name)&phone=\(phone)&password=\(password)&gender=\(gender)&specialization_id=\(specialization_id)&degree_id=\(degree_id)&is_medical_center=\(index)&title=\(title!)&insurance=\(insurance!)"
-
+            basics = "name=\(name)&phone=\(phone)&password=\(password)&gender=\(gender)&specialization_id=\(specialization_id)&degree_id=\(degree_id)&is_medical_center=\(index)&title=\(title!)&insurance=\(insurance!)"
+            
         } else if title != nil && secondPhone != nil {
-                    basics = "name=\(name)&phone=\(phone)&password=\(password)&gender=\(gender)&specialization_id=\(specialization_id)&degree_id=\(degree_id)&is_medical_center=\(index)&phone2=\(secondPhone!)&title=\(title!)"
-
-               }
-        else if  secondPhone != nil && insurance != nil {
-             basics = "name=\(name)&phone=\(phone)&password=\(password)&gender=\(gender)&specialization_id=\(specialization_id)&degree_id=\(degree_id)&is_medical_center=\(index)&phone2=\(secondPhone!)&insurance=\(insurance!)"
-
-        }else if email != nil {
-             basics = "name=\(name)&phone=\(phone)&password=\(password)&gender=\(gender)&specialization_id=\(specialization_id)&degree_id=\(degree_id)&is_medical_center=\(index)&email=\(email!)"
-
-        }else if title != nil {
-             basics = "name=\(name)&phone=\(phone)&password=\(password)&gender=\(gender)&specialization_id=\(specialization_id)&degree_id=\(degree_id)&is_medical_center=\(index)&title=\(title!)"
-
-        }else if secondPhone != nil {
-             basics = "name=\(name)&phone=\(phone)&password=\(password)&gender=\(gender)&specialization_id=\(specialization_id)&degree_id=\(degree_id)&is_medical_center=\(index)&phone2=\(secondPhone!)"
-        }else if insurance != nil {
-             basics = "name=\(name)&phone=\(phone)&password=\(password)&gender=\(gender)&specialization_id=\(specialization_id)&degree_id=\(degree_id)&is_medical_center=\(index)&insurance=\(insurance!)"
-        }else {
-              basics = "name=\(name)&phone=\(phone)&password=\(password)&gender=\(gender)&specialization_id=\(specialization_id)&degree_id=\(degree_id)&is_medical_center=\(index)"
+            basics = "name=\(name)&phone=\(phone)&password=\(password)&gender=\(gender)&specialization_id=\(specialization_id)&degree_id=\(degree_id)&is_medical_center=\(index)&phone2=\(secondPhone!)&title=\(title!)"
+            
         }
-     
+        else if  secondPhone != nil && insurance != nil {
+            basics = "name=\(name)&phone=\(phone)&password=\(password)&gender=\(gender)&specialization_id=\(specialization_id)&degree_id=\(degree_id)&is_medical_center=\(index)&phone2=\(secondPhone!)&insurance=\(insurance!)"
+            
+        }else if email != nil {
+            basics = "name=\(name)&phone=\(phone)&password=\(password)&gender=\(gender)&specialization_id=\(specialization_id)&degree_id=\(degree_id)&is_medical_center=\(index)&email=\(email!)"
+            
+        }else if title != nil {
+            basics = "name=\(name)&phone=\(phone)&password=\(password)&gender=\(gender)&specialization_id=\(specialization_id)&degree_id=\(degree_id)&is_medical_center=\(index)&title=\(title!)"
+            
+        }else if secondPhone != nil {
+            basics = "name=\(name)&phone=\(phone)&password=\(password)&gender=\(gender)&specialization_id=\(specialization_id)&degree_id=\(degree_id)&is_medical_center=\(index)&phone2=\(secondPhone!)"
+        }else if insurance != nil {
+            basics = "name=\(name)&phone=\(phone)&password=\(password)&gender=\(gender)&specialization_id=\(specialization_id)&degree_id=\(degree_id)&is_medical_center=\(index)&insurance=\(insurance!)"
+        }else {
+            basics = "name=\(name)&phone=\(phone)&password=\(password)&gender=\(gender)&specialization_id=\(specialization_id)&degree_id=\(degree_id)&is_medical_center=\(index)"
+        }
         
-//        let basics = "name=\(name)&phone=\(phone)&password=\(password)&gender=\(gender)&specialization_id=\(specialization_id)&degree_id=\(degree_id)&is_medical_center=\(index)&phone2=\(secondPhone)&title=\(title)&email=\(email)"
+        
+        //        let basics = "name=\(name)&phone=\(phone)&password=\(password)&gender=\(gender)&specialization_id=\(specialization_id)&degree_id=\(degree_id)&is_medical_center=\(index)&phone2=\(secondPhone)&title=\(title)&email=\(email)"
         
         let postString = basics 
         
@@ -168,43 +168,43 @@ class RegistrationServices {
     }
     
     func MainLABReceiveSmsCode(user_id:Int,sms_code:String,completion:@escaping (MainLabSMSCodeModel?,Error?)->Void)  {
-           let nnn =  "lab_verify_account"
-           let urlString = baseUrl+nnn.toSecrueHttps()
-           guard  let url = URL(string: urlString) else { return  }
-           
-           let postString = "user_id=\(user_id)&sms_code=\(sms_code)"
-           MainServices.registerationPostMethodGeneric(postString: postString, url: url, completion: completion)
-       }
+        let nnn =  "lab_verify_account"
+        let urlString = baseUrl+nnn.toSecrueHttps()
+        guard  let url = URL(string: urlString) else { return  }
+        
+        let postString = "user_id=\(user_id)&sms_code=\(sms_code)"
+        MainServices.registerationPostMethodGeneric(postString: postString, url: url, completion: completion)
+    }
     
     func MainRADReceiveSmsCode(user_id:Int,sms_code:String,completion:@escaping (MainRadiologySMSCodeModel?,Error?)->Void)  {
-           let nnn = "radiology_verify_account"
-           
-           let urlString = baseUrl+nnn.toSecrueHttps()
-           guard  let url = URL(string: urlString) else { return  }
-           
-           let postString = "user_id=\(user_id)&sms_code=\(sms_code)"
-           MainServices.registerationPostMethodGeneric(postString: postString, url: url, completion: completion)
-       }
+        let nnn = "radiology_verify_account"
+        
+        let urlString = baseUrl+nnn.toSecrueHttps()
+        guard  let url = URL(string: urlString) else { return  }
+        
+        let postString = "user_id=\(user_id)&sms_code=\(sms_code)"
+        MainServices.registerationPostMethodGeneric(postString: postString, url: url, completion: completion)
+    }
     
     func MainPHYReceiveSmsCode(user_id:Int,sms_code:String,completion:@escaping (MainPharamacySMSCodeModel?,Error?)->Void)  {
-           let nnn = "pharmacy_verify_account"
-           
-           let urlString = baseUrl+nnn.toSecrueHttps()
-           guard  let url = URL(string: urlString) else { return  }
-           
-           let postString = "user_id=\(user_id)&sms_code=\(sms_code)"
-           MainServices.registerationPostMethodGeneric(postString: postString, url: url, completion: completion)
-       }
+        let nnn = "pharmacy_verify_account"
+        
+        let urlString = baseUrl+nnn.toSecrueHttps()
+        guard  let url = URL(string: urlString) else { return  }
+        
+        let postString = "user_id=\(user_id)&sms_code=\(sms_code)"
+        MainServices.registerationPostMethodGeneric(postString: postString, url: url, completion: completion)
+    }
     
     func MainReceiveSmsCode(index:Int,user_id:Int,sms_code:String,completion:@escaping (MainDoctorSMSAndResendCodeModel?,Error?)->Void)  {
-           let nnn = index == 0 || index == 1 ? "doctor_verify_account" : index == 2 ? "lab_verify_account" : index == 3 ? "radiology_verify_account" : "pharmacy_verify_account"
-           
-           let urlString = baseUrl+nnn.toSecrueHttps()
-           guard  let url = URL(string: urlString) else { return  }
-           
-           let postString = "user_id=\(user_id)&sms_code=\(sms_code)"
-           MainServices.registerationPostMethodGeneric(postString: postString, url: url, completion: completion)
-       }
+        let nnn = index == 0 || index == 1 ? "doctor_verify_account" : index == 2 ? "lab_verify_account" : index == 3 ? "radiology_verify_account" : "pharmacy_verify_account"
+        
+        let urlString = baseUrl+nnn.toSecrueHttps()
+        guard  let url = URL(string: urlString) else { return  }
+        
+        let postString = "user_id=\(user_id)&sms_code=\(sms_code)"
+        MainServices.registerationPostMethodGeneric(postString: postString, url: url, completion: completion)
+    }
     
     func MainResendSmsCodeAgainPHY(user_id:Int,completion:@escaping (MainPharamacySMSCodeModel?,Error?)->Void)  {
         let nnn =  "pharmacy_resend"

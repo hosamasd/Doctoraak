@@ -13,9 +13,6 @@ class DoctorHomePatientsCell: BaseCollectionCell {
     
     var patient:PatientModel! {
         didSet{
-//            guard let ss = patient.photo.removeSubstringAfterOrBefore(needle: "http", beforeNeedle: false) else { return  }
-//            let dd = "http"+ss ?? ""
-            
             let urlString = patient.photo // dd ?? patient.photo
             guard let url = URL(string: urlString) else { return  }
             doctorProfileImage.sd_setImage(with: url)
@@ -34,11 +31,11 @@ class DoctorHomePatientsCell: BaseCollectionCell {
         i.clipsToBounds = true
         return i
     }()
-    lazy var doctorDateLabel = UILabel(text: "22 Feb 19 / 14:45", font: .systemFont(ofSize: 16), textColor: .lightGray)
-    lazy var doctorNameLabel = UILabel(text: "Jana Helal", font: .systemFont(ofSize: 16), textColor: .black)
+    lazy var doctorDateLabel = UILabel(text: "", font: .systemFont(ofSize: 16), textColor: .lightGray)
+    lazy var doctorNameLabel = UILabel(text: "", font: .systemFont(ofSize: 16), textColor: .black)
     
-    lazy var doctorGenderLabel = UILabel(text: "Female", font: .systemFont(ofSize: 16), textColor: .lightGray)
-       lazy var doctorPhoneLabel = UILabel(text: "01063525215", font: .systemFont(ofSize: 16), textColor: .lightGray)
+    lazy var doctorGenderLabel = UILabel(text: "", font: .systemFont(ofSize: 16), textColor: .lightGray)
+    lazy var doctorPhoneLabel = UILabel(text: "", font: .systemFont(ofSize: 16), textColor: .lightGray)
     
     override func setupViews() {
         let s = stack(doctorNameLabel,doctorGenderLabel,doctorPhoneLabel)

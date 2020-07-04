@@ -20,7 +20,7 @@ class CustomSkyTextFieldRightPadding: SkyFloatingLabelTextField {
     
     override open func placeholderRect(forBounds bounds: CGRect) -> CGRect {
         let x = MOLHLanguage.isRTLLanguage() ? -padding :  padding
-
+        
         let rect = CGRect(
             x: padding,
             y: titleHeight(),
@@ -47,7 +47,7 @@ class CustomSkyTextFieldRightPadding: SkyFloatingLabelTextField {
     
     override func editingRect(forBounds bounds: CGRect) -> CGRect {
         let x = MOLHLanguage.isRTLLanguage() ? -padding :  padding
-
+        
         let rect = CGRect(
             x: padding,
             y: titleHeight(),
@@ -60,7 +60,6 @@ class CustomSkyTextFieldRightPadding: SkyFloatingLabelTextField {
     }
     
     override func titleLabelRectForBounds(_ bounds: CGRect, editing: Bool) -> CGRect {
-        let x = MOLHLanguage.isRTLLanguage() ? -padding :  padding
         
         if editing {
             return CGRect(x: padding, y: 5, width: bounds.size.width, height: titleHeight())
@@ -83,5 +82,5 @@ class CustomSkyTextFieldRightPadding: SkyFloatingLabelTextField {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
- 
+    
 }

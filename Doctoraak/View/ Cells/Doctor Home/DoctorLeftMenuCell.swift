@@ -19,13 +19,13 @@ class DoctorLeftMenuCell: UICollectionViewCell {
         i.constrainHeight(constant: 30)
         return i
     }()
-    lazy var Label6 = UILabel(text: "Contact Us", font: .systemFont(ofSize: 24), textColor: .black)
+    lazy var Label6 = UILabel(text: "Contact Us".localized, font: .systemFont(ofSize: 24), textColor: .black)
     
     override var isSelected: Bool{
-           didSet{
-               backgroundColor = isSelected ? #colorLiteral(red: 0.4410271694, green: 0.3507713137, blue: 1, alpha: 1) : .white
-           }
-       }
+        didSet{
+            backgroundColor = isSelected ? #colorLiteral(red: 0.4410271694, green: 0.3507713137, blue: 1, alpha: 1) : .white
+        }
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -37,9 +37,11 @@ class DoctorLeftMenuCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-     func setupViews() {
-        MOLHLanguage.isRTLLanguage() ? hstack(Image6,Label6,UIView(),spacing:16,alignment: .center).withMargins(.init(top: 8, left: 0, bottom: 8, right: 0)) : hstack(Image6,Label6,spacing:16,alignment: .center).withMargins(.init(top: 8, left: 0, bottom: 8, right: 0))
-
-//        hstack(Image6,Label6,spacing:16,alignment: .center).withMargins(.init(top: 8, left: 0, bottom: 8, right: 0))
+    func setupViews() {
+        if  MOLHLanguage.isRTLLanguage(){
+            hstack(Image6,Label6,UIView(),spacing:16,alignment: .center).withMargins(.init(top: 8, left: 0, bottom: 8, right: 0))
+        }else {
+            hstack(Image6,Label6,spacing:16,alignment: .center).withMargins(.init(top: 8, left: 0, bottom: 8, right: 0))
+        }
     }
 }

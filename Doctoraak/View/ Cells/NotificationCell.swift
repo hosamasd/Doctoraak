@@ -61,7 +61,7 @@ class NotificationCell: BaseCollectionCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -71,9 +71,9 @@ class NotificationCell: BaseCollectionCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         setupShadow(opacity: 10, radius: 50, offset: .zero, color: .red)
-
-//        self.layer.cornerRadius = 5
-//        self.contentView.layer.cornerRadius = 5
+        
+        //        self.layer.cornerRadius = 5
+        //        self.contentView.layer.cornerRadius = 5
         let shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: 16)
         self.layer.masksToBounds = false
         self.layer.shadowColor = UIColor.gray.cgColor

@@ -49,7 +49,7 @@ class MainVerificationVC: CustomBaseViewVC {
     fileprivate let index:Int!
     fileprivate let isFromDoctor:Bool!
     fileprivate let isFromForgetPassw:Bool!
-
+    
     fileprivate let phoneNumber:String!
     fileprivate let user_id:Int!
     init(indexx:Int,isFromForgetPassw:Bool,isFromDoctor:Bool,phone:String,user_id:Int) {
@@ -186,7 +186,7 @@ class MainVerificationVC: CustomBaseViewVC {
             navigationController?.pushViewController(vc, animated: true)
         }else if isFromForgetPassw {
             let login = MainLoginsVC(indexx: index)
-            navigationController?.pushViewController(login, animated: true)
+            userDefaults.synchronize()
         }else {
             dismiss(animated: true)
         }
@@ -323,51 +323,52 @@ class MainVerificationVC: CustomBaseViewVC {
     
     func saveDoctorToken(doctor:DoctorModel)  {
         userDefaults.set(true, forKey: UserDefaultsConstants.isdoctorWaitForAddClinic)
-//        userDefaults.set(true, forKey: UserDefaultsConstants.DoctorPerformLogin)
+        userDefaults.set(doctor.apiToken, forKey: UserDefaultsConstants.APITokendoctorWaitForAddClinic)
+        
         userDefaults.set(false, forKey: UserDefaultsConstants.waitForSMSCodeForSpecific)
         
-    
-
+        
+        
         
         userDefaults.set(index, forKey: UserDefaultsConstants.indexForSMSCodeForSpecific)
-              userDefaults.set(user_id, forKey: UserDefaultsConstants.user_idForAll)
-//        userDefaults.set(index, forKey: UserDefaultsConstants.MainLoginINDEX)
+        userDefaults.set(user_id, forKey: UserDefaultsConstants.user_idForAll)
+        //        userDefaults.set(index, forKey: UserDefaultsConstants.MainLoginINDEX)
         
         userDefaults.synchronize()
         
         cacheDoctorObjectCodabe.save(doctor)
         goToNext()
         saveSomeDataInUserDefults()
-
+        
     }
     
     func saveRadToken(doctor:RadiologyModel)  {
         userDefaults.set(true, forKey: UserDefaultsConstants.radiologyPerformLogin)
         userDefaults.set(index, forKey: UserDefaultsConstants.MainLoginINDEX)
-
+        
         userDefaults.synchronize()
         
         cachdRADObjectCodabe.save(doctor)
         goToNext()
         saveSomeDataInUserDefults()
-
+        
     }
     
-   fileprivate func saveSomeDataInUserDefults()  {
-    removeCachedWorkingHours()
-
+    fileprivate func saveSomeDataInUserDefults()  {
+        removeCachedWorkingHours()
+        
         userDefaults.removeObject(forKey: UserDefaultsConstants.mobileForAll)
-//        userDefaults.removeObject(forKey: UserDefaultsConstants.user_idForAll)
-//        userDefaults.removeObject(forKey: UserDefaultsConstants.indexForSMSCodeForSpecific)
+        //        userDefaults.removeObject(forKey: UserDefaultsConstants.user_idForAll)
+        //        userDefaults.removeObject(forKey: UserDefaultsConstants.indexForSMSCodeForSpecific)
         userDefaults.set(false, forKey: UserDefaultsConstants.waitForSMSCodeForSpecific)
-    userDefaults.set(false, forKey: UserDefaultsConstants.isLabWorkingHoursCached)
-    userDefaults.set(false, forKey: UserDefaultsConstants.isPHYWorkingHoursCached)
-    userDefaults.set(false, forKey: UserDefaultsConstants.isRADWorkingHoursCached)
-
+        userDefaults.set(false, forKey: UserDefaultsConstants.isLabWorkingHoursCached)
+        userDefaults.set(false, forKey: UserDefaultsConstants.isPHYWorkingHoursCached)
+        userDefaults.set(false, forKey: UserDefaultsConstants.isRADWorkingHoursCached)
+        
         userDefaults.synchronize()
     }
     
-   fileprivate func saveLabToken(doctor:LabModel)  {
+    fileprivate func saveLabToken(doctor:LabModel)  {
         userDefaults.set(true, forKey: UserDefaultsConstants.labPerformLogin)
         userDefaults.set(index, forKey: UserDefaultsConstants.MainLoginINDEX)
         
@@ -376,13 +377,13 @@ class MainVerificationVC: CustomBaseViewVC {
         cacheLABObjectCodabe.save(doctor)
         goToNext()
         saveSomeDataInUserDefults()
-
+        
     }
     
-   fileprivate func savePharToken(doctor:PharamacyModel)  {
+    fileprivate func savePharToken(doctor:PharamacyModel)  {
         userDefaults.set(true, forKey: UserDefaultsConstants.pharamacyPerformLogin)
         userDefaults.set(index, forKey: UserDefaultsConstants.MainLoginINDEX)
-//        userDefaults.set(false, forKey: UserDefaultsConstants.isUserRegisterAndWaitForSMScODE)
+        //        userDefaults.set(false, forKey: UserDefaultsConstants.isUserRegisterAndWaitForSMScODE)
         
         userDefaults.synchronize()
         cachdPHARMACYObjectCodabe.save(doctor)

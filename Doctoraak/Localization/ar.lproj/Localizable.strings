@@ -115,3 +115,8 @@
 //SelectedPharmacyPatientDataVC
 "Patient data"="   معلومات المريض";"Prescription"="الروشته";"Medicines"="الاةويه";"Accept"="قبول";
 "Refuse"="رفض";
+
+
+"Quantity"="الكمية";
+"Welcome \n"="\n  مرحبا";
+"clinic 1"=" 1  عياده";

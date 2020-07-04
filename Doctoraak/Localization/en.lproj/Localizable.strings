@@ -122,3 +122,7 @@
 //SelectedPharmacyPatientDataVC
 "Patient data"="Patientdata";"Prescription"="Prescription";"Medicines"="Medicines";"Accept"="Accept";
 "Refuse"="Refuse";
+
+"Quantity"="Quantity";
+"Welcome \n"="Welcome \n";
+"clinic 1"="clinic 1";

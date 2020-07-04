@@ -256,8 +256,8 @@ class MainLoginsVC: CustomBaseViewVC {
         }
     }
     
-  @objc  func handleSignUp()  {
-    let register = index == 0 ? DoctorRegisterVC(indexx: index) :  MainRegisterVC(indexx: index)
+    @objc  func handleSignUp()  {
+        let register = index == 0 ? DoctorRegisterVC(indexx: index) :  MainRegisterVC(indexx: index)
         
         navigationController?.pushViewController(register, animated: true)
     }

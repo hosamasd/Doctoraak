@@ -11,12 +11,13 @@ import UIKit
 class LoginServices {
     static let shared = LoginServices()
     
-    func DoctorLoginUser(index:Int,phone:String,password:String,completion:@escaping (MainDoctorLoginModel?,Error?)->Void)  {
+    func DoctorLoginUser(specId:Int? = nil,index:Int,phone:String,password:String,completion:@escaping (MainDoctorLoginModel?,Error?)->Void)  {
            let nnn = "doctor_login"
            let urlString = baseUrl+nnn.toSecrueHttps()
            guard  let url = URL(string: urlString) else { return  }
-           let postString = "phone=\(phone)&password=\(password)"
-           MainServices.registerationPostMethodGeneric(postString: postString, url: url, completion: completion)
+        let postString :String
+        postString = specId != -1 ? "phone=\(phone)-\(specId!)&password=\(password)" : "phone=\(phone)&password=\(password)"
+         MainServices.registerationPostMethodGeneric(postString: postString, url: url, completion: completion)
        }
        
        func LabLoginUser(phone:String,password:String,completion:@escaping (MainLabLoginModel?,Error?)->Void)  {

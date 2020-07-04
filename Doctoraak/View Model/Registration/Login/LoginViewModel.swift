@@ -17,12 +17,14 @@ class LoginViewModel {
     var phone:String? {didSet {checkFormValidity()}}
     var password:String? {didSet {checkFormValidity()}}
     var index:Int?  = -1 {didSet {checkFormValidity()}}
-    
-    func performDoctorLogging(completion:@escaping (MainDoctorLoginModel?,Error?)->Void)  {
+    var specificationId:Int?  = -1 {didSet {checkFormValidity()}}
+
+    func performDoctorLogging(specificationId:Int? = nil,completion:@escaping (MainDoctorLoginModel?,Error?)->Void)  {
         guard let phone = phone,let password = password,let index=index
             else { return  }
         bindableIsLogging.value = true
-        LoginServices.shared.DoctorLoginUser(index: index, phone: phone, password: password, completion: completion)
+        
+        LoginServices.shared.DoctorLoginUser(specId:specificationId,index: index, phone: phone, password: password, completion: completion)
     }
     
     func performPharamacyLogging(completion:@escaping (MainPharamacyLoginModel?,Error?)->Void)  {

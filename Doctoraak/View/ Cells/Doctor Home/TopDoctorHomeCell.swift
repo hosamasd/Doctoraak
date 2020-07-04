@@ -18,7 +18,7 @@ class TopDoctorHomeCell: BaseCollectionCell {
             let urlString =  doctor.photo
             guard let url = URL(string: urlString) else { return  }
             profileImage.sd_setImage(with: url)
-            doctorWelcomeLabel.text = "Welcome \n"+doctor.name
+            doctorWelcomeLabel.text = "Welcome \n".localized+doctor.name
             //            doctorReservationLabel.text = doctor.reservationRate ?? "0" + " Reservations"
         }
     }
@@ -35,7 +35,7 @@ class TopDoctorHomeCell: BaseCollectionCell {
     }()
     lazy var doctorWelcomeLabel = UILabel(text: "Welcome \n Dr. Bian Mohamed", font: .systemFont(ofSize: 16), textColor: .black,textAlignment: .left,numberOfLines: 2)
     
-    lazy var doctorReservationLabel = UILabel(text: " \(numberOfReserve) Reservations", font: .systemFont(ofSize: 16), textColor: .black)
+    lazy var doctorReservationLabel = UILabel(text: " \(numberOfReserve) "+"Reservations".localized, font: .systemFont(ofSize: 16), textColor: .black)
     
     lazy var mainDropView:UIView = {
         let l = UIView(backgroundColor: .white)
@@ -57,7 +57,7 @@ class TopDoctorHomeCell: BaseCollectionCell {
             numberOfReserve = cc.count
         }
         i.arrowSize = 20
-        i.placeholder = "clinic 1"
+        i.placeholder = "clinic 1".localized
         i.didSelect { (s, index, _) in
             self.handleChoosedClinicID?(index)
         }

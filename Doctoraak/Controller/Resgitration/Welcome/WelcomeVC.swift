@@ -503,37 +503,28 @@ class WelcomeVC: CustomBaseViewVC {
     //TODO: -handle methods
     
     @objc func handleNext()  {
-        //
-        //        if userDefaults.bool(forKey: UserDefaultsConstants.DoctorPerformLogin) || userDefaults.bool(forKey: UserDefaultsConstants.labPerformLogin) || userDefaults.bool(forKey: UserDefaultsConstants.radiologyPerformLogin) || userDefaults.bool(forKey: UserDefaultsConstants.pharamacyPerformLogin) || userDefaults.bool(forKey: UserDefaultsConstants.medicalCenterPerformLogin)  {
-        //            dismiss(animated: true)
-        //        }else {
-        
-//        let index = userDefaults.integer(forKey: UserDefaultsConstants.isUserRegisterAndWaitForSMScODEIndex)
-//        let phoneNumber = userDefaults.string(forKey: UserDefaultsConstants.userMobileNumber) ?? ""
-        
-//        let check = userDefaults.bool(forKey: UserDefaultsConstants.isUserRegisterAndWaitForSMScODE) ? MainVerificationVC(indexx: index, isFromForgetPassw: false, isFromDoctor: false, phone: phoneNumber, user_id: -1) : WelcomeMainSecondVC()
         userDefaults.set(false, forKey: UserDefaultsConstants.isWelcomeVCAppear)
         userDefaults.synchronize()
         
         if userDefaults.bool(forKey: UserDefaultsConstants.DoctorPerformLogin) || userDefaults.bool(forKey: UserDefaultsConstants.pharamacyPerformLogin) || userDefaults.bool(forKey: UserDefaultsConstants.labPerformLogin) || userDefaults.bool(forKey: UserDefaultsConstants.radiologyPerformLogin) {
             dismiss(animated: true)
         }else {
+            let index = userDefaults.integer(forKey: UserDefaultsConstants.indexForSMSCodeForSpecific)
+            let user_Id = userDefaults.integer(forKey: UserDefaultsConstants.user_idForAll)
+
+             let phone = userDefaults.string(forKey: UserDefaultsConstants.mobileForAll) ?? ""
+            let token = userDefaults.string(forKey: UserDefaultsConstants.APITokendoctorWaitForAddClinic) ?? ""
             
-            if userDefaults.bool(forKey: UserDefaultsConstants.isWaitForMainNewPassVC) {
-                let index = userDefaults.integer(forKey: UserDefaultsConstants.MainLoginINDEX)
-                let mobile = userDefaults.string(forKey: UserDefaultsConstants.isWaitForMainNewPassVCMobile)
-                
-                let newPass = MainNewPassVC(indexx: index, mobile: mobile ?? "")
-                navigationController?.pushViewController(newPass, animated: true)
+            if userDefaults.bool(forKey: UserDefaultsConstants.waitForSMSCodeForSpecific) {
+                let sms = MainVerificationVC(indexx: index, isFromForgetPassw: false, isFromDoctor: false, phone: phone, user_id: user_Id)
+                navigationController?.pushViewController(sms, animated: true)
+            }else if userDefaults.bool(forKey: UserDefaultsConstants.isdoctorWaitForAddClinic) {
+                let clinic = DoctorClinicDataVC(indexx: index, api_token: token, doctor_id: user_Id, isFromProfile: false)
+                navigationController?.pushViewController(clinic, animated: true)
+
             }else{
-                let welcome =  WelcomeMainSecondVC() 
-                //        let nav = UINavigationController(rootViewController:welcome)
-                //        welcome.modalPresentationStyle = .fullScreen
-                //        present(welcome, animated: true)
-                //        navigationController?.pushViewController(welcome, animated: true)
-                
+                let welcome =  WelcomeMainSecondVC()
                 navigationController?.pushViewController(welcome, animated: true)
-                //        }
             }
         }
     }

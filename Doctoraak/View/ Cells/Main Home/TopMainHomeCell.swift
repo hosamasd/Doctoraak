@@ -26,7 +26,7 @@ class TopMainHomeCell: BaseCollectionCell {
             guard let notu = phy else { return  }
             let title = MOLHLanguage.isRTLLanguage() ? notu.nameAr ?? notu.name :  notu.name
             putsAttributedText(la: doctorWelcomeLabel, ft: "Welcome \n\n".localized, st: title)
-
+            
             let urlString = notu.photo
             guard  let url = URL(string: urlString) else { return  }
             profileImage.sd_setImage(with: url)
@@ -38,7 +38,7 @@ class TopMainHomeCell: BaseCollectionCell {
             guard let notu = rad else { return  }
             let title = MOLHLanguage.isRTLLanguage() ? notu.nameAr ?? notu.name :  notu.name
             putsAttributedText(la: doctorWelcomeLabel, ft: "Welcome \n\n".localized, st: title)
-
+            
             let urlString = notu.photo
             guard  let url = URL(string: urlString) else { return  }
             profileImage.sd_setImage(with: url)
@@ -50,7 +50,7 @@ class TopMainHomeCell: BaseCollectionCell {
             guard let notu = lab else { return  }
             let title = MOLHLanguage.isRTLLanguage() ? notu.nameAr ?? notu.name :  notu.name
             putsAttributedText(la: doctorWelcomeLabel, ft: "Welcome \n\n".localized, st: title)
-
+            
             let urlString = notu.photo
             guard  let url = URL(string: urlString) else { return  }
             profileImage.sd_setImage(with: url)
@@ -65,7 +65,7 @@ class TopMainHomeCell: BaseCollectionCell {
         i.clipsToBounds = true
         return i
     }()
-    lazy var doctorWelcomeLabel = UILabel(text: "Welcome \n Dr. Bian Mohamed", font: .systemFont(ofSize: 16), textColor: .black,textAlignment: .left,numberOfLines: 3)
+    lazy var doctorWelcomeLabel = UILabel(text: "", font: .systemFont(ofSize: 16), textColor: .black,textAlignment: .left,numberOfLines: 3)
     
     lazy var doctorReservationLabel = UILabel(text: "", font: .systemFont(ofSize: 16), textColor: #colorLiteral(red: 0.3069777489, green: 0.7054325342, blue: 0.8267442584, alpha: 1))
     
@@ -78,7 +78,7 @@ class TopMainHomeCell: BaseCollectionCell {
     }
     
     func putsAttributedText(la:UILabel,ft:String,st:String)  {
-     let attributeText = NSMutableAttributedString(string: ft, attributes:  [.font : UIFont.boldSystemFont(ofSize: 18),.foregroundColor:UIColor.black])
+        let attributeText = NSMutableAttributedString(string: ft, attributes:  [.font : UIFont.boldSystemFont(ofSize: 18),.foregroundColor:UIColor.black])
         attributeText.append(NSAttributedString(string: st, attributes: [.font : UIFont.systemFont(ofSize: 25),.foregroundColor: UIColor.lightGray]))
         la.attributedText = attributeText
     }

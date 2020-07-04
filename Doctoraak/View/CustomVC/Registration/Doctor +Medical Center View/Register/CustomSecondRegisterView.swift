@@ -34,10 +34,10 @@ class CustomSecondRegisterView: CustomBaseView {
     lazy var cvView:UIView = {
         let v = makeMainSubViewWithAppendView(vv: [cvLabel])
         if MOLHLanguage.isRTLLanguage() {
-                   v.hstack(cvLabel,cvImage).padRight(16)
-              }else {
-                   v.hstack(cvLabel,cvImage).padLeft(16)
-              }
+            v.hstack(cvLabel,cvImage).padRight(16)
+        }else {
+            v.hstack(cvLabel,cvImage).padLeft(16)
+        }
         return v
     }()
     lazy var cvLabel = UILabel(text: "cv.pdf".localized, font: .systemFont(ofSize: 16), textColor: .lightGray)
@@ -73,9 +73,9 @@ class CustomSecondRegisterView: CustomBaseView {
         let l = makeMainSubViewWithAppendView(vv: [doenImage,insuracneText])
         l.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpenCloseInsurance)))
         if MOLHLanguage.isRTLLanguage() {
-             l.hstack(insuracneText,doenImage).withMargins(.init(top: 0, left: 0, bottom: 0, right: 16))
+            l.hstack(insuracneText,doenImage).withMargins(.init(top: 0, left: 0, bottom: 0, right: 16))
         }else {
-             l.hstack(insuracneText,doenImage).withMargins(.init(top: 0, left: 16, bottom: 0, right: 0))
+            l.hstack(insuracneText,doenImage).withMargins(.init(top: 0, left: 16, bottom: 0, right: 0))
         }
         return l
     }()

@@ -604,8 +604,6 @@
 				4EEBF7BC243D98D30039BF81 /* Patients */,
 				4EA94B9C242F6011001C4650 /* Main Home */,
 				4EC977F3242B530000C61F1B /* Doctor Home */,
-				4E333E0424265B2800F82E00 /* DoctorDaysShiftCell.swift */,
-				4E333E12242663E400F82E00 /* DoctorWorkingDateCell.swift */,
 				4E75642A242F420F00A6C15F /* NotificationCell.swift */,
 			);
 			path = " Cells";
@@ -663,6 +661,8 @@
 		4E3548A2242B899900DD4E7A /* MAY BE USED */ = {
 			isa = PBXGroup;
 			children = (
+				4E333E12242663E400F82E00 /* DoctorWorkingDateCell.swift */,
+				4E333E0424265B2800F82E00 /* DoctorDaysShiftCell.swift */,
 				4E75642E242F447B00A6C15F /* CustomDoctorProfileViewtests.swift */,
 				4E75642C242F43F100A6C15F /* DoctorProfileVCTest.swift */,
 				4E5CE7AA2427545C001EE175 /* DoctorBookVC.swift */,
