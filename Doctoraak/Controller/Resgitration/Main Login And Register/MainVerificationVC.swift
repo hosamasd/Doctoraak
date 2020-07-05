@@ -75,7 +75,6 @@ class MainVerificationVC: CustomBaseViewVC {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         customVerificationView.firstNumberTextField.becomeFirstResponder()
-        //        setupTimer()
     }
     
     func setupViewModelObserver()  {

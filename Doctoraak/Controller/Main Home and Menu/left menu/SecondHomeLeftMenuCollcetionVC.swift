@@ -11,11 +11,15 @@ import MOLH
 
 class SecondHomeLeftMenuCollcetionVC: BaseCollectionVC {
     
-    var images:[UIImage] = [#imageLiteral(resourceName: "icon"),#imageLiteral(resourceName: "ic_calendar"),#imageLiteral(resourceName: "ic_notification"),#imageLiteral(resourceName: "ic_chart"),#imageLiteral(resourceName: "ic_phone_24px"),#imageLiteral(resourceName: "ic_language_24px"),#imageLiteral(resourceName: "ic_logout")]
+    var images:[UIImage] = [#imageLiteral(resourceName: "icon"),#imageLiteral(resourceName: "ic_calendar"),#imageLiteral(resourceName: "ic_notification").withRenderingMode(.alwaysTemplate),#imageLiteral(resourceName: "ic_chart"),#imageLiteral(resourceName: "ic_phone_24px"),#imageLiteral(resourceName: "ic_language_24px"),#imageLiteral(resourceName: "ic_logout").withRenderingMode(.alwaysTemplate)]
     var deatas = [["Profile".localized,"Calender".localized,"Notification".localized,"Anaylicts".localized],["Contact Us".localized,"Language".localized,"Log Out".localized]]
-
     
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        images.forEach({$0.withRenderingMode(.alwaysOriginal)})
+        
+    }
     
     fileprivate let cellId = "cellId"
     
@@ -47,8 +51,11 @@ class SecondHomeLeftMenuCollcetionVC: BaseCollectionVC {
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! DoctorLeftMenuCell
-        cell.Image6.image = images[indexPath.item]
-        
+        if indexPath.section == 0 {
+            cell.Image6.image = images[indexPath.item]
+        }else {
+            cell.Image6.image = images[indexPath.item+4]
+        }
         cell.Label6.text = indexPath.section == 0 ? deatas[0][indexPath.item] : deatas[1][indexPath.item]
         return cell
     }

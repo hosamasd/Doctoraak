@@ -91,7 +91,10 @@ class DoctorHomeVC: CustomBaseViewVC {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        if userDefaults.bool(forKey: UserDefaultsConstants.isWelcomeVCAppear) {
+            view.alpha = 0
+        }else {            view.alpha = 1
+        }
         if userDefaults.bool(forKey: UserDefaultsConstants.DoctorPerformLogin) {
             doc = cacheDoctorObjectCodabe.storedValue
         }
@@ -166,7 +169,7 @@ class DoctorHomeVC: CustomBaseViewVC {
         let clinicId = self.docotrClinicID[index]
         guard   let qq = customDoctorHomeView.topDoctorHomeCell.doctorClinicDrop.selectedIndex,let doc = doc else {return}
         chossedClinic=doctorsClinicArray[qq]
-//        SVProgressHUD.show(withStatus: "Looding...".localized)
+        //        SVProgressHUD.show(withStatus: "Looding...".localized)
         UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
         self.showMainAlertLooder(cc: self.customMainAlertVC, v: self.customAlertMainLoodingView)
         DoctorServices.shared.getDocotrsPatientsInClinic(clinic_id: clinicId, api_token: doc.apiToken, doctor_id: doc.id) {[unowned self] (base, err) in
@@ -177,7 +180,7 @@ class DoctorHomeVC: CustomBaseViewVC {
             }
             SVProgressHUD.dismiss()
             self.handleDismiss()
-
+            
             self.activeViewsIfNoData()
             guard let patients = base?.data else {SVProgressHUD.showError(withStatus: base?.message); self.activeViewsIfNoData(); return}
             self.docotrAllPatientsArray = patients

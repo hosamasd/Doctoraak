@@ -117,9 +117,10 @@ class MainHomeVC: CustomBaseViewVC {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        //        if userDefaults.bool(forKey: UserDefaultsConstants.isWelcomeVCAppear) {
-        //            getObjects()
-        //        }else {}  }
+        if userDefaults.bool(forKey: UserDefaultsConstants.isWelcomeVCAppear) {
+                                   view.alpha = 0
+                               }else {            view.alpha = 1
+                       }
     }
     //MARK: -user methods
     

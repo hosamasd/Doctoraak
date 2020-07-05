@@ -102,7 +102,7 @@
 "your information updated..."="معلوماتك الشخصية تم تعديلها...";
 
 //HomeLeftMenuVC
-"Profile"="البروفايل";"Calender"="Calender";"Notification"="الاشعارات";"Anaylicts"="الاحصائيات";"Contact Us"="تواصل معنا";"Language"="اللغة";"Log Out"="تسجيل الخروج";
+"Profile"="البروفايل";"Calender"="التقويم";"Notification"="الاشعارات";"Anaylicts"="التحليل";"Contact Us"="تواصل معنا";"Language"="اللغة";"Log Out"="تسجيل الخروج";
 "Setting"="Setting";
 
 //MainHomeVC

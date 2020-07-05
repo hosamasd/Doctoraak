@@ -50,6 +50,11 @@ class DoctorRegisterVC: CustomBaseViewVC {
         setupViewModelObserver()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+           super.viewWillAppear(animated)
+           customRegisterView.fullNameTextField.becomeFirstResponder()
+       }
+    
     //MARK:-User methods
     
     func setupViewModelObserver()  {

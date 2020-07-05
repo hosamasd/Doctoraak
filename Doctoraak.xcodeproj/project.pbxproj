@@ -661,6 +661,7 @@
 		4E3548A2242B899900DD4E7A /* MAY BE USED */ = {
 			isa = PBXGroup;
 			children = (
+				4E4AAEDD2428CBA700023720 /* MainClinicDataVC.swift */,
 				4E000B0B2431B750007CEC3C /* Notifications */,
 				4EE29B6E24A2414B00DAF1F3 /* HomeDoctorLeftMenuCollcetionVC.swift */,
 				4E333E12242663E400F82E00 /* DoctorWorkingDateCell.swift */,
@@ -817,7 +818,6 @@
 		4E8F1810243DBDD900C00044 /* Clinic */ = {
 			isa = PBXGroup;
 			children = (
-				4E4AAEDD2428CBA700023720 /* MainClinicDataVC.swift */,
 				4EBBF0AF24A1EC1A00B24CE7 /* DoctorClinicDataVC.swift */,
 				4E4F800124544ED10037D7D4 /* Working Hour */,
 			);

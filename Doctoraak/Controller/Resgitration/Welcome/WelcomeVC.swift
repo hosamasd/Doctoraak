@@ -505,14 +505,14 @@ class WelcomeVC: CustomBaseViewVC {
     @objc func handleNext()  {
         userDefaults.set(false, forKey: UserDefaultsConstants.isWelcomeVCAppear)
         userDefaults.synchronize()
-
+        
         if userDefaults.bool(forKey: UserDefaultsConstants.DoctorPerformLogin) || userDefaults.bool(forKey: UserDefaultsConstants.pharamacyPerformLogin) || userDefaults.bool(forKey: UserDefaultsConstants.labPerformLogin) || userDefaults.bool(forKey: UserDefaultsConstants.radiologyPerformLogin) {
             dismiss(animated: true)
         }else {
             let index = userDefaults.integer(forKey: UserDefaultsConstants.indexForSMSCodeForSpecific)
             let user_Id = userDefaults.integer(forKey: UserDefaultsConstants.user_idForAll)
-
-             let phone = userDefaults.string(forKey: UserDefaultsConstants.mobileForAll) ?? ""
+            
+            let phone = userDefaults.string(forKey: UserDefaultsConstants.mobileForAll) ?? ""
             let token = userDefaults.string(forKey: UserDefaultsConstants.APITokendoctorWaitForAddClinic) ?? ""
             
             if userDefaults.bool(forKey: UserDefaultsConstants.waitForSMSCodeForSpecific) {
@@ -521,7 +521,7 @@ class WelcomeVC: CustomBaseViewVC {
             }else if userDefaults.bool(forKey: UserDefaultsConstants.isdoctorWaitForAddClinic) {
                 let clinic = DoctorClinicDataVC(indexx: index, api_token: token, doctor_id: user_Id, isFromProfile: false)
                 navigationController?.pushViewController(clinic, animated: true)
-
+                
             }else{
                 let welcome =  WelcomeMainSecondVC()
                 navigationController?.pushViewController(welcome, animated: true)

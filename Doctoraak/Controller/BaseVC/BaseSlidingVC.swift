@@ -88,9 +88,12 @@ class BaseSlidingVC: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        if !userDefaults.bool(forKey: UserDefaultsConstants.isWelcomeVCAppear) {
+        
+        if userDefaults.bool(forKey: UserDefaultsConstants.isWelcomeVCAppear) {
+            view.backgroundColor = .clear
             check()
-        }else {}
+        }else {            view.backgroundColor = .white
+}
     }
     
     func check()  {

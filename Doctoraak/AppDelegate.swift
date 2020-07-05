@@ -20,6 +20,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate,MOLHResetable {
         // Override point for customization aft/Users/hosam/Documents/xcode projects/syphinx/Doctoraak/Doctoraak.xcodeprojer application launch.
          keyboardChanges()
         userDefaults.set(true, forKey: UserDefaultsConstants.isWelcomeVCAppear)
+        userDefaults.set(false, forKey: UserDefaultsConstants.isdoctorWaitForAddClinic)
+
         userDefaults.set(false, forKey: UserDefaultsConstants.isAllMainHomeObjectsFetched)
 
                userDefaults.synchronize()
@@ -27,8 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,MOLHResetable {
 
         window = UIWindow()
         window?.makeKeyAndVisible()
-        window?.rootViewController = UINavigationController(rootViewController: DoctorClinicDataVC(indexx: 0, api_token: "", doctor_id: 1, isFromProfile: false))//DoctorRegisterVC(indexx: 1))//MainClinicWorkingHoursNotDoctorVC(index: 2, isFromUpdateProfile: true, isFromRegister: true))//DoctorClinicDataVC(indexx: 0, api_token: "", doctor_id: 2, isFromProfile: false))//DoctorRegisterVC(indexx: 0) )//BaseSlidingVC()//UINavigationController(rootViewController: MainClinicWorkingHoursVCWithoutEditingVC())//BaseSlidingVC()//UINavigationController(rootViewController: SecondHomeLeftMenuCollcetionVC())//MainVerificationVC(indexx: 4, isFromForgetPassw: false, phone: "00000000951", user_id: 22))//BaseSlidingVC()//MainLoginsVC(indexx: 0)//BaseSlidingVC()//UINavigationController(rootViewController:MainLoginsVC(indexx: 0) )//DoctorHomeVC(inde: 0))//MainRegisterVC(indexx: 2))//MainClinicDataVC(indexx: 0, api_token: "VUsVb1nQlIHUfU6ZnTgpOldJcxnMdyoD7Ns3Vo6IUii48erAaGRtjwXiFycQ1qaUqtChFiaF", doctor_id: 4))//MainVerificationVC(indexx: 0, isFromForgetPassw: false, phone: "00000000010", user_id: 75))//DoctorRegisterVC(indexx: 0)))//MainClinicWorkingHoursNotDoctorVC())//MainClinicDataVC(indexx: 0, api_token: "", doctor_id: 1))//MainClinicDataVC(indexx: 0, api_token: "7vqKKNeUzsxA5cKJ943bhdbOpeIYGtx2gp3qo2ueaM", doctor_id: 33))//MainLoginsVC(indexx: 0))//MainVerificationVC(indexx: 1, isFromForgetPassw: false, phone: "00000000651", user_id: 33))//DoctorSecondRegisterVC(indexx: 0, male: "male", photo: #imageLiteral(resourceName: "Group 4142-6"), email: "a", name: "a", mobile: "", passowrd: ""))//MainRegisterVC(indexx: 2))//MainClinicDataVC(indexx: 0))//MainVerificationVC(indexx: 0, isFromForgetPassw: false, phone: "00000000010", user_id: 75))//DoctorRegisterVC(indexx: 0))//MainVerificationVC(indexx: 0, isFromForgetPassw: true, phone: ""))//)MainClinicDataVC(indexx: 0))//MainRegisterVC(indexx: 2))
-//        window?.rootViewController = BaseSlidingVC(indexx: 0)
+        window?.rootViewController = BaseSlidingVC()//UINavigationController(rootViewController: MainLoginsVC(indexx: 3))//DoctorRegisterVC(indexx: 1))//MainClinicWorkingHoursNotDoctorVC(index: 2, isFromUpdateProfile: true, isFromRegister: true))//DoctorClinicDataVC(indexx: 0, api_token: "", doctor_id: 2, isFromProfile: false))//DoctorRegisterVC(indexx: 0) )//BaseSlidingVC()//UINavigationController(rootViewController: MainClinicWorkingHoursVCWithoutEditingVC())//BaseSlidingVC()//UINavigationController(rootViewController: SecondHomeLeftMenuCollcetionVC())//MainVerificationVC(indexx: 4, isFromForgetPassw: false, phone: "00000000951", user_id: 22))//BaseSlidingVC()//MainLoginsVC(indexx: 0)//BaseSlidingVC()//UINavigationController(rootViewController:MainLoginsVC(indexx: 0) )//DoctorHomeVC(inde: 0))//MainRegisterVC(indexx: 2))
         return true
     }
 
