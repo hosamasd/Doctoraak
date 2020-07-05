@@ -83,10 +83,10 @@ class CustomClinicDataView: CustomBaseView {
     lazy var feesTextField:UITextField = {
         let s = createMainTextFields(place: "Fees".localized, type: .numberPad)
         let label = UILabel(text: "    EGY  ".localized, font: .systemFont(ofSize: 18), textColor: .lightGray)
-      label.textAlignment = MOLHLanguage.isRTLLanguage() ? .right :.left
-
-            label.frame = CGRect(x: CGFloat(s.frame.size.width - 60), y: CGFloat(5), width: CGFloat(60), height: CGFloat(25))
-
+        label.textAlignment = MOLHLanguage.isRTLLanguage() ? .right :.left
+        
+        label.frame = CGRect(x: CGFloat(s.frame.size.width - 60), y: CGFloat(5), width: CGFloat(60), height: CGFloat(25))
+        
         
         s.rightView = label
         s.rightViewMode = .always
@@ -107,12 +107,14 @@ class CustomClinicDataView: CustomBaseView {
     }()
     lazy var workingHourView:UIView = {
         let v = makeMainSubViewWithAppendView(vv: [workingHoursLabel])
-        if MOLHLanguage.isRTLLanguage() {
-            v.hstack(workingHoursLabel).withMargins(.init(top: 0, left: 0, bottom: 0, right: 16))
-
-        }else {
-        v.hstack(workingHoursLabel).withMargins(.init(top: 0, left: 16, bottom: 0, right: 0))
-        }
+        v.hstack(workingHoursLabel).withMargins(.init(top: 0, left: 16, bottom: 0, right: 8))
+        
+        //        if MOLHLanguage.isRTLLanguage() {
+        //            v.hstack(workingHoursLabel).withMargins(.init(top: 0, left: 0, bottom: 0, right: 16))
+        //
+        //        }else {
+        //        v.hstack(workingHoursLabel).withMargins(.init(top: 0, left: 16, bottom: 0, right: 0))
+        //        }
         v.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleChoose)))
         return v
     }()
@@ -231,10 +233,10 @@ class CustomClinicDataView: CustomBaseView {
     
     override func setupViews() {
         [titleLabel,soonLabel,addressLabel,workingHoursLabel].forEach({$0.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left})
-
+        
         [ waitingHoursTextField, feesTextField,   clinicMobileNumberTextField, consultationFeesTextField].forEach({$0.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)})
         
-        workingHourView.hstack(workingHoursLabel).padLeft(16)
+        //        workingHourView.hstack(workingHoursLabel).padLeft(16)
         let subView = UIView(backgroundColor: .clear)
         subView.addSubViews(views: clinicProfileImage,clinicEditProfileImageView)
         subView.constrainWidth(constant: 100)
@@ -250,11 +252,11 @@ class CustomClinicDataView: CustomBaseView {
             subView.centerXAnchor.constraint(equalTo: centerXAnchor)
         ])
         if MOLHLanguage.isRTLLanguage() {
-                              LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 0, bottom: 0, right: -48))
-                          }else {
-                              
-                              LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
-                         }
+            LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 0, bottom: 0, right: -48))
+        }else {
+            
+            LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
+        }
         subView.anchor(top: LogoImage.bottomAnchor, leading: nil, bottom: nil, trailing: nil,padding: .init(top: 50, left: 0, bottom: 0, right: 0))
         backImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 60, left: 16, bottom: 0, right: 0))
         titleLabel.anchor(top: nil, leading: leadingAnchor, bottom: LogoImage.bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))

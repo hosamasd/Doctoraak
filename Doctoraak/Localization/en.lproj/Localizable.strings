@@ -123,6 +123,4 @@
 "Patient data"="Patientdata";"Prescription"="Prescription";"Medicines"="Medicines";"Accept"="Accept";
 "Refuse"="Refuse";
 
-"Quantity"="Quantity";
-"Welcome \n"="Welcome \n";
-"clinic 1"="clinic 1";
+"Quantity"="Quantity";"Welcome \n"="Welcome \n";"Clinic 1"="clinic 1";"Unable to load data:"="Unable to load data:";

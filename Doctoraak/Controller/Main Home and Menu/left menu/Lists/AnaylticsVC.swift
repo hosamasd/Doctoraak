@@ -116,6 +116,9 @@ class AnaylticsVC: CustomBaseViewVC {
        }
 }
 
+//MARK:-extension
+
+
 extension AnaylticsVC :WKNavigationDelegate {
     func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
         

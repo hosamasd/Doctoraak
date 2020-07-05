@@ -39,6 +39,15 @@ class CustomMainRegisterView: CustomBaseView {
     lazy var titleLabel = UILabel(text: "Welcome".localized, font: .systemFont(ofSize: 30), textColor: .white)
     lazy var soonLabel = UILabel(text: "", font: .systemFont(ofSize: 18), textColor: .white)
     
+    lazy var userViews:UIView = {
+        let i = UIView(backgroundColor: .gray)
+           i.constrainWidth(constant: 110)
+           i.constrainHeight(constant: 110)
+           i.layer.cornerRadius = 55
+           i.clipsToBounds = true
+        i.hstack(userProfileImage)
+           return i
+       }()
     lazy var userProfileImage:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "Group 4143"))
         i.constrainWidth(constant: 100)
@@ -272,8 +281,10 @@ class CustomMainRegisterView: CustomBaseView {
         
         let subView = UIView(backgroundColor: .clear)
         subView.addSubViews(views: userProfileImage,userEditProfileImageView)
-        subView.constrainWidth(constant: 100)
-        subView.constrainHeight(constant: 100)
+        subView.constrainWidth(constant: 60)
+        subView.constrainHeight(constant: 60)
+//        subView.layer.cornerRadius = 55
+//        subView.clipsToBounds=true
         userEditProfileImageView.anchor(top: nil, leading: nil, bottom: userProfileImage.bottomAnchor, trailing: userProfileImage.trailingAnchor,padding: .init(top: 0, left:0 , bottom:10, right: 10))
         
         let textStack = getStack(views: fullNameTextField,mobileNumberTextField,emailTextField,passwordTextField,confirmPasswordTextField,addressMainView,mainDropView,mainDrop2View,mainDrop3View, spacing: 16, distribution: .fillEqually, axis: .vertical)

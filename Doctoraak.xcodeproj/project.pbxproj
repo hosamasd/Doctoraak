@@ -661,6 +661,8 @@
 		4E3548A2242B899900DD4E7A /* MAY BE USED */ = {
 			isa = PBXGroup;
 			children = (
+				4E000B0B2431B750007CEC3C /* Notifications */,
+				4EE29B6E24A2414B00DAF1F3 /* HomeDoctorLeftMenuCollcetionVC.swift */,
 				4E333E12242663E400F82E00 /* DoctorWorkingDateCell.swift */,
 				4E333E0424265B2800F82E00 /* DoctorDaysShiftCell.swift */,
 				4E75642E242F447B00A6C15F /* CustomDoctorProfileViewtests.swift */,
@@ -1228,7 +1230,6 @@
 			children = (
 				4EA5C64F2469495A005FCABF /* Left menu */,
 				4EC977ED242B524000C61F1B /* home */,
-				4E000B0B2431B750007CEC3C /* Notifications */,
 			);
 			path = "Doctor Sceniro";
 			sourceTree = "<group>";
@@ -1314,7 +1315,6 @@
 			isa = PBXGroup;
 			children = (
 				4E92AF68242B6FF900BCF20E /* DoctorHomeLeftMenuVC.swift */,
-				4EE29B6E24A2414B00DAF1F3 /* HomeDoctorLeftMenuCollcetionVC.swift */,
 			);
 			path = "Left ";
 			sourceTree = "<group>";

@@ -285,6 +285,7 @@ extension DoctorClinicDataVC: MainClinicWorkingHoursProtocol {
     }
 }
 
+//MARK:-extension
 
 
 extension DoctorClinicDataVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
@@ -310,6 +311,8 @@ extension DoctorClinicDataVC: UIImagePickerControllerDelegate, UINavigationContr
     
     
 }
+
+//MARK:-extension
 
 
 extension DoctorClinicDataVC: ChooseLocationVCProtocol{

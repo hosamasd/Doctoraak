@@ -67,6 +67,16 @@ class MainLoginsVC: CustomBaseViewVC {
     
     //MARK:-User methods
     
+    override func setupNavigation()  {
+        navigationController?.navigationBar.isHide(true)
+    }
+    
+    override func setupViews() {
+        
+        view.addSubview(customLoginsView)
+        customLoginsView.fillSuperview()
+    }
+    
     fileprivate func setupLoginViewModelObserver(){
         
         customLoginsView.loginViewModel.bindableIsFormValidate.bind {[unowned self] (isValidForm) in
@@ -86,17 +96,9 @@ class MainLoginsVC: CustomBaseViewVC {
         })
     }
     
-    override func setupNavigation()  {
-        navigationController?.navigationBar.isHide(true)
-    }
     
-    override func setupViews() {
-        
-        view.addSubview(customLoginsView)
-        customLoginsView.fillSuperview()
-    }
     
-    func saveDoctorToken(doctor:DoctorModel)  {
+    fileprivate func saveDoctorToken(doctor:DoctorModel)  {
         userDefaults.set(true, forKey: UserDefaultsConstants.DoctorPerformLogin)
         userDefaults.set(index, forKey: UserDefaultsConstants.MainLoginINDEX)
         
@@ -107,7 +109,7 @@ class MainLoginsVC: CustomBaseViewVC {
         
     }
     
-    func saveRadToken(doctor:RadiologyModel)  {
+    fileprivate func saveRadToken(doctor:RadiologyModel)  {
         userDefaults.set(true, forKey: UserDefaultsConstants.radiologyPerformLogin)
         userDefaults.set(index, forKey: UserDefaultsConstants.MainLoginINDEX)
         
@@ -118,7 +120,7 @@ class MainLoginsVC: CustomBaseViewVC {
         
     }
     
-    func saveLabToken(doctor:LabModel)  {
+    fileprivate func saveLabToken(doctor:LabModel)  {
         userDefaults.set(true, forKey: UserDefaultsConstants.labPerformLogin)
         userDefaults.set(index, forKey: UserDefaultsConstants.MainLoginINDEX)
         
@@ -129,7 +131,7 @@ class MainLoginsVC: CustomBaseViewVC {
         
     }
     
-    func savePharToken(doctor:PharamacyModel)  {
+    fileprivate func savePharToken(doctor:PharamacyModel)  {
         userDefaults.set(true, forKey: UserDefaultsConstants.pharamacyPerformLogin)
         userDefaults.set(index, forKey: UserDefaultsConstants.MainLoginINDEX)
         userDefaults.synchronize()
@@ -139,27 +141,17 @@ class MainLoginsVC: CustomBaseViewVC {
         
     }
     
-    func goToDoctorMainTab(doctor:DoctorLoginModel)  {
+    fileprivate func goToDoctorMainTab(doctor:DoctorLoginModel)  {
         dismiss(animated: true) {
             
         }
         
         let home = BaseSlidingVC()
         home.index=index
-        //               home.currentDoctor = doctor
-        //        present(home, animated: true, completion: nil)
         navigationController?.pushViewController(home, animated: true)
     }
     
-    //TODO: -handle methods
-    
-    @objc  func handleRegister()  {
-        let register = MainRegisterVC(indexx: index)
-        navigationController?.pushViewController(register, animated: true)
-        
-    }
-    
-    func checkDoctorLoginState()  {
+    fileprivate func checkDoctorLoginState()  {
         customLoginsView.loginViewModel.performDoctorLogging {[unowned self] (base, err) in
             if let err = err {
                 SVProgressHUD.showError(withStatus: err.localizedDescription)
@@ -179,7 +171,7 @@ class MainLoginsVC: CustomBaseViewVC {
         }
     }
     
-    func checkPharamacyLoginState()  {
+    fileprivate func checkPharamacyLoginState()  {
         customLoginsView.loginViewModel.performPharamacyLogging {[unowned self] (base, err) in
             if let err = err {
                 SVProgressHUD.showError(withStatus: err.localizedDescription)
@@ -199,7 +191,7 @@ class MainLoginsVC: CustomBaseViewVC {
     }
     
     
-    func checkRadLoginState()  {
+    fileprivate func checkRadLoginState()  {
         customLoginsView.loginViewModel.performRadLogging {[unowned self] (base, err) in
             if let err = err {
                 SVProgressHUD.showError(withStatus: err.localizedDescription)
@@ -235,6 +227,16 @@ class MainLoginsVC: CustomBaseViewVC {
         }
     }
     
+    //TODO: -handle methods
+    
+    @objc  func handleRegister()  {
+        let register = MainRegisterVC(indexx: index)
+        navigationController?.pushViewController(register, animated: true)
+        
+    }
+    
+    
+    
     @objc  func handleLogin()  {
         
         index == 0 || index == 1 ? checkDoctorLoginState() : index == 4 ? checkPharamacyLoginState() : index == 2 ? checkLabLoginState() : checkRadLoginState()
@@ -257,7 +259,7 @@ class MainLoginsVC: CustomBaseViewVC {
     }
     
     @objc  func handleSignUp()  {
-        let register = index == 0 ? DoctorRegisterVC(indexx: index) :  MainRegisterVC(indexx: index)
+        let register = index == 0 || index == 1 ? DoctorRegisterVC(indexx: index) :  MainRegisterVC(indexx: index)
         
         navigationController?.pushViewController(register, animated: true)
     }

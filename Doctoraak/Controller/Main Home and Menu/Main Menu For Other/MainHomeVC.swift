@@ -280,6 +280,9 @@ class MainHomeVC: CustomBaseViewVC {
     
 }
 
+//MARK:-extension
+
+
 extension MainHomeVC: SelectedPharmacyPatientDataProtocol {
     
     func deletePHY(indexPath: IndexPath, index: Int) {

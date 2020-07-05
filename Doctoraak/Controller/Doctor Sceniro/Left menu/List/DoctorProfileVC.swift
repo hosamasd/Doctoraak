@@ -72,6 +72,8 @@ class DoctorProfileVC:   CustomBaseViewVC {
         
     }
     
+    //TODO: -User methods
+    
     override func setupNavigation()  {
         navigationController?.navigationBar.isHide(true)
     }
@@ -121,7 +123,7 @@ class DoctorProfileVC:   CustomBaseViewVC {
         patient != nil ?    cacheDoctorObjectCodabe.save(patient!) : ()
     }
     
-    func checkRadLoginState()  {
+    fileprivate  func checkRadLoginState()  {
         
         
         
@@ -144,14 +146,14 @@ class DoctorProfileVC:   CustomBaseViewVC {
         }
     }
     
-    func uploadCV()  {
+    fileprivate func uploadCV()  {
         let documentPicker = UIDocumentPickerViewController(documentTypes: ["public.text", "com.apple.iwork.pages.pages", "public.data"], in: .import)
         
         documentPicker.delegate = self
         present(documentPicker, animated: true, completion: nil)
     }
     
-    func handleDownload()  {
+    fileprivate func handleDownload()  {
         guard let doc = doc else { return  }
         let urlString = doc.cv
         guard let url = URL(string: urlString) else { return  }
@@ -177,8 +179,6 @@ class DoctorProfileVC:   CustomBaseViewVC {
     
     //TODO: -handle methods
     
-    
-    
     @objc func createAlertForChoposingImage()  {
         let alert = UIAlertController(title: "Choose Image".localized, message: "Choose image fROM ".localized, preferredStyle: .alert)
         let camera = UIAlertAction(title: "Camera".localized, style: .default) {[unowned self] (_) in
@@ -188,7 +188,7 @@ class DoctorProfileVC:   CustomBaseViewVC {
         let gallery = UIAlertAction(title: "Open From Gallery".localized, style: .default) {[unowned self] (_) in
             self.handleOpenGallery(sourceType: .photoLibrary)
         }
-        let cancel = UIAlertAction(title: "Cancel".localized, style: .cancel) {[unowned self] (_) in
+        let cancel = UIAlertAction(title: "Cancel".localized, style: .cancel) { (_) in
             alert.dismiss(animated: true)
         }
         
@@ -234,6 +234,8 @@ class DoctorProfileVC:   CustomBaseViewVC {
     }
 }
 
+//MARK:-extension
+
 extension DoctorProfileVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     func imagePickerController (_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]){
@@ -260,6 +262,8 @@ extension DoctorProfileVC: UIImagePickerControllerDelegate, UINavigationControll
     
 }
 
+//MARK:-extension
+
 
 extension DoctorProfileVC : UIDocumentPickerDelegate {
     
@@ -273,7 +277,7 @@ extension DoctorProfileVC : UIDocumentPickerDelegate {
             //                let imageData = try Data(contentsOf: cico as URL)
             try  self.customDoctorProfileView.edirProfileViewModel.cvFile = Data(contentsOf: cico)
         } catch {
-            print("Unable to load data: \(error)")
+            print("Unable to load data:".localized+" \(error)")
         }
     }
 }

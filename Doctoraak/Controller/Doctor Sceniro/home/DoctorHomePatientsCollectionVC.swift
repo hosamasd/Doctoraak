@@ -11,7 +11,7 @@ import UIKit
 class DoctorHomePatientsCollectionVC: BaseCollectionVC {
     
     var handleSelectedIndex:((IndexPath)->Void)?
-
+    
     var doctorPatientsArray = [DoctorGetPatientsFromClinicModel]()
     
     fileprivate let cellId = "cellId"
@@ -28,8 +28,6 @@ class DoctorHomePatientsCollectionVC: BaseCollectionVC {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        //        let width = (view.frame.wid15th - 56 ) / 2
-        
         return .init(width: view.frame.width, height: 110)
     }
     

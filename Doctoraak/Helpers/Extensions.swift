@@ -220,14 +220,26 @@ extension UIView {
     
     func createMainTextFieldsWithoutPods(place:String) -> UITextField {
         let t = UITextField()
+        t.textColor = .black
+//        let t = CustomSkyTextFieldRightPadding(padding: padding ?? 16, height: 50)
+               t.layer.cornerRadius = 8
+               t.clipsToBounds = true
+               t.placeholder = place
+               t.layer.borderWidth = 1
+               t.layer.borderColor = UIColor.lightGray.cgColor
+//               t.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: t.frame.height))
+//               t.leftViewMode = .always
+        t.keyboardType = .numberPad
+               t.constrainHeight(constant: 60)
+        
         t.textAlignment = .center
-        t.constrainHeight(constant: 50)
-        t.layer.cornerRadius = 8
-        t.clipsToBounds = true
-        t.placeholder = place
-        t.keyboardType = .default
-        t.layer.borderWidth = 1
-        t.layer.borderColor = UIColor.lightGray.cgColor
+//        t.constrainHeight(constant: 50)
+//        t.layer.cornerRadius = 8
+//        t.clipsToBounds = true
+//        t.placeholder = place
+//        t.keyboardType = .default
+//        t.layer.borderWidth = 1
+//        t.layer.borderColor = UIColor.lightGray.cgColor
         return t
     }
     

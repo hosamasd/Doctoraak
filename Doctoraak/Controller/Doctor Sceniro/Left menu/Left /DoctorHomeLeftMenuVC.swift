@@ -33,8 +33,8 @@ class DoctorHomeLeftMenuVC: CustomBaseViewVC {
         didSet{
             guard let lab = meidicalCenter else { return  }
             customDoctorMainHomeLeftView.meidicalCenter=lab
-
-
+            
+            
         }
     }
     
@@ -74,7 +74,7 @@ class DoctorHomeLeftMenuVC: CustomBaseViewVC {
         customDoctorMainHomeLeftView.fillSuperview()
     }
     
-    func removeDefults()  {
+    fileprivate func removeDefults()  {
         
         userDefaults.removeObject(forKey: UserDefaultsConstants.DoctorPerformLogin)
         userDefaults.removeObject(forKey: UserDefaultsConstants.doctorCurrentApiToken)
@@ -84,9 +84,7 @@ class DoctorHomeLeftMenuVC: CustomBaseViewVC {
         
     }
     
-    func checkIfLogginedDoc(_ indexPath:IndexPath)  {
-//        guard let baseSlid = UIApplication.shared.windows.filter({$0.isKeyWindow}).first?.rootViewController as? BaseSlidingVC else {return}
-
+    fileprivate  func checkIfLogginedDoc(_ indexPath:IndexPath)  {
         guard let baseSlid = UIApplication.shared.windows.filter({$0.isKeyWindow}).first?.rootViewController as? BaseSlidingVC ,let doc = doctor else {return}
         
         if indexPath.section == 0 {
@@ -100,18 +98,13 @@ class DoctorHomeLeftMenuVC: CustomBaseViewVC {
                 present(nav, animated: true)
             }else if indexPath.item == 1 {
                 baseSlid.closeMenu()
-                                let profile = DoctorClinicDataVC(indexx: index, api_token: doc.apiToken, doctor_id: doc.id, isFromProfile: true)
-                                let nav = UINavigationController(rootViewController: profile)
+                let profile = DoctorClinicDataVC(indexx: index, api_token: doc.apiToken, doctor_id: doc.id, isFromProfile: true)
+                let nav = UINavigationController(rootViewController: profile)
                 
-                                nav.modalPresentationStyle = .fullScreen
-                                present(nav, animated: true)
+                nav.modalPresentationStyle = .fullScreen
+                present(nav, animated: true)
             }else if indexPath.item == 2 {
                 baseSlid.closeMenu()
-//                let profile = DoctorClinicDataVC(indexx: index, api_token: doc.apiToken, doctor_id: doc.id, isFromProfile: true)
-//                let nav = UINavigationController(rootViewController: profile)
-//
-//                nav.modalPresentationStyle = .fullScreen
-//                present(nav, animated: true)
             }else if indexPath.item == 3 {
                 baseSlid.closeMenu()
                 let profile = DoctorClinicWorkingHoursVC()//DoctorClinicDataVC(indexx: index, api_token: doc.apiToken, doctor_id: doc.id, isFromProfile: true)
@@ -171,7 +164,7 @@ class DoctorHomeLeftMenuVC: CustomBaseViewVC {
         let ok = UIAlertAction(title: "Log Out".localized, style: .destructive) {[unowned self] (_) in
             self.performLogout()
         }
-        let cancel = UIAlertAction(title: "Cancel".localized, style: .cancel) {[unowned self] (_) in
+        let cancel = UIAlertAction(title: "Cancel".localized, style: .cancel) { (_) in
             alert.dismiss(animated: true)
         }
         alert.addAction(ok)
@@ -187,6 +180,7 @@ class DoctorHomeLeftMenuVC: CustomBaseViewVC {
         baseSlid.customMainAlertVC.addCustomViewInCenter(views: baseSlid.customAlertChooseLanguageView, height: 200)
         baseSlid.present(baseSlid.customMainAlertVC, animated: true)
     }
+    
     fileprivate func showAlertForContacting()  {
         guard let baseSlid = UIApplication.shared.windows.filter({$0.isKeyWindow}).first?.rootViewController as? BaseSlidingVC else {return}
         
@@ -200,7 +194,7 @@ class DoctorHomeLeftMenuVC: CustomBaseViewVC {
     
     fileprivate  func performLogout()  {
         guard let baseSlid = UIApplication.shared.keyWindow?.rootViewController as? BaseSlidingVC else {return}
-//        removeDefults()
+        //        removeDefults()
         
         
         if userDefaults.bool(forKey: UserDefaultsConstants.DoctorPerformLogin) {
@@ -221,24 +215,15 @@ class DoctorHomeLeftMenuVC: CustomBaseViewVC {
         userDefaults.set(true, forKey: UserDefaultsConstants.isWelcomeVCAppear)
         userDefaults.synchronize()
         baseSlid.closeMenu()
-
+        
         DispatchQueue.main.async {
-                   self.customDoctorMainHomeLeftView.userImage.image = #imageLiteral(resourceName: "Group 4143")
-                   self.customDoctorMainHomeLeftView.userNameLabel.text = ""
-               }
+            self.customDoctorMainHomeLeftView.userImage.image = #imageLiteral(resourceName: "Group 4143")
+            self.customDoctorMainHomeLeftView.userNameLabel.text = ""
+        }
     }
     
     //TODO: -handle methods
     
-//    @objc func handleLogout()  {
-//        
-//        guard let baseSlid = UIApplication.shared.keyWindow?.rootViewController as? BaseSlidingVC else {return}
-//        removeDefults()
-//        
-//        baseSlid.closeMenu()
-//        
-//        print(9999999)
-//    }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

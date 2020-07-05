@@ -75,7 +75,7 @@ class MainNewPassVC: CustomBaseViewVC {
     
     //MARK:-User methods
     
-    func setupViewModelObserver()  {
+   fileprivate func setupViewModelObserver()  {
         customMainNewPassView.newPassViewModel.bindableIsFormValidate.bind { [unowned self] (isValidForm) in
             guard let isValid = isValidForm else {return}
             //            self.customLoginView.loginButton.isEnabled = isValid

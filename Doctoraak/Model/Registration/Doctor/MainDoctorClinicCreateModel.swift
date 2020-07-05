@@ -52,8 +52,8 @@ struct DoctorSecondModel:Codable {
     let name: String
     var nameAr, nameFr: String?
     let gender, phone, smsCode, apiToken: String
-    var firebaseToken: String?
-    let email, password: String
+    var email,firebaseToken: String?
+    let  password: String
     let active, specializationID, degreeID: Int
     let cv: String
     let cv2: String

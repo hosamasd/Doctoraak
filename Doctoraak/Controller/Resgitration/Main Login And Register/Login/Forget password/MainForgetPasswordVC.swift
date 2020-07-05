@@ -58,13 +58,13 @@ class MainForgetPasswordVC: CustomBaseViewVC {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-           super.viewWillAppear(animated)
+        super.viewWillAppear(animated)
         customMainForgetPassView.numberTextField.becomeFirstResponder()
-       }
+    }
     
     //MARK:-User methods
     
-    func setupViewModelObserver()  {
+    fileprivate  func setupViewModelObserver()  {
         customMainForgetPassView.forgetPassViewModel.bindableIsFormValidate.bind { [unowned self] (isValidForm) in
             guard let isValid = isValidForm else {return}
             //            self.customLoginView.loginButton.isEnabled = isValid
@@ -94,13 +94,13 @@ class MainForgetPasswordVC: CustomBaseViewVC {
         
     }
     
-    func goToNext()  {
+    fileprivate func goToNext()  {
         
         let mobile = customMainForgetPassView.forgetPassViewModel.phone ?? ""
         
         userDefaults.set(true, forKey: UserDefaultsConstants.isWaitForMainNewPassVC)
         userDefaults.set(mobile, forKey: UserDefaultsConstants.isWaitForMainNewPassVCMobile)
-
+        
         userDefaults.synchronize()
         let newPass = MainNewPassVC(indexx: index, mobile: mobile)
         navigationController?.pushViewController(newPass, animated: true)
@@ -136,7 +136,7 @@ class MainForgetPasswordVC: CustomBaseViewVC {
         }
     }
     
-   @objc func handleBack()  {
+    @objc func handleBack()  {
         navigationController?.popViewController(animated: true)
     }
     

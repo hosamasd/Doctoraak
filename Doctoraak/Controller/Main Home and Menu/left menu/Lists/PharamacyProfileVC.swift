@@ -273,6 +273,9 @@ class PharamacyProfileVC: CustomBaseViewVC {
     }
 }
 
+//MARK:-extension
+
+
 extension PharamacyProfileVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     func imagePickerController (_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]){
@@ -297,6 +300,9 @@ extension PharamacyProfileVC: UIImagePickerControllerDelegate, UINavigationContr
     
 }
 
+//MARK:-extension
+
+
 extension PharamacyProfileVC :MainClinicWorkingHoursssProtocol{
     
     func getDays(indexs: [Int], days: [String]) {
@@ -309,6 +315,9 @@ extension PharamacyProfileVC :MainClinicWorkingHoursssProtocol{
     
     
 }
+
+//MARK:-extension
+
 
 extension PharamacyProfileVC: ChooseLocationVCProtocol{
     

@@ -57,7 +57,7 @@ class TopDoctorHomeCell: BaseCollectionCell {
             numberOfReserve = cc.count
         }
         i.arrowSize = 20
-        i.placeholder = "clinic 1".localized
+        i.placeholder = "Clinic 1".localized
         i.didSelect { (s, index, _) in
             self.handleChoosedClinicID?(index)
         }

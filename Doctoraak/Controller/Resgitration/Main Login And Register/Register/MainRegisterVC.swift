@@ -345,6 +345,8 @@ extension MainRegisterVC: UIImagePickerControllerDelegate, UINavigationControlle
     
 }
 
+//MARK:-extension
+
 
 extension MainRegisterVC: MainClinicWorkingHoursssProtocol{
     
@@ -358,6 +360,9 @@ extension MainRegisterVC: MainClinicWorkingHoursssProtocol{
     
     
 }
+
+//MARK:-extension
+
 
 extension MainRegisterVC: ChooseLocationVCProtocol{
     
