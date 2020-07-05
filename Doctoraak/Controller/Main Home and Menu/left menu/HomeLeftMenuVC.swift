@@ -123,7 +123,7 @@ class HomeLeftMenuVC: CustomBaseViewVC {
         present(nav, animated: true)
     }
     
-    func checkIfLoggined(_ indexPath:IndexPath)  {
+    fileprivate func checkIfLoggined(_ indexPath:IndexPath)  {
         guard let baseSlid = UIApplication.shared.windows.filter({$0.isKeyWindow}).first?.rootViewController as? BaseSlidingVC else {return}
         if indexPath.section == 0 {
             if indexPath.item == 0  {
@@ -168,6 +168,7 @@ class HomeLeftMenuVC: CustomBaseViewVC {
         baseSlid.customMainAlertVC.addCustomViewInCenter(views: baseSlid.customAlertChooseLanguageView, height: 200)
         baseSlid.present(baseSlid.customMainAlertVC, animated: true)
     }
+    
     fileprivate func showAlertForContacting()  {
         guard let baseSlid = UIApplication.shared.windows.filter({$0.isKeyWindow}).first?.rootViewController as? BaseSlidingVC else {return}
         
@@ -215,7 +216,7 @@ class HomeLeftMenuVC: CustomBaseViewVC {
         }
     }
     
-    func goToWelcome()  {
+    fileprivate func goToWelcome()  {
         let welcome = WelcomeVC()
         let nav = UINavigationController(rootViewController: welcome)
         nav.modalPresentationStyle = .fullScreen
@@ -231,7 +232,7 @@ class HomeLeftMenuVC: CustomBaseViewVC {
         let ok = UIAlertAction(title: "Log Out".localized, style: .destructive) {[unowned self] (_) in
             self.performLogout()
         }
-        let cancel = UIAlertAction(title: "Cancel".localized, style: .cancel) {[unowned self] (_) in
+        let cancel = UIAlertAction(title: "Cancel".localized, style: .cancel) { (_) in
             alert.dismiss(animated: true)
         }
         alert.addAction(ok)

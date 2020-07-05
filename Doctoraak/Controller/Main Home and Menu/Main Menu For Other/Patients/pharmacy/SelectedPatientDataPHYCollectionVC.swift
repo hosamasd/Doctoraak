@@ -21,10 +21,6 @@ class SelectedPatientDataPHYCollectionVC: BaseCollectionVC {
     //        var handledisplayDOCNotification:((PatientNotificationModel,IndexPath)->Void)?
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        //        if index==0 || index == 1 {
-        //                   collectionView.noDataFound(notificationDocArray.count, text: "No Data Added Yet".localized)
-        //                   return notificationDocArray.count
-        //               }else
         if index == 2 {
             collectionView.noDataFound(notificationLABArray.count, text: "No Data Added Yet".localized)
             return notificationLABArray.count
@@ -35,16 +31,10 @@ class SelectedPatientDataPHYCollectionVC: BaseCollectionVC {
             collectionView.noDataFound(notificationPHYArray.count, text: "No Data Added Yet".localized)
             return notificationPHYArray.count
         }
-//        return notificationPHYArray.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! SelectedPatientDataPHYCell
-        
-        //        if index == 0 || index == 1 {
-        //            let epoisde = notificationDocArray[indexPath.row]
-        //            cell.doc = epoisde
-        //        }else
         if index == 2 {
             let epoisde = notificationLABArray[indexPath.row]
             cell.orderLAB = epoisde
@@ -57,11 +47,6 @@ class SelectedPatientDataPHYCollectionVC: BaseCollectionVC {
         }
         
         [cell.countLabel,cell.typeLabel].forEach({$0.isHide(index == 4 ? false : true)})
-        
-        //        let dd = notificationPHYArray[indexPath.item]
-        //
-        //        cell.order = dd
-        
         return cell
         
     }

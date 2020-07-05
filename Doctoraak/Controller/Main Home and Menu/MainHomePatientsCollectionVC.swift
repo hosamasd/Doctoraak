@@ -73,7 +73,7 @@ class MainHomePatientsCollectionVC: BaseCollectionVC     {
     
     //MARK: -user methods
     
-    func makePostRADAlert(post:RadGetOrdersModel)  {
+  fileprivate  func makePostRADAlert(post:RadGetOrdersModel)  {
         let alert = UIAlertController(title: "Choose Options".localized, message: "What do you want to make?".localized, preferredStyle: .actionSheet)
         let delete = UIAlertAction(title: "Delete".localized, style: .destructive) { (_) in
             self.handledisplayRADNotification?(post)
@@ -87,7 +87,7 @@ class MainHomePatientsCollectionVC: BaseCollectionVC     {
         present(alert, animated: true)
     }
     
-    func makePostLABAlert(post:LABGetOrdersModel)  {
+  fileprivate  func makePostLABAlert(post:LABGetOrdersModel)  {
         let alert = UIAlertController(title: "Choose Options".localized, message: "What do you want to make?".localized, preferredStyle: .actionSheet)
         let delete = UIAlertAction(title: "Delete".localized, style: .destructive) { (_) in
             self.handledisplayLABNotification?(post)
@@ -101,7 +101,7 @@ class MainHomePatientsCollectionVC: BaseCollectionVC     {
         present(alert, animated: true)
     }
     
-    func makePostPHYAlert(post:PharmacyGetOrdersModel)  {
+   fileprivate func makePostPHYAlert(post:PharmacyGetOrdersModel)  {
         let alert = UIAlertController(title: "Choose Options".localized, message: "What do you want to make?".localized, preferredStyle: .actionSheet)
         let delete = UIAlertAction(title: "Delete".localized, style: .destructive) { (_) in
             self.handledisplayPHYNotification?(post)

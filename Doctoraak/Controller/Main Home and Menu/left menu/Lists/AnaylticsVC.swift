@@ -25,18 +25,18 @@ class AnaylticsVC: CustomBaseViewVC {
         return v
     }()
     lazy var customAlertMainLoodingView:CustomAlertMainLoodingView = {
-          let v = CustomAlertMainLoodingView()
-          v.setupAnimation(name: "heart_loading")
-          return v
-      }()
-      
-      lazy var customMainAlertVC:CustomMainAlertVC = {
-          let t = CustomMainAlertVC()
-          t.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
-          t.modalTransitionStyle = .crossDissolve
-          t.modalPresentationStyle = .overCurrentContext
-          return t
-      }()
+        let v = CustomAlertMainLoodingView()
+        v.setupAnimation(name: "heart_loading")
+        return v
+    }()
+    
+    lazy var customMainAlertVC:CustomMainAlertVC = {
+        let t = CustomMainAlertVC()
+        t.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
+        t.modalTransitionStyle = .crossDissolve
+        t.modalPresentationStyle = .overCurrentContext
+        return t
+    }()
     
     var doctor:DoctorModel?{
         didSet{
@@ -91,7 +91,7 @@ class AnaylticsVC: CustomBaseViewVC {
         
     }
     
-    func loadWebView(v:WKWebView,url:String)  {
+    fileprivate func loadWebView(v:WKWebView,url:String)  {
         let urls = MOLHLanguage.isRTLLanguage()  ? "\(url)ar" : "\(url)en"
         
         if  let myURL =   URL(string:urls.toSecrueHttps()) {
@@ -109,11 +109,11 @@ class AnaylticsVC: CustomBaseViewVC {
     }
     
     @objc func handleDismiss()  {
-           removeViewWithAnimation(vvv: customAlertMainLoodingView)
-           DispatchQueue.main.async {
-               self.dismiss(animated: true, completion: nil)
-           }
-       }
+        removeViewWithAnimation(vvv: customAlertMainLoodingView)
+        DispatchQueue.main.async {
+            self.dismiss(animated: true, completion: nil)
+        }
+    }
 }
 
 //MARK:-extension
@@ -123,7 +123,7 @@ extension AnaylticsVC :WKNavigationDelegate {
     func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
         
     }
-
+    
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         handleDismiss();self.activeViewsIfNoData()
     }

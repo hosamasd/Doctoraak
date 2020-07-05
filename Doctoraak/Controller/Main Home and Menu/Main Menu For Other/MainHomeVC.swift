@@ -118,13 +118,17 @@ class MainHomeVC: CustomBaseViewVC {
         super.viewWillAppear(animated)
         
         if userDefaults.bool(forKey: UserDefaultsConstants.isWelcomeVCAppear) {
-                                   view.alpha = 0
-                               }else {            view.alpha = 1
-                       }
+            view.alpha = 0
+        }else {            view.alpha = 1
+        }
     }
     //MARK: -user methods
     
-    func getObjects()  {
+    override func setupNavigation()  {
+           navigationController?.navigationBar.isHide(true)
+       }
+    
+   fileprivate func getObjects()  {
         if userDefaults.bool(forKey: UserDefaultsConstants.labPerformLogin) {
             lab = cacheLABObjectCodabe.storedValue
         }else if userDefaults.bool(forKey: UserDefaultsConstants.radiologyPerformLogin) {
@@ -134,11 +138,11 @@ class MainHomeVC: CustomBaseViewVC {
         }
     }
     
-    func fetchOrders()  {
+ fileprivate   func fetchOrders()  {
         index == 2 ? fetchOrdersLAB() : index == 3 ? fetchOrdersRAD() : fetchOrdersPHY()
     }
     
-    func fetchOrdersLAB()  {
+   fileprivate func fetchOrdersLAB()  {
         guard let phy = lab else { return  }
         UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
         self.showMainAlertLooder()
@@ -164,7 +168,7 @@ class MainHomeVC: CustomBaseViewVC {
         }
     }
     
-    func fetchOrdersRAD()  {
+  fileprivate  func fetchOrdersRAD()  {
         guard let phy = rad else { return  }
         //        UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
         self.showMainAlertLooder()
@@ -190,7 +194,7 @@ class MainHomeVC: CustomBaseViewVC {
         }
     }
     
-    func fetchOrdersPHY()  {
+   fileprivate func fetchOrdersPHY()  {
         guard let phy = phy else { return  }
         UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
         self.showMainAlertLooder()
@@ -215,9 +219,7 @@ class MainHomeVC: CustomBaseViewVC {
         
     }
     
-    override func setupNavigation()  {
-        navigationController?.navigationBar.isHide(true)
-    }
+   
     
     override func setupViews()  {
         view.addSubview(scrollView)
@@ -230,14 +232,14 @@ class MainHomeVC: CustomBaseViewVC {
         
     }
     
-    func goToSpecifyIndex(_ indexx:IndexPath)  {
+   fileprivate func goToSpecifyIndex(_ indexx:IndexPath)  {
         print(indexx.item)
         let patient = PatientDataVC(inde: index)
         navigationController?.pushViewController(patient, animated: true)
         
     }
     
-    func showMainAlertLooder()  {
+   fileprivate func showMainAlertLooder()  {
         customMainAlertVC.addCustomViewInCenter(views: customAlertMainLoodingView, height: 200)
         customAlertMainLoodingView.problemsView.loopMode = .loop
         present(customMainAlertVC, animated: true)
@@ -250,9 +252,7 @@ class MainHomeVC: CustomBaseViewVC {
         
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+   
     
     @objc func handleOpenNotifications()  {
         let mainIndex = userDefaults.integer(forKey: UserDefaultsConstants.MainLoginINDEX)
@@ -278,7 +278,9 @@ class MainHomeVC: CustomBaseViewVC {
         }
     }
     
-    
+    required init?(coder: NSCoder) {
+           fatalError("init(coder:) has not been implemented")
+       }
 }
 
 //MARK:-extension

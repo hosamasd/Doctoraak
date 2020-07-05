@@ -101,7 +101,7 @@ class NotificationsCollectionVC: BaseCollectionVC {
     
     //MARK:-User methods
     
-    func makePostDOCAlert(post:DOCTORNotificationModel,_ index:IndexPath)  {
+    fileprivate func makePostDOCAlert(post:DOCTORNotificationModel,_ index:IndexPath)  {
         let alert = UIAlertController(title: "Choose Options".localized, message: "What do you want to make?".localized, preferredStyle: .actionSheet)
         let delete = UIAlertAction(title: "Delete".localized, style: .destructive) { (_) in
             self.handledisplayDOCNotification?(post,index,false)
@@ -114,7 +114,7 @@ class NotificationsCollectionVC: BaseCollectionVC {
         present(alert, animated: true)
     }
     
-    func makePostRADAlert(post:RadiologyNotificationModel,_ index:IndexPath)  {
+    fileprivate func makePostRADAlert(post:RadiologyNotificationModel,_ index:IndexPath)  {
         let alert = UIAlertController(title: "Choose Options".localized, message: "What do you want to make?".localized, preferredStyle: .actionSheet)
         let delete = UIAlertAction(title: "Delete".localized, style: .destructive) { (_) in
             self.handledisplayRADNotification?(post,index,false)
@@ -132,7 +132,7 @@ class NotificationsCollectionVC: BaseCollectionVC {
         present(alert, animated: true)
     }
     
-    func makePostLABAlert(post:LABNotificationModel,_ index:IndexPath)  {
+    fileprivate  func makePostLABAlert(post:LABNotificationModel,_ index:IndexPath)  {
         let alert = UIAlertController(title: "Choose Options".localized, message: "What do you want to make?".localized, preferredStyle: .actionSheet)
         let delete = UIAlertAction(title: "Delete".localized, style: .destructive) { (_) in
             self.handledisplayLABNotification?(post,index,false)
@@ -150,7 +150,7 @@ class NotificationsCollectionVC: BaseCollectionVC {
         present(alert, animated: true)
     }
     
-    func makePostPHYAlert(post:PharmacyNotificationModel,_ index:IndexPath)  {
+    fileprivate   func makePostPHYAlert(post:PharmacyNotificationModel,_ index:IndexPath)  {
         let alert = UIAlertController(title: "Choose Options".localized, message: "What do you want to make?".localized, preferredStyle: .actionSheet)
         let delete = UIAlertAction(title: "Delete".localized, style: .destructive) { (_) in
             self.handledisplayPHYNotification?(post,index,false)

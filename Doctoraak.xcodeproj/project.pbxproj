@@ -661,6 +661,12 @@
 		4E3548A2242B899900DD4E7A /* MAY BE USED */ = {
 			isa = PBXGroup;
 			children = (
+				9F82FD9424AA3942009ED3B9 /* UITextView.swift */,
+				9F82FD9324AA3941009ED3B9 /* Device.swift */,
+				9F82FDA024AA394E009ED3B9 /* Data.swift */,
+				9F82FD9624AA3945009ED3B9 /* CMTime.swift */,
+				4E1AEFDB249E2F1E00497375 /* LAB&RADIOLOGY */,
+				4EA83C672497641600C9AB7E /* MainClinicWorkingHoursVCWithoutEditingVC.swift */,
 				4E4AAEDD2428CBA700023720 /* MainClinicDataVC.swift */,
 				4E000B0B2431B750007CEC3C /* Notifications */,
 				4EE29B6E24A2414B00DAF1F3 /* HomeDoctorLeftMenuCollcetionVC.swift */,
@@ -827,12 +833,11 @@
 		4E92AF63242B6AE300BCF20E /* Patients */ = {
 			isa = PBXGroup;
 			children = (
-				4E1AEFDB249E2F1E00497375 /* LAB&RADIOLOGY */,
 				4E96752E2497A2DC006CE497 /* pharmacy */,
 				4E92AF64242B6AFA00BCF20E /* PatientDataVC.swift */,
+				4EEBF7C7243D9BBE0039BF81 /* MedicineCollectionVC.swift */,
 				4E0923AE243DA86D0068E10F /* PatientSecondDataVC.swift */,
 				4EEBF7BF243D99B10039BF81 /* PatientThirdDataVC.swift */,
-				4EEBF7C7243D9BBE0039BF81 /* MedicineCollectionVC.swift */,
 			);
 			path = Patients;
 			sourceTree = "<group>";
@@ -900,7 +905,6 @@
 			isa = PBXGroup;
 			children = (
 				4E9FFEFE2499EE9300D27463 /* AnaylticsVC.swift */,
-				4EA83C672497641600C9AB7E /* MainClinicWorkingHoursVCWithoutEditingVC.swift */,
 				4E9FFF042499F2EF00D27463 /* PharamacyProfileVC.swift */,
 			);
 			path = Lists;
@@ -953,11 +957,8 @@
 				9F82FDB424AA399E009ED3B9 /* Extensions.swift */,
 				9F82FDB524AA399F009ED3B9 /* ExtensionsViews.swift */,
 				9F82FD9724AA3946009ED3B9 /* AnyTypeCodable.swift */,
-				9F82FD9624AA3945009ED3B9 /* CMTime.swift */,
-				9F82FDA024AA394E009ED3B9 /* Data.swift */,
 				9F82FD9F24AA394D009ED3B9 /* DataTypes.swift */,
 				9F82FD9B24AA394A009ED3B9 /* Date.swift */,
-				9F82FD9324AA3941009ED3B9 /* Device.swift */,
 				9F82FDA124AA394F009ED3B9 /* ExtensionUivew.swift */,
 				9F82FD9524AA3943009ED3B9 /* TimeSelector.swift */,
 				9F82FD9824AA3947009ED3B9 /* UIButton.swift */,
@@ -967,7 +968,6 @@
 				9F82FD9224AA3940009ED3B9 /* UILabel.swift */,
 				9F82FD9A24AA3948009ED3B9 /* UIStackView.swift */,
 				9F82FD9E24AA394D009ED3B9 /* UITextField.swift */,
-				9F82FD9424AA3942009ED3B9 /* UITextView.swift */,
 				9F82FDA224AA394F009ED3B9 /* VCS.swift */,
 				4E115DAC2495195000B64936 /* Lottie */,
 			);

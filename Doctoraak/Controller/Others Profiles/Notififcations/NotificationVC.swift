@@ -32,39 +32,39 @@ class NotificationVC: CustomBaseViewVC {
         v.index=index
         v.handledisplayDOCNotification = {[unowned self] noty,index,display in
             if display {
-//                self.goTOdiSPLAYOrder(l: noty)
+                //                self.goTOdiSPLAYOrder(l: noty)
             }else {
                 self.makeDeleteDOCNotify(index: 0, id: noty.id,index)
             }
             
         }
         v.handledisplayRADNotification = {[unowned self] noty,index ,display in
-        if display {
-            self.goTOdiSPLAYOrder(l: nil,r: noty.order)
-//            self.goTOdiSPLAYOrder(l: noty)
-        }else {
-            self.makeDeleteDOCNotify(index: 3, id: noty.id,index)
+            if display {
+                self.goTOdiSPLAYOrder(l: nil,r: noty.order)
+                //            self.goTOdiSPLAYOrder(l: noty)
+            }else {
+                self.makeDeleteDOCNotify(index: 3, id: noty.id,index)
             }
             
             //            self.makeDeleteRADNotify(id: noty.id,index)
         }
         v.handledisplayLABNotification = {[unowned self] noty,index ,display in
-        if display {
-            self.goTOdiSPLAYOrder(l: noty.order,r: nil)
-
-//            self.goTOdiSPLAYOrder(l: noty)
-        }else {
-            self.makeDeleteDOCNotify(index: 2, id: noty.id,index)
+            if display {
+                self.goTOdiSPLAYOrder(l: noty.order,r: nil)
+                
+                //            self.goTOdiSPLAYOrder(l: noty)
+            }else {
+                self.makeDeleteDOCNotify(index: 2, id: noty.id,index)
             }
             //            self.makeDeleteLABNotify(id: noty.id,index)
         }
         v.handledisplayPHYNotification = {[unowned self] noty,index ,display in
-        if display {
-            self.goTOdiSPlayPHY(s: noty.order)
-//            self.goTOdiSPLAYOrder(l: noty)
-        }else {
-            //            self.makeDeletePHYNotify(id: noty.id,index)
-            self.makeDeleteDOCNotify(index: 4, id: noty.id,index)
+            if display {
+                self.goTOdiSPlayPHY(s: noty.order)
+                //            self.goTOdiSPLAYOrder(l: noty)
+            }else {
+                //            self.makeDeletePHYNotify(id: noty.id,index)
+                self.makeDeleteDOCNotify(index: 4, id: noty.id,index)
             }
         }
         return v
@@ -126,30 +126,44 @@ class NotificationVC: CustomBaseViewVC {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-           super.viewWillAppear(animated)
-           
-           getObjects()
+        super.viewWillAppear(animated)
+        
+        getObjects()
         getNotifications()
-           //        fetchOrders()
-       }
-       
-       //MARK: -user methods
-       
-       func getObjects()  {
-           if userDefaults.bool(forKey: UserDefaultsConstants.labPerformLogin) {
-               lab = cacheLABObjectCodabe.storedValue
-           }else if userDefaults.bool(forKey: UserDefaultsConstants.radiologyPerformLogin) {
-               rad = cachdRADObjectCodabe.storedValue
-           }else if userDefaults.bool(forKey: UserDefaultsConstants.pharamacyPerformLogin) {
-               phy = cachdPHARMACYObjectCodabe.storedValue
-           }
-       }
+    }
     
-    func getNotifications()  {
+    //MARK: -user methods
+    
+    override func setupNavigation()  {
+        navigationController?.navigationBar.isHide(true)
+    }
+    
+    override func setupViews()  {
+        view.backgroundColor = .white
+        
+        view.addSubview(scrollView)
+        scrollView.fillSuperview()
+        scrollView.addSubview(mainView)
+        mainView.anchor(top: scrollView.topAnchor, leading: scrollView.leadingAnchor, bottom: scrollView.bottomAnchor, trailing: scrollView.trailingAnchor,padding: .init(top: -60, left: 0, bottom: 0, right: 0))
+        mainView.addSubViews(views: customNotificationView)
+        customNotificationView.fillSuperview()
+    }
+    
+    fileprivate func getObjects()  {
+        if userDefaults.bool(forKey: UserDefaultsConstants.labPerformLogin) {
+            lab = cacheLABObjectCodabe.storedValue
+        }else if userDefaults.bool(forKey: UserDefaultsConstants.radiologyPerformLogin) {
+            rad = cachdRADObjectCodabe.storedValue
+        }else if userDefaults.bool(forKey: UserDefaultsConstants.pharamacyPerformLogin) {
+            phy = cachdPHARMACYObjectCodabe.storedValue
+        }
+    }
+    
+    fileprivate func getNotifications()  {
         index == 0 || index == 1 ? getDoctNotifications() : index == 2 ? getLABtNotifications() : index == 3 ? getRADNotifications() : getPHYNotifications()
     }
     
-    func getDoctNotifications()  {
+    fileprivate func getDoctNotifications()  {
         guard let phy = doctor else { return  }
         UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
         self.showMainAlertLooder()
@@ -171,20 +185,20 @@ class NotificationVC: CustomBaseViewVC {
         }
     }
     
-    func goTOdiSPLAYOrder(l:LABOrderModel? = nil , r:RadiologyOrderModel? = nil)  {
+    fileprivate  func goTOdiSPLAYOrder(l:LABOrderModel? = nil , r:RadiologyOrderModel? = nil)  {
         let dd = SelectedPharmacyPatientDataVC(inde: 2)
         dd.labOrderss=l
         dd.radOrderss = r
         navigationController?.pushViewController(dd, animated: true)
     }
     
-    func goTOdiSPlayPHY(s:PharmacyOrderModel? = nil)  {
-           let dd = SelectedPharmacyPatientDataVC(inde: 2)
-           dd.phyOrderss=s
-           navigationController?.pushViewController(dd, animated: true)
-       }
+    fileprivate func goTOdiSPlayPHY(s:PharmacyOrderModel? = nil)  {
+        let dd = SelectedPharmacyPatientDataVC(inde: 2)
+        dd.phyOrderss=s
+        navigationController?.pushViewController(dd, animated: true)
+    }
     
-    func reloadDocData(user:[DOCTORNotificationModel])  {
+    fileprivate func reloadDocData(user:[DOCTORNotificationModel])  {
         self.customNotificationView.notificationsCollectionVC.notificationDocArray=user
         DispatchQueue.main.async {
             self.customNotificationView.notificationsCollectionVC.collectionView.reloadData()
@@ -192,7 +206,7 @@ class NotificationVC: CustomBaseViewVC {
     }
     
     
-    func getPHYNotifications()  {
+    fileprivate func getPHYNotifications()  {
         guard let phy = phy else { return  }
         UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
         self.showMainAlertLooder()
@@ -214,14 +228,14 @@ class NotificationVC: CustomBaseViewVC {
         }
     }
     
-    func reloadPHYData(user:[PharmacyNotificationModel])  {
+    fileprivate  func reloadPHYData(user:[PharmacyNotificationModel])  {
         self.customNotificationView.notificationsCollectionVC.notificationPHYArray=user
         DispatchQueue.main.async {
             self.customNotificationView.notificationsCollectionVC.collectionView.reloadData()
         }
     }
     
-    func getLABtNotifications()  {
+    fileprivate  func getLABtNotifications()  {
         guard let phy = lab else { return  }
         UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
         self.showMainAlertLooder()
@@ -243,14 +257,14 @@ class NotificationVC: CustomBaseViewVC {
         }
     }
     
-    func reloadLABData(user:[LABNotificationModel])  {
+    fileprivate  func reloadLABData(user:[LABNotificationModel])  {
         self.customNotificationView.notificationsCollectionVC.notificationLABArray=user
         DispatchQueue.main.async {
             self.customNotificationView.notificationsCollectionVC.collectionView.reloadData()
         }
     }
     
-    func getRADNotifications()  {
+    fileprivate  func getRADNotifications()  {
         guard let phy = rad else { return  }
         UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
         self.showMainAlertLooder()
@@ -272,14 +286,14 @@ class NotificationVC: CustomBaseViewVC {
         }
     }
     
-    func reloadRADData(user:[RadiologyNotificationModel])  {
+    fileprivate  func reloadRADData(user:[RadiologyNotificationModel])  {
         self.customNotificationView.notificationsCollectionVC.notificationRADArray=user
         DispatchQueue.main.async {
             self.customNotificationView.notificationsCollectionVC.collectionView.reloadData()
         }
     }
     
-    func showMainAlertLooder()  {
+    fileprivate  func showMainAlertLooder()  {
         customMainAlertVC.addCustomViewInCenter(views: customAlertMainLoodingView, height: 200)
         customAlertMainLoodingView.problemsView.loopMode = .loop
         present(customMainAlertVC, animated: true)
@@ -287,7 +301,7 @@ class NotificationVC: CustomBaseViewVC {
     
     //rEMOVE NOTIFICATION
     
-    func makeDeleteDOCNotify(index:Int,id:Int,_ indexx:IndexPath)  {
+    fileprivate   func makeDeleteDOCNotify(index:Int,id:Int,_ indexx:IndexPath)  {
         UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
         self.showMainAlertLooder()
         ProfileServices.shared.removeNotification(notification_id: id) { (base, err) in
@@ -319,23 +333,8 @@ class NotificationVC: CustomBaseViewVC {
         }
     }
     
-    override func setupNavigation()  {
-        navigationController?.navigationBar.isHide(true)
-    }
-    
-    override func setupViews()  {
-        view.backgroundColor = .white
-        
-        view.addSubview(scrollView)
-        scrollView.fillSuperview()
-        scrollView.addSubview(mainView)
-        mainView.anchor(top: scrollView.topAnchor, leading: scrollView.leadingAnchor, bottom: scrollView.bottomAnchor, trailing: scrollView.trailingAnchor,padding: .init(top: -60, left: 0, bottom: 0, right: 0))
-        mainView.addSubViews(views: customNotificationView)
-        customNotificationView.fillSuperview()
-        
-        
-        
-    }
+    //MARK: -Handle methods
+
     
     @objc func handleBack()  {
         if isFromMenu {

@@ -52,7 +52,7 @@ class BaseSlidingVC: UIViewController {
         }
         return v
     }()
-   
+    
     
     lazy var rightViewController: UIViewController = UINavigationController(rootViewController: index < 2 ?  DoctorHomeVC(inde: index) : MainHomeVC(inde: index))
     fileprivate let velocityThreshold: CGFloat = 500
@@ -82,8 +82,8 @@ class BaseSlidingVC: UIViewController {
         super.viewWillAppear(animated)
         index = userDefaults.integer(forKey: UserDefaultsConstants.MainLoginINDEX)
         
-//        userDefaults.set(false, forKey: UserDefaultsConstants.isAllMainHomeObjectsFetchedRAD)
-//        userDefaults.synchronize()
+        //        userDefaults.set(false, forKey: UserDefaultsConstants.isAllMainHomeObjectsFetchedRAD)
+        //        userDefaults.synchronize()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -93,15 +93,10 @@ class BaseSlidingVC: UIViewController {
             view.backgroundColor = .clear
             check()
         }else {            view.backgroundColor = .white
-}
+        }
     }
     
-    func check()  {
-            let welcome = WelcomeVC()
-            let nav = UINavigationController(rootViewController: welcome)
-            nav.modalPresentationStyle = .fullScreen
-            present(nav, animated: true)
-    }
+    
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return isMenuOpen ? .lightContent : .default
@@ -111,6 +106,12 @@ class BaseSlidingVC: UIViewController {
     
     //MARK: -user methods
     
+    fileprivate  func check()  {
+        let welcome = WelcomeVC()
+        let nav = UINavigationController(rootViewController: welcome)
+        nav.modalPresentationStyle = .fullScreen
+        present(nav, animated: true)
+    }
     
     fileprivate func setupViews()  {
         view.backgroundColor = .red
@@ -171,7 +172,7 @@ class BaseSlidingVC: UIViewController {
     
     
     
-    func handleEnded(gesture:UIPanGestureRecognizer)  {
+    fileprivate func handleEnded(gesture:UIPanGestureRecognizer)  {
         let translate = gesture.translation(in: view)
         let velocity = gesture.velocity(in: view)
         
@@ -201,7 +202,7 @@ class BaseSlidingVC: UIViewController {
         
     }
     
-    func performRightViewCleanUp()  {
+    fileprivate func performRightViewCleanUp()  {
         rightViewController.view.removeFromSuperview()
         rightViewController.removeFromParent()
     }
@@ -239,7 +240,7 @@ class BaseSlidingVC: UIViewController {
         MOLH.reset()
     }
     
-    func callNumber(phoneNumber:String) {
+    fileprivate func callNumber(phoneNumber:String) {
         if let phoneCallURL:URL = URL(string:"tel://\(phoneNumber)") {
             let application:UIApplication = UIApplication.shared
             if (application.canOpenURL(phoneCallURL)) {
@@ -248,7 +249,7 @@ class BaseSlidingVC: UIViewController {
         }
     }
     
-    func sendUsingWhats()  {
+    fileprivate func sendUsingWhats()  {
         let urlWhats = "whatsapp://send?text=\("Hello World")"
         if let urlString = urlWhats.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed) {
             if let whatsappURL = NSURL(string: urlString) {
@@ -262,6 +263,19 @@ class BaseSlidingVC: UIViewController {
         }
     }
     
+    fileprivate func takeSpecificAction(_ index:Int)  {
+        if index == 2 {
+            self.callNumber(phoneNumber: "0123666")
+        }else if index == 3 {
+            self.sendUsingWhats()
+        }else {
+            guard let url = URL(string: self.links[index]) else { return  }
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }
+        removeViewWithAnimation(vvv: customContactUsView)
+        customMainAlertVC.dismiss(animated: true)
+    }
+    
     //TODO: -handle methods
     
     @objc func handleTapped()  {
@@ -269,47 +283,47 @@ class BaseSlidingVC: UIViewController {
     }
     
     @objc  func handlePaneed(gesture:UIPanGestureRecognizer)  {
-           if MOLHLanguage.isRTLLanguage() {
-               
-               let transltaion = gesture.translation(in: view)
-               //            if transltaion.x > 0 {
-               //                return
-               //            }
-               var x = -transltaion.x
-               x = isMenuOpen ? x+menuWidth : x
-               x = min(menuWidth, x)
-               x = max(0, x)
-               redViewLeadingConstarint.constant = x
-               darkCoverView.alpha = x / menuWidth
-               if gesture.state == .ended {
-                   handleEnded(gesture: gesture)
-               }
-           }else {
-               let transltaion = gesture.translation(in: view)
-               var x = transltaion.x
-               x = isMenuOpen ? x+menuWidth : x
-               x = min(menuWidth, x)
-               x = max(0, x)
-               redViewLeadingConstarint.constant = x
-               darkCoverView.alpha = x / menuWidth
-               if gesture.state == .ended {
-                   handleEnded(gesture: gesture)
-               }
-           }
-       }
+        if MOLHLanguage.isRTLLanguage() {
+            
+            let transltaion = gesture.translation(in: view)
+            //            if transltaion.x > 0 {
+            //                return
+            //            }
+            var x = -transltaion.x
+            x = isMenuOpen ? x+menuWidth : x
+            x = min(menuWidth, x)
+            x = max(0, x)
+            redViewLeadingConstarint.constant = x
+            darkCoverView.alpha = x / menuWidth
+            if gesture.state == .ended {
+                handleEnded(gesture: gesture)
+            }
+        }else {
+            let transltaion = gesture.translation(in: view)
+            var x = transltaion.x
+            x = isMenuOpen ? x+menuWidth : x
+            x = min(menuWidth, x)
+            x = max(0, x)
+            redViewLeadingConstarint.constant = x
+            darkCoverView.alpha = x / menuWidth
+            if gesture.state == .ended {
+                handleEnded(gesture: gesture)
+            }
+        }
+    }
     
-//    @objc  func handlePaneed(gesture:UIPanGestureRecognizer)  {
-//        let transltaion = gesture.translation(in: view)
-//        var x = transltaion.x
-//        x = isMenuOpen ? x+menuWidth : x
-//        x = min(menuWidth, x)
-//        x = max(0, x)
-//        redViewLeadingConstarint.constant = x
-//        darkCoverView.alpha = x / menuWidth
-//        if gesture.state == .ended {
-//            handleEnded(gesture: gesture)
-//        }
-//    }
+    //    @objc  func handlePaneed(gesture:UIPanGestureRecognizer)  {
+    //        let transltaion = gesture.translation(in: view)
+    //        var x = transltaion.x
+    //        x = isMenuOpen ? x+menuWidth : x
+    //        x = min(menuWidth, x)
+    //        x = max(0, x)
+    //        redViewLeadingConstarint.constant = x
+    //        darkCoverView.alpha = x / menuWidth
+    //        if gesture.state == .ended {
+    //            handleEnded(gesture: gesture)
+    //        }
+    //    }
     
     @objc func handleDismiss()  {
         removeViewWithAnimation(vvv: customContactUsView)
@@ -339,16 +353,5 @@ class BaseSlidingVC: UIViewController {
         
     }
     
-    func takeSpecificAction(_ index:Int)  {
-        if index == 2 {
-            self.callNumber(phoneNumber: "0123666")
-        }else if index == 3 {
-            self.sendUsingWhats()
-        }else {
-            guard let url = URL(string: self.links[index]) else { return  }
-            UIApplication.shared.open(url, options: [:], completionHandler: nil)
-        }
-        removeViewWithAnimation(vvv: customContactUsView)
-        customMainAlertVC.dismiss(animated: true)
-    }
+    
 }

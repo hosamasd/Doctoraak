@@ -196,7 +196,7 @@ class DoctorHomeVC: CustomBaseViewVC {
         }
     }
     
-    func putClinics(_ gg:MainClinicGetDoctorsModel?)  {
+    fileprivate  func putClinics(_ gg:MainClinicGetDoctorsModel?)  {
         guard let cc = gg?.data else { return  }
         cc.forEach { (c) in
             let d = c.workingHours.first?.clinicID

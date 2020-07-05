@@ -146,11 +146,12 @@ class SelectedPharmacyPatientDataVC: CustomBaseViewVC {
         
     }
     
-    func checkDoctorLoginState()  {
+   fileprivate func checkDoctorLoginState()  {
         
     }
     
-    func acceptPharmacyOrders()  {
+    
+    fileprivate  func acceptPharmacyOrders()  {
         guard let pharmacy = phy,let  phy = phyOrder else { return  }
         UIApplication.shared.beginIgnoringInteractionEvents()
         self.showMainAlertLooder(cc: self.customMainAlertVC, v: self.customAlertMainLoodingView)
@@ -173,7 +174,7 @@ class SelectedPharmacyPatientDataVC: CustomBaseViewVC {
     }
     
     
-    func acceptLABRADOrders(indexx:Int)  {
+    fileprivate func acceptLABRADOrders(indexx:Int)  {
         var apiToekn:String
         var userId:Int
         var orderId:Int
@@ -211,14 +212,14 @@ class SelectedPharmacyPatientDataVC: CustomBaseViewVC {
         }
     }
     
-    func makeAction()  {
+    fileprivate func makeAction()  {
         guard let indexPath = indexPath else { return  }
         
         delgate?.deletePHY(indexPath: indexPath, index: index)
         navigationController?.popViewController(animated: true)
     }
     
-    func createAlert(ind:Int)  {
+    fileprivate  func createAlert(ind:Int)  {
         let alertController = UIAlertController(title: "Feedback \n\n\n\n\n".localized, message: nil, preferredStyle: .alert)
         
         let cancelAction = UIAlertAction.init(title: "Cancel".localized, style: .default) { (action) in
@@ -241,7 +242,7 @@ class SelectedPharmacyPatientDataVC: CustomBaseViewVC {
         self.present(alertController, animated: true, completion: nil)
     }
     
-    func makeActionForCancel(ind:Int,message:String)  {
+    fileprivate func makeActionForCancel(ind:Int,message:String)  {
         var apiToekn:String
         var userId:Int
         var orderId:Int

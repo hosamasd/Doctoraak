@@ -165,16 +165,16 @@ class PharamacyProfileVC: CustomBaseViewVC {
         patient != nil ?    cachdPHARMACYObjectCodabe.save(patient!) : ()
         lab != nil ?    cacheLABObjectCodabe.save(lab!) : ()
         rad != nil ?    cachdRADObjectCodabe.save(rad!) : ()
-
+        
     }
     
-    func checkPharamacyLoginState()  {
+    fileprivate  func checkPharamacyLoginState()  {
         customPharamacyProfileView.edirProfileViewModel.performPHARAMACYUpdating { (base, err) in
             if let err = err {
                 SVProgressHUD.showError(withStatus: err.localizedDescription)
                 //                               self.showMainAlertErrorMessages(vv: self.customMainAlertVC, secondV: self.customAlertLoginView, text: err.localizedDescription)
                 self.handleDismiss()
-
+                
                 self.activeViewsIfNoData();return
             }
             //            SVProgressHUD.dismiss()
@@ -189,13 +189,13 @@ class PharamacyProfileVC: CustomBaseViewVC {
         }
     }
     
-    func checkLabLoginState()  {
+    fileprivate  func checkLabLoginState()  {
         customPharamacyProfileView.edirProfileViewModel.performLABUpdating { (base, err) in
             if let err = err {
                 SVProgressHUD.showError(withStatus: err.localizedDescription)
                 //                               self.showMainAlertErrorMessages(vv: self.customMainAlertVC, secondV: self.customAlertLoginView, text: err.localizedDescription)
                 self.handleDismiss()
-
+                
                 self.activeViewsIfNoData();return
             }
             //            SVProgressHUD.dismiss()
@@ -210,7 +210,7 @@ class PharamacyProfileVC: CustomBaseViewVC {
         }
     }
     
-    func checkRadLoginState()  {
+    fileprivate func checkRadLoginState()  {
         customPharamacyProfileView.edirProfileViewModel.performRADUpdating { (base, err) in
             if let err = err {
                 SVProgressHUD.showError(withStatus: err.localizedDescription)
@@ -243,7 +243,7 @@ class PharamacyProfileVC: CustomBaseViewVC {
         let gallery = UIAlertAction(title: "Open From Gallery".localized, style: .default) {[unowned self] (_) in
             self.handleOpenGallery(sourceType: .photoLibrary)
         }
-        let cancel = UIAlertAction(title: "Cancel".localized, style: .cancel) {[unowned self] (_) in
+        let cancel = UIAlertAction(title: "Cancel".localized, style: .cancel) { (_) in
             alert.dismiss(animated: true)
         }
         
