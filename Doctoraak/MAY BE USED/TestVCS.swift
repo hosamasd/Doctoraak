@@ -8,12 +8,12 @@
 
 import UIKit
 import UIMultiPicker
+//import sca
 
 class TestVCS: CustomBaseViewVC {
     
     lazy var customAlertMainLoodingView:CustomUpdateSserProfileView = {
              let v = CustomUpdateSserProfileView()
-//             v.setupAnimation(name: "heart_loading")
              return v
          }()
          
@@ -28,13 +28,7 @@ class TestVCS: CustomBaseViewVC {
     override func setupViews() {
         view.backgroundColor = .white
         customMainAlertVC.addCustomViewInCenter(views: customAlertMainLoodingView, height: 250)
-//        customAlertMainLoodingView.problemsView.loopMode = .loop
-        present(customMainAlertVC, animated: true)
-//        view.addSubview(tests)
-//        tests.addTarget(self, action: #selector(selected), for: .valueChanged)
-//
-//        tests.centerInSuperview(size: .init(width: view.frame.width, height: 200))
-        
+                 present(customMainAlertVC, animated: true)
     }
     
     override func setupNavigation() {
@@ -46,9 +40,9 @@ class TestVCS: CustomBaseViewVC {
     }
     
     @objc func handleDismiss()  {
-        removeViewWithAnimation(vvv: customAlertMainLoodingView)
+//        removeViewWithAnimation(vvv: customAlertMainLoodingView)
         DispatchQueue.main.async {
-            self.dismiss(animated: true, completion: nil)
+//            self.dismiss(animated: true, completion: nil)
         }
     }
     

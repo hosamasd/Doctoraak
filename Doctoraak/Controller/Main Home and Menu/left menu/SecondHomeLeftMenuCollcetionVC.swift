@@ -11,7 +11,10 @@ import MOLH
 
 class SecondHomeLeftMenuCollcetionVC: BaseCollectionVC {
     
-    var images:[UIImage] = [#imageLiteral(resourceName: "icon"),#imageLiteral(resourceName: "ic_calendar"),#imageLiteral(resourceName: "ic_notification").withRenderingMode(.alwaysTemplate),#imageLiteral(resourceName: "ic_chart"),#imageLiteral(resourceName: "ic_phone_24px"),#imageLiteral(resourceName: "ic_language_24px"),#imageLiteral(resourceName: "ic_logout").withRenderingMode(.alwaysTemplate)]
+    var images:[UIImage] = {
+        let im = [#imageLiteral(resourceName: "user"),#imageLiteral(resourceName: "calendar"),#imageLiteral(resourceName: "notification"),#imageLiteral(resourceName: "ic_chart"),#imageLiteral(resourceName: "phone-call"),#imageLiteral(resourceName: "global"),#imageLiteral(resourceName: "logout")]
+        return im
+    }()
     var deatas = [["Profile".localized,"Calender".localized,"Notification".localized,"Anaylicts".localized],["Contact Us".localized,"Language".localized,"Log Out".localized]]
     
     

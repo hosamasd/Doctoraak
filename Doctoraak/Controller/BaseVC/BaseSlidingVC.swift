@@ -52,6 +52,45 @@ class BaseSlidingVC: UIViewController {
         }
         return v
     }()
+    lazy var customAlertMainLoodingssView:CustomUpdateSserProfileView = {
+           let v = CustomUpdateSserProfileView()
+           v.handleLogoutTap = {[unowned self] in
+            self.performLogout()
+            self.removeViewWithAnimation(vvv: self.customAlertMainLoodingssView)
+            self.customMainAlertVC.dismiss(animated: true)
+            self.check()
+           }
+           v.handleCancelTap = {[unowned self] in
+               self.removeViewWithAnimation(vvv: self.customAlertMainLoodingssView)
+            self.customMainAlertVC.dismiss(animated: true)
+//               DispatchQueue.main.async {
+//                   self.dismiss(animated: true, completion: nil)
+//               }
+           }
+           return v
+       }()
+       
+    fileprivate  func performLogout()  {
+        
+        if userDefaults.bool(forKey: UserDefaultsConstants.labPerformLogin) {
+            cacheLABObjectCodabe.deleteFile(cacheLABObjectCodabe.storedValue!)
+            userDefaults.set(false, forKey: UserDefaultsConstants.labPerformLogin)
+            userDefaults.set(false, forKey: UserDefaultsConstants.isAllMainHomeObjectsFetchedLAB)
+         }else if userDefaults.bool(forKey: UserDefaultsConstants.radiologyPerformLogin) {
+            cachdRADObjectCodabe.deleteFile(cachdRADObjectCodabe.storedValue!)
+            userDefaults.set(false, forKey: UserDefaultsConstants.radiologyPerformLogin)
+            userDefaults.set(false, forKey: UserDefaultsConstants.isAllMainHomeObjectsFetchedRAD)
+       }else if userDefaults.bool(forKey: UserDefaultsConstants.pharamacyPerformLogin) {
+            cachdPHARMACYObjectCodabe.deleteFile(cachdPHARMACYObjectCodabe.storedValue!)
+            userDefaults.set(false, forKey: UserDefaultsConstants.pharamacyPerformLogin)
+            userDefaults.set(false, forKey: UserDefaultsConstants.isAllMainHomeObjectsFetchedPHY)
+       }
+        userDefaults.set(true, forKey: UserDefaultsConstants.isWelcomeVCAppear)
+        userDefaults.removeObject(forKey: UserDefaultsConstants.MainLoginINDEX)
+        
+        userDefaults.synchronize()
+    }
+    
     
     
     lazy var rightViewController: UIViewController = UINavigationController(rootViewController: index < 2 ?  DoctorHomeVC(inde: index) : MainHomeVC(inde: index))
@@ -105,6 +144,8 @@ class BaseSlidingVC: UIViewController {
     
     
     //MARK: -user methods
+    
+   
     
     fileprivate  func check()  {
         let welcome = WelcomeVC()

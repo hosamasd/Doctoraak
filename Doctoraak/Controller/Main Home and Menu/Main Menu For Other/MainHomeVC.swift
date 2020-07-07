@@ -56,6 +56,7 @@ class MainHomeVC: CustomBaseViewVC {
         }
         return v
     }()
+    
     lazy var customMainAlertVC:CustomMainAlertVC = {
         let t = CustomMainAlertVC()
         t.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
@@ -125,10 +126,10 @@ class MainHomeVC: CustomBaseViewVC {
     //MARK: -user methods
     
     override func setupNavigation()  {
-           navigationController?.navigationBar.isHide(true)
-       }
+        navigationController?.navigationBar.isHide(true)
+    }
     
-   fileprivate func getObjects()  {
+    fileprivate func getObjects()  {
         if userDefaults.bool(forKey: UserDefaultsConstants.labPerformLogin) {
             lab = cacheLABObjectCodabe.storedValue
         }else if userDefaults.bool(forKey: UserDefaultsConstants.radiologyPerformLogin) {
@@ -138,11 +139,11 @@ class MainHomeVC: CustomBaseViewVC {
         }
     }
     
- fileprivate   func fetchOrders()  {
+    fileprivate   func fetchOrders()  {
         index == 2 ? fetchOrdersLAB() : index == 3 ? fetchOrdersRAD() : fetchOrdersPHY()
     }
     
-   fileprivate func fetchOrdersLAB()  {
+    fileprivate func fetchOrdersLAB()  {
         guard let phy = lab else { return  }
         UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
         self.showMainAlertLooder()
@@ -168,9 +169,9 @@ class MainHomeVC: CustomBaseViewVC {
         }
     }
     
-  fileprivate  func fetchOrdersRAD()  {
+    fileprivate  func fetchOrdersRAD()  {
         guard let phy = rad else { return  }
-        //        UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
+                UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
         self.showMainAlertLooder()
         OrdersServices.shared.fetchRADOrders(api_token: phy.apiToken, radiology_id: phy.id) { (base, err) in
             if let  err = err {
@@ -194,7 +195,7 @@ class MainHomeVC: CustomBaseViewVC {
         }
     }
     
-   fileprivate func fetchOrdersPHY()  {
+    fileprivate func fetchOrdersPHY()  {
         guard let phy = phy else { return  }
         UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
         self.showMainAlertLooder()
@@ -219,7 +220,7 @@ class MainHomeVC: CustomBaseViewVC {
         
     }
     
-   
+    
     
     override func setupViews()  {
         view.addSubview(scrollView)
@@ -232,14 +233,14 @@ class MainHomeVC: CustomBaseViewVC {
         
     }
     
-   fileprivate func goToSpecifyIndex(_ indexx:IndexPath)  {
+    fileprivate func goToSpecifyIndex(_ indexx:IndexPath)  {
         print(indexx.item)
         let patient = PatientDataVC(inde: index)
         navigationController?.pushViewController(patient, animated: true)
         
     }
     
-   fileprivate func showMainAlertLooder()  {
+    fileprivate func showMainAlertLooder()  {
         customMainAlertVC.addCustomViewInCenter(views: customAlertMainLoodingView, height: 200)
         customAlertMainLoodingView.problemsView.loopMode = .loop
         present(customMainAlertVC, animated: true)
@@ -252,7 +253,15 @@ class MainHomeVC: CustomBaseViewVC {
         
     }
     
-   
+    @objc func handleDismiss()  {
+        
+        
+        removeViewWithAnimation(vvv: customAlertMainLoodingView)
+        DispatchQueue.main.async {
+            self.dismiss(animated: true, completion: nil)
+        }
+    }
+    
     
     @objc func handleOpenNotifications()  {
         let mainIndex = userDefaults.integer(forKey: UserDefaultsConstants.MainLoginINDEX)
@@ -269,18 +278,11 @@ class MainHomeVC: CustomBaseViewVC {
         //        }
     }
     
-    @objc func handleDismiss()  {
-        
-        
-        removeViewWithAnimation(vvv: customAlertMainLoodingView)
-        DispatchQueue.main.async {
-            self.dismiss(animated: true, completion: nil)
-        }
-    }
+   
     
     required init?(coder: NSCoder) {
-           fatalError("init(coder:) has not been implemented")
-       }
+        fatalError("init(coder:) has not been implemented")
+    }
 }
 
 //MARK:-extension

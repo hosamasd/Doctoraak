@@ -21,8 +21,14 @@ class HomeLeftMenuVC: CustomBaseViewVC {
         }
         return v
     }()
-    
-    
+    lazy var customMainAlertVC:CustomMainAlertVC = {
+        let t = CustomMainAlertVC()
+        t.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
+        t.modalTransitionStyle = .crossDissolve
+        t.modalPresentationStyle = .overCurrentContext
+        return t
+    }()
+   
     var lab:LabModel?{
         didSet{
             guard let lab = lab else { return  }
@@ -61,6 +67,7 @@ class HomeLeftMenuVC: CustomBaseViewVC {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        [lab,rad,phy].forEach({$0 == nil})
         if userDefaults.bool(forKey: UserDefaultsConstants.labPerformLogin) {
             lab = cacheLABObjectCodabe.storedValue
         }else if userDefaults.bool(forKey: UserDefaultsConstants.radiologyPerformLogin) {
@@ -68,7 +75,6 @@ class HomeLeftMenuVC: CustomBaseViewVC {
         }else if userDefaults.bool(forKey: UserDefaultsConstants.pharamacyPerformLogin) {
             phy = cachdPHARMACYObjectCodabe.storedValue
         }
-        
     }
     
     //MARK: -user methods
@@ -86,8 +92,9 @@ class HomeLeftMenuVC: CustomBaseViewVC {
     
     fileprivate func makeSameActions(_ indexPath: IndexPath, _ baseSlid: BaseSlidingVC) {
         if indexPath.item == 2 {
-            baseSlid.closeMenu()
-            createAlerts()
+//            performLogout()
+//            baseSlid.closeMenu()
+            showAlertForLogout()
         }else if indexPath.item == 0 {
             baseSlid.closeMenu()
             showAlertForContacting()
@@ -179,42 +186,50 @@ class HomeLeftMenuVC: CustomBaseViewVC {
         baseSlid.present(baseSlid.customMainAlertVC, animated: true)
     }
     
-    
-    fileprivate  func performLogout()  {
+    fileprivate func showAlertForLogout()  {
+        guard let baseSlid = UIApplication.shared.windows.filter({$0.isKeyWindow}).first?.rootViewController as? BaseSlidingVC else {return}
         
-        if userDefaults.bool(forKey: UserDefaultsConstants.labPerformLogin) {
-            cacheLABObjectCodabe.deleteFile(lab!)
-            userDefaults.set(false, forKey: UserDefaultsConstants.labPerformLogin)
-            userDefaults.set(false, forKey: UserDefaultsConstants.isAllMainHomeObjectsFetchedLAB)
-            
-            self.lab=nil
-            
-        }else if userDefaults.bool(forKey: UserDefaultsConstants.radiologyPerformLogin) {
-            cachdRADObjectCodabe.deleteFile(rad!)
-            userDefaults.set(false, forKey: UserDefaultsConstants.radiologyPerformLogin)
-            userDefaults.set(false, forKey: UserDefaultsConstants.isAllMainHomeObjectsFetchedRAD)
-            
-            self.rad=nil
-            
-        }else if userDefaults.bool(forKey: UserDefaultsConstants.pharamacyPerformLogin) {
-            cachdPHARMACYObjectCodabe.deleteFile(phy!)
-            userDefaults.set(false, forKey: UserDefaultsConstants.pharamacyPerformLogin)
-            userDefaults.set(false, forKey: UserDefaultsConstants.isAllMainHomeObjectsFetchedPHY)
-            
-            self.phy=nil
-            
-        }
-        userDefaults.set(true, forKey: UserDefaultsConstants.isWelcomeVCAppear)
-        userDefaults.removeObject(forKey: UserDefaultsConstants.MainLoginINDEX)
         
-        userDefaults.synchronize()
-        goToWelcome()
-        
-        DispatchQueue.main.async {
-            self.customMainHomeLeftView.userImage.image = #imageLiteral(resourceName: "Group 4143")
-            self.customMainHomeLeftView.userNameLabel.text = ""
-        }
+        baseSlid.closeMenu()
+        baseSlid.customMainAlertVC.addCustomViewInCenter(views: baseSlid.customAlertMainLoodingssView, height: 250)
+        baseSlid.present(baseSlid.customMainAlertVC, animated: true)
     }
+    
+//    fileprivate  func performLogout()  {
+//
+//        if userDefaults.bool(forKey: UserDefaultsConstants.labPerformLogin) {
+//            cacheLABObjectCodabe.deleteFile(lab!)
+//            userDefaults.set(false, forKey: UserDefaultsConstants.labPerformLogin)
+//            userDefaults.set(false, forKey: UserDefaultsConstants.isAllMainHomeObjectsFetchedLAB)
+//
+//            self.lab=nil
+//
+//        }else if userDefaults.bool(forKey: UserDefaultsConstants.radiologyPerformLogin) {
+//            cachdRADObjectCodabe.deleteFile(rad!)
+//            userDefaults.set(false, forKey: UserDefaultsConstants.radiologyPerformLogin)
+//            userDefaults.set(false, forKey: UserDefaultsConstants.isAllMainHomeObjectsFetchedRAD)
+//
+//            self.rad=nil
+//
+//        }else if userDefaults.bool(forKey: UserDefaultsConstants.pharamacyPerformLogin) {
+//            cachdPHARMACYObjectCodabe.deleteFile(phy!)
+//            userDefaults.set(false, forKey: UserDefaultsConstants.pharamacyPerformLogin)
+//            userDefaults.set(false, forKey: UserDefaultsConstants.isAllMainHomeObjectsFetchedPHY)
+//
+//            self.phy=nil
+//
+//        }
+//        userDefaults.set(true, forKey: UserDefaultsConstants.isWelcomeVCAppear)
+//        userDefaults.removeObject(forKey: UserDefaultsConstants.MainLoginINDEX)
+//
+//        userDefaults.synchronize()
+//        //        goToWelcome()
+//
+//        DispatchQueue.main.async {
+//            self.customMainHomeLeftView.userImage.image = #imageLiteral(resourceName: "Group 4143")
+//            self.customMainHomeLeftView.userNameLabel.text = ""
+//        }
+//    }
     
     fileprivate func goToWelcome()  {
         let welcome = WelcomeVC()
@@ -230,7 +245,7 @@ class HomeLeftMenuVC: CustomBaseViewVC {
     fileprivate func createAlerts() {
         let alert = UIAlertController(title: "Warring...".localized, message: "Do You Want To Log Out?".localized, preferredStyle: .alert)
         let ok = UIAlertAction(title: "Log Out".localized, style: .destructive) {[unowned self] (_) in
-            self.performLogout()
+//            self.performLogout()
         }
         let cancel = UIAlertAction(title: "Cancel".localized, style: .cancel) { (_) in
             alert.dismiss(animated: true)
@@ -242,12 +257,21 @@ class HomeLeftMenuVC: CustomBaseViewVC {
     
     //TODO: -handle methods
     
-    @objc func handleLogout()  {
-        
-        guard let baseSlid = UIApplication.shared.windows.filter({$0.isKeyWindow}).first?.rootViewController as? BaseSlidingVC else {return}
-        baseSlid.closeMenu()
-        createAlerts()
+    @objc func handleDismiss()  {
+//        removeViewWithAnimation(vvv: customAlertMainLoodingssView)
+        DispatchQueue.main.async {
+            self.dismiss(animated: true, completion: nil)
+        }
     }
+    
+//    @objc func handleLogout()  {
+//
+//        guard let baseSlid = UIApplication.shared.windows.filter({$0.isKeyWindow}).first?.rootViewController as? BaseSlidingVC else {return}
+//        baseSlid.closeMenu()
+//        customMainAlertVC.addCustomViewInCenter(views: baseSlid.customAlertMainLoodingssView, height: 250)
+//        present(customMainAlertVC, animated: true)
+//        //        createAlerts()
+//    }
     
     
     required init?(coder: NSCoder) {

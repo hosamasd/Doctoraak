@@ -9,7 +9,7 @@
 import UIKit
 import MOLH
 
-class DoctorLeftMenuCell: UICollectionViewCell {
+class DoctorLeftMenuCell: BaseCollectionCell {
     
     
     
@@ -23,25 +23,15 @@ class DoctorLeftMenuCell: UICollectionViewCell {
     
     override var isSelected: Bool{
         didSet{
-            backgroundColor = isSelected ? #colorLiteral(red: 0.4410271694, green: 0.3507713137, blue: 1, alpha: 1) : .white
+            backgroundColor = isSelected ? #colorLiteral(red: 0.9296001792, green: 0.9134455323, blue: 0.9993399978, alpha: 1) : .white
         }
     }
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setupViews()
-        
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    func setupViews() {
+    override func setupViews() {
         if  MOLHLanguage.isRTLLanguage(){
-            hstack(Image6,Label6,UIView(),spacing:16,alignment: .center).withMargins(.init(top: 8, left: 0, bottom: 8, right: 0))
+            hstack(Image6,Label6,UIView(),spacing:16,alignment: .center).withMargins(.init(top: 8, left: 8, bottom: 8, right: 0))
         }else {
-            hstack(Image6,Label6,spacing:16,alignment: .center).withMargins(.init(top: 8, left: 0, bottom: 8, right: 0))
+            hstack(Image6,Label6,spacing:16,alignment: .center).withMargins(.init(top: 8, left: 8, bottom: 8, right: 0))
         }
     }
 }

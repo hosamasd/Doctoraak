@@ -193,6 +193,8 @@
 		7A52BB5C24153A30008ED1F9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A52BB5B24153A30008ED1F9 /* Assets.xcassets */; };
 		7A52BB5F24153A30008ED1F9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7A52BB5D24153A30008ED1F9 /* LaunchScreen.storyboard */; };
 		7AE60E3F241914EC002E9AF6 /* MainSpecificationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE60E3E241914EC002E9AF6 /* MainSpecificationModel.swift */; };
+		9F22716224B3CED30091412C /* lf30_editor_itsaat.json in Resources */ = {isa = PBXBuildFile; fileRef = 9F22716124B3CED30091412C /* lf30_editor_itsaat.json */; };
+		9F32E8EA24B3ACAC00D4B62E /* 19228-health-care.json in Resources */ = {isa = PBXBuildFile; fileRef = 9F32E8E924B3ACAB00D4B62E /* 19228-health-care.json */; };
 		9F82FDA324AA3950009ED3B9 /* UILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F82FD9224AA3940009ED3B9 /* UILabel.swift */; };
 		9F82FDA424AA3950009ED3B9 /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F82FD9324AA3941009ED3B9 /* Device.swift */; };
 		9F82FDA524AA3950009ED3B9 /* UITextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F82FD9424AA3942009ED3B9 /* UITextView.swift */; };
@@ -404,6 +406,8 @@
 		7A52BB6024153A30008ED1F9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7AE60E3E241914EC002E9AF6 /* MainSpecificationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSpecificationModel.swift; sourceTree = "<group>"; };
 		8C1195FC2E0096E7AF8F9EBD /* Pods-Doctoraak.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Doctoraak.release.xcconfig"; path = "Target Support Files/Pods-Doctoraak/Pods-Doctoraak.release.xcconfig"; sourceTree = "<group>"; };
+		9F22716124B3CED30091412C /* lf30_editor_itsaat.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = lf30_editor_itsaat.json; sourceTree = "<group>"; };
+		9F32E8E924B3ACAB00D4B62E /* 19228-health-care.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "19228-health-care.json"; sourceTree = "<group>"; };
 		9F82FD9224AA3940009ED3B9 /* UILabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UILabel.swift; sourceTree = "<group>"; };
 		9F82FD9324AA3941009ED3B9 /* Device.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
 		9F82FD9424AA3942009ED3B9 /* UITextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITextView.swift; sourceTree = "<group>"; };
@@ -505,6 +509,8 @@
 		4E115DAC2495195000B64936 /* Lottie */ = {
 			isa = PBXGroup;
 			children = (
+				9F22716124B3CED30091412C /* lf30_editor_itsaat.json */,
+				9F32E8E924B3ACAB00D4B62E /* 19228-health-care.json */,
 				4E115DAF2495196000B64936 /* 4970-unapproved-cross.json */,
 				4E115DAD2495195F00B64936 /* heart_loading.json */,
 				4E115DAE2495195F00B64936 /* success.json */,
@@ -1525,6 +1531,8 @@
 			files = (
 				4E115DB12495196000B64936 /* success.json in Resources */,
 				7A52BB5F24153A30008ED1F9 /* LaunchScreen.storyboard in Resources */,
+				9F32E8EA24B3ACAC00D4B62E /* 19228-health-care.json in Resources */,
+				9F22716224B3CED30091412C /* lf30_editor_itsaat.json in Resources */,
 				7A52BB5C24153A30008ED1F9 /* Assets.xcassets in Resources */,
 				4E215B3924A25E760099C727 /* 15179-confirm-popup.json in Resources */,
 				4EB24894249A3AC500CD6535 /* Localizable.strings in Resources */,

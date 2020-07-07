@@ -64,6 +64,7 @@ PODS:
   - MDFTextAccessibility (2.0.0)
   - MOLH (1.1.2)
   - PKHUD (5.3.0)
+  - SCLAlertView (0.8)
   - SDWebImage (5.3.2):
     - SDWebImage/Core (= 5.3.2)
   - SDWebImage/Core (5.3.2)
@@ -79,6 +80,7 @@ DEPENDENCIES:
   - MaterialComponents/Snackbar
   - MOLH
   - PKHUD (~> 5.0)
+  - SCLAlertView
   - SDWebImage
   - SkyFloatingLabelTextField (~> 3.0)
   - SVProgressHUD
@@ -95,6 +97,7 @@ SPEC REPOS:
     - MDFTextAccessibility
     - MOLH
     - PKHUD
+    - SCLAlertView
     - SDWebImage
     - SkyFloatingLabelTextField
     - SVProgressHUD
@@ -110,11 +113,12 @@ SPEC CHECKSUMS:
   MDFTextAccessibility: 85c09a1bd9c321f494348e632a25063bcda35a53
   MOLH: 79723d6938aff0ac02aebe4d89cc96b73f46fa32
   PKHUD: 98f3e4bc904b9c916f1c5bb6d765365b5357291b
+  SCLAlertView: 6a77bb2edfc65e04dbe57725546cb4107a506b85
   SDWebImage: 6ac2eb96571bff96ecde31a987172c5934a0eb7d
   SkyFloatingLabelTextField: 5a338412114808e961fe2d14ea2c5452c8b6e4aa
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   UIMultiPicker: 814ef851119183662347ed15ebbad26879c49073
 
-PODFILE CHECKSUM: a4da2e61478c7bf2d0f3d8e79a760159f04b4176
+PODFILE CHECKSUM: 45ce1da92e15c84992a3fd975624aa8c6b3f1bb2
 
-COCOAPODS: 1.8.4
+COCOAPODS: 1.9.3

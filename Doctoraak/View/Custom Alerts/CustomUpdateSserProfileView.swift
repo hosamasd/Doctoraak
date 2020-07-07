@@ -10,6 +10,7 @@
 import UIKit
 import Lottie
 import MOLH
+import SwiftUI
 
 class CustomUpdateSserProfileView: CustomBaseView {
     
@@ -18,6 +19,8 @@ class CustomUpdateSserProfileView: CustomBaseView {
         let v =  UIView(backgroundColor: .white)
         v.layer.borderWidth = 1
         v.layer.borderColor = UIColor.lightGray.cgColor
+        v.layer.cornerRadius = 16
+        v.clipsToBounds=true
         return v
     }()
     
@@ -30,9 +33,9 @@ class CustomUpdateSserProfileView: CustomBaseView {
         im.translatesAutoresizingMaskIntoConstraints = false
         return im
     }()
-    lazy var aboutLabel = UILabel(text: "Warring\n".localized, font: .systemFont(ofSize: 20), textColor: .red,textAlignment: .center,numberOfLines: 1)
+    lazy var aboutLabel = UILabel(text: "\nWarring\n".localized, font: .systemFont(ofSize: 20), textColor: .red,textAlignment: .center,numberOfLines: 2)
     
-    let discriptionInfoLabel = UILabel(text: "Are You Sure You Want To Log Out?\n".localized, font: .systemFont(ofSize: 16), textColor: .black,textAlignment: .center,numberOfLines: 0)
+    let discriptionInfoLabel = UILabel(text: "Are You Sure You Want To Log Out?\n".localized, font: .systemFont(ofSize: 16), textColor: .black,textAlignment: .center,numberOfLines: 1)
     let lineSeperatorView:UIView = {
         let v = UIView(backgroundColor: #colorLiteral(red: 0.9529411765, green: 0.9529411765, blue: 0.9529411765, alpha: 1))
         //        let v = UIView(backgroundColor: .red)
@@ -41,20 +44,19 @@ class CustomUpdateSserProfileView: CustomBaseView {
     }()
     
     
-    lazy var okButton = createButtons(title: "Ok".localized, bgColor: #colorLiteral(red: 0.2100089788, green: 0.8682586551, blue: 0.7271742225, alpha: 1), bColor: #colorLiteral(red: 0.2100089788, green: 0.8682586551, blue: 0.7271742225, alpha: 1), tColor: .white, selector: #selector(handleLogin))
-    lazy var cancelButton = createButtons(title: "Cancel".localized, bgColor: .white, bColor: #colorLiteral(red: 0.2100089788, green: 0.8682586551, blue: 0.7271742225, alpha: 1), tColor: .black, selector: #selector(handleSignup))
+    lazy var okButton = createButtons(title: "Logout".localized, bgColor: #colorLiteral(red: 0.6040871143, green: 0.4510732889, blue: 0.997523725, alpha: 1), tColor: .white, selector: #selector(handleLogin), cornerMakst: .layerMaxXMaxYCorner)
+    lazy var cancelButton = createButtons(title: "Cancel".localized, bgColor: #colorLiteral(red: 0.3182445467, green: 0.3212628365, blue: 0.3214718103, alpha: 1), tColor: .white, selector: #selector(handleSignup), cornerMakst: .layerMinXMaxYCorner)
     
     
-    var handleOkTap:(()->())?
-    var handleLoginState:(()->Void)?
-    var handleSignupState:(()->Void)?
+    var handleLogoutTap:(()->())?
+    var handleCancelTap:(()->Void)?
     
     
     // MARK: -user methods
     
     override func setupViews()  {
         backgroundColor = .white
-        let buttonStack = getStack(views: okButton,cancelButton, spacing: 16, distribution: .fillEqually, axis: .horizontal)
+        let buttonStack = getStack(views: cancelButton,okButton, spacing: 0, distribution: .fillEqually, axis: .horizontal)
         
         addSubview(mainView)
         mainView.fillSuperview()
@@ -68,7 +70,7 @@ class CustomUpdateSserProfileView: CustomBaseView {
         aboutLabel.anchor(top: imageView.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor)
         discriptionInfoLabel.anchor(top: aboutLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 16, bottom: 0, right: 16))
         //           lineSeperatorView.anchor(top: discriptionInfoLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 8, left: 0, bottom: 0, right: 0))
-        buttonStack.anchor(top: discriptionInfoLabel.bottomAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor)
+        buttonStack.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor)
         
         
     }
@@ -83,34 +85,37 @@ class CustomUpdateSserProfileView: CustomBaseView {
     
     // TODO: -handle methods
     
-    @objc  func handleOk()  {
-        handleOkTap?()
-    }
-    
-    func createButtons(title:String,bgColor:UIColor,bColor:UIColor,tColor:UIColor,selector:Selector) -> UIButton {
+//    @objc  func handleOk()  {
+//        handleOkTap?()
+//    }
+//    
+    func createButtons(title:String,bgColor:UIColor,tColor:UIColor,selector:Selector,cornerMakst:CACornerMask) -> UIButton {
         let bt  = UIButton()
         //          bt.constrainHeight(constant: 40)
         //        bt.constrainWidth(constant: 120)
-        bt.layer.cornerRadius = 16
+//        bt.layer.cornerRadius = 16
         bt.clipsToBounds = true
         bt.setTitle(title, for: .normal)
         bt.backgroundColor = bgColor
-        bt.layer.borderWidth = 2
-        bt.layer.borderColor = bColor.cgColor
+//        bt.layer.borderWidth = 2
         bt.setTitleColor(tColor, for: .normal)
         bt.addTarget(self, action: selector, for: .touchUpInside)
         bt.translatesAutoresizingMaskIntoConstraints = false
+        bt.constrainHeight(constant: 60)
+        
+        bt.clipsToBounds = true
+        bt.layer.cornerRadius = 16
+        bt.layer.maskedCorners = cornerMakst//[.layerMaxXMaxYCorner]
+        
         return bt
     }
     
     @objc func handleLogin()  {
-        handleLoginState?()
+        handleLogoutTap?()
     }
     
     @objc func handleSignup()  {
-        handleLoginState?()
+        handleCancelTap?()
     }
     
 }
-
-

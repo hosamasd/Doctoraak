@@ -18,5 +18,5 @@ pod 'MOLH'
 pod 'PKHUD', '~> 5.0'
 pod 'SDWebImage'
 pod 'lottie-ios'
-
+pod 'SCLAlertView'
 end
