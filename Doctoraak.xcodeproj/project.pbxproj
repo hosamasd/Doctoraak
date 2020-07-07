@@ -214,6 +214,7 @@
 		9F82FDB324AA3950009ED3B9 /* VCS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F82FDA224AA394F009ED3B9 /* VCS.swift */; };
 		9F82FDB624AA399F009ED3B9 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F82FDB424AA399E009ED3B9 /* Extensions.swift */; };
 		9F82FDB724AA399F009ED3B9 /* ExtensionsViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F82FDB524AA399F009ED3B9 /* ExtensionsViews.swift */; };
+		9FDC27E124B4EBCD0030AB22 /* CollectionAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FDC27E024B4EBCD0030AB22 /* CollectionAnimation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -427,6 +428,7 @@
 		9F82FDA224AA394F009ED3B9 /* VCS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VCS.swift; sourceTree = "<group>"; };
 		9F82FDB424AA399E009ED3B9 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		9F82FDB524AA399F009ED3B9 /* ExtensionsViews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtensionsViews.swift; sourceTree = "<group>"; };
+		9FDC27E024B4EBCD0030AB22 /* CollectionAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionAnimation.swift; sourceTree = "<group>"; };
 		BAD6BD9CA05933F3751070F3 /* Pods-Doctoraak.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Doctoraak.debug.xcconfig"; path = "Target Support Files/Pods-Doctoraak/Pods-Doctoraak.debug.xcconfig"; sourceTree = "<group>"; };
 		C300D290AB172CC2F362780A /* Pods_Doctoraak.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Doctoraak.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -1446,6 +1448,7 @@
 		7AB7E38624157FE30033F347 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				9FDC27E024B4EBCD0030AB22 /* CollectionAnimation.swift */,
 				4E115DB32495199A00B64936 /* Custom Alerts */,
 				4E333E0624265C1500F82E00 /* Custom Views */,
 				4E5CE7A024274909001EE175 /* CustomVC */,
@@ -1680,6 +1683,7 @@
 				4E28EC6A242A4A7E00B54186 /* CustomMainForgetPassView.swift in Sources */,
 				4E3E0383245DAAFC0021EA26 /* MainSMSCodeAllModel.swift in Sources */,
 				4EDFFD3524974B7500256631 /* CustomNotificationView.swift in Sources */,
+				9FDC27E124B4EBCD0030AB22 /* CollectionAnimation.swift in Sources */,
 				4EDB37CE2466B87E00DA8B0C /* DoctorServices.swift in Sources */,
 				4E580316242796DC00B5D502 /* CustomSkyTextFieldRightPadding.swift in Sources */,
 				4EA8D6D7242F3189004F043B /* ClinicDataViewModel.swift in Sources */,

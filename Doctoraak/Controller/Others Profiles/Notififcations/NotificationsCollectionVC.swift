@@ -13,6 +13,8 @@ class NotificationsCollectionVC: BaseCollectionVC {
     
     fileprivate  let cellID = "cellID"
     var index = 0
+    /// an enum of type TableAnimation - determines the animation to be applied to the tableViewCells
+    var currentTableAnimation: CollectionAnimation = .fadeIn(duration: 0.85, delay: 0.03)
     
     var notificationPHYArray = [PharmacyNotificationModel]()
     var notificationLABArray = [LABNotificationModel]()
@@ -40,6 +42,12 @@ class NotificationsCollectionVC: BaseCollectionVC {
             collectionView.noDataFound(notificationPHYArray.count, text: "No Data Added Yet".localized)
             return notificationPHYArray.count
         }
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        let animation = currentTableAnimation.getAnimation()
+        let animator = CollectionViewAnimator(animation: animation)
+        animator.animate(cell: cell, at: indexPath, in: collectionView)
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -101,6 +109,8 @@ class NotificationsCollectionVC: BaseCollectionVC {
     
     //MARK:-User methods
     
+    
+    
     fileprivate func makePostDOCAlert(post:DOCTORNotificationModel,_ index:IndexPath)  {
         let alert = UIAlertController(title: "Choose Options".localized, message: "What do you want to make?".localized, preferredStyle: .actionSheet)
         let delete = UIAlertAction(title: "Delete".localized, style: .destructive) { (_) in
@@ -110,9 +120,9 @@ class NotificationsCollectionVC: BaseCollectionVC {
             alert.dismiss(animated: true)
         }
         let show = UIAlertAction(title: "Display".localized, style: .default) { (_) in
-                  self.handledisplayDOCNotification?(post,index,true)
-              }
-              alert.addAction(show)
+            self.handledisplayDOCNotification?(post,index,true)
+        }
+        alert.addAction(show)
         alert.addAction(delete)
         alert.addAction(cancel)
         present(alert, animated: true)

@@ -12,7 +12,13 @@ class MedicineCollectionVC: BaseCollectionVC {
     
     fileprivate let cellID = "cellID"
        var medicineArray = ["one","two","three","four","fifie"]
-       
+       var currentTableAnimation: CollectionAnimation = .fadeIn(duration: 0.85, delay: 0.03)
+
+    override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+          let animation = currentTableAnimation.getAnimation()
+          let animator = CollectionViewAnimator(animation: animation)
+          animator.animate(cell: cell, at: indexPath, in: collectionView)
+      }
        
        override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
            return medicineArray.count

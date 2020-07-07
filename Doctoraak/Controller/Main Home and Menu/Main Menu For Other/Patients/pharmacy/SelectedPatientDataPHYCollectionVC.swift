@@ -13,12 +13,19 @@ class SelectedPatientDataPHYCollectionVC: BaseCollectionVC {
     var index = 0
     
     fileprivate  let cellID = "cellID"
+    var currentTableAnimation: CollectionAnimation = .fadeIn(duration: 0.85, delay: 0.03)
     
     var notificationPHYArray = [PharmacyDetailModel]()
     var notificationRADArray = [RADDetailModel]()
     var notificationLABArray = [RADDetailModel]()
     
     //        var handledisplayDOCNotification:((PatientNotificationModel,IndexPath)->Void)?
+    
+    override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        let animation = currentTableAnimation.getAnimation()
+        let animator = CollectionViewAnimator(animation: animation)
+        animator.animate(cell: cell, at: indexPath, in: collectionView)
+    }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if index == 2 {

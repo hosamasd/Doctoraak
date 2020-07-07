@@ -13,12 +13,19 @@ class DoctorHomePatientsCollectionVC: BaseCollectionVC {
     var handleSelectedIndex:((IndexPath)->Void)?
     
     var doctorPatientsArray = [DoctorGetPatientsFromClinicModel]()
-    
+    var currentTableAnimation: CollectionAnimation = .fadeIn(duration: 0.85, delay: 0.03)
+
     fileprivate let cellId = "cellId"
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return doctorPatientsArray.count
     }
+    
+    override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+          let animation = currentTableAnimation.getAnimation()
+          let animator = CollectionViewAnimator(animation: animation)
+          animator.animate(cell: cell, at: indexPath, in: collectionView)
+      }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! DoctorHomePatientsCell
