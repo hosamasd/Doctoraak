@@ -292,6 +292,8 @@ extension PharamacyProfileVC: UIImagePickerControllerDelegate, UINavigationContr
         dismiss(animated: true)
     }
     
+
+    
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         customPharamacyProfileView.edirProfileViewModel.image = nil
         dismiss(animated: true)

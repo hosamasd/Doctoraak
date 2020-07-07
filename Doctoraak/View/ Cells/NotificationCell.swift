@@ -49,7 +49,7 @@ class NotificationCell: BaseCollectionCell {
     }
     
     lazy var notifyProfileImage:UIImageView = {
-        let i = UIImageView(image: #imageLiteral(resourceName: "Group 3795"))
+        let i = UIImageView(image: #imageLiteral(resourceName: "Group 3795").withRenderingMode(.alwaysTemplate))
         i.constrainWidth(constant: 80)
         i.constrainHeight(constant: 80)
         i.layer.cornerRadius = 8

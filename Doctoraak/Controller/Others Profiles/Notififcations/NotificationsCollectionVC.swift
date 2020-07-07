@@ -123,7 +123,7 @@ class NotificationsCollectionVC: BaseCollectionVC {
         let cancel = UIAlertAction(title: "Cancel".localized, style: .default) { (_) in
             alert.dismiss(animated: true)
         }
-        let show = UIAlertAction(title: "Display".localized, style: .destructive) { (_) in
+        let show = UIAlertAction(title: "Display".localized, style: .default) { (_) in
             self.handledisplayRADNotification?(post,index,true)
         }
         alert.addAction(show)
@@ -141,7 +141,7 @@ class NotificationsCollectionVC: BaseCollectionVC {
         let cancel = UIAlertAction(title: "Cancel".localized, style: .default) { (_) in
             alert.dismiss(animated: true)
         }
-        let show = UIAlertAction(title: "Display".localized, style: .destructive) { (_) in
+        let show = UIAlertAction(title: "Display".localized, style: .default) { (_) in
             self.handledisplayLABNotification?(post,index,true)
         }
         alert.addAction(show)

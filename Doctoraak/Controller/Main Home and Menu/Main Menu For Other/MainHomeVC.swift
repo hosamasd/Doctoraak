@@ -118,7 +118,7 @@ class MainHomeVC: CustomBaseViewVC {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        if userDefaults.bool(forKey: UserDefaultsConstants.isWelcomeVCAppear) {
+        if !userDefaults.bool(forKey: UserDefaultsConstants.isWelcomeVCAppear) {
             view.alpha = 0
         }else {            view.alpha = 1
         }
@@ -171,7 +171,7 @@ class MainHomeVC: CustomBaseViewVC {
     
     fileprivate  func fetchOrdersRAD()  {
         guard let phy = rad else { return  }
-                UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
+        UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
         self.showMainAlertLooder()
         OrdersServices.shared.fetchRADOrders(api_token: phy.apiToken, radiology_id: phy.id) { (base, err) in
             if let  err = err {
@@ -278,7 +278,7 @@ class MainHomeVC: CustomBaseViewVC {
         //        }
     }
     
-   
+    
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

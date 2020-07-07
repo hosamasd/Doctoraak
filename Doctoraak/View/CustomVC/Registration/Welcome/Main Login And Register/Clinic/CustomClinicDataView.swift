@@ -35,6 +35,8 @@ class CustomClinicDataView: CustomBaseView {
         i.constrainHeight(constant: 100)
         i.layer.cornerRadius = 50
         i.clipsToBounds = true
+        i.layer.borderWidth=3
+               i.layer.borderColor = UIColor.white.cgColor
         return i
     }()
     lazy var clinicEditProfileImageView: UIImageView = {

@@ -53,38 +53,38 @@ class BaseSlidingVC: UIViewController {
         return v
     }()
     lazy var customAlertMainLoodingssView:CustomUpdateSserProfileView = {
-           let v = CustomUpdateSserProfileView()
-           v.handleLogoutTap = {[unowned self] in
+        let v = CustomUpdateSserProfileView()
+        v.handleLogoutTap = {[unowned self] in
             self.performLogout()
             self.removeViewWithAnimation(vvv: self.customAlertMainLoodingssView)
             self.customMainAlertVC.dismiss(animated: true)
             self.check()
-           }
-           v.handleCancelTap = {[unowned self] in
-               self.removeViewWithAnimation(vvv: self.customAlertMainLoodingssView)
+        }
+        v.handleCancelTap = {[unowned self] in
+            self.removeViewWithAnimation(vvv: self.customAlertMainLoodingssView)
             self.customMainAlertVC.dismiss(animated: true)
-//               DispatchQueue.main.async {
-//                   self.dismiss(animated: true, completion: nil)
-//               }
-           }
-           return v
-       }()
-       
+            //               DispatchQueue.main.async {
+            //                   self.dismiss(animated: true, completion: nil)
+            //               }
+        }
+        return v
+    }()
+    
     fileprivate  func performLogout()  {
         
         if userDefaults.bool(forKey: UserDefaultsConstants.labPerformLogin) {
             cacheLABObjectCodabe.deleteFile(cacheLABObjectCodabe.storedValue!)
             userDefaults.set(false, forKey: UserDefaultsConstants.labPerformLogin)
             userDefaults.set(false, forKey: UserDefaultsConstants.isAllMainHomeObjectsFetchedLAB)
-         }else if userDefaults.bool(forKey: UserDefaultsConstants.radiologyPerformLogin) {
+        }else if userDefaults.bool(forKey: UserDefaultsConstants.radiologyPerformLogin) {
             cachdRADObjectCodabe.deleteFile(cachdRADObjectCodabe.storedValue!)
             userDefaults.set(false, forKey: UserDefaultsConstants.radiologyPerformLogin)
             userDefaults.set(false, forKey: UserDefaultsConstants.isAllMainHomeObjectsFetchedRAD)
-       }else if userDefaults.bool(forKey: UserDefaultsConstants.pharamacyPerformLogin) {
+        }else if userDefaults.bool(forKey: UserDefaultsConstants.pharamacyPerformLogin) {
             cachdPHARMACYObjectCodabe.deleteFile(cachdPHARMACYObjectCodabe.storedValue!)
             userDefaults.set(false, forKey: UserDefaultsConstants.pharamacyPerformLogin)
             userDefaults.set(false, forKey: UserDefaultsConstants.isAllMainHomeObjectsFetchedPHY)
-       }
+        }
         userDefaults.set(true, forKey: UserDefaultsConstants.isWelcomeVCAppear)
         userDefaults.removeObject(forKey: UserDefaultsConstants.MainLoginINDEX)
         
@@ -120,18 +120,16 @@ class BaseSlidingVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         index = userDefaults.integer(forKey: UserDefaultsConstants.MainLoginINDEX)
-        
-        //        userDefaults.set(false, forKey: UserDefaultsConstants.isAllMainHomeObjectsFetchedRAD)
-        //        userDefaults.synchronize()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         
-        if userDefaults.bool(forKey: UserDefaultsConstants.isWelcomeVCAppear) {
-            view.backgroundColor = .clear
+        if !userDefaults.bool(forKey: UserDefaultsConstants.isWelcomeVCAppear) {
+            //            view.backgroundColor = .clear
             check()
-        }else {            view.backgroundColor = .white
+        }else {
+            //            view.backgroundColor = .white
         }
     }
     
@@ -145,7 +143,7 @@ class BaseSlidingVC: UIViewController {
     
     //MARK: -user methods
     
-   
+    
     
     fileprivate  func check()  {
         let welcome = WelcomeVC()
@@ -352,19 +350,6 @@ class BaseSlidingVC: UIViewController {
             }
         }
     }
-    
-    //    @objc  func handlePaneed(gesture:UIPanGestureRecognizer)  {
-    //        let transltaion = gesture.translation(in: view)
-    //        var x = transltaion.x
-    //        x = isMenuOpen ? x+menuWidth : x
-    //        x = min(menuWidth, x)
-    //        x = max(0, x)
-    //        redViewLeadingConstarint.constant = x
-    //        darkCoverView.alpha = x / menuWidth
-    //        if gesture.state == .ended {
-    //            handleEnded(gesture: gesture)
-    //        }
-    //    }
     
     @objc func handleDismiss()  {
         removeViewWithAnimation(vvv: customContactUsView)

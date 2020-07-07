@@ -10,8 +10,7 @@ import UIKit
 
 class HomeLeftMenuCollcetionVC: BaseCollectionVC {
     
-    var images:[UIImage] = [#imageLiteral(resourceName: "icon"),#imageLiteral(resourceName: "ic_calendar"),#imageLiteral(resourceName: "ic_add_circle_outline_24px-1"),#imageLiteral(resourceName: "Group 3928-1"),#imageLiteral(resourceName: "ic_notification").withRenderingMode(.alwaysTemplate),#imageLiteral(resourceName: "ic_chart"),#imageLiteral(resourceName: "ic_phone_24px"),#imageLiteral(resourceName: "ic_language_24px"),#imageLiteral(resourceName: "ic_logout").withRenderingMode(.alwaysTemplate)]
-    
+    var images:[UIImage] = [#imageLiteral(resourceName: "user"),#imageLiteral(resourceName: "calendar"),#imageLiteral(resourceName: "ic_add_circle_outline_24px-1"),#imageLiteral(resourceName: "Group 3928-1"),#imageLiteral(resourceName: "notification"),#imageLiteral(resourceName: "ic_chart"),#imageLiteral(resourceName: "phone-call"),#imageLiteral(resourceName: "global"),#imageLiteral(resourceName: "logout")]
     var deatas = [["Profile".localized,"Calender".localized,"Add clinic".localized,"Clinic Info".localized,"Notification".localized,"Anaylicts".localized],["Contact Us".localized,"Language".localized,"Log Out".localized]]
     
     

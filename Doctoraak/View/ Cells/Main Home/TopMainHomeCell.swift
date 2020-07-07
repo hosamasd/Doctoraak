@@ -26,10 +26,11 @@ class TopMainHomeCell: BaseCollectionCell {
             guard let notu = phy else { return  }
             let title = MOLHLanguage.isRTLLanguage() ? notu.nameAr ?? notu.name :  notu.name
             putsAttributedText(la: doctorWelcomeLabel, ft: "Welcome \n\n".localized, st: title)
-            
-            let urlString = notu.photo
-            guard  let url = URL(string: urlString) else { return  }
-            profileImage.sd_setImage(with: url)
+            profileImage.image = #imageLiteral(resourceName: "ic_pharmacy_type")
+
+//            let urlString = notu.photo
+//            guard  let url = URL(string: urlString) else { return  }
+//            profileImage.sd_setImage(with: url)
         }
     }
     
@@ -38,10 +39,11 @@ class TopMainHomeCell: BaseCollectionCell {
             guard let notu = rad else { return  }
             let title = MOLHLanguage.isRTLLanguage() ? notu.nameAr ?? notu.name :  notu.name
             putsAttributedText(la: doctorWelcomeLabel, ft: "Welcome \n\n".localized, st: title)
-            
-            let urlString = notu.photo
-            guard  let url = URL(string: urlString) else { return  }
-            profileImage.sd_setImage(with: url)
+            profileImage.image = #imageLiteral(resourceName: "Group 4145")
+
+//            let urlString = notu.photo
+//            guard  let url = URL(string: urlString) else { return  }
+//            profileImage.sd_setImage(with: url)
         }
     }
     
@@ -51,14 +53,15 @@ class TopMainHomeCell: BaseCollectionCell {
             let title = MOLHLanguage.isRTLLanguage() ? notu.nameAr ?? notu.name :  notu.name
             putsAttributedText(la: doctorWelcomeLabel, ft: "Welcome \n\n".localized, st: title)
             
-            let urlString = notu.photo
-            guard  let url = URL(string: urlString) else { return  }
-            profileImage.sd_setImage(with: url)
+            profileImage.image = #imageLiteral(resourceName: "Group 4144")
+//            let urlString = notu.photo
+//            guard  let url = URL(string: urlString) else { return  }
+//            profileImage.sd_setImage(with: url)
         }
     }
     
     lazy var profileImage:UIImageView = {
-        let i = UIImageView(backgroundColor: .gray)
+        let i = UIImageView(image: #imageLiteral(resourceName: "ic_lab_type"))
         i.constrainWidth(constant: 80)
         i.constrainHeight(constant: 120)
         i.layer.cornerRadius = 8

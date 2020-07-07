@@ -334,7 +334,7 @@ class NotificationVC: CustomBaseViewVC {
     }
     
     //MARK: -Handle methods
-
+    
     
     @objc func handleBack()  {
         if isFromMenu {

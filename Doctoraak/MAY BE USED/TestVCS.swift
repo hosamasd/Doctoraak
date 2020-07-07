@@ -25,10 +25,24 @@ class TestVCS: CustomBaseViewVC {
              return t
          }()
     
+    lazy var Image6:UIImageView = {
+         let i = UIImageView(image: #imageLiteral(resourceName: "lego(1)"))
+         i.constrainWidth(constant: 120)
+         i.constrainHeight(constant: 120)
+        
+        i.layer.cornerRadius=60
+        i.clipsToBounds=true
+        i.layer.borderWidth=3
+        i.layer.borderColor = UIColor.white.cgColor
+         return i
+     }()
+    
     override func setupViews() {
-        view.backgroundColor = .white
-        customMainAlertVC.addCustomViewInCenter(views: customAlertMainLoodingView, height: 250)
-                 present(customMainAlertVC, animated: true)
+        view.backgroundColor = .red
+        view.addSubview(Image6)
+        Image6.centerInSuperview()
+//        customMainAlertVC.addCustomViewInCenter(views: customAlertMainLoodingView, height: 250)
+//                 present(customMainAlertVC, animated: true)
     }
     
     override func setupNavigation() {

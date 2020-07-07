@@ -180,6 +180,8 @@ class CustomPharamacyProfileView: CustomBaseView {
         i.constrainWidth(constant: 100)
         i.constrainHeight(constant: 100)
         i.layer.cornerRadius = 50
+        i.layer.borderWidth=3
+               i.layer.borderColor = UIColor.white.cgColor
         i.clipsToBounds = true
         return i
     }()

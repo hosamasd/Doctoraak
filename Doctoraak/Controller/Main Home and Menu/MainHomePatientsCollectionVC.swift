@@ -53,15 +53,15 @@ class MainHomePatientsCollectionVC: BaseCollectionVC     {
         if index == 2  {
             let dd = notificationLABArray[indexPath.item]
             self.handledisplayLABNotification?(dd)
-//            makePostLABAlert(post: dd)
+            //            makePostLABAlert(post: dd)
         }else if index == 3  {
             let dd = notificationRADArray[indexPath.item]
             handledisplayRADNotification?(dd)
-//            makePostRADAlert(post: dd)
+            //            makePostRADAlert(post: dd)
         }else   {
             let dd = notificationPHYArray[indexPath.item]
             self.handledisplayPHYNotification?(dd)
-//            makePostPHYAlert(post: dd)
+            //            makePostPHYAlert(post: dd)
         }
     }
     
@@ -73,7 +73,7 @@ class MainHomePatientsCollectionVC: BaseCollectionVC     {
     
     //MARK: -user methods
     
-  fileprivate  func makePostRADAlert(post:RadGetOrdersModel)  {
+    fileprivate  func makePostRADAlert(post:RadGetOrdersModel)  {
         let alert = UIAlertController(title: "Choose Options".localized, message: "What do you want to make?".localized, preferredStyle: .actionSheet)
         let delete = UIAlertAction(title: "Delete".localized, style: .destructive) { (_) in
             self.handledisplayRADNotification?(post)
@@ -87,7 +87,7 @@ class MainHomePatientsCollectionVC: BaseCollectionVC     {
         present(alert, animated: true)
     }
     
-  fileprivate  func makePostLABAlert(post:LABGetOrdersModel)  {
+    fileprivate  func makePostLABAlert(post:LABGetOrdersModel)  {
         let alert = UIAlertController(title: "Choose Options".localized, message: "What do you want to make?".localized, preferredStyle: .actionSheet)
         let delete = UIAlertAction(title: "Delete".localized, style: .destructive) { (_) in
             self.handledisplayLABNotification?(post)
@@ -101,7 +101,7 @@ class MainHomePatientsCollectionVC: BaseCollectionVC     {
         present(alert, animated: true)
     }
     
-   fileprivate func makePostPHYAlert(post:PharmacyGetOrdersModel)  {
+    fileprivate func makePostPHYAlert(post:PharmacyGetOrdersModel)  {
         let alert = UIAlertController(title: "Choose Options".localized, message: "What do you want to make?".localized, preferredStyle: .actionSheet)
         let delete = UIAlertAction(title: "Delete".localized, style: .destructive) { (_) in
             self.handledisplayPHYNotification?(post)
