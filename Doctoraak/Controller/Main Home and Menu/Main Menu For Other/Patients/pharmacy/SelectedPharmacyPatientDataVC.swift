@@ -59,8 +59,7 @@ class SelectedPharmacyPatientDataVC: CustomBaseViewVC {
     var lab:LabModel?{
         didSet{
             guard let lab = lab else { return  }
-            
-        }
+       }
     }
     var phy:PharamacyModel?{
         didSet{
@@ -114,6 +113,14 @@ class SelectedPharmacyPatientDataVC: CustomBaseViewVC {
             customSelectedPatientDataVC.rad=lab
         }
     }
+    
+    var docOrder:DoctorOrderModel?{
+           didSet{
+               guard let lab = docOrder else { return  }
+               customSelectedPatientDataVC.patientCell.patient=lab.patient
+//               customSelectedPatientDataVC.doc=lab
+           }
+       }
     
     init(inde:Int) {
         self.index = inde

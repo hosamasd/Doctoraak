@@ -109,6 +109,10 @@ class NotificationsCollectionVC: BaseCollectionVC {
         let cancel = UIAlertAction(title: "Cancel".localized, style: .default) { (_) in
             alert.dismiss(animated: true)
         }
+        let show = UIAlertAction(title: "Display".localized, style: .default) { (_) in
+                  self.handledisplayDOCNotification?(post,index,true)
+              }
+              alert.addAction(show)
         alert.addAction(delete)
         alert.addAction(cancel)
         present(alert, animated: true)

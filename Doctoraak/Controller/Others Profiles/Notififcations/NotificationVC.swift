@@ -41,29 +41,20 @@ class NotificationVC: CustomBaseViewVC {
         v.handledisplayRADNotification = {[unowned self] noty,index ,display in
             if display {
                 self.goTOdiSPLAYOrder(l: nil,r: noty.order)
-                //            self.goTOdiSPLAYOrder(l: noty)
             }else {
                 self.makeDeleteDOCNotify(index: 3, id: noty.id,index)
-            }
-            
-            //            self.makeDeleteRADNotify(id: noty.id,index)
-        }
+            }  }
         v.handledisplayLABNotification = {[unowned self] noty,index ,display in
             if display {
                 self.goTOdiSPLAYOrder(l: noty.order,r: nil)
-                
-                //            self.goTOdiSPLAYOrder(l: noty)
-            }else {
+             }else {
                 self.makeDeleteDOCNotify(index: 2, id: noty.id,index)
             }
-            //            self.makeDeleteLABNotify(id: noty.id,index)
         }
         v.handledisplayPHYNotification = {[unowned self] noty,index ,display in
             if display {
-                self.goTOdiSPlayPHY(s: noty.order)
-                //            self.goTOdiSPLAYOrder(l: noty)
+                self.goTOdiSPLAYOrder(l: nil,r: nil,s: noty.order)
             }else {
-                //            self.makeDeletePHYNotify(id: noty.id,index)
                 self.makeDeleteDOCNotify(index: 4, id: noty.id,index)
             }
         }
@@ -185,18 +176,20 @@ class NotificationVC: CustomBaseViewVC {
         }
     }
     
-    fileprivate  func goTOdiSPLAYOrder(l:LABOrderModel? = nil , r:RadiologyOrderModel? = nil)  {
+    fileprivate  func goTOdiSPLAYOrder(l:LABOrderModel? = nil , r:RadiologyOrderModel? = nil,s:PharmacyOrderModel? = nil,doc:DoctorOrderModel? = nil)  {
         let dd = SelectedPharmacyPatientDataVC(inde: 2)
         dd.labOrderss=l
         dd.radOrderss = r
+        dd.phyOrderss=s
+        dd.docOrder=doc
         navigationController?.pushViewController(dd, animated: true)
     }
     
-    fileprivate func goTOdiSPlayPHY(s:PharmacyOrderModel? = nil)  {
-        let dd = SelectedPharmacyPatientDataVC(inde: 2)
-        dd.phyOrderss=s
-        navigationController?.pushViewController(dd, animated: true)
-    }
+//    fileprivate func goTOdiSPlayPHY(s:PharmacyOrderModel? = nil)  {
+//        let dd = SelectedPharmacyPatientDataVC(inde: 2)
+//        dd.phyOrderss=s
+//        navigationController?.pushViewController(dd, animated: true)
+//    }
     
     fileprivate func reloadDocData(user:[DOCTORNotificationModel])  {
         self.customNotificationView.notificationsCollectionVC.notificationDocArray=user

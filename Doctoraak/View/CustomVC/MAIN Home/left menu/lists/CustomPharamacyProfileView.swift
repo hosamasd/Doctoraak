@@ -67,7 +67,32 @@ class CustomPharamacyProfileView: CustomBaseView {
         }
     }
     
-    
+    var doc:DoctorModel?{
+           didSet{
+               guard let phy = rad else { return  }
+               fullNameTextField.text = MOLHLanguage.isRTLLanguage() ? phy.nameAr ?? phy.name : phy.name
+               mobileNumberTextField.text = phy.phone2 ?? phy.phone
+               emailTextField.text = phy.email
+               getNameANdCity(lat: phy.latt.toDouble() ?? 0.0, lng: phy.lang.toDouble() ?? 0.0)
+               //            addressLabel.text = MOLHLanguage.isRTLLanguage() ? phy.ad ?? phy.address :  phy.address
+               let cc = phy.city ?? 1 ;let aa = phy.area ?? 1
+               
+               let city = getCityFromIndex(cc)
+               let area = getAreassFromIndex( aa)
+               areaDrop.text = area
+               areaDrop.selectedIndex = cc-1
+               cityDrop.selectedIndex = aa-1
+               cityDrop.text = city
+               workingHoursLabel.text = getDaysRAD(ind: phy.workingHours).joined(separator: "-") == "" ? "No Days Chossen".localized :  getDaysRAD(ind: phy.workingHours).joined(separator: "-")
+               deliverySwitch.isOn = phy.delivery.toInt() == 1 ? true : false
+               let urlstring = phy.photo
+               guard let url = URL(string: urlstring) else { return  }
+               getIncuracneNames(dd: phy.insuranceCompany)
+               doctorProfileImage.sd_setImage(with: url)
+               
+               putRADViewModel(phy)
+           }
+       }
     
     var lab:LabModel?{
         didSet{
