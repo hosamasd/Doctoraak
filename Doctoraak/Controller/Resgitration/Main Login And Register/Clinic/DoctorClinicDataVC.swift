@@ -35,7 +35,6 @@ class DoctorClinicDataVC: CustomBaseViewVC {
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
         v.doneButton.addTarget(self, action: #selector(handleDone), for: .touchUpInside)
         
-        //        v.clinicWorkingHoursTextField.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleChooseWorkingHours)))
         v.clinicEditProfileImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(createAlertForChoposingImage)))
         
         v.handleChooseHours = {[unowned self] in
@@ -46,7 +45,6 @@ class DoctorClinicDataVC: CustomBaseViewVC {
             loct.delgate = self
             self.navigationController?.pushViewController(loct, animated: true)
         }
-        //        v.cityDrop.addTarget(self, action: #selector(handleMulti), for: .touchUpInside)
         return v
     }()
     lazy var customAlertMainLoodingView:CustomAlertMainLoodingView = {
@@ -97,7 +95,7 @@ class DoctorClinicDataVC: CustomBaseViewVC {
     
     //MARK:-User methods
     
-    func check()  {
+  fileprivate  func check()  {
         let s = #imageLiteral(resourceName: "lego(1)")
         let dd:[WorkModel] = [
             .init(part1From: "00:00", part1To: "00:00", part2From: "00:00", part2To: "00:00", day: 1, active: 0),
@@ -117,7 +115,7 @@ class DoctorClinicDataVC: CustomBaseViewVC {
         }
     }
     
-    func setupViewModelObserver()  {
+   fileprivate func setupViewModelObserver()  {
         customClinicDataView.clinicDataViewModel.bindableIsFormValidate.bind { [unowned self] (isValidForm) in
             guard let isValid = isValidForm else {return}
             
@@ -155,7 +153,7 @@ class DoctorClinicDataVC: CustomBaseViewVC {
         
     }
     
-    func convertLatLongToAddress(latitude:Double,longitude:Double){
+  fileprivate  func convertLatLongToAddress(latitude:Double,longitude:Double){
         
         let geoCoder = CLGeocoder()
         let location = CLLocation(latitude: latitude, longitude: longitude)
@@ -174,13 +172,13 @@ class DoctorClinicDataVC: CustomBaseViewVC {
         
     }
     
-    func goToNext(_ clinic_id:Int)  {
+   fileprivate func goToNext(_ clinic_id:Int)  {
         
         isFromProfile ? self.removeSomeObjects() :    self.updateStates(clinic_id,index: index)
         dismiss(animated: true)
     }
     
-    func removeSomeObjects()  {
+   fileprivate func removeSomeObjects()  {
         
         cachdDOCTORWorkingHourObjectCodabe.deleteFile(cachdDOCTORWorkingHourObjectCodabe.storedValue!)
         userDefaults.set(false, forKey: UserDefaultsConstants.isDoctorWorkingHoursCached)
@@ -189,11 +187,24 @@ class DoctorClinicDataVC: CustomBaseViewVC {
         
     }
     
-    func updateStates(_ clinic_id:Int,index:Int)  {
+  fileprivate  func updateStates(_ clinic_id:Int,index:Int)  {
         userDefaults.removeObject(forKey: UserDefaultsConstants.indexForSMSCodeForSpecific)
             userDefaults.removeObject(forKey: UserDefaultsConstants.user_idForAll)
         userDefaults.synchronize()
     }
+    
+    fileprivate func handleChooseWorkingHours()  {
+           let payment = DoctorClinicWorkingHoursVC()//MainClinicWorkingHoursNotDoctorVC(index: index,isFromUpdateProfile:true,isFromRegister: true)
+           payment.delgate = self
+           navigationController?.pushViewController(payment, animated: true)
+       }
+       
+       fileprivate func handleOpenGallery(sourceType:UIImagePickerController.SourceType)  {
+           let imagePicker = UIImagePickerController()
+           imagePicker.delegate = self
+           imagePicker.sourceType = sourceType
+           present(imagePicker, animated: true)
+       }
     
     //TODO: -handle methods
     
@@ -224,18 +235,7 @@ class DoctorClinicDataVC: CustomBaseViewVC {
         
     }
     
-    func handleChooseWorkingHours()  {
-        let payment = DoctorClinicWorkingHoursVC()//MainClinicWorkingHoursNotDoctorVC(index: index,isFromUpdateProfile:true,isFromRegister: true)
-        payment.delgate = self
-        navigationController?.pushViewController(payment, animated: true)
-    }
-    
-    fileprivate func handleOpenGallery(sourceType:UIImagePickerController.SourceType)  {
-        let imagePicker = UIImagePickerController()
-        imagePicker.delegate = self
-        imagePicker.sourceType = sourceType
-        present(imagePicker, animated: true)
-    }
+  
     
     @objc func handleDismiss()  {
         removeViewWithAnimation(vvv: customAlertMainLoodingView)
@@ -253,7 +253,7 @@ class DoctorClinicDataVC: CustomBaseViewVC {
         let gallery = UIAlertAction(title: "Open From Gallery".localized, style: .default) {[unowned self] (_) in
             self.handleOpenGallery(sourceType: .photoLibrary)
         }
-        let cancel = UIAlertAction(title: "Cancel".localized, style: .cancel) {[unowned self] (_) in
+        let cancel = UIAlertAction(title: "Cancel".localized, style: .cancel) { (_) in
             alert.dismiss(animated: true)
         }
         

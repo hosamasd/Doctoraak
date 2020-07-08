@@ -83,21 +83,16 @@ class CustomUpdateSserProfileView: CustomBaseView {
         return s
     }
     
-    // TODO: -handle methods
     
-//    @objc  func handleOk()  {
-//        handleOkTap?()
-//    }
-//    
     func createButtons(title:String,bgColor:UIColor,tColor:UIColor,selector:Selector,cornerMakst:CACornerMask) -> UIButton {
         let bt  = UIButton()
         //          bt.constrainHeight(constant: 40)
         //        bt.constrainWidth(constant: 120)
-//        bt.layer.cornerRadius = 16
+        //        bt.layer.cornerRadius = 16
         bt.clipsToBounds = true
         bt.setTitle(title, for: .normal)
         bt.backgroundColor = bgColor
-//        bt.layer.borderWidth = 2
+        //        bt.layer.borderWidth = 2
         bt.setTitleColor(tColor, for: .normal)
         bt.addTarget(self, action: selector, for: .touchUpInside)
         bt.translatesAutoresizingMaskIntoConstraints = false
@@ -109,6 +104,9 @@ class CustomUpdateSserProfileView: CustomBaseView {
         
         return bt
     }
+    
+    // TODO: -handle methods
+
     
     @objc func handleLogin()  {
         handleLogoutTap?()

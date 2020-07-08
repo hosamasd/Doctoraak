@@ -32,9 +32,10 @@ class NotificationVC: CustomBaseViewVC {
         v.index=index
         v.handledisplayDOCNotification = {[unowned self] noty,index,display in
             if display {
-                //                self.goTOdiSPLAYOrder(l: noty)
+                self.goTOdiSPLAYOrder(l: nil,r: nil,doc: noty.order)
+                
             }else {
-                self.makeDeleteDOCNotify(index: 0, id: noty.id,index)
+                self.makeDeleteDOCNotify(index: self.index, id: noty.id,index)
             }
             
         }
@@ -47,7 +48,7 @@ class NotificationVC: CustomBaseViewVC {
         v.handledisplayLABNotification = {[unowned self] noty,index ,display in
             if display {
                 self.goTOdiSPLAYOrder(l: noty.order,r: nil)
-             }else {
+            }else {
                 self.makeDeleteDOCNotify(index: 2, id: noty.id,index)
             }
         }
@@ -99,6 +100,7 @@ class NotificationVC: CustomBaseViewVC {
         didSet{
             guard let lab = rad else { return  } }
     }
+    
     fileprivate let isFromMenu:Bool!
     fileprivate let index:Int!
     init(index:Int,isFromMenu:Bool) {
@@ -184,12 +186,6 @@ class NotificationVC: CustomBaseViewVC {
         dd.docOrder=doc
         navigationController?.pushViewController(dd, animated: true)
     }
-    
-//    fileprivate func goTOdiSPlayPHY(s:PharmacyOrderModel? = nil)  {
-//        let dd = SelectedPharmacyPatientDataVC(inde: 2)
-//        dd.phyOrderss=s
-//        navigationController?.pushViewController(dd, animated: true)
-//    }
     
     fileprivate func reloadDocData(user:[DOCTORNotificationModel])  {
         self.customNotificationView.notificationsCollectionVC.notificationDocArray=user

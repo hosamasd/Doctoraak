@@ -130,7 +130,6 @@ class DoctorProfileVC:   CustomBaseViewVC {
         customDoctorProfileView.edirProfileViewModel.performUpdating { (base, err) in
             if let err = err {
                 SVProgressHUD.showError(withStatus: err.localizedDescription)
-                //                               self.showMainAlertErrorMessages(vv: self.customMainAlertVC, secondV: self.customAlertLoginView, text: err.localizedDescription)
                 self.handleDismiss()
                 self.activeViewsIfNoData();return
             }

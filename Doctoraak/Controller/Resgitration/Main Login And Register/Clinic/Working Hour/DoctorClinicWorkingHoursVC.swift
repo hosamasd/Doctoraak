@@ -88,11 +88,7 @@ class DoctorClinicWorkingHoursVC: CustomBaseViewVC {
         timeSelector.presentOnView(view: self.view)
     }
     
-    
-    
-    
-    
-    fileprivate func checkValidateDoneButton() {
+   fileprivate func checkValidateDoneButton() {
         if  customClinicWorkingHoursView.checkButtonDone() {
             delgate?.getHoursChoosed(hours: customClinicWorkingHoursView.getChoosenHours())
             delgate?.getDays(indexs: customClinicWorkingHoursView.getDaysIndex(), days: customClinicWorkingHoursView.getDays())
@@ -102,7 +98,7 @@ class DoctorClinicWorkingHoursVC: CustomBaseViewVC {
         }else {}
     }
     
-    func saveCached(vv:[WorkModel])  {
+   fileprivate func saveCached(vv:[WorkModel])  {
         cachdDOCTORWorkingHourObjectCodabe.save(vv)
         userDefaults.set(true, forKey: UserDefaultsConstants.isDoctorWorkingHoursCached)
         userDefaults.synchronize()
@@ -133,7 +129,7 @@ class DoctorClinicWorkingHoursVC: CustomBaseViewVC {
     }
     
     @objc func handleBack()  {
-       
+        
         navigationController?.popViewController(animated: true)
     }
     

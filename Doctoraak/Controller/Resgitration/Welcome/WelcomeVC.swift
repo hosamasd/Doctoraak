@@ -46,7 +46,7 @@ class WelcomeVC: CustomBaseViewVC {
         navigationController?.navigationBar.isHide(true)
     }
     
-    func removeAll()  {
+    fileprivate  func removeAll()  {
         userDefaults.removeObject(forKey: UserDefaultsConstants.cityNameArray)
         userDefaults.removeObject(forKey: UserDefaultsConstants.cityNameFRArray)
         userDefaults.removeObject(forKey: UserDefaultsConstants.cityNameArray)
@@ -482,7 +482,7 @@ class WelcomeVC: CustomBaseViewVC {
         })
     }
     
-    func goToNextVC()  {
+    fileprivate func goToNextVC()  {
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+12) {
             userDefaults.bool(forKey: UserDefaultsConstants.isCachedDriopLists) ?    self.handleNext() : ()
         }
@@ -491,7 +491,7 @@ class WelcomeVC: CustomBaseViewVC {
     
     
     
-    func addTransform()  {
+    fileprivate func addTransform()  {
         var rotationAnimation = CABasicAnimation()
         rotationAnimation = CABasicAnimation.init(keyPath: "transform.rotation.z")
         rotationAnimation.toValue = NSNumber(value: (Double.pi))

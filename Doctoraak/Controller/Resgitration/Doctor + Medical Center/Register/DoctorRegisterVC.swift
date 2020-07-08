@@ -41,9 +41,7 @@ class DoctorRegisterVC: CustomBaseViewVC {
         super.init(nibName: nil, bundle: nil)
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+   
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,13 +49,13 @@ class DoctorRegisterVC: CustomBaseViewVC {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-           super.viewWillAppear(animated)
-           customRegisterView.fullNameTextField.becomeFirstResponder()
-       }
+        super.viewWillAppear(animated)
+        customRegisterView.fullNameTextField.becomeFirstResponder()
+    }
     
     //MARK:-User methods
     
-    func setupViewModelObserver()  {
+   fileprivate func setupViewModelObserver()  {
         customRegisterView.doctorRegisterViewModel.bindableIsFormValidate.bind { [unowned self] (isValidForm) in
             guard let isValid = isValidForm else {return}
             //            self.customLoginView.loginButton.isEnabled = isValid
@@ -92,36 +90,21 @@ class DoctorRegisterVC: CustomBaseViewVC {
         userDefaults.set(password, forKey: UserDefaultsConstants.passwordForAll)
         userDefaults.set(male, forKey: UserDefaultsConstants.doctorRegisterMale)
         userDefaults.set(true, forKey: UserDefaultsConstants.isDoctorSecondRegister)
-//        userDefaults.set(index, forKey: UserDefaultsConstants.indexForSMSCodeForSpecific)
+        //        userDefaults.set(index, forKey: UserDefaultsConstants.indexForSMSCodeForSpecific)
         
         userDefaults.synchronize()
-        //        let img = index == 0 ? UserDefaultsConstants.doctorRegisterImage : UserDefaultsConstants.medicalCenterRegisterImage
-        //         let name = index == 0 ? UserDefaultsConstants.doctorRegisterName : UserDefaultsConstants.medicalCenterRegisterName
-        //        let emails = index == 0 ? UserDefaultsConstants.doctorRegisterMale : UserDefaultsConstants.medicalCenterRegisterEmail
-        //         let fM = index == 0 ? UserDefaultsConstants.doctorRegisterMobile : UserDefaultsConstants.medicalCenterRegisterMobile
-        //          let sM = index == 0 ? UserDefaultsConstants.doctorRegisterSecondMobile : UserDefaultsConstants.medicalCenterRegisterSecondMobile
-        //        let pass = index == 0 ? UserDefaultsConstants.doctorRegisterMobile : UserDefaultsConstants.medicalCenterRegisterMobile
-        //                 let male = index == 0 ? UserDefaultsConstants.doctorRegisterSecondMobile : UserDefaultsConstants.medicalCenterRegisterSecondMobile
-        //        userDefaults.set(data, forKey:img )
-        //        userDefaults.set(name, forKey: name)
-        
-    }
+     }
+    
+    fileprivate func handleOpenGallery(sourceType:UIImagePickerController.SourceType)  {
+           let imagePicker = UIImagePickerController()
+           imagePicker.delegate = self
+           imagePicker.sourceType = sourceType
+           present(imagePicker, animated: true)
+       }
     
     //TODO: -handle methods
     
-    
-    
-    
-    
-    
-    fileprivate func handleOpenGallery(sourceType:UIImagePickerController.SourceType)  {
-        let imagePicker = UIImagePickerController()
-        imagePicker.delegate = self
-        imagePicker.sourceType = sourceType
-        present(imagePicker, animated: true)
-    }
-    
-    @objc func createAlertForChoposingImage()  {
+   @objc func createAlertForChoposingImage()  {
         let alert = UIAlertController(title: "Choose Image".localized, message: "Choose image fROM ".localized, preferredStyle: .alert)
         let camera = UIAlertAction(title: "Camera".localized, style: .default) {[unowned self] (_) in
             self.handleOpenGallery(sourceType: .camera)
@@ -130,7 +113,7 @@ class DoctorRegisterVC: CustomBaseViewVC {
         let gallery = UIAlertAction(title: "Open From Gallery".localized, style: .default) {[unowned self] (_) in
             self.handleOpenGallery(sourceType: .photoLibrary)
         }
-        let cancel = UIAlertAction(title: "Cancel".localized, style: .cancel) {[unowned self] (_) in
+        let cancel = UIAlertAction(title: "Cancel".localized, style: .cancel) { (_) in
             alert.dismiss(animated: true)
         }
         
@@ -146,8 +129,6 @@ class DoctorRegisterVC: CustomBaseViewVC {
     
     @objc func handleNext()  {
         
-        
-        
         customRegisterView.doctorRegisterViewModel.performRegister {[unowned self] (img, name, mobile,secondPhone, email, password, male, index) in
             self.saveDefults(img: img, name: name, mobile: mobile,secondMobile: secondPhone, email: email, password: password, male: male, index: index)
             let second = DoctorSecondRegisterVC(indexx: index, photo: img, name: name, mobile: mobile, passowrd: password)
@@ -155,8 +136,11 @@ class DoctorRegisterVC: CustomBaseViewVC {
             second.email=email
             self.navigationController?.pushViewController(second, animated: true)
         }
-        
     }
+    
+    required init?(coder: NSCoder) {
+           fatalError("init(coder:) has not been implemented")
+       }
     
 }
 

@@ -40,18 +40,18 @@ class DoctorSecondRegisterVC: CustomBaseViewVC {
         return v
     }()
     lazy var customAlertMainLoodingView:CustomAlertMainLoodingView = {
-           let v = CustomAlertMainLoodingView()
-           v.setupAnimation(name: "heart_loading")
-           return v
-       }()
-       
-       lazy var customMainAlertVC:CustomMainAlertVC = {
-           let t = CustomMainAlertVC()
-           t.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
-           t.modalTransitionStyle = .crossDissolve
-           t.modalPresentationStyle = .overCurrentContext
-           return t
-       }()
+        let v = CustomAlertMainLoodingView()
+        v.setupAnimation(name: "heart_loading")
+        return v
+    }()
+    
+    lazy var customMainAlertVC:CustomMainAlertVC = {
+        let t = CustomMainAlertVC()
+        t.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
+        t.modalTransitionStyle = .crossDissolve
+        t.modalPresentationStyle = .overCurrentContext
+        return t
+    }()
     
     var email:String? {
         didSet {
@@ -85,20 +85,30 @@ class DoctorSecondRegisterVC: CustomBaseViewVC {
         self.mobile = mobile
         super.init(nibName: nil, bundle: nil)
     }
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViewModelObserver()
-//        customCecondRegisterView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismissKeyboard)))
-
     }
     
     //MARK:-User methods
     
-    func setupViewModelObserver()  {
+    override func setupNavigation()  {
+           navigationController?.navigationBar.isHide(true)
+       }
+       
+       override func setupViews() {
+           view.addSubview(scrollView)
+           scrollView.fillSuperview()
+           scrollView.addSubview(mainView)
+           mainView.anchor(top: scrollView.topAnchor, leading: scrollView.leadingAnchor, bottom: scrollView.bottomAnchor, trailing: scrollView.trailingAnchor,padding: .init(top: -60, left: 0, bottom: 0, right: 0))
+           mainView.addSubViews(views: customCecondRegisterView)
+           customCecondRegisterView.fillSuperview()
+       }
+    
+  fileprivate  func setupViewModelObserver()  {
         customCecondRegisterView.doctorSecondRegisterViewModel.bindableIsFormValidate.bind { [unowned self] (isValidForm) in
             guard let isValid = isValidForm else {return}
             //            self.customLoginView.loginButton.isEnabled = isValid
@@ -109,7 +119,7 @@ class DoctorSecondRegisterVC: CustomBaseViewVC {
         customCecondRegisterView.doctorSecondRegisterViewModel.bindableIsResgiter.bind(observer: {  [unowned self] (isReg) in
             if isReg == true {
                 UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
-//                SVProgressHUD.show(withStatus: "Register...".localized)
+                //                SVProgressHUD.show(withStatus: "Register...".localized)
                 self.showMainAlertLooder(cc: self.customMainAlertVC, v: self.customAlertMainLoodingView)
             }else {
                 SVProgressHUD.dismiss()
@@ -119,19 +129,9 @@ class DoctorSecondRegisterVC: CustomBaseViewVC {
     }
     
     
-    override func setupNavigation()  {
-        navigationController?.navigationBar.isHide(true)
-    }
+   
     
-    override func setupViews() {
-        view.addSubview(scrollView)
-        scrollView.fillSuperview()
-        scrollView.addSubview(mainView)
-        mainView.anchor(top: scrollView.topAnchor, leading: scrollView.leadingAnchor, bottom: scrollView.bottomAnchor, trailing: scrollView.trailingAnchor,padding: .init(top: -60, left: 0, bottom: 0, right: 0))
-        mainView.addSubViews(views: customCecondRegisterView)
-        customCecondRegisterView.fillSuperview()
-    }
-    func goToNext(id:Int)  {
+   fileprivate func goToNext(id:Int)  {
         let verify = MainVerificationVC(indexx: index, isFromForgetPassw: false, isFromDoctor: true, phone: mobile, user_id: id)
         navigationController?.pushViewController(verify, animated: true)
     }
@@ -150,28 +150,11 @@ class DoctorSecondRegisterVC: CustomBaseViewVC {
         userDefaults.removeObject(forKey: UserDefaultsConstants.imageForpecific)
         userDefaults.removeObject(forKey: UserDefaultsConstants.doctorRegisterMale)
         userDefaults.synchronize()
-        
-        //        let dd = index == 0 ? UserDefaultsConstants.doctorSecondRegisterUser_id : UserDefaultsConstants.medicalCenterSecondRegisterUser_id
-        //        let ss = index == 0 ? UserDefaultsConstants.doctorSecondRegisterSMSCode : UserDefaultsConstants.medicalCenterSecondRegisterSMSCode
-        //        let aa = index == 0 ? UserDefaultsConstants.isDoctorSecondRegister : UserDefaultsConstants.isMedicalCenterSecondRegister
-        //        let mm = index == 0 ? UserDefaultsConstants.doctorRegisterMobile : UserDefaultsConstants.medicalCenterRegisterMobile
-        //
-        //        userDefaults.set(user_id, forKey: dd)
-        //        userDefaults.set(sms, forKey: ss)
-        
-        
     }
     
     func saveToken(user_id:Int,_ sms:Int)  {
         saveAllTokens(user_id)
         goToNext(id: user_id)
-
-
-//        userDefaults.set(false, forKey: aa)
-//        userDefaults.set(mobile, forKey: mm)
-//        userDefaults.set(false, forKey: UserDefaultsConstants.doctorRegisterSecondIsFromForgetPassw)
-//
-//        userDefaults.set(index, forKey: UserDefaultsConstants.isUserRegisterAndWaitForSMScODEIndexDOC)
     }
     
     //TODO: -handle methods
@@ -198,7 +181,7 @@ class DoctorSecondRegisterVC: CustomBaseViewVC {
                 self.activeViewsIfNoData();return
             }
             SVProgressHUD.dismiss()
-             self.handleDismiss()
+            self.handleDismiss()
             self.activeViewsIfNoData()
             guard let user = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
             
@@ -210,8 +193,8 @@ class DoctorSecondRegisterVC: CustomBaseViewVC {
     }
     
     @objc func handleDismissKeyboard()  {
-           view.endEditing(true)
-       }
+        view.endEditing(true)
+    }
     
     @objc func handleDismiss()  {
         removeViewWithAnimation(vvv: customAlertMainLoodingView)
@@ -219,6 +202,11 @@ class DoctorSecondRegisterVC: CustomBaseViewVC {
             self.dismiss(animated: true, completion: nil)
         }
     }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
 }
 
 

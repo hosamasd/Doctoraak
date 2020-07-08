@@ -105,7 +105,7 @@
 //DoctorSecondRegisterVC
 "cv.pdf"="cv.pdf";"Specialization"="Specialization";"Degree"="Degree";"Description"="Description";"choose insurance"="choose insurance";
 "Terms and Conditions"="Terms and Conditions";
-
+"enter title (Optional)"="enter title (Optional)";"Description (Optional)"="Description (Optional)";"cv.pdf (Optional)"="cv.pdf (Optional)";
 
 //HomeLeftMenuVC
 "Profile"="Profile";"Calender"="Calender";"Notification"="Notification";"Analysis"="Analysis";"Contact Us"="Contact Us";"Language"="Language";"Log Out"="Log Out";

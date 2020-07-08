@@ -40,7 +40,7 @@ class CustomSecondRegisterView: CustomBaseView {
         }
         return v
     }()
-    lazy var cvLabel = UILabel(text: "cv.pdf".localized, font: .systemFont(ofSize: 16), textColor: .lightGray)
+    lazy var cvLabel = UILabel(text: "cv.pdf (Optional)".localized, font: .systemFont(ofSize: 16), textColor: .lightGray)
     lazy var cvImage:UIImageView = {
         let v = UIImageView(image: #imageLiteral(resourceName: "Group 4142-2"))
         //        v.contentMode = .scaleToFill
@@ -49,7 +49,7 @@ class CustomSecondRegisterView: CustomBaseView {
         v.constrainWidth(constant: 50)
         return v
     }()
-    lazy var discriptionTextField = createMainTextFields(place: "Description".localized)
+    lazy var discriptionTextField = createMainTextFields(place: "Description (Optional)".localized)
     lazy var mainDropView = makeMainSubViewWithAppendView(vv: [specializationDrop])
     
     lazy var specializationDrop:DropDown = {
@@ -116,7 +116,7 @@ class CustomSecondRegisterView: CustomBaseView {
         b.constrainHeight(constant: 50)
         return b
     }()
-    lazy var titleTextField = createMainTextFields(place: "enter title optional".localized,type: .default)
+    lazy var titleTextField = createMainTextFields(place: "enter title (Optional)".localized,type: .default)
     
     
     

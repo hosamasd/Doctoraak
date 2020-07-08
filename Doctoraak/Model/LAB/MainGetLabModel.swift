@@ -24,13 +24,13 @@ struct MainGetLabModel:Codable {
 struct GetLabModel:Codable {
     let id: Int
     let name: String
-    var nameAr, nameFr: String?
+    var nameAr, nameFr,email: String?
     let phone: String
     let phone2: String?
     let city, area: Int?
     let lang, latt, apiToken: String
     let firebaseToken: String?
-    let smsCode, email, password: String
+    let smsCode, password: String
     let active: Int
     let delivery: String
     let avaliableDays: Int

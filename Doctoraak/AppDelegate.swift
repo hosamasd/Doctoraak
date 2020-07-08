@@ -29,7 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,MOLHResetable {
 
         window = UIWindow()
         window?.makeKeyAndVisible()
-        window?.rootViewController = BaseSlidingVC()//HomeLeftMenuVC(index: 3)//WelcomeVC()//BaseSlidingVC()//UINavigationController(rootViewController: TestVCS())//MainLoginsVC(indexx: 3))//DoctorRegisterVC(indexx: 1))//MainClinicWorkingHoursNotDoctorVC(index: 2, isFromUpdateProfile: true, isFromRegister: true))//DoctorClinicDataVC(indexx: 0, api_token: "", doctor_id: 2, isFromProfile: false))//DoctorRegisterVC(indexx: 0) )//BaseSlidingVC()//UINavigationController(rootViewController: MainClinicWorkingHoursVCWithoutEditingVC())//BaseSlidingVC()//UINavigationController(rootViewController: SecondHomeLeftMenuCollcetionVC())//MainVerificationVC(indexx: 4, isFromForgetPassw: false, phone: "00000000951", user_id: 22))//BaseSlidingVC()//MainLoginsVC(indexx: 0)//BaseSlidingVC()//UINavigationController(rootViewController:MainLoginsVC(indexx: 0) )//DoctorHomeVC(inde: 0))//MainRegisterVC(indexx: 2))
+        window?.rootViewController = UINavigationController(rootViewController: MainLoginsVC(indexx: 1))//BaseSlidingVC()//HomeLeftMenuVC(index: 3)//WelcomeVC()//BaseSlidingVC()//UINavigationController(rootViewController: TestVCS())//MainLoginsVC(indexx: 3))//DoctorRegisterVC(indexx: 1))//MainClinicWorkingHoursNotDoctorVC(index: 2, isFromUpdateProfile: true, isFromRegister: true))//DoctorClinicDataVC(indexx: 0, api_token: "", doctor_id: 2, isFromProfile: false))//DoctorRegisterVC(indexx: 0) )//BaseSlidingVC()
         return true
     }
 

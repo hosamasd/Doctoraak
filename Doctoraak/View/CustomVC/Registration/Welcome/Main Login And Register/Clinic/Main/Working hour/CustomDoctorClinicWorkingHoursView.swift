@@ -12,17 +12,17 @@ import MOLH
 class CustomDoctorClinicWorkingHoursView: CustomBaseView {
     
     var workingHours:[ClinicWorkingHourModel]?{
-           didSet{
-               guard let work = workingHours else { return  }
+        didSet{
+            guard let work = workingHours else { return  }
             
-               work.forEach { (w) in
+            work.forEach { (w) in
                 let sd = WorkModel(part1From: w.part1From, part1To: w.part1To, part2From: w.part2From, part2To: w.part2To, day: w.day, active: w.active)
                 
                 putThesesCached(w: sd, bols: false)
-                   putOtherDXXXS(sd)
-               }
-           }
-       }
+                putOtherDXXXS(sd)
+            }
+        }
+    }
     
     var workingHoursCachedDoc:[WorkModel]?{
         didSet{
@@ -185,7 +185,7 @@ class CustomDoctorClinicWorkingHoursView: CustomBaseView {
     
     override func setupViews() {
         [titleLabel,soonLabel].forEach({$0.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left})
-
+        
         //        shift1Button.addTarget(self, action: #selector(handle1Shift), for: .touchUpInside)
         //               shift2Button.addTarget(self, action: #selector(handle2Shift), for: .touchUpInside)
         [first2TextField,first1TextField,second1TextField,second2TextField,third1TextField,third2TextField,forth1TextField,forth2TextField,fifth1TextField,fifth2TextField,sexth1TextField,sexth2TextField,seventh2TextField,seventh1TextField,
@@ -200,11 +200,11 @@ class CustomDoctorClinicWorkingHoursView: CustomBaseView {
         
         
         if MOLHLanguage.isRTLLanguage() {
-                   LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 0, bottom: 0, right: -48))
-               }else {
-                   
-                   LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
-               }
+            LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 0, bottom: 0, right: -48))
+        }else {
+            
+            LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
+        }
         backImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 60, left: 16, bottom: 0, right: 0))
         titleLabel.anchor(top: nil, leading: leadingAnchor, bottom: LogoImage.bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
         soonLabel.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
@@ -435,37 +435,21 @@ class CustomDoctorClinicWorkingHoursView: CustomBaseView {
         switch w.day {
         case 1:
             d1TXT1=w.part1From;d1TXT2=w.part1To;d12TXT1=w.part2From;d12TXT2=w.part2To
-            case 2:
-                       d2TXT1=w.part1From;d2TXT2=w.part1To;d22TXT1=w.part2From;d22TXT2=w.part2To
-            case 3:
-                       d3TXT1=w.part1From;d3TXT2=w.part1To;d32TXT1=w.part2From;d32TXT2=w.part2To
-            case 4:
-                       d4TXT1=w.part1From;d4TXT2=w.part1To;d42TXT1=w.part2From;d42TXT2=w.part2To
-            case 5:
-                       d5TXT1=w.part1From;d5TXT2=w.part1To;d52TXT1=w.part2From;d52TXT2=w.part2To
-            case 6:
-                       d6TXT1=w.part1From;d6TXT2=w.part1To;d62TXT1=w.part2From;d62TXT2=w.part2To
+        case 2:
+            d2TXT1=w.part1From;d2TXT2=w.part1To;d22TXT1=w.part2From;d22TXT2=w.part2To
+        case 3:
+            d3TXT1=w.part1From;d3TXT2=w.part1To;d32TXT1=w.part2From;d32TXT2=w.part2To
+        case 4:
+            d4TXT1=w.part1From;d4TXT2=w.part1To;d42TXT1=w.part2From;d42TXT2=w.part2To
+        case 5:
+            d5TXT1=w.part1From;d5TXT2=w.part1To;d52TXT1=w.part2From;d52TXT2=w.part2To
+        case 6:
+            d6TXT1=w.part1From;d6TXT2=w.part1To;d62TXT1=w.part2From;d62TXT2=w.part2To
         default:
-                       d7TXT1=w.part1From;d7TXT2=w.part1To;d72TXT1=w.part2From;d72TXT2=w.part2To
+            d7TXT1=w.part1From;d7TXT2=w.part1To;d72TXT1=w.part2From;d72TXT2=w.part2To
         }
-
+        
     }
-    
-//    func putOtherData()  {
-//        let d1 = userDefaults.integer(forKey: UserDefaultsConstants.day1);let d5 = userDefaults.integer(forKey: UserDefaultsConstants.day5)
-//        let d2 = userDefaults.integer(forKey: UserDefaultsConstants.day2);let d6 = userDefaults.integer(forKey: UserDefaultsConstants.day6)
-//        let d3 = userDefaults.integer(forKey: UserDefaultsConstants.day3);let d7 = userDefaults.integer(forKey: UserDefaultsConstants.day7)
-//        let d4 = userDefaults.integer(forKey: UserDefaultsConstants.day4)
-//        
-//        day1 = d1;  day2=d2;    day3=d3;    day4=d4;    day5=d5;    day6=d6;    day7=d7
-//        checkIfButtonsEnabled(enable: day1, vv: satButton)
-//        checkIfButtonsEnabled(enable: day2, vv: sunButton)
-//        checkIfButtonsEnabled(enable: day3, vv: monButton)
-//        checkIfButtonsEnabled(enable: day4, vv: tuesButton)
-//        checkIfButtonsEnabled(enable: day5, vv: wedButton)
-//        checkIfButtonsEnabled(enable: day6, vv: thuButton)
-//        checkIfButtonsEnabled(enable: day7, vv: friButton)
-//    }
     
     func checkIfButtonsEnabled(enable:Int,vv:UIButton)  {
         if enable == 1 {

@@ -197,7 +197,7 @@ class CustomMainClinicWorkingHoursView: CustomBaseView {
     }
     
     
-    func changeTimeForButtonTitle(_ values:String)->String  {
+    fileprivate func changeTimeForButtonTitle(_ values:String)->String  {
         var ppp = "am"
         guard let minute = values.removeSubstringAfterOrBefore(needle: ":", beforeNeedle: false)?.toInt()  else { return "" }
         guard var hours = values.removeSubstringAfterOrBefore(needle: ":", beforeNeedle: true)?.toInt()  else { return "" }
@@ -206,7 +206,7 @@ class CustomMainClinicWorkingHoursView: CustomBaseView {
         return "\(hours):\(minute) \(ppp)"
     }
     
-    func checkIfButtonsEnabled(enable:Int,vv:UIButton)  {
+    fileprivate func checkIfButtonsEnabled(enable:Int,vv:UIButton)  {
         if enable == 1 {
             addGradientInSenderAndRemoveOtherss(sender: vv)
         }else { }
@@ -243,7 +243,7 @@ class CustomMainClinicWorkingHoursView: CustomBaseView {
     }
     
     
-    func createHoursButtons(tags:Int) -> UIButton {
+    fileprivate func createHoursButtons(tags:Int) -> UIButton {
         let t = UIButton()
         t.layer.borderWidth = 1
         t.layer.backgroundColor = UIColor.gray.cgColor
@@ -259,12 +259,12 @@ class CustomMainClinicWorkingHoursView: CustomBaseView {
         return t
     }
     
-    func enalbes(t:UIButton...,enable:Bool )   {
+    fileprivate func enalbes(t:UIButton...,enable:Bool )   {
         
         t.forEach({$0.isEnabled = enable })
     }
     
-    func createButtons(title:String,color:UIColor,tags : Int? = 0) -> UIButton {
+    fileprivate func createButtons(title:String,color:UIColor,tags : Int? = 0) -> UIButton {
         let button = UIButton(type: .system)
         button.layer.cornerRadius = 8
         button.layer.borderWidth = 1
@@ -282,13 +282,13 @@ class CustomMainClinicWorkingHoursView: CustomBaseView {
     }
     
     
-    func titleForButton(fbt:UIButton,txt:String)  {
+    fileprivate func titleForButton(fbt:UIButton,txt:String)  {
         fbt.setTitle(txt, for: .normal)
     }
     
     
     
-    func checkIfButtonsEnabled(enable:Bool,vv:UIButton)  {
+    fileprivate func checkIfButtonsEnabled(enable:Bool,vv:UIButton)  {
         if enable {
             enableTextFields(enable: true, tag: vv.tag)
             addGradientInSenderAndRemoveOtherss(sender: vv)
@@ -382,11 +382,11 @@ class CustomMainClinicWorkingHoursView: CustomBaseView {
         
     }
     
-    func titleForButton(fbt:UIButton,sbt:UIButton,txt:String)  {
+    fileprivate func titleForButton(fbt:UIButton,sbt:UIButton,txt:String)  {
         fbt.setTitle(txt, for: .normal)
     }
     
-    func enableTextFields(enable:Bool,tag:Int)  {
+    fileprivate func enableTextFields(enable:Bool,tag:Int)  {
         switch tag {
         case 1:
             enalbes(t: first1TextField,first2TextField, enable: enable)
@@ -413,11 +413,11 @@ class CustomMainClinicWorkingHoursView: CustomBaseView {
     }
     
     
-    func checkActiveDay(_ d:Int) -> Bool {
+    fileprivate  func checkActiveDay(_ d:Int) -> Bool {
         return d == 1 ? true : false
     }
     
-    func checkValidteShifting(bol:Bool,ftf:String?,stf:String?,title:String) -> Bool {
+    fileprivate func checkValidteShifting(bol:Bool,ftf:String?,stf:String?,title:String) -> Bool {
         let ss = ftf !=  "00:00" && stf != "00:00"
         
         if ss   {
@@ -427,7 +427,7 @@ class CustomMainClinicWorkingHoursView: CustomBaseView {
         }
     }
     
-    func checkDayActive(_ d:Int) -> Bool {
+    fileprivate func checkDayActive(_ d:Int) -> Bool {
         return d == 1 ? true : false
     }
     
@@ -460,7 +460,7 @@ class CustomMainClinicWorkingHoursView: CustomBaseView {
     
     
     
-    func putTheses(w:PharamacyWorkingHourModel)  {
+    fileprivate func putTheses(w:PharamacyWorkingHourModel)  {
         switch w.day {
         case 1:
             putTitleForButtons(b: true, bt: first1TextField, text: w.partFrom)
@@ -506,7 +506,7 @@ class CustomMainClinicWorkingHoursView: CustomBaseView {
         }
     }
     
-    func putThesesRAD(w:RadiologyWorkingHourModel)  {
+    fileprivate  func putThesesRAD(w:RadiologyWorkingHourModel)  {
         switch w.day {
         case 1:
             putTitleForButtons(b: true,bt: first1TextField, text: w.partFrom)
@@ -539,7 +539,7 @@ class CustomMainClinicWorkingHoursView: CustomBaseView {
         }
     }
     
-    func putThesesLAB(w:LabWorkingHoursModel)  {
+    fileprivate func putThesesLAB(w:LabWorkingHoursModel)  {
         switch w.day {
         case 1:
             putTitleForButtons(b: true,bt: first1TextField, text: w.partFrom)
@@ -623,7 +623,7 @@ class CustomMainClinicWorkingHoursView: CustomBaseView {
         return v
     }
     
-    func putDefaultLab(l:LabWorkingHoursModel)  {
+    fileprivate func putDefaultLab(l:LabWorkingHoursModel)  {
         switch l.day {
         case 1:
             d1TXT1 = l.partFrom ; d1TXT2=l.partTo;day1=l.active
@@ -642,7 +642,7 @@ class CustomMainClinicWorkingHoursView: CustomBaseView {
         }
     }
     
-    func putDefaultRAD(l:RadiologyWorkingHourModel)  {
+    fileprivate func putDefaultRAD(l:RadiologyWorkingHourModel)  {
         switch l.day {
         case 1:
             d1TXT1 = l.partFrom ; d1TXT2=l.partTo;day1=l.active
@@ -661,7 +661,7 @@ class CustomMainClinicWorkingHoursView: CustomBaseView {
         }
     }
     
-    func putDefaultPHY(l:PharamacyWorkingHourModel)  {
+    fileprivate func putDefaultPHY(l:PharamacyWorkingHourModel)  {
         switch l.day {
         case 1:
             d1TXT1 = l.partFrom ; d1TXT2=l.partTo;day1=l.active
@@ -680,11 +680,11 @@ class CustomMainClinicWorkingHoursView: CustomBaseView {
         }
     }
     
-    func putTitleForButtons(b:Bool,bt:UIButton,text:String)  {
+    fileprivate func putTitleForButtons(b:Bool,bt:UIButton,text:String)  {
         bt.setTitle(b == true ? changeTimeForButtonTitle(values: text): changeTimeForButtonTitless(values: text), for: .normal)
     }
     
-    func changeTimeForButtonTitle(values:String)->String  {
+    fileprivate func changeTimeForButtonTitle(values:String)->String  {
         var ppp = "am"
         guard var hours = values.removeSubstringAfterOrBefore(needle: ":", beforeNeedle: true)?.toInt()  else { return "" }
         guard let minutes = values.removeSubstringAfterOrBefore(needle: "\(hours):", beforeNeedle: false)  else { return "" }
@@ -696,7 +696,7 @@ class CustomMainClinicWorkingHoursView: CustomBaseView {
         
     }
     
-    func changeTimeForButtonTitless(values:String)->String  {
+    fileprivate func changeTimeForButtonTitless(values:String)->String  {
         if values == "00:00" {
             return "00:00"
         }
@@ -710,13 +710,13 @@ class CustomMainClinicWorkingHoursView: CustomBaseView {
         
     }
     
-    func activeOrNot(v:UIButton,d:Int)  {
+    fileprivate func activeOrNot(v:UIButton,d:Int)  {
         if checkActiveDay(d) {
             addGradientInSenderAndRemoveOther(sender: v)
         }else {}
     }
     
-    func putThesesCached(w:PharamacyWorkModel)  {
+    fileprivate func putThesesCached(w:PharamacyWorkModel)  {
         switch w.day {
         case 1:
             putTitleForButtons(b: false,bt: first1TextField, text: w.partFrom)

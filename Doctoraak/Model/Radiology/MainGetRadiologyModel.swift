@@ -24,13 +24,13 @@ struct MainGetRadiologyModel:Codable {
 struct GetRadiologyModel:Codable {
     let id: Int
        let name: String
-       var nameAr, nameFr: String?
+       var nameAr,email, nameFr: String?
        let apiToken: String
        let firebaseToken: String?
        let phone: String
        var phone2: String?
        var city, area: Int?
-       let lang, latt, smsCode, email: String
+       let lang, latt, smsCode: String
        let password: String
        let active: Int
        let delivery: String

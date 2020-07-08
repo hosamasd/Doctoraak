@@ -15,12 +15,6 @@ protocol MainClinicWorkingHoursssProtocol {
     
 }
 
-let cachdDOCTORWorkingHourObjectCodabe: LocalJSONStore<[WorkModel]> = LocalJSONStore(storageType: .cache, filename: "docs.json")
-let cachdMEDICALCenterWorkingHourObjectCodabe: LocalJSONStore<[WorkModel]> = LocalJSONStore(storageType: .cache, filename: "docsss.json")
-
-let cacheLABObjectWorkingHours: LocalJSONStore<[PharamacyWorkModel]> = LocalJSONStore(storageType: .cache, filename: "lbw.json")
-let cachdRADObjectWorkingHours: LocalJSONStore<[PharamacyWorkModel]> = LocalJSONStore(storageType: .cache, filename: "rdw.json")
-let cachdPHARMACYObjectWorkingHours: LocalJSONStore<[PharamacyWorkModel]> = LocalJSONStore(storageType: .cache, filename: "phw.json")
 
 class MainClinicWorkingHoursNotDoctorVC: CustomBaseViewVC {
     

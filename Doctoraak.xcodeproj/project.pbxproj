@@ -503,7 +503,6 @@
 				4ED34646244736E200E29F03 /* Register */,
 				4E3449062428BF9300259224 /* MainVerificationVC.swift */,
 				4E8F1810243DBDD900C00044 /* Clinic */,
-				4EDBE29E242B9C7F00702C9A /* MainPaymentVC.swift */,
 			);
 			path = "Main Login And Register";
 			sourceTree = "<group>";
@@ -669,6 +668,8 @@
 		4E3548A2242B899900DD4E7A /* MAY BE USED */ = {
 			isa = PBXGroup;
 			children = (
+				4EDBE2A4242BA28900702C9A /* CustomMainDoctorNotificationView.swift */,
+				4EDBE29E242B9C7F00702C9A /* MainPaymentVC.swift */,
 				9F82FD9424AA3942009ED3B9 /* UITextView.swift */,
 				9F82FD9324AA3941009ED3B9 /* Device.swift */,
 				9F82FDA024AA394E009ED3B9 /* Data.swift */,
@@ -977,7 +978,6 @@
 				9F82FD9A24AA3948009ED3B9 /* UIStackView.swift */,
 				9F82FD9E24AA394D009ED3B9 /* UITextField.swift */,
 				9F82FDA224AA394F009ED3B9 /* VCS.swift */,
-				4E115DAC2495195000B64936 /* Lottie */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -1180,6 +1180,7 @@
 		4ED3464C24473A8F00E29F03 /* Supports Files */ = {
 			isa = PBXGroup;
 			children = (
+				4E115DAC2495195000B64936 /* Lottie */,
 				7A52BB6024153A30008ED1F9 /* Info.plist */,
 			);
 			path = "Supports Files";
@@ -1246,7 +1247,6 @@
 			isa = PBXGroup;
 			children = (
 				4EC977F0242B528B00C61F1B /* Doctor Home */,
-				4EDBE2A4242BA28900702C9A /* CustomMainDoctorNotificationView.swift */,
 			);
 			path = "Doctor Scenrieo";
 			sourceTree = "<group>";
@@ -1424,11 +1424,11 @@
 				7AB7E38624157FE30033F347 /* View */,
 				7AB7E38524157FCF0033F347 /* Controller */,
 				4EA5378C242631BD000AE7AD /* Helpers */,
+				4ED3464C24473A8F00E29F03 /* Supports Files */,
 				4E3548A2242B899900DD4E7A /* MAY BE USED */,
 				7A52BB5B24153A30008ED1F9 /* Assets.xcassets */,
 				7A52BB5824153A28008ED1F9 /* Main.storyboard */,
 				7A52BB5D24153A30008ED1F9 /* LaunchScreen.storyboard */,
-				4ED3464C24473A8F00E29F03 /* Supports Files */,
 			);
 			path = Doctoraak;
 			sourceTree = "<group>";

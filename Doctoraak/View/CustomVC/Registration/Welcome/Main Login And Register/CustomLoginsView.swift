@@ -106,7 +106,7 @@ class CustomLoginsView: CustomBaseView {
     
     
     override func setupViews() {
-
+        
         [titleLabel,soonLabel].forEach({$0.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left})
         
         [ phoneNumberTextField,passwordTextField].forEach({$0.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)})
@@ -125,7 +125,7 @@ class CustomLoginsView: CustomBaseView {
             
         ])
         specializationDrop.fillSuperview(padding: .init(top: 16, left: 16, bottom: 16, right: 16))
-
+        
         if MOLHLanguage.isRTLLanguage() {
             LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 0, bottom: 0, right: -48))
         }else {

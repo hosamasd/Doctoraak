@@ -239,7 +239,6 @@ class DoctorHomeVC: CustomBaseViewVC {
                     self.customDoctorHomeView.topDoctorHomeCell.mainDropView.isHide(self.numberOfClinicsAvaiable.count > 0 ? false : true)
                     self.customDoctorHomeView.topDoctorHomeCell.doctorReservationLabel.isHide(self.numberOfClinicsAvaiable.count > 0 ? false : true)
                     
-                    //                self.customDoctorHomeView.topDoctorHomeCell.doctorReservationLabel.isHide(self.numberOfClinicsAvaiable.count > 0 ? false : true)
                     self.customDoctorHomeView.topDoctorHomeCell.doctorClinicDrop.optionArray = self.numberOfClinicsAvaiable
                     self.customDoctorHomeView.topDoctorHomeCell.doctorClinicDrop.text = "Clinic 1".localized
                     self.customDoctorHomeView.topDoctorHomeCell.doctorClinicDrop.selectedIndex = 0
