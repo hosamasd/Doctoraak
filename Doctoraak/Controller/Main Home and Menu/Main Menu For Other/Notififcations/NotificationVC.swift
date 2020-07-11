@@ -85,20 +85,34 @@ class NotificationVC: CustomBaseViewVC {
     var phy:PharamacyModel?{
         didSet{
             guard let phy = phy else { return  }
+            //            userDefaults.bool(forKey: UserDefaultsConstants.isPHYNotificationChanged) ? getNotifications() : ()
+            
         }
     }
     var doctor:DoctorModel?{
         didSet{
             guard let lab = doctor else { return  }
+            userDefaults.bool(forKey: UserDefaultsConstants.isDoctorNotificationChanged) ? getNotifications() : ()
+        }
+    }
+    var medicalCenter:DoctorModel?{
+        didSet{
+            guard let lab = medicalCenter else { return  }
+            //            userDefaults.bool(forKey: UserDefaultsConstants.isMedicalCenterNotificationChanged) ? getNotifications() : ()
         }
     }
     var lab:LabModel?{
         didSet{
-            guard let lab = lab else { return  }  }
+            guard let lab = lab else { return  }
+            //            userDefaults.bool(forKey: UserDefaultsConstants.isLABNotificationChanged) ? getNotifications() : ()
+        }
     }
     var rad:RadiologyModel?{
         didSet{
-            guard let lab = rad else { return  } }
+            guard let lab = rad else { return  }
+            //            userDefaults.bool(forKey: UserDefaultsConstants.isRADNotificationChanged) ? getNotifications() : ()
+            
+        }
     }
     
     fileprivate let isFromMenu:Bool!
@@ -122,7 +136,7 @@ class NotificationVC: CustomBaseViewVC {
         super.viewWillAppear(animated)
         
         getObjects()
-        getNotifications()
+        //        getNotifications()
     }
     
     //MARK: -user methods
@@ -145,10 +159,21 @@ class NotificationVC: CustomBaseViewVC {
     fileprivate func getObjects()  {
         if userDefaults.bool(forKey: UserDefaultsConstants.labPerformLogin) {
             lab = cacheLABObjectCodabe.storedValue
+            userDefaults.bool(forKey: UserDefaultsConstants.isLABNotificationChanged) ? getNotifications() : ()
+            
         }else if userDefaults.bool(forKey: UserDefaultsConstants.radiologyPerformLogin) {
             rad = cachdRADObjectCodabe.storedValue
+            userDefaults.bool(forKey: UserDefaultsConstants.isRADNotificationChanged) ? getNotifications() : ()
+            
         }else if userDefaults.bool(forKey: UserDefaultsConstants.pharamacyPerformLogin) {
             phy = cachdPHARMACYObjectCodabe.storedValue
+            userDefaults.bool(forKey: UserDefaultsConstants.isPHYNotificationChanged) ? getNotifications() : ()
+        }else if userDefaults.bool(forKey: UserDefaultsConstants.DoctorPerformLogin) {
+            doctor = cacheDoctorObjectCodabe.storedValue
+            userDefaults.bool(forKey: UserDefaultsConstants.isDoctorNotificationChanged) ? getNotifications() : ()
+        }else if userDefaults.bool(forKey: UserDefaultsConstants.medicalCenterPerformLogin) {
+            medicalCenter = cacheMedicalObjectCodabe.storedValue
+            userDefaults.bool(forKey: UserDefaultsConstants.isMedicalCenterNotificationChanged) ? getNotifications() : ()
         }
     }
     
@@ -179,7 +204,7 @@ class NotificationVC: CustomBaseViewVC {
     }
     
     fileprivate  func goTOdiSPLAYOrder(l:LABOrderModel? = nil , r:RadiologyOrderModel? = nil,s:PharmacyOrderModel? = nil,doc:DoctorOrderModel? = nil)  {
-        let dd = SelectedPharmacyPatientDataVC(inde: 2)
+        let dd = SelectedPharmacyPatientDataVC(inde: index)
         dd.labOrderss=l
         dd.radOrderss = r
         dd.phyOrderss=s
@@ -192,6 +217,10 @@ class NotificationVC: CustomBaseViewVC {
         DispatchQueue.main.async {
             self.customNotificationView.notificationsCollectionVC.collectionView.reloadData()
         }
+        let ind = index == 0 ? UserDefaultsConstants.isDoctorNotificationChanged : UserDefaultsConstants.isMedicalCenterNotificationChanged
+        
+        userDefaults.set(true, forKey: ind)
+        userDefaults.synchronize()
     }
     
     
@@ -222,6 +251,9 @@ class NotificationVC: CustomBaseViewVC {
         DispatchQueue.main.async {
             self.customNotificationView.notificationsCollectionVC.collectionView.reloadData()
         }
+        let ind = UserDefaultsConstants.isPHYNotificationChanged
+        userDefaults.set(true, forKey: ind)
+        userDefaults.synchronize()
     }
     
     fileprivate  func getLABtNotifications()  {
@@ -251,6 +283,9 @@ class NotificationVC: CustomBaseViewVC {
         DispatchQueue.main.async {
             self.customNotificationView.notificationsCollectionVC.collectionView.reloadData()
         }
+        let ind = UserDefaultsConstants.isLABNotificationChanged
+        userDefaults.set(false, forKey: ind)
+        userDefaults.synchronize()
     }
     
     fileprivate  func getRADNotifications()  {
@@ -280,6 +315,9 @@ class NotificationVC: CustomBaseViewVC {
         DispatchQueue.main.async {
             self.customNotificationView.notificationsCollectionVC.collectionView.reloadData()
         }
+        let ind = UserDefaultsConstants.isRADNotificationChanged
+        userDefaults.set(true, forKey: ind)
+        userDefaults.synchronize()
     }
     
     fileprivate  func showMainAlertLooder()  {
@@ -322,6 +360,16 @@ class NotificationVC: CustomBaseViewVC {
         }
     }
     
+    fileprivate func setDefaults() {
+        userDefaults.set(true, forKey: UserDefaultsConstants.isWelcomeVCAppear)
+        userDefaults.set(true, forKey: UserDefaultsConstants.isLABNotificationChanged)
+        userDefaults.set(true, forKey: UserDefaultsConstants.isRADNotificationChanged)
+        userDefaults.set(true, forKey: UserDefaultsConstants.isPHYNotificationChanged)
+        userDefaults.set(true, forKey: UserDefaultsConstants.isDoctorNotificationChanged)
+        userDefaults.set(true, forKey: UserDefaultsConstants.isMedicalCenterNotificationChanged)
+        userDefaults.synchronize()
+    }
+    
     //MARK: -Handle methods
     
     
@@ -331,6 +379,7 @@ class NotificationVC: CustomBaseViewVC {
         }else {
             dismiss(animated: true)
         }
+        setDefaults()
     }
     
     @objc func handleDismiss()  {

@@ -31,6 +31,7 @@ class SelectedPharmacyPatientDataVC: CustomBaseViewVC {
     }()
     lazy var customSelectedPatientDataVC:CustomSelectedPatientDataVC = {
         let v = CustomSelectedPatientDataVC()
+        v.index = index
         v.phy=phyOrder
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
         v.okButton.addTarget(self, action: #selector(handleAcceptOrder), for: .touchUpInside)
@@ -59,7 +60,7 @@ class SelectedPharmacyPatientDataVC: CustomBaseViewVC {
     var lab:LabModel?{
         didSet{
             guard let lab = lab else { return  }
-       }
+        }
     }
     var phy:PharamacyModel?{
         didSet{
@@ -72,7 +73,7 @@ class SelectedPharmacyPatientDataVC: CustomBaseViewVC {
         }
     }
     
-   
+    
     var phyOrder:PharmacyGetOrdersModel?{
         didSet{
             guard let phy = phyOrder else { return  }
@@ -97,32 +98,32 @@ class SelectedPharmacyPatientDataVC: CustomBaseViewVC {
         didSet{
             guard let lab = labOrder else { return  }
             customSelectedPatientDataVC.lab=lab
-
-//            customSelectedPatientDataVC.patientCell.patient=lab.patient
+            
+            //            customSelectedPatientDataVC.patientCell.patient=lab.patient
         }
     }
-     var labOrderss:LABOrderModel?{
-            didSet{
-                guard let lab = labOrderss else { return  }
-    //            customSelectedPatientDataVC.=lab
-                customSelectedPatientDataVC.patientCell.patientLab=lab.patient
-            }
+    var labOrderss:LABOrderModel?{
+        didSet{
+            guard let lab = labOrderss else { return  }
+            customSelectedPatientDataVC.labOrder=lab
+            //                customSelectedPatientDataVC.patientCell.patientLab=lab.patient
         }
+    }
     var radOrder:RadGetOrdersModel?{
         didSet{
             guard let lab = radOrder else { return  }
-//            customSelectedPatientDataVC.patientCell.patient=lab.patient
+            //            customSelectedPatientDataVC.patientCell.patient=lab.patient
             customSelectedPatientDataVC.rad=lab
         }
     }
     
     var docOrder:DoctorOrderModel?{
-           didSet{
-               guard let lab = docOrder else { return  }
-               customSelectedPatientDataVC.patientCell.patient=lab.patient
-//               customSelectedPatientDataVC.doc=lab
-           }
-       }
+        didSet{
+            guard let lab = docOrder else { return  }
+            customSelectedPatientDataVC.patientCell.patient=lab.patient
+            //               customSelectedPatientDataVC.doc=lab
+        }
+    }
     
     init(inde:Int) {
         self.index = inde
@@ -155,7 +156,7 @@ class SelectedPharmacyPatientDataVC: CustomBaseViewVC {
         
     }
     
-   fileprivate func checkDoctorLoginState()  {
+    fileprivate func checkDoctorLoginState()  {
         
     }
     
@@ -308,19 +309,18 @@ class SelectedPharmacyPatientDataVC: CustomBaseViewVC {
     
     //TODO:-Handle methods
     
-  @objc  func handlePreviewImage()  {
-    
-    let img:UIImage = customSelectedPatientDataVC.sampleRosetaImage.image ?? #imageLiteral(resourceName: "G4-G5 Sample Rx")
-    
-    let zoom = ZoomUserImageVC(img: img)
-    navigationController?.pushViewController(zoom, animated: true)
-    
+    @objc  func handlePreviewImage()  {
+        
+        let img:UIImage = customSelectedPatientDataVC.sampleRosetaImage.image ?? #imageLiteral(resourceName: "G4-G5 Sample Rx")
+        
+        let zoom = ZoomUserImageVC(img: img)
+        navigationController?.pushViewController(zoom, animated: true)
+        
     }
     
     
     @objc   func handleBack()  {
         self.customSelectedPatientDataVC.okButton.isHide(false)
-        
         navigationController?.popViewController(animated: true)
     }
     

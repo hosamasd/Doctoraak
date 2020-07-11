@@ -12,6 +12,14 @@ import MOLH
 
 class CustomSelectedPatientDataVC: CustomBaseView {
     
+    var index:Int?  {
+        didSet{
+            guard let index=index else {return}
+            selectedPatientDataPHYCollectionvc.index=index
+        }
+    }
+    
+    
     //    var phy:PharmacyOrderModel?{
     //           didSet{
     //               guard let phy = phy else { return  }
@@ -70,9 +78,9 @@ class CustomSelectedPatientDataVC: CustomBaseView {
             self.patientCell.patient = phy.patient
             let acccepts = phy.accept == "0" ? false : true
             bottomStack.isHide(acccepts)
-//            selectedPatientDataPHYCollectionvc.notificationLABArray = phy.details
+            //            selectedPatientDataPHYCollectionvc.notificationLABArray = phy.details
             selectedPatientDataPHYCollectionvc.notificationRADArray = phy.details
-
+            
             selectedPatientDataPHYCollectionvc.collectionView.reloadData()
             let urlString = phy.photo
             guard let url = URL(string: urlString) else { return  }
@@ -81,20 +89,20 @@ class CustomSelectedPatientDataVC: CustomBaseView {
     }
     
     var labOrder:LABOrderModel?{
-           didSet{
-               guard let phy = labOrder else { return  }
-               
-               //            DispatchQueue.main.async {
+        didSet{
+            guard let phy = labOrder else { return  }
+            
+            //            DispatchQueue.main.async {
             self.patientCell.patientLab = phy.patient
             let acccepts = phy.accept == 0 ? false : true
-               bottomStack.isHide(acccepts)
+            bottomStack.isHide(acccepts)
             selectedPatientDataPHYCollectionvc.notificationLABArray = phy.details
-               selectedPatientDataPHYCollectionvc.collectionView.reloadData()
-               let urlString = phy.photo
-               guard let url = URL(string: urlString) else { return  }
-               sampleRosetaImage.sd_setImage(with: url)
-           }
-       }
+            selectedPatientDataPHYCollectionvc.collectionView.reloadData()
+            let urlString = phy.photo
+            guard let url = URL(string: urlString) else { return  }
+            sampleRosetaImage.sd_setImage(with: url, placeholderImage: #imageLiteral(resourceName: "G4-G5 Sample Rx"), options: .lowPriority)
+        }
+    }
     
     
     lazy var LogoImage:UIImageView = {

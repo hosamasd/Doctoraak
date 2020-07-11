@@ -31,8 +31,8 @@ class PatientCell: BaseCollectionCell {
     var patientLab:PatientModelNotification?{
           didSet{
             guard let patientLab = patientLab else { return  }
-              let urlString = patientLab.photo
-              
+              let urlString = patientLab.url
+
               guard let url = URL(string: urlString) else {return}
               
               DispatchQueue.main.async {

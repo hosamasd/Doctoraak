@@ -29,6 +29,13 @@ class UserDefaultsConstants {
     static let isdoctorWaitForAddClinic="isdoctorWaitForAddClinic"
     static let APITokendoctorWaitForAddClinic="APITokendoctorWaitForAddClinic"
     
+    //notification
+    static let isDoctorNotificationChanged="isDoctorNotificationChanged"
+    static let isMedicalCenterNotificationChanged="isMedicalCenterNotificationChanged"
+    static let isLABNotificationChanged="isLABNotificationChanged"
+    static let isRADNotificationChanged="isRADNotificationChanged"
+    static let isPHYNotificationChanged="isPHYNotificationChanged"
+
     
     //cached working hours
     static let isLabWorkingHoursCached="isLabWorkingHoursCached"

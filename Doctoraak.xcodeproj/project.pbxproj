@@ -459,6 +459,7 @@
 			isa = PBXGroup;
 			children = (
 				4EA94B98242F5F7E001C4650 /* MainHomeVC.swift */,
+				4EDFFD3624974BA000256631 /* Notififcations */,
 				4E92AF63242B6AE300BCF20E /* Patients */,
 			);
 			path = "Main Menu For Other";
@@ -1262,14 +1263,6 @@
 			path = Payment;
 			sourceTree = "<group>";
 		};
-		4EDFFD3024974B4400256631 /* Others Profiles */ = {
-			isa = PBXGroup;
-			children = (
-				4EDFFD3624974BA000256631 /* Notififcations */,
-			);
-			path = "Others Profiles";
-			sourceTree = "<group>";
-		};
 		4EDFFD3324974B6C00256631 /* other profiles */ = {
 			isa = PBXGroup;
 			children = (
@@ -1439,7 +1432,6 @@
 		7AB7E38524157FCF0033F347 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				4EDFFD3024974B4400256631 /* Others Profiles */,
 				4E333E0B2426604E00F82E00 /* BaseVC */,
 				4EA537922426407F000AE7AD /* Main Home and Menu */,
 				4E5803032427897E00B5D502 /* Resgitration */,
