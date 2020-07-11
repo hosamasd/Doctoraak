@@ -35,7 +35,7 @@ class SelectedPharmacyPatientDataVC: CustomBaseViewVC {
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
         v.okButton.addTarget(self, action: #selector(handleAcceptOrder), for: .touchUpInside)
         v.cancelButton.addTarget(self, action: #selector(handleCancelOrder), for: .touchUpInside)
-        
+        v.sampleRosetaImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handlePreviewImage)))
         return v
     }()
     lazy var customMainAlertVC:CustomMainAlertVC = {
@@ -72,12 +72,7 @@ class SelectedPharmacyPatientDataVC: CustomBaseViewVC {
         }
     }
     
-    var labOrderss:LABOrderModel?{
-        didSet{
-            guard let lab = labOrderss else { return  }
-            customSelectedPatientDataVC.patientCell.patientLab=lab.patient
-        }
-    }
+   
     var phyOrder:PharmacyGetOrdersModel?{
         didSet{
             guard let phy = phyOrder else { return  }
@@ -101,15 +96,22 @@ class SelectedPharmacyPatientDataVC: CustomBaseViewVC {
     var labOrder:LABGetOrdersModel?{
         didSet{
             guard let lab = labOrder else { return  }
-            customSelectedPatientDataVC.patientCell.patient=lab.patient
             customSelectedPatientDataVC.lab=lab
-            
+
+//            customSelectedPatientDataVC.patientCell.patient=lab.patient
         }
     }
+     var labOrderss:LABOrderModel?{
+            didSet{
+                guard let lab = labOrderss else { return  }
+    //            customSelectedPatientDataVC.=lab
+                customSelectedPatientDataVC.patientCell.patientLab=lab.patient
+            }
+        }
     var radOrder:RadGetOrdersModel?{
         didSet{
             guard let lab = radOrder else { return  }
-            customSelectedPatientDataVC.patientCell.patient=lab.patient
+//            customSelectedPatientDataVC.patientCell.patient=lab.patient
             customSelectedPatientDataVC.rad=lab
         }
     }
@@ -306,6 +308,14 @@ class SelectedPharmacyPatientDataVC: CustomBaseViewVC {
     
     //TODO:-Handle methods
     
+  @objc  func handlePreviewImage()  {
+    
+    let img:UIImage = customSelectedPatientDataVC.sampleRosetaImage.image ?? #imageLiteral(resourceName: "G4-G5 Sample Rx")
+    
+    let zoom = ZoomUserImageVC(img: img)
+    navigationController?.pushViewController(zoom, animated: true)
+    
+    }
     
     
     @objc   func handleBack()  {

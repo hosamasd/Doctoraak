@@ -58,7 +58,7 @@ class EdirProfileViewModel {
     
     
     func checkFormValidity() {
-        let isFormValid =    name?.isEmpty == false   && insurance?.isEmpty == false  && image != nil && apiToekn?.isEmpty == false && user_Id != -1
+        let isFormValid =    name?.isEmpty == false   && insurance?.isEmpty == false   && apiToekn?.isEmpty == false && user_Id != -1
         
         bindableIsFormValidate.value = isFormValid
         

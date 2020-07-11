@@ -21,10 +21,10 @@ class SelectedPatientDataPHYCell: BaseCollectionCell {
         }
     }
     
-    var orderLAB:RADDetailModel?{
+    var orderLAB:LABDetailModel?{
         didSet{
             guard let order = orderLAB else { return  }
-            nameLabel.text = getNameFromLABIndex(order.raysID, index: 0)
+            nameLabel.text = getNameFromLABIndex(order.analysisID, index: 0)
             
         }
     }
@@ -132,12 +132,12 @@ class SelectedPatientDataPHYCell: BaseCollectionCell {
     }
     
     func checkLanguage(citName: inout [String], cityId:inout [Int],nameEn:String,nameId:String)  {
-           if let  cityArray = userDefaults.value(forKey: nameEn) as? [String],let cityIds = userDefaults.value(forKey: nameId) as? [Int]{
-               
-               citName = cityArray
-               cityId = cityIds
-           }
-         }
+        if let  cityArray = userDefaults.value(forKey: nameEn) as? [String],let cityIds = userDefaults.value(forKey: nameId) as? [Int]{
+            
+            citName = cityArray
+            cityId = cityIds
+        }
+    }
 }
 
 

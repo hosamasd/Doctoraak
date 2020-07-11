@@ -33,7 +33,6 @@ class CustomMainClinicWorkingHoursView: CustomBaseView {
         didSet{
             guard let work = workingHoursLAB else { return  }
             work.forEach { (w) in
-                
                 putDefaultLab(l:w)
                 putThesesLAB(w: w)
             }

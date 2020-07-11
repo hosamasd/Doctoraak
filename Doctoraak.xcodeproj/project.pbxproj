@@ -193,6 +193,7 @@
 		7A52BB5C24153A30008ED1F9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A52BB5B24153A30008ED1F9 /* Assets.xcassets */; };
 		7A52BB5F24153A30008ED1F9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7A52BB5D24153A30008ED1F9 /* LaunchScreen.storyboard */; };
 		7AE60E3F241914EC002E9AF6 /* MainSpecificationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE60E3E241914EC002E9AF6 /* MainSpecificationModel.swift */; };
+		9F088CF624BA5F32009B1832 /* ZoomUserImageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F088CF524BA5F32009B1832 /* ZoomUserImageVC.swift */; };
 		9F22716224B3CED30091412C /* lf30_editor_itsaat.json in Resources */ = {isa = PBXBuildFile; fileRef = 9F22716124B3CED30091412C /* lf30_editor_itsaat.json */; };
 		9F32E8EA24B3ACAC00D4B62E /* 19228-health-care.json in Resources */ = {isa = PBXBuildFile; fileRef = 9F32E8E924B3ACAB00D4B62E /* 19228-health-care.json */; };
 		9F82FDA324AA3950009ED3B9 /* UILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F82FD9224AA3940009ED3B9 /* UILabel.swift */; };
@@ -407,6 +408,7 @@
 		7A52BB6024153A30008ED1F9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7AE60E3E241914EC002E9AF6 /* MainSpecificationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSpecificationModel.swift; sourceTree = "<group>"; };
 		8C1195FC2E0096E7AF8F9EBD /* Pods-Doctoraak.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Doctoraak.release.xcconfig"; path = "Target Support Files/Pods-Doctoraak/Pods-Doctoraak.release.xcconfig"; sourceTree = "<group>"; };
+		9F088CF524BA5F32009B1832 /* ZoomUserImageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomUserImageVC.swift; sourceTree = "<group>"; };
 		9F22716124B3CED30091412C /* lf30_editor_itsaat.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = lf30_editor_itsaat.json; sourceTree = "<group>"; };
 		9F32E8E924B3ACAB00D4B62E /* 19228-health-care.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "19228-health-care.json"; sourceTree = "<group>"; };
 		9F82FD9224AA3940009ED3B9 /* UILabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UILabel.swift; sourceTree = "<group>"; };
@@ -847,6 +849,7 @@
 				4EEBF7C7243D9BBE0039BF81 /* MedicineCollectionVC.swift */,
 				4E0923AE243DA86D0068E10F /* PatientSecondDataVC.swift */,
 				4EEBF7BF243D99B10039BF81 /* PatientThirdDataVC.swift */,
+				9F088CF524BA5F32009B1832 /* ZoomUserImageVC.swift */,
 			);
 			path = Patients;
 			sourceTree = "<group>";
@@ -1742,6 +1745,7 @@
 				4EDCBB1424964D7E0045574D /* CustomContactUsView.swift in Sources */,
 				4EA83C682497641600C9AB7E /* MainClinicWorkingHoursVCWithoutEditingVC.swift in Sources */,
 				4E70CD9E243DAC7800098C4C /* CustomDoctorDataView.swift in Sources */,
+				9F088CF624BA5F32009B1832 /* ZoomUserImageVC.swift in Sources */,
 				4EFD44F92446EC8600B4CB35 /* MainNotificationsModel.swift in Sources */,
 				4EBCA266242CC0B30090C1E1 /* TestVCS.swift in Sources */,
 				4E9145FF2446D27B00766D20 /* MainMedicineModel.swift in Sources */,

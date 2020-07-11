@@ -17,8 +17,9 @@ class SelectedPatientDataPHYCollectionVC: BaseCollectionVC {
     
     var notificationPHYArray = [PharmacyDetailModel]()
     var notificationRADArray = [RADDetailModel]()
-    var notificationLABArray = [RADDetailModel]()
-    
+//    var notificationLABArray = [RADDetailModel]()
+    var notificationLABArray = [LABDetailModel]()
+
     //        var handledisplayDOCNotification:((PatientNotificationModel,IndexPath)->Void)?
     
     override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {

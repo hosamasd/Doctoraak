@@ -32,6 +32,7 @@ class DoctorProfileVC:   CustomBaseViewVC {
         v.userEditProfileImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(createAlertForChoposingImage)))
         v.nextButton.addTarget(self, action: #selector(handleSave), for: .touchUpInside)
         v.cvView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleUpload)))
+        v.index=index
         return v
     }()
     lazy var customMainAlertVC:CustomMainAlertVC = {

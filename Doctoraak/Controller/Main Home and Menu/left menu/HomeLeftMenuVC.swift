@@ -67,7 +67,7 @@ class HomeLeftMenuVC: CustomBaseViewVC {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        [lab,rad,phy].forEach({$0 == nil})
+//        [lab,rad,phy].forEach({$0 == nil})
         if userDefaults.bool(forKey: UserDefaultsConstants.labPerformLogin) {
             lab = cacheLABObjectCodabe.storedValue
         }else if userDefaults.bool(forKey: UserDefaultsConstants.radiologyPerformLogin) {
@@ -146,9 +146,9 @@ class HomeLeftMenuVC: CustomBaseViewVC {
             }else if indexPath.item == 1 {
                 baseSlid.closeMenu()
                 let profile = MainClinicWorkingHoursNotDoctorVC(index: index, isFromUpdateProfile: false,isFromRegister: false)//MainClinicWorkingHoursVCWithoutEditingVC()
-                profile.phy=phy
-                profile.lab=lab
-                profile.rad=rad
+                profile.phy=cachdPHARMACYObjectCodabe.storedValue//phy
+                profile.lab=cacheLABObjectCodabe.storedValue//lab
+                profile.rad=cachdRADObjectCodabe.storedValue//rad
                 let nav = UINavigationController(rootViewController: profile)
                 
                 nav.modalPresentationStyle = .fullScreen
@@ -244,7 +244,7 @@ class HomeLeftMenuVC: CustomBaseViewVC {
     
     fileprivate func createAlerts() {
         let alert = UIAlertController(title: "Warring...".localized, message: "Do You Want To Log Out?".localized, preferredStyle: .alert)
-        let ok = UIAlertAction(title: "Log Out".localized, style: .destructive) {[unowned self] (_) in
+        let ok = UIAlertAction(title: "Log Out".localized, style: .destructive) { (_) in
             //            self.performLogout()
         }
         let cancel = UIAlertAction(title: "Cancel".localized, style: .cancel) { (_) in

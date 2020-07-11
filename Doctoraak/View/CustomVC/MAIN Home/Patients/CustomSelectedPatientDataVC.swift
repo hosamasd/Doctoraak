@@ -29,24 +29,25 @@ class CustomSelectedPatientDataVC: CustomBaseView {
     var phy:PharmacyGetOrdersModel?{
         didSet{
             guard let phy = phy else { return  }
-            let urlString = phy.photo
-            guard let url = URL(string: urlString) else { return  }
-            sampleRosetaImage.sd_setImage(with: url)
+            
             //            DispatchQueue.main.async {
             self.patientCell.patient = phy.patient
             let acccepts = phy.accept == "0" ? false : true
             bottomStack.isHide(acccepts)
+            
             selectedPatientDataPHYCollectionvc.notificationPHYArray = phy.details
+            
             selectedPatientDataPHYCollectionvc.collectionView.reloadData()
+            let urlString = phy.photo
+            guard let url = URL(string: urlString) else { return  }
+            sampleRosetaImage.sd_setImage(with: url)
         }
     }
     
     var rad:RadGetOrdersModel?{
         didSet{
             guard let phy = rad else { return  }
-            let urlString = phy.photo
-            guard let url = URL(string: urlString) else { return  }
-            sampleRosetaImage.sd_setImage(with: url)
+            
             //            DispatchQueue.main.async {
             self.patientCell.patient = phy.patient
             let ss = phy.accept.int ?? 0
@@ -55,25 +56,45 @@ class CustomSelectedPatientDataVC: CustomBaseView {
             bottomStack.isHide(acccepts)
             selectedPatientDataPHYCollectionvc.notificationRADArray = phy.details
             selectedPatientDataPHYCollectionvc.collectionView.reloadData()
+            let urlString = phy.photo
+            guard let url = URL(string: urlString) else { return  }
+            sampleRosetaImage.sd_setImage(with: url)
         }
     }
     
     var lab:LABGetOrdersModel?{
         didSet{
             guard let phy = lab else { return  }
-            let urlString = phy.photo
-            guard let url = URL(string: urlString) else { return  }
-            sampleRosetaImage.sd_setImage(with: url)
+            
             //            DispatchQueue.main.async {
             self.patientCell.patient = phy.patient
             let acccepts = phy.accept == "0" ? false : true
             bottomStack.isHide(acccepts)
-            selectedPatientDataPHYCollectionvc.notificationLABArray = phy.details
+//            selectedPatientDataPHYCollectionvc.notificationLABArray = phy.details
+            selectedPatientDataPHYCollectionvc.notificationRADArray = phy.details
+
             selectedPatientDataPHYCollectionvc.collectionView.reloadData()
-            
-            
+            let urlString = phy.photo
+            guard let url = URL(string: urlString) else { return  }
+            sampleRosetaImage.sd_setImage(with: url)
         }
     }
+    
+    var labOrder:LABOrderModel?{
+           didSet{
+               guard let phy = labOrder else { return  }
+               
+               //            DispatchQueue.main.async {
+            self.patientCell.patientLab = phy.patient
+            let acccepts = phy.accept == 0 ? false : true
+               bottomStack.isHide(acccepts)
+            selectedPatientDataPHYCollectionvc.notificationLABArray = phy.details
+               selectedPatientDataPHYCollectionvc.collectionView.reloadData()
+               let urlString = phy.photo
+               guard let url = URL(string: urlString) else { return  }
+               sampleRosetaImage.sd_setImage(with: url)
+           }
+       }
     
     
     lazy var LogoImage:UIImageView = {
@@ -93,6 +114,7 @@ class CustomSelectedPatientDataVC: CustomBaseView {
         i.contentMode = .scaleAspectFill
         i.clipsToBounds = true
         i.constrainHeight(constant: 120)
+        i.isUserInteractionEnabled=true
         return i
     }()
     lazy var titleLabel = UILabel(text: "Patient data".localized, font: .systemFont(ofSize: 30), textColor: .white)

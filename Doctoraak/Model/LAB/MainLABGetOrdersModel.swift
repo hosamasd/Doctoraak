@@ -48,7 +48,7 @@ struct LABGetOrdersModel:Codable {
 
 struct LABOrderModel:Codable {
     let id, labID, patientID: Int
-       var notes: JSONNull?
+       var notes: String?
        let photo: String
        var insuranceCode: JSONNull?
        let insuranceAccept, createdAt, updatedAt: String

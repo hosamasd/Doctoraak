@@ -14,6 +14,14 @@ import MOLH
 
 class CustomDoctorProfileView: CustomBaseView {
     
+    var index:Int?{
+        didSet{
+            guard let index = index else { return  }
+            genderStack.isHide(index == 0 ? false : true)
+        }
+    }
+    
+    
     var doc:DoctorModel?{
         didSet{
             guard let phy = doc else { return  }
@@ -88,7 +96,7 @@ class CustomDoctorProfileView: CustomBaseView {
         i.layer.cornerRadius = 50
         i.clipsToBounds = true
         i.layer.borderWidth=3
-               i.layer.borderColor = UIColor.white.cgColor
+        i.layer.borderColor = UIColor.white.cgColor
         return i
     }()
     lazy var userEditProfileImageView: UIImageView = {
@@ -170,6 +178,10 @@ class CustomDoctorProfileView: CustomBaseView {
         //                button.isEnabled = false
         return button
     }()
+    lazy var genderStack :UIStackView = {
+        let genderStack = getStack(views: boyButton,girlButton, spacing: 16, distribution: .fillEqually, axis: .horizontal)
+        return genderStack
+    }()
     lazy var boyButton:UIButton = createMainButtonsForGenderss(title: "Male",img:#imageLiteral(resourceName: "toilet"), bg: true)
     lazy var girlButton:UIButton = createMainButtonsForGenderss(title: "Female",img:#imageLiteral(resourceName: "toile11t"), bg: true)
     
@@ -203,7 +215,6 @@ class CustomDoctorProfileView: CustomBaseView {
     
     override func setupViews() {
         [mobileSecondNumberTextField,titleTextField,emailTextField].forEach({$0.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .valueChanged)})
-        let genderStack = getStack(views: boyButton,girlButton, spacing: 16, distribution: .fillEqually, axis: .horizontal)
         
         [titleLabel].forEach({$0.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left})
         

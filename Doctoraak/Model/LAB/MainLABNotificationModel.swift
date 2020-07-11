@@ -109,7 +109,7 @@ struct LABInsuranceModel:Codable {
 struct PatientModelNotification:Codable {
     let id: Int
         let name: String
-        let nameAr, nameFr,firebaseToken: JSONNull?
+        let nameAr, nameFr,firebaseToken: String?
         let phone, smsCode, apiToken: String
         let email, gender, password: String
         let active: Int
@@ -118,7 +118,7 @@ struct PatientModelNotification:Codable {
         let address: String
         let addressAr, addressFr: JSONNull?
         let createdAt, updatedAt: String
-        let insuranceCodeID, blockDays, blockDate,insuranceID: JSONNull?
+        var insuranceCodeID, blockDays, blockDate,insuranceID: Int?
         let url: String
         var insurance: InsurcaneCompanyModel?
 

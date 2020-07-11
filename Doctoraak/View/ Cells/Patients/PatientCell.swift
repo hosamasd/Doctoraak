@@ -12,17 +12,18 @@ import MOLH
 
 class PatientCell: BaseCollectionCell {
     
-    var patient:PatientModel!{
+    var patient:PatientModel?{
         didSet{
+            guard let patient = patient else { return  }
             let urlString = patient.photo
             
             guard let url = URL(string: urlString) else {return}
             
             DispatchQueue.main.async {
                 self.PatientProfileImage.sd_setImage(with: url)
-                self.PatientNameLabel.text = self.patient.name
-                self.PatientGenderLabel.text = self.patient.gender
-                self.PatientPhoneLabel.text = self.patient.phone
+                self.PatientNameLabel.text = patient.name
+                self.PatientGenderLabel.text = patient.gender
+                self.PatientPhoneLabel.text = patient.phone
             }
         }
     }

@@ -89,7 +89,7 @@ class MainClinicWorkingHoursNotDoctorVC: CustomBaseViewVC {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if isFromRegister {
+        if isFromRegister || isBeenUpdated{
             
         
         if userDefaults.bool(forKey: UserDefaultsConstants.isLabWorkingHoursCached) {
@@ -102,7 +102,7 @@ class MainClinicWorkingHoursNotDoctorVC: CustomBaseViewVC {
             
         }
         }else {
-            [customClinicWorkingHoursView.workingHoursCachedLAB,customClinicWorkingHoursView.workingHoursCachedRAD,customClinicWorkingHoursView.workingHoursCachedPHY].forEach({$0 == nil})
+            customClinicWorkingHoursView.workingHoursCachedLAB=nil;customClinicWorkingHoursView.workingHoursCachedRAD=nil;customClinicWorkingHoursView.workingHoursCachedPHY = nil
         }
         
     }
@@ -165,6 +165,7 @@ class MainClinicWorkingHoursNotDoctorVC: CustomBaseViewVC {
             userDefaults.set(true, forKey: UserDefaultsConstants.isPHYWorkingHoursCached)
             userDefaults.synchronize()
         }
+          userDefaults.synchronize()
     }
     
     fileprivate func checkValidateDoneButton() {
