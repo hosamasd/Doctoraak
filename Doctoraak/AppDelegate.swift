@@ -18,6 +18,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate,MOLHResetable {
     
     fileprivate func setDefaults() {
         userDefaults.set(true, forKey: UserDefaultsConstants.isWelcomeVCAppear)
+        userDefaults.set(false, forKey: UserDefaultsConstants.isCachedDriopLists)
+
         userDefaults.set(true, forKey: UserDefaultsConstants.isLABNotificationChanged)
         userDefaults.set(true, forKey: UserDefaultsConstants.isRADNotificationChanged)
         userDefaults.set(true, forKey: UserDefaultsConstants.isPHYNotificationChanged)
@@ -80,6 +82,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate,MOLHResetable {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         userDefaults.set(true, forKey: UserDefaultsConstants.isWelcomeVCAppear)
+        userDefaults.set(false, forKey: UserDefaultsConstants.isCachedDriopLists)
+
         userDefaults.synchronize()
     }
     

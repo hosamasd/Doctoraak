@@ -42,6 +42,8 @@ class MedicineCollectionVC: BaseCollectionVC {
        override func setupCollection() {
            collectionView.backgroundColor = .white
            collectionView.register(MedicineCell.self, forCellWithReuseIdentifier: cellID)
+        collectionView.showsVerticalScrollIndicator=false
+
        }
 
 }

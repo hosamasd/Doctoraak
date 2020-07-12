@@ -73,12 +73,61 @@ class WelcomeVC: CustomBaseViewVC {
         userDefaults.removeObject(forKey: UserDefaultsConstants.insuranceNameFRArray)
         userDefaults.removeObject(forKey: UserDefaultsConstants.insuranceIdArray)
         
+        userDefaults.removeObject(forKey: UserDefaultsConstants.radiologyNameArray)
+               userDefaults.removeObject(forKey: UserDefaultsConstants.radiologyNameFRArray)
+               userDefaults.removeObject(forKey: UserDefaultsConstants.radiologyNameARArray)
+               userDefaults.removeObject(forKey: UserDefaultsConstants.radiologyIdArray)
+        
+        userDefaults.removeObject(forKey: UserDefaultsConstants.pharamacyNameArray)
+        userDefaults.removeObject(forKey: UserDefaultsConstants.pharamacyNameFRArray)
+        userDefaults.removeObject(forKey: UserDefaultsConstants.pharamacyNameARArray)
+        userDefaults.removeObject(forKey: UserDefaultsConstants.pharamacyIdrray)
+        
+        userDefaults.removeObject(forKey: UserDefaultsConstants.labNameArray)
+               userDefaults.removeObject(forKey: UserDefaultsConstants.labNameFRArray)
+               userDefaults.removeObject(forKey: UserDefaultsConstants.labNameARArray)
+               userDefaults.removeObject(forKey: UserDefaultsConstants.labIdArray)
+        
+        userDefaults.removeObject(forKey: UserDefaultsConstants.medicineNameArray)
+               userDefaults.removeObject(forKey: UserDefaultsConstants.medicineNameFTArray)
+               userDefaults.removeObject(forKey: UserDefaultsConstants.medicineNameARArray)
+               userDefaults.removeObject(forKey: UserDefaultsConstants.medicineNameIDSArray)
+        
+        userDefaults.removeObject(forKey: UserDefaultsConstants.medicineTypeArray)
+                      userDefaults.removeObject(forKey: UserDefaultsConstants.medicineTypeFRArray)
+                      userDefaults.removeObject(forKey: UserDefaultsConstants.medicineTypeARArray)
+                      userDefaults.removeObject(forKey: UserDefaultsConstants.medicineTypeIDSArray)
+               
+               userDefaults.removeObject(forKey: UserDefaultsConstants.labAnalysisNameArray)
+                      userDefaults.removeObject(forKey: UserDefaultsConstants.labAnalysisNameFRArray)
+                      userDefaults.removeObject(forKey: UserDefaultsConstants.labAnalysisNameARArray)
+                      userDefaults.removeObject(forKey: UserDefaultsConstants.labAnalysisIdArray)
         
         
-        //                   userDefaults.set(iNameArray, forKey: UserDefaultsConstants.insuranceNameArray)
-        //                   userDefaults.set(iNameFR, forKey: UserDefaultsConstants.insuranceNameFRArray)
-        //                   userDefaults.set(iNameARData, forKey: UserDefaultsConstants.insuranceNameARArray)
-        //                   userDefaults.set(iIdData, forKey: UserDefaultsConstants.insuranceIdArray)
+        userDefaults.removeObject(forKey: UserDefaultsConstants.radAnalysisNameArray)
+                             userDefaults.removeObject(forKey: UserDefaultsConstants.radAnalysisNameARArray)
+                             userDefaults.removeObject(forKey: UserDefaultsConstants.radAnalysisNameFRArray)
+                             userDefaults.removeObject(forKey: UserDefaultsConstants.radAnalysisIdArray)
+        
+        userDefaults.removeObject(forKey: UserDefaultsConstants.paymentDetailsInfo)
+        
+       
+                   
+                                      
+                   
+                   userDefaults.set(false, forKey: UserDefaultsConstants.isCityCached)
+                   userDefaults.set(false, forKey: UserDefaultsConstants.isAreaCached)
+                   userDefaults.set(false, forKey: UserDefaultsConstants.isInsuranceCached)
+                   userDefaults.set(false, forKey: UserDefaultsConstants.isDegreesCached)
+                   userDefaults.set(false, forKey: UserDefaultsConstants.isSpecificationsCached)
+                   userDefaults.set(false, forKey: UserDefaultsConstants.isLabCached)
+                   userDefaults.set(false, forKey: UserDefaultsConstants.isRadiologyCached)
+                   userDefaults.set(false, forKey: UserDefaultsConstants.isMedicineNameCached)
+                   userDefaults.set(false, forKey: UserDefaultsConstants.isMedicineTypeCached)
+                   userDefaults.set(false, forKey: UserDefaultsConstants.isPaymentDetailsInfo)
+                   userDefaults.set(false, forKey: UserDefaultsConstants.isPharamacyCached)
+        
+        userDefaults.synchronize()
     }
     
     func checks()  {
@@ -374,6 +423,8 @@ class WelcomeVC: CustomBaseViewVC {
                 iNameFR.append(city.nameFr )
                 iIdData.append(city.id)
             })
+            
+            removeAll()
             
             userDefaults.set(radNameArray, forKey: UserDefaultsConstants.radiologyNameArray)
             userDefaults.set(radNameFR, forKey: UserDefaultsConstants.radiologyNameFRArray)

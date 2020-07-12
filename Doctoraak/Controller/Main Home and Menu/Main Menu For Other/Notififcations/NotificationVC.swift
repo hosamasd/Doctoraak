@@ -59,6 +59,9 @@ class NotificationVC: CustomBaseViewVC {
                 self.makeDeleteDOCNotify(index: 4, id: noty.id,index)
             }
         }
+        v.handleRefreshCollection = {[unowned self] in
+            self.getNotifications()
+        }
         return v
     }()
     lazy var customAlertLoginView:CustomAlertLoginView = {
@@ -199,6 +202,7 @@ class NotificationVC: CustomBaseViewVC {
             
             DispatchQueue.main.async {
                 self.reloadDocData(user: user)
+                self.customNotificationView.notificationsCollectionVC.refreshControl.endRefreshing()
             }
         }
     }
@@ -215,7 +219,7 @@ class NotificationVC: CustomBaseViewVC {
         dd.phy=self.phy
         dd.doctor=self.doctor
         dd.medicalCenter=self.medicalCenter
-
+        
         navigationController?.pushViewController(dd, animated: true)
     }
     

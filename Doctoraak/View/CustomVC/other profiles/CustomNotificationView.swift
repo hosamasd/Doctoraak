@@ -69,12 +69,16 @@ class CustomNotificationView: CustomBaseView {
         v.handledisplayRADNotification = {[unowned self] d, inPath,f in
             self.handledisplayRADNotification?(d,inPath,f)
         }
+        v.handleRefreshCollection = {[unowned self] in
+            self.handleRefreshCollection?()
+        }
         return v
     }()
     
     
     
-    
+    var handleRefreshCollection:(()->Void)?
+
     var handledisplayDOCNotification:((DOCTORNotificationModel,IndexPath,Bool)->Void)?
     var handledisplayRADNotification:((RadiologyNotificationModel,IndexPath,Bool)->Void)?
     var handledisplayLABNotification:((LABNotificationModel,IndexPath,Bool)->Void)?

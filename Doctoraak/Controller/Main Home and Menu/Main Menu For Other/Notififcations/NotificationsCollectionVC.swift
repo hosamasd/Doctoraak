@@ -10,7 +10,8 @@
 import UIKit
 
 class NotificationsCollectionVC: BaseCollectionVC {
-    
+     let refreshControl = UIRefreshControl()
+
     fileprivate  let cellID = "cellID"
     var index = 0
     /// an enum of type TableAnimation - determines the animation to be applied to the tableViewCells
@@ -26,6 +27,9 @@ class NotificationsCollectionVC: BaseCollectionVC {
     var handledisplayRADNotification:((RadiologyNotificationModel,IndexPath,Bool)->Void)?
     var handledisplayLABNotification:((LABNotificationModel,IndexPath,Bool)->Void)?
     var handledisplayPHYNotification:((PharmacyNotificationModel,IndexPath,Bool)->Void)?
+    
+    var handleRefreshCollection:(()->Void)?
+
     //        var handledisplayDOCNotification:((PatientNotificationModel,IndexPath)->Void)?
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -184,6 +188,16 @@ class NotificationsCollectionVC: BaseCollectionVC {
     
     override func setupCollection() {
         collectionView.backgroundColor = .white
+        collectionView.showsVerticalScrollIndicator=false
         collectionView.register(NotificationCell.self, forCellWithReuseIdentifier: cellID)
+        refreshControl.addTarget(self, action: #selector(didPullToRefresh), for: .valueChanged)
+           collectionView.alwaysBounceVertical = true
+           collectionView.refreshControl = refreshControl
+    }
+    
+   @objc func didPullToRefresh()  {
+    refreshControl.endRefreshing()
+        handleRefreshCollection?()
+   
     }
 }
