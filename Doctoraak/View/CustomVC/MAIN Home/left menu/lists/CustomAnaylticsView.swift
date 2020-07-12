@@ -26,14 +26,21 @@ class CustomAnaylticsView: CustomBaseView {
         return i
     }()
     lazy var drImage:UIImageView = {
-        let i = UIImageView(image: #imageLiteral(resourceName: "Group 3795"))
-        i.contentMode = .scaleToFill
-        i.clipsToBounds = true
-        i.constrainWidth(constant: 80)
-        //           i.constrainHeight(constant: 400)
-        return i
-    }()
-    lazy var docotrLabel = UILabel(text: "Doctoraak ".localized, font: .systemFont(ofSize: 20), textColor: .white,textAlignment: .center)
+           let i = UIImageView(image: #imageLiteral(resourceName: "Group 3795"))
+           i.contentMode = .scaleToFill
+           i.clipsToBounds = true
+           i.constrainWidth(constant: 80)
+           return i
+       }()
+       lazy var drInsuranceImage:UIImageView = {
+           let i = UIImageView(image: #imageLiteral(resourceName: "Group 3795"))
+           i.contentMode = .scaleToFill
+           i.clipsToBounds = true
+           i.constrainWidth(constant: 80)
+           i.isHide(true)
+           return i
+       }()
+       lazy var docotrLabel = UILabel(text: "Doctoraak ".localized, font: .systemFont(ofSize: 20), textColor: .white,textAlignment: .center)
     lazy var titleLabel = UILabel(text: "Anaylicts".localized, font: .systemFont(ofSize: 35), textColor: .white)
     
     lazy var mainWebView:WKWebView = {
@@ -43,9 +50,11 @@ class CustomAnaylticsView: CustomBaseView {
     }()
     
     override func setupViews() {
-        titleLabel.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left
+        let sss = getStack(views: drImage,docotrLabel,drInsuranceImage, spacing: 8, distribution: .fill, axis: .horizontal)
 
-        addSubViews(views: LogoImage,backImage,titleLabel,drImage,docotrLabel,mainWebView)
+        [titleLabel,docotrLabel].forEach({$0.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left})
+
+        addSubViews(views: LogoImage,backImage,sss,docotrLabel,mainWebView)
         
         
         if MOLHLanguage.isRTLLanguage() {
@@ -56,8 +65,8 @@ class CustomAnaylticsView: CustomBaseView {
         }
         backImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 60, left: 16, bottom: 0, right: 0))
         titleLabel.anchor(top: nil, leading: leadingAnchor, bottom: LogoImage.bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
-        drImage.anchor(top: topAnchor, leading: backImage.trailingAnchor, bottom: nil, trailing: nil,padding: .init(top: 60, left: 24, bottom: 0, right: 0))
-        docotrLabel.anchor(top: topAnchor, leading: drImage.trailingAnchor, bottom: nil, trailing: nil,padding: .init(top: 65, left: 16, bottom: 0, right: 0))
+        sss.anchor(top: topAnchor, leading: backImage.trailingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 60, left: 24, bottom: 0, right: 60))
+//        docotrLabel.anchor(top: topAnchor, leading: drImage.trailingAnchor, bottom: nil, trailing: nil,padding: .init(top: 65, left: 16, bottom: 0, right: 0))
         mainWebView.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 86, left: 16, bottom: 0, right: 0))
     }
 }

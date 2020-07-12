@@ -67,7 +67,7 @@ class HomeLeftMenuVC: CustomBaseViewVC {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        [lab,rad,phy].forEach({$0 == nil})
+        //        [lab,rad,phy].forEach({$0 == nil})
         if userDefaults.bool(forKey: UserDefaultsConstants.labPerformLogin) {
             lab = cacheLABObjectCodabe.storedValue
         }else if userDefaults.bool(forKey: UserDefaultsConstants.radiologyPerformLogin) {
@@ -76,6 +76,21 @@ class HomeLeftMenuVC: CustomBaseViewVC {
             phy = cachdPHARMACYObjectCodabe.storedValue
         }
     }
+    
+//    fileprivate func getObjects()  {
+//        if userDefaults.bool(forKey: UserDefaultsConstants.labPerformLogin) {
+//            lab = cacheLABObjectCodabe.storedValue
+//            userDefaults.bool(forKey: UserDefaultsConstants.isLABNotificationChanged) ? getNotifications() : ()
+//            
+//        }else if userDefaults.bool(forKey: UserDefaultsConstants.radiologyPerformLogin) {
+//            rad = cachdRADObjectCodabe.storedValue
+//            userDefaults.bool(forKey: UserDefaultsConstants.isRADNotificationChanged) ? getNotifications() : ()
+//            
+//        }else if userDefaults.bool(forKey: UserDefaultsConstants.pharamacyPerformLogin) {
+//            phy = cachdPHARMACYObjectCodabe.storedValue
+//            userDefaults.bool(forKey: UserDefaultsConstants.isPHYNotificationChanged) ? getNotifications() : ()
+//        }
+//    }
     
     //MARK: -user methods
     

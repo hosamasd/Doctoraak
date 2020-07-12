@@ -14,6 +14,8 @@ import SwiftUI
 
 class CustomUpdateSserProfileView: CustomBaseView {
     
+    
+    
     let mainView = UIView(backgroundColor: .white)
     let subView:UIView = {
         let v =  UIView(backgroundColor: .white)

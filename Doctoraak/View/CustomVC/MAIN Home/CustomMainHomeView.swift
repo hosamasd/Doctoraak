@@ -23,6 +23,8 @@ class CustomMainHomeView: CustomBaseView {
     var lab:LabModel?{
         didSet{
             guard let lab = lab else { return  }
+            //          guard  let urlString = lab.insuranceCompany.first?.photo
+            
             //                             customMainHomeLeftView.lab=lab
         }
     }
@@ -57,10 +59,17 @@ class CustomMainHomeView: CustomBaseView {
         i.contentMode = .scaleToFill
         i.clipsToBounds = true
         i.constrainWidth(constant: 80)
-        //           i.constrainHeight(constant: 400)
         return i
     }()
-    lazy var docotrLabel = UILabel(text: "Doctoraak ".localized, font: .systemFont(ofSize: 20), textColor: .white,textAlignment: .center)
+    lazy var drInsuranceImage:UIImageView = {
+        let i = UIImageView(image: #imageLiteral(resourceName: "Group 3795"))
+        i.contentMode = .scaleToFill
+        i.clipsToBounds = true
+        i.constrainWidth(constant: 80)
+        i.isHide(true)
+        return i
+    }()
+    lazy var docotrLabel = UILabel(text: "Doctoraak ".localized, font: .systemFont(ofSize: 20), textColor: .white,textAlignment: .left)
     lazy var notifyImage:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "ic_notifications_active_24px"))
         i.constrainWidth(constant: 30)
@@ -93,20 +102,23 @@ class CustomMainHomeView: CustomBaseView {
     var handledisplayPHYNotification:((PharmacyGetOrdersModel)->Void)?
     
     override func setupViews() {
-        titleLabel.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left
-        addSubViews(views: LogoImage,listImage,notifyImage,drImage,docotrLabel,titleLabel,topMainHomeCell,mainHomePatientsCollectionVC.view)
+        let sss = getStack(views: drImage,docotrLabel,drInsuranceImage, spacing: 8, distribution: .fill, axis: .horizontal)
+        
+        [titleLabel,docotrLabel].forEach({$0.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left})
+        addSubViews(views: LogoImage,listImage,notifyImage,sss,titleLabel,topMainHomeCell,mainHomePatientsCollectionVC.view)
         
         
         if MOLHLanguage.isRTLLanguage() {
-                LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 0, bottom: 0, right: -48))
-            }else {
-                
-                LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
-           }
+            LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 0, bottom: 0, right: -48))
+        }else {
+            
+            LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
+        }
         listImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 60, left: 16, bottom: 0, right: 0))
+        sss.anchor(top: topAnchor, leading: listImage.trailingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 60, left: 24, bottom: 0, right: 60))
         
-        drImage.anchor(top: topAnchor, leading: listImage.trailingAnchor, bottom: nil, trailing: nil,padding: .init(top: 60, left: 24, bottom: 0, right: 0))
-        docotrLabel.anchor(top: topAnchor, leading: drImage.trailingAnchor, bottom: nil, trailing: nil,padding: .init(top: 65, left: 16, bottom: 0, right: 0))
+        //        drImage.anchor(top: topAnchor, leading: listImage.trailingAnchor, bottom: nil, trailing: nil,padding: .init(top: 60, left: 24, bottom: 0, right: 0))
+        //        docotrLabel.anchor(top: topAnchor, leading: drImage.trailingAnchor, bottom: nil, trailing: nil,padding: .init(top: 65, left: 16, bottom: 0, right: 0))
         
         
         notifyImage.anchor(top: topAnchor, leading: nil, bottom: nil, trailing: trailingAnchor,padding: .init(top: 60, left: 0, bottom: 0, right: 16))

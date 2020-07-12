@@ -134,7 +134,7 @@ class NotificationVC: CustomBaseViewVC {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        navigationController?.navigationBar.isHide(true)
         getObjects()
         //        getNotifications()
     }
@@ -209,6 +209,13 @@ class NotificationVC: CustomBaseViewVC {
         dd.radOrderss = r
         dd.phyOrderss=s
         dd.docOrder=doc
+        
+        dd.lab=self.lab
+        dd.rad=self.rad
+        dd.phy=self.phy
+        dd.doctor=self.doctor
+        dd.medicalCenter=self.medicalCenter
+
         navigationController?.pushViewController(dd, animated: true)
     }
     

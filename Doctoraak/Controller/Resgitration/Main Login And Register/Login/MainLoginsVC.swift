@@ -10,6 +10,11 @@ import UIKit
 import SVProgressHUD
 import MOLH
 
+
+protocol MainLoginsProtocol {
+    func giveMainId(_ index:Int)
+}
+
 class MainLoginsVC: CustomBaseViewVC {
     
     lazy var customLoginsView:CustomLoginsView = {
@@ -43,6 +48,8 @@ class MainLoginsVC: CustomBaseViewVC {
         }
         return v
     }()
+    
+    
     
     //check to go specific way
     fileprivate let index:Int!

@@ -44,17 +44,17 @@ class OrdersServices {
     }
     
     func acceptRADORLABOrders(index:Int,api_token:String,user_id:Int,order_id:Int,completion: @escaping (MainAddFavoriteModel?, Error?) ->Void)  {
-        let urlString = "\(baseUrl)accept/order".toSecrueHttps()
-        let user_type = index == 0 ? "LAB" : "RADIOLOGY"
+        let urlString = "\(baseUrl)accept-order".toSecrueHttps()
+        let user_type = index == 2 ? "LAB" : "RADIOLOGY"
         
         guard  let url = URL(string: urlString) else { return  }
-        let postString = "api_token=\(api_token)&order_id=\(order_id)&user_id=\(user_id)&user_type=\(user_type)"
+        let postString = "api_token=\(api_token)&user_id=\(user_id)&order_id=\(order_id)&user_type=\(user_type)"
         MainServices.registerationPostMethodGeneric(postString: postString, url: url, completion: completion)
     }
     
     func cancelRADORLABOrders(message:String,index:Int,api_token:String,user_id:Int,order_id:Int,completion: @escaping (MainAddFavoriteModel?, Error?) ->Void)  {
-        let urlString = "\(baseUrl)cancel/order".toSecrueHttps()
-        let user_type = index == 0 ? "LAB" : "RADIOLOGY"
+        let urlString = "\(baseUrl)cancel-order".toSecrueHttps()
+        let user_type = index == 2 ? "LAB" : "RADIOLOGY"
         
         guard  let url = URL(string: urlString) else { return  }
         let postString = "api_token=\(api_token)&order_id=\(order_id)&user_id=\(user_id)&user_type=\(user_type)&message=\(message)"

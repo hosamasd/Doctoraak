@@ -35,7 +35,13 @@ class UserDefaultsConstants {
     static let isLABNotificationChanged="isLABNotificationChanged"
     static let isRADNotificationChanged="isRADNotificationChanged"
     static let isPHYNotificationChanged="isPHYNotificationChanged"
-
+    
+    static let acceptArrayDoc="acceptArrayDoc"
+    static let acceptArrayMedicalCenter="acceptArrayMedicalCenter"
+    static let acceptArrayLAB="acceptArrayLAB"
+    static let acceptArrayRAD="acceptArrayRAD"
+    static let acceptArrayPHY="acceptArrayPHY"
+    
     
     //cached working hours
     static let isLabWorkingHoursCached="isLabWorkingHoursCached"
@@ -248,23 +254,23 @@ class UserDefaultsConstants {
     //    static let isClinicWorkingHoursSaved = "isClinicWorkingHoursSaved"
     
     //for  working hours
-//    static let mainfirst1 = "mainfirst1"
-//    static let mainfirst11 = "mainfirst11"
-//    static let mainfirst2 = "mainfirst2"
-//    static let mainfirst21 = "mainfirst21"
-//    static let mainfirst3 = "mainfirst3"
-//    static let mainfirst31 = "mainfirst31"
-//    static let mainfirst4 = "mainfirst4"
-//    static let mainfirst41 = "mainfirst41"
-//    static let mainfirst5 = "mainmainfirst5"
-//    static let mainfirst51 = "mainfirst51"
-//    static let mainfirst6 = "mainfirst6"
-//    static let mainfirst61 = "mainfirst61"
-//    static let mainfirst7 = "mainfirst7"
-//    static let mainfirst71 = "mainfirst71"
-//
-//    static let mainday1 = "mainday1"            ; static let mainday2 = "day2"      ; static let mainday3 = "mainday3" ;  static let mainday4 = "mainday4"
-//    static let mainday5 = "mainday5"            ; static let mainday6 = "day6"      ; static let mainday7 = "mainday7"
+    //    static let mainfirst1 = "mainfirst1"
+    //    static let mainfirst11 = "mainfirst11"
+    //    static let mainfirst2 = "mainfirst2"
+    //    static let mainfirst21 = "mainfirst21"
+    //    static let mainfirst3 = "mainfirst3"
+    //    static let mainfirst31 = "mainfirst31"
+    //    static let mainfirst4 = "mainfirst4"
+    //    static let mainfirst41 = "mainfirst41"
+    //    static let mainfirst5 = "mainmainfirst5"
+    //    static let mainfirst51 = "mainfirst51"
+    //    static let mainfirst6 = "mainfirst6"
+    //    static let mainfirst61 = "mainfirst61"
+    //    static let mainfirst7 = "mainfirst7"
+    //    static let mainfirst71 = "mainfirst71"
+    //
+    //    static let mainday1 = "mainday1"            ; static let mainday2 = "day2"      ; static let mainday3 = "mainday3" ;  static let mainday4 = "mainday4"
+    //    static let mainday5 = "mainday5"            ; static let mainday6 = "day6"      ; static let mainday7 = "mainday7"
     
     static let isWorkingHoursSaved = "isWorkingHoursSaved"
     

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MOLH
 
 class CustomDoctorHomeView: CustomBaseView {
     
@@ -30,15 +31,22 @@ class CustomDoctorHomeView: CustomBaseView {
         
         return i
     }()
-    lazy var drImage:UIImageView = {
-        let i = UIImageView(image: #imageLiteral(resourceName: "Group 3795"))
-        i.contentMode = .scaleToFill
-        i.clipsToBounds = true
-        i.constrainWidth(constant: 80)
-        //           i.constrainHeight(constant: 400)
-        return i
-    }()
-    lazy var docotrLabel = UILabel(text: "Doctoraak ", font: .systemFont(ofSize: 20), textColor: .white,textAlignment: .center)
+   lazy var drImage:UIImageView = {
+           let i = UIImageView(image: #imageLiteral(resourceName: "Group 3795"))
+           i.contentMode = .scaleToFill
+           i.clipsToBounds = true
+           i.constrainWidth(constant: 80)
+           return i
+       }()
+       lazy var drInsuranceImage:UIImageView = {
+           let i = UIImageView(image: #imageLiteral(resourceName: "Group 3795"))
+           i.contentMode = .scaleToFill
+           i.clipsToBounds = true
+           i.constrainWidth(constant: 80)
+           i.isHide(true)
+           return i
+       }()
+       lazy var docotrLabel = UILabel(text: "Doctoraak ".localized, font: .systemFont(ofSize: 20), textColor: .white,textAlignment: .center)
     lazy var titleLabel = UILabel(text: "Home", font: .systemFont(ofSize: 30), textColor: .white)
     
     lazy var topDoctorHomeCell:TopDoctorHomeCell = {
@@ -72,15 +80,17 @@ class CustomDoctorHomeView: CustomBaseView {
     }
     
     override func setupViews() {
+        [docotrLabel].forEach({$0.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left})
+
         let ss = getStack(views: allButton,newButton,consultaionButton,continueButton, spacing: 8, distribution: .fillProportionally, axis: .horizontal)
         
-        addSubViews(views: LogoImage,listImage,notifyImage,drImage,docotrLabel,titleLabel,topDoctorHomeCell,ss,docotrCollectionView.view)
+        addSubViews(views: LogoImage,listImage,notifyImage,ss,titleLabel,topDoctorHomeCell,ss,docotrCollectionView.view)
         
         LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
         listImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 60, left: 16, bottom: 0, right: 0))
         
-        drImage.anchor(top: topAnchor, leading: listImage.trailingAnchor, bottom: nil, trailing: nil,padding: .init(top: 60, left: 24, bottom: 0, right: 0))
-        docotrLabel.anchor(top: topAnchor, leading: drImage.trailingAnchor, bottom: nil, trailing: nil,padding: .init(top: 65, left: 16, bottom: 0, right: 0))
+        ss.anchor(top: topAnchor, leading: listImage.trailingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 60, left: 24, bottom: 0, right: 60))
+//        docotrLabel.anchor(top: topAnchor, leading: drImage.trailingAnchor, bottom: nil, trailing: nil,padding: .init(top: 65, left: 16, bottom: 0, right: 0))
         
         notifyImage.anchor(top: topAnchor, leading: nil, bottom: nil, trailing: trailingAnchor,padding: .init(top: 60, left: 0, bottom: 0, right: 16))
         titleLabel.anchor(top: nil, leading: leadingAnchor, bottom: LogoImage.bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))

@@ -12,6 +12,8 @@ import MOLH
 
 class CustomSelectedPatientDataVC: CustomBaseView {
     
+    
+    
     var index:Int?  {
         didSet{
             guard let index=index else {return}
@@ -40,8 +42,8 @@ class CustomSelectedPatientDataVC: CustomBaseView {
             
             //            DispatchQueue.main.async {
             self.patientCell.patient = phy.patient
-            let acccepts = phy.accept == "0" ? false : true
-            bottomStack.isHide(acccepts)
+//            let itemFound = accepetArrayPHY.contains(phy.id)
+//            bottomStack.isHide(itemFound)
             
             selectedPatientDataPHYCollectionvc.notificationPHYArray = phy.details
             
@@ -58,10 +60,24 @@ class CustomSelectedPatientDataVC: CustomBaseView {
             
             //            DispatchQueue.main.async {
             self.patientCell.patient = phy.patient
-            let ss = phy.accept.int ?? 0
+//            let itemFound = accepetArrayRAD.contains(phy.id)
+//            bottomStack.isHide(itemFound)
+            selectedPatientDataPHYCollectionvc.notificationRADArray = phy.details
+            selectedPatientDataPHYCollectionvc.collectionView.reloadData()
+            let urlString = phy.photo
+            guard let url = URL(string: urlString) else { return  }
+            sampleRosetaImage.sd_setImage(with: url)
+        }
+    }
+    
+    var radOrders:RadiologyOrderModel?{
+        didSet{
+            guard let phy = radOrders else { return  }
             
-            let acccepts = ss == 0 ? false : true
-            bottomStack.isHide(acccepts)
+            //            DispatchQueue.main.async {
+            self.patientCell.patient = phy.patient
+//            let itemFound = accepetArrayRAD.contains(phy.id)
+//            bottomStack.isHide(itemFound)
             selectedPatientDataPHYCollectionvc.notificationRADArray = phy.details
             selectedPatientDataPHYCollectionvc.collectionView.reloadData()
             let urlString = phy.photo
@@ -74,11 +90,9 @@ class CustomSelectedPatientDataVC: CustomBaseView {
         didSet{
             guard let phy = lab else { return  }
             
-            //            DispatchQueue.main.async {
             self.patientCell.patient = phy.patient
-            let acccepts = phy.accept == "0" ? false : true
-            bottomStack.isHide(acccepts)
-            //            selectedPatientDataPHYCollectionvc.notificationLABArray = phy.details
+//            let itemFound = accepetArrayLAB.contains(phy.id)
+//            bottomStack.isHide(itemFound)
             selectedPatientDataPHYCollectionvc.notificationRADArray = phy.details
             
             selectedPatientDataPHYCollectionvc.collectionView.reloadData()
@@ -91,11 +105,9 @@ class CustomSelectedPatientDataVC: CustomBaseView {
     var labOrder:LABOrderModel?{
         didSet{
             guard let phy = labOrder else { return  }
-            
-            //            DispatchQueue.main.async {
             self.patientCell.patientLab = phy.patient
-            let acccepts = phy.accept == 0 ? false : true
-            bottomStack.isHide(acccepts)
+//            let itemFound = accepetArrayLAB.contains(phy.id)
+//            bottomStack.isHide(itemFound)
             selectedPatientDataPHYCollectionvc.notificationLABArray = phy.details
             selectedPatientDataPHYCollectionvc.collectionView.reloadData()
             let urlString = phy.photo
@@ -147,9 +159,46 @@ class CustomSelectedPatientDataVC: CustomBaseView {
         return v
     }()
     
-    var isAcceptOrRefused:Bool = false {
-        didSet {
-            bottomStack.isHide(isAcceptOrRefused)
+    //    var isAcceptOrRefused:Bool = false {
+    //        didSet {
+    //            bottomStack.isHide(isAcceptOrRefused)
+    //        }
+    //    }
+    var accepetArrayLAB:[Int]?  {
+        didSet{
+            guard let a = accepetArrayLAB else { return }
+            let itemFound = a.contains(labOrder?.id ?? -1)
+//            DispatchQueue.main.async {
+                self.bottomStack.isHide(itemFound)
+//            }
+        }
+    }
+    var accepetArrayRAD :[Int]?  {
+        didSet{
+            guard let a = accepetArrayRAD else { return }
+            let itemFound = a.contains(radOrders?.id ?? -1)
+            bottomStack.isHide(itemFound)
+        }
+    }
+    var accepetArrayPHY :[Int]?  {
+        didSet{
+            guard let a = accepetArrayPHY else { return }
+            let itemFound = a.contains(phy?.id ?? -1)
+            bottomStack.isHide(itemFound)
+        }
+    }
+    var accepetArrayDOC:[Int]?  {
+        didSet{
+            guard let a = accepetArrayDOC else { return }
+            let itemFound = a.contains(radOrders?.id ?? -1)
+            bottomStack.isHide(itemFound)
+        }
+    }
+    var accepetArrayMEDICALCENTER:[Int]?  {
+        didSet{
+            guard let a = accepetArrayMEDICALCENTER else { return }
+            let itemFound = a.contains(radOrders?.id ?? -1)
+            bottomStack.isHide(itemFound)
         }
     }
     

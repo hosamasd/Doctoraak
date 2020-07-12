@@ -223,6 +223,7 @@ class MainHomeVC: CustomBaseViewVC {
     
     
     override func setupViews()  {
+//        view.backgroundColor = .red
         view.addSubview(scrollView)
         scrollView.fillSuperview()
         scrollView.addSubview(mainView)

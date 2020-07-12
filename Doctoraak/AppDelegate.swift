@@ -23,8 +23,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate,MOLHResetable {
         userDefaults.set(true, forKey: UserDefaultsConstants.isPHYNotificationChanged)
         userDefaults.set(true, forKey: UserDefaultsConstants.isDoctorNotificationChanged)
         userDefaults.set(true, forKey: UserDefaultsConstants.isMedicalCenterNotificationChanged)
-        
-        userDefaults.set(false, forKey: UserDefaultsConstants.isdoctorWaitForAddClinic)
+//        userDefaults.set(false, forKey: UserDefaultsConstants.waitForSMSCodeForSpecific)
+//        userDefaults.set(false, forKey: UserDefaultsConstants.isdoctorWaitForAddClinic)
         
         userDefaults.set(false, forKey: UserDefaultsConstants.isAllMainHomeObjectsFetched)
         

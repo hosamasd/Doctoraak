@@ -51,6 +51,20 @@ class SelectedPharmacyPatientDataVC: CustomBaseViewVC {
         v.setupAnimation(name: "heart_loading")
         return v
     }()
+    lazy var customAlertMainLoodingssView:CustomUpdateSserProfileView = {
+        let v = CustomUpdateSserProfileView()
+        v.handleLogoutTap = {[unowned self] in
+            self.removeViewWithAnimation(vvv: self.customAlertMainLoodingssView)
+            self.customMainAlertVC.dismiss(animated: true)
+            self.makeAcceptOrder()
+        }
+        v.handleCancelTap = {[unowned self] in
+            self.removeViewWithAnimation(vvv: self.customAlertMainLoodingssView)
+            self.customMainAlertVC.dismiss(animated: true)
+        }
+        return v
+    }()
+    
     lazy var textView = UITextView(frame: CGRect.zero)
     var delgate:SelectedPharmacyPatientDataProtocol?
     var indexPath:IndexPath?
@@ -70,6 +84,19 @@ class SelectedPharmacyPatientDataVC: CustomBaseViewVC {
     var rad:RadiologyModel?{
         didSet{
             guard let lab = rad else { return  }
+            
+        }
+    }
+    var medicalCenter:DoctorModel?{
+        didSet{
+            guard let lab = medicalCenter else { return  }
+            //            userDefaults.bool(forKey: UserDefaultsConstants.isMedicalCenterNotificationChanged) ? getNotifications() : ()
+        }
+    }
+    var doctor:DoctorModel?{
+        didSet{
+            guard let lab = doctor else { return  }
+            //            userDefaults.bool(forKey: UserDefaultsConstants.isMedicalCenterNotificationChanged) ? getNotifications() : ()
         }
     }
     
@@ -135,6 +162,43 @@ class SelectedPharmacyPatientDataVC: CustomBaseViewVC {
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        getObjects()
+        getArrayDefaults()
+    }
+    
+    fileprivate func getArrayDefaults()  {
+        if let doc = userDefaults.value(forKey: UserDefaultsConstants.acceptArrayDoc) as? [Int] {
+            customSelectedPatientDataVC.accepetArrayDOC=doc.count > 0 ? doc.uniques : nil
+        }
+        if let doc = userDefaults.value(forKey: UserDefaultsConstants.acceptArrayRAD) as? [Int] {
+            customSelectedPatientDataVC.accepetArrayRAD=doc.count > 0 ? doc.uniques : nil
+        }
+        if let doc = userDefaults.value(forKey: UserDefaultsConstants.acceptArrayLAB) as? [Int] {
+            customSelectedPatientDataVC.accepetArrayLAB=doc.count > 0 ? doc.uniques : nil
+        }
+        if let doc = userDefaults.value(forKey: UserDefaultsConstants.acceptArrayPHY) as? [Int] {
+            customSelectedPatientDataVC.accepetArrayPHY=doc.count > 0 ? doc.uniques : nil
+        }
+        if let doc = userDefaults.value(forKey: UserDefaultsConstants.acceptArrayMedicalCenter) as? [Int] {
+            customSelectedPatientDataVC.accepetArrayMEDICALCENTER=doc.count > 0 ? doc.uniques : nil
+        }
+    }
+    
+    fileprivate func getObjects()  {
+        if userDefaults.bool(forKey: UserDefaultsConstants.labPerformLogin) {
+            lab = cacheLABObjectCodabe.storedValue
+        }else if userDefaults.bool(forKey: UserDefaultsConstants.radiologyPerformLogin) {
+            rad = cachdRADObjectCodabe.storedValue
+        }else if userDefaults.bool(forKey: UserDefaultsConstants.pharamacyPerformLogin) {
+            phy = cachdPHARMACYObjectCodabe.storedValue
+        }else if userDefaults.bool(forKey: UserDefaultsConstants.DoctorPerformLogin) {
+            doctor = cacheDoctorObjectCodabe.storedValue
+        }else if userDefaults.bool(forKey: UserDefaultsConstants.medicalCenterPerformLogin) {
+            medicalCenter = cacheMedicalObjectCodabe.storedValue
+        }
+    }
     
     //MARK:-User methods
     
@@ -178,7 +242,7 @@ class SelectedPharmacyPatientDataVC: CustomBaseViewVC {
             guard let user = base else {return}
             SVProgressHUD.showSuccess(withStatus: MOLHLanguage.isRTLLanguage() ? user.message : user.messageEn)
             self.customSelectedPatientDataVC.bottomStack.isHide(true)
-            self.makeAction()
+            self.makeAction(phy.pharmacyOrderID)
             
         }
     }
@@ -190,16 +254,16 @@ class SelectedPharmacyPatientDataVC: CustomBaseViewVC {
         var orderId:Int
         
         if indexx==2 {
-            guard let pharmacy = lab,let  phyy = labOrder else { return  }
+            guard let pharmacy = lab,let  phyy = labOrderss else { return  }
             apiToekn = pharmacy.apiToken
-            userId=phyy.id
-            orderId=phyy.labID
+            userId=pharmacy.id
+            orderId=phyy.id
             
         }else {
             guard let pharmacy = rad,let  phyy = radOrder else { return  }
             apiToekn = pharmacy.apiToken
-            userId=phyy.id
-            orderId=phyy.radiologyID
+            userId=pharmacy.id
+            orderId=phyy.id
             
         }
         UIApplication.shared.beginIgnoringInteractionEvents()
@@ -216,17 +280,39 @@ class SelectedPharmacyPatientDataVC: CustomBaseViewVC {
             self.activeViewsIfNoData()
             guard let user = base else {return}
             SVProgressHUD.showSuccess(withStatus: MOLHLanguage.isRTLLanguage() ? user.message : user.messageEn)
-            self.makeAction()
+            self.makeAction(orderId)
             //            self.customSelectedPatientDataVC.bottomStack.isHide(true)
             //            self.customSelectedPatientDataVC.isAcceptOrRefused = true
         }
     }
     
-    fileprivate func makeAction()  {
-        guard let indexPath = indexPath else { return  }
+    fileprivate func makeAction(_ id:Int)  {
+        if index==1 {
+            customSelectedPatientDataVC.accepetArrayMEDICALCENTER?.append(id)
+        }  else      if index==0 {
+            customSelectedPatientDataVC.accepetArrayDOC?.append(id)
+        }else      if index==2 {
+            customSelectedPatientDataVC.accepetArrayLAB?.append(id)
+        }else      if index==3 {
+            customSelectedPatientDataVC.accepetArrayRAD?.append(id)
+        }else    {
+            customSelectedPatientDataVC.accepetArrayPHY?.append(id)
+        }
         
-        delgate?.deletePHY(indexPath: indexPath, index: index)
-        navigationController?.popViewController(animated: true)
+        saveDefaULTS()
+        
+        DispatchQueue.main.async {
+            self.customSelectedPatientDataVC.bottomStack.isHide(true)
+        }
+    }
+    
+    fileprivate func saveDefaULTS()  {
+        userDefaults.set(customSelectedPatientDataVC.accepetArrayDOC, forKey: UserDefaultsConstants.acceptArrayDoc)
+        userDefaults.set(customSelectedPatientDataVC.accepetArrayLAB, forKey: UserDefaultsConstants.acceptArrayLAB)
+        userDefaults.set(customSelectedPatientDataVC.accepetArrayRAD, forKey: UserDefaultsConstants.acceptArrayRAD)
+        userDefaults.set(customSelectedPatientDataVC.accepetArrayPHY, forKey: UserDefaultsConstants.acceptArrayPHY)
+        userDefaults.set(customSelectedPatientDataVC.accepetArrayMEDICALCENTER, forKey: UserDefaultsConstants.acceptArrayMedicalCenter)
+        userDefaults.synchronize()
     }
     
     fileprivate  func createAlert(ind:Int)  {
@@ -286,7 +372,7 @@ class SelectedPharmacyPatientDataVC: CustomBaseViewVC {
             self.activeViewsIfNoData()
             guard let user = base else {return}
             SVProgressHUD.showSuccess(withStatus: MOLHLanguage.isRTLLanguage() ? user.message : user.messageEn)
-            self.makeAction()
+            self.makeAction(orderId)
             
         }
     }
@@ -306,6 +392,9 @@ class SelectedPharmacyPatientDataVC: CustomBaseViewVC {
         }
     }
     
+    func makeAcceptOrder()  {
+        index == 0 || index == 1 ? checkDoctorLoginState() : index == 4 ? acceptPharmacyOrders() :  acceptLABRADOrders(indexx:index)
+    }
     
     //TODO:-Handle methods
     
@@ -336,8 +425,12 @@ class SelectedPharmacyPatientDataVC: CustomBaseViewVC {
     
     
     @objc func handleAcceptOrder()  {
-        index == 0 || index == 1 ? checkDoctorLoginState() : index == 4 ? acceptPharmacyOrders() :  acceptLABRADOrders(indexx:index)
         
+        customMainAlertVC.addCustomViewInCenter(views: customAlertMainLoodingssView, height: 250)
+        customAlertMainLoodingssView.discriptionInfoLabel.text = "Are You Sure You Want To Accept Order?\n"
+        customAlertMainLoodingssView.okButton.setTitle("Accept", for: .normal)
+        present(customMainAlertVC, animated: true)
+        //        index == 0 || index == 1 ? checkDoctorLoginState() : index == 4 ? acceptPharmacyOrders() :  acceptLABRADOrders(indexx:index)
         
     }
     
