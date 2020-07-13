@@ -49,7 +49,7 @@ class UserDefaultsConstants {
     static let isPHYWorkingHoursCached="isPHYWorkingHoursCached"
     static let isDoctorWorkingHoursCached="isDoctorWorkingHoursCached"
     static let isMedicalCenterWorkingHoursCached="isMedicalCenterWorkingHoursCached"
-    
+    static let chhosedCachesWorkingHours="chhosedCachesWorkingHours"
     
     static let isWelcomeVCAppear="isWelcomeVCAppear"
     static let isCachedDriopLists = "isCachedDriopLists"

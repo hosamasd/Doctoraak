@@ -67,6 +67,31 @@ class MainClinicWorkingHoursNotDoctorVC: CustomBaseViewVC {
         }
     }
     
+    var cachedphy:[PharamacyWorkModel]?{
+           didSet{
+               guard let phy = cachedphy else { return  }
+               customClinicWorkingHoursView.workingHoursCachedPHY = phy
+
+           }
+       }
+       var cachedrad:[PharamacyWorkModel]?{
+           didSet{
+               guard let phyy = cachedrad else { return  }
+               customClinicWorkingHoursView.workingHoursCachedRAD = phyy
+               
+           }
+       }
+       var cachedlab:[PharamacyWorkModel]?{
+           didSet{
+               guard let phy = cachedlab else { return  }
+               customClinicWorkingHoursView.workingHoursCachedLAB = phy
+
+           }
+       }
+    
+    var isCacedNewValues = false
+    
+    
     fileprivate let index:Int!
     fileprivate let isBeenUpdated:Bool
     fileprivate let isFromRegister:Bool
@@ -89,20 +114,25 @@ class MainClinicWorkingHoursNotDoctorVC: CustomBaseViewVC {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if isFromRegister || isBeenUpdated{
+        if isFromRegister || isBeenUpdated && userDefaults.bool(forKey: UserDefaultsConstants.chhosedCachesWorkingHours) {
             
         
         if userDefaults.bool(forKey: UserDefaultsConstants.isLabWorkingHoursCached) {
             customClinicWorkingHoursView.workingHoursCachedLAB = cacheLABObjectWorkingHours.storedValue
+//            customClinicWorkingHoursView.workingHoursLAB=nil
+
         }else if userDefaults.bool(forKey: UserDefaultsConstants.isRADWorkingHoursCached) {
             customClinicWorkingHoursView.workingHoursCachedRAD = cachdRADObjectWorkingHours.storedValue
-            
+//            customClinicWorkingHoursView.workingHoursRAD=nil
         }else if userDefaults.bool(forKey: UserDefaultsConstants.isPHYWorkingHoursCached){
             customClinicWorkingHoursView.workingHoursCachedPHY = cachdPHARMACYObjectWorkingHours.storedValue
             
         }
         }else {
-            customClinicWorkingHoursView.workingHoursCachedLAB=nil;customClinicWorkingHoursView.workingHoursCachedRAD=nil;customClinicWorkingHoursView.workingHoursCachedPHY = nil
+//        }else if isBeenUpdated && isCacedNewValues{
+//            lab=nil;rad=nil;phy=nil
+//        }else {
+             customClinicWorkingHoursView.workingHoursCachedLAB=nil;customClinicWorkingHoursView.workingHoursCachedRAD=nil;customClinicWorkingHoursView.workingHoursCachedPHY = nil
         }
         
     }
@@ -165,6 +195,9 @@ class MainClinicWorkingHoursNotDoctorVC: CustomBaseViewVC {
             userDefaults.set(true, forKey: UserDefaultsConstants.isPHYWorkingHoursCached)
             userDefaults.synchronize()
         }
+        userDefaults.set(true, forKey: UserDefaultsConstants.chhosedCachesWorkingHours)
+
+        
           userDefaults.synchronize()
     }
     

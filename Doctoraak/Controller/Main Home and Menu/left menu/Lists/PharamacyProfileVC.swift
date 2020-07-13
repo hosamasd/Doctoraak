@@ -34,9 +34,11 @@ class PharamacyProfileVC: CustomBaseViewVC {
         v.handleChooseHours = {[unowned self] in
             let working = MainClinicWorkingHoursNotDoctorVC(index: self.index,isFromUpdateProfile:true,isFromRegister: false)
             working.delgate = self
-            working.lab=self.lab
+            if !userDefaults.bool(forKey: UserDefaultsConstants.chhosedCachesWorkingHours) {
+            working.lab = self.lab
             working.rad=self.rad
             working.phy=self.phy
+            }
             self.navigationController?.pushViewController(working, animated: true)
         }
         v.handlerChooseLocation = {[unowned self] in
@@ -166,6 +168,8 @@ class PharamacyProfileVC: CustomBaseViewVC {
         lab != nil ?    cacheLABObjectCodabe.save(lab!) : ()
         rad != nil ?    cachdRADObjectCodabe.save(rad!) : ()
         
+        userDefaults.set(false, forKey: UserDefaultsConstants.chhosedCachesWorkingHours)
+               userDefaults.synchronize()
     }
     
     fileprivate  func checkPharamacyLoginState()  {
@@ -267,8 +271,7 @@ class PharamacyProfileVC: CustomBaseViewVC {
     
     @objc func handleSave()  {
         index == 4 ? checkPharamacyLoginState() : index == 2 ? checkLabLoginState() : checkRadLoginState()
-        
-        
+       
         
     }
 }

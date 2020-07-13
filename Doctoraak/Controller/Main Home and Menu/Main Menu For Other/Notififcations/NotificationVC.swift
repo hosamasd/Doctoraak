@@ -13,6 +13,7 @@ import MOLH
 
 class NotificationVC: CustomBaseViewVC {
     
+    private let refreshControl = UIRefreshControl()
     
     lazy var scrollView: UIScrollView = {
         let v = UIScrollView()
@@ -60,7 +61,7 @@ class NotificationVC: CustomBaseViewVC {
             }
         }
         v.handleRefreshCollection = {[unowned self] in
-            self.getNotifications()
+            //            self.getNotifications()
         }
         return v
     }()
@@ -117,6 +118,7 @@ class NotificationVC: CustomBaseViewVC {
             
         }
     }
+    var isBeginFetchNotification = true
     
     fileprivate let isFromMenu:Bool!
     fileprivate let index:Int!
@@ -132,13 +134,21 @@ class NotificationVC: CustomBaseViewVC {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        getObjects()
+        //        refreshControl.addTarget(self, action: #selector(didPullToRefresh), for: .valueChanged)
+        //
+        //               scrollView.refreshControl = refreshControl
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        isBeginFetchNotification.toggle()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isHide(true)
-        getObjects()
+        //        getObjects()
         //        getNotifications()
     }
     
@@ -162,26 +172,34 @@ class NotificationVC: CustomBaseViewVC {
     fileprivate func getObjects()  {
         if userDefaults.bool(forKey: UserDefaultsConstants.labPerformLogin) {
             lab = cacheLABObjectCodabe.storedValue
-            userDefaults.bool(forKey: UserDefaultsConstants.isLABNotificationChanged) ? getNotifications() : ()
-            
+            //            userDefaults.bool(forKey: UserDefaultsConstants.isLABNotificationChanged) ? getNotifications() : ()
+            isBeginFetchNotification ? getNotifications() : ()
         }else if userDefaults.bool(forKey: UserDefaultsConstants.radiologyPerformLogin) {
             rad = cachdRADObjectCodabe.storedValue
-            userDefaults.bool(forKey: UserDefaultsConstants.isRADNotificationChanged) ? getNotifications() : ()
+            //            userDefaults.bool(forKey: UserDefaultsConstants.isRADNotificationChanged) ? getNotifications() : ()
+            isBeginFetchNotification ? getNotifications() : ()
             
         }else if userDefaults.bool(forKey: UserDefaultsConstants.pharamacyPerformLogin) {
             phy = cachdPHARMACYObjectCodabe.storedValue
-            userDefaults.bool(forKey: UserDefaultsConstants.isPHYNotificationChanged) ? getNotifications() : ()
+            isBeginFetchNotification ? getNotifications() : ()
+            
+            //            userDefaults.bool(forKey: UserDefaultsConstants.isPHYNotificationChanged) ? getNotifications() : ()
         }else if userDefaults.bool(forKey: UserDefaultsConstants.DoctorPerformLogin) {
             doctor = cacheDoctorObjectCodabe.storedValue
-            userDefaults.bool(forKey: UserDefaultsConstants.isDoctorNotificationChanged) ? getNotifications() : ()
+            isBeginFetchNotification ? getNotifications() : ()
+            
+            //            userDefaults.bool(forKey: UserDefaultsConstants.isDoctorNotificationChanged) ? getNotifications() : ()
         }else if userDefaults.bool(forKey: UserDefaultsConstants.medicalCenterPerformLogin) {
             medicalCenter = cacheMedicalObjectCodabe.storedValue
-            userDefaults.bool(forKey: UserDefaultsConstants.isMedicalCenterNotificationChanged) ? getNotifications() : ()
+            isBeginFetchNotification ? getNotifications() : ()
+            
+            //            userDefaults.bool(forKey: UserDefaultsConstants.isMedicalCenterNotificationChanged) ? getNotifications() : ()
         }
     }
     
     fileprivate func getNotifications()  {
         index == 0 || index == 1 ? getDoctNotifications() : index == 2 ? getLABtNotifications() : index == 3 ? getRADNotifications() : getPHYNotifications()
+        //        customNotificationView.notificationsCollectionVC.refreshControl.endRefreshing()
     }
     
     fileprivate func getDoctNotifications()  {
@@ -202,7 +220,7 @@ class NotificationVC: CustomBaseViewVC {
             
             DispatchQueue.main.async {
                 self.reloadDocData(user: user)
-                self.customNotificationView.notificationsCollectionVC.refreshControl.endRefreshing()
+                //                self.customNotificationView.notificationsCollectionVC.refreshControl.endRefreshing()
             }
         }
     }
@@ -283,15 +301,19 @@ class NotificationVC: CustomBaseViewVC {
             self.activeViewsIfNoData()
             guard let user = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
             
-            DispatchQueue.main.async {
-                self.reloadLABData(user: user)
-            }
+            //            DispatchQueue.main.async {
+            self.reloadLABData(user: user)
+            //            }
         }
     }
     
     fileprivate  func reloadLABData(user:[LABNotificationModel])  {
         self.customNotificationView.notificationsCollectionVC.notificationLABArray=user
         DispatchQueue.main.async {
+            //            self.customNotificationView.notificationsCollectionVC.refreshControl.endRefreshing()
+            //            self.customNotificationView.notificationsCollectionVC.collectionView.refreshControl=nil
+            //            self.customNotificationView.notificationsCollectionVC.collectionView.refreshControl?.removeFromSuperview()
+            
             self.customNotificationView.notificationsCollectionVC.collectionView.reloadData()
         }
         let ind = UserDefaultsConstants.isLABNotificationChanged
@@ -399,5 +421,10 @@ class NotificationVC: CustomBaseViewVC {
             self.dismiss(animated: true, completion: nil)
         }
     }
+    
+    //   @objc func didPullToRefresh()  {
+    //        print(9999)
+    //    }
 }
 
+//MARK:-EXtension

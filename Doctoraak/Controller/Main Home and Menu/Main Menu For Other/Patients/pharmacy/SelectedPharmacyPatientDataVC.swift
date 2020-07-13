@@ -67,6 +67,7 @@ class SelectedPharmacyPatientDataVC: CustomBaseViewVC {
     
     lazy var textView = UITextView(frame: CGRect.zero)
     var delgate:SelectedPharmacyPatientDataProtocol?
+
     var indexPath:IndexPath?
     
     
@@ -412,7 +413,6 @@ class SelectedPharmacyPatientDataVC: CustomBaseViewVC {
     
     
     @objc   func handleBack()  {
-        self.customSelectedPatientDataVC.okButton.isHide(false)
         navigationController?.popViewController(animated: true)
     }
     

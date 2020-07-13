@@ -10,7 +10,7 @@
 import UIKit
 
 class NotificationsCollectionVC: BaseCollectionVC {
-     let refreshControl = UIRefreshControl()
+//     let refreshControl = UIRefreshControl()
 
     fileprivate  let cellID = "cellID"
     var index = 0
@@ -190,14 +190,14 @@ class NotificationsCollectionVC: BaseCollectionVC {
         collectionView.backgroundColor = .white
         collectionView.showsVerticalScrollIndicator=false
         collectionView.register(NotificationCell.self, forCellWithReuseIdentifier: cellID)
-        refreshControl.addTarget(self, action: #selector(didPullToRefresh), for: .valueChanged)
+//        refreshControl.addTarget(self, action: #selector(didPullToRefresh), for: .valueChanged)
            collectionView.alwaysBounceVertical = true
-           collectionView.refreshControl = refreshControl
+//           collectionView.refreshControl = refreshControl
     }
     
-   @objc func didPullToRefresh()  {
-    refreshControl.endRefreshing()
-        handleRefreshCollection?()
-   
-    }
+//   @objc func didPullToRefresh()  {
+//    refreshControl.endRefreshing()
+//        handleRefreshCollection?()
+//   
+//    }
 }

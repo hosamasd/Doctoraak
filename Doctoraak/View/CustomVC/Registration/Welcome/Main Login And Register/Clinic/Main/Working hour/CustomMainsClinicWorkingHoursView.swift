@@ -54,6 +54,7 @@ class CustomMainClinicWorkingHoursView: CustomBaseView {
             guard let work = workingHoursCachedLAB else { return  }
             work.forEach { (w) in
                 putThesesCached(w: w)
+                putDefaultCachedMain(l: w)
             }
         }
     }
@@ -62,6 +63,7 @@ class CustomMainClinicWorkingHoursView: CustomBaseView {
         didSet{
             guard let work = workingHoursCachedRAD else { return  }
             work.forEach { (w) in
+                putDefaultCachedMain(l: w)
                 putThesesCached(w: w)
             }
         }
@@ -71,6 +73,7 @@ class CustomMainClinicWorkingHoursView: CustomBaseView {
         didSet{
             guard let work = workingHoursCachedPHY else { return  }
             work.forEach { (w) in
+                putDefaultCachedMain(l: w)
                 putThesesCached(w: w)
             }
         }
@@ -622,22 +625,67 @@ class CustomMainClinicWorkingHoursView: CustomBaseView {
         return v
     }
     
+    fileprivate func  putDefaultCachedMain(l:PharamacyWorkModel)  {
+        switch l.day {
+        case 1:
+            d1TXT1 = l.partFrom ; d1TXT2=l.partTo;day1=l.active
+            enableTextFields(enable: checkActiveDay(day1), tag: 1)
+        case 2:
+            d2TXT1 = l.partFrom ; d2TXT2=l.partTo;day2=l.active
+            enableTextFields(enable: checkActiveDay(day2), tag: 2)
+            
+        case 3:
+            d3TXT1 = l.partFrom ; d3TXT2=l.partTo;day3=l.active
+            enableTextFields(enable: checkActiveDay(day3), tag: 3)
+            
+        case 4:
+            d4TXT1 = l.partFrom ; d4TXT2=l.partTo;day4=l.active
+            enableTextFields(enable: checkActiveDay(day4), tag: 4)
+            
+        case 5:
+            d5TXT1 = l.partFrom ; d5TXT2=l.partTo;day5=l.active
+            enableTextFields(enable: checkActiveDay(day5), tag: 5)
+            
+        case 6:
+            d6TXT1 = l.partFrom ; d6TXT2=l.partTo;day6=l.active
+            enableTextFields(enable: checkActiveDay(day6), tag: 6)
+            
+        default:
+            d7TXT1 = l.partFrom ; d7TXT2=l.partTo;day7=l.active
+            enableTextFields(enable: checkActiveDay(day7), tag: 7)
+            
+        }
+    }
+    
     fileprivate func putDefaultLab(l:LabWorkingHoursModel)  {
         switch l.day {
         case 1:
             d1TXT1 = l.partFrom ; d1TXT2=l.partTo;day1=l.active
+            enableTextFields(enable: checkActiveDay(day1), tag: 1)
         case 2:
             d2TXT1 = l.partFrom ; d2TXT2=l.partTo;day2=l.active
+            enableTextFields(enable: checkActiveDay(day2), tag: 2)
+            
         case 3:
             d3TXT1 = l.partFrom ; d3TXT2=l.partTo;day3=l.active
+            enableTextFields(enable: checkActiveDay(day3), tag: 3)
+            
         case 4:
             d4TXT1 = l.partFrom ; d4TXT2=l.partTo;day4=l.active
+            enableTextFields(enable: checkActiveDay(day4), tag: 4)
+            
         case 5:
             d5TXT1 = l.partFrom ; d5TXT2=l.partTo;day5=l.active
+            enableTextFields(enable: checkActiveDay(day5), tag: 5)
+            
         case 6:
             d6TXT1 = l.partFrom ; d6TXT2=l.partTo;day6=l.active
+            enableTextFields(enable: checkActiveDay(day6), tag: 6)
+            
         default:
             d7TXT1 = l.partFrom ; d7TXT2=l.partTo;day7=l.active
+            enableTextFields(enable: checkActiveDay(day7), tag: 7)
+            
         }
     }
     
@@ -645,18 +693,31 @@ class CustomMainClinicWorkingHoursView: CustomBaseView {
         switch l.day {
         case 1:
             d1TXT1 = l.partFrom ; d1TXT2=l.partTo;day1=l.active
+            enableTextFields(enable: checkActiveDay(day1), tag: 1)
         case 2:
             d2TXT1 = l.partFrom ; d2TXT2=l.partTo;day2=l.active
+            enableTextFields(enable: checkActiveDay(day2), tag: 2)
+            
         case 3:
             d3TXT1 = l.partFrom ; d3TXT2=l.partTo;day3=l.active
+            enableTextFields(enable: checkActiveDay(day3), tag: 3)
+            
         case 4:
             d4TXT1 = l.partFrom ; d4TXT2=l.partTo;day4=l.active
+            enableTextFields(enable: checkActiveDay(day4), tag: 4)
+            
         case 5:
             d5TXT1 = l.partFrom ; d5TXT2=l.partTo;day5=l.active
+            enableTextFields(enable: checkActiveDay(day5), tag: 5)
+            
         case 6:
             d6TXT1 = l.partFrom ; d6TXT2=l.partTo;day6=l.active
+            enableTextFields(enable: checkActiveDay(day6), tag: 6)
+            
         default:
             d7TXT1 = l.partFrom ; d7TXT2=l.partTo;day7=l.active
+            enableTextFields(enable: checkActiveDay(day7), tag: 7)
+            
         }
     }
     
@@ -664,18 +725,31 @@ class CustomMainClinicWorkingHoursView: CustomBaseView {
         switch l.day {
         case 1:
             d1TXT1 = l.partFrom ; d1TXT2=l.partTo;day1=l.active
+            enableTextFields(enable: checkActiveDay(day1), tag: 1)
         case 2:
             d2TXT1 = l.partFrom ; d2TXT2=l.partTo;day2=l.active
+            enableTextFields(enable: checkActiveDay(day2), tag: 2)
+            
         case 3:
             d3TXT1 = l.partFrom ; d3TXT2=l.partTo;day3=l.active
+            enableTextFields(enable: checkActiveDay(day3), tag: 3)
+            
         case 4:
             d4TXT1 = l.partFrom ; d4TXT2=l.partTo;day4=l.active
+            enableTextFields(enable: checkActiveDay(day4), tag: 4)
+            
         case 5:
             d5TXT1 = l.partFrom ; d5TXT2=l.partTo;day5=l.active
+            enableTextFields(enable: checkActiveDay(day5), tag: 5)
+            
         case 6:
             d6TXT1 = l.partFrom ; d6TXT2=l.partTo;day6=l.active
+            enableTextFields(enable: checkActiveDay(day6), tag: 6)
+            
         default:
             d7TXT1 = l.partFrom ; d7TXT2=l.partTo;day7=l.active
+            enableTextFields(enable: checkActiveDay(day7), tag: 7)
+            
         }
     }
     
@@ -701,12 +775,17 @@ class CustomMainClinicWorkingHoursView: CustomBaseView {
         }
         var ppp = "am"
         guard var hours = values.removeSubstringAfterOrBefore(needle: ":", beforeNeedle: true)?.toInt()  else { return "" }
-        guard let minute = values.removeSubstringAfterOrBefore(needle: ":", beforeNeedle: false)  else { return "" }
+        guard let minutes = values.removeSubstringAfterOrBefore(needle: ":", beforeNeedle: false)  else { return "" }
+        guard let minute = minutes.removeSubstringAfterOrBefore(needle: ":", beforeNeedle: false)  else { return getValues(ppp: &ppp, hours: &hours, minute: minutes) }
         
+        return getValues(ppp: &ppp, hours: &hours, minute: minute)
+        
+    }
+    
+    func getValues(ppp: inout String,hours : inout Int,minute:String) -> String {
         ppp = hours > 12 ? "pm" : "am"
         hours =   hours > 12 ? hours - 12 : hours
         return "\(hours):\(minute) \(ppp)"
-        
     }
     
     fileprivate func activeOrNot(v:UIButton,d:Int)  {

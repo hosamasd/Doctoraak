@@ -25,6 +25,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate,MOLHResetable {
         userDefaults.set(true, forKey: UserDefaultsConstants.isPHYNotificationChanged)
         userDefaults.set(true, forKey: UserDefaultsConstants.isDoctorNotificationChanged)
         userDefaults.set(true, forKey: UserDefaultsConstants.isMedicalCenterNotificationChanged)
+        userDefaults.set(false, forKey: UserDefaultsConstants.chhosedCachesWorkingHours)
+
 //        userDefaults.set(false, forKey: UserDefaultsConstants.waitForSMSCodeForSpecific)
 //        userDefaults.set(false, forKey: UserDefaultsConstants.isdoctorWaitForAddClinic)
         
@@ -83,7 +85,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,MOLHResetable {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         userDefaults.set(true, forKey: UserDefaultsConstants.isWelcomeVCAppear)
         userDefaults.set(false, forKey: UserDefaultsConstants.isCachedDriopLists)
-
+        userDefaults.set(false, forKey: UserDefaultsConstants.chhosedCachesWorkingHours)
         userDefaults.synchronize()
     }
     
