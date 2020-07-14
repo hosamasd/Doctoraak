@@ -22,4 +22,5 @@ pod 'SCLAlertView'
 
 pod 'GoogleMaps'
 pod 'GooglePlaces'
+  pod 'GooglePlacePicker'
 end

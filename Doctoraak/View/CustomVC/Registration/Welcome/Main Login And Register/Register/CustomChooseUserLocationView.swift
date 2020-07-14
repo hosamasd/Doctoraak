@@ -11,6 +11,8 @@ import UIKit
 import MapKit
 import CoreLocation
 import MOLH
+import GoogleMaps
+
 class CustomChooseUserLocationView: CustomBaseView {
     
     
@@ -22,18 +24,18 @@ class CustomChooseUserLocationView: CustomBaseView {
         i.isUserInteractionEnabled = true
         return i
     }()
-    lazy var mapView:MKMapView  = {
-        let i = MKMapView()
-        i.showsUserLocation = true
-        return i
-    }()
+    lazy var mapView:GMSMapView  = {
+           let i = GMSMapView()
+           i.padding = UIEdgeInsets(top: 0, left: 0, bottom: 80, right: 0)
+           return i
+       }()
     lazy var searchView:UIView = {
         let v = makeMainSubViewWithAppendView(vv: [searchImage,searchLabel])
         v.constrainHeight(constant: 60)
-        v.hstack(searchImage,searchLabel,UIView(),spacing:32).padLeft(16)
+        v.hstack(searchImage,searchLabel,spacing:32).padLeft(16)
         return v
     }()
-    lazy var searchLabel = UILabel(text: "Search...", font: .systemFont(ofSize: 25), textColor: .lightGray)
+    lazy var searchLabel = UILabel(text: "Search...", font: .systemFont(ofSize: 25), textColor: .lightGray,numberOfLines: 2)
     lazy var searchImage:UIImageView = {
         let b = UIImageView(image: #imageLiteral(resourceName: "loupe"))
         b.contentMode = .scaleAspectFit

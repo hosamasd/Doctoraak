@@ -12,6 +12,8 @@
 import UIKit
 import SVProgressHUD
 import MapKit
+import GooglePlaces
+import GoogleMaps
 
 protocol ChooseLocationVCProtocol {
     func getLatAndLong(lat:Double,long:Double)
@@ -25,7 +27,7 @@ class ChooseLocationVC: CustomBaseViewVC {
         v.mapView.delegate = self
         v.infoImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleInfo)))
         v.doneButton.addTarget(self, action: #selector(handleDone), for: .touchUpInside)
-        //        i.
+        v.searchView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(showGooglePlaces)))
         return v
     }()
     private let locationManager = CLLocationManager()
@@ -35,12 +37,6 @@ class ChooseLocationVC: CustomBaseViewVC {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let lpgr = UILongPressGestureRecognizer(target: self,
-                                                action:#selector(self.handleLongPress))
-        lpgr.minimumPressDuration = 1
-        lpgr.delaysTouchesBegan = true
-        //        lpgr.delegate = self
-        customChooseUserLocationView.mapView.addGestureRecognizer(lpgr)
         getUserLocation()
         setupViews()
     }
@@ -49,6 +45,11 @@ class ChooseLocationVC: CustomBaseViewVC {
     
     //MARK:-User methods
     
+    func appearAutoComplete()  {
+        let acController = GMSAutocompleteViewController()
+        acController.delegate = self
+        present(acController, animated: true, completion: nil)
+    }
     
     override func setupNavigation() {
         navigationController?.navigationBar.isHide(true)
@@ -58,15 +59,8 @@ class ChooseLocationVC: CustomBaseViewVC {
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        //        locationManager.startUpdatingLocation()
+        locationManager.startUpdatingLocation()
         
-    }
-    
-    func addAnnotation(coordinate:CLLocationCoordinate2D){
-        customChooseUserLocationView.mapView.removeAnnotations(customChooseUserLocationView.mapView.annotations)
-        let annotation = MKPointAnnotation()
-        annotation.coordinate = coordinate
-        customChooseUserLocationView.mapView.addAnnotation(annotation)
     }
     
     //TODO:-Handle methods
@@ -81,10 +75,6 @@ class ChooseLocationVC: CustomBaseViewVC {
         let annote = MKPointAnnotation()
         annote.title = "your location"
         annote.coordinate = coordinate
-        customChooseUserLocationView.mapView.addAnnotation(annote)
-        
-        
-        customChooseUserLocationView.mapView.showAnnotations(customChooseUserLocationView.mapView.annotations, animated: true)
     }
     
     @objc fileprivate func handleInfo()  {
@@ -104,21 +94,29 @@ class ChooseLocationVC: CustomBaseViewVC {
         
     }
     
-    @objc func handleLongPress(gestureRecognizer: UILongPressGestureRecognizer) {
-        
-        if gestureRecognizer.state == .ended{
-            let locationInView = gestureRecognizer.location(in: customChooseUserLocationView.mapView)
-            let tappedCoordinate = customChooseUserLocationView.mapView.convert(locationInView, toCoordinateFrom: customChooseUserLocationView.mapView)
-            addAnnotation(coordinate: tappedCoordinate)
-        }
-        
+    @objc func showGooglePlaces()  {
+        appearAutoComplete()
     }
+    
     
 }
 
 //MARK:-Extensions
 
-extension ChooseLocationVC:MKMapViewDelegate  {
+extension ChooseLocationVC : GMSMapViewDelegate {
+    
+    func mapView(_ mapView: GMSMapView, didLongPressAt coordinate: CLLocationCoordinate2D) {
+        customChooseUserLocationView.mapView.clear()
+        let camera = GMSCameraPosition.camera(withLatitude: coordinate.latitude, longitude: coordinate.longitude, zoom: 13.0)
+        currentLat = coordinate.latitude
+        currentLong = coordinate.longitude
+        customChooseUserLocationView.mapView.camera = camera
+        
+        let marker = GMSMarker()
+        marker.title = "Your Location"
+        marker.position = CLLocationCoordinate2D(latitude: coordinate.latitude, longitude: coordinate.longitude)
+        marker.map = customChooseUserLocationView.mapView
+    }
 }
 
 //MARK:-extension
@@ -136,15 +134,52 @@ extension ChooseLocationVC: CLLocationManagerDelegate{
     }
     
     
+    fileprivate func getYourLocation(_ userLocation: CLLocation) {
+        let camera = GMSCameraPosition.camera(withLatitude: userLocation.coordinate.latitude,
+                                              longitude: userLocation.coordinate.longitude, zoom: 13.0)
+        customChooseUserLocationView.mapView.camera = camera
+        let marker = GMSMarker()
+        marker.title = "Your Location"
+        
+        marker.position = CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude)
+        marker.map = customChooseUserLocationView.mapView
+    }
+    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard  let userLocation = locations.last else {return}
         currentLat = userLocation.coordinate.latitude
         currentLong = userLocation.coordinate.longitude
         
-        let region = MKCoordinateRegion(center: userLocation.coordinate, latitudinalMeters: 0.2, longitudinalMeters: 0.2)
-        customChooseUserLocationView.mapView.setRegion(region, animated: true)
-        setupAnnotaiotn(coordinate: userLocation.coordinate)
+        getYourLocation(userLocation)
+        
         locationManager.stopUpdatingLocation()
     }
 }
 
+
+
+extension ChooseLocationVC: GMSAutocompleteViewControllerDelegate {
+    
+    // Handle the user's selection.
+    func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
+        let co = place.coordinate
+        let placesss = CLLocation(latitude: co.latitude, longitude: co.longitude)
+        
+        getYourLocation(placesss)
+        customChooseUserLocationView.searchLabel.text = place.formattedAddress
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func viewController(_ viewController: GMSAutocompleteViewController, didFailAutocompleteWithError error: Error) {
+        // TODO: handle the error.
+        print("Error: \(error)")
+        dismiss(animated: true, completion: nil)
+    }
+    
+    // User cancelled the operation.
+    func wasCancelled(_ viewController: GMSAutocompleteViewController) {
+        print("Autocomplete was cancelled.")
+        dismiss(animated: true, completion: nil)
+        
+    }
+}

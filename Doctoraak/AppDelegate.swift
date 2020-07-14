@@ -9,6 +9,10 @@
 import UIKit
 import IQKeyboardManagerSwift
 import MOLH
+import GoogleMaps
+import GooglePlaces
+
+let googleAPIKEY = "AIzaSyD4ow5PXyqH-gJwe2rzihxG71prgt4NRFQ"
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate,MOLHResetable {
@@ -37,6 +41,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate,MOLHResetable {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization aft/Users/hosam/Documents/xcode projects/syphinx/Doctoraak/Doctoraak.xcodeprojer application launch.
+               GMSServices.provideAPIKey(googleAPIKEY)
+        GMSPlacesClient.provideAPIKey(googleAPIKEY)
         keyboardChanges()
         setDefaults()
         
