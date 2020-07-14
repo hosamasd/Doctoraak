@@ -41,7 +41,7 @@ class DoctorClinicDataVC: CustomBaseViewVC {
             self.handleChooseWorkingHours()
         }
         v.handlerChooseLocation = {[unowned self] in
-            let loct = ChooseLocationVC()
+            let loct = ChooseLocationVC(isFromUpdate: false)
             loct.delgate = self
             self.navigationController?.pushViewController(loct, animated: true)
         }

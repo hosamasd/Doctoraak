@@ -21,6 +21,7 @@ protocol ChooseLocationVCProtocol {
 class ChooseLocationVC: CustomBaseViewVC {
     
     
+    
     lazy var customChooseUserLocationView:CustomChooseUserLocationView = {
         let v = CustomChooseUserLocationView()
         
@@ -35,9 +36,61 @@ class ChooseLocationVC: CustomBaseViewVC {
     var currentLat:Double?
     var currentLong:Double?
     
+    var phy:PharamacyModel?{
+        didSet{
+            guard let phy = phy,let lat=phy.latt?.toDouble(),let lng=phy.lang?.toDouble() else { return  }
+            let coordinate = CLLocationCoordinate2D(latitude: lat, longitude: lng)
+            setupAnnotaiotn(coordinate: coordinate)
+        }
+    }
+    //       var doctor:DoctorModel?{
+    //           didSet{
+    //                guard let phy = phy,let lat=phy.latt?.toDouble(),let lng=phy.lang?.toDouble() else { return  }
+    //                          let coordinate = CLLocationCoordinate2D(latitude: lat, longitude: lng)
+    //                          setupAnnotaiotn(coordinate: coordinate)
+    //                          }
+    //          }
+    //       }
+    //       var medicalCenter:DoctorModel?{
+    //           didSet{
+    //               guard let phy = phy,let lat=phy.latt?.toDouble(),let lng=phy.lang?.toDouble() else { return  }
+    //                          let coordinate = CLLocationCoordinate2D(latitude: lat, longitude: lng)
+    //                          setupAnnotaiotn(coordinate: coordinate)
+    //                          }
+    //           }
+    //       }
+    var lab:LabModel?{
+        didSet{
+            guard let phy = lab,let lat=phy.latt.toDouble(),let lng=phy.lang.toDouble() else { return  }
+            let coordinate = CLLocationCoordinate2D(latitude: lat, longitude: lng)
+            setupAnnotaiotn(coordinate: coordinate)
+        }
+    }
+    
+    var rad:RadiologyModel?{
+        didSet{
+            guard let phy = rad,let lat=phy.latt.toDouble(),let lng=phy.lang.toDouble() else { return  }
+            let coordinate = CLLocationCoordinate2D(latitude: lat, longitude: lng)
+            setupAnnotaiotn(coordinate: coordinate)
+        }
+    }
+    
+    var isGetLocation = false
+    
+    fileprivate let isFromUpdate:Bool!
+    
+    init( isFromUpdate:Bool) {
+        self.isFromUpdate=isFromUpdate
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        getUserLocation()
+        !isGetLocation ? () : getUserLocation()
+        
+        //        isFromUpdate ? () : getUserLocation()
         setupViews()
     }
     
@@ -60,6 +113,7 @@ class ChooseLocationVC: CustomBaseViewVC {
         locationManager.requestWhenInUseAuthorization()
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.startUpdatingLocation()
+        isGetLocation=true
         
     }
     
@@ -75,6 +129,7 @@ class ChooseLocationVC: CustomBaseViewVC {
         let annote = MKPointAnnotation()
         annote.title = "your location"
         annote.coordinate = coordinate
+        isGetLocation=true
     }
     
     @objc fileprivate func handleInfo()  {
@@ -98,6 +153,9 @@ class ChooseLocationVC: CustomBaseViewVC {
         appearAutoComplete()
     }
     
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
 }
 

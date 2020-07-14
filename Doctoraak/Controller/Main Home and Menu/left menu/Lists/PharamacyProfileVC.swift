@@ -42,8 +42,14 @@ class PharamacyProfileVC: CustomBaseViewVC {
             self.navigationController?.pushViewController(working, animated: true)
         }
         v.handlerChooseLocation = {[unowned self] in
-            let loct = ChooseLocationVC()
+            let loct = ChooseLocationVC(isFromUpdate: true)
             loct.delgate = self
+            loct.lab = self.lab
+                       loct.rad=self.rad
+                       loct.phy=self.phy
+//            loct.phy = cachdPHARMACYObjectCodabe.storedValue //self.phy
+//            loct.lab=cacheLABObjectCodabe.storedValue
+//            loct.rad=cachdRADObjectCodabe.storedValue
             self.navigationController?.pushViewController(loct, animated: true)
         }
         return v
