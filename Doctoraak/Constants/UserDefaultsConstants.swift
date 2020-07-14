@@ -67,6 +67,8 @@ class UserDefaultsConstants {
     
     static let mainCurrentUserApiToken="mainCurrentUserApiToken"
     static let MainLoginINDEX="MainLoginINDEX"
+    static let currentUserLoginInAPP="currentUserLoginInAPP"
+
     //welcome
     static let isCityCached="isCityCached"
     static let isAreaCached="isAreaCached"

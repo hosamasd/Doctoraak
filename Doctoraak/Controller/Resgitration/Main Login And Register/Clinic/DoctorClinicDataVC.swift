@@ -190,6 +190,8 @@ class DoctorClinicDataVC: CustomBaseViewVC {
   fileprivate  func updateStates(_ clinic_id:Int,index:Int)  {
         userDefaults.removeObject(forKey: UserDefaultsConstants.indexForSMSCodeForSpecific)
             userDefaults.removeObject(forKey: UserDefaultsConstants.user_idForAll)
+    userDefaults.set(true, forKey: UserDefaultsConstants.currentUserLoginInAPP)
+
         userDefaults.synchronize()
     }
     

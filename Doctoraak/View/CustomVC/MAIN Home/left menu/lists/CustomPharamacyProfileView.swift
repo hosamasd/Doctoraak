@@ -266,8 +266,8 @@ class CustomPharamacyProfileView: CustomBaseView {
     
     override func setupViews() {
         [titleLabel,insuracneText,addressLabel,workingHoursLabel,deliveryLabel].forEach({$0.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left})
-        
-        
+        [fullNameTextField,emailTextField].forEach({$0.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)})
+
         
         [mobileNumberTextField,emailTextField].forEach({$0.isUserInteractionEnabled=false})
         

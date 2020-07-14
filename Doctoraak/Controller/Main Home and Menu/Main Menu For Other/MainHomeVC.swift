@@ -27,6 +27,7 @@ class MainHomeVC: CustomBaseViewVC {
     lazy var customMainHomeView:CustomMainHomeView = {
         let v = CustomMainHomeView()
         v.index=index
+        
         v.listImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpenMenu)))
         v.notifyImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpenNotifications)))
         v.handledisplayRADNotification = {[unowned self] noty,ind in
@@ -88,6 +89,7 @@ class MainHomeVC: CustomBaseViewVC {
     var lab:LabModel?{
         didSet{
             guard let lab = lab else { return  }
+            customMainHomeView.lab=lab
             customMainHomeView.topMainHomeCell.lab=lab
             //            fetchOrders()
             userDefaults.bool(forKey: UserDefaultsConstants.isAllMainHomeObjectsFetched) ? () : fetchOrders()
@@ -98,6 +100,7 @@ class MainHomeVC: CustomBaseViewVC {
     var phy:PharamacyModel?{
         didSet{
             guard let phy = phy else { return  }
+            customMainHomeView.phy=phy
             customMainHomeView.topMainHomeCell.phy=phy
             //            fetchOrders()
             userDefaults.bool(forKey: UserDefaultsConstants.isAllMainHomeObjectsFetched) ? () : fetchOrders()
@@ -108,6 +111,7 @@ class MainHomeVC: CustomBaseViewVC {
     var rad:RadiologyModel?{
         didSet{
             guard let lab = rad else { return  }
+            customMainHomeView.rad=lab
             customMainHomeView.topMainHomeCell.rad=lab
             //            fetchOrders()
             

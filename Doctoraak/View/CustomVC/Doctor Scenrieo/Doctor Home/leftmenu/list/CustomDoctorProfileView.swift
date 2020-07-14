@@ -219,6 +219,7 @@ class CustomDoctorProfileView: CustomBaseView {
         [titleLabel].forEach({$0.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left})
         
         
+        
         [mobileNumberTextField].forEach({$0.isUserInteractionEnabled=false})
         
         

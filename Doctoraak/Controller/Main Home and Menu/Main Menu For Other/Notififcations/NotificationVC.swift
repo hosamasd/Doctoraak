@@ -89,6 +89,8 @@ class NotificationVC: CustomBaseViewVC {
     var phy:PharamacyModel?{
         didSet{
             guard let phy = phy else { return  }
+            customNotificationView.phy=phy
+            
             //            userDefaults.bool(forKey: UserDefaultsConstants.isPHYNotificationChanged) ? getNotifications() : ()
             
         }
@@ -96,24 +98,29 @@ class NotificationVC: CustomBaseViewVC {
     var doctor:DoctorModel?{
         didSet{
             guard let lab = doctor else { return  }
+            customNotificationView.doctor=lab
             userDefaults.bool(forKey: UserDefaultsConstants.isDoctorNotificationChanged) ? getNotifications() : ()
         }
     }
     var medicalCenter:DoctorModel?{
         didSet{
             guard let lab = medicalCenter else { return  }
+            customNotificationView.medicalCenter=lab
             //            userDefaults.bool(forKey: UserDefaultsConstants.isMedicalCenterNotificationChanged) ? getNotifications() : ()
         }
     }
     var lab:LabModel?{
         didSet{
             guard let lab = lab else { return  }
+            customNotificationView.lab=lab
             //            userDefaults.bool(forKey: UserDefaultsConstants.isLABNotificationChanged) ? getNotifications() : ()
         }
     }
     var rad:RadiologyModel?{
         didSet{
             guard let lab = rad else { return  }
+            customNotificationView.rad=lab
+            
             //            userDefaults.bool(forKey: UserDefaultsConstants.isRADNotificationChanged) ? getNotifications() : ()
             
         }

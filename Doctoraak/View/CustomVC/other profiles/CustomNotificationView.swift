@@ -9,6 +9,7 @@
 
 import UIKit
 import MOLH
+import SDWebImage
 
 class CustomNotificationView: CustomBaseView {
     
@@ -16,6 +17,61 @@ class CustomNotificationView: CustomBaseView {
         didSet{
             guard let index = index else { return }
             notificationsCollectionVC.index=index
+        }
+    }
+    var doctor:DoctorModel?{
+        didSet{
+            guard let lab = doctor else { return  }
+            
+            guard let ll = lab.insuranceCompany?.first(where: {$0.id==1}) else {return}
+            let urlString = ll.photo
+            guard let url = URL(string: urlString) else { return  }
+            drInsuranceImage.sd_setImage(with: url)
+            drInsuranceImage.isHide(false)
+        }
+    }
+    var medicalCenter:DoctorModel?{
+        didSet{
+            guard let lab = medicalCenter else { return  }
+            
+            guard let ll = lab.insuranceCompany?.first(where: {$0.id==1})  else {return}
+            let urlString = ll.photo
+            guard let url = URL(string: urlString) else { return  }
+            drInsuranceImage.sd_setImage(with: url)
+            drInsuranceImage.isHide(false)
+        }
+    }
+    
+    var lab:LabModel?{
+        didSet{
+            guard let lab = lab else { return  }
+            
+            guard let ll = lab.insuranceCompany.first(where: {$0.id==1}) else {return}
+            let urlString = ll.photo
+            guard let url = URL(string: urlString) else { return  }
+            drInsuranceImage.sd_setImage(with: url)
+            drInsuranceImage.isHide(false)
+        }
+    }
+    var phy:PharamacyModel?{
+        didSet{
+            guard let phy = phy else { return  }
+            guard let ll = phy.insuranceCompany.first(where: {$0.id==1}) else {return}
+            let urlString = ll.photo
+            guard let url = URL(string: urlString) else { return  }
+            drInsuranceImage.sd_setImage(with: url)
+            drInsuranceImage.isHide(false)
+        }
+    }
+    var rad:RadiologyModel?{
+        didSet{
+            guard let lab = rad else { return  }
+            guard let ll = lab.insuranceCompany.first(where: {$0.id==1}) else {return}
+            let urlString = ll.photo
+            guard let url = URL(string: urlString) else { return  }
+            drInsuranceImage.sd_setImage(with: url)
+            drInsuranceImage.isHide(false)
+            //            customMainHomeView.mainHomePatientsCollectionVC.notificationRADArray=lab
         }
     }
     
@@ -78,7 +134,7 @@ class CustomNotificationView: CustomBaseView {
     
     
     var handleRefreshCollection:(()->Void)?
-
+    
     var handledisplayDOCNotification:((DOCTORNotificationModel,IndexPath,Bool)->Void)?
     var handledisplayRADNotification:((RadiologyNotificationModel,IndexPath,Bool)->Void)?
     var handledisplayLABNotification:((LABNotificationModel,IndexPath,Bool)->Void)?

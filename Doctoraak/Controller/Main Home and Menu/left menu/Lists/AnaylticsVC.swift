@@ -49,6 +49,7 @@ class AnaylticsVC: CustomBaseViewVC {
     var lab:LabModel?{
         didSet{
             guard let lab = lab else { return  }
+            customAnaylticsView.lab=lab
             let id = lab.id
             let url = "http://doctoraak.com/public/mobile/lab?lab=\(id)&lang="
             loadWebView(v: customAnaylticsView.mainWebView, url: url)
@@ -57,6 +58,8 @@ class AnaylticsVC: CustomBaseViewVC {
     var phy:PharamacyModel?{
         didSet{
             guard let phy = phy else { return  }
+            customAnaylticsView.phy=phy
+
             let id = phy.id
             let url = "http://doctoraak.com/public/mobile/pharmacy?pharmacy=\(id)&lang="
             loadWebView(v: customAnaylticsView.mainWebView, url: url)
@@ -65,6 +68,8 @@ class AnaylticsVC: CustomBaseViewVC {
     var rad:RadiologyModel?{
         didSet{
             guard let lab = rad else { return  }
+            customAnaylticsView.rad=lab
+
             let id = lab.id
             let url = "http://doctoraak.com/public/mobile/radiology?radiology=\(id)&lang="
             loadWebView(v: customAnaylticsView.mainWebView, url: url)

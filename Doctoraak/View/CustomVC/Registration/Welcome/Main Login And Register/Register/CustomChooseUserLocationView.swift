@@ -10,23 +10,36 @@
 import UIKit
 import MapKit
 import CoreLocation
-
+import MOLH
 class CustomChooseUserLocationView: CustomBaseView {
     
     
- lazy var infoImageView:UIImageView = {
-    let i = UIImageView(image: #imageLiteral(resourceName: "Group 3928-1").withRenderingMode(.alwaysOriginal))
-    i.constrainWidth(constant: 40)
-    i.constrainHeight(constant: 40)
-    i.contentMode = .scaleToFill
+    lazy var infoImageView:UIImageView = {
+        let i = UIImageView(image: #imageLiteral(resourceName: "Group 3928-1").withRenderingMode(.alwaysOriginal))
+        i.constrainWidth(constant: 40)
+        i.constrainHeight(constant: 40)
+        i.contentMode = .scaleToFill
         i.isUserInteractionEnabled = true
         return i
     }()
     lazy var mapView:MKMapView  = {
         let i = MKMapView()
         i.showsUserLocation = true
-//        i.padding = UIEdgeInsets(top: 0, left: 0, bottom: 80, right: 0)
         return i
+    }()
+    lazy var searchView:UIView = {
+        let v = makeMainSubViewWithAppendView(vv: [searchImage,searchLabel])
+        v.constrainHeight(constant: 60)
+        v.hstack(searchImage,searchLabel,UIView(),spacing:32).padLeft(16)
+        return v
+    }()
+    lazy var searchLabel = UILabel(text: "Search...", font: .systemFont(ofSize: 25), textColor: .lightGray)
+    lazy var searchImage:UIImageView = {
+        let b = UIImageView(image: #imageLiteral(resourceName: "loupe"))
+        b.contentMode = .scaleAspectFit
+        b.clipsToBounds = true
+        b.constrainWidth(constant: 40)
+        return b
     }()
     lazy var doneButton:UIButton = {
         let b = UIButton()
@@ -50,9 +63,11 @@ class CustomChooseUserLocationView: CustomBaseView {
     
     override func setupViews() {
         backgroundColor = .white
-        
-        addSubViews(views: mapView,infoImageView,doneButton)
+        searchLabel.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left
+        addSubViews(views: mapView,infoImageView,searchView,doneButton)
         mapView.fillSuperview()
+        
+        searchView.anchor(top: infoImageView.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 20, left: 16, bottom: 0, right: 16))
         
         infoImageView.anchor(top: topAnchor, leading: nil, bottom: nil, trailing: trailingAnchor,padding: .init(top: 60, left: 0, bottom: 0, right: 16))
         doneButton.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 16, bottom: 32, right: 16))

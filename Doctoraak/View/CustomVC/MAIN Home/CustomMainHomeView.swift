@@ -23,20 +23,33 @@ class CustomMainHomeView: CustomBaseView {
     var lab:LabModel?{
         didSet{
             guard let lab = lab else { return  }
-            //          guard  let urlString = lab.insuranceCompany.first?.photo
             
-            //                             customMainHomeLeftView.lab=lab
+            guard let ll = lab.insuranceCompany.first(where: {$0.id==1}) else {return}
+            let urlString = ll.photo
+            guard let url = URL(string: urlString) else { return  }
+            drInsuranceImage.sd_setImage(with: url)
+            drInsuranceImage.isHide(false)
         }
     }
     var phy:PharamacyModel?{
         didSet{
             guard let phy = phy else { return  }
+            guard let ll = phy.insuranceCompany.first(where: {$0.id==1}) else {return}
+            let urlString = ll.photo
+            guard let url = URL(string: urlString) else { return  }
+            drInsuranceImage.sd_setImage(with: url)
+            drInsuranceImage.isHide(false)
             //                             customMainHomeLeftView.phy=phy
         }
     }
     var rad:RadiologyModel?{
         didSet{
             guard let lab = rad else { return  }
+            guard let ll = lab.insuranceCompany.first(where: {$0.id==1}) else {return}
+            let urlString = ll.photo
+            guard let url = URL(string: urlString) else { return  }
+            drInsuranceImage.sd_setImage(with: url)
+            drInsuranceImage.isHide(false)
             //            customMainHomeView.mainHomePatientsCollectionVC.notificationRADArray=lab
         }
     }

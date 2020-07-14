@@ -372,7 +372,7 @@ class SelectedPharmacyPatientDataVC: CustomBaseViewVC {
                 orderId=phyy.id
                 
             }else {
-                guard let pharmacy = rad,let  phyy = radOrder else { return  }
+                guard let pharmacy = cachdRADObjectCodabe.storedValue,let  phyy = radOrder else { return  }
                 apiToekn = pharmacy.apiToken
                 userId=pharmacy.id
                 orderId=phyy.id
@@ -387,7 +387,7 @@ class SelectedPharmacyPatientDataVC: CustomBaseViewVC {
                 orderId=phyy.id
                 
             }else {
-                guard let pharmacy = rad,let  phyy = radOrder else { return  }
+                guard let pharmacy = cachdRADObjectCodabe.storedValue,let  phyy = radOrderss else { return  }
                 apiToekn = pharmacy.apiToken
                 userId=pharmacy.id
                 orderId=phyy.id

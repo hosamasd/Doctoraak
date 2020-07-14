@@ -165,6 +165,7 @@ class MainVerificationVC: CustomBaseViewVC {
         let sss = index == 0 ? UserDefaultsConstants.DoctorVerificationAPITOKEN : index == 2 ? UserDefaultsConstants.labVerificationAPITOKEN : index == 3 ? UserDefaultsConstants.RadiologyVerificationAPITOKEN : UserDefaultsConstants.PharamacyVerificationAPITOKEN
         
         userDefaults.set(true, forKey: ss)
+        
         userDefaults.set(false, forKey: UserDefaultsConstants.isDoctorWorkingHoursCached)
         
         userDefaults.set(api_token, forKey: sss)
@@ -187,6 +188,8 @@ class MainVerificationVC: CustomBaseViewVC {
             let login = MainLoginsVC(indexx: index)
            navigationController?.pushViewController(login, animated: true)
         }else {
+            userDefaults.set(true, forKey: UserDefaultsConstants.currentUserLoginInAPP)
+            userDefaults.synchronize()
             dismiss(animated: true)
         }
         

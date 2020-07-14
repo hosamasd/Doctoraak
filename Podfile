@@ -19,4 +19,7 @@ pod 'PKHUD', '~> 5.0'
 pod 'SDWebImage'
 pod 'lottie-ios'
 pod 'SCLAlertView'
+
+pod 'GoogleMaps'
+pod 'GooglePlaces'
 end

@@ -13,14 +13,30 @@ import MOLH
 
 class BaseSlidingVC: UIViewController {
     
-    var index:Int?{
-        didSet{
-        guard let index = index else { return }
-            let ss =  index < 2 ?  DoctorHomeVC(inde: index) : MainHomeVC(inde: index)
-        rightViewController = UINavigationController(rootViewController:ss)
-//            menuViewController = index == 0 || index == 1 ? DoctorHomeLeftMenuVC(index: index) : HomeLeftMenuVC(index: index)
-    }
-    }
+//    var index:Int?{
+//        didSet{
+//            guard let index = index else { return }
+////            let ss =  index < 2 ?  DoctorHomeVC(inde: index) : MainHomeVC(inde: index)
+////            let vc = index == 0 || index == 1 ? DoctorHomeLeftMenuVC(index: index) : HomeLeftMenuVC(index: index)
+////
+////            if !userDefaults.bool(forKey: UserDefaultsConstants.isWelcomeVCAppear) {
+////                rightViewController.navigationController?.viewControllers = [DoctorHomeVC(inde: index)]
+////                menuViewController.view.backgroundColor = .gray
+//
+//                //                setupViewControllers()
+//                //                             rightViewController = UINavigationController(rootViewController: ss)
+//                //                menuViewController = vc
+////            }
+//        }
+//    }
+    var index = 3
+    
+    
+    //
+  lazy var    rightViewController = UINavigationController(rootViewController: index < 2 ?  DoctorHomeVC(inde: index) : MainHomeVC(inde: index))
+  lazy var  menuViewController = index == 0 || index == 1 ? DoctorHomeLeftMenuVC(index: index) : HomeLeftMenuVC(index: index)
+    //        }
+    //    }
     
     
     lazy var redView:UIView = {
@@ -75,20 +91,29 @@ class BaseSlidingVC: UIViewController {
         return v
     }()
     
-   
     
     
-    lazy var rightViewController: UIViewController = UIViewController()//UINavigationController(rootViewController:  MainHomeVC(inde: 2))
-//    lazy var menuViewController: UIViewController = UINavigationController(rootViewController:  HomeLeftMenuVC(index: 2))
-
-//    lazy var rightViewController: UIViewController = UINavigationController(rootViewController: index < 2 ?  DoctorHomeVC(inde: index) : MainHomeVC(inde: index))
+//    lazy var rightViewController: UIViewController  = {
+//        let vc = UINavigationController(rootViewController: MainHomeVC(inde: 2))
+//        return vc
+//    }()//index < 2 ?  DoctorHomeVC(inde: index) : MainHomeVC(inde: index))
+//
+//    //    lazy var rightViewController: UIViewController = UIViewController()//UINavigationController(rootViewController:  MainHomeVC(inde: 2))
+//    lazy var menuViewController: UIViewController  = {
+//        let vc =  UIViewController()
+//        vc.view.backgroundColor = .gray
+//        return vc
+//    }()
+    //    lazy var menuViewController: UIViewController = UIViewController()//UINavigationController(rootViewController:  HomeLeftMenuVC(index: 2))
+    
+    //    lazy var rightViewController: UIViewController = UINavigationController(rootViewController: index < 2 ?  DoctorHomeVC(inde: index) : MainHomeVC(inde: index))
     fileprivate let velocityThreshold: CGFloat = 500
     fileprivate let menuWidth:CGFloat = 300
     fileprivate var isMenuOpen:Bool = false
     var redViewTrailingConstraint: NSLayoutConstraint!
     var redViewLeadingConstarint:NSLayoutConstraint!
     
-//    var index:Int = 0
+    //    var index:Int = 0
     var links = [
         "http://sphinxat.com/",
         "https://www.facebook.com/",
@@ -108,10 +133,21 @@ class BaseSlidingVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        if userDefaults.integer(forKey: UserDefaultsConstants.MainLoginINDEX) == 0 {
-            index = userDefaults.integer(forKey: UserDefaultsConstants.MainLoginINDEX)
+        
+        
+        //        index = userDefaults.integer(forKey: UserDefaultsConstants.MainLoginINDEX)
+        
+        //        index = userDefaults.integer(forKey: UserDefaultsConstants.MainLoginINDEX)
+        
+        //        index = userDefaults.integer(forKey: UserDefaultsConstants.MainLoginINDEX)
+        
+        if userDefaults.bool(forKey: UserDefaultsConstants.currentUserLoginInAPP) {
+            if !userDefaults.bool(forKey: UserDefaultsConstants.isWelcomeVCAppear) {
+                index = userDefaults.integer(forKey: UserDefaultsConstants.MainLoginINDEX)
+                
+            }
         }else {
-            index = nil
+//            index = nil
         }
     }
     
@@ -176,16 +212,26 @@ class BaseSlidingVC: UIViewController {
     
     fileprivate func setupViewControllers()  {
         
-        index = userDefaults.integer(forKey: UserDefaultsConstants.MainLoginINDEX)
+        //                index = userDefaults.integer(forKey: UserDefaultsConstants.MainLoginINDEX)
+        //        guard let index=index else {return}
+        //        let vc = index == 0 || index == 1 ? DoctorHomeLeftMenuVC(index: index) : HomeLeftMenuVC(index: index)
+        //              let dd = index < 2 ?  DoctorHomeVC(inde: index) : MainHomeVC(inde: index)
+        //
+        //              rightViewController = UINavigationController(rootViewController: dd)
         
-        let vc = index == 0 || index == 1 ? DoctorHomeLeftMenuVC(index: index!) : HomeLeftMenuVC(index: index!)
-        let dd = index! < 2 ?  DoctorHomeVC(inde: index!) : MainHomeVC(inde: index!)
-        
-        rightViewController = UINavigationController(rootViewController: dd)
         let homeView = rightViewController.view!
         //        let menuVC = MenuVC()
-        let menuVC =  vc//HomeLeftMenuVC(index: 2)
+        let menuVC =  menuViewController//HomeLeftMenuVC(index: index ?? 2)//vc//HomeLeftMenuVC(index: 2)
         let menuView = menuVC.view!
+        
+        //        let vc = index == 0 || index == 1 ? DoctorHomeLeftMenuVC(index: index) : HomeLeftMenuVC(index: index)
+        //        let dd = index < 2 ?  DoctorHomeVC(inde: index) : MainHomeVC(inde: index)
+        //
+        //        rightViewController = UINavigationController(rootViewController: dd)
+        //        let homeView = rightViewController.view!
+        //        //        let menuVC = MenuVC()
+        //        let menuVC =  vc//HomeLeftMenuVC(index: 2)
+        //        let menuView = menuVC.view!
         
         homeView.translatesAutoresizingMaskIntoConstraints = false
         menuView.translatesAutoresizingMaskIntoConstraints = false
@@ -203,25 +249,28 @@ class BaseSlidingVC: UIViewController {
     }
     
     fileprivate  func performLogout()  {
-           
-           if userDefaults.bool(forKey: UserDefaultsConstants.labPerformLogin) {
-               cacheLABObjectCodabe.deleteFile(cacheLABObjectCodabe.storedValue!)
-               userDefaults.set(false, forKey: UserDefaultsConstants.labPerformLogin)
-               userDefaults.set(false, forKey: UserDefaultsConstants.isAllMainHomeObjectsFetchedLAB)
-           }else if userDefaults.bool(forKey: UserDefaultsConstants.radiologyPerformLogin) {
-               cachdRADObjectCodabe.deleteFile(cachdRADObjectCodabe.storedValue!)
-               userDefaults.set(false, forKey: UserDefaultsConstants.radiologyPerformLogin)
-               userDefaults.set(false, forKey: UserDefaultsConstants.isAllMainHomeObjectsFetchedRAD)
-           }else if userDefaults.bool(forKey: UserDefaultsConstants.pharamacyPerformLogin) {
-               cachdPHARMACYObjectCodabe.deleteFile(cachdPHARMACYObjectCodabe.storedValue!)
-               userDefaults.set(false, forKey: UserDefaultsConstants.pharamacyPerformLogin)
-               userDefaults.set(false, forKey: UserDefaultsConstants.isAllMainHomeObjectsFetchedPHY)
-           }
-           userDefaults.set(true, forKey: UserDefaultsConstants.isWelcomeVCAppear)
-           userDefaults.removeObject(forKey: UserDefaultsConstants.MainLoginINDEX)
-           
-           userDefaults.synchronize()
-       }
+        
+        if userDefaults.bool(forKey: UserDefaultsConstants.labPerformLogin) {
+            cacheLABObjectCodabe.deleteFile(cacheLABObjectCodabe.storedValue!)
+            userDefaults.set(false, forKey: UserDefaultsConstants.labPerformLogin)
+            userDefaults.set(false, forKey: UserDefaultsConstants.isAllMainHomeObjectsFetchedLAB)
+        }else if userDefaults.bool(forKey: UserDefaultsConstants.radiologyPerformLogin) {
+            cachdRADObjectCodabe.deleteFile(cachdRADObjectCodabe.storedValue!)
+            userDefaults.set(false, forKey: UserDefaultsConstants.radiologyPerformLogin)
+            userDefaults.set(false, forKey: UserDefaultsConstants.isAllMainHomeObjectsFetchedRAD)
+        }else if userDefaults.bool(forKey: UserDefaultsConstants.pharamacyPerformLogin) {
+            cachdPHARMACYObjectCodabe.deleteFile(cachdPHARMACYObjectCodabe.storedValue!)
+            userDefaults.set(false, forKey: UserDefaultsConstants.pharamacyPerformLogin)
+            userDefaults.set(false, forKey: UserDefaultsConstants.isAllMainHomeObjectsFetchedPHY)
+        }
+        userDefaults.set(true, forKey: UserDefaultsConstants.isWelcomeVCAppear)
+        userDefaults.set(false, forKey: UserDefaultsConstants.currentUserLoginInAPP)
+        
+        userDefaults.removeObject(forKey: UserDefaultsConstants.MainLoginINDEX)
+        
+        
+        userDefaults.synchronize()
+    }
     
     
     fileprivate func handleEnded(gesture:UIPanGestureRecognizer)  {

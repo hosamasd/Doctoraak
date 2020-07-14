@@ -574,7 +574,8 @@ class WelcomeVC: CustomBaseViewVC {
                 let clinic = DoctorClinicDataVC(indexx: index, api_token: token, doctor_id: user_Id, isFromProfile: false)
                 navigationController?.pushViewController(clinic, animated: true)
                 
-            }else{
+            
+        }else{
                 let welcome =  WelcomeMainSecondVC()
                 navigationController?.pushViewController(welcome, animated: true)
             }

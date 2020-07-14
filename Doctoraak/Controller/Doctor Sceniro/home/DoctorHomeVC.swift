@@ -66,10 +66,19 @@ class DoctorHomeVC: CustomBaseViewVC {
     var doc:DoctorModel?{
         didSet{
             guard let lab = doc else { return  }
+            customDoctorHomeView.doctor=lab
             customDoctorHomeView.topDoctorHomeCell.doctor=lab
             userDefaults.bool(forKey: UserDefaultsConstants.isAllMainHomeObjectsFetchedDoctor) ? () : checkData()
         }
     }
+    var medicalCenter:DoctorModel?{
+           didSet{
+               guard let lab = medicalCenter else { return  }
+               customDoctorHomeView.medicalCenter=lab
+               customDoctorHomeView.topDoctorHomeCell.doctor=lab
+               userDefaults.bool(forKey: UserDefaultsConstants.isAllMainHomeObjectsFetchedDoctor) ? () : checkData()
+           }
+       }
     var numberOfClinicsAvaiable = [String]()
     var doctorsClinicArray:[ClinicGetDoctorsModel] = [ClinicGetDoctorsModel]()
     

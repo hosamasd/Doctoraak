@@ -63,6 +63,7 @@ class CustomMainForgetPassView: CustomBaseView {
     var index = 0
     
     override func setupViews() {
+
         [titleLabel,soonLabel].forEach({$0.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left})
         addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,nextButton,choosePayLabel,numberTextField)
         
