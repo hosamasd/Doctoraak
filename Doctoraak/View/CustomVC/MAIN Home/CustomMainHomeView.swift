@@ -84,22 +84,26 @@ class CustomMainHomeView: CustomBaseView {
     
     lazy var mainHomePatientsCollectionVC:MainHomePatientsCollectionVC = {
         let vc = MainHomePatientsCollectionVC()
-        vc.handledisplayRADNotification = {[unowned self] indexPath in
-            self.handledisplayRADNotification?(indexPath)
+        vc.handledisplayRADNotification = {[unowned self] indexPath,ind in
+            self.handledisplayRADNotification?(indexPath,ind)
         }
-        vc.handledisplayLABNotification = {[unowned self] indexPath in
-            self.handledisplayLABNotification?(indexPath)
+        vc.handledisplayLABNotification = {[unowned self] indexPath,ind in
+            self.handledisplayLABNotification?(indexPath,ind)
         }
-        vc.handledisplayPHYNotification = {[unowned self] indexPath in
-            self.handledisplayPHYNotification?(indexPath)
+        vc.handledisplayPHYNotification = {[unowned self] indexPath,ind in
+            self.handledisplayPHYNotification?(indexPath,ind)
+        }
+        vc.handleRefreshCollection = {[unowned self]  in
+            self.handleRefreshCollection?()
         }
         
         return vc
     }()
     
-    var handledisplayRADNotification:((RadGetOrdersModel)->Void)?
-    var handledisplayLABNotification:((LABGetOrdersModel)->Void)?
-    var handledisplayPHYNotification:((PharmacyGetOrdersModel)->Void)?
+    var handledisplayRADNotification:((RadGetOrdersModel,IndexPath)->Void)?
+    var handledisplayLABNotification:((LABGetOrdersModel,IndexPath)->Void)?
+    var handledisplayPHYNotification:((PharmacyGetOrdersModel,IndexPath)->Void)?
+    var handleRefreshCollection:(()->Void)?
     
     override func setupViews() {
         let sss = getStack(views: drImage,docotrLabel,drInsuranceImage, spacing: 8, distribution: .fill, axis: .horizontal)

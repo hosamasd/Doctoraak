@@ -29,30 +29,38 @@ class MainHomeVC: CustomBaseViewVC {
         v.index=index
         v.listImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpenMenu)))
         v.notifyImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpenNotifications)))
-        v.handledisplayRADNotification = {[unowned self] noty in
+        v.handledisplayRADNotification = {[unowned self] noty,ind in
             guard let phy=self.rad else {return}
-            let patient = SelectedPharmacyPatientDataVC(inde: self.index)//SelectedPharmacyPatientDataVC(inde: self.index, phy: noty, pharmacy: phy)
+            let patient = SelectedPharmacyPatientDataVC(inde: self.index, isFromMain: true)//SelectedPharmacyPatientDataVC(inde: self.index, phy: noty, pharmacy: phy)
             patient.delgate = self
             patient.radOrder = noty
-            patient.rad=self.rad
+            patient.indexPath=ind
+
+            patient.rad=cachdRADObjectCodabe.storedValue ?? self.rad
             self.navigationController?.pushViewController(patient, animated: true)
         }
-        v.handledisplayLABNotification = {[unowned self] noty in
+        v.handledisplayLABNotification = {[unowned self] noty,ind in
             guard let phy=self.lab else {return}
-            let patient = SelectedPharmacyPatientDataVC(inde: self.index)//SelectedPharmacyPatientDataVC(inde: self.index, phy: noty, pharmacy: phy)
+            let patient = SelectedPharmacyPatientDataVC(inde: self.index, isFromMain: true)//SelectedPharmacyPatientDataVC(inde: self.index, phy: noty, pharmacy: phy)
             patient.delgate = self
+//            patient.labOrderss = noty.details.first?.labOrder
             patient.labOrder = noty
-            patient.lab=self.lab
-            
+            patient.lab = cacheLABObjectCodabe.storedValue ?? self.lab
+            patient.indexPath=ind
             self.navigationController?.pushViewController(patient, animated: true)
         }
-        v.handledisplayPHYNotification = {[unowned self] noty in
+        v.handledisplayPHYNotification = {[unowned self] noty,ind in
             guard let phy=self.phy else {return}
-            let patient = SelectedPharmacyPatientDataVC(inde: self.index)//SelectedPharmacyPatientDataVC(inde: self.index, phy: noty, pharmacy: phy)
-            patient.phy = phy
+            let patient = SelectedPharmacyPatientDataVC(inde: self.index, isFromMain: true)//SelectedPharmacyPatientDataVC(inde: self.index, phy: noty, pharmacy: phy)
+            patient.phy = cachdPHARMACYObjectCodabe.storedValue ?? self.phy
             patient.phyOrder=noty
             patient.delgate = self
+            patient.indexPath=ind
+
             self.navigationController?.pushViewController(patient, animated: true)
+        }
+        v.handleRefreshCollection = {[unowned self] in
+            self.fetchOrders()
         }
         return v
     }()
@@ -82,7 +90,9 @@ class MainHomeVC: CustomBaseViewVC {
             guard let lab = lab else { return  }
             customMainHomeView.topMainHomeCell.lab=lab
             //            fetchOrders()
-            userDefaults.bool(forKey: UserDefaultsConstants.isAllMainHomeObjectsFetchedLAB) ? () : fetchOrders()
+            userDefaults.bool(forKey: UserDefaultsConstants.isAllMainHomeObjectsFetched) ? () : fetchOrders()
+            
+            //            userDefaults.bool(forKey: UserDefaultsConstants.isAllMainHomeObjectsFetchedLAB) ? () : fetchOrders()
         }
     }
     var phy:PharamacyModel?{
@@ -90,7 +100,9 @@ class MainHomeVC: CustomBaseViewVC {
             guard let phy = phy else { return  }
             customMainHomeView.topMainHomeCell.phy=phy
             //            fetchOrders()
-            userDefaults.bool(forKey: UserDefaultsConstants.isAllMainHomeObjectsFetchedPHY) ? () : fetchOrders()
+            userDefaults.bool(forKey: UserDefaultsConstants.isAllMainHomeObjectsFetched) ? () : fetchOrders()
+            
+            //            userDefaults.bool(forKey: UserDefaultsConstants.isAllMainHomeObjectsFetchedPHY) ? () : fetchOrders()
         }
     }
     var rad:RadiologyModel?{
@@ -98,7 +110,10 @@ class MainHomeVC: CustomBaseViewVC {
             guard let lab = rad else { return  }
             customMainHomeView.topMainHomeCell.rad=lab
             //            fetchOrders()
-            userDefaults.bool(forKey: UserDefaultsConstants.isAllMainHomeObjectsFetchedRAD) ? () : fetchOrders()
+            
+            userDefaults.bool(forKey: UserDefaultsConstants.isAllMainHomeObjectsFetched) ? () : fetchOrders()
+            
+            //            userDefaults.bool(forKey: UserDefaultsConstants.isAllMainHomeObjectsFetchedRAD) ? () : fetchOrders()
         }
     }
     fileprivate let index:Int!
@@ -223,7 +238,7 @@ class MainHomeVC: CustomBaseViewVC {
     
     
     override func setupViews()  {
-//        view.backgroundColor = .red
+        //        view.backgroundColor = .red
         view.addSubview(scrollView)
         scrollView.fillSuperview()
         scrollView.addSubview(mainView)
@@ -292,6 +307,7 @@ class MainHomeVC: CustomBaseViewVC {
 extension MainHomeVC: SelectedPharmacyPatientDataProtocol {
     
     func deletePHY(indexPath: IndexPath, index: Int) {
+        customMainHomeView.topMainHomeCell.reservation! -= 1
         if index == 2 {
             customMainHomeView.mainHomePatientsCollectionVC.notificationLABArray.remove(at: indexPath.item)
         }else if index == 3 {

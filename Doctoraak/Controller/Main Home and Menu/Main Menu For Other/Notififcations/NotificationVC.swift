@@ -226,7 +226,7 @@ class NotificationVC: CustomBaseViewVC {
     }
     
     fileprivate  func goTOdiSPLAYOrder(l:LABOrderModel? = nil , r:RadiologyOrderModel? = nil,s:PharmacyOrderModel? = nil,doc:DoctorOrderModel? = nil)  {
-        let dd = SelectedPharmacyPatientDataVC(inde: index)
+        let dd = SelectedPharmacyPatientDataVC(inde: index, isFromMain: false)
         dd.labOrderss=l
         dd.radOrderss = r
         dd.phyOrderss=s

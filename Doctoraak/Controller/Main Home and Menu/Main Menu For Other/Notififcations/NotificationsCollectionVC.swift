@@ -191,8 +191,9 @@ class NotificationsCollectionVC: BaseCollectionVC {
         collectionView.showsVerticalScrollIndicator=false
         collectionView.register(NotificationCell.self, forCellWithReuseIdentifier: cellID)
 //        refreshControl.addTarget(self, action: #selector(didPullToRefresh), for: .valueChanged)
-           collectionView.alwaysBounceVertical = true
 //           collectionView.refreshControl = refreshControl
+        collectionView.alwaysBounceVertical = true
+
     }
     
 //   @objc func didPullToRefresh()  {

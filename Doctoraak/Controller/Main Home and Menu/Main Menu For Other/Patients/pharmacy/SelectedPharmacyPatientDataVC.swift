@@ -65,13 +65,20 @@ class SelectedPharmacyPatientDataVC: CustomBaseViewVC {
         return v
     }()
     
-    lazy var textView = UITextView(frame: CGRect.zero)
+    lazy var textView:UITextView = {
+        let t = UITextView(frame: CGRect.zero)
+        t.text = "Enter the reason for refuse"
+        t.textColor = UIColor.lightGray
+        t.delegate = self
+        return t
+    }()
     var delgate:SelectedPharmacyPatientDataProtocol?
-
+    
     var indexPath:IndexPath?
     
     
-    fileprivate let index:Int!
+    
+    
     var lab:LabModel?{
         didSet{
             guard let lab = lab else { return  }
@@ -153,8 +160,11 @@ class SelectedPharmacyPatientDataVC: CustomBaseViewVC {
         }
     }
     
-    init(inde:Int) {
+    fileprivate let index:Int!
+    fileprivate let isFromMain:Bool!
+    init(inde:Int,isFromMain:Bool) {
         self.index = inde
+        self.isFromMain = isFromMain
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -221,17 +231,46 @@ class SelectedPharmacyPatientDataVC: CustomBaseViewVC {
         
     }
     
-    fileprivate func checkDoctorLoginState()  {
+    fileprivate func checkDoctorLoginState(indexx:Int,isAccept:Bool,message:String? = nil)  {
+        var apiToekn:String
+        var userId:Int
+        var orderId:Int
         
-    }
-    
-    
-    fileprivate  func acceptPharmacyOrders()  {
-        guard let pharmacy = phy,let  phy = phyOrder else { return  }
+        if isFromMain {
+            
+            if indexx==2 {
+                guard let pharmacy = cachdPHARMACYObjectCodabe.storedValue ,let  phyy = phyOrder else { return  }
+                apiToekn = pharmacy.apiToken
+                userId=pharmacy.id
+                orderId=phyy.id
+                
+            }else {
+                guard let pharmacy = rad,let  phyy = radOrder else { return  }
+                apiToekn = pharmacy.apiToken
+                userId=pharmacy.id
+                orderId=phyy.id
+                
+            }
+        }else {
+            
+            if indexx==2 {
+                guard let pharmacy = cachdPHARMACYObjectCodabe.storedValue ,let  phyy = phyOrderss else { return  }
+                apiToekn = pharmacy.apiToken
+                userId=pharmacy.id
+                orderId=phyy.id
+                
+            }else {
+                guard let pharmacy = rad,let  phyy = radOrder else { return  }
+                apiToekn = pharmacy.apiToken
+                userId=pharmacy.id
+                orderId=phyy.id
+                
+            }
+        }
         UIApplication.shared.beginIgnoringInteractionEvents()
         self.showMainAlertLooder(cc: self.customMainAlertVC, v: self.customAlertMainLoodingView)
         
-        OrdersServices.shared.acceptPharmacyOrders(api_token: pharmacy.apiToken, pharmacy_id: phy.pharmacyID , order_id: phy.pharmacyOrderID) { (base, err) in
+        OrdersServices.shared.acceptPharmacyOrders(api_token: apiToekn, pharmacy_id: userId , order_id: orderId) { (base, err) in
             if let err = err {
                 SVProgressHUD.showError(withStatus: err.localizedDescription)
                 self.handleDismiss()
@@ -241,9 +280,79 @@ class SelectedPharmacyPatientDataVC: CustomBaseViewVC {
             self.handleDismiss()
             self.activeViewsIfNoData()
             guard let user = base else {return}
-            SVProgressHUD.showSuccess(withStatus: MOLHLanguage.isRTLLanguage() ? user.message : user.messageEn)
-            self.customSelectedPatientDataVC.bottomStack.isHide(true)
-            self.makeAction(phy.pharmacyOrderID)
+            
+            DispatchQueue.main.async {
+                SVProgressHUD.showSuccess(withStatus: MOLHLanguage.isRTLLanguage() ? user.message : user.messageEn)
+                self.makeAction(orderId)
+                self.performBack(self.isFromMain,message)
+            }
+            //            SVProgressHUD.showSuccess(withStatus: MOLHLanguage.isRTLLanguage() ? user.message : user.messageEn)
+            //            self.customSelectedPatientDataVC.bottomStack.isHide(true)
+            //            self.makeAction(phy.pharmacyOrderID)
+            
+        }
+    }
+    
+    
+    fileprivate  func acceptPharmacyOrders(indexx:Int,isAccept:Bool,message:String? = nil)  {
+        
+        var apiToekn:String
+        var userId:Int
+        var orderId:Int
+        
+        if isFromMain {
+            
+            if indexx==2 {
+                guard let pharmacy = cachdPHARMACYObjectCodabe.storedValue ,let  phyy = phyOrder else { return  }
+                apiToekn = pharmacy.apiToken
+                userId=pharmacy.id
+                orderId=phyy.id
+                
+            }else {
+                guard let pharmacy = rad,let  phyy = radOrder else { return  }
+                apiToekn = pharmacy.apiToken
+                userId=pharmacy.id
+                orderId=phyy.id
+                
+            }
+        }else {
+            
+            if indexx==2 {
+                guard let pharmacy = cachdPHARMACYObjectCodabe.storedValue ,let  phyy = phyOrderss else { return  }
+                apiToekn = pharmacy.apiToken
+                userId=pharmacy.id
+                orderId=phyy.id
+                
+            }else {
+                guard let pharmacy = rad,let  phyy = radOrder else { return  }
+                apiToekn = pharmacy.apiToken
+                userId=pharmacy.id
+                orderId=phyy.id
+                
+            }
+        }
+        UIApplication.shared.beginIgnoringInteractionEvents()
+        self.showMainAlertLooder(cc: self.customMainAlertVC, v: self.customAlertMainLoodingView)
+        
+        OrdersServices.shared.acceptPharmacyOrders(api_token: apiToekn, pharmacy_id: userId , order_id: orderId) { (base, err) in
+            if let err = err {
+                SVProgressHUD.showError(withStatus: err.localizedDescription)
+                self.handleDismiss()
+                self.activeViewsIfNoData();return
+            }
+            //                SVProgressHUD.dismiss()
+            self.handleDismiss()
+            self.activeViewsIfNoData()
+            guard let user = base else {return}
+            
+            DispatchQueue.main.async {
+                SVProgressHUD.showSuccess(withStatus: MOLHLanguage.isRTLLanguage() ? user.message : user.messageEn)
+                self.makeAction(orderId)
+                self.performBack(self.isFromMain,message)
+            }
+            //            SVProgressHUD.showSuccess(withStatus: MOLHLanguage.isRTLLanguage() ? user.message : user.messageEn)
+            //            self.customSelectedPatientDataVC.bottomStack.isHide(true)
+            //            self.makeAction(phy.pharmacyOrderID)
             
         }
     }
@@ -254,18 +363,36 @@ class SelectedPharmacyPatientDataVC: CustomBaseViewVC {
         var userId:Int
         var orderId:Int
         
-        if indexx==2 {
-            guard let pharmacy = lab,let  phyy = labOrderss else { return  }
-            apiToekn = pharmacy.apiToken
-            userId=pharmacy.id
-            orderId=phyy.id
+        if isFromMain {
             
+            if indexx==2 {
+                guard let pharmacy = cacheLABObjectCodabe.storedValue ,let  phyy = labOrder else { return  }
+                apiToekn = pharmacy.apiToken
+                userId=pharmacy.id
+                orderId=phyy.id
+                
+            }else {
+                guard let pharmacy = rad,let  phyy = radOrder else { return  }
+                apiToekn = pharmacy.apiToken
+                userId=pharmacy.id
+                orderId=phyy.id
+                
+            }
         }else {
-            guard let pharmacy = rad,let  phyy = radOrder else { return  }
-            apiToekn = pharmacy.apiToken
-            userId=pharmacy.id
-            orderId=phyy.id
             
+            if indexx==2 {
+                guard let pharmacy = cacheLABObjectCodabe.storedValue ,let  phyy = labOrderss else { return  }
+                apiToekn = pharmacy.apiToken
+                userId=pharmacy.id
+                orderId=phyy.id
+                
+            }else {
+                guard let pharmacy = rad,let  phyy = radOrder else { return  }
+                apiToekn = pharmacy.apiToken
+                userId=pharmacy.id
+                orderId=phyy.id
+                
+            }
         }
         UIApplication.shared.beginIgnoringInteractionEvents()
         self.showMainAlertLooder(cc: customMainAlertVC, v: customAlertMainLoodingView)
@@ -280,10 +407,19 @@ class SelectedPharmacyPatientDataVC: CustomBaseViewVC {
             self.handleDismiss()
             self.activeViewsIfNoData()
             guard let user = base else {return}
-            SVProgressHUD.showSuccess(withStatus: MOLHLanguage.isRTLLanguage() ? user.message : user.messageEn)
-            self.makeAction(orderId)
-            //            self.customSelectedPatientDataVC.bottomStack.isHide(true)
-            //            self.customSelectedPatientDataVC.isAcceptOrRefused = true
+            
+            DispatchQueue.main.async {
+                SVProgressHUD.showSuccess(withStatus: MOLHLanguage.isRTLLanguage() ? user.message : user.messageEn)
+                self.makeAction(orderId)
+                self.performBack(self.isFromMain,message)
+            }
+        }
+    }
+    
+    func performBack(_ main:Bool,_ message:String? = nil)  {
+        if message != nil {
+            delgate?.deletePHY(indexPath: indexPath!, index: index)
+            navigationController?.popViewController(animated: true)
         }
     }
     
@@ -302,9 +438,9 @@ class SelectedPharmacyPatientDataVC: CustomBaseViewVC {
         
         saveDefaULTS()
         
-//        DispatchQueue.main.async {
-            self.customSelectedPatientDataVC.bottomStack.isHide(true)
-//        }
+        //        DispatchQueue.main.async {
+        self.customSelectedPatientDataVC.bottomStack.isHide(true)
+        //        }
     }
     
     fileprivate func saveDefaULTS()  {
@@ -340,45 +476,9 @@ class SelectedPharmacyPatientDataVC: CustomBaseViewVC {
     }
     
     fileprivate func makeActionForCancel(ind:Int,message:String)  {
+        index == 0 || index == 1 ? checkDoctorLoginState(indexx: index, isAccept: false,message: message) : index == 4 ? acceptPharmacyOrders(indexx: index, isAccept: false,message: message) :  acceptLABRADOrders(indexx:index, isAccept: false,message: message)
         
-        self.acceptLABRADOrders(indexx: index, isAccept: false,message:message)
-        
-//        var apiToekn:String
-//        var userId:Int
-//        var orderId:Int
-//
-//        if ind==2 {
-//            guard let pharmacy = lab,let  phyy = labOrder else { return  }
-//            apiToekn = pharmacy.apiToken
-//            userId=phyy.id
-//            orderId=phyy.labID
-//
-//        }else {
-//            guard let pharmacy = rad,let  phyy = radOrder else { return  }
-//            apiToekn = pharmacy.apiToken
-//            userId=phyy.id
-//            orderId=phyy.radiologyID
-//
-//        }
-//        //           guard let patient = patient else { return  }
-//        UIApplication.shared.beginIgnoringInteractionEvents()
-//
-//        //        SVProgressHUD.show(withStatus: "looding...".localized)
-//        self.showMainAlertLooder(cc: customMainAlertVC, v: customAlertMainLoodingView)
-//        OrdersServices.shared.cancelRADORLABOrders(message: message, index: ind, api_token: apiToekn, user_id: userId, order_id: orderId) { (base, err) in
-//            if let err = err {
-//                SVProgressHUD.showError(withStatus: err.localizedDescription)
-//                self.handleDismiss()
-//                self.activeViewsIfNoData();return
-//            }
-//            //                SVProgressHUD.dismiss()
-//            self.handleDismiss()
-//            self.activeViewsIfNoData()
-//            guard let user = base else {return}
-//            SVProgressHUD.showSuccess(withStatus: MOLHLanguage.isRTLLanguage() ? user.message : user.messageEn)
-//            self.makeAction(orderId)
-//
-//        }
+        //        self.acceptLABRADOrders(indexx: index, isAccept: false,message:message)
     }
     
     
@@ -397,8 +497,10 @@ class SelectedPharmacyPatientDataVC: CustomBaseViewVC {
     }
     
     func makeAcceptOrder()  {
-        index == 0 || index == 1 ? checkDoctorLoginState() : index == 4 ? acceptPharmacyOrders() :  acceptLABRADOrders(indexx:index, isAccept: true)
+        index == 0 || index == 1 ? checkDoctorLoginState(indexx: index, isAccept: true) : index == 4 ? acceptPharmacyOrders(indexx: index, isAccept: true) :  acceptLABRADOrders(indexx:index, isAccept: true)
     }
+    
+    
     
     //TODO:-Handle methods
     
@@ -446,4 +548,18 @@ class SelectedPharmacyPatientDataVC: CustomBaseViewVC {
     
 }
 
-
+extension SelectedPharmacyPatientDataVC: UITextViewDelegate{
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.textColor == UIColor.lightGray {
+            textView.text = nil
+            textView.textColor = UIColor.black
+        }
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text.isEmpty {
+            textView.text = "Enter the reason for refuse"
+            textView.textColor = UIColor.lightGray
+        }
+    }
+}

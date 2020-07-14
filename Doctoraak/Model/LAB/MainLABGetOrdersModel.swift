@@ -27,10 +27,10 @@ struct LABGetOrdersModel:Codable {
     let insuranceAccept: String
     var insuranceCode: String?
     let createdAt, updatedAt: String
-    let pharmacyOrderID: Int
-    let accept: String
+//    let pharmacyOrderID: Int
+    let accept: AnyType
     let patient: PatientModel
-    let details: [RADDetailModel]
+    let details: [LABDetailModel]
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -41,7 +41,7 @@ struct LABGetOrdersModel:Codable {
         case insuranceCode = "insurance_code"
         case createdAt = "created_at"
         case updatedAt = "updated_at"
-        case pharmacyOrderID = "pharmacy_order_id"
+//        case pharmacyOrderID = "pharmacy_order_id"
         case accept, patient, details
     }
 }
@@ -68,3 +68,18 @@ struct LABOrderModel:Codable {
            case accept, patient, details
        }
 }
+
+//struct LabDetailModel:Codable {
+//    let id, labOrder, analysisID: Int
+//       var createdAt, updatedAt: String?
+//       let analysis: LABAanalysisModel
+//
+//       enum CodingKeys: String, CodingKey {
+//           case id
+//           case labOrder = "lab_order"
+//           case analysisID = "analysis_id"
+//           case createdAt = "created_at"
+//           case updatedAt = "updated_at"
+//           case analysis
+//       }
+//}

@@ -432,52 +432,52 @@ class CustomDoctorClinicWorkingHoursView: CustomBaseView {
     }
     
     func putOtherDXXXS(_ w:WorkModel)  {
-//        switch w.day {
-//        case 1:
-//            d1TXT1=w.part1From;d1TXT2=w.part1To;d12TXT1=w.part2From;d12TXT2=w.part2To
-//        case 2:
-//            d2TXT1=w.part1From;d2TXT2=w.part1To;d22TXT1=w.part2From;d22TXT2=w.part2To
-//        case 3:
-//            d3TXT1=w.part1From;d3TXT2=w.part1To;d32TXT1=w.part2From;d32TXT2=w.part2To
-//        case 4:
-//            d4TXT1=w.part1From;d4TXT2=w.part1To;d42TXT1=w.part2From;d42TXT2=w.part2To
-//        case 5:
-//            d5TXT1=w.part1From;d5TXT2=w.part1To;d52TXT1=w.part2From;d52TXT2=w.part2To
-//        case 6:
-//            d6TXT1=w.part1From;d6TXT2=w.part1To;d62TXT1=w.part2From;d62TXT2=w.part2To
-//        default:
-//            d7TXT1=w.part1From;d7TXT2=w.part1To;d72TXT1=w.part2From;d72TXT2=w.part2To
-//        }
+        //        switch w.day {
+        //        case 1:
+        //            d1TXT1=w.part1From;d1TXT2=w.part1To;d12TXT1=w.part2From;d12TXT2=w.part2To
+        //        case 2:
+        //            d2TXT1=w.part1From;d2TXT2=w.part1To;d22TXT1=w.part2From;d22TXT2=w.part2To
+        //        case 3:
+        //            d3TXT1=w.part1From;d3TXT2=w.part1To;d32TXT1=w.part2From;d32TXT2=w.part2To
+        //        case 4:
+        //            d4TXT1=w.part1From;d4TXT2=w.part1To;d42TXT1=w.part2From;d42TXT2=w.part2To
+        //        case 5:
+        //            d5TXT1=w.part1From;d5TXT2=w.part1To;d52TXT1=w.part2From;d52TXT2=w.part2To
+        //        case 6:
+        //            d6TXT1=w.part1From;d6TXT2=w.part1To;d62TXT1=w.part2From;d62TXT2=w.part2To
+        //        default:
+        //            d7TXT1=w.part1From;d7TXT2=w.part1To;d72TXT1=w.part2From;d72TXT2=w.part2To
+        //        }
         
         switch w.day {
-               case 1:
-                   d1TXT1=w.part1From;d1TXT2=w.part1To;d12TXT1=w.part2From;d12TXT2=w.part2To
-                   enableTextFields(enable: checkActiveDay(day1), tag: 1)
-               case 2:
-                   d2TXT1=w.part1From;d2TXT2=w.part1To;d22TXT1=w.part2From;d22TXT2=w.part2To
-                   enableTextFields(enable: checkActiveDay(day2), tag: 2)
-                   
-               case 3:
-                   d3TXT1=w.part1From;d3TXT2=w.part1To;d32TXT1=w.part2From;d32TXT2=w.part2To
-                   enableTextFields(enable: checkActiveDay(day3), tag: 3)
-                   
-               case 4:
-                   d4TXT1=w.part1From;d4TXT2=w.part1To;d42TXT1=w.part2From;d42TXT2=w.part2To
-                   enableTextFields(enable: checkActiveDay(day4), tag: 4)
-                   
-               case 5:
-                   d5TXT1=w.part1From;d5TXT2=w.part1To;d52TXT1=w.part2From;d52TXT2=w.part2To
-                   enableTextFields(enable: checkActiveDay(day5), tag: 5)
-                   
-               case 6:
-                   d6TXT1=w.part1From;d6TXT2=w.part1To;d62TXT1=w.part2From;d62TXT2=w.part2To
-                   enableTextFields(enable: checkActiveDay(day6), tag: 6)
-                   
-               default:
-                   d7TXT1=w.part1From;d7TXT2=w.part1To;d72TXT1=w.part2From;d72TXT2=w.part2To
-                   enableTextFields(enable: checkActiveDay(day7), tag: 7)
-                   
-               }
+        case 1:
+            d1TXT1=w.part1From;d1TXT2=w.part1To;d12TXT1=w.part2From;d12TXT2=w.part2To
+            enableTextFields(enable: checkActiveDay(day1), tag: 1)
+        case 2:
+            d2TXT1=w.part1From;d2TXT2=w.part1To;d22TXT1=w.part2From;d22TXT2=w.part2To
+            enableTextFields(enable: checkActiveDay(day2), tag: 2)
+            
+        case 3:
+            d3TXT1=w.part1From;d3TXT2=w.part1To;d32TXT1=w.part2From;d32TXT2=w.part2To
+            enableTextFields(enable: checkActiveDay(day3), tag: 3)
+            
+        case 4:
+            d4TXT1=w.part1From;d4TXT2=w.part1To;d42TXT1=w.part2From;d42TXT2=w.part2To
+            enableTextFields(enable: checkActiveDay(day4), tag: 4)
+            
+        case 5:
+            d5TXT1=w.part1From;d5TXT2=w.part1To;d52TXT1=w.part2From;d52TXT2=w.part2To
+            enableTextFields(enable: checkActiveDay(day5), tag: 5)
+            
+        case 6:
+            d6TXT1=w.part1From;d6TXT2=w.part1To;d62TXT1=w.part2From;d62TXT2=w.part2To
+            enableTextFields(enable: checkActiveDay(day6), tag: 6)
+            
+        default:
+            d7TXT1=w.part1From;d7TXT2=w.part1To;d72TXT1=w.part2From;d72TXT2=w.part2To
+            enableTextFields(enable: checkActiveDay(day7), tag: 7)
+            
+        }
     }
     
     func checkIfButtonsEnabled(enable:Int,vv:UIButton)  {
@@ -646,19 +646,19 @@ class CustomDoctorClinicWorkingHoursView: CustomBaseView {
         guard var hours = values.removeSubstringAfterOrBefore(needle: ":", beforeNeedle: true)?.toInt()  else { return "" }
         guard let minutes = values.removeSubstringAfterOrBefore(needle: ":", beforeNeedle: false)  else { return "" }
         guard let minute = minutes.removeSubstringAfterOrBefore(needle: ":", beforeNeedle: false)  else { return  getValues(ppp: &ppp, hours: &hours, minute: minutes)}
-
+        
         return getValues(ppp: &ppp, hours: &hours, minute: minute)
-//        ppp = hours > 12 ? "pm" : "am"
-//        hours =   hours > 12 ? hours - 12 : hours
-//        return "\(hours):\(minute) \(ppp)"
-//
+        //        ppp = hours > 12 ? "pm" : "am"
+        //        hours =   hours > 12 ? hours - 12 : hours
+        //        return "\(hours):\(minute) \(ppp)"
+        //
     }
     
     func getValues(ppp: inout String,hours : inout Int,minute:String) -> String {
-           ppp = hours > 12 ? "pm" : "am"
-           hours =   hours > 12 ? hours - 12 : hours
-           return "\(hours):\(minute) \(ppp)"
-       }
+        ppp = hours > 12 ? "pm" : "am"
+        hours =   hours > 12 ? hours - 12 : hours
+        return "\(hours):\(minute) \(ppp)"
+    }
     
     func activeOrNot(v:UIButton,d:Int)  {
         //        if isFromUpdateProfile {

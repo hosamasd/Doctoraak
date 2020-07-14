@@ -91,14 +91,12 @@ class CustomSelectedPatientDataVC: CustomBaseView {
             guard let phy = lab else { return  }
             
             self.patientCell.patient = phy.patient
-//            let itemFound = accepetArrayLAB.contains(phy.id)
-//            bottomStack.isHide(itemFound)
-            selectedPatientDataPHYCollectionvc.notificationRADArray = phy.details
+            selectedPatientDataPHYCollectionvc.notificationLABArray = phy.details
             
             selectedPatientDataPHYCollectionvc.collectionView.reloadData()
             let urlString = phy.photo
             guard let url = URL(string: urlString) else { return  }
-            sampleRosetaImage.sd_setImage(with: url)
+            sampleRosetaImage.sd_setImage(with: url, placeholderImage: #imageLiteral(resourceName: "G4-G5 Sample Rx"), options: .lowPriority)
         }
     }
     
@@ -106,8 +104,6 @@ class CustomSelectedPatientDataVC: CustomBaseView {
         didSet{
             guard let phy = labOrder else { return  }
             self.patientCell.patientLab = phy.patient
-//            let itemFound = accepetArrayLAB.contains(phy.id)
-//            bottomStack.isHide(itemFound)
             selectedPatientDataPHYCollectionvc.notificationLABArray = phy.details
             selectedPatientDataPHYCollectionvc.collectionView.reloadData()
             let urlString = phy.photo

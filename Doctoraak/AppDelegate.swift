@@ -53,7 +53,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate,MOLHResetable {
     func reset() {
         userDefaults.set(true, forKey: UserDefaultsConstants.isWelcomeVCAppear)
         userDefaults.set(false, forKey: UserDefaultsConstants.isAllMainHomeObjectsFetched)
-        
+//        userDefaults.set(false, forKey: UserDefaultsConstants.isAllMainHomeObjectsFetched)
+//        userDefaults.set(false, forKey: UserDefaultsConstants.isAllMainHomeObjectsFetched)
+//        userDefaults.set(false, forKey: UserDefaultsConstants.isAllMainHomeObjectsFetched)
+//        userDefaults.set(false, forKey: UserDefaultsConstants.isAllMainHomeObjectsFetched)
+
         userDefaults.synchronize()
         window?.rootViewController = BaseSlidingVC()
     }
@@ -86,6 +90,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate,MOLHResetable {
         userDefaults.set(true, forKey: UserDefaultsConstants.isWelcomeVCAppear)
         userDefaults.set(false, forKey: UserDefaultsConstants.isCachedDriopLists)
         userDefaults.set(false, forKey: UserDefaultsConstants.chhosedCachesWorkingHours)
+        userDefaults.set(false, forKey: UserDefaultsConstants.isAllMainHomeObjectsFetched)
+
+        
         userDefaults.synchronize()
     }
     

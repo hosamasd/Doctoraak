@@ -15,7 +15,7 @@ class TopMainHomeCell: BaseCollectionCell {
     var reservation:Int?{
         didSet{
             guard let reservation = reservation else { return  }
-            let dd = reservation <= 0  ? "No Reservation Avaliable".localized :   " Reservations".localized + " \(reservation)" 
+            let dd = reservation <= 0  ? "No Reservation Avaliable".localized :   " Reservations".localized + " :  \(reservation)" 
             doctorReservationLabel.text = dd
         }
     }

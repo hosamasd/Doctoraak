@@ -17,7 +17,7 @@ class BaseSlidingVC: UIViewController {
         didSet{
         guard let index = index else { return }
             let ss =  index < 2 ?  DoctorHomeVC(inde: index) : MainHomeVC(inde: index)
-//        rightViewController = UINavigationController(rootViewController:ss)
+        rightViewController = UINavigationController(rootViewController:ss)
 //            menuViewController = index == 0 || index == 1 ? DoctorHomeLeftMenuVC(index: index) : HomeLeftMenuVC(index: index)
     }
     }
@@ -107,7 +107,12 @@ class BaseSlidingVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        index == nil ?  index = userDefaults.integer(forKey: UserDefaultsConstants.MainLoginINDEX) : ()
+        
+        if userDefaults.integer(forKey: UserDefaultsConstants.MainLoginINDEX) == 0 {
+            index = userDefaults.integer(forKey: UserDefaultsConstants.MainLoginINDEX)
+        }else {
+            index = nil
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
