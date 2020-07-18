@@ -16,13 +16,38 @@ class CustomMainHomeView: CustomBaseView {
         didSet{
             guard let index = index else { return  }
             mainHomePatientsCollectionVC.index=index
+            topMainHomeCell.index=index
             let xx = index == 0 || index == 1 ? false : true
-            topDoctorHomeCell.isHide(xx)
-            tobButtonsStacks.isHide(xx)
-            topMainHomeCell.isHide(!xx)
+            DispatchQueue.main.async {
+                //                self.topDoctorHomeCell.isHide(xx)
+                self.tobButtonsStacks.isHide(xx)
+                //                self.topMainHomeCell.isHide(!xx)
+            }
         }
     }
     
+    var doctor:DoctorModel?{
+        didSet{
+            guard let lab = doctor else { return  }
+            
+            guard let ll = lab.insuranceCompany?.first(where: {$0.id==1}) else {return}
+            let urlString = ll.photo
+            guard let url = URL(string: urlString) else { return  }
+            drInsuranceImage.sd_setImage(with: url)
+            drInsuranceImage.isHide(false)
+        }
+    }
+    var medicalCenter:DoctorModel?{
+        didSet{
+            guard let lab = medicalCenter else { return  }
+            
+            guard let ll = lab.insuranceCompany?.first(where: {$0.id==1}) else {return}
+            let urlString = ll.photo
+            guard let url = URL(string: urlString) else { return  }
+            drInsuranceImage.sd_setImage(with: url)
+            drInsuranceImage.isHide(false)
+        }
+    }
     
     var lab:LabModel?{
         didSet{
@@ -96,15 +121,21 @@ class CustomMainHomeView: CustomBaseView {
         return i
     }()
     lazy var titleLabel = UILabel(text: "Home".localized, font: .systemFont(ofSize: 30), textColor: .white)
-    lazy var topDoctorHomeCell:TopDoctorHomeCell = {
-        let c=TopDoctorHomeCell()
-        c.isHide(true)
+    //    lazy var topDoctorHomeCell:TopDoctorHomeCell = {
+    //        let c=TopDoctorHomeCell()
+    //        c.isHide(true)
+    //        c.handleChoosedClinicID = {[unowned self] ind in
+    //            self.handleChoosedClinicID?(ind)
+    //        }
+    //        return c
+    //    }()
+    lazy var topMainHomeCell:TopMainHomeCell = {
+        let c = TopMainHomeCell()
         c.handleChoosedClinicID = {[unowned self] ind in
             self.handleChoosedClinicID?(ind)
         }
         return c
     }()
-    lazy var topMainHomeCell = TopMainHomeCell()
     
     lazy var allButton = createMainButtons(title: "All", color: .black, tags: 4)
     lazy var newButton = createMainButtons(title: "New", color: .black, tags: 1)
@@ -141,7 +172,6 @@ class CustomMainHomeView: CustomBaseView {
     lazy var tobButtonsStacks:UIStackView = {
         let ss = getStack(views: allButton,newButton,consultaionButton,continueButton, spacing: 8, distribution: .fillProportionally, axis: .horizontal)
         ss.isHide(true)
-        
         return ss
     }()
     
@@ -157,7 +187,7 @@ class CustomMainHomeView: CustomBaseView {
         let sss = getStack(views: drImage,docotrLabel,drInsuranceImage, spacing: 8, distribution: .fill, axis: .horizontal)
         
         [titleLabel,docotrLabel].forEach({$0.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left})
-        addSubViews(views: LogoImage,listImage,notifyImage,sss,titleLabel,tobButtonsStacks,topMainHomeCell,topDoctorHomeCell,mainHomePatientsCollectionVC.view)
+        addSubViews(views: LogoImage,listImage,notifyImage,sss,titleLabel,tobButtonsStacks,topMainHomeCell,mainHomePatientsCollectionVC.view)
         
         
         if MOLHLanguage.isRTLLanguage() {
@@ -169,19 +199,18 @@ class CustomMainHomeView: CustomBaseView {
         listImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 60, left: 16, bottom: 0, right: 0))
         sss.anchor(top: topAnchor, leading: listImage.trailingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 60, left: 24, bottom: 0, right: 60))
         
-        tobButtonsStacks.anchor(top: topAnchor, leading: listImage.trailingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 60, left: 24, bottom: 0, right: 60))
+        //        tobButtonsStacks.anchor(top: topAnchor, leading: listImage.trailingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 60, left: 24, bottom: 0, right: 60))
         
-        //        drImage.anchor(top: topAnchor, leading: listImage.trailingAnchor, bottom: nil, trailing: nil,padding: .init(top: 60, left: 24, bottom: 0, right: 0))
-        //        docotrLabel.anchor(top: topAnchor, leading: drImage.trailingAnchor, bottom: nil, trailing: nil,padding: .init(top: 65, left: 16, bottom: 0, right: 0))
         
         
         notifyImage.anchor(top: topAnchor, leading: nil, bottom: nil, trailing: trailingAnchor,padding: .init(top: 60, left: 0, bottom: 0, right: 16))
         titleLabel.anchor(top: nil, leading: leadingAnchor, bottom: LogoImage.bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
         topMainHomeCell.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 16, left: 46, bottom: 0, right: 32))
-        topDoctorHomeCell.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 16, left: 46, bottom: 0, right: 32))
+        //        topDoctorHomeCell.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 16, left: 46, bottom: 0, right: 32))
+        tobButtonsStacks.anchor(top: topMainHomeCell.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 16, left: 46, bottom: 0, right: 32))
         
         
-        mainHomePatientsCollectionVC.view.anchor(top: topMainHomeCell.bottomAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 16, left: 46, bottom: 8, right: 32))
+        mainHomePatientsCollectionVC.view.anchor(top: tobButtonsStacks.bottomAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 16, left: 46, bottom: 8, right: 32))
         
     }
 }

@@ -10,6 +10,9 @@ import UIKit
 import SVProgressHUD
 import MOLH
 
+var chossedClinic:ClinicGetDoctorsModel?
+
+
 class MainHomeVC: CustomBaseViewVC {
     
     lazy var scrollView: UIScrollView = {
@@ -26,13 +29,12 @@ class MainHomeVC: CustomBaseViewVC {
     }()
     lazy var customMainHomeView:CustomMainHomeView = {
         let v = CustomMainHomeView()
-        v.index=index
         
         v.listImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpenMenu)))
         v.notifyImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpenNotifications)))
         v.handledisplayRADNotification = {[unowned self] noty,ind in
             guard let phy=self.rad else {return}
-            let patient = SelectedPharmacyPatientDataVC(inde: self.index, isFromMain: true)//SelectedPharmacyPatientDataVC(inde: self.index, phy: noty, pharmacy: phy)
+            let patient = SelectedPharmacyPatientDataVC(inde: self.index!, isFromMain: true)
             patient.delgate = self
             patient.radOrder = noty
             patient.indexPath=ind
@@ -42,7 +44,7 @@ class MainHomeVC: CustomBaseViewVC {
         }
         v.handledisplayLABNotification = {[unowned self] noty,ind in
             guard let phy=self.lab else {return}
-            let patient = SelectedPharmacyPatientDataVC(inde: self.index, isFromMain: true)//SelectedPharmacyPatientDataVC(inde: self.index, phy: noty, pharmacy: phy)
+            let patient = SelectedPharmacyPatientDataVC(inde: self.index!, isFromMain: true)
             patient.delgate = self
             //            patient.labOrderss = noty.details.first?.labOrder
             patient.labOrder = noty
@@ -52,7 +54,7 @@ class MainHomeVC: CustomBaseViewVC {
         }
         v.handledisplayPHYNotification = {[unowned self] noty,ind in
             guard let phy=self.phy else {return}
-            let patient = SelectedPharmacyPatientDataVC(inde: self.index, isFromMain: true)//SelectedPharmacyPatientDataVC(inde: self.index, phy: noty, pharmacy: phy)
+            let patient = SelectedPharmacyPatientDataVC(inde: self.index!, isFromMain: true)
             patient.phy = cachdPHARMACYObjectCodabe.storedValue ?? self.phy
             patient.phyOrder=noty
             patient.delgate = self
@@ -60,10 +62,6 @@ class MainHomeVC: CustomBaseViewVC {
             
             self.navigationController?.pushViewController(patient, animated: true)
         }
-//        v.handleRefreshCollection = {[unowned self] in
-//            self.fetchOrders()
-//        }
-        
         v.handleDoctorSelectedIndex = {[unowned self] indexPath in
             self.goToSpecifyIndex(indexPath)
         }
@@ -103,7 +101,6 @@ class MainHomeVC: CustomBaseViewVC {
             //            fetchOrders()
             userDefaults.bool(forKey: UserDefaultsConstants.isAllMainHomeObjectsFetched) ? () : fetchOrders()
             
-            //            userDefaults.bool(forKey: UserDefaultsConstants.isAllMainHomeObjectsFetchedLAB) ? () : fetchOrders()
         }
     }
     var phy:PharamacyModel?{
@@ -132,17 +129,17 @@ class MainHomeVC: CustomBaseViewVC {
     var doc:DoctorModel?{
         didSet{
             guard let lab = doc else { return  }
-            //               customDoctorHomeView.doctor=lab
-            //               customDoctorHomeView.topDoctorHomeCell.doctor=lab
-            //               userDefaults.bool(forKey: UserDefaultsConstants.isAllMainHomeObjectsFetchedDoctor) ? () : checkData()
+            customMainHomeView.doctor=lab
+            customMainHomeView.topMainHomeCell.doctor=lab
+            userDefaults.bool(forKey: UserDefaultsConstants.isAllMainHomeObjectsFetched) ? () : checkData()
         }
     }
     var medicalCenter:DoctorModel?{
         didSet{
             guard let lab = medicalCenter else { return  }
-            //                  customDoctorHomeView.medicalCenter=lab
-            //                  customDoctorHomeView.topDoctorHomeCell.doctor=lab
-            //                  userDefaults.bool(forKey: UserDefaultsConstants.isAllMainHomeObjectsFetchedDoctor) ? () : checkData()
+            customMainHomeView.medicalCenter=lab
+            customMainHomeView.topMainHomeCell.medicalCenter=lab
+            userDefaults.bool(forKey: UserDefaultsConstants.isAllMainHomeObjectsFetched) ? () : checkData()
         }
     }
     var numberOfClinicsAvaiable = [String]()
@@ -156,28 +153,53 @@ class MainHomeVC: CustomBaseViewVC {
     var filterDoctorPatientsArray = [DoctorGetPatientsFromClinicModel]()
     var isFilter:Bool = false
     
-    fileprivate var index:Int!
-    init(inde:Int) {
-        self.index = inde
-        super.init(nibName: nil, bundle: nil)
+    var index:Int? {
+        didSet{
+            guard let index = index else { return  }
+            customMainHomeView.index=index
+        }
     }
+    
+    
+    //    fileprivate var index:Int!
+    //    init(inde:Int) {
+    //        self.index = inde
+    //        super.init(nibName: nil, bundle: nil)
+    //    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         //        fetchOrders()
-        if userDefaults.bool(forKey: UserDefaultsConstants.isWelcomeVCAppear) {
-            getObjects()
-        }else {}  
+        //        if userDefaults.bool(forKey: UserDefaultsConstants.isWelcomeVCAppear) {
+        //            getObjects()
+        //        }else {}
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         index = userDefaults.integer(forKey: UserDefaultsConstants.MainLoginINDEX)
-
-//        if !userDefaults.bool(forKey: UserDefaultsConstants.isWelcomeVCAppear) {
-//            view.alpha = 0
-//        }else {            view.alpha = 1
-//        }
+        
+        if userDefaults.bool(forKey: UserDefaultsConstants.DoctorPerformLogin) {
+            doc = cacheDoctorObjectCodabe.storedValue
+        }
+        if userDefaults.bool(forKey: UserDefaultsConstants.medicalCenterPerformLogin) {
+            medicalCenter = cacheMedicalObjectCodabe.storedValue
+        }
+        
+        if userDefaults.bool(forKey: UserDefaultsConstants.labPerformLogin) {
+            lab = cacheLABObjectCodabe.storedValue
+        }
+        if userDefaults.bool(forKey: UserDefaultsConstants.radiologyPerformLogin) {
+            rad = cachdRADObjectCodabe.storedValue
+        }
+        if userDefaults.bool(forKey: UserDefaultsConstants.pharamacyPerformLogin) {
+            phy = cachdPHARMACYObjectCodabe.storedValue
+        }
+        
+        //        if !userDefaults.bool(forKey: UserDefaultsConstants.isWelcomeVCAppear) {
+        //            view.alpha = 0
+        //        }else {            view.alpha = 1
+        //        }
     }
     //MARK: -user methods
     
@@ -236,7 +258,7 @@ class MainHomeVC: CustomBaseViewVC {
     
     fileprivate  func getDataAccordingToIndex(_ index:Int)  {
         let clinicId = self.docotrClinicID[index]
-        guard   let qq = customMainHomeView.topDoctorHomeCell.doctorClinicDrop.selectedIndex,let doc = doc else {return}
+        guard   let qq = customMainHomeView.topMainHomeCell.doctorClinicDrop.selectedIndex,let doc = doc else {return}
         chossedClinic=doctorsClinicArray[qq]
         //        SVProgressHUD.show(withStatus: "Looding...".localized)
         UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
@@ -257,7 +279,7 @@ class MainHomeVC: CustomBaseViewVC {
             self.customMainHomeView.mainHomePatientsCollectionVC.doctorPatientsArray = patients
             
             DispatchQueue.main.async {
-                self.customMainHomeView.topDoctorHomeCell.doctorReservationLabel.text = "\(patients.count) "+"Reservation ".localized
+                self.customMainHomeView.topMainHomeCell.doctorReservationLabel.text = "\(patients.count) "+"Reservation ".localized
                 
                 self.customMainHomeView.mainHomePatientsCollectionVC.collectionView.reloadData()
                 //                                          self.view.layoutIfNeeded()
@@ -288,10 +310,10 @@ class MainHomeVC: CustomBaseViewVC {
                     
                 }
                 self.docotrAllPatientsArray = patients
-                self.customMainHomeView.topDoctorHomeCell.numberOfReserve = patients.count
+                self.customMainHomeView.topMainHomeCell.reservation = patients.count
                 
-                self.customMainHomeView.topDoctorHomeCell.doctorReservationLabel.text = "\(patients.count) "+"Reservation ".localized
-                self.customMainHomeView.topDoctorHomeCell.doctor = self.doc
+                //                self.customMainHomeView.topDoctorHomeCell.doctorReservationLabel.text = "\(patients.count) "+"Reservation ".localized
+                self.customMainHomeView.topMainHomeCell.doctor = self.doc
                 self.customMainHomeView.mainHomePatientsCollectionVC.doctorPatientsArray = patients
                 
                 
@@ -304,13 +326,17 @@ class MainHomeVC: CustomBaseViewVC {
                         self.numberOfClinicsAvaiable.append(s)
                     }
                     
-                    self.customMainHomeView.topDoctorHomeCell.numberOfClinics = self.numberOfClinicsAvaiable.count
-                    self.customMainHomeView.topDoctorHomeCell.mainDropView.isHide(self.numberOfClinicsAvaiable.count > 0 ? false : true)
-                    self.customMainHomeView.topDoctorHomeCell.doctorReservationLabel.isHide(self.numberOfClinicsAvaiable.count > 0 ? false : true)
+                    self.customMainHomeView.topMainHomeCell.numberOfClinics = self.numberOfClinicsAvaiable.count
+                    self.customMainHomeView.topMainHomeCell.mainDropView.isHide(self.numberOfClinicsAvaiable.count > 0 ? false : true)
+                    self.customMainHomeView.topMainHomeCell.doctorReservationLabel.isHide(self.numberOfClinicsAvaiable.count > 0 ? false : true)
+                    let xc = mains?.data?.count ?? 0
                     
-                    self.customMainHomeView.topDoctorHomeCell.doctorClinicDrop.optionArray = self.numberOfClinicsAvaiable
-                    self.customMainHomeView.topDoctorHomeCell.doctorClinicDrop.text = "Clinic 1".localized
-                    self.customMainHomeView.topDoctorHomeCell.doctorClinicDrop.selectedIndex = 0
+                    self.customMainHomeView.topMainHomeCell.reservation = xc
+                    
+                    //                                   self.customMainHomeView.topDoctorHomeCell.doctorReservationLabel.text = "\(xc) "+"Reservation ".localized
+                    self.customMainHomeView.topMainHomeCell.doctorClinicDrop.optionArray = self.numberOfClinicsAvaiable
+                    self.customMainHomeView.topMainHomeCell.doctorClinicDrop.text = "Clinic 1".localized
+                    self.customMainHomeView.topMainHomeCell.doctorClinicDrop.selectedIndex = 0
                     
                     
                     self.customMainHomeView.mainHomePatientsCollectionVC.collectionView.reloadData()
@@ -435,6 +461,7 @@ class MainHomeVC: CustomBaseViewVC {
     
     fileprivate func goToSpecifyIndex(_ indexx:IndexPath)  {
         print(indexx.item)
+        guard let index = index else { return  }
         let patient = PatientDataVC(inde: index)
         navigationController?.pushViewController(patient, animated: true)
         
@@ -489,22 +516,22 @@ class MainHomeVC: CustomBaseViewVC {
     }
     
     @objc func handleFilterData(sender:UIButton)  {
-           switch sender.tag {
-           case 1:
-               takeTag(customMainHomeView.newButton, btns: customMainHomeView.allButton ,customMainHomeView.consultaionButton,customMainHomeView.continueButton,tag: 1)
-           case 2:
-               takeTag(customMainHomeView.consultaionButton, btns: customMainHomeView.newButton,customMainHomeView.allButton,customMainHomeView.continueButton,tag: 2)
-           case 3:
-               takeTag(customMainHomeView.continueButton, btns: customMainHomeView.newButton,customMainHomeView.consultaionButton,customMainHomeView.allButton,tag: 3)
-           default:
-               takeTag(customMainHomeView.allButton, btns: customMainHomeView.newButton,customMainHomeView.consultaionButton,customMainHomeView.continueButton,tag: 4)
-           }
-           isFilter = true
-       }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        switch sender.tag {
+        case 1:
+            takeTag(customMainHomeView.newButton, btns: customMainHomeView.allButton ,customMainHomeView.consultaionButton,customMainHomeView.continueButton,tag: 1)
+        case 2:
+            takeTag(customMainHomeView.consultaionButton, btns: customMainHomeView.newButton,customMainHomeView.allButton,customMainHomeView.continueButton,tag: 2)
+        case 3:
+            takeTag(customMainHomeView.continueButton, btns: customMainHomeView.newButton,customMainHomeView.consultaionButton,customMainHomeView.allButton,tag: 3)
+        default:
+            takeTag(customMainHomeView.allButton, btns: customMainHomeView.newButton,customMainHomeView.consultaionButton,customMainHomeView.continueButton,tag: 4)
+        }
+        isFilter = true
     }
+    
+    //    required init?(coder: NSCoder) {
+    //        fatalError("init(coder:) has not been implemented")
+    //    }
 }
 
 //MARK:-extension
@@ -514,7 +541,9 @@ extension MainHomeVC: SelectedPharmacyPatientDataProtocol {
     
     func deletePHY(indexPath: IndexPath, index: Int) {
         customMainHomeView.topMainHomeCell.reservation! -= 1
-        if index == 2 {
+        if index == 0 || index == 1 {
+            customMainHomeView.mainHomePatientsCollectionVC.doctorPatientsArray.remove(at: indexPath.item)
+        }else if index == 2 {
             customMainHomeView.mainHomePatientsCollectionVC.notificationLABArray.remove(at: indexPath.item)
         }else if index == 3 {
             customMainHomeView.mainHomePatientsCollectionVC.notificationRADArray.remove(at: indexPath.item)

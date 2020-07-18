@@ -13,30 +13,30 @@ import MOLH
 
 class BaseSlidingVC: UIViewController {
     
-//    var index:Int?{
-//        didSet{
-//            guard let index = index else { return }
-////            let ss =  index < 2 ?  DoctorHomeVC(inde: index) : MainHomeVC(inde: index)
-////            let vc = index == 0 || index == 1 ? DoctorHomeLeftMenuVC(index: index) : HomeLeftMenuVC(index: index)
-////
-////            if !userDefaults.bool(forKey: UserDefaultsConstants.isWelcomeVCAppear) {
-////                rightViewController.navigationController?.viewControllers = [DoctorHomeVC(inde: index)]
-////                menuViewController.view.backgroundColor = .gray
-//
-//                //                setupViewControllers()
-//                //                             rightViewController = UINavigationController(rootViewController: ss)
-//                //                menuViewController = vc
-////            }
-//        }
-//    }
+    //    var index:Int?{
+    //        didSet{
+    //            guard let index = index else { return }
+    ////            let ss =  index < 2 ?  DoctorHomeVC(inde: index) : MainHomeVC(inde: index)
+    ////            let vc = index == 0 || index == 1 ? DoctorHomeLeftMenuVC(index: index) : HomeLeftMenuVC(index: index)
+    ////
+    ////            if !userDefaults.bool(forKey: UserDefaultsConstants.isWelcomeVCAppear) {
+    ////                rightViewController.navigationController?.viewControllers = [DoctorHomeVC(inde: index)]
+    ////                menuViewController.view.backgroundColor = .gray
+    //
+    //                //                setupViewControllers()
+    //                //                             rightViewController = UINavigationController(rootViewController: ss)
+    //                //                menuViewController = vc
+    ////            }
+    //        }
+    //    }
     var index = 3
     
     
     //
-    lazy var    rightViewController = UINavigationController(rootViewController:  MainHomeVC(inde: index))
-
-//  lazy var    rightViewController = UINavigationController(rootViewController: index < 2 ?  DoctorHomeVC(inde: index) : MainHomeVC(inde: index))
-  lazy var  menuViewController = index == 0 || index == 1 ? DoctorHomeLeftMenuVC(index: index) : HomeLeftMenuVC(index: index)
+    lazy var    rightViewController = UINavigationController(rootViewController:  MainHomeVC())
+    
+    //  lazy var    rightViewController = UINavigationController(rootViewController: index < 2 ?  DoctorHomeVC(inde: index) : MainHomeVC(inde: index))
+    lazy var  menuViewController = index == 0 || index == 1 ? DoctorHomeLeftMenuVC(index: index) : HomeLeftMenuVC(index: index)
     //        }
     //    }
     
@@ -95,17 +95,17 @@ class BaseSlidingVC: UIViewController {
     
     
     
-//    lazy var rightViewController: UIViewController  = {
-//        let vc = UINavigationController(rootViewController: MainHomeVC(inde: 2))
-//        return vc
-//    }()//index < 2 ?  DoctorHomeVC(inde: index) : MainHomeVC(inde: index))
-//
-//    //    lazy var rightViewController: UIViewController = UIViewController()//UINavigationController(rootViewController:  MainHomeVC(inde: 2))
-//    lazy var menuViewController: UIViewController  = {
-//        let vc =  UIViewController()
-//        vc.view.backgroundColor = .gray
-//        return vc
-//    }()
+    //    lazy var rightViewController: UIViewController  = {
+    //        let vc = UINavigationController(rootViewController: MainHomeVC(inde: 2))
+    //        return vc
+    //    }()//index < 2 ?  DoctorHomeVC(inde: index) : MainHomeVC(inde: index))
+    //
+    //    //    lazy var rightViewController: UIViewController = UIViewController()//UINavigationController(rootViewController:  MainHomeVC(inde: 2))
+    //    lazy var menuViewController: UIViewController  = {
+    //        let vc =  UIViewController()
+    //        vc.view.backgroundColor = .gray
+    //        return vc
+    //    }()
     //    lazy var menuViewController: UIViewController = UIViewController()//UINavigationController(rootViewController:  HomeLeftMenuVC(index: 2))
     
     //    lazy var rightViewController: UIViewController = UINavigationController(rootViewController: index < 2 ?  DoctorHomeVC(inde: index) : MainHomeVC(inde: index))
@@ -135,33 +135,22 @@ class BaseSlidingVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        
-        
-        //        index = userDefaults.integer(forKey: UserDefaultsConstants.MainLoginINDEX)
-        
-        //        index = userDefaults.integer(forKey: UserDefaultsConstants.MainLoginINDEX)
-        
-        //        index = userDefaults.integer(forKey: UserDefaultsConstants.MainLoginINDEX)
-        
-        if userDefaults.bool(forKey: UserDefaultsConstants.currentUserLoginInAPP) {
-            if !userDefaults.bool(forKey: UserDefaultsConstants.isWelcomeVCAppear) {
-                index = userDefaults.integer(forKey: UserDefaultsConstants.MainLoginINDEX)
-                
-            }
-        }else {
-//            index = nil
+                if userDefaults.bool(forKey: UserDefaultsConstants.currentUserLoginInAPP) {
+                    if !userDefaults.bool(forKey: UserDefaultsConstants.isWelcomeVCAppear) {
+                        index = userDefaults.integer(forKey: UserDefaultsConstants.MainLoginINDEX)
+                        ( rightViewController.viewControllers.first as? MainHomeVC)?.index = index
+                    }
         }
+        //        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         
-        if userDefaults.bool(forKey: UserDefaultsConstants.isWelcomeVCAppear) {
+        if !userDefaults.bool(forKey: UserDefaultsConstants.isWelcomeVCAppear) {
             //            view.backgroundColor = .clear
             check()
-        }else {
-            //            view.backgroundColor = .white
-        }
+        }else { }
     }
     
     

@@ -11,6 +11,17 @@ import MOLH
 
 class SecondHomeLeftMenuCollcetionVC: BaseCollectionVC {
     
+    var index:Int? {
+        didSet{
+            guard let index = index else { return  }
+            let imagess:[UIImage] = [#imageLiteral(resourceName: "user"),#imageLiteral(resourceName: "calendar"),#imageLiteral(resourceName: "ic_add_circle_outline_24px-1"),#imageLiteral(resourceName: "Group 3928-1"),#imageLiteral(resourceName: "notification"),#imageLiteral(resourceName: "ic_chart"),#imageLiteral(resourceName: "phone-call"),#imageLiteral(resourceName: "global"),#imageLiteral(resourceName: "logout")]
+            let deatass = [["Profile".localized,"Calender".localized,"Add clinic".localized,"Clinic Info".localized,"Notification".localized,"Anaylicts".localized],["Contact Us".localized,"Language".localized,"Log Out".localized]]
+            images =   index == 0 || index == 1 ? imagess : images
+            deatas =   index == 0 || index == 1 ? deatass : deatas
+        }
+    }
+    
+    
     var images:[UIImage] = {
         let im = [#imageLiteral(resourceName: "user"),#imageLiteral(resourceName: "calendar"),#imageLiteral(resourceName: "notification"),#imageLiteral(resourceName: "ic_chart"),#imageLiteral(resourceName: "phone-call"),#imageLiteral(resourceName: "global"),#imageLiteral(resourceName: "logout")]
         return im

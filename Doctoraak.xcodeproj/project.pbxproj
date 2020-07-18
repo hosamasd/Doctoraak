@@ -671,6 +671,7 @@
 		4E3548A2242B899900DD4E7A /* MAY BE USED */ = {
 			isa = PBXGroup;
 			children = (
+				4E5CE7A824275187001EE175 /* CusomBookView.swift */,
 				4EDBE2A4242BA28900702C9A /* CustomMainDoctorNotificationView.swift */,
 				4EDBE29E242B9C7F00702C9A /* MainPaymentVC.swift */,
 				9F82FD9424AA3942009ED3B9 /* UITextView.swift */,
@@ -804,7 +805,6 @@
 				4EDBE2A3242BA25300702C9A /* Doctor Scenrieo */,
 				4E92AF6A242B714200BCF20E /* MAIN Home */,
 				4E58030824278A1300B5D502 /* Registration */,
-				4E5CE7A824275187001EE175 /* CusomBookView.swift */,
 			);
 			path = CustomVC;
 			sourceTree = "<group>";
