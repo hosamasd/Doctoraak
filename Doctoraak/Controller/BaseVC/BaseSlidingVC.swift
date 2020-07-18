@@ -33,7 +33,9 @@ class BaseSlidingVC: UIViewController {
     
     
     //
-  lazy var    rightViewController = UINavigationController(rootViewController: index < 2 ?  DoctorHomeVC(inde: index) : MainHomeVC(inde: index))
+    lazy var    rightViewController = UINavigationController(rootViewController:  MainHomeVC(inde: index))
+
+//  lazy var    rightViewController = UINavigationController(rootViewController: index < 2 ?  DoctorHomeVC(inde: index) : MainHomeVC(inde: index))
   lazy var  menuViewController = index == 0 || index == 1 ? DoctorHomeLeftMenuVC(index: index) : HomeLeftMenuVC(index: index)
     //        }
     //    }
@@ -154,7 +156,7 @@ class BaseSlidingVC: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         
-        if !userDefaults.bool(forKey: UserDefaultsConstants.isWelcomeVCAppear) {
+        if userDefaults.bool(forKey: UserDefaultsConstants.isWelcomeVCAppear) {
             //            view.backgroundColor = .clear
             check()
         }else {

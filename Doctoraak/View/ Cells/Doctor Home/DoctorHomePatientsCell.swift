@@ -11,8 +11,9 @@ import SDWebImage
 
 class DoctorHomePatientsCell: BaseCollectionCell {
     
-    var patient:PatientModel! {
+    var patient:PatientModel? {
         didSet{
+            guard let patient = patient else { return  }
             let urlString = patient.photo // dd ?? patient.photo
             guard let url = URL(string: urlString) else { return  }
             doctorProfileImage.sd_setImage(with: url)

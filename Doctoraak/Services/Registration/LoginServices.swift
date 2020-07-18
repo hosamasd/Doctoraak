@@ -16,7 +16,7 @@ class LoginServices {
            let urlString = baseUrl+nnn.toSecrueHttps()
            guard  let url = URL(string: urlString) else { return  }
         let postString :String
-        postString = specId != -1 ? "phone=\(phone)-\(specId!)&password=\(password)" : "phone=\(phone)&password=\(password)"
+        postString = index == 1 ? "phone=\(phone)-\(specId!)&password=\(password)" : "phone=\(phone)&password=\(password)"
          MainServices.registerationPostMethodGeneric(postString: postString, url: url, completion: completion)
        }
        

@@ -16,6 +16,10 @@ class CustomMainHomeView: CustomBaseView {
         didSet{
             guard let index = index else { return  }
             mainHomePatientsCollectionVC.index=index
+            let xx = index == 0 || index == 1 ? false : true
+            topDoctorHomeCell.isHide(xx)
+            tobButtonsStacks.isHide(xx)
+            topMainHomeCell.isHide(!xx)
         }
     }
     
@@ -92,8 +96,20 @@ class CustomMainHomeView: CustomBaseView {
         return i
     }()
     lazy var titleLabel = UILabel(text: "Home".localized, font: .systemFont(ofSize: 30), textColor: .white)
-    
+    lazy var topDoctorHomeCell:TopDoctorHomeCell = {
+        let c=TopDoctorHomeCell()
+        c.isHide(true)
+        c.handleChoosedClinicID = {[unowned self] ind in
+            self.handleChoosedClinicID?(ind)
+        }
+        return c
+    }()
     lazy var topMainHomeCell = TopMainHomeCell()
+    
+    lazy var allButton = createMainButtons(title: "All", color: .black, tags: 4)
+    lazy var newButton = createMainButtons(title: "New", color: .black, tags: 1)
+    lazy var consultaionButton = createMainButtons(title: "Consultation", color: .black, tags: 2)
+    lazy var continueButton = createMainButtons(title: "Continue", color: .black, tags: 3)
     
     lazy var mainHomePatientsCollectionVC:MainHomePatientsCollectionVC = {
         let vc = MainHomePatientsCollectionVC()
@@ -109,20 +125,39 @@ class CustomMainHomeView: CustomBaseView {
         vc.handleRefreshCollection = {[unowned self]  in
             self.handleRefreshCollection?()
         }
-        
+        vc.handleDoctorSelectedIndex = {[unowned self]  ind in
+            self.handleDoctorSelectedIndex?(ind)
+        }
         return vc
     }()
+    var handleChoosedClinicID:((Int)->Void)?
+    var handleDoctorSelectedIndex:((IndexPath)->Void)?
     
     var handledisplayRADNotification:((RadGetOrdersModel,IndexPath)->Void)?
     var handledisplayLABNotification:((LABGetOrdersModel,IndexPath)->Void)?
     var handledisplayPHYNotification:((PharmacyGetOrdersModel,IndexPath)->Void)?
     var handleRefreshCollection:(()->Void)?
     
+    lazy var tobButtonsStacks:UIStackView = {
+        let ss = getStack(views: allButton,newButton,consultaionButton,continueButton, spacing: 8, distribution: .fillProportionally, axis: .horizontal)
+        ss.isHide(true)
+        
+        return ss
+    }()
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        if allButton.backgroundColor != nil && index == 0 || index == 1{
+            addGradientInSenderAndRemoveOther(sender: allButton)
+            allButton.setTitleColor(.white, for: .normal)
+        }
+    }
+    
     override func setupViews() {
         let sss = getStack(views: drImage,docotrLabel,drInsuranceImage, spacing: 8, distribution: .fill, axis: .horizontal)
         
         [titleLabel,docotrLabel].forEach({$0.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left})
-        addSubViews(views: LogoImage,listImage,notifyImage,sss,titleLabel,topMainHomeCell,mainHomePatientsCollectionVC.view)
+        addSubViews(views: LogoImage,listImage,notifyImage,sss,titleLabel,tobButtonsStacks,topMainHomeCell,topDoctorHomeCell,mainHomePatientsCollectionVC.view)
         
         
         if MOLHLanguage.isRTLLanguage() {
@@ -134,6 +169,8 @@ class CustomMainHomeView: CustomBaseView {
         listImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 60, left: 16, bottom: 0, right: 0))
         sss.anchor(top: topAnchor, leading: listImage.trailingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 60, left: 24, bottom: 0, right: 60))
         
+        tobButtonsStacks.anchor(top: topAnchor, leading: listImage.trailingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 60, left: 24, bottom: 0, right: 60))
+        
         //        drImage.anchor(top: topAnchor, leading: listImage.trailingAnchor, bottom: nil, trailing: nil,padding: .init(top: 60, left: 24, bottom: 0, right: 0))
         //        docotrLabel.anchor(top: topAnchor, leading: drImage.trailingAnchor, bottom: nil, trailing: nil,padding: .init(top: 65, left: 16, bottom: 0, right: 0))
         
@@ -141,6 +178,8 @@ class CustomMainHomeView: CustomBaseView {
         notifyImage.anchor(top: topAnchor, leading: nil, bottom: nil, trailing: trailingAnchor,padding: .init(top: 60, left: 0, bottom: 0, right: 16))
         titleLabel.anchor(top: nil, leading: leadingAnchor, bottom: LogoImage.bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
         topMainHomeCell.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 16, left: 46, bottom: 0, right: 32))
+        topDoctorHomeCell.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 16, left: 46, bottom: 0, right: 32))
+        
         
         mainHomePatientsCollectionVC.view.anchor(top: topMainHomeCell.bottomAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 16, left: 46, bottom: 8, right: 32))
         

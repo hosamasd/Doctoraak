@@ -266,8 +266,6 @@ class DoctorHomeVC: CustomBaseViewVC {
     
     fileprivate func putUserPhoto(doctor:DoctorModel)  {
         customDoctorHomeView.topDoctorHomeCell.doctor = doctor
-        
-        
     }
     
     fileprivate func goToSpecifyIndex(_ indexx:IndexPath)  {
@@ -276,8 +274,7 @@ class DoctorHomeVC: CustomBaseViewVC {
         
         let patient = DoctorPatientDataVC(patient: patients)
         navigationController?.pushViewController(patient, animated: true)
-        
-    }
+     }
     
     fileprivate func takeTag(_ bt:UIButton,btns:UIButton...,tag:Int)  {
         addGradientInSenderAndRemoveOtherss(sender: bt, vvv: btns)

@@ -60,9 +60,18 @@ class MainHomeVC: CustomBaseViewVC {
             
             self.navigationController?.pushViewController(patient, animated: true)
         }
-        v.handleRefreshCollection = {[unowned self] in
-            self.fetchOrders()
+//        v.handleRefreshCollection = {[unowned self] in
+//            self.fetchOrders()
+//        }
+        
+        v.handleDoctorSelectedIndex = {[unowned self] indexPath in
+            self.goToSpecifyIndex(indexPath)
         }
+        [v.allButton,v.newButton,v.continueButton,v.consultaionButton].forEach({$0.addTarget(self, action: #selector(handleFilterData), for: .touchUpInside)})
+        v.handleChoosedClinicID = {[unowned self] index in
+            self.getDataAccordingToIndex(index)
+        }
+        
         return v
     }()
     
@@ -137,8 +146,17 @@ class MainHomeVC: CustomBaseViewVC {
         }
     }
     var numberOfClinicsAvaiable = [String]()
-       var doctorsClinicArray:[ClinicGetDoctorsModel] = [ClinicGetDoctorsModel]()
-    fileprivate let index:Int!
+    var doctorsClinicArray:[ClinicGetDoctorsModel] = [ClinicGetDoctorsModel]()
+    var docotrClinicID = [Int]()
+    
+    var doctorPatientsArray = [PatientModel]()
+    
+    var docotrAllPatientsArray = [DoctorGetPatientsFromClinicModel]()
+    
+    var filterDoctorPatientsArray = [DoctorGetPatientsFromClinicModel]()
+    var isFilter:Bool = false
+    
+    fileprivate var index:Int!
     init(inde:Int) {
         self.index = inde
         super.init(nibName: nil, bundle: nil)
@@ -154,17 +172,161 @@ class MainHomeVC: CustomBaseViewVC {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        if !userDefaults.bool(forKey: UserDefaultsConstants.isWelcomeVCAppear) {
-            view.alpha = 0
-        }else {            view.alpha = 1
-        }
+        index = userDefaults.integer(forKey: UserDefaultsConstants.MainLoginINDEX)
+
+//        if !userDefaults.bool(forKey: UserDefaultsConstants.isWelcomeVCAppear) {
+//            view.alpha = 0
+//        }else {            view.alpha = 1
+//        }
     }
     //MARK: -user methods
     
     override func setupNavigation()  {
         navigationController?.navigationBar.isHide(true)
     }
+    
+    //for doctor and medical center
+    
+    fileprivate  func checkData()  {
+        guard let doc = doc else { return  }
+        UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
+        self.showMainAlertLooder(cc: self.customMainAlertVC, v: self.customAlertMainLoodingView)
+        //        SVProgressHUD.show(withStatus: "Looding...")
+        var group2: MainClinicGetDoctorsModel?
+        var group3:MainDoctorGetPatientsFromClinicModel?
+        
+        
+        let semaphore = DispatchSemaphore(value: 0)
+        
+        let dispatchQueue = DispatchQueue.global(qos: .background)
+        
+        
+        dispatchQueue.async {
+            DoctorServices.shared.getDocotrsClinic(api_token: doc.apiToken, doctor_id: doc.id) {[unowned self] (base, err) in
+                
+                
+                if let err = err {
+                    SVProgressHUD.showError(withStatus: err.localizedDescription)
+                    self.handleDismiss()
+                    self.activeViewsIfNoData();return
+                }
+                group2 = base
+                self.putClinics(group2)
+                semaphore.signal()
+            }
+            semaphore.wait()
+            
+            DoctorServices.shared.getDocotrsPatientsInClinic(clinic_id: self.docotrClinicID.first ?? 1 , api_token: doc.apiToken, doctor_id: doc.id) {[unowned self] (base, err) in
+                if let err = err {
+                    SVProgressHUD.showError(withStatus: err.localizedDescription)
+                    self.handleDismiss()
+                    self.activeViewsIfNoData();return
+                }
+                group3 = base
+                semaphore.signal()
+            }
+            semaphore.wait()
+            
+            semaphore.signal()
+            self.reloadMainData(group2: group2,group3)
+            semaphore.wait()
+        }
+        
+    }
+    
+    fileprivate  func getDataAccordingToIndex(_ index:Int)  {
+        let clinicId = self.docotrClinicID[index]
+        guard   let qq = customMainHomeView.topDoctorHomeCell.doctorClinicDrop.selectedIndex,let doc = doc else {return}
+        chossedClinic=doctorsClinicArray[qq]
+        //        SVProgressHUD.show(withStatus: "Looding...".localized)
+        UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
+        self.showMainAlertLooder(cc: self.customMainAlertVC, v: self.customAlertMainLoodingView)
+        DoctorServices.shared.getDocotrsPatientsInClinic(clinic_id: clinicId, api_token: doc.apiToken, doctor_id: doc.id) {[unowned self] (base, err) in
+            if let err = err {
+                SVProgressHUD.showError(withStatus: err.localizedDescription)
+                self.handleDismiss()
+                self.activeViewsIfNoData();return
+            }
+            SVProgressHUD.dismiss()
+            self.handleDismiss()
+            
+            self.activeViewsIfNoData()
+            guard let patients = base?.data else {SVProgressHUD.showError(withStatus: base?.message); self.activeViewsIfNoData(); return}
+            self.docotrAllPatientsArray = patients
+            
+            self.customMainHomeView.mainHomePatientsCollectionVC.doctorPatientsArray = patients
+            
+            DispatchQueue.main.async {
+                self.customMainHomeView.topDoctorHomeCell.doctorReservationLabel.text = "\(patients.count) "+"Reservation ".localized
+                
+                self.customMainHomeView.mainHomePatientsCollectionVC.collectionView.reloadData()
+                //                                          self.view.layoutIfNeeded()
+            }
+        }
+    }
+    
+    fileprivate  func putClinics(_ gg:MainClinicGetDoctorsModel?)  {
+        guard let cc = gg?.data else { return  }
+        cc.forEach { (c) in
+            let d = c.workingHours.first?.clinicID
+            docotrClinicID.append(d ?? 1)
+        }
+    }
+    
+    
+    
+    fileprivate func reloadMainData(group2:MainClinicGetDoctorsModel?,_ mains:MainDoctorGetPatientsFromClinicModel?) {
+        
+        DispatchQueue.main.async {
+            
+            self.handleDismiss()
+            //            SVProgressHUD.dismiss()
+            UIApplication.shared.endIgnoringInteractionEvents() // disbale all events in the screen
+            if let patients=mains?.data {
+                patients.forEach { (pp) in
+                    self.doctorPatientsArray.append(pp.patient)
+                    
+                }
+                self.docotrAllPatientsArray = patients
+                self.customMainHomeView.topDoctorHomeCell.numberOfReserve = patients.count
+                
+                self.customMainHomeView.topDoctorHomeCell.doctorReservationLabel.text = "\(patients.count) "+"Reservation ".localized
+                self.customMainHomeView.topDoctorHomeCell.doctor = self.doc
+                self.customMainHomeView.mainHomePatientsCollectionVC.doctorPatientsArray = patients
+                
+                
+            }
+            if group2?.data != nil && group2!.data!.count > 0 {
+                if let clinics = group2?.data {
+                    self.doctorsClinicArray=clinics
+                    for n in 1...clinics.count  {
+                        let s = "Clinic \(n)"
+                        self.numberOfClinicsAvaiable.append(s)
+                    }
+                    
+                    self.customMainHomeView.topDoctorHomeCell.numberOfClinics = self.numberOfClinicsAvaiable.count
+                    self.customMainHomeView.topDoctorHomeCell.mainDropView.isHide(self.numberOfClinicsAvaiable.count > 0 ? false : true)
+                    self.customMainHomeView.topDoctorHomeCell.doctorReservationLabel.isHide(self.numberOfClinicsAvaiable.count > 0 ? false : true)
+                    
+                    self.customMainHomeView.topDoctorHomeCell.doctorClinicDrop.optionArray = self.numberOfClinicsAvaiable
+                    self.customMainHomeView.topDoctorHomeCell.doctorClinicDrop.text = "Clinic 1".localized
+                    self.customMainHomeView.topDoctorHomeCell.doctorClinicDrop.selectedIndex = 0
+                    
+                    
+                    self.customMainHomeView.mainHomePatientsCollectionVC.collectionView.reloadData()
+                    userDefaults.set(true, forKey: UserDefaultsConstants.isAllMainHomeObjectsFetchedDoctor)
+                    userDefaults.set(self.numberOfClinicsAvaiable, forKey: UserDefaultsConstants.DoctornumberOfClinicsAvaiable)
+                    
+                    userDefaults.synchronize()
+                }
+                self.view.layoutIfNeeded()
+                
+            } }
+    }
+    
+    //MARK:-oTHER MODULES
+    
+    
     
     fileprivate func getObjects()  {
         if userDefaults.bool(forKey: UserDefaultsConstants.labPerformLogin) {
@@ -284,6 +446,16 @@ class MainHomeVC: CustomBaseViewVC {
         present(customMainAlertVC, animated: true)
     }
     
+    fileprivate func takeTag(_ bt:UIButton,btns:UIButton...,tag:Int)  {
+        addGradientInSenderAndRemoveOtherss(sender: bt, vvv: btns)
+        filterDoctorPatientsArray = tag == 4 ? docotrAllPatientsArray : docotrAllPatientsArray.filter({$0.type.toInt() == tag})
+        customMainHomeView.mainHomePatientsCollectionVC.doctorPatientsArray = tag == 4 ? docotrAllPatientsArray : filterDoctorPatientsArray
+        DispatchQueue.main.async {
+            self.customMainHomeView.mainHomePatientsCollectionVC.collectionView.reloadData()
+            //            self.view.layoutIfNeeded()
+        }
+    }
+    
     //TODO:-Hnadle methods
     
     @objc func handleOpenMenu()  {
@@ -316,7 +488,19 @@ class MainHomeVC: CustomBaseViewVC {
         //        }
     }
     
-    
+    @objc func handleFilterData(sender:UIButton)  {
+           switch sender.tag {
+           case 1:
+               takeTag(customMainHomeView.newButton, btns: customMainHomeView.allButton ,customMainHomeView.consultaionButton,customMainHomeView.continueButton,tag: 1)
+           case 2:
+               takeTag(customMainHomeView.consultaionButton, btns: customMainHomeView.newButton,customMainHomeView.allButton,customMainHomeView.continueButton,tag: 2)
+           case 3:
+               takeTag(customMainHomeView.continueButton, btns: customMainHomeView.newButton,customMainHomeView.consultaionButton,customMainHomeView.allButton,tag: 3)
+           default:
+               takeTag(customMainHomeView.allButton, btns: customMainHomeView.newButton,customMainHomeView.consultaionButton,customMainHomeView.continueButton,tag: 4)
+           }
+           isFilter = true
+       }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

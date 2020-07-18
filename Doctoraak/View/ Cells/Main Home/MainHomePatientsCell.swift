@@ -49,6 +49,18 @@ class MainHomePatientsCell: BaseCollectionCell {
             patientProfileImage.sd_setImage(with: url)
         }
     }
+    var patient:PatientModel? {
+        didSet{
+            guard let patient = patient else { return  }
+            
+            patientNameLabel.text = patient.name
+            patienDateLabel.text = patient.createdAt
+            patientCityLabel.text = patient.gender
+            let urlString = patient.photo // dd ?? patient.photo
+            guard let url = URL(string: urlString) else { return  }
+            patientProfileImage.sd_setImage(with: url)
+        }
+    }
     
     lazy var patientProfileImage:UIImageView = {
         let i = UIImageView(backgroundColor: .gray)

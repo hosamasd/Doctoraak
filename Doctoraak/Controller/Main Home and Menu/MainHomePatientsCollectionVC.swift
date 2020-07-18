@@ -12,7 +12,7 @@ class MainHomePatientsCollectionVC: BaseCollectionVC     {
     
     let refreshControl = UIRefreshControl()
     var handleRefreshCollection:(()->Void)?
-
+    
     fileprivate let cellId = "cellId"
     var index = 0
     var currentTableAnimation: CollectionAnimation = .fadeIn(duration: 0.85, delay: 0.03)
@@ -22,13 +22,16 @@ class MainHomePatientsCollectionVC: BaseCollectionVC     {
     
     var notificationRADArray = [RadGetOrdersModel]()
     
-//    var handledisplayRADNotification:((RadGetOrdersModel)->Void)?
-//    var handledisplayLABNotification:((LABGetOrdersModel)->Void)?
-//    var handledisplayPHYNotification:((PharmacyGetOrdersModel)->Void)?
+    var doctorPatientsArray = [DoctorGetPatientsFromClinicModel]()
+    
+    //    var handledisplayRADNotification:((RadGetOrdersModel)->Void)?
+    //    var handledisplayLABNotification:((LABGetOrdersModel)->Void)?
+    //    var handledisplayPHYNotification:((PharmacyGetOrdersModel)->Void)?
+    var handleDoctorSelectedIndex:((IndexPath)->Void)?
     
     var handledisplayRADNotification:((RadGetOrdersModel,IndexPath)->Void)?
-      var handledisplayLABNotification:((LABGetOrdersModel,IndexPath)->Void)?
-      var handledisplayPHYNotification:((PharmacyGetOrdersModel,IndexPath)->Void)?
+    var handledisplayLABNotification:((LABGetOrdersModel,IndexPath)->Void)?
+    var handledisplayPHYNotification:((PharmacyGetOrdersModel,IndexPath)->Void)?
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if index == 2 {
@@ -51,7 +54,11 @@ class MainHomePatientsCollectionVC: BaseCollectionVC     {
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! MainHomePatientsCell
-        if index == 2 {
+        
+        if index == 0 || index == 1 {
+            let pat = doctorPatientsArray[indexPath.item].patient
+            cell.patient=pat
+        }else if index == 2 {
             let epoisde = notificationLABArray[indexPath.row]
             cell.lab = epoisde
         }else if index == 3 {
@@ -65,7 +72,9 @@ class MainHomePatientsCollectionVC: BaseCollectionVC     {
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if index == 2  {
+        if index == 0 || index == 1 {
+            handleDoctorSelectedIndex?(indexPath)
+        }else  if index == 2  {
             let dd = notificationLABArray[indexPath.item]
             self.handledisplayLABNotification?(dd,indexPath)
             //            makePostLABAlert(post: dd)
@@ -88,47 +97,47 @@ class MainHomePatientsCollectionVC: BaseCollectionVC     {
     
     //MARK: -user methods
     
-//    fileprivate  func makePostRADAlert(post:RadGetOrdersModel)  {
-//        let alert = UIAlertController(title: "Choose Options".localized, message: "What do you want to make?".localized, preferredStyle: .actionSheet)
-//        let delete = UIAlertAction(title: "Delete".localized, style: .destructive) { (_) in
-//            self.handledisplayRADNotification?(post)
-//            
-//        }
-//        let cancel = UIAlertAction(title: "Cancel".localized, style: .default) { (_) in
-//            alert.dismiss(animated: true)
-//        }
-//        alert.addAction(delete)
-//        alert.addAction(cancel)
-//        present(alert, animated: true)
-//    }
-//    
-//    fileprivate  func makePostLABAlert(post:LABGetOrdersModel)  {
-//        let alert = UIAlertController(title: "Choose Options".localized, message: "What do you want to make?".localized, preferredStyle: .actionSheet)
-//        let delete = UIAlertAction(title: "Delete".localized, style: .destructive) { (_) in
-//            self.handledisplayLABNotification?(post)
-//            
-//        }
-//        let cancel = UIAlertAction(title: "Cancel".localized, style: .default) { (_) in
-//            alert.dismiss(animated: true)
-//        }
-//        alert.addAction(delete)
-//        alert.addAction(cancel)
-//        present(alert, animated: true)
-//    }
-//    
-//    fileprivate func makePostPHYAlert(post:PharmacyGetOrdersModel)  {
-//        let alert = UIAlertController(title: "Choose Options".localized, message: "What do you want to make?".localized, preferredStyle: .actionSheet)
-//        let delete = UIAlertAction(title: "Delete".localized, style: .destructive) { (_) in
-//            self.handledisplayPHYNotification?(post)
-//            
-//        }
-//        let cancel = UIAlertAction(title: "Cancel".localized, style: .default) { (_) in
-//            alert.dismiss(animated: true)
-//        }
-//        alert.addAction(delete)
-//        alert.addAction(cancel)
-//        present(alert, animated: true)
-//    }
+    //    fileprivate  func makePostRADAlert(post:RadGetOrdersModel)  {
+    //        let alert = UIAlertController(title: "Choose Options".localized, message: "What do you want to make?".localized, preferredStyle: .actionSheet)
+    //        let delete = UIAlertAction(title: "Delete".localized, style: .destructive) { (_) in
+    //            self.handledisplayRADNotification?(post)
+    //
+    //        }
+    //        let cancel = UIAlertAction(title: "Cancel".localized, style: .default) { (_) in
+    //            alert.dismiss(animated: true)
+    //        }
+    //        alert.addAction(delete)
+    //        alert.addAction(cancel)
+    //        present(alert, animated: true)
+    //    }
+    //
+    //    fileprivate  func makePostLABAlert(post:LABGetOrdersModel)  {
+    //        let alert = UIAlertController(title: "Choose Options".localized, message: "What do you want to make?".localized, preferredStyle: .actionSheet)
+    //        let delete = UIAlertAction(title: "Delete".localized, style: .destructive) { (_) in
+    //            self.handledisplayLABNotification?(post)
+    //
+    //        }
+    //        let cancel = UIAlertAction(title: "Cancel".localized, style: .default) { (_) in
+    //            alert.dismiss(animated: true)
+    //        }
+    //        alert.addAction(delete)
+    //        alert.addAction(cancel)
+    //        present(alert, animated: true)
+    //    }
+    //
+    //    fileprivate func makePostPHYAlert(post:PharmacyGetOrdersModel)  {
+    //        let alert = UIAlertController(title: "Choose Options".localized, message: "What do you want to make?".localized, preferredStyle: .actionSheet)
+    //        let delete = UIAlertAction(title: "Delete".localized, style: .destructive) { (_) in
+    //            self.handledisplayPHYNotification?(post)
+    //
+    //        }
+    //        let cancel = UIAlertAction(title: "Cancel".localized, style: .default) { (_) in
+    //            alert.dismiss(animated: true)
+    //        }
+    //        alert.addAction(delete)
+    //        alert.addAction(cancel)
+    //        present(alert, animated: true)
+    //    }
     
     override func setupCollection() {
         collectionView.showsVerticalScrollIndicator = false
@@ -139,8 +148,8 @@ class MainHomePatientsCollectionVC: BaseCollectionVC     {
     }
     
     @objc func didPullToRefresh()  {
-     refreshControl.endRefreshing()
-         handleRefreshCollection?()
-    
-     }
+        refreshControl.endRefreshing()
+        handleRefreshCollection?()
+        
+    }
 }
