@@ -36,7 +36,7 @@ class BaseSlidingVC: UIViewController {
     lazy var    rightViewController = UINavigationController(rootViewController:  MainHomeVC())
     
     //  lazy var    rightViewController = UINavigationController(rootViewController: index < 2 ?  DoctorHomeVC(inde: index) : MainHomeVC(inde: index))
-    lazy var  menuViewController = index == 0 || index == 1 ? DoctorHomeLeftMenuVC(index: index) : HomeLeftMenuVC(index: index)
+    lazy var  menuViewController =  HomeLeftMenuVC()
     //        }
     //    }
     
@@ -135,11 +135,11 @@ class BaseSlidingVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-                if userDefaults.bool(forKey: UserDefaultsConstants.currentUserLoginInAPP) {
-                    if !userDefaults.bool(forKey: UserDefaultsConstants.isWelcomeVCAppear) {
-                        index = userDefaults.integer(forKey: UserDefaultsConstants.MainLoginINDEX)
-                        ( rightViewController.viewControllers.first as? MainHomeVC)?.index = index
-                    }
+        if userDefaults.bool(forKey: UserDefaultsConstants.currentUserLoginInAPP) {
+            if !userDefaults.bool(forKey: UserDefaultsConstants.isWelcomeVCAppear) {
+                index = userDefaults.integer(forKey: UserDefaultsConstants.MainLoginINDEX)
+                ( rightViewController.viewControllers.first as? MainHomeVC)?.index = index
+            }
         }
         //        }
     }
@@ -244,16 +244,37 @@ class BaseSlidingVC: UIViewController {
         if userDefaults.bool(forKey: UserDefaultsConstants.labPerformLogin) {
             cacheLABObjectCodabe.deleteFile(cacheLABObjectCodabe.storedValue!)
             userDefaults.set(false, forKey: UserDefaultsConstants.labPerformLogin)
-            userDefaults.set(false, forKey: UserDefaultsConstants.isAllMainHomeObjectsFetchedLAB)
+//            userDefaults.set(false, forKey: UserDefaultsConstants.isAllMainHomeObjectsFetchedLAB)
         }else if userDefaults.bool(forKey: UserDefaultsConstants.radiologyPerformLogin) {
             cachdRADObjectCodabe.deleteFile(cachdRADObjectCodabe.storedValue!)
             userDefaults.set(false, forKey: UserDefaultsConstants.radiologyPerformLogin)
-            userDefaults.set(false, forKey: UserDefaultsConstants.isAllMainHomeObjectsFetchedRAD)
+//            userDefaults.set(false, forKey: UserDefaultsConstants.isAllMainHomeObjectsFetchedRAD)
         }else if userDefaults.bool(forKey: UserDefaultsConstants.pharamacyPerformLogin) {
             cachdPHARMACYObjectCodabe.deleteFile(cachdPHARMACYObjectCodabe.storedValue!)
             userDefaults.set(false, forKey: UserDefaultsConstants.pharamacyPerformLogin)
-            userDefaults.set(false, forKey: UserDefaultsConstants.isAllMainHomeObjectsFetchedPHY)
+//            userDefaults.set(false, forKey: UserDefaultsConstants.isAllMainHomeObjectsFetchedPHY)
+        }else if userDefaults.bool(forKey: UserDefaultsConstants.DoctorPerformLogin) {
+            cacheDoctorObjectCodabe.deleteFile(cacheDoctorObjectCodabe.storedValue!)
+            cacheDoctorObjectClinicWorkingHoursLeftMenu.deleteFile(cacheDoctorObjectClinicWorkingHoursLeftMenu.storedValue!)
+            userDefaults.set(false, forKey: UserDefaultsConstants.DoctorPerformLogin)
+//            userDefaults.set(false, forKey: UserDefaultsConstants.isAllMainHomeObjectsFetchedPHY)
+        }else if userDefaults.bool(forKey: UserDefaultsConstants.medicalCenterPerformLogin) {
+            cacheMedicalObjectCodabe.deleteFile(cacheMedicalObjectCodabe.storedValue!)
+            cacheMedicalCenterObjectCodabeClinicWorkingHoursLeftMenu.deleteFile(cacheMedicalCenterObjectCodabeClinicWorkingHoursLeftMenu.storedValue!)
+            userDefaults.set(false, forKey: UserDefaultsConstants.medicalCenterPerformLogin)
+//            userDefaults.set(false, forKey: UserDefaultsConstants.isAllMainHomeObjectsFetchedPHY)
+            
         }
+        
+        userDefaults.set(false, forKey: UserDefaultsConstants.isAllMainHomeObjectsFetched)
+
+        userDefaults.removeObject(forKey: UserDefaultsConstants.MainLoginINDEX)
+        userDefaults.set(true, forKey: UserDefaultsConstants.isWelcomeVCAppear)
+        userDefaults.set(false, forKey: UserDefaultsConstants.isSpecifiedIndexClincChoosed)
+        userDefaults.synchronize()
+        
+        
+        
         userDefaults.set(true, forKey: UserDefaultsConstants.isWelcomeVCAppear)
         userDefaults.set(false, forKey: UserDefaultsConstants.currentUserLoginInAPP)
         

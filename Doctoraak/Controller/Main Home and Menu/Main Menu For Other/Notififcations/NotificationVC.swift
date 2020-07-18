@@ -18,7 +18,7 @@ class NotificationVC: CustomBaseViewVC {
     lazy var scrollView: UIScrollView = {
         let v = UIScrollView()
         v.backgroundColor = .clear
-        
+        v.showsVerticalScrollIndicator=false
         return v
     }()
     lazy var mainView:UIView = {
@@ -99,7 +99,7 @@ class NotificationVC: CustomBaseViewVC {
         didSet{
             guard let lab = doctor else { return  }
             customNotificationView.doctor=lab
-            userDefaults.bool(forKey: UserDefaultsConstants.isDoctorNotificationChanged) ? getNotifications() : ()
+            //            userDefaults.bool(forKey: UserDefaultsConstants.isDoctorNotificationChanged) ? getNotifications() : ()
         }
     }
     var medicalCenter:DoctorModel?{
@@ -142,6 +142,7 @@ class NotificationVC: CustomBaseViewVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         getObjects()
+        scrollView.delegate=self
         //        refreshControl.addTarget(self, action: #selector(didPullToRefresh), for: .valueChanged)
         //
         //               scrollView.refreshControl = refreshControl
@@ -317,10 +318,6 @@ class NotificationVC: CustomBaseViewVC {
     fileprivate  func reloadLABData(user:[LABNotificationModel])  {
         self.customNotificationView.notificationsCollectionVC.notificationLABArray=user
         DispatchQueue.main.async {
-            //            self.customNotificationView.notificationsCollectionVC.refreshControl.endRefreshing()
-            //            self.customNotificationView.notificationsCollectionVC.collectionView.refreshControl=nil
-            //            self.customNotificationView.notificationsCollectionVC.collectionView.refreshControl?.removeFromSuperview()
-            
             self.customNotificationView.notificationsCollectionVC.collectionView.reloadData()
         }
         let ind = UserDefaultsConstants.isLABNotificationChanged
@@ -435,3 +432,11 @@ class NotificationVC: CustomBaseViewVC {
 }
 
 //MARK:-EXtension
+
+extension NotificationVC:UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let x = scrollView.contentOffset.y
+        self.scrollView.isScrollEnabled = x < -60 ? false : true
+    
+      }
+}

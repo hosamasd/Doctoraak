@@ -59,6 +59,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate,MOLHResetable {
     func reset() {
         userDefaults.set(true, forKey: UserDefaultsConstants.isWelcomeVCAppear)
         userDefaults.set(false, forKey: UserDefaultsConstants.isAllMainHomeObjectsFetched)
+        userDefaults.set(false, forKey: UserDefaultsConstants.isSpecifiedIndexClincChoosed)
+
 //        userDefaults.set(false, forKey: UserDefaultsConstants.isAllMainHomeObjectsFetched)
 //        userDefaults.set(false, forKey: UserDefaultsConstants.isAllMainHomeObjectsFetched)
 //        userDefaults.set(false, forKey: UserDefaultsConstants.isAllMainHomeObjectsFetched)

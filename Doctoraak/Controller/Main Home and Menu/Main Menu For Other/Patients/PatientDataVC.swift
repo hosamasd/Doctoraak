@@ -14,7 +14,8 @@ class PatientDataVC: CustomBaseViewVC {
     lazy var scrollView: UIScrollView = {
         let v = UIScrollView()
         v.backgroundColor = .clear
-        
+        v.showsVerticalScrollIndicator=false
+
         return v
     }()
     lazy var mainView:UIView = {
@@ -37,7 +38,7 @@ class PatientDataVC: CustomBaseViewVC {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        scrollView.delegate=self
     }
     
     
@@ -71,4 +72,12 @@ class PatientDataVC: CustomBaseViewVC {
         fatalError("init(coder:) has not been implemented")
     }
     
+}
+
+extension PatientDataVC:UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let x = scrollView.contentOffset.y
+        self.scrollView.isScrollEnabled = x < -60 ? false : true
+    
+      }
 }

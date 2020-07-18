@@ -15,7 +15,7 @@ class PharamacyProfileVC: CustomBaseViewVC {
     lazy var scrollView: UIScrollView = {
         let v = UIScrollView()
         v.backgroundColor = .clear
-        
+        v.showsVerticalScrollIndicator=false
         return v
     }()
     lazy var mainView:UIView = {
@@ -35,9 +35,9 @@ class PharamacyProfileVC: CustomBaseViewVC {
             let working = MainClinicWorkingHoursNotDoctorVC(index: self.index,isFromUpdateProfile:true,isFromRegister: false)
             working.delgate = self
             if !userDefaults.bool(forKey: UserDefaultsConstants.chhosedCachesWorkingHours) {
-            working.lab = self.lab
-            working.rad=self.rad
-            working.phy=self.phy
+                working.lab = self.lab
+                working.rad=self.rad
+                working.phy=self.phy
             }
             self.navigationController?.pushViewController(working, animated: true)
         }
@@ -45,11 +45,11 @@ class PharamacyProfileVC: CustomBaseViewVC {
             let loct = ChooseLocationVC(isFromUpdate: true)
             loct.delgate = self
             loct.lab = self.lab
-                       loct.rad=self.rad
-                       loct.phy=self.phy
-//            loct.phy = cachdPHARMACYObjectCodabe.storedValue //self.phy
-//            loct.lab=cacheLABObjectCodabe.storedValue
-//            loct.rad=cachdRADObjectCodabe.storedValue
+            loct.rad=self.rad
+            loct.phy=self.phy
+            //            loct.phy = cachdPHARMACYObjectCodabe.storedValue //self.phy
+            //            loct.lab=cacheLABObjectCodabe.storedValue
+            //            loct.rad=cachdRADObjectCodabe.storedValue
             self.navigationController?.pushViewController(loct, animated: true)
         }
         return v
@@ -102,7 +102,7 @@ class PharamacyProfileVC: CustomBaseViewVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViewModelObserver()
-        
+        scrollView.delegate=self
     }
     
     override func setupNavigation()  {
@@ -175,7 +175,7 @@ class PharamacyProfileVC: CustomBaseViewVC {
         rad != nil ?    cachdRADObjectCodabe.save(rad!) : ()
         
         userDefaults.set(false, forKey: UserDefaultsConstants.chhosedCachesWorkingHours)
-               userDefaults.synchronize()
+        userDefaults.synchronize()
     }
     
     fileprivate  func checkPharamacyLoginState()  {
@@ -277,7 +277,7 @@ class PharamacyProfileVC: CustomBaseViewVC {
     
     @objc func handleSave()  {
         index == 4 ? checkPharamacyLoginState() : index == 2 ? checkLabLoginState() : checkRadLoginState()
-       
+        
         
     }
 }
@@ -301,7 +301,7 @@ extension PharamacyProfileVC: UIImagePickerControllerDelegate, UINavigationContr
         dismiss(animated: true)
     }
     
-
+    
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         customPharamacyProfileView.edirProfileViewModel.image = nil
@@ -336,5 +336,12 @@ extension PharamacyProfileVC: ChooseLocationVCProtocol{
         convertLatLongToAddress(latitude: lat, longitude: long)
         customPharamacyProfileView.edirProfileViewModel.latt = lat
         customPharamacyProfileView.edirProfileViewModel.lang = long
+    }
+}
+extension PharamacyProfileVC:UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let x = scrollView.contentOffset.y
+        self.scrollView.isScrollEnabled = x < -60 ? false : true
+        
     }
 }

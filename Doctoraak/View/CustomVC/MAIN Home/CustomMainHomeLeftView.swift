@@ -17,9 +17,36 @@ class CustomMainHomeLeftView: CustomBaseView {
     var index:Int? {
         didSet{
             guard let index = index else { return  }
+            homeAllLeftMenuCollectionVC.index=index
         }
     }
-   
+    
+     var doctor:DoctorModel?{
+           didSet{
+               guard let lab = doctor else { return  }
+               
+               let name = MOLHLanguage.isRTLLanguage() ? lab.nameAr ?? lab.name : lab.name
+               let dd =  getSpecizalitionFromIndex(lab.specializationID)
+               userNameLabel.text = name+"\n"+dd
+               let urlString = lab.photo
+               guard let url = URL(string: urlString) else { return  }
+               userImage.sd_setImage(with: url)
+           }
+       }
+       var meidicalCenter:DoctorModel?{
+           didSet{
+               guard let lab = meidicalCenter else { return  }
+               
+               let name = MOLHLanguage.isRTLLanguage() ? lab.nameAr ?? lab.name : lab.name
+               let dd =  getSpecizalitionFromIndex(lab.specializationID)
+               userNameLabel.text = name+"\n"+dd
+               let urlString = lab.photo
+               guard let url = URL(string: urlString) else { return  }
+               userImage.sd_setImage(with: url)
+           }
+           
+       }
+    
     var lab:LabModel?{
         didSet{
             guard let lab = lab else { return  }
@@ -35,25 +62,25 @@ class CustomMainHomeLeftView: CustomBaseView {
     var phy:PharamacyModel?{
         didSet{
             guard let phy = phy else { return  }
-           
+            
             let name = MOLHLanguage.isRTLLanguage() ? phy.nameAr ?? phy.name : phy.name
             let dd =  phy.phone
             userNameLabel.text = name+"\n"+dd
             let urlString = phy.photo
-                       guard let url = URL(string: urlString) else { return  }
-                       userImage.sd_setImage(with: url)
+            guard let url = URL(string: urlString) else { return  }
+            userImage.sd_setImage(with: url)
         }
     }
     var rad:RadiologyModel?{
         didSet{
             guard let lab = rad else { return  }
-           
+            
             let name = MOLHLanguage.isRTLLanguage() ? lab.nameAr ?? lab.name : lab.name
             let dd =  lab.phone
             userNameLabel.text = name+"\n"+dd
             let urlString = lab.photo
-                       guard let url = URL(string: urlString) else { return  }
-                       userImage.sd_setImage(with: url)
+            guard let url = URL(string: urlString) else { return  }
+            userImage.sd_setImage(with: url)
         }
     }
     
@@ -78,11 +105,11 @@ class CustomMainHomeLeftView: CustomBaseView {
         vc.handleCheckedIndex = {[unowned self ] index in
             self.handleCheckedIndex?(index)
         }
-//        vc.collectionView.isHide(true)
+        //        vc.collectionView.isHide(true)
         return vc
     }()
     var handleCheckedIndex:((IndexPath)->Void)?
-//    var handleCheckedDocIndex:((IndexPath)->Void)?
+    //    var handleCheckedDocIndex:((IndexPath)->Void)?
     
     override func setupViews() {
         addSubViews(views: LogoImage,userImage,userNameLabel,homeAllLeftMenuCollectionVC.view)

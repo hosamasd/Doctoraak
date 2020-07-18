@@ -14,7 +14,7 @@ class HomeLeftMenuVC: CustomBaseViewVC {
     
     lazy var customMainHomeLeftView:CustomMainHomeLeftView = {
         let v = CustomMainHomeLeftView()
-        v.index = index
+        //        v.index = index
         
         v.handleCheckedIndex = {[unowned self] index in
             self.checkIfLoggined(index)
@@ -39,22 +39,46 @@ class HomeLeftMenuVC: CustomBaseViewVC {
         didSet{
             guard let phy = phy else { return  }
             customMainHomeLeftView.phy=phy
-            
         }
     }
     var rad:RadiologyModel?{
         didSet{
             guard let lab = rad else { return  }
             customMainHomeLeftView.rad=lab
-            
         }
     }
     
-    fileprivate let index:Int!
-    init(index:Int) {
-        self.index=index
-        super.init(nibName: nil, bundle: nil)
+    var doctor:DoctorModel?{
+        didSet{
+            guard let phy = doctor else { return  }
+            customMainHomeLeftView.doctor=phy
+        }
     }
+    
+    var medicalCenter:DoctorModel?{
+        didSet{
+            guard let phy = medicalCenter else { return  }
+            customMainHomeLeftView.meidicalCenter=phy
+        }
+    }
+    var index:Int? {
+        didSet{
+            guard let index = index else { return  }
+            customMainHomeLeftView.index=index
+        }
+    }
+    var doctorCacheClinic:ClinicGetDoctorsModel?{
+        didSet{
+            guard let doctorCacheClinic = doctorCacheClinic else { return  }
+        }
+    }
+    
+    
+    //    fileprivate let index:Int!
+    //    init(index:Int) {
+    //        self.index=index
+    //        super.init(nibName: nil, bundle: nil)
+    //    }
     
     
     
@@ -67,30 +91,45 @@ class HomeLeftMenuVC: CustomBaseViewVC {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        index = userDefaults.integer(forKey: UserDefaultsConstants.MainLoginINDEX)
+        
         //        [lab,rad,phy].forEach({$0 == nil})
         if userDefaults.bool(forKey: UserDefaultsConstants.labPerformLogin) {
             lab = cacheLABObjectCodabe.storedValue
-        }else if userDefaults.bool(forKey: UserDefaultsConstants.radiologyPerformLogin) {
+        }
+        if userDefaults.bool(forKey: UserDefaultsConstants.radiologyPerformLogin) {
             rad = cachdRADObjectCodabe.storedValue
-        }else if userDefaults.bool(forKey: UserDefaultsConstants.pharamacyPerformLogin) {
+        }
+        if userDefaults.bool(forKey: UserDefaultsConstants.pharamacyPerformLogin) {
             phy = cachdPHARMACYObjectCodabe.storedValue
         }
+        if userDefaults.bool(forKey: UserDefaultsConstants.DoctorPerformLogin) {
+            doctor = cacheDoctorObjectCodabe.storedValue
+        }
+        if userDefaults.bool(forKey: UserDefaultsConstants.medicalCenterPerformLogin) {
+            medicalCenter = cacheMedicalObjectCodabe.storedValue
+        }
+        
+        if userDefaults.bool(forKey: UserDefaultsConstants.isSpecifiedIndexClincChoosed) {
+            doctorCacheClinic = cacheDoctorObjectClinicWorkingHoursLeftMenu.storedValue
+        }
+        
     }
     
-//    fileprivate func getObjects()  {
-//        if userDefaults.bool(forKey: UserDefaultsConstants.labPerformLogin) {
-//            lab = cacheLABObjectCodabe.storedValue
-//            userDefaults.bool(forKey: UserDefaultsConstants.isLABNotificationChanged) ? getNotifications() : ()
-//            
-//        }else if userDefaults.bool(forKey: UserDefaultsConstants.radiologyPerformLogin) {
-//            rad = cachdRADObjectCodabe.storedValue
-//            userDefaults.bool(forKey: UserDefaultsConstants.isRADNotificationChanged) ? getNotifications() : ()
-//            
-//        }else if userDefaults.bool(forKey: UserDefaultsConstants.pharamacyPerformLogin) {
-//            phy = cachdPHARMACYObjectCodabe.storedValue
-//            userDefaults.bool(forKey: UserDefaultsConstants.isPHYNotificationChanged) ? getNotifications() : ()
-//        }
-//    }
+    //    fileprivate func getObjects()  {
+    //        if userDefaults.bool(forKey: UserDefaultsConstants.labPerformLogin) {
+    //            lab = cacheLABObjectCodabe.storedValue
+    //            userDefaults.bool(forKey: UserDefaultsConstants.isLABNotificationChanged) ? getNotifications() : ()
+    //
+    //        }else if userDefaults.bool(forKey: UserDefaultsConstants.radiologyPerformLogin) {
+    //            rad = cachdRADObjectCodabe.storedValue
+    //            userDefaults.bool(forKey: UserDefaultsConstants.isRADNotificationChanged) ? getNotifications() : ()
+    //
+    //        }else if userDefaults.bool(forKey: UserDefaultsConstants.pharamacyPerformLogin) {
+    //            phy = cachdPHARMACYObjectCodabe.storedValue
+    //            userDefaults.bool(forKey: UserDefaultsConstants.isPHYNotificationChanged) ? getNotifications() : ()
+    //        }
+    //    }
     
     //MARK: -user methods
     
@@ -125,6 +164,8 @@ class HomeLeftMenuVC: CustomBaseViewVC {
         profile.phy=phy
         profile.lab=lab
         profile.rad=rad
+        profile.doctor=doctor
+        profile.medicalCenter=self.medicalCenter
         //        profile.doctor=doctor
         let nav = UINavigationController(rootViewController: profile)
         
@@ -134,10 +175,11 @@ class HomeLeftMenuVC: CustomBaseViewVC {
     
     fileprivate func goToSameNotification(_ baseSlid: BaseSlidingVC) {
         baseSlid.closeMenu()
-        let profile = NotificationVC(index: index, isFromMenu: true)
+        let profile = NotificationVC(index: index!, isFromMenu: true)
         profile.phy=phy
         profile.lab=lab
-        //        profile.doctor=doctor
+        profile.doctor=doctor
+        profile.medicalCenter=self.medicalCenter
         profile.rad=rad
         let nav = UINavigationController(rootViewController: profile)
         
@@ -145,47 +187,91 @@ class HomeLeftMenuVC: CustomBaseViewVC {
         present(nav, animated: true)
     }
     
+    fileprivate func goToClinicWorkingHours(_ baseSlid: BaseSlidingVC,isOnlyShow:Bool,doctor: ClinicGetDoctorsModel? = nil) {
+           baseSlid.closeMenu()
+           let profile = DoctorClinicWorkingHoursVC(isFromLeftMenu: true, isOnlyShow: isOnlyShow)
+//           profile.doctor=chossedClinic
+        profile.doctor = doctor
+           let nav = UINavigationController(rootViewController: profile)
+           
+           nav.modalPresentationStyle = .fullScreen
+           present(nav, animated: true)
+       }
+    
     fileprivate func checkIfLoggined(_ indexPath:IndexPath)  {
-        guard let baseSlid = UIApplication.shared.windows.filter({$0.isKeyWindow}).first?.rootViewController as? BaseSlidingVC else {return}
+        guard let baseSlid = UIApplication.shared.windows.filter({$0.isKeyWindow}).first?.rootViewController as? BaseSlidingVC,let index=index else {return}
+        
         if indexPath.section == 0 {
-            if indexPath.item == 0  {
-                baseSlid.closeMenu()
-                let profile = PharamacyProfileVC(index: index)
-                profile.phy=phy
-                profile.lab=lab
-                profile.rad=rad
-                let nav = UINavigationController(rootViewController: profile)
+            
+            if  index == 0 || index == 1 {
+                if indexPath.item == 0 {
+                    baseSlid.closeMenu()
+                    let profile = DoctorProfileVC(index: index)
+                    profile.doc=doctor
+                    let nav = UINavigationController(rootViewController: profile)
+                    
+                    nav.modalPresentationStyle = .fullScreen
+                    present(nav, animated: true)
+                }else if indexPath.item == 1 {
+                    guard let doctor =  cacheDoctorObjectCodabe.storedValue else { return  }
+                    baseSlid.closeMenu()
+                    
+                    let profile = DoctorClinicDataVC(indexx: index, api_token: doctor.apiToken, doctor_id: doctor.id, isFromProfile: true)
+                    let nav = UINavigationController(rootViewController: profile)
+                    
+                    nav.modalPresentationStyle = .fullScreen
+                    present(nav, animated: true)
+                }else if indexPath.item == 2 {
+                    goToClinicWorkingHours(baseSlid,isOnlyShow:false)
+                }else if indexPath.item == 3 {
+                    goToClinicWorkingHours(baseSlid,isOnlyShow:true,doctor: cacheDoctorObjectClinicWorkingHoursLeftMenu.storedValue)
+                }
+                else if indexPath.item == 4 {
+                    goToSameNotification(baseSlid)
+                }else if indexPath.item == 5 {
+                    goToSameAnayltics(baseSlid)
+                    
+                }
+            }else {
                 
-                nav.modalPresentationStyle = .fullScreen
-                present(nav, animated: true)
-            }else if indexPath.item == 1 {
-                baseSlid.closeMenu()
-                let profile = MainClinicWorkingHoursNotDoctorVC(index: index, isFromUpdateProfile: false,isFromRegister: false)//MainClinicWorkingHoursVCWithoutEditingVC()
-                profile.phy=cachdPHARMACYObjectCodabe.storedValue//phy
-                profile.lab=cacheLABObjectCodabe.storedValue//lab
-                profile.rad=cachdRADObjectCodabe.storedValue//rad
-                let nav = UINavigationController(rootViewController: profile)
-                
-                nav.modalPresentationStyle = .fullScreen
-                present(nav, animated: true)
-                
-            }else if indexPath.item == 2 {
-                goToSameNotification(baseSlid)
-            }else if indexPath.item == 3 {
-                goToSameAnayltics(baseSlid)
-                
+                if indexPath.item == 0  {
+                    baseSlid.closeMenu()
+                    let profile = PharamacyProfileVC(index: index)
+                    profile.phy=phy
+                    profile.lab=lab
+                    profile.rad=rad
+                    let nav = UINavigationController(rootViewController: profile)
+                    
+                    nav.modalPresentationStyle = .fullScreen
+                    present(nav, animated: true)
+                }else if indexPath.item == 1 {
+                    baseSlid.closeMenu()
+                    let profile = MainClinicWorkingHoursNotDoctorVC(index: index, isFromUpdateProfile: false,isFromRegister: false)//MainClinicWorkingHoursVCWithoutEditingVC()
+                    profile.phy=cachdPHARMACYObjectCodabe.storedValue//phy
+                    profile.lab=cacheLABObjectCodabe.storedValue//lab
+                    profile.rad=cachdRADObjectCodabe.storedValue//rad
+                    let nav = UINavigationController(rootViewController: profile)
+                    
+                    nav.modalPresentationStyle = .fullScreen
+                    present(nav, animated: true)
+                    
+                }else if indexPath.item == 2 {
+                    goToSameNotification(baseSlid)
+                }else if indexPath.item == 3 {
+                    goToSameAnayltics(baseSlid)
+                    
+                }
             }
         }else {
             makeSameActions(indexPath, baseSlid)
         }
+        
     }
     
     
     fileprivate func chooseLanguage()  {
         guard let baseSlid = UIApplication.shared.windows.filter({$0.isKeyWindow}).first?.rootViewController as? BaseSlidingVC else {return}
-        
-        //        guard let baseSlid = UIApplication.shared.keyWindow?.rootViewController as? BaseSlidingVC else {return}
-        
+                
         baseSlid.closeMenu()
         baseSlid.customMainAlertVC.addCustomViewInCenter(views: baseSlid.customAlertChooseLanguageView, height: 200)
         baseSlid.present(baseSlid.customMainAlertVC, animated: true)
@@ -193,9 +279,7 @@ class HomeLeftMenuVC: CustomBaseViewVC {
     
     fileprivate func showAlertForContacting()  {
         guard let baseSlid = UIApplication.shared.windows.filter({$0.isKeyWindow}).first?.rootViewController as? BaseSlidingVC else {return}
-        
-        //        guard let baseSlid = UIApplication.shared.keyWindow?.rootViewController as? BaseSlidingVC else {return}
-        
+                
         baseSlid.closeMenu()
         baseSlid.customMainAlertVC.addCustomViewInCenter(views: baseSlid.customContactUsView, height: 120)
         baseSlid.present(baseSlid.customMainAlertVC, animated: true)
@@ -278,19 +362,4 @@ class HomeLeftMenuVC: CustomBaseViewVC {
             self.dismiss(animated: true, completion: nil)
         }
     }
-    
-    //    @objc func handleLogout()  {
-    //
-    //        guard let baseSlid = UIApplication.shared.windows.filter({$0.isKeyWindow}).first?.rootViewController as? BaseSlidingVC else {return}
-    //        baseSlid.closeMenu()
-    //        customMainAlertVC.addCustomViewInCenter(views: baseSlid.customAlertMainLoodingssView, height: 250)
-    //        present(customMainAlertVC, animated: true)
-    //        //        createAlerts()
-    //    }
-    
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
 }

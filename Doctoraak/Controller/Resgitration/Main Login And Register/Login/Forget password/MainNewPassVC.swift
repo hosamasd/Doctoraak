@@ -31,7 +31,8 @@ class MainNewPassVC: CustomBaseViewVC {
     lazy var scrollView: UIScrollView = {
            let v = UIScrollView()
            v.backgroundColor = .clear
-           
+           v.showsVerticalScrollIndicator=false
+
            return v
        }()
        lazy var mainView:UIView = {
@@ -66,6 +67,7 @@ class MainNewPassVC: CustomBaseViewVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViewModelObserver()
+
     }
     
     override func viewWillAppear(_ animated: Bool) {

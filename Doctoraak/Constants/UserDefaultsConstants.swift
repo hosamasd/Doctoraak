@@ -10,6 +10,9 @@ import UIKit
 
 class UserDefaultsConstants {
     
+    //for choosing clinicid
+      static let isSpecifiedIndexClincChoosed="isSpecifiedIndexClincChoosed"
+    
     //register all
     static let user_idForAll="user_idForAll"
     static let waitForSMSCodeForSpecific="waitForSMSCodeForSpecific"
@@ -76,6 +79,8 @@ class UserDefaultsConstants {
     static let isDegreesCached="isDegreesCached"
     static let isSpecificationsCached="isSpecificationsCached"
     
+  
+
     
     //verfiy smsm
     static let isDoctorWwaitForSMSCode="isDoctorWwaitForSMSCode"

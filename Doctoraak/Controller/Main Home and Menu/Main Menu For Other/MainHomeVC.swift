@@ -18,7 +18,7 @@ class MainHomeVC: CustomBaseViewVC {
     lazy var scrollView: UIScrollView = {
         let v = UIScrollView()
         v.backgroundColor = .clear
-        
+        v.showsVerticalScrollIndicator=false
         return v
     }()
     lazy var mainView:UIView = {
@@ -67,6 +67,8 @@ class MainHomeVC: CustomBaseViewVC {
         }
         [v.allButton,v.newButton,v.continueButton,v.consultaionButton].forEach({$0.addTarget(self, action: #selector(handleFilterData), for: .touchUpInside)})
         v.handleChoosedClinicID = {[unowned self] index in
+            let ss = self.doctorsClinicArray[index]
+            self.addAndRemoveCacheClinicWorkingHours(clinics: ss)
             self.getDataAccordingToIndex(index)
         }
         
@@ -161,6 +163,7 @@ class MainHomeVC: CustomBaseViewVC {
     }
     
     
+    
     //    fileprivate var index:Int!
     //    init(inde:Int) {
     //        self.index = inde
@@ -169,6 +172,7 @@ class MainHomeVC: CustomBaseViewVC {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.scrollView.delegate = self
         //        fetchOrders()
         //        if userDefaults.bool(forKey: UserDefaultsConstants.isWelcomeVCAppear) {
         //            getObjects()
@@ -177,23 +181,27 @@ class MainHomeVC: CustomBaseViewVC {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        index = userDefaults.integer(forKey: UserDefaultsConstants.MainLoginINDEX)
-        
-        if userDefaults.bool(forKey: UserDefaultsConstants.DoctorPerformLogin) {
-            doc = cacheDoctorObjectCodabe.storedValue
-        }
-        if userDefaults.bool(forKey: UserDefaultsConstants.medicalCenterPerformLogin) {
-            medicalCenter = cacheMedicalObjectCodabe.storedValue
+        if userDefaults.bool(forKey: UserDefaultsConstants.currentUserLoginInAPP) {
+            index = userDefaults.integer(forKey: UserDefaultsConstants.MainLoginINDEX)
         }
         
-        if userDefaults.bool(forKey: UserDefaultsConstants.labPerformLogin) {
-            lab = cacheLABObjectCodabe.storedValue
-        }
-        if userDefaults.bool(forKey: UserDefaultsConstants.radiologyPerformLogin) {
-            rad = cachdRADObjectCodabe.storedValue
-        }
-        if userDefaults.bool(forKey: UserDefaultsConstants.pharamacyPerformLogin) {
-            phy = cachdPHARMACYObjectCodabe.storedValue
+        if index == nil || !userDefaults.bool(forKey: UserDefaultsConstants.isAllMainHomeObjectsFetched){
+            if userDefaults.bool(forKey: UserDefaultsConstants.DoctorPerformLogin) {
+                doc = cacheDoctorObjectCodabe.storedValue
+            }
+            if userDefaults.bool(forKey: UserDefaultsConstants.medicalCenterPerformLogin) {
+                medicalCenter = cacheMedicalObjectCodabe.storedValue
+            }
+            
+            if userDefaults.bool(forKey: UserDefaultsConstants.labPerformLogin) {
+                lab = cacheLABObjectCodabe.storedValue
+            }
+            if userDefaults.bool(forKey: UserDefaultsConstants.radiologyPerformLogin) {
+                rad = cachdRADObjectCodabe.storedValue
+            }
+            if userDefaults.bool(forKey: UserDefaultsConstants.pharamacyPerformLogin) {
+                phy = cachdPHARMACYObjectCodabe.storedValue
+            }
         }
         
         //        if !userDefaults.bool(forKey: UserDefaultsConstants.isWelcomeVCAppear) {
@@ -278,6 +286,8 @@ class MainHomeVC: CustomBaseViewVC {
             
             self.customMainHomeView.mainHomePatientsCollectionVC.doctorPatientsArray = patients
             
+            
+            
             DispatchQueue.main.async {
                 self.customMainHomeView.topMainHomeCell.doctorReservationLabel.text = "\(patients.count) "+"Reservation ".localized
                 
@@ -285,6 +295,19 @@ class MainHomeVC: CustomBaseViewVC {
                 //                                          self.view.layoutIfNeeded()
             }
         }
+    }
+    
+    func addAndRemoveCacheClinicWorkingHours(clinics:ClinicGetDoctorsModel)  {
+        if self.index == 0 {
+            cacheDoctorObjectClinicWorkingHoursLeftMenu.deleteFile(cacheDoctorObjectClinicWorkingHoursLeftMenu.storedValue ?? clinics)
+            cacheDoctorObjectClinicWorkingHoursLeftMenu.save(clinics)
+        }
+        if self.index == 1 {
+            cacheMedicalCenterObjectCodabeClinicWorkingHoursLeftMenu.deleteFile(cacheDoctorObjectClinicWorkingHoursLeftMenu.storedValue ?? clinics)
+            cacheMedicalCenterObjectCodabeClinicWorkingHoursLeftMenu.save(clinics)
+        }
+        userDefaults.set(true, forKey: UserDefaultsConstants.isSpecifiedIndexClincChoosed)
+        userDefaults.synchronize()
     }
     
     fileprivate  func putClinics(_ gg:MainClinicGetDoctorsModel?)  {
@@ -340,10 +363,20 @@ class MainHomeVC: CustomBaseViewVC {
                     
                     
                     self.customMainHomeView.mainHomePatientsCollectionVC.collectionView.reloadData()
-                    userDefaults.set(true, forKey: UserDefaultsConstants.isAllMainHomeObjectsFetchedDoctor)
+                    userDefaults.set(true, forKey: UserDefaultsConstants.isAllMainHomeObjectsFetched)
                     userDefaults.set(self.numberOfClinicsAvaiable, forKey: UserDefaultsConstants.DoctornumberOfClinicsAvaiable)
                     
                     userDefaults.synchronize()
+                    
+                    self.addAndRemoveCacheClinicWorkingHours(clinics: clinics.first!)
+                    //                    if self.index == 0 {
+                    //                        cacheDoctorObjectClinicWorkingHoursLeftMenu.deleteFile(cacheDoctorObjectClinicWorkingHoursLeftMenu.storedValue ?? clinics)
+                    //                        cacheDoctorObjectClinicWorkingHoursLeftMenu.save(clinics)
+                    //                    }
+                    //                    if self.index == 1 {
+                    //                         cacheMedicalCenterObjectCodabeClinicWorkingHoursLeftMenu.deleteFile(cacheDoctorObjectClinicWorkingHoursLeftMenu.storedValue ?? clinics)
+                    //                        cacheMedicalCenterObjectCodabeClinicWorkingHoursLeftMenu.save(clinics)
+                    //                    }
                 }
                 self.view.layoutIfNeeded()
                 
@@ -411,7 +444,8 @@ class MainHomeVC: CustomBaseViewVC {
             userDefaults.set(true, forKey: UserDefaultsConstants.isAllMainHomeObjectsFetchedRAD)
             userDefaults.synchronize()
             self.customMainHomeView.mainHomePatientsCollectionVC.notificationRADArray=user
-            
+            userDefaults.set(true, forKey: UserDefaultsConstants.isAllMainHomeObjectsFetched)
+            userDefaults.synchronize()
             DispatchQueue.main.async {
                 self.customMainHomeView.topMainHomeCell.reservation = user.count > 0 ?  user.count : 0
                 
@@ -434,7 +468,7 @@ class MainHomeVC: CustomBaseViewVC {
             self.handleDismiss()
             self.activeViewsIfNoData()
             guard let user = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
-            userDefaults.set(true, forKey: UserDefaultsConstants.isAllMainHomeObjectsFetchedPHY)
+            userDefaults.set(true, forKey: UserDefaultsConstants.isAllMainHomeObjectsFetched)
             userDefaults.synchronize()
             DispatchQueue.main.async {
                 self.customMainHomeView.mainHomePatientsCollectionVC.notificationPHYArray=user
@@ -551,5 +585,13 @@ extension MainHomeVC: SelectedPharmacyPatientDataProtocol {
             customMainHomeView.mainHomePatientsCollectionVC.notificationPHYArray.remove(at: indexPath.item)
         }
         customMainHomeView.mainHomePatientsCollectionVC.collectionView.reloadData()
+    }
+}
+
+extension MainHomeVC:UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let x = scrollView.contentOffset.y
+        self.scrollView.isScrollEnabled = x < -60 ? false : true
+        
     }
 }

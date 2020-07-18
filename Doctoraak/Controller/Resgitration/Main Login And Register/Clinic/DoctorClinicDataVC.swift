@@ -18,7 +18,8 @@ class DoctorClinicDataVC: CustomBaseViewVC {
     lazy var scrollView: UIScrollView = {
         let v = UIScrollView()
         v.backgroundColor = .clear
-        
+        v.showsVerticalScrollIndicator=false
+
         return v
     }()
     lazy var mainView:UIView = {
@@ -196,7 +197,7 @@ class DoctorClinicDataVC: CustomBaseViewVC {
     }
     
     fileprivate func handleChooseWorkingHours()  {
-           let payment = DoctorClinicWorkingHoursVC()//MainClinicWorkingHoursNotDoctorVC(index: index,isFromUpdateProfile:true,isFromRegister: true)
+        let payment = DoctorClinicWorkingHoursVC(isFromLeftMenu: false, isOnlyShow: false)//MainClinicWorkingHoursNotDoctorVC(index: index,isFromUpdateProfile:true,isFromRegister: true)
            payment.delgate = self
            navigationController?.pushViewController(payment, animated: true)
        }

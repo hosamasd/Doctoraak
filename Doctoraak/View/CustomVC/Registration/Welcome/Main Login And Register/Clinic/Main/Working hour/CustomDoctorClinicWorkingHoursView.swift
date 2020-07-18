@@ -11,6 +11,15 @@ import MOLH
 
 class CustomDoctorClinicWorkingHoursView: CustomBaseView {
     
+    var isOnlyShow:Bool? {
+        didSet{
+            guard let isOnlyShow = isOnlyShow else { return  }
+             [sunButton,satButton,monButton,tuesButton,thuButton,wedButton,friButton,fifth1TextField,fifth2TextField,second1TextField,second2TextField,third1TextField,third2TextField,forth1TextField,forth2TextField,fifth2TextField,fifth1TextField,sexth1TextField,sexth2TextField,seventh1TextField,seventh2TextField,mainSecondStack].forEach({$0.isUserInteractionEnabled = !isOnlyShow})
+                      doneButton.isHidden = !isOnlyShow ? false : true
+        }
+    }
+    
+    
     var workingHours:[ClinicWorkingHourModel]?{
         didSet{
             guard let work = workingHours else { return  }

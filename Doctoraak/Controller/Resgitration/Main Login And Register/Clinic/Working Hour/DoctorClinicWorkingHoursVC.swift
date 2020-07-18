@@ -22,7 +22,8 @@ class DoctorClinicWorkingHoursVC: CustomBaseViewVC {
     lazy var scrollView: UIScrollView = {
         let v = UIScrollView()
         v.backgroundColor = .clear
-        
+        v.showsVerticalScrollIndicator=false
+
         return v
     }()
     lazy var mainView:UIView = {
@@ -33,6 +34,7 @@ class DoctorClinicWorkingHoursVC: CustomBaseViewVC {
     }()
     lazy var customClinicWorkingHoursView:CustomDoctorClinicWorkingHoursView = {
         let v = CustomDoctorClinicWorkingHoursView()
+        v.isOnlyShow=isOnlyShow
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
         v.doneButton.addTarget(self, action: #selector(handleDone), for: .touchUpInside)
         
@@ -51,6 +53,18 @@ class DoctorClinicWorkingHoursVC: CustomBaseViewVC {
         }
     }
     
+     fileprivate let isFromLeftMenu:Bool!
+    fileprivate let isOnlyShow:Bool!
+
+    init(isFromLeftMenu:Bool,isOnlyShow:Bool) {
+        self.isFromLeftMenu=isFromLeftMenu
+        self.isOnlyShow=isOnlyShow
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -129,8 +143,11 @@ class DoctorClinicWorkingHoursVC: CustomBaseViewVC {
     }
     
     @objc func handleBack()  {
-        
+        if isFromLeftMenu {
+            dismiss(animated: true)
+        }else {
         navigationController?.popViewController(animated: true)
+        }
     }
     
     @objc func handleDone()  {

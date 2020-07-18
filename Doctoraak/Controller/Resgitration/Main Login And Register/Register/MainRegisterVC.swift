@@ -17,7 +17,8 @@ class MainRegisterVC: CustomBaseViewVC {
     lazy var scrollView: UIScrollView = {
         let v = UIScrollView()
         v.backgroundColor = .clear
-        
+        v.showsVerticalScrollIndicator=false
+
         return v
     }()
     lazy var mainView:UIView = {

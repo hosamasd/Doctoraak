@@ -20,7 +20,8 @@ class SelectedPharmacyPatientDataVC: CustomBaseViewVC {
     lazy var scrollView: UIScrollView = {
         let v = UIScrollView()
         v.backgroundColor = .clear
-        
+        v.showsVerticalScrollIndicator=false
+
         return v
     }()
     lazy var mainView:UIView = {
@@ -170,7 +171,7 @@ class SelectedPharmacyPatientDataVC: CustomBaseViewVC {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        scrollView.delegate=self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -562,4 +563,12 @@ extension SelectedPharmacyPatientDataVC: UITextViewDelegate{
             textView.textColor = UIColor.lightGray
         }
     }
+}
+
+extension SelectedPharmacyPatientDataVC:UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let x = scrollView.contentOffset.y
+        self.scrollView.isScrollEnabled = x < -60 ? false : true
+    
+      }
 }

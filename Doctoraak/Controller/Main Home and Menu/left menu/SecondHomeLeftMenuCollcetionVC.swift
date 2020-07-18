@@ -14,7 +14,7 @@ class SecondHomeLeftMenuCollcetionVC: BaseCollectionVC {
     var index:Int? {
         didSet{
             guard let index = index else { return  }
-            let imagess:[UIImage] = [#imageLiteral(resourceName: "user"),#imageLiteral(resourceName: "calendar"),#imageLiteral(resourceName: "ic_add_circle_outline_24px-1"),#imageLiteral(resourceName: "Group 3928-1"),#imageLiteral(resourceName: "notification"),#imageLiteral(resourceName: "ic_chart"),#imageLiteral(resourceName: "phone-call"),#imageLiteral(resourceName: "global"),#imageLiteral(resourceName: "logout")]
+            let imagess:[UIImage] = [#imageLiteral(resourceName: "user"),#imageLiteral(resourceName: "calendar"),#imageLiteral(resourceName: "add"),#imageLiteral(resourceName: "info"),#imageLiteral(resourceName: "notification"),#imageLiteral(resourceName: "ic_chart"),#imageLiteral(resourceName: "phone-call"),#imageLiteral(resourceName: "global"),#imageLiteral(resourceName: "logout")]
             let deatass = [["Profile".localized,"Calender".localized,"Add clinic".localized,"Clinic Info".localized,"Notification".localized,"Anaylicts".localized],["Contact Us".localized,"Language".localized,"Log Out".localized]]
             images =   index == 0 || index == 1 ? imagess : images
             deatas =   index == 0 || index == 1 ? deatass : deatas
@@ -65,11 +65,21 @@ class SecondHomeLeftMenuCollcetionVC: BaseCollectionVC {
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! DoctorLeftMenuCell
-        if indexPath.section == 0 {
-            cell.Image6.image = images[indexPath.item]
+        
+        if index == 0 || index == 1 {
+            if indexPath.section == 0 {
+                cell.Image6.image = images[indexPath.item]
+            }else {
+                cell.Image6.image = images[indexPath.item+6]
+            }
         }else {
-            cell.Image6.image = images[indexPath.item+4]
+            if indexPath.section == 0 {
+                cell.Image6.image = images[indexPath.item]
+            }else {
+                cell.Image6.image = images[indexPath.item+4]
+            }
         }
+        
         cell.Label6.text = indexPath.section == 0 ? deatas[0][indexPath.item] : deatas[1][indexPath.item]
         return cell
     }
