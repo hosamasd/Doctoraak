@@ -36,7 +36,7 @@ class MainHomeVC: CustomBaseViewVC {
             patient.delgate = self
             patient.radOrder = noty
             patient.indexPath=ind
-
+            
             patient.rad=cachdRADObjectCodabe.storedValue ?? self.rad
             self.navigationController?.pushViewController(patient, animated: true)
         }
@@ -44,7 +44,7 @@ class MainHomeVC: CustomBaseViewVC {
             guard let phy=self.lab else {return}
             let patient = SelectedPharmacyPatientDataVC(inde: self.index, isFromMain: true)//SelectedPharmacyPatientDataVC(inde: self.index, phy: noty, pharmacy: phy)
             patient.delgate = self
-//            patient.labOrderss = noty.details.first?.labOrder
+            //            patient.labOrderss = noty.details.first?.labOrder
             patient.labOrder = noty
             patient.lab = cacheLABObjectCodabe.storedValue ?? self.lab
             patient.indexPath=ind
@@ -57,7 +57,7 @@ class MainHomeVC: CustomBaseViewVC {
             patient.phyOrder=noty
             patient.delgate = self
             patient.indexPath=ind
-
+            
             self.navigationController?.pushViewController(patient, animated: true)
         }
         v.handleRefreshCollection = {[unowned self] in
@@ -120,6 +120,24 @@ class MainHomeVC: CustomBaseViewVC {
             //            userDefaults.bool(forKey: UserDefaultsConstants.isAllMainHomeObjectsFetchedRAD) ? () : fetchOrders()
         }
     }
+    var doc:DoctorModel?{
+        didSet{
+            guard let lab = doc else { return  }
+            //               customDoctorHomeView.doctor=lab
+            //               customDoctorHomeView.topDoctorHomeCell.doctor=lab
+            //               userDefaults.bool(forKey: UserDefaultsConstants.isAllMainHomeObjectsFetchedDoctor) ? () : checkData()
+        }
+    }
+    var medicalCenter:DoctorModel?{
+        didSet{
+            guard let lab = medicalCenter else { return  }
+            //                  customDoctorHomeView.medicalCenter=lab
+            //                  customDoctorHomeView.topDoctorHomeCell.doctor=lab
+            //                  userDefaults.bool(forKey: UserDefaultsConstants.isAllMainHomeObjectsFetchedDoctor) ? () : checkData()
+        }
+    }
+    var numberOfClinicsAvaiable = [String]()
+       var doctorsClinicArray:[ClinicGetDoctorsModel] = [ClinicGetDoctorsModel]()
     fileprivate let index:Int!
     init(inde:Int) {
         self.index = inde
