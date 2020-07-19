@@ -580,6 +580,7 @@ class WelcomeVC: CustomBaseViewVC {
     
     @objc func handleNext()  {
         userDefaults.set(false, forKey: UserDefaultsConstants.isWelcomeVCAppear)
+        
         userDefaults.synchronize()
         
         if userDefaults.bool(forKey: UserDefaultsConstants.DoctorPerformLogin) || userDefaults.bool(forKey: UserDefaultsConstants.pharamacyPerformLogin) || userDefaults.bool(forKey: UserDefaultsConstants.labPerformLogin) || userDefaults.bool(forKey: UserDefaultsConstants.radiologyPerformLogin) {

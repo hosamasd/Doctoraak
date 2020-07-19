@@ -72,6 +72,8 @@ class UserDefaultsConstants {
     static let MainLoginINDEX="MainLoginINDEX"
     static let currentUserLoginInAPP="currentUserLoginInAPP"
 
+    static let isMainDataFetched="isMainDataFetched"
+
     //welcome
     static let isCityCached="isCityCached"
     static let isAreaCached="isAreaCached"

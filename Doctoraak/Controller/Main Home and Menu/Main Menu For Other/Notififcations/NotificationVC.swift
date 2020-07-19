@@ -61,7 +61,7 @@ class NotificationVC: CustomBaseViewVC {
             }
         }
         v.handleRefreshCollection = {[unowned self] in
-            //            self.getNotifications()
+            self.getNotifications()
         }
         return v
     }()
@@ -252,6 +252,8 @@ class NotificationVC: CustomBaseViewVC {
     fileprivate func reloadDocData(user:[DOCTORNotificationModel])  {
         self.customNotificationView.notificationsCollectionVC.notificationDocArray=user
         DispatchQueue.main.async {
+            self.customNotificationView.notificationsCollectionVC.collectionView.refreshControl?.beginRefreshing()
+            self.customNotificationView.notificationsCollectionVC.collectionView.refreshControl?.endRefreshing()
             self.customNotificationView.notificationsCollectionVC.collectionView.reloadData()
         }
         let ind = index == 0 ? UserDefaultsConstants.isDoctorNotificationChanged : UserDefaultsConstants.isMedicalCenterNotificationChanged
@@ -286,6 +288,8 @@ class NotificationVC: CustomBaseViewVC {
     fileprivate  func reloadPHYData(user:[PharmacyNotificationModel])  {
         self.customNotificationView.notificationsCollectionVC.notificationPHYArray=user
         DispatchQueue.main.async {
+            self.customNotificationView.notificationsCollectionVC.collectionView.refreshControl?.beginRefreshing()
+            self.customNotificationView.notificationsCollectionVC.collectionView.refreshControl?.endRefreshing()
             self.customNotificationView.notificationsCollectionVC.collectionView.reloadData()
         }
         let ind = UserDefaultsConstants.isPHYNotificationChanged
@@ -318,6 +322,8 @@ class NotificationVC: CustomBaseViewVC {
     fileprivate  func reloadLABData(user:[LABNotificationModel])  {
         self.customNotificationView.notificationsCollectionVC.notificationLABArray=user
         DispatchQueue.main.async {
+            self.customNotificationView.notificationsCollectionVC.collectionView.refreshControl?.beginRefreshing()
+            self.customNotificationView.notificationsCollectionVC.collectionView.refreshControl?.endRefreshing()
             self.customNotificationView.notificationsCollectionVC.collectionView.reloadData()
         }
         let ind = UserDefaultsConstants.isLABNotificationChanged
@@ -350,6 +356,8 @@ class NotificationVC: CustomBaseViewVC {
     fileprivate  func reloadRADData(user:[RadiologyNotificationModel])  {
         self.customNotificationView.notificationsCollectionVC.notificationRADArray=user
         DispatchQueue.main.async {
+            self.customNotificationView.notificationsCollectionVC.collectionView.refreshControl?.beginRefreshing()
+            self.customNotificationView.notificationsCollectionVC.collectionView.refreshControl?.endRefreshing()
             self.customNotificationView.notificationsCollectionVC.collectionView.reloadData()
         }
         let ind = UserDefaultsConstants.isRADNotificationChanged
@@ -398,7 +406,7 @@ class NotificationVC: CustomBaseViewVC {
     }
     
     fileprivate func setDefaults() {
-        userDefaults.set(true, forKey: UserDefaultsConstants.isWelcomeVCAppear)
+//        userDefaults.set(true, forKey: UserDefaultsConstants.isWelcomeVCAppear)
         userDefaults.set(true, forKey: UserDefaultsConstants.isLABNotificationChanged)
         userDefaults.set(true, forKey: UserDefaultsConstants.isRADNotificationChanged)
         userDefaults.set(true, forKey: UserDefaultsConstants.isPHYNotificationChanged)
@@ -425,10 +433,6 @@ class NotificationVC: CustomBaseViewVC {
             self.dismiss(animated: true, completion: nil)
         }
     }
-    
-    //   @objc func didPullToRefresh()  {
-    //        print(9999)
-    //    }
 }
 
 //MARK:-EXtension
@@ -437,6 +441,6 @@ extension NotificationVC:UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let x = scrollView.contentOffset.y
         self.scrollView.isScrollEnabled = x < -60 ? false : true
-    
-      }
+        
+    }
 }

@@ -338,6 +338,7 @@ extension PharamacyProfileVC: ChooseLocationVCProtocol{
         customPharamacyProfileView.edirProfileViewModel.lang = long
     }
 }
+
 extension PharamacyProfileVC:UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let x = scrollView.contentOffset.y

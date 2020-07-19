@@ -12,6 +12,14 @@ import UIKit
 class NotificationsCollectionVC: BaseCollectionVC {
 //     let refreshControl = UIRefreshControl()
 
+    lazy var refreshControl:UIRefreshControl = {
+           let refreshControl = UIRefreshControl()
+           refreshControl.backgroundColor = UIColor.white
+                  refreshControl.tintColor = UIColor.black
+           return refreshControl
+           
+       }()
+    
     fileprivate  let cellID = "cellID"
     var index = 0
     /// an enum of type TableAnimation - determines the animation to be applied to the tableViewCells
@@ -190,15 +198,14 @@ class NotificationsCollectionVC: BaseCollectionVC {
         collectionView.backgroundColor = .white
         collectionView.showsVerticalScrollIndicator=false
         collectionView.register(NotificationCell.self, forCellWithReuseIdentifier: cellID)
-//        refreshControl.addTarget(self, action: #selector(didPullToRefresh), for: .valueChanged)
-//           collectionView.refreshControl = refreshControl
+        refreshControl.addTarget(self, action: #selector(didPullToRefresh), for: .valueChanged)
+           collectionView.refreshControl = refreshControl
         collectionView.alwaysBounceVertical = true
 
     }
     
-//   @objc func didPullToRefresh()  {
-//    refreshControl.endRefreshing()
-//        handleRefreshCollection?()
-//   
-//    }
+   @objc func didPullToRefresh()  {
+        handleRefreshCollection?()
+   
+    }
 }

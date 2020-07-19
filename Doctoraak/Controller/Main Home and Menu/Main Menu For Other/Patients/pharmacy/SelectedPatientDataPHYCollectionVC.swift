@@ -11,7 +11,13 @@ import UIKit
 class SelectedPatientDataPHYCollectionVC: BaseCollectionVC {
     
     var index = 0
-    
+    lazy var refreshControl:UIRefreshControl = {
+           let refreshControl = UIRefreshControl()
+           refreshControl.backgroundColor = UIColor.white
+                  refreshControl.tintColor = UIColor.black
+           return refreshControl
+           
+       }()
     fileprivate  let cellID = "cellID"
     var currentTableAnimation: CollectionAnimation = .fadeIn(duration: 0.85, delay: 0.03)
     
@@ -74,5 +80,8 @@ class SelectedPatientDataPHYCollectionVC: BaseCollectionVC {
     override func setupCollection() {
         collectionView.backgroundColor = .white
         collectionView.register(SelectedPatientDataPHYCell.self, forCellWithReuseIdentifier: cellID)
-    }
+
+           collectionView.showsVerticalScrollIndicator=false
+
+        }
 }
