@@ -188,15 +188,15 @@ class HomeLeftMenuVC: CustomBaseViewVC {
     }
     
     fileprivate func goToClinicWorkingHours(_ baseSlid: BaseSlidingVC,isOnlyShow:Bool,doctor: ClinicGetDoctorsModel? = nil) {
-           baseSlid.closeMenu()
-           let profile = DoctorClinicWorkingHoursVC(isFromLeftMenu: true, isOnlyShow: isOnlyShow)
-//           profile.doctor=chossedClinic
+        baseSlid.closeMenu()
+        let profile = DoctorClinicWorkingHoursVC(isFromLeftMenu: true, isOnlyShow: isOnlyShow)
+        //           profile.doctor=chossedClinic
         profile.doctor = doctor
-           let nav = UINavigationController(rootViewController: profile)
-           
-           nav.modalPresentationStyle = .fullScreen
-           present(nav, animated: true)
-       }
+        let nav = UINavigationController(rootViewController: profile)
+        
+        nav.modalPresentationStyle = .fullScreen
+        present(nav, animated: true)
+    }
     
     fileprivate func checkIfLoggined(_ indexPath:IndexPath)  {
         guard let baseSlid = UIApplication.shared.windows.filter({$0.isKeyWindow}).first?.rootViewController as? BaseSlidingVC,let index=index else {return}
@@ -271,7 +271,7 @@ class HomeLeftMenuVC: CustomBaseViewVC {
     
     fileprivate func chooseLanguage()  {
         guard let baseSlid = UIApplication.shared.windows.filter({$0.isKeyWindow}).first?.rootViewController as? BaseSlidingVC else {return}
-                
+        
         baseSlid.closeMenu()
         baseSlid.customMainAlertVC.addCustomViewInCenter(views: baseSlid.customAlertChooseLanguageView, height: 200)
         baseSlid.present(baseSlid.customMainAlertVC, animated: true)
@@ -279,7 +279,7 @@ class HomeLeftMenuVC: CustomBaseViewVC {
     
     fileprivate func showAlertForContacting()  {
         guard let baseSlid = UIApplication.shared.windows.filter({$0.isKeyWindow}).first?.rootViewController as? BaseSlidingVC else {return}
-                
+        
         baseSlid.closeMenu()
         baseSlid.customMainAlertVC.addCustomViewInCenter(views: baseSlid.customContactUsView, height: 120)
         baseSlid.present(baseSlid.customMainAlertVC, animated: true)

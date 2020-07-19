@@ -19,6 +19,7 @@ class TopMainHomeCell: BaseCollectionCell {
             let ss = index==0 || index == 1 ? false : true
             DispatchQueue.main.async {
                 self.mainDropView.isHide(ss)
+                self.layoutIfNeeded()
         }
         }
     }

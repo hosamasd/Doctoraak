@@ -71,6 +71,9 @@ class MainHomeVC: CustomBaseViewVC {
             self.addAndRemoveCacheClinicWorkingHours(clinics: ss)
             self.getDataAccordingToIndex(index)
         }
+        v.handleRefreshCollection={[unowned self] in
+            self.fetchOrders()
+        }
         
         return v
     }()
@@ -100,7 +103,6 @@ class MainHomeVC: CustomBaseViewVC {
             guard let lab = lab else { return  }
             customMainHomeView.lab=lab
             customMainHomeView.topMainHomeCell.lab=lab
-            //            fetchOrders()
             userDefaults.bool(forKey: UserDefaultsConstants.isAllMainHomeObjectsFetched) ? () : fetchOrders()
             
         }
@@ -110,10 +112,7 @@ class MainHomeVC: CustomBaseViewVC {
             guard let phy = phy else { return  }
             customMainHomeView.phy=phy
             customMainHomeView.topMainHomeCell.phy=phy
-            //            fetchOrders()
             userDefaults.bool(forKey: UserDefaultsConstants.isAllMainHomeObjectsFetched) ? () : fetchOrders()
-            
-            //            userDefaults.bool(forKey: UserDefaultsConstants.isAllMainHomeObjectsFetchedPHY) ? () : fetchOrders()
         }
     }
     var rad:RadiologyModel?{
@@ -121,11 +120,7 @@ class MainHomeVC: CustomBaseViewVC {
             guard let lab = rad else { return  }
             customMainHomeView.rad=lab
             customMainHomeView.topMainHomeCell.rad=lab
-            //            fetchOrders()
-            
             userDefaults.bool(forKey: UserDefaultsConstants.isAllMainHomeObjectsFetched) ? () : fetchOrders()
-            
-            //            userDefaults.bool(forKey: UserDefaultsConstants.isAllMainHomeObjectsFetchedRAD) ? () : fetchOrders()
         }
     }
     var doc:DoctorModel?{
@@ -133,7 +128,7 @@ class MainHomeVC: CustomBaseViewVC {
             guard let lab = doc else { return  }
             customMainHomeView.doctor=lab
             customMainHomeView.topMainHomeCell.doctor=lab
-            userDefaults.bool(forKey: UserDefaultsConstants.isAllMainHomeObjectsFetched) ? () : checkData()
+            userDefaults.bool(forKey: UserDefaultsConstants.isAllMainHomeObjectsFetched) ? () : fetchOrders()
         }
     }
     var medicalCenter:DoctorModel?{
@@ -141,7 +136,7 @@ class MainHomeVC: CustomBaseViewVC {
             guard let lab = medicalCenter else { return  }
             customMainHomeView.medicalCenter=lab
             customMainHomeView.topMainHomeCell.medicalCenter=lab
-            userDefaults.bool(forKey: UserDefaultsConstants.isAllMainHomeObjectsFetched) ? () : checkData()
+            userDefaults.bool(forKey: UserDefaultsConstants.isAllMainHomeObjectsFetched) ? () : fetchOrders()
         }
     }
     var numberOfClinicsAvaiable = [String]()
@@ -162,26 +157,15 @@ class MainHomeVC: CustomBaseViewVC {
         }
     }
     
-    
-    
-    //    fileprivate var index:Int!
-    //    init(inde:Int) {
-    //        self.index = inde
-    //        super.init(nibName: nil, bundle: nil)
-    //    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.scrollView.delegate = self
-        //        fetchOrders()
-        //        if userDefaults.bool(forKey: UserDefaultsConstants.isWelcomeVCAppear) {
-        //            getObjects()
-        //        }else {}
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if userDefaults.bool(forKey: UserDefaultsConstants.currentUserLoginInAPP) {
+        
+        if userDefaults.bool(forKey: UserDefaultsConstants.currentUserLoginInAPP) && index == nil{
             index = userDefaults.integer(forKey: UserDefaultsConstants.MainLoginINDEX)
         }
         
@@ -204,10 +188,7 @@ class MainHomeVC: CustomBaseViewVC {
             }
         }
         
-        //        if !userDefaults.bool(forKey: UserDefaultsConstants.isWelcomeVCAppear) {
-        //            view.alpha = 0
-        //        }else {            view.alpha = 1
-        //        }
+        
     }
     //MARK: -user methods
     
@@ -369,14 +350,8 @@ class MainHomeVC: CustomBaseViewVC {
                     userDefaults.synchronize()
                     
                     self.addAndRemoveCacheClinicWorkingHours(clinics: clinics.first!)
-                    //                    if self.index == 0 {
-                    //                        cacheDoctorObjectClinicWorkingHoursLeftMenu.deleteFile(cacheDoctorObjectClinicWorkingHoursLeftMenu.storedValue ?? clinics)
-                    //                        cacheDoctorObjectClinicWorkingHoursLeftMenu.save(clinics)
-                    //                    }
-                    //                    if self.index == 1 {
-                    //                         cacheMedicalCenterObjectCodabeClinicWorkingHoursLeftMenu.deleteFile(cacheDoctorObjectClinicWorkingHoursLeftMenu.storedValue ?? clinics)
-                    //                        cacheMedicalCenterObjectCodabeClinicWorkingHoursLeftMenu.save(clinics)
-                    //                    }
+                    self.customMainHomeView.mainHomePatientsCollectionVC.collectionView.refreshControl?.beginRefreshing()
+                    self.customMainHomeView.mainHomePatientsCollectionVC.collectionView.refreshControl?.endRefreshing()
                 }
                 self.view.layoutIfNeeded()
                 
@@ -398,7 +373,7 @@ class MainHomeVC: CustomBaseViewVC {
     }
     
     fileprivate   func fetchOrders()  {
-        index == 2 ? fetchOrdersLAB() : index == 3 ? fetchOrdersRAD() : fetchOrdersPHY()
+        index == 0 || index == 1 ? checkData() :  index == 2 ? fetchOrdersLAB() : index == 3 ? fetchOrdersRAD() : fetchOrdersPHY()
     }
     
     fileprivate func fetchOrdersLAB()  {
@@ -421,7 +396,8 @@ class MainHomeVC: CustomBaseViewVC {
             DispatchQueue.main.async {
                 self.customMainHomeView.mainHomePatientsCollectionVC.notificationLABArray=user
                 self.customMainHomeView.topMainHomeCell.reservation = user.count > 0 ?  user.count : 0
-                
+                self.customMainHomeView.mainHomePatientsCollectionVC.collectionView.refreshControl?.beginRefreshing()
+                self.customMainHomeView.mainHomePatientsCollectionVC.collectionView.refreshControl?.endRefreshing()
                 self.customMainHomeView.mainHomePatientsCollectionVC.collectionView.reloadData()
             }
         }
@@ -448,7 +424,8 @@ class MainHomeVC: CustomBaseViewVC {
             userDefaults.synchronize()
             DispatchQueue.main.async {
                 self.customMainHomeView.topMainHomeCell.reservation = user.count > 0 ?  user.count : 0
-                
+                self.customMainHomeView.mainHomePatientsCollectionVC.collectionView.refreshControl?.beginRefreshing()
+                self.customMainHomeView.mainHomePatientsCollectionVC.collectionView.refreshControl?.endRefreshing()
                 self.customMainHomeView.mainHomePatientsCollectionVC.collectionView.reloadData()
             }
         }
@@ -473,7 +450,10 @@ class MainHomeVC: CustomBaseViewVC {
             DispatchQueue.main.async {
                 self.customMainHomeView.mainHomePatientsCollectionVC.notificationPHYArray=user
                 self.customMainHomeView.topMainHomeCell.reservation = user.count > 0 ?  user.count : 0
+                self.customMainHomeView.mainHomePatientsCollectionVC.collectionView.refreshControl?.beginRefreshing()
+                self.customMainHomeView.mainHomePatientsCollectionVC.collectionView.refreshControl?.endRefreshing()
                 self.customMainHomeView.mainHomePatientsCollectionVC.collectionView.reloadData()
+                
             }
         }
         
@@ -513,7 +493,6 @@ class MainHomeVC: CustomBaseViewVC {
         customMainHomeView.mainHomePatientsCollectionVC.doctorPatientsArray = tag == 4 ? docotrAllPatientsArray : filterDoctorPatientsArray
         DispatchQueue.main.async {
             self.customMainHomeView.mainHomePatientsCollectionVC.collectionView.reloadData()
-            //            self.view.layoutIfNeeded()
         }
     }
     
@@ -536,9 +515,7 @@ class MainHomeVC: CustomBaseViewVC {
     
     @objc func handleOpenNotifications()  {
         let mainIndex = userDefaults.integer(forKey: UserDefaultsConstants.MainLoginINDEX)
-        //        if userDefaults.bool(forKey: UserDefaultsConstants.pharamacyPerformLogin) {
         phy = cachdPHARMACYObjectCodabe.storedValue
-        //            guard let phy = phy else { return  }
         let notify = NotificationVC( index: mainIndex, isFromMenu: false)
         notify.phy=phy
         notify.rad=rad
@@ -546,7 +523,6 @@ class MainHomeVC: CustomBaseViewVC {
         let nav = UINavigationController(rootViewController: notify)
         nav.modalPresentationStyle = .fullScreen
         present(nav, animated: true)
-        //        }
     }
     
     @objc func handleFilterData(sender:UIButton)  {
@@ -562,10 +538,6 @@ class MainHomeVC: CustomBaseViewVC {
         }
         isFilter = true
     }
-    
-    //    required init?(coder: NSCoder) {
-    //        fatalError("init(coder:) has not been implemented")
-    //    }
 }
 
 //MARK:-extension

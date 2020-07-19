@@ -10,11 +10,21 @@ import UIKit
 
 class MainHomePatientsCollectionVC: BaseCollectionVC     {
     
-    let refreshControl = UIRefreshControl()
+    lazy var refreshControl:UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.backgroundColor = UIColor.white
+               refreshControl.tintColor = UIColor.black
+        return refreshControl
+        
+    }()
     var handleRefreshCollection:(()->Void)?
     
     fileprivate let cellId = "cellId"
-    var index = 0
+    var index:Int?{
+        didSet{
+            guard let index = index else { return  }
+        }
+    }
     var currentTableAnimation: CollectionAnimation = .fadeIn(duration: 0.85, delay: 0.03)
     
     var notificationPHYArray = [PharmacyGetOrdersModel]()
@@ -144,12 +154,12 @@ class MainHomePatientsCollectionVC: BaseCollectionVC     {
         collectionView.backgroundColor = .white
         collectionView.register(MainHomePatientsCell.self, forCellWithReuseIdentifier: cellId)
         refreshControl.addTarget(self, action: #selector(didPullToRefresh), for: .valueChanged)
+        
         collectionView.refreshControl = refreshControl
     }
     
     @objc func didPullToRefresh()  {
-        refreshControl.endRefreshing()
+//        refreshControl.endRefreshing()
         handleRefreshCollection?()
-        
     }
 }

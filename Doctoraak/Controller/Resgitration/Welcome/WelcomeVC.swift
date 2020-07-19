@@ -426,10 +426,16 @@ class WelcomeVC: CustomBaseViewVC {
             
             removeAll()
             
-            userDefaults.set(radNameArray, forKey: UserDefaultsConstants.radiologyNameArray)
-            userDefaults.set(radNameFR, forKey: UserDefaultsConstants.radiologyNameFRArray)
-            userDefaults.set(radNameARData, forKey: UserDefaultsConstants.radiologyNameARArray)
-            userDefaults.set(radIdData, forKey: UserDefaultsConstants.radiologyIdArray)
+            addOrRemoveUserDefaults(nameEn: UserDefaultsConstants.specificationNameArray, nameAr: UserDefaultsConstants.specificationNameARArray, nameFr: UserDefaultsConstants.specificationNameFRArray, nameId: UserDefaultsConstants.specificationIdArray, dataEn: xxxNameArray, dataAr: xxxNameARData, dataFr: xxxNameFR, dataId: xxxIdData, add: true)
+            
+            addOrRemoveUserDefaults(nameEn: UserDefaultsConstants.radiologyNameArray, nameAr: UserDefaultsConstants.radiologyNameARArray, nameFr: UserDefaultsConstants.radiologyNameFRArray, nameId: UserDefaultsConstants.radiologyIdArray, dataEn: radNameArray, dataAr: radNameARData, dataFr: radNameFR, dataId: radIdData, add: true)
+            
+            
+            
+//            userDefaults.set(radNameArray, forKey: UserDefaultsConstants.radiologyNameArray)
+//            userDefaults.set(radNameFR, forKey: UserDefaultsConstants.radiologyNameFRArray)
+//            userDefaults.set(radNameARData, forKey: UserDefaultsConstants.radiologyNameARArray)
+//            userDefaults.set(radIdData, forKey: UserDefaultsConstants.radiologyIdArray)
             
             userDefaults.set(phyNameArray, forKey: UserDefaultsConstants.pharamacyNameArray)
             userDefaults.set(phyNameFR, forKey: UserDefaultsConstants.pharamacyNameFRArray)
@@ -484,10 +490,13 @@ class WelcomeVC: CustomBaseViewVC {
             userDefaults.set(iNameARData, forKey: UserDefaultsConstants.insuranceNameARArray)
             userDefaults.set(iIdData, forKey: UserDefaultsConstants.insuranceIdArray)
             
-            userDefaults.set(xxxNameArray,forKey: UserDefaultsConstants.specificationNameArray)
-            userDefaults.set(xxxNameFR,forKey: UserDefaultsConstants.specificationNameFRArray)
-            userDefaults.set(xxxNameARData,forKey: UserDefaultsConstants.specificationNameARArray)
-            userDefaults.set(xxxIdData,forKey: UserDefaultsConstants.specificationIdArray)
+            
+            
+            
+//            userDefaults.set(xxxNameArray,forKey: UserDefaultsConstants.specificationNameArray)
+//            userDefaults.set(xxxNameFR,forKey: UserDefaultsConstants.specificationNameFRArray)
+//            userDefaults.set(xxxNameARData,forKey: UserDefaultsConstants.specificationNameARArray)
+//            userDefaults.set(xxxIdData,forKey: UserDefaultsConstants.specificationIdArray)
             userDefaults.set(gPayment, forKey: UserDefaultsConstants.paymentDetailsInfo)
             
             
@@ -510,6 +519,21 @@ class WelcomeVC: CustomBaseViewVC {
             self.handleNext()
             self.view.layoutIfNeeded()
         }
+    }
+    
+    func addOrRemoveUserDefaults(nameEn:String,nameAr:String,nameFr:String,nameId:String,dataEn:[String],dataAr:[String],dataFr:[String],dataId:[Int],add:Bool)  {
+        if add {
+             userDefaults.set(dataEn, forKey: nameEn)
+                              userDefaults.set(dataFr, forKey: nameFr)
+                              userDefaults.set(dataAr, forKey: nameAr)
+                              userDefaults.set(dataId, forKey: nameId)
+        }else {
+            userDefaults.removeObject(forKey: nameEn)
+             userDefaults.removeObject(forKey: nameAr)
+             userDefaults.removeObject(forKey: nameFr)
+             userDefaults.removeObject(forKey: nameId)
+        }
+       
     }
     
     fileprivate func setupAnimation()  {

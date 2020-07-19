@@ -147,6 +147,7 @@ class MainLoginsVC: CustomBaseViewVC {
     
     fileprivate func savePharToken(doctor:PharamacyModel)  {
         userDefaults.set(true, forKey: UserDefaultsConstants.pharamacyPerformLogin)
+        userDefaults.set(true, forKey: UserDefaultsConstants.currentUserLoginInAPP)
         userDefaults.set(index, forKey: UserDefaultsConstants.MainLoginINDEX)
         userDefaults.synchronize()
         

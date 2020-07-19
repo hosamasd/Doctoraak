@@ -17,6 +17,8 @@ class CustomMainHomeView: CustomBaseView {
             guard let index = index else { return  }
             mainHomePatientsCollectionVC.index=index
             topMainHomeCell.index=index
+            let dd:CGFloat = index == 0 || index == 1 ? 220 : 130
+            topMainHomeCell.constrainHeight(constant: dd)
             let xx = index == 0 || index == 1 ? false : true
             DispatchQueue.main.async {
                 //                self.topDoctorHomeCell.isHide(xx)

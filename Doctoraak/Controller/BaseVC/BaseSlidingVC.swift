@@ -34,12 +34,7 @@ class BaseSlidingVC: UIViewController {
     
     //
     lazy var    rightViewController = UINavigationController(rootViewController:  MainHomeVC())
-    
-    //  lazy var    rightViewController = UINavigationController(rootViewController: index < 2 ?  DoctorHomeVC(inde: index) : MainHomeVC(inde: index))
     lazy var  menuViewController =  HomeLeftMenuVC()
-    //        }
-    //    }
-    
     
     lazy var redView:UIView = {
         let v = UIView()
@@ -93,29 +88,12 @@ class BaseSlidingVC: UIViewController {
         return v
     }()
     
-    
-    
-    //    lazy var rightViewController: UIViewController  = {
-    //        let vc = UINavigationController(rootViewController: MainHomeVC(inde: 2))
-    //        return vc
-    //    }()//index < 2 ?  DoctorHomeVC(inde: index) : MainHomeVC(inde: index))
-    //
-    //    //    lazy var rightViewController: UIViewController = UIViewController()//UINavigationController(rootViewController:  MainHomeVC(inde: 2))
-    //    lazy var menuViewController: UIViewController  = {
-    //        let vc =  UIViewController()
-    //        vc.view.backgroundColor = .gray
-    //        return vc
-    //    }()
-    //    lazy var menuViewController: UIViewController = UIViewController()//UINavigationController(rootViewController:  HomeLeftMenuVC(index: 2))
-    
-    //    lazy var rightViewController: UIViewController = UINavigationController(rootViewController: index < 2 ?  DoctorHomeVC(inde: index) : MainHomeVC(inde: index))
     fileprivate let velocityThreshold: CGFloat = 500
     fileprivate let menuWidth:CGFloat = 300
     fileprivate var isMenuOpen:Bool = false
     var redViewTrailingConstraint: NSLayoutConstraint!
     var redViewLeadingConstarint:NSLayoutConstraint!
     
-    //    var index:Int = 0
     var links = [
         "http://sphinxat.com/",
         "https://www.facebook.com/",
@@ -141,14 +119,12 @@ class BaseSlidingVC: UIViewController {
                 ( rightViewController.viewControllers.first as? MainHomeVC)?.index = index
             }
         }
-        //        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         
         if !userDefaults.bool(forKey: UserDefaultsConstants.isWelcomeVCAppear) {
-            //            view.backgroundColor = .clear
             check()
         }else { }
     }

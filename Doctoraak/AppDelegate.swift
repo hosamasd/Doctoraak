@@ -30,7 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,MOLHResetable {
         userDefaults.set(true, forKey: UserDefaultsConstants.isDoctorNotificationChanged)
         userDefaults.set(true, forKey: UserDefaultsConstants.isMedicalCenterNotificationChanged)
         userDefaults.set(false, forKey: UserDefaultsConstants.chhosedCachesWorkingHours)
-
+//        userDefaults.set(true, forKey: UserDefaultsConstants.currentUserLoginInAPP)
 //        userDefaults.set(false, forKey: UserDefaultsConstants.waitForSMSCodeForSpecific)
 //        userDefaults.set(false, forKey: UserDefaultsConstants.isdoctorWaitForAddClinic)
         
