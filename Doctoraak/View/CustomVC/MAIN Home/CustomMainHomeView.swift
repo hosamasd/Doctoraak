@@ -139,10 +139,10 @@ class CustomMainHomeView: CustomBaseView {
         return c
     }()
     
-    lazy var allButton = createMainButtons(title: "All", color: .black, tags: 4)
-    lazy var newButton = createMainButtons(title: "New", color: .black, tags: 1)
-    lazy var consultaionButton = createMainButtons(title: "Consultation", color: .black, tags: 2)
-    lazy var continueButton = createMainButtons(title: "Continue", color: .black, tags: 3)
+    lazy var allButton = createMainButtons(title: "All".localized, color: .black, tags: 4)
+    lazy var newButton = createMainButtons(title: "New".localized, color: .black, tags: 1)
+    lazy var consultaionButton = createMainButtons(title: "Consultation".localized, color: .black, tags: 2)
+    lazy var continueButton = createMainButtons(title: "Follow up".localized, color: .black, tags: 3)
     
     lazy var mainHomePatientsCollectionVC:MainHomePatientsCollectionVC = {
         let vc = MainHomePatientsCollectionVC()

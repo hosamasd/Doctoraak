@@ -377,32 +377,32 @@ class CustomDoctorProfileView: CustomBaseView {
     
     
     
-    func getAreassFromIndex(_ index:Int) -> String {
-        var citName = [String]()
-        var cityId = [Int]()
-        
-        if MOLHLanguage.isRTLLanguage() {
-            
-            
-            
-            if let  cityArray = userDefaults.value(forKey: UserDefaultsConstants.areaNameARArray) as? [String],let cityIds = userDefaults.value(forKey: UserDefaultsConstants.areaIdArray) as? [Int]{
-                
-                citName = cityArray
-                cityId = cityIds
-                
-                
-                
-            }}else {
-            if let cityArray = userDefaults.value(forKey: UserDefaultsConstants.areaNameArray) as? [String],let cityIds = userDefaults.value(forKey: UserDefaultsConstants.areaIdArray) as? [Int] {
-                citName = cityArray
-                cityId = cityIds
-            }
-        }
-        let ss = cityId.filter{$0 == index}
-        let ff = ss.first ?? 1
-        
-        return citName[ff - 1 ]
-    }
+//    func getAreassFromIndex(_ index:Int) -> String {
+//        var citName = [String]()
+//        var cityId = [Int]()
+//        
+//        if MOLHLanguage.isRTLLanguage() {
+//            
+//            
+//            
+//            if let  cityArray = userDefaults.value(forKey: UserDefaultsConstants.areaNameARArray) as? [String],let cityIds = userDefaults.value(forKey: UserDefaultsConstants.areaIdArray) as? [Int]{
+//                
+//                citName = cityArray
+//                cityId = cityIds
+//                
+//                
+//                
+//            }}else {
+//            if let cityArray = userDefaults.value(forKey: UserDefaultsConstants.areaNameArray) as? [String],let cityIds = userDefaults.value(forKey: UserDefaultsConstants.areaIdArray) as? [Int] {
+//                citName = cityArray
+//                cityId = cityIds
+//            }
+//        }
+//        let ss = cityId.filter{$0 == index}
+//        let ff = ss.first ?? 1
+//        
+//        return citName[ff - 1 ]
+//    }
     
     
     @objc func textFieldDidChange(text: UITextField)  {

@@ -125,8 +125,10 @@ class BaseSlidingVC: UIViewController {
         super.viewDidAppear(true)
         
         if userDefaults.bool(forKey: UserDefaultsConstants.isWelcomeVCAppear) {
-            check()
-        }else { }
+            view.alpha = 0
+             check()
+                   }else {
+                       view.alpha = 1 }
     }
     
     

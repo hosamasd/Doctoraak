@@ -75,6 +75,15 @@ class ChooseLocationVC: CustomBaseViewVC {
         }
     }
     
+    var lattAndLng:ClinicGetDoctorsModel?{
+        didSet{
+            
+            guard let lat = lattAndLng?.latt.toDouble() , let lng = lattAndLng?.lang.toDouble()  else { return  }
+            let coordinate = CLLocationCoordinate2D(latitude: lat, longitude: lng)
+            setupAnnotaiotn(coordinate: coordinate)
+        }
+    }
+    
     var isGetLocation = false
     
     fileprivate let isFromUpdate:Bool!

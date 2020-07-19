@@ -212,19 +212,16 @@ class HomeLeftMenuVC: CustomBaseViewVC {
                     
                     nav.modalPresentationStyle = .fullScreen
                     present(nav, animated: true)
-                }else if indexPath.item == 1 {
-                    guard let doctor =  cacheDoctorObjectCodabe.storedValue else { return  }
-                    baseSlid.closeMenu()
-                    
-                    let profile = DoctorClinicDataVC(indexx: index, api_token: doctor.apiToken, doctor_id: doctor.id, isFromProfile: true)
-                    let nav = UINavigationController(rootViewController: profile)
-                    
-                    nav.modalPresentationStyle = .fullScreen
-                    present(nav, animated: true)
                 }else if indexPath.item == 2 {
+                    goToDoctorClinicData(baseSlid, index: index, fromUpdate: false, addNew: true)
+                }else if indexPath.item == 1 {
                     goToClinicWorkingHours(baseSlid,isOnlyShow:false)
                 }else if indexPath.item == 3 {
-                    goToClinicWorkingHours(baseSlid,isOnlyShow:true,doctor: cacheDoctorObjectClinicWorkingHoursLeftMenu.storedValue)
+                    //get clinic_id
+                    
+                    goToDoctorClinicData(baseSlid, index: index, fromUpdate: true, addNew: false,clinic_id: chossedClinic)
+
+//                    goToClinicWorkingHours(baseSlid,isOnlyShow:true,doctor: cacheDoctorObjectClinicWorkingHoursLeftMenu.storedValue)
                 }
                 else if indexPath.item == 4 {
                     goToSameNotification(baseSlid)
@@ -268,6 +265,19 @@ class HomeLeftMenuVC: CustomBaseViewVC {
         
     }
     
+    func goToDoctorClinicData(_ baseSlid: BaseSlidingVC,index:Int,fromUpdate:Bool,addNew:Bool,clinic_id:ClinicGetDoctorsModel? = nil)  {
+         baseSlid.closeMenu()
+                           guard let doctor =  cacheDoctorObjectCodabe.storedValue else { return  }
+                          
+                           
+                           let profile = DoctorClinicDataVC(indexx: index, isAddClinic: addNew, isUpdateClinic: fromUpdate, isFromProfile: true)
+                           profile.doctor=doctor
+        profile.clinic_id=clinic_id
+                           let nav = UINavigationController(rootViewController: profile)
+                           
+                           nav.modalPresentationStyle = .fullScreen
+                           present(nav, animated: true)
+    }
     
     fileprivate func chooseLanguage()  {
         guard let baseSlid = UIApplication.shared.windows.filter({$0.isKeyWindow}).first?.rootViewController as? BaseSlidingVC else {return}

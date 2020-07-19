@@ -174,45 +174,45 @@ class MainHomeVC: CustomBaseViewVC {
                 
             }else {
                 index = userDefaults.integer(forKey: UserDefaultsConstants.MainLoginINDEX)
-                               if userDefaults.bool(forKey: UserDefaultsConstants.DoctorPerformLogin) {
-                                   doc = cacheDoctorObjectCodabe.storedValue
-                               }
-                               if userDefaults.bool(forKey: UserDefaultsConstants.medicalCenterPerformLogin) {
-                                   medicalCenter = cacheMedicalObjectCodabe.storedValue
-                               }
-                               
-                               if userDefaults.bool(forKey: UserDefaultsConstants.labPerformLogin) {
-                                   lab = cacheLABObjectCodabe.storedValue
-                               }
-                               if userDefaults.bool(forKey: UserDefaultsConstants.radiologyPerformLogin) {
-                                   rad = cachdRADObjectCodabe.storedValue
-                               }
-                               if userDefaults.bool(forKey: UserDefaultsConstants.pharamacyPerformLogin) {
-                                   phy = cachdPHARMACYObjectCodabe.storedValue
-                               }
+                if userDefaults.bool(forKey: UserDefaultsConstants.DoctorPerformLogin) {
+                    doc = cacheDoctorObjectCodabe.storedValue
+                }
+                if userDefaults.bool(forKey: UserDefaultsConstants.medicalCenterPerformLogin) {
+                    medicalCenter = cacheMedicalObjectCodabe.storedValue
+                }
+                
+                if userDefaults.bool(forKey: UserDefaultsConstants.labPerformLogin) {
+                    lab = cacheLABObjectCodabe.storedValue
+                }
+                if userDefaults.bool(forKey: UserDefaultsConstants.radiologyPerformLogin) {
+                    rad = cachdRADObjectCodabe.storedValue
+                }
+                if userDefaults.bool(forKey: UserDefaultsConstants.pharamacyPerformLogin) {
+                    phy = cachdPHARMACYObjectCodabe.storedValue
+                }
                 
             }
-//            if userDefaults.bool(forKey: UserDefaultsConstants.currentUserLoginInAPP) && index == nil{
-//                index = userDefaults.integer(forKey: UserDefaultsConstants.MainLoginINDEX)
-//                if userDefaults.bool(forKey: UserDefaultsConstants.DoctorPerformLogin) {
-//                    doc = cacheDoctorObjectCodabe.storedValue
-//                }
-//                if userDefaults.bool(forKey: UserDefaultsConstants.medicalCenterPerformLogin) {
-//                    medicalCenter = cacheMedicalObjectCodabe.storedValue
-//                }
-//
-//                if userDefaults.bool(forKey: UserDefaultsConstants.labPerformLogin) {
-//                    lab = cacheLABObjectCodabe.storedValue
-//                }
-//                if userDefaults.bool(forKey: UserDefaultsConstants.radiologyPerformLogin) {
-//                    rad = cachdRADObjectCodabe.storedValue
-//                }
-//                if userDefaults.bool(forKey: UserDefaultsConstants.pharamacyPerformLogin) {
-//                    phy = cachdPHARMACYObjectCodabe.storedValue
-//                }
-//            }else {
-//
-//            }
+            //            if userDefaults.bool(forKey: UserDefaultsConstants.currentUserLoginInAPP) && index == nil{
+            //                index = userDefaults.integer(forKey: UserDefaultsConstants.MainLoginINDEX)
+            //                if userDefaults.bool(forKey: UserDefaultsConstants.DoctorPerformLogin) {
+            //                    doc = cacheDoctorObjectCodabe.storedValue
+            //                }
+            //                if userDefaults.bool(forKey: UserDefaultsConstants.medicalCenterPerformLogin) {
+            //                    medicalCenter = cacheMedicalObjectCodabe.storedValue
+            //                }
+            //
+            //                if userDefaults.bool(forKey: UserDefaultsConstants.labPerformLogin) {
+            //                    lab = cacheLABObjectCodabe.storedValue
+            //                }
+            //                if userDefaults.bool(forKey: UserDefaultsConstants.radiologyPerformLogin) {
+            //                    rad = cachdRADObjectCodabe.storedValue
+            //                }
+            //                if userDefaults.bool(forKey: UserDefaultsConstants.pharamacyPerformLogin) {
+            //                    phy = cachdPHARMACYObjectCodabe.storedValue
+            //                }
+            //            }else {
+            //
+            //            }
             
             //        if index == nil || !userDefaults.bool(forKey: UserDefaultsConstants.isAllMainHomeObjectsFetched){
             //            if userDefaults.bool(forKey: UserDefaultsConstants.DoctorPerformLogin) {

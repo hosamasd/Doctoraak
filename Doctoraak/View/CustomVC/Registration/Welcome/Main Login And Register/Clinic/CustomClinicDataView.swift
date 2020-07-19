@@ -10,8 +10,93 @@ import UIKit
 import iOSDropDown
 import MOLH
 import SkyFloatingLabelTextField
+import SDWebImage
+import MapKit
 
 class CustomClinicDataView: CustomBaseView {
+    
+    var index = 0
+    
+    var isFromUpdate:Bool? {
+        didSet{
+            guard let isFromUpdate = isFromUpdate else { return  }
+            bottomStack.isHide(isFromUpdate ? false : true)
+            doneButton.isHide(!isFromUpdate ? false : true)
+        }
+    }
+    
+    var clinic_id:ClinicGetDoctorsModel?{
+        didSet{
+            guard let clinic_id = clinic_id else { return  }
+            putDefaultValues(clinic_id)
+            putDefaultValuesViewModel(clinic_id)
+            
+        }
+    }
+    
+    func putDefaultValues(_ c:ClinicGetDoctorsModel)  {
+        clinicMobileNumberTextField.text = c.phone
+        guard let lat = c.latt.toDouble(),let lg=c.lang.toDouble() else { return  }
+        addressLabel.text = convertLatLongToAddress(latitude: lat, longitude: lg)
+        let cc = c.city.toInt() ?? 1 ;let aa = c.area.toInt() ?? 1
+        
+        let city = getCityFromIndex(cc)
+        let area = getAreassFromIndex( aa)
+        areaDrop.text = area
+        areaDrop.selectedIndex = cc-1
+        cityDrop.selectedIndex = aa-1
+        cityDrop.text = city
+        feesTextField.text = c.fees
+        consultationFeesTextField.text = c.fees2
+        waitingHoursTextField.text="\(c.waitingTime)"
+        let urlString = c.photo
+        guard let url = URL(string: urlString) else { return  }
+        clinicProfileImage.sd_setImage(with: url)
+    }
+    
+    fileprivate func convertLatLongToAddress(latitude:Double,longitude:Double) -> String{
+        var ss = ""
+        
+        let geoCoder = CLGeocoder()
+        let location = CLLocation(latitude: latitude, longitude: longitude)
+        geoCoder.reverseGeocodeLocation(location, completionHandler: {[unowned self] (placemarks, error) -> Void in
+            
+            // Place details
+            //            var placeMark: CLPlacemark?
+            guard let   placeMark = placemarks?[0] else {return }
+            
+            ss =   placeMark.locality ?? ""
+            
+            // Location name
+            guard  let street = placeMark.subLocality, let city = placeMark.administrativeArea, let country = placeMark.country else {return }
+            ss =  " \(street) - \(city) - \(country)"
+        })
+        
+        return ss
+    }
+    
+    func putDefaultValuesViewModel(_ c:ClinicGetDoctorsModel)  {
+        clinicDataViewModel.clinic_id=c.id
+        clinicDataViewModel.api_token=doctor?.apiToken
+        clinicDataViewModel.doctor_id=doctor?.id
+        clinicDataViewModel.area=c.area.toInt()
+        clinicDataViewModel.city=c.city.toInt()
+        clinicDataViewModel.consultaionFees=c.fees2.toInt()
+        clinicDataViewModel.fees=c.fees.toInt()
+        clinicDataViewModel.image=clinicProfileImage.image
+        clinicDataViewModel.lang=c.lang.toDouble()
+        clinicDataViewModel.latt=c.latt.toDouble()
+        clinicDataViewModel.waitingHours=c.waitingTime
+        clinicDataViewModel.phone=c.phone
+    }
+    
+    var doctor:DoctorModel?{
+        didSet{
+            guard let doc = doctor else { return  }
+            clinicDataViewModel.doctor_id = doc.id
+            clinicDataViewModel.api_token = doc.apiToken
+        }
+    }
     
     lazy var LogoImage:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "Group 4116"))
@@ -134,7 +219,7 @@ class CustomClinicDataView: CustomBaseView {
     }()
     lazy var doneButton:UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Done".localized, for: .normal)
+        button.setTitle("Create".localized, for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.backgroundColor = ColorConstants.disabledButtonsGray
         button.layer.cornerRadius = 16
@@ -144,9 +229,44 @@ class CustomClinicDataView: CustomBaseView {
         return button
     }()
     
-    var index = 0
-    var  doctor_id:Int = 0
-    var  api_token:String = ""
+    lazy var updateButton:UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("Update".localized, for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        button.backgroundColor = #colorLiteral(red: 0.4747212529, green: 0.2048208416, blue: 1, alpha: 1)//ColorConstants.disabledButtonsGray
+        button.layer.cornerRadius = 16
+        //           button.constrainHeight(constant: 50)
+        button.constrainWidth(constant: 160)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 25)
+        button.clipsToBounds = true
+        //        button.isEnabled = false
+        return button
+    }()
+    
+    lazy var cancelButton:UIButton = {
+        let button = UIButton(type: .system)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 20)
+        
+        button.setTitle("Cancel  \n Reservation of   \n   today".localized, for: .normal)
+        button.titleLabel!.lineBreakMode = .byWordWrapping
+        button.titleLabel!.numberOfLines = 3
+        button.titleLabel!.textAlignment = .center
+        button.setTitleColor(.black, for: .normal)
+        button.backgroundColor = #colorLiteral(red: 0.4747212529, green: 0.2048208416, blue: 1, alpha: 1)//ColorConstants.disabledButtonsGray
+        button.layer.cornerRadius = 16
+        button.constrainHeight(constant: 80)
+        button.clipsToBounds = true
+        button.isEnabled = false
+        return button
+    }()
+    
+    lazy var bottomStack:UIStackView = {
+        let s = getStack(views:updateButton,cancelButton , spacing: 16, distribution: .fillProportionally, axis: .horizontal)
+        s.isHide(true)
+        return s
+    }()
+    //    var  doctor_id:Int = 0
+    //    var  api_token:String = ""
     var handleChooseHours:(()->Void)?
     var handlerChooseLocation:(()->Void)?
     
@@ -248,7 +368,7 @@ class CustomClinicDataView: CustomBaseView {
         let textStack = getStack(views: clinicMobileNumberTextField,addressMainView,mainDropView,mainDrop2View,feesTextField,consultationFeesTextField,workingHourView,waitingHoursTextField, spacing: 16, distribution: .fillEqually, axis: .vertical)
         [areaDrop,cityDrop].forEach({$0.fillSuperview(padding: .init(top: 16, left: 16, bottom: 16, right: 16))})
         
-        addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,subView,textStack,doneButton)
+        addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,subView,textStack,doneButton,bottomStack)
         
         NSLayoutConstraint.activate([
             subView.centerXAnchor.constraint(equalTo: centerXAnchor)
@@ -267,6 +387,8 @@ class CustomClinicDataView: CustomBaseView {
         
         //
         doneButton.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 16, right: 32))
+        bottomStack.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 16, right: 32))
+        
         
     }
     
@@ -276,8 +398,7 @@ class CustomClinicDataView: CustomBaseView {
     
     @objc func textFieldDidChange(text: UITextField)  {
         clinicDataViewModel.index = index
-        clinicDataViewModel.doctor_id = doctor_id
-        clinicDataViewModel.api_token = api_token
+        
         guard let texts = text.text else { return  }
         if let floatingLabelTextField = text as? SkyFloatingLabelTextField {
             if text == clinicMobileNumberTextField {

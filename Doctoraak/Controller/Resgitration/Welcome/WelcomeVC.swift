@@ -432,10 +432,10 @@ class WelcomeVC: CustomBaseViewVC {
             
             
             
-//            userDefaults.set(radNameArray, forKey: UserDefaultsConstants.radiologyNameArray)
-//            userDefaults.set(radNameFR, forKey: UserDefaultsConstants.radiologyNameFRArray)
-//            userDefaults.set(radNameARData, forKey: UserDefaultsConstants.radiologyNameARArray)
-//            userDefaults.set(radIdData, forKey: UserDefaultsConstants.radiologyIdArray)
+            //            userDefaults.set(radNameArray, forKey: UserDefaultsConstants.radiologyNameArray)
+            //            userDefaults.set(radNameFR, forKey: UserDefaultsConstants.radiologyNameFRArray)
+            //            userDefaults.set(radNameARData, forKey: UserDefaultsConstants.radiologyNameARArray)
+            //            userDefaults.set(radIdData, forKey: UserDefaultsConstants.radiologyIdArray)
             
             userDefaults.set(phyNameArray, forKey: UserDefaultsConstants.pharamacyNameArray)
             userDefaults.set(phyNameFR, forKey: UserDefaultsConstants.pharamacyNameFRArray)
@@ -493,10 +493,10 @@ class WelcomeVC: CustomBaseViewVC {
             
             
             
-//            userDefaults.set(xxxNameArray,forKey: UserDefaultsConstants.specificationNameArray)
-//            userDefaults.set(xxxNameFR,forKey: UserDefaultsConstants.specificationNameFRArray)
-//            userDefaults.set(xxxNameARData,forKey: UserDefaultsConstants.specificationNameARArray)
-//            userDefaults.set(xxxIdData,forKey: UserDefaultsConstants.specificationIdArray)
+            //            userDefaults.set(xxxNameArray,forKey: UserDefaultsConstants.specificationNameArray)
+            //            userDefaults.set(xxxNameFR,forKey: UserDefaultsConstants.specificationNameFRArray)
+            //            userDefaults.set(xxxNameARData,forKey: UserDefaultsConstants.specificationNameARArray)
+            //            userDefaults.set(xxxIdData,forKey: UserDefaultsConstants.specificationIdArray)
             userDefaults.set(gPayment, forKey: UserDefaultsConstants.paymentDetailsInfo)
             
             
@@ -523,17 +523,17 @@ class WelcomeVC: CustomBaseViewVC {
     
     func addOrRemoveUserDefaults(nameEn:String,nameAr:String,nameFr:String,nameId:String,dataEn:[String],dataAr:[String],dataFr:[String],dataId:[Int],add:Bool)  {
         if add {
-             userDefaults.set(dataEn, forKey: nameEn)
-                              userDefaults.set(dataFr, forKey: nameFr)
-                              userDefaults.set(dataAr, forKey: nameAr)
-                              userDefaults.set(dataId, forKey: nameId)
+            userDefaults.set(dataEn, forKey: nameEn)
+            userDefaults.set(dataFr, forKey: nameFr)
+            userDefaults.set(dataAr, forKey: nameAr)
+            userDefaults.set(dataId, forKey: nameId)
         }else {
             userDefaults.removeObject(forKey: nameEn)
-             userDefaults.removeObject(forKey: nameAr)
-             userDefaults.removeObject(forKey: nameFr)
-             userDefaults.removeObject(forKey: nameId)
+            userDefaults.removeObject(forKey: nameAr)
+            userDefaults.removeObject(forKey: nameFr)
+            userDefaults.removeObject(forKey: nameId)
         }
-       
+        
     }
     
     fileprivate func setupAnimation()  {
@@ -596,11 +596,13 @@ class WelcomeVC: CustomBaseViewVC {
                 let sms = MainVerificationVC(indexx: index, isFromForgetPassw: false, isFromDoctor: false, phone: phone, user_id: user_Id)
                 navigationController?.pushViewController(sms, animated: true)
             }else if userDefaults.bool(forKey: UserDefaultsConstants.isdoctorWaitForAddClinic) {
-                let clinic = DoctorClinicDataVC(indexx: index, api_token: token, doctor_id: user_Id, isFromProfile: false)
+                let clinic = DoctorClinicDataVC(indexx: index, isAddClinic: false, isUpdateClinic: false, isFromProfile: false)
+                clinic.doctor = cacheDoctorObjectCodabe.storedValue
+                //DoctorClinicDataVC(indexx: index, api_token: token, doctor_id: user_Id, isFromProfile: false)
                 navigationController?.pushViewController(clinic, animated: true)
                 
-            
-        }else{
+                
+            }else{
                 let welcome =  WelcomeMainSecondVC()
                 navigationController?.pushViewController(welcome, animated: true)
             }

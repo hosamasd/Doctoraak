@@ -39,7 +39,10 @@ class TopMainHomeCell: BaseCollectionCell {
             guard let notu = phy else { return  }
             let title = MOLHLanguage.isRTLLanguage() ? notu.nameAr ?? notu.name :  notu.name
             putsAttributedText(la: doctorWelcomeLabel, ft: "Welcome \n\n".localized, st: title)
-            profileImage.image = #imageLiteral(resourceName: "ic_pharmacy_type")
+            let urlString = notu.photo
+            guard let url = URL(string: urlString) else { return  }
+            profileImage.sd_setImage(with: url, placeholderImage: #imageLiteral(resourceName: "ic_pharmacy_type"))
+//            profileImage.image = #imageLiteral(resourceName: "ic_pharmacy_type")
         }
     }
     
@@ -48,7 +51,10 @@ class TopMainHomeCell: BaseCollectionCell {
             guard let notu = rad else { return  }
             let title = MOLHLanguage.isRTLLanguage() ? notu.nameAr ?? notu.name :  notu.name
             putsAttributedText(la: doctorWelcomeLabel, ft: "Welcome \n\n".localized, st: title)
-            profileImage.image = #imageLiteral(resourceName: "Group 4145")
+            let urlString = notu.photo
+                       guard let url = URL(string: urlString) else { return  }
+                       profileImage.sd_setImage(with: url, placeholderImage: #imageLiteral(resourceName: "Group 4145"))
+//            profileImage.image = #imageLiteral(resourceName: "Group 4145")
         }
     }
     
@@ -57,8 +63,10 @@ class TopMainHomeCell: BaseCollectionCell {
             guard let notu = lab else { return  }
             let title = MOLHLanguage.isRTLLanguage() ? notu.nameAr ?? notu.name :  notu.name
             putsAttributedText(la: doctorWelcomeLabel, ft: "Welcome \n\n".localized, st: title)
-            
-            profileImage.image = #imageLiteral(resourceName: "Group 4144")
+            let urlString = notu.photo
+                       guard let url = URL(string: urlString) else { return  }
+                       profileImage.sd_setImage(with: url, placeholderImage:#imageLiteral(resourceName: "Group 4144"))
+//            profileImage.image = #imageLiteral(resourceName: "Group 4144")
         }
     }
     var doctor:DoctorModel? {
@@ -73,7 +81,7 @@ class TopMainHomeCell: BaseCollectionCell {
     var medicalCenter:DoctorModel? {
         didSet{
             guard let doctor = medicalCenter else { return  }
-            profileImage.image = #imageLiteral(resourceName: "Group 4143-2")
+            profileImage.image = #imageLiteral(resourceName: "Group 4140")
             let title = MOLHLanguage.isRTLLanguage() ? doctor.nameAr ?? doctor.name :  doctor.name
             putsAttributedText(la: doctorWelcomeLabel, ft: "Welcome \n\n".localized, st: title)
         }

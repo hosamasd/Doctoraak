@@ -19,23 +19,25 @@ class DoctorClinicDataVC: CustomBaseViewVC {
         let v = UIScrollView()
         v.backgroundColor = .clear
         v.showsVerticalScrollIndicator=false
-
+        
         return v
     }()
     lazy var mainView:UIView = {
         let v = UIView(backgroundColor: .white)
-        v.constrainHeight(constant: 1000)
+        v.constrainHeight(constant: 1030)
         v.constrainWidth(constant: view.frame.width)
         return v
     }()
     lazy var customClinicDataView:CustomClinicDataView = {
         let v = CustomClinicDataView()
         v.index = index
-        v.api_token = api_token
-        v.doctor_id=doctor_id
+        v.isFromUpdate=isUpdateClinic
+        //        v.isAddClinic=isAddClinic
+        //        v.api_token = api_token
+        //        v.doctor_id=doctor_id
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
         v.doneButton.addTarget(self, action: #selector(handleDone), for: .touchUpInside)
-        
+        v.updateButton.addTarget(self, action: #selector(createAlertsForUpdating), for: .touchUpInside)
         v.clinicEditProfileImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(createAlertForChoposingImage)))
         
         v.handleChooseHours = {[unowned self] in
@@ -43,9 +45,13 @@ class DoctorClinicDataVC: CustomBaseViewVC {
         }
         v.handlerChooseLocation = {[unowned self] in
             let loct = ChooseLocationVC(isFromUpdate: false)
+            
+        
+            loct.lattAndLng=self.clinic_id
             loct.delgate = self
             self.navigationController?.pushViewController(loct, animated: true)
         }
+        v.cancelButton.addTarget(self, action: #selector(createAlerts), for: .touchUpInside)
         return v
     }()
     lazy var customAlertMainLoodingView:CustomAlertMainLoodingView = {
@@ -69,19 +75,32 @@ class DoctorClinicDataVC: CustomBaseViewVC {
         }
     }
     
+    var clinic_id:ClinicGetDoctorsModel?{
+        didSet{
+            guard let clinic_id = clinic_id else { return  }
+            customClinicDataView.clinic_id=clinic_id
+        }
+    }
+    
+    
+    var doctor:DoctorModel?{
+        didSet{
+            guard let doc = doctor else { return  }
+            customClinicDataView.doctor=doc
+        }
+    }
     
     
     //check to go specific way
     fileprivate let index:Int!
-    fileprivate let doctor_id:Int!
-    fileprivate let api_token:String!
+    fileprivate let isAddClinic:Bool!
+    fileprivate let isUpdateClinic:Bool!
     fileprivate let isFromProfile:Bool!
-    
-    init(indexx:Int,api_token:String,doctor_id:Int,isFromProfile:Bool) {
+    init(indexx:Int,isAddClinic:Bool,isUpdateClinic:Bool,isFromProfile:Bool){//,doctor_id:Int,api_token:String) {
         self.index = indexx
         self.isFromProfile=isFromProfile
-        self.api_token = api_token
-        self.doctor_id = doctor_id
+        self.isAddClinic = isAddClinic
+        self.isUpdateClinic = isUpdateClinic
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -96,7 +115,7 @@ class DoctorClinicDataVC: CustomBaseViewVC {
     
     //MARK:-User methods
     
-  fileprivate  func check()  {
+    fileprivate  func check()  {
         let s = #imageLiteral(resourceName: "lego(1)")
         let dd:[WorkModel] = [
             .init(part1From: "00:00", part1To: "00:00", part2From: "00:00", part2To: "00:00", day: 1, active: 0),
@@ -116,7 +135,7 @@ class DoctorClinicDataVC: CustomBaseViewVC {
         }
     }
     
-   fileprivate func setupViewModelObserver()  {
+    fileprivate func setupViewModelObserver()  {
         customClinicDataView.clinicDataViewModel.bindableIsFormValidate.bind { [unowned self] (isValidForm) in
             guard let isValid = isValidForm else {return}
             
@@ -154,7 +173,7 @@ class DoctorClinicDataVC: CustomBaseViewVC {
         
     }
     
-  fileprivate  func convertLatLongToAddress(latitude:Double,longitude:Double){
+    fileprivate  func convertLatLongToAddress(latitude:Double,longitude:Double){
         
         let geoCoder = CLGeocoder()
         let location = CLLocation(latitude: latitude, longitude: longitude)
@@ -173,49 +192,114 @@ class DoctorClinicDataVC: CustomBaseViewVC {
         
     }
     
-   fileprivate func goToNext(_ clinic_id:Int)  {
+    fileprivate func goToNext(_ clinic_id:Int)  {
         
         isFromProfile ? self.removeSomeObjects() :    self.updateStates(clinic_id,index: index)
         dismiss(animated: true)
     }
     
-   fileprivate func removeSomeObjects()  {
+    fileprivate func removeSomeObjects()  {
         
         cachdDOCTORWorkingHourObjectCodabe.deleteFile(cachdDOCTORWorkingHourObjectCodabe.storedValue!)
         userDefaults.set(false, forKey: UserDefaultsConstants.isDoctorWorkingHoursCached)
-        userDefaults.set(false, forKey: UserDefaultsConstants.isAllMainHomeObjectsFetchedDoctor)
+        //        userDefaults.set(false, forKey: UserDefaultsConstants.isAllMainHomeObjectsFetchedDoctor)
         userDefaults.synchronize()
         
     }
     
-  fileprivate  func updateStates(_ clinic_id:Int,index:Int)  {
+    fileprivate  func updateStates(_ clinic_id:Int,index:Int)  {
         userDefaults.removeObject(forKey: UserDefaultsConstants.indexForSMSCodeForSpecific)
-            userDefaults.removeObject(forKey: UserDefaultsConstants.user_idForAll)
-    userDefaults.set(true, forKey: UserDefaultsConstants.currentUserLoginInAPP)
-
+        userDefaults.removeObject(forKey: UserDefaultsConstants.user_idForAll)
+        userDefaults.set(true, forKey: UserDefaultsConstants.currentUserLoginInAPP)
+        
         userDefaults.synchronize()
     }
     
     fileprivate func handleChooseWorkingHours()  {
         let payment = DoctorClinicWorkingHoursVC(isFromLeftMenu: false, isOnlyShow: false)//MainClinicWorkingHoursNotDoctorVC(index: index,isFromUpdateProfile:true,isFromRegister: true)
-           payment.delgate = self
-           navigationController?.pushViewController(payment, animated: true)
-       }
-       
-       fileprivate func handleOpenGallery(sourceType:UIImagePickerController.SourceType)  {
-           let imagePicker = UIImagePickerController()
-           imagePicker.delegate = self
-           imagePicker.sourceType = sourceType
-           present(imagePicker, animated: true)
-       }
+        payment.delgate = self
+        navigationController?.pushViewController(payment, animated: true)
+    }
+    
+    fileprivate func handleOpenGallery(sourceType:UIImagePickerController.SourceType)  {
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        imagePicker.sourceType = sourceType
+        present(imagePicker, animated: true)
+    }
+    
+    func handleCancelReservation()  {
+        UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
+        //                SVProgressHUD.show(withStatus: "Looding...".localized)
+        self.showMainAlertLooder(cc: self.customMainAlertVC, v: self.customAlertMainLoodingView)
+        customClinicDataView.clinicDataViewModel.performCancelOrders { (base, err) in
+            if let err = err {
+                SVProgressHUD.showError(withStatus: err.localizedDescription)
+                self.handleDismiss()
+                self.activeViewsIfNoData();return
+            }
+            //                   SVProgressHUD.dismiss()
+            self.activeViewsIfNoData()
+            guard let user = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
+            
+            DispatchQueue.main.async {
+                //                       self.goToNext(user.id)
+            }
+        }
+    }
     
     //TODO: -handle methods
+    
+    @objc func createAlertForChoposingImage()  {
+        let alert = UIAlertController(title: "Choose Image".localized, message: "Choose image fROM ".localized, preferredStyle: .alert)
+        let camera = UIAlertAction(title: "Camera".localized, style: .default) {[unowned self] (_) in
+            self.handleOpenGallery(sourceType: .camera)
+            
+        }
+        let gallery = UIAlertAction(title: "Open From Gallery".localized, style: .default) {[unowned self] (_) in
+            self.handleOpenGallery(sourceType: .photoLibrary)
+        }
+        let cancel = UIAlertAction(title: "Cancel".localized, style: .cancel) { (_) in
+            alert.dismiss(animated: true)
+        }
+        
+        alert.addAction(camera)
+        alert.addAction(gallery)
+        alert.addAction(cancel)
+        present(alert, animated: true)
+    }
+    
+    @objc func createAlerts() {
+        let alert = UIAlertController(title: "Warring...".localized, message: "Do You Want To Cancel All Orders Today?".localized, preferredStyle: .alert)
+        let ok = UIAlertAction(title: "Submit".localized, style: .destructive) { (_) in
+            self.handleCancelReservation()
+        }
+        let cancel = UIAlertAction(title: "Cancel".localized, style: .cancel) { (_) in
+            alert.dismiss(animated: true)
+        }
+        alert.addAction(ok)
+        alert.addAction(cancel)
+        present(alert, animated: true)
+    }
+    
+    @objc func createAlertsForUpdating() {
+        let alert = UIAlertController(title: "Warring...".localized, message: "Do You Want To Update?".localized, preferredStyle: .alert)
+        let ok = UIAlertAction(title: "Submit".localized, style: .destructive) { (_) in
+            self.handleUpdateClinic()
+        }
+        let cancel = UIAlertAction(title: "Cancel".localized, style: .cancel) { (_) in
+            alert.dismiss(animated: true)
+        }
+        alert.addAction(ok)
+        alert.addAction(cancel)
+        present(alert, animated: true)
+    }
     
     @objc func handleBack()  {
         if isFromProfile {
             dismiss(animated: true)
         }else {
-        navigationController?.popViewController(animated: true)
+            navigationController?.popViewController(animated: true)
         }
     }
     
@@ -238,7 +322,7 @@ class DoctorClinicDataVC: CustomBaseViewVC {
         
     }
     
-  
+    
     
     @objc func handleDismiss()  {
         removeViewWithAnimation(vvv: customAlertMainLoodingView)
@@ -247,24 +331,27 @@ class DoctorClinicDataVC: CustomBaseViewVC {
         }
     }
     
-    @objc func createAlertForChoposingImage()  {
-        let alert = UIAlertController(title: "Choose Image".localized, message: "Choose image fROM ".localized, preferredStyle: .alert)
-        let camera = UIAlertAction(title: "Camera".localized, style: .default) {[unowned self] (_) in
-            self.handleOpenGallery(sourceType: .camera)
+    func handleUpdateClinic()  {
+        UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
+        //                SVProgressHUD.show(withStatus: "Login...".localized)
+        self.showMainAlertLooder(cc: self.customMainAlertVC, v: self.customAlertMainLoodingView)
+        customClinicDataView.clinicDataViewModel.performUpdating { (base, err) in
+            if let err = err {
+                SVProgressHUD.showError(withStatus: err.localizedDescription)
+                self.handleDismiss()
+                self.activeViewsIfNoData();return
+            }
+            SVProgressHUD.dismiss()
+            self.activeViewsIfNoData()
+            guard let user = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
             
+            DispatchQueue.main.async {
+                //                           self.goToNext(user.id)
+            }
         }
-        let gallery = UIAlertAction(title: "Open From Gallery".localized, style: .default) {[unowned self] (_) in
-            self.handleOpenGallery(sourceType: .photoLibrary)
-        }
-        let cancel = UIAlertAction(title: "Cancel".localized, style: .cancel) { (_) in
-            alert.dismiss(animated: true)
-        }
-        
-        alert.addAction(camera)
-        alert.addAction(gallery)
-        alert.addAction(cancel)
-        present(alert, animated: true)
     }
+    
+    
     
     
     
