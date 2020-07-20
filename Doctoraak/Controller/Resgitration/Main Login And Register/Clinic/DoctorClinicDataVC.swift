@@ -190,17 +190,17 @@ class DoctorClinicDataVC: CustomBaseViewVC {
     }
     
     fileprivate func goToNext(_ clinic_id:Int)  {
-        
-        isFromProfile ? self.removeSomeObjects() :    self.updateStates(clinic_id,index: index)
+         self.updateStates(clinic_id,index: index)
+//        isFromProfile ? self.removeSomeObjects() :    self.updateStates(clinic_id,index: index)
         dismiss(animated: true)
     }
     
     fileprivate func removeSomeObjects()  {
         
-        cachdDOCTORWorkingHourObjectCodabe.deleteFile(cachdDOCTORWorkingHourObjectCodabe.storedValue!)
-        userDefaults.set(false, forKey: UserDefaultsConstants.isDoctorWorkingHoursCached)
-        //        userDefaults.set(false, forKey: UserDefaultsConstants.isAllMainHomeObjectsFetchedDoctor)
-        userDefaults.synchronize()
+//        cachdDOCTORWorkingHourObjectCodabe.deleteFile(cachdDOCTORWorkingHourObjectCodabe.storedValue!)
+//        userDefaults.set(false, forKey: UserDefaultsConstants.isDoctorWorkingHoursCached)
+//        //        userDefaults.set(false, forKey: UserDefaultsConstants.isAllMainHomeObjectsFetchedDoctor)
+//        userDefaults.synchronize()
         
     }
     
@@ -208,7 +208,9 @@ class DoctorClinicDataVC: CustomBaseViewVC {
         userDefaults.removeObject(forKey: UserDefaultsConstants.indexForSMSCodeForSpecific)
         userDefaults.removeObject(forKey: UserDefaultsConstants.user_idForAll)
         userDefaults.set(true, forKey: UserDefaultsConstants.currentUserLoginInAPP)
-        
+        userDefaults.set(false, forKey: UserDefaultsConstants.isAllMainHomeObjectsFetched)
+        cachdDOCTORWorkingHourObjectCodabe.deleteFile(cachdDOCTORWorkingHourObjectCodabe.storedValue!)
+               userDefaults.set(false, forKey: UserDefaultsConstants.isDoctorWorkingHoursCached)
         userDefaults.synchronize()
     }
     
@@ -240,9 +242,16 @@ class DoctorClinicDataVC: CustomBaseViewVC {
             guard let user = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
             
             DispatchQueue.main.async {
+                self.saveDefaults()
+                self.dismiss(animated: true)
                 //                       self.goToNext(user.id)
             }
         }
+    }
+    
+    func saveDefaults()  {
+        userDefaults.set(false, forKey: UserDefaultsConstants.isAllMainHomeObjectsFetched)
+        userDefaults.synchronize()
     }
     
     //TODO: -handle methods
