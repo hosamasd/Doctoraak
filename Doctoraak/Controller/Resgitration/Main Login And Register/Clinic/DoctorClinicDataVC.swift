@@ -32,9 +32,6 @@ class DoctorClinicDataVC: CustomBaseViewVC {
         let v = CustomClinicDataView()
         v.index = index
         v.isFromUpdate=isUpdateClinic
-        //        v.isAddClinic=isAddClinic
-        //        v.api_token = api_token
-        //        v.doctor_id=doctor_id
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
         v.doneButton.addTarget(self, action: #selector(handleDone), for: .touchUpInside)
         v.updateButton.addTarget(self, action: #selector(createAlertsForUpdating), for: .touchUpInside)
@@ -46,7 +43,7 @@ class DoctorClinicDataVC: CustomBaseViewVC {
         v.handlerChooseLocation = {[unowned self] in
             let loct = ChooseLocationVC(isFromUpdate: false)
             
-        
+            
             loct.lattAndLng=self.clinic_id
             loct.delgate = self
             self.navigationController?.pushViewController(loct, animated: true)
