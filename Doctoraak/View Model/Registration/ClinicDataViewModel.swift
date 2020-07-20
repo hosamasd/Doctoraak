@@ -33,7 +33,7 @@ class ClinicDataViewModel {
     
     
     func performRegister(completion:@escaping (MainDoctorClinicCreateModel?,Error?)->Void)    {
-        guard let city = city,let area = area,let fees = fees,let phone = phone,let lang = lang,let lat=latt,let waitingHours = waitingHours, let image = image
+        guard let city = city,let area = area,let fees = fees,let phone = phone,let lang = lang,let lat=latt,let waitingHours = waitingHours
           ,let consultaionFees = consultaionFees ,let api_token=api_token,let doctor_id=doctor_id,let workingArrayHours=workingArrayHours else { return  }
         bindableIsResgiter.value = true
         
@@ -41,7 +41,7 @@ class ClinicDataViewModel {
     }
     
     func performUpdating(completion:@escaping (MainAddFavoriteModel?,Error?)->Void)    {
-        guard let city = city,let area = area,let fees = fees,let phone = phone,let lang = lang,let lat=latt,let waitingHours = waitingHours, let image = image,let clinic_id=clinic_id
+        guard let city = city,let area = area,let fees = fees,let phone = phone,let lang = lang,let lat=latt,let waitingHours = waitingHours,let clinic_id=clinic_id
           ,let consultaionFees = consultaionFees ,let api_token=api_token,let doctor_id=doctor_id else { return  }
         bindableIsResgiter.value = true
         
@@ -57,7 +57,7 @@ class ClinicDataViewModel {
     }
     
     func checkFormValidity() {
-        let isFormValid = city != -1 && area != -1 && fees != -1  &&  phone?.isEmpty == false && waitingHours != -1 && latt != -1.0  && lang != -1.0  && consultaionFees  != -1 && index != -1 && image != nil && workingArrayHours?.isEmpty == false && api_token?.isEmpty == false && doctor_id != -1
+        let isFormValid = city != -1 && area != -1 && fees != -1  &&  phone?.isEmpty == false && waitingHours != -1 && latt != -1.0  && lang != -1.0  && consultaionFees  != -1 && index != -1  && workingArrayHours?.isEmpty == false && api_token?.isEmpty == false && doctor_id != -1
         bindableIsFormValidate.value = isFormValid
         
     }

@@ -124,7 +124,7 @@ class MainServices {
         }.resume()
     }
     
-    func makeMainPostGenericUsingAlmofire<T:Codable>(urlString:String,postStrings:String,cvcs:Data? = nil,cvName:String? = nil,photo:UIImage,working_hours:[PharamacyWorkModel]? = nil,clinicWork:[WorkModel]? = nil,completion:@escaping (T?,Error?)->Void)  {
+    func makeMainPostGenericUsingAlmofire<T:Codable>(urlString:String,postStrings:String,cvcs:Data? = nil,cvName:String? = nil,photo:UIImage? = nil,working_hours:[PharamacyWorkModel]? = nil,clinicWork:[WorkModel]? = nil,completion:@escaping (T?,Error?)->Void)  {
         
         
         guard let urlsString = postStrings.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else { return  }
@@ -132,7 +132,7 @@ class MainServices {
         
         //
         Alamofire.upload(multipartFormData: { (multipartFormData) in
-            if let data = photo.pngData() {
+            if let data = photo?.pngData() {
                 multipartFormData.append(data, withName: "photo", fileName: "asd.jpeg", mimeType: "image/jpeg")
             }
             

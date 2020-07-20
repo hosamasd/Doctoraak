@@ -14,7 +14,7 @@ class RegistrationServices {
     static let shared = RegistrationServices()
     
     
-    func mainLABRegister(photo:UIImage,name:String,email:String,phone:String,password:String,insurance:[Int],delivery:Int,working_hours:[PharamacyWorkModel] ,latt:Double,lang:Double,city:Int,area:Int,completion: @escaping (MainLabRegisterModel?, Error?) -> Void)  {
+    func mainLABRegister(photo:UIImage?=nil,name:String,email:String,phone:String,password:String,insurance:[Int],delivery:Int,working_hours:[PharamacyWorkModel] ,latt:Double,lang:Double,city:Int,area:Int,completion: @escaping (MainLabRegisterModel?, Error?) -> Void)  {
         let nn = "lab_register"
         
         let urlString = "\(baseUrl)\(nn)".toSecrueHttps()
@@ -23,7 +23,7 @@ class RegistrationServices {
         
     }
     
-    func mainRADRegister(photo:UIImage,name:String,email:String,phone:String,password:String,insurance:[Int],delivery:Int,working_hours:[PharamacyWorkModel] ,latt:Double,lang:Double,city:Int,area:Int,completion: @escaping (MainRadiologyRegisterModel?, Error?) -> Void)  {
+    func mainRADRegister(photo:UIImage? = nil,name:String,email:String,phone:String,password:String,insurance:[Int],delivery:Int,working_hours:[PharamacyWorkModel] ,latt:Double,lang:Double,city:Int,area:Int,completion: @escaping (MainRadiologyRegisterModel?, Error?) -> Void)  {
         let nn = "radiology_register"
         
         let urlString = "\(baseUrl)\(nn)".toSecrueHttps()
@@ -32,7 +32,7 @@ class RegistrationServices {
         
     }
     
-    func mainPHARAMACYRegister(photo:UIImage,name:String,email:String,phone:String,password:String,insurance:[Int],delivery:Int,working_hours:[PharamacyWorkModel] ,latt:Double,lang:Double,city:Int,area:Int,completion: @escaping (MainPharamcyyRegisterModel?, Error?) -> Void)  {
+    func mainPHARAMACYRegister(photo:UIImage?=nil,name:String,email:String,phone:String,password:String,insurance:[Int],delivery:Int,working_hours:[PharamacyWorkModel] ,latt:Double,lang:Double,city:Int,area:Int,completion: @escaping (MainPharamcyyRegisterModel?, Error?) -> Void)  {
         let nn =  "pharmacy_register"
         
         let urlString = "\(baseUrl)\(nn)".toSecrueHttps()
@@ -100,7 +100,7 @@ class RegistrationServices {
     }
     
     
-    func RegiasterClinicCreate(fees2:Int,fees:Int,lang:Double,latt:Double,phone:String,photo:UIImage,city:Int,area:Int,api_token:String,waiting_time:Int,doctor_id:Int,working_hours:[WorkModel],completion:@escaping (MainDoctorClinicCreateModel?,Error?)->Void)  {
+    func RegiasterClinicCreate(fees2:Int,fees:Int,lang:Double,latt:Double,phone:String,photo:UIImage?,city:Int,area:Int,api_token:String,waiting_time:Int,doctor_id:Int,working_hours:[WorkModel],completion:@escaping (MainDoctorClinicCreateModel?,Error?)->Void)  {
         let urlString = "\(baseUrl)doctor_create_clinic".toSecrueHttps()
         
         let postString = "fees=\(fees)&lang=\(lang)&latt=\(latt)&phone=\(phone)&city=\(city)&area=\(area)&api_token=\(api_token)&doctor_id=\(doctor_id)&fees2=\(fees2)&waiting_time=\(waiting_time)"

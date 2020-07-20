@@ -19,7 +19,7 @@ class DoctorServices {
         MainServices.mainGetMethodGenerics(urlString: urlString, completion: completion)
     }
     
-    func updateClinic(clinic_id:Int,fees2:Int,fees:Int,lang:Double,latt:Double,phone:String,photo:UIImage,city:Int,area:Int,api_token:String,waiting_time:Int,doctor_id:Int,completion:@escaping (MainAddFavoriteModel?,Error?)->Void)  {
+    func updateClinic(clinic_id:Int,fees2:Int,fees:Int,lang:Double,latt:Double,phone:String,photo:UIImage?,city:Int,area:Int,api_token:String,waiting_time:Int,doctor_id:Int,completion:@escaping (MainAddFavoriteModel?,Error?)->Void)  {
            let urlString = "\(baseUrl)doctor_create_clinic".toSecrueHttps()
            
            let postString = "fees=\(fees)&lang=\(lang)&latt=\(latt)&phone=\(phone)&city=\(city)&area=\(area)&api_token=\(api_token)&doctor_id=\(doctor_id)&fees2=\(fees2)&waiting_time=\(waiting_time)&clinic_id=\(clinic_id)"

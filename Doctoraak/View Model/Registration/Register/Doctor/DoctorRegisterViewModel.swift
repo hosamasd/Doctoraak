@@ -25,16 +25,16 @@ class DoctorRegisterViewModel {
     var index:Int? = -1 {didSet {checkFormValidity()}}
     var image:UIImage? {didSet {checkFormValidity()}}
     
-    func performRegister(completion:@escaping (UIImage,String,String,String?,String?,String,String,Int) -> Void )  {
-        guard let password = password,let name = name,let phone = phone,let img = image,let index=index
+    func performRegister(completion:@escaping (UIImage?,String,String,String?,String?,String,String,Int) -> Void )  {
+        guard let password = password,let name = name,let phone = phone,let index=index
             else { return  }
         bindableIsResgiter.value = true
 
-        completion(img,name,phone,secondPhone,email,password,male,index)
+        completion(image,name,phone,secondPhone,email,password,male,index)
     }
     
     func checkFormValidity() {
-        let isFormValid =  password?.isEmpty == false && confirmPassword?.isEmpty == false && confirmPassword == password &&  phone?.isEmpty == false && name?.isEmpty == false   && index != -1 && image != nil 
+        let isFormValid =  password?.isEmpty == false && confirmPassword?.isEmpty == false && confirmPassword == password &&  phone?.isEmpty == false && name?.isEmpty == false   && index != -1
         
         bindableIsFormValidate.value = isFormValid
         

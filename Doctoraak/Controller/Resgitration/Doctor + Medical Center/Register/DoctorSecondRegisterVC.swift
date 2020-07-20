@@ -28,7 +28,6 @@ class DoctorSecondRegisterVC: CustomBaseViewVC {
     lazy var customCecondRegisterView:CustomSecondRegisterView = {
         let v = CustomSecondRegisterView()
         v.index = index
-        v.photo = photo
         v.name = name
         v.email = email
         v.passowrd = passowrd
@@ -59,6 +58,12 @@ class DoctorSecondRegisterVC: CustomBaseViewVC {
             customCecondRegisterView.doctorSecondRegisterViewModel.email=email
         }
     }
+    var photo:UIImage? {
+           didSet {
+               customCecondRegisterView.doctorSecondRegisterViewModel.image=photo
+            customCecondRegisterView.photo=photo
+           }
+       }
     var secondPhone:String? {
         didSet {
             customCecondRegisterView.doctorSecondRegisterViewModel.secondPhone=secondPhone
@@ -76,13 +81,11 @@ class DoctorSecondRegisterVC: CustomBaseViewVC {
     fileprivate let name:String!
     fileprivate let mobile:String!
     fileprivate let passowrd:String!
-    fileprivate let photo:UIImage!
     
-    init(indexx:Int,photo:UIImage,name:String,mobile:String,passowrd:String) {
+    init(indexx:Int,name:String,mobile:String,passowrd:String) {
         self.index = indexx
         self.name = name
         self.passowrd = passowrd
-        self.photo = photo
         self.mobile = mobile
         super.init(nibName: nil, bundle: nil)
     }
