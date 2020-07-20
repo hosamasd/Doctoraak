@@ -230,6 +230,8 @@ extension ChooseLocationVC: GMSAutocompleteViewControllerDelegate {
     // Handle the user's selection.
     func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
         let co = place.coordinate
+        currentLat = co.latitude
+              currentLong = co.longitude
         let placesss = CLLocation(latitude: co.latitude, longitude: co.longitude)
         
         getYourLocation(placesss)

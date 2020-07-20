@@ -189,7 +189,7 @@ class HomeLeftMenuVC: CustomBaseViewVC {
     
     fileprivate func goToClinicWorkingHours(_ baseSlid: BaseSlidingVC,isOnlyShow:Bool,doctor: ClinicGetDoctorsModel? = nil) {
         baseSlid.closeMenu()
-        let profile = DoctorClinicWorkingHoursVC(isFromLeftMenu: true, isOnlyShow: isOnlyShow)
+        let profile = DoctorClinicWorkingHoursVC(isFromLeftMenu: true, isFromMainClinic: isOnlyShow)
         //           profile.doctor=chossedClinic
         profile.doctor = doctor
         let nav = UINavigationController(rootViewController: profile)

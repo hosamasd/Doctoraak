@@ -11,13 +11,13 @@ import MOLH
 
 class CustomDoctorClinicWorkingHoursView: CustomBaseView {
     
-    var isOnlyShow:Bool? {
-        didSet{
-            guard let isOnlyShow = isOnlyShow else { return  }
-             [sunButton,satButton,monButton,tuesButton,thuButton,wedButton,friButton,fifth1TextField,fifth2TextField,second1TextField,second2TextField,third1TextField,third2TextField,forth1TextField,forth2TextField,fifth2TextField,fifth1TextField,sexth1TextField,sexth2TextField,seventh1TextField,seventh2TextField,mainSecondStack].forEach({$0.isUserInteractionEnabled = !isOnlyShow})
-                      doneButton.isHidden = !isOnlyShow ? false : true
-        }
-    }
+//    var isOnlyShow:Bool? {
+//        didSet{
+//            guard let isOnlyShow = isOnlyShow else { return  }
+//             [sunButton,satButton,monButton,tuesButton,thuButton,wedButton,friButton,fifth1TextField,fifth2TextField,second1TextField,second2TextField,third1TextField,third2TextField,forth1TextField,forth2TextField,fifth2TextField,fifth1TextField,sexth1TextField,sexth2TextField,seventh1TextField,seventh2TextField,mainSecondStack].forEach({$0.isUserInteractionEnabled = !isOnlyShow})
+//                      doneButton.isHidden = !isOnlyShow ? false : true
+//        }
+//    }
     
     
     var workingHours:[ClinicWorkingHourModel]?{
@@ -537,9 +537,29 @@ class CustomDoctorClinicWorkingHoursView: CustomBaseView {
     }
     
     func getDays() -> [String] {
-        var ss = [String]()
-        ss.append(checkActiveDay(day1) ? "Sat".localized : checkActiveDay(day2) ? "Sun".localized : checkActiveDay(day3) ? "Mon".localized : checkActiveDay(day4) ? "Tue".localized : checkActiveDay(day5) ? "Wed".localized : checkActiveDay(day6) ? "Thr".localized : "Fri".localized )
-        return ss
+       var ss = [String]()
+               if checkActiveDay(day1) {
+                   ss.append("Sat".localized)
+               }
+               if checkActiveDay(day2) {
+                   ss.append("Sun".localized)
+               }
+               if checkActiveDay(day3) {
+                   ss.append("Mon".localized)
+               }
+               if checkActiveDay(day4) {
+                   ss.append("Tue".localized)
+               }
+               if checkActiveDay(day5) {
+                   ss.append("Wed".localized)
+               }
+               if checkActiveDay(day6) {
+                   ss.append("Thr".localized)
+               }
+               if checkActiveDay(day7) {
+                   ss.append("Fri".localized)
+               }
+               return ss
     }
     
     func getDaysIndex() -> [Int] {

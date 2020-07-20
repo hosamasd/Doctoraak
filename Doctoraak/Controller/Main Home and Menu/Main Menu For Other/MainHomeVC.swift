@@ -165,14 +165,15 @@ class MainHomeVC: CustomBaseViewVC {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        if userDefaults.bool(forKey: UserDefaultsConstants.isWelcomeVCAppear) && index == nil  {
-            view.alpha = 0
-        }else {
-            view.alpha = 1
-            
-            if userDefaults.bool(forKey: UserDefaultsConstants.isAllMainHomeObjectsFetched) {
+//        if userDefaults.bool(forKey: UserDefaultsConstants.isWelcomeVCAppear) && index == nil  {
+//            view.alpha = 0
+//        }else {
+//            view.alpha = 1
+//
+//            if userDefaults.bool(forKey: UserDefaultsConstants.isAllMainHomeObjectsFetched) {
+//
+//            }else {
                 
-            }else {
                 index = userDefaults.integer(forKey: UserDefaultsConstants.MainLoginINDEX)
                 if userDefaults.bool(forKey: UserDefaultsConstants.DoctorPerformLogin) {
                     doc = cacheDoctorObjectCodabe.storedValue
@@ -191,48 +192,8 @@ class MainHomeVC: CustomBaseViewVC {
                     phy = cachdPHARMACYObjectCodabe.storedValue
                 }
                 
-            }
-            //            if userDefaults.bool(forKey: UserDefaultsConstants.currentUserLoginInAPP) && index == nil{
-            //                index = userDefaults.integer(forKey: UserDefaultsConstants.MainLoginINDEX)
-            //                if userDefaults.bool(forKey: UserDefaultsConstants.DoctorPerformLogin) {
-            //                    doc = cacheDoctorObjectCodabe.storedValue
-            //                }
-            //                if userDefaults.bool(forKey: UserDefaultsConstants.medicalCenterPerformLogin) {
-            //                    medicalCenter = cacheMedicalObjectCodabe.storedValue
-            //                }
-            //
-            //                if userDefaults.bool(forKey: UserDefaultsConstants.labPerformLogin) {
-            //                    lab = cacheLABObjectCodabe.storedValue
-            //                }
-            //                if userDefaults.bool(forKey: UserDefaultsConstants.radiologyPerformLogin) {
-            //                    rad = cachdRADObjectCodabe.storedValue
-            //                }
-            //                if userDefaults.bool(forKey: UserDefaultsConstants.pharamacyPerformLogin) {
-            //                    phy = cachdPHARMACYObjectCodabe.storedValue
-            //                }
-            //            }else {
-            //
-            //            }
-            
-            //        if index == nil || !userDefaults.bool(forKey: UserDefaultsConstants.isAllMainHomeObjectsFetched){
-            //            if userDefaults.bool(forKey: UserDefaultsConstants.DoctorPerformLogin) {
-            //                doc = cacheDoctorObjectCodabe.storedValue
-            //            }
-            //            if userDefaults.bool(forKey: UserDefaultsConstants.medicalCenterPerformLogin) {
-            //                medicalCenter = cacheMedicalObjectCodabe.storedValue
-            //            }
-            //
-            //            if userDefaults.bool(forKey: UserDefaultsConstants.labPerformLogin) {
-            //                lab = cacheLABObjectCodabe.storedValue
-            //            }
-            //            if userDefaults.bool(forKey: UserDefaultsConstants.radiologyPerformLogin) {
-            //                rad = cachdRADObjectCodabe.storedValue
-            //            }
-            //            if userDefaults.bool(forKey: UserDefaultsConstants.pharamacyPerformLogin) {
-            //                phy = cachdPHARMACYObjectCodabe.storedValue
-            //            }
-            //        }
-        }
+//            }
+//        }
         
         
     }
@@ -382,22 +343,26 @@ class MainHomeVC: CustomBaseViewVC {
                     let xc = mains?.data?.count ?? 0
                     
                     self.customMainHomeView.topMainHomeCell.reservation = xc
-                    
+                    let urlString = clinics.first?.photo
+                    self.customMainHomeView.topMainHomeCell.urlString=urlString
                     //                                   self.customMainHomeView.topDoctorHomeCell.doctorReservationLabel.text = "\(xc) "+"Reservation ".localized
                     self.customMainHomeView.topMainHomeCell.doctorClinicDrop.optionArray = self.numberOfClinicsAvaiable
                     self.customMainHomeView.topMainHomeCell.doctorClinicDrop.text = "Clinic 1".localized
                     self.customMainHomeView.topMainHomeCell.doctorClinicDrop.selectedIndex = 0
                     
                     
-                    self.customMainHomeView.mainHomePatientsCollectionVC.collectionView.reloadData()
                     userDefaults.set(true, forKey: UserDefaultsConstants.isAllMainHomeObjectsFetched)
                     userDefaults.set(self.numberOfClinicsAvaiable, forKey: UserDefaultsConstants.DoctornumberOfClinicsAvaiable)
                     
                     userDefaults.synchronize()
-                    
                     self.addAndRemoveCacheClinicWorkingHours(clinics: clinics.first!)
+
+                    
+                    
                     self.customMainHomeView.mainHomePatientsCollectionVC.collectionView.refreshControl?.beginRefreshing()
                     self.customMainHomeView.mainHomePatientsCollectionVC.collectionView.refreshControl?.endRefreshing()
+                    self.customMainHomeView.mainHomePatientsCollectionVC.collectionView.reloadData()
+
                 }
                 self.view.layoutIfNeeded()
                 

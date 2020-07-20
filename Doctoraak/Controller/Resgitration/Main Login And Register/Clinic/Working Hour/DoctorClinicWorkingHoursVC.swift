@@ -34,7 +34,7 @@ class DoctorClinicWorkingHoursVC: CustomBaseViewVC {
     }()
     lazy var customClinicWorkingHoursView:CustomDoctorClinicWorkingHoursView = {
         let v = CustomDoctorClinicWorkingHoursView()
-        v.isOnlyShow=isOnlyShow
+//        v.isOnlyShow=isFromMainClinic
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
         v.doneButton.addTarget(self, action: #selector(handleDone), for: .touchUpInside)
         
@@ -54,11 +54,13 @@ class DoctorClinicWorkingHoursVC: CustomBaseViewVC {
     }
     
      fileprivate let isFromLeftMenu:Bool!
-    fileprivate let isOnlyShow:Bool!
+//    fileprivate let isOnlyShow:Bool!
+    fileprivate let isFromMainClinic:Bool!
 
-    init(isFromLeftMenu:Bool,isOnlyShow:Bool) {
+
+    init(isFromLeftMenu:Bool,isFromMainClinic:Bool) {
         self.isFromLeftMenu=isFromLeftMenu
-        self.isOnlyShow=isOnlyShow
+        self.isFromMainClinic=isFromMainClinic
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -108,7 +110,9 @@ class DoctorClinicWorkingHoursVC: CustomBaseViewVC {
             delgate?.getDays(indexs: customClinicWorkingHoursView.getDaysIndex(), days: customClinicWorkingHoursView.getDays())
             saveCached(vv:customClinicWorkingHoursView.getChoosenHours())
             
+            if isFromMainClinic {
             navigationController?.popViewController(animated: true)
+            }else {dismiss(animated: true)}
         }else {}
     }
     
