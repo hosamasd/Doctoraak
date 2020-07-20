@@ -11,19 +11,19 @@ import MOLH
 
 class CustomDoctorClinicWorkingHoursView: CustomBaseView {
     
-//    var isOnlyShow:Bool? {
-//        didSet{
-//            guard let isOnlyShow = isOnlyShow else { return  }
-//             [sunButton,satButton,monButton,tuesButton,thuButton,wedButton,friButton,fifth1TextField,fifth2TextField,second1TextField,second2TextField,third1TextField,third2TextField,forth1TextField,forth2TextField,fifth2TextField,fifth1TextField,sexth1TextField,sexth2TextField,seventh1TextField,seventh2TextField,mainSecondStack].forEach({$0.isUserInteractionEnabled = !isOnlyShow})
-//                      doneButton.isHidden = !isOnlyShow ? false : true
-//        }
-//    }
+    //    var isOnlyShow:Bool? {
+    //        didSet{
+    //            guard let isOnlyShow = isOnlyShow else { return  }
+    //             [sunButton,satButton,monButton,tuesButton,thuButton,wedButton,friButton,fifth1TextField,fifth2TextField,second1TextField,second2TextField,third1TextField,third2TextField,forth1TextField,forth2TextField,fifth2TextField,fifth1TextField,sexth1TextField,sexth2TextField,seventh1TextField,seventh2TextField,mainSecondStack].forEach({$0.isUserInteractionEnabled = !isOnlyShow})
+    //                      doneButton.isHidden = !isOnlyShow ? false : true
+    //        }
+    //    }
     
     
     var workingHours:[ClinicWorkingHourModel]?{
         didSet{
             guard let work = workingHours else { return  }
-            
+            workingHoursCachedDoc=nil
             work.forEach { (w) in
                 let sd = WorkModel(part1From: w.part1From, part1To: w.part1To, part2From: w.part2From, part2To: w.part2To, day: w.day, active: w.active)
                 
@@ -36,6 +36,7 @@ class CustomDoctorClinicWorkingHoursView: CustomBaseView {
     var workingHoursCachedDoc:[WorkModel]?{
         didSet{
             guard let work = workingHoursCachedDoc else { return  }
+            workingHours=nil
             work.forEach { (w) in
                 putThesesCached(w: w, bols: true)
                 putOtherDXXXS(w)
@@ -64,7 +65,7 @@ class CustomDoctorClinicWorkingHoursView: CustomBaseView {
     lazy var shift2Button = creatShiftBTN(title: "Shift2".localized, selector: #selector(handle2Shift(sender:)))
     
     
-    lazy var sunButton = createButtons(title: "Sun".localized,color: .white,tags: 2)
+    lazy var sunButton = createButtons(title: "Sun".localized,color: .black,tags: 2)
     lazy var first1TextField = createHoursButtons(tags: 1)
     lazy var first2TextField = createHoursButtons(tags: 11)
     
@@ -183,7 +184,7 @@ class CustomDoctorClinicWorkingHoursView: CustomBaseView {
             addGradientInSenderAndRemoveOther(sender: shift1Button)
             shift1Button.setTitleColor(.white, for: .normal)
         }
-        if sunButton.backgroundColor != nil {
+        if sunButton.backgroundColor != nil && workingHours == nil{
             addGradientInSenderAndRemoveOther(sender: sunButton)
             sunButton.setTitleColor(.white, for: .normal)
         }
@@ -441,23 +442,6 @@ class CustomDoctorClinicWorkingHoursView: CustomBaseView {
     }
     
     func putOtherDXXXS(_ w:WorkModel)  {
-        //        switch w.day {
-        //        case 1:
-        //            d1TXT1=w.part1From;d1TXT2=w.part1To;d12TXT1=w.part2From;d12TXT2=w.part2To
-        //        case 2:
-        //            d2TXT1=w.part1From;d2TXT2=w.part1To;d22TXT1=w.part2From;d22TXT2=w.part2To
-        //        case 3:
-        //            d3TXT1=w.part1From;d3TXT2=w.part1To;d32TXT1=w.part2From;d32TXT2=w.part2To
-        //        case 4:
-        //            d4TXT1=w.part1From;d4TXT2=w.part1To;d42TXT1=w.part2From;d42TXT2=w.part2To
-        //        case 5:
-        //            d5TXT1=w.part1From;d5TXT2=w.part1To;d52TXT1=w.part2From;d52TXT2=w.part2To
-        //        case 6:
-        //            d6TXT1=w.part1From;d6TXT2=w.part1To;d62TXT1=w.part2From;d62TXT2=w.part2To
-        //        default:
-        //            d7TXT1=w.part1From;d7TXT2=w.part1To;d72TXT1=w.part2From;d72TXT2=w.part2To
-        //        }
-        
         switch w.day {
         case 1:
             d1TXT1=w.part1From;d1TXT2=w.part1To;d12TXT1=w.part2From;d12TXT2=w.part2To
@@ -537,29 +521,29 @@ class CustomDoctorClinicWorkingHoursView: CustomBaseView {
     }
     
     func getDays() -> [String] {
-       var ss = [String]()
-               if checkActiveDay(day1) {
-                   ss.append("Sat".localized)
-               }
-               if checkActiveDay(day2) {
-                   ss.append("Sun".localized)
-               }
-               if checkActiveDay(day3) {
-                   ss.append("Mon".localized)
-               }
-               if checkActiveDay(day4) {
-                   ss.append("Tue".localized)
-               }
-               if checkActiveDay(day5) {
-                   ss.append("Wed".localized)
-               }
-               if checkActiveDay(day6) {
-                   ss.append("Thr".localized)
-               }
-               if checkActiveDay(day7) {
-                   ss.append("Fri".localized)
-               }
-               return ss
+        var ss = [String]()
+        if checkActiveDay(day1) {
+            ss.append("Sat".localized)
+        }
+        if checkActiveDay(day2) {
+            ss.append("Sun".localized)
+        }
+        if checkActiveDay(day3) {
+            ss.append("Mon".localized)
+        }
+        if checkActiveDay(day4) {
+            ss.append("Tue".localized)
+        }
+        if checkActiveDay(day5) {
+            ss.append("Wed".localized)
+        }
+        if checkActiveDay(day6) {
+            ss.append("Thr".localized)
+        }
+        if checkActiveDay(day7) {
+            ss.append("Fri".localized)
+        }
+        return ss
     }
     
     func getDaysIndex() -> [Int] {

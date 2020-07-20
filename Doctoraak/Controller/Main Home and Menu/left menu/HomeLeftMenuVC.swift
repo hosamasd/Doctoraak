@@ -218,10 +218,11 @@ class HomeLeftMenuVC: CustomBaseViewVC {
                     goToClinicWorkingHours(baseSlid,isOnlyShow:false)
                 }else if indexPath.item == 3 {
                     //get clinic_id
+                    let clinic = cacheSelectedClinicCodabe.storedValue
                     
-                    goToDoctorClinicData(baseSlid, index: index, fromUpdate: true, addNew: false,clinic_id: chossedClinic)
-
-//                    goToClinicWorkingHours(baseSlid,isOnlyShow:true,doctor: cacheDoctorObjectClinicWorkingHoursLeftMenu.storedValue)
+                    goToDoctorClinicData(baseSlid, index: index, fromUpdate: true, addNew: false,clinic_id: clinic)
+                    
+                    //                    goToClinicWorkingHours(baseSlid,isOnlyShow:true,doctor: cacheDoctorObjectClinicWorkingHoursLeftMenu.storedValue)
                 }
                 else if indexPath.item == 4 {
                     goToSameNotification(baseSlid)
@@ -266,17 +267,17 @@ class HomeLeftMenuVC: CustomBaseViewVC {
     }
     
     func goToDoctorClinicData(_ baseSlid: BaseSlidingVC,index:Int,fromUpdate:Bool,addNew:Bool,clinic_id:ClinicGetDoctorsModel? = nil)  {
-         baseSlid.closeMenu()
-                           guard let doctor =  cacheDoctorObjectCodabe.storedValue else { return  }
-                          
-                           
-                           let profile = DoctorClinicDataVC(indexx: index, isAddClinic: addNew, isUpdateClinic: fromUpdate, isFromProfile: true)
-                           profile.doctor=doctor
+        baseSlid.closeMenu()
+        guard let doctor =  cacheDoctorObjectCodabe.storedValue else { return  }
+        
+        
+        let profile = DoctorClinicDataVC(indexx: index, isAddClinic: addNew, isUpdateClinic: fromUpdate, isFromProfile: true)
+        profile.doctor=doctor
         profile.clinic_id=clinic_id
-                           let nav = UINavigationController(rootViewController: profile)
-                           
-                           nav.modalPresentationStyle = .fullScreen
-                           present(nav, animated: true)
+        let nav = UINavigationController(rootViewController: profile)
+        
+        nav.modalPresentationStyle = .fullScreen
+        present(nav, animated: true)
     }
     
     fileprivate func chooseLanguage()  {

@@ -9,7 +9,7 @@
 
 import UIKit
 
-//let cacheDoctorObjectCodabe: LocalJSONStore<DoctorModel> = LocalJSONStore(storageType: .cache, filename: "sdasad.json")
+let cacheSelectedClinicCodabe: LocalJSONStore<ClinicGetDoctorsModel> = LocalJSONStore(storageType: .cache, filename: "sdsssasad.json")
 
 let cacheDoctorObjectCodabe: LocalJSONStore<DoctorModel> = LocalJSONStore(storageType: .cache, filename: "repos.json")
 let cacheMedicalObjectCodabe: LocalJSONStore<DoctorModel> = LocalJSONStore(storageType: .cache, filename: "mc.json")

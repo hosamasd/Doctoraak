@@ -34,10 +34,65 @@ class CustomClinicDataView: CustomBaseView {
         }
     }
     
+    func checkActiveDay(_ d:Int) -> Bool {
+        return d == 1 ? true : false
+    }
+    
+    fileprivate  func getDays(ind:[ClinicWorkingHourModel])  ->[String]{
+           var ss = [String]()
+           ind.forEach { (s) in
+               ss.append( getDaysForAll(s.active, day: s.day) )
+           }
+           let dd = ss.filter({$0 != "    "})
+           
+           return dd
+           
+       }
+    
+    fileprivate func getDaysForAll(_ ww:Int,day:Int ) ->String{
+        switch day {
+        case 1:
+            if checkActiveDay(ww) {
+                return "Sat".localized
+            }
+        case 2:
+            if checkActiveDay(ww) {
+                return "Sun".localized
+            }
+        case 3:
+            if checkActiveDay(ww) {
+                return "Mon".localized
+            }
+        case 4:
+            if checkActiveDay(ww) {
+                return "Tue".localized
+            }
+        case 5:
+            if checkActiveDay(ww) {
+                return "Wed".localized
+            }
+        case 6:
+            if checkActiveDay(ww) {
+                return "Thr".localized
+            }
+        default:
+            if checkActiveDay(ww) {
+                return "Fri".localized
+            }
+        }
+        return "    "
+    }
+    
     func putDefaultValues(_ c:ClinicGetDoctorsModel)  {
         clinicMobileNumberTextField.text = c.phone
         guard let lat = c.latt.toDouble(),let lg=c.lang.toDouble() else { return  }
-        addressLabel.text = convertLatLongToAddress(latitude: lat, longitude: lg)
+        self.convertLatLongToAddress(latitude: lat, longitude: lg) {[unowned self] (text) in
+            DispatchQueue.main.async {
+                self.addressLabel.text=text
+            }
+        }
+        workingHoursLabel.text = getDays(ind: c.workingHours).joined(separator: "-") == "" ? "No Days Chossen".localized :  getDays(ind: c.workingHours).joined(separator: "-")
+
         let cc = c.city.toInt() ?? 1 ;let aa = c.area.toInt() ?? 1
         
         let city = getCityFromIndex(cc)
@@ -51,28 +106,22 @@ class CustomClinicDataView: CustomBaseView {
         waitingHoursTextField.text="\(c.waitingTime)"
         let urlString = c.photo
         guard let url = URL(string: urlString) else { return  }
-        clinicProfileImage.sd_setImage(with: url)
+        clinicProfileImage.sd_setImage(with: url,placeholderImage: #imageLiteral(resourceName: "Group 4142-4"))
     }
     
-    fileprivate func convertLatLongToAddress(latitude:Double,longitude:Double) -> String{
-        var ss = ""
+    func convertLatLongToAddress(latitude: Double, longitude: Double, completion: @escaping (_ answer: String?) -> Void) {
         
-        let geoCoder = CLGeocoder()
-        let location = CLLocation(latitude: latitude, longitude: longitude)
-        geoCoder.reverseGeocodeLocation(location, completionHandler: {[unowned self] (placemarks, error) -> Void in
+        let coordinates = CLLocation(latitude: latitude, longitude: longitude)
+        
+        CLGeocoder().reverseGeocodeLocation(coordinates, completionHandler: {(placemarks, error) -> Void in
             
-            // Place details
-            //            var placeMark: CLPlacemark?
+            
             guard let   placeMark = placemarks?[0] else {return }
-            
-            ss =   placeMark.locality ?? ""
-            
-            // Location name
-            guard  let street = placeMark.subLocality, let city = placeMark.administrativeArea, let country = placeMark.country else {return }
-            ss =  " \(street) - \(city) - \(country)"
+            guard  let street = placeMark.subLocality, let city = placeMark.administrativeArea, let country = placeMark.country else { completion(placeMark.locality );return }
+            let ans =  street+"-"+city+"-"+country
+            completion(ans)
         })
         
-        return ss
     }
     
     func putDefaultValuesViewModel(_ c:ClinicGetDoctorsModel)  {
@@ -256,7 +305,7 @@ class CustomClinicDataView: CustomBaseView {
         button.layer.cornerRadius = 16
         button.constrainHeight(constant: 80)
         button.clipsToBounds = true
-        button.isEnabled = false
+//        button.isEnabled = false
         return button
     }()
     

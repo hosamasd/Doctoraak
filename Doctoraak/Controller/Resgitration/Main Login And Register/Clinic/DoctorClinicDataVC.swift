@@ -217,6 +217,7 @@ class DoctorClinicDataVC: CustomBaseViewVC {
     fileprivate func handleChooseWorkingHours()  {
         let payment = DoctorClinicWorkingHoursVC(isFromLeftMenu: false, isFromMainClinic: true)//MainClinicWorkingHoursNotDoctorVC(index: index,isFromUpdateProfile:true,isFromRegister: true)
         payment.delgate = self
+        payment.doctor=self.clinic_id
         navigationController?.pushViewController(payment, animated: true)
     }
     
@@ -344,10 +345,11 @@ class DoctorClinicDataVC: CustomBaseViewVC {
         customClinicDataView.clinicDataViewModel.performUpdating { (base, err) in
             if let err = err {
                 SVProgressHUD.showError(withStatus: err.localizedDescription)
-                self.handleDismiss()
+//                self.handleDismiss()
                 self.activeViewsIfNoData();return
             }
-            SVProgressHUD.dismiss()
+//            SVProgressHUD.dismiss()
+            self.handleDismiss()
             self.activeViewsIfNoData()
             guard let user = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
             

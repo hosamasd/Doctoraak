@@ -165,35 +165,35 @@ class MainHomeVC: CustomBaseViewVC {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-//        if userDefaults.bool(forKey: UserDefaultsConstants.isWelcomeVCAppear) && index == nil  {
-//            view.alpha = 0
-//        }else {
-//            view.alpha = 1
-//
-//            if userDefaults.bool(forKey: UserDefaultsConstants.isAllMainHomeObjectsFetched) {
-//
-//            }else {
-                
-                index = userDefaults.integer(forKey: UserDefaultsConstants.MainLoginINDEX)
-                if userDefaults.bool(forKey: UserDefaultsConstants.DoctorPerformLogin) {
-                    doc = cacheDoctorObjectCodabe.storedValue
-                }
-                if userDefaults.bool(forKey: UserDefaultsConstants.medicalCenterPerformLogin) {
-                    medicalCenter = cacheMedicalObjectCodabe.storedValue
-                }
-                
-                if userDefaults.bool(forKey: UserDefaultsConstants.labPerformLogin) {
-                    lab = cacheLABObjectCodabe.storedValue
-                }
-                if userDefaults.bool(forKey: UserDefaultsConstants.radiologyPerformLogin) {
-                    rad = cachdRADObjectCodabe.storedValue
-                }
-                if userDefaults.bool(forKey: UserDefaultsConstants.pharamacyPerformLogin) {
-                    phy = cachdPHARMACYObjectCodabe.storedValue
-                }
-                
-//            }
-//        }
+        //        if userDefaults.bool(forKey: UserDefaultsConstants.isWelcomeVCAppear) && index == nil  {
+        //            view.alpha = 0
+        //        }else {
+        //            view.alpha = 1
+        //
+        //            if userDefaults.bool(forKey: UserDefaultsConstants.isAllMainHomeObjectsFetched) {
+        //
+        //            }else {
+        
+        index = userDefaults.integer(forKey: UserDefaultsConstants.MainLoginINDEX)
+        if userDefaults.bool(forKey: UserDefaultsConstants.DoctorPerformLogin) {
+            doc = cacheDoctorObjectCodabe.storedValue
+        }
+        if userDefaults.bool(forKey: UserDefaultsConstants.medicalCenterPerformLogin) {
+            medicalCenter = cacheMedicalObjectCodabe.storedValue
+        }
+        
+        if userDefaults.bool(forKey: UserDefaultsConstants.labPerformLogin) {
+            lab = cacheLABObjectCodabe.storedValue
+        }
+        if userDefaults.bool(forKey: UserDefaultsConstants.radiologyPerformLogin) {
+            rad = cachdRADObjectCodabe.storedValue
+        }
+        if userDefaults.bool(forKey: UserDefaultsConstants.pharamacyPerformLogin) {
+            phy = cachdPHARMACYObjectCodabe.storedValue
+        }
+        
+        //            }
+        //        }
         
         
     }
@@ -256,6 +256,7 @@ class MainHomeVC: CustomBaseViewVC {
         let clinicId = self.docotrClinicID[index]
         guard   let qq = customMainHomeView.topMainHomeCell.doctorClinicDrop.selectedIndex,let doc = doc else {return}
         chossedClinic=doctorsClinicArray[qq]
+        cacheSelectedClinicCodabe.save(doctorsClinicArray[qq])
         //        SVProgressHUD.show(withStatus: "Looding...".localized)
         UIApplication.shared.beginIgnoringInteractionEvents() // disbale all events in the screen
         self.showMainAlertLooder(cc: self.customMainAlertVC, v: self.customAlertMainLoodingView)
@@ -304,6 +305,9 @@ class MainHomeVC: CustomBaseViewVC {
             let d = c.workingHours.first?.clinicID
             docotrClinicID.append(d ?? 1)
         }
+        guard let ss = cc.first else {return}
+        
+        cacheSelectedClinicCodabe.save( ss)
     }
     
     
@@ -356,13 +360,13 @@ class MainHomeVC: CustomBaseViewVC {
                     
                     userDefaults.synchronize()
                     self.addAndRemoveCacheClinicWorkingHours(clinics: clinics.first!)
-
+                    
                     
                     
                     self.customMainHomeView.mainHomePatientsCollectionVC.collectionView.refreshControl?.beginRefreshing()
                     self.customMainHomeView.mainHomePatientsCollectionVC.collectionView.refreshControl?.endRefreshing()
                     self.customMainHomeView.mainHomePatientsCollectionVC.collectionView.reloadData()
-
+                    
                 }
                 self.view.layoutIfNeeded()
                 

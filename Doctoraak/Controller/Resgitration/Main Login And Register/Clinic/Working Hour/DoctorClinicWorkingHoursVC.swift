@@ -23,7 +23,7 @@ class DoctorClinicWorkingHoursVC: CustomBaseViewVC {
         let v = UIScrollView()
         v.backgroundColor = .clear
         v.showsVerticalScrollIndicator=false
-
+        
         return v
     }()
     lazy var mainView:UIView = {
@@ -34,7 +34,7 @@ class DoctorClinicWorkingHoursVC: CustomBaseViewVC {
     }()
     lazy var customClinicWorkingHoursView:CustomDoctorClinicWorkingHoursView = {
         let v = CustomDoctorClinicWorkingHoursView()
-//        v.isOnlyShow=isFromMainClinic
+        //        v.isOnlyShow=isFromMainClinic
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
         v.doneButton.addTarget(self, action: #selector(handleDone), for: .touchUpInside)
         
@@ -53,11 +53,11 @@ class DoctorClinicWorkingHoursVC: CustomBaseViewVC {
         }
     }
     
-     fileprivate let isFromLeftMenu:Bool!
-//    fileprivate let isOnlyShow:Bool!
+    fileprivate let isFromLeftMenu:Bool!
+    //    fileprivate let isOnlyShow:Bool!
     fileprivate let isFromMainClinic:Bool!
-
-
+    
+    
     init(isFromLeftMenu:Bool,isFromMainClinic:Bool) {
         self.isFromLeftMenu=isFromLeftMenu
         self.isFromMainClinic=isFromMainClinic
@@ -75,10 +75,13 @@ class DoctorClinicWorkingHoursVC: CustomBaseViewVC {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if userDefaults.bool(forKey: UserDefaultsConstants.isDoctorWorkingHoursCached){
-            customClinicWorkingHoursView.workingHoursCachedDoc = cachdDOCTORWorkingHourObjectCodabe.storedValue
-            
-        }
+        if doctor == nil {
+             if userDefaults.bool(forKey: UserDefaultsConstants.isDoctorWorkingHoursCached){
+                       customClinicWorkingHoursView.workingHoursCachedDoc = cachdDOCTORWorkingHourObjectCodabe.storedValue
+                       
+                   }
+        }else {}
+       
     }
     
     override  func setupNavigation()  {
@@ -104,19 +107,19 @@ class DoctorClinicWorkingHoursVC: CustomBaseViewVC {
         timeSelector.presentOnView(view: self.view)
     }
     
-   fileprivate func checkValidateDoneButton() {
+    fileprivate func checkValidateDoneButton() {
         if  customClinicWorkingHoursView.checkButtonDone() {
             delgate?.getHoursChoosed(hours: customClinicWorkingHoursView.getChoosenHours())
             delgate?.getDays(indexs: customClinicWorkingHoursView.getDaysIndex(), days: customClinicWorkingHoursView.getDays())
             saveCached(vv:customClinicWorkingHoursView.getChoosenHours())
             
             if isFromMainClinic {
-            navigationController?.popViewController(animated: true)
+                navigationController?.popViewController(animated: true)
             }else {dismiss(animated: true)}
         }else {}
     }
     
-   fileprivate func saveCached(vv:[WorkModel])  {
+    fileprivate func saveCached(vv:[WorkModel])  {
         cachdDOCTORWorkingHourObjectCodabe.save(vv)
         userDefaults.set(true, forKey: UserDefaultsConstants.isDoctorWorkingHoursCached)
         userDefaults.synchronize()
@@ -150,7 +153,7 @@ class DoctorClinicWorkingHoursVC: CustomBaseViewVC {
         if isFromLeftMenu {
             dismiss(animated: true)
         }else {
-        navigationController?.popViewController(animated: true)
+            navigationController?.popViewController(animated: true)
         }
     }
     
