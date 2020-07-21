@@ -129,25 +129,7 @@ class MainRegisterVC: CustomBaseViewVC {
         })
     }
     
-    fileprivate func convertLatLongToAddress(latitude:Double,longitude:Double){
-        
-        let geoCoder = CLGeocoder()
-        let location = CLLocation(latitude: latitude, longitude: longitude)
-        geoCoder.reverseGeocodeLocation(location, completionHandler: {[unowned self] (placemarks, error) -> Void in
-            
-            // Place details
-            //            var placeMark: CLPlacemark?
-            guard let   placeMark = placemarks?[0] else {return}
-            
-            self.customMainRegisterView.addressLabel.text =  placeMark.locality ?? ""
-            
-            // Location name
-            guard  let street = placeMark.subLocality, let city = placeMark.administrativeArea, let country = placeMark.country else {return}
-            self.customMainRegisterView.addressLabel.text =  " \(street) - \(city) - \(country)"
-        })
-        
-        
-    }
+    
     
     fileprivate func saveAllToken(mobile:String,index:Int,user_id:Int)  {
            userDefaults.set(mobile, forKey: UserDefaultsConstants.mobileForAll)
@@ -368,7 +350,9 @@ extension MainRegisterVC: MainClinicWorkingHoursssProtocol{
 extension MainRegisterVC: ChooseLocationVCProtocol{
     
     func getLatAndLong(lat: Double, long: Double) {
-        convertLatLongToAddress(latitude: lat, longitude: long)
+        convertLatLongToAddress(latitude: lat, longitude: long) { (ss) in
+             self.customMainRegisterView.addressLabel.text=ss
+        }
         customMainRegisterView.registerViewModel.latt = lat
         customMainRegisterView.registerViewModel.lang = long
         

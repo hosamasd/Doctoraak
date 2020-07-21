@@ -22,8 +22,8 @@ pod 'SCLAlertView'
 
 pod 'GoogleMaps'
 pod 'GooglePlaces'
-  pod 'GooglePlacePicker'
+#  pod 'GooglePlacePicker'
   pod 'AcceptCardSDK'
-  pod 'TTSegmentedControl', '~>0.4.8'
+#  pod 'TTSegmentedControl', '~>0.4.8'
 
 end

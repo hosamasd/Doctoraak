@@ -158,13 +158,13 @@ class CustomMainHomeView: CustomBaseView {
         vc.handleRefreshCollection = {[unowned self]  in
             self.handleRefreshCollection?()
         }
-        vc.handleDoctorSelectedIndex = {[unowned self]  ind in
-            self.handleDoctorSelectedIndex?(ind)
+        vc.handleDoctorSelectedIndex = {[unowned self]  ind,patient in
+            self.handleDoctorSelectedIndex?(ind,patient)
         }
         return vc
     }()
     var handleChoosedClinicID:((Int)->Void)?
-    var handleDoctorSelectedIndex:((IndexPath)->Void)?
+    var handleDoctorSelectedIndex:((IndexPath,DoctorGetPatientsFromClinicModel)->Void)?
     
     var handledisplayRADNotification:((RadGetOrdersModel,IndexPath)->Void)?
     var handledisplayLABNotification:((LABGetOrdersModel,IndexPath)->Void)?

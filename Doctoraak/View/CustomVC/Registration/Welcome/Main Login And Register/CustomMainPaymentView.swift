@@ -7,9 +7,9 @@
 //
 
 import UIKit
-import TTSegmentedControl
 import SkyFloatingLabelTextField
 import MOLH
+import SwiftUI
 
 class CustomMainPaymentView: CustomBaseView {
     
@@ -65,21 +65,28 @@ class CustomMainPaymentView: CustomBaseView {
     }()
     
     lazy var chooseTitleLabel = UILabel(text: "You will pay 200 pounds for the/n subscription card".localized, font: .systemFont(ofSize: 16), textColor: .black,textAlignment: .center,numberOfLines: 2)
-    lazy var bookSegmentedView:TTSegmentedControl = {
-        let view = TTSegmentedControl()
-        view.itemTitles = ["Vodafone cash".localized,"Fawry".localized,"Visa card".localized]
-        view.allowChangeThumbWidth = false
+    
+    lazy var bookSegmentedView:TintedSegmentedControl = {
+        let items = ["Vodafone cash".localized,"Fawry".localized,"Visa card".localized]
+        let view = TintedSegmentedControl(items: items)
+        view.layer.cornerRadius = 24
+        view.clipsToBounds=true
+        view.selectedSegmentIndex=0
         view.constrainHeight(constant: 50)
-        view.thumbGradientColors = [#colorLiteral(red: 0.6887479424, green: 0.4929093719, blue: 0.9978651404, alpha: 1),#colorLiteral(red: 0.5526981354, green: 0.3201900423, blue: 1, alpha: 1)]
-        view.useShadow = true
-        view.didSelectItemWith = {[unowned self] (index, title) in
-            self.paymentViewModel.firstChosen = index == 0 ? true : false
-            self.paymentViewModel.secondChosen = index == 1 ? true : false
-            self.paymentViewModel.thirdChosen = index == 2 ? true : false
-            self.hideOrUnhide(tag: index)
-        }
+        view.addTarget(self, action: #selector(handleChoosedSegment), for: .valueChanged)
         return view
     }()
+    
+    @objc func handleChoosedSegment(sender:UISegmentedControl)  {
+        let index = sender.selectedSegmentIndex
+        self.paymentViewModel.firstChosen = index == 0 ? true : false
+        self.paymentViewModel.secondChosen = index == 1 ? true : false
+        self.paymentViewModel.thirdChosen = index == 2 ? true : false
+        self.hideOrUnhide(tag: index)
+    }
+    
+    
+    
     lazy var choosePayLabel = UILabel(text: "Enter your phone number :".localized, font: .systemFont(ofSize: 18), textColor: .black,textAlignment: .center)
     
     lazy var numberTextField:UITextField = {
@@ -124,12 +131,6 @@ class CustomMainPaymentView: CustomBaseView {
         return button
     }()
     lazy var freeAppLabel = UILabel(text: "You Can Use The App For Free For 3 Months".localized, font: .systemFont(ofSize: 16), textColor: .green,textAlignment: .left)
-
-    //    lazy var visaInfoStack:UIStackView = {
-    //        let v = getStack(views: visaTextField,cvcVisaTextField,monthVisaTextField, spacing: 8, distribution: .fillEqually, axis: .vertical)
-    //        v.isHide(true)
-    //        return v
-    //    }()
     
     let paymentViewModel = PaymentViewModel()
     
@@ -144,11 +145,6 @@ class CustomMainPaymentView: CustomBaseView {
     override func setupViews() {
         [numberTextField,codeTextField].forEach({$0.constrainHeight(constant: 60)})
         [numberTextField,codeTextField].forEach({$0.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)})
-        
-        //        [numberTextField,codeTextField,visaTextField].forEach({$0.constrainHeight(constant: 60)})
-        //        [numberTextField,codeTextField,visaTextField,cvcVisaTextField,monthVisaTextField].forEach({$0.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)})
-        
-        
         
         addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,vodafoneImage,fawryImage,visaCardImage,doneButton,leftImage,rightImage,bookSegmentedView,chooseTitleLabel,choosePayLabel,codeTextField,numberTextField,paymentButton,freeAppLabel,doneButton)
         
@@ -166,8 +162,7 @@ class CustomMainPaymentView: CustomBaseView {
             
             LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
         }
-        //
-        //        LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
+        
         backImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 60, left: 16, bottom: 0, right: 0))
         titleLabel.anchor(top: nil, leading: leadingAnchor, bottom: LogoImage.bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
         soonLabel.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
@@ -185,8 +180,8 @@ class CustomMainPaymentView: CustomBaseView {
         numberTextField.anchor(top: choosePayLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 16, right: 32))
         codeTextField.anchor(top: choosePayLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 16, right: 32))
         paymentButton.anchor(top: choosePayLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 16, right: 32))
-        freeAppLabel.anchor(top: paymentButton.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 16, right: 32))
-
+        freeAppLabel.anchor(top: paymentButton.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 32, left: 32, bottom: 16, right: 32))
+        
         
         doneButton.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 16, right: 32))
         
@@ -198,6 +193,23 @@ class CustomMainPaymentView: CustomBaseView {
         b.setImage(image, for: .normal)
         b.tag = tags
         return b
+    }
+    
+    func putThis(yoursegmentedControl:UISegmentedControl)  {
+        if #available(iOS 13.0, *) {
+            yoursegmentedControl.backgroundColor = UIColor.gray
+            yoursegmentedControl.layer.borderColor = ColorConstants.secondColorBangsegy
+            yoursegmentedControl.selectedSegmentTintColor = UIColor.white
+            yoursegmentedControl.layer.borderWidth = 1
+            
+            let titleTextAttributes = [NSAttributedString.Key.foregroundColor: ColorConstants.secondColorBangsegy]
+            yoursegmentedControl.setTitleTextAttributes(titleTextAttributes, for:.normal)
+            
+            let titleTextAttributes1 = [NSAttributedString.Key.foregroundColor: UIColor.black]
+            yoursegmentedControl.setTitleTextAttributes(titleTextAttributes1, for:.selected)
+        } else {
+            // Fallback on earlier versions
+        }
     }
     
     func hideOrUnhide(tag:Int)  {
@@ -224,17 +236,6 @@ class CustomMainPaymentView: CustomBaseView {
     
     //TODO: -handle methods
     
-    //    @objc func tapDone(sender: Any, datePicker1: UIDatePicker) {
-    //        if let datePicker = self.monthVisaTextField.inputView as? UIDatePicker { // 2.1
-    //            let dateformatter = DateFormatter() // 2.2
-    //            dateformatter.dateFormat = "MM/YY"
-    //            self.monthVisaTextField.text = dateformatter.string(from: datePicker.date) //2.4
-    //            paymentViewModel.visaMonthCard = dateformatter.string(from: datePicker.date) //2.4
-    //        }
-    //        self.monthVisaTextField.resignFirstResponder() // 2.5
-    //
-    //    }
-    
     @objc func textFieldDidChange(text: UITextField)  {
         guard let texts = text.text else { return  }
         if let floatingLabelTextField = text as? SkyFloatingLabelTextField {
@@ -247,29 +248,6 @@ class CustomMainPaymentView: CustomBaseView {
                     floatingLabelTextField.errorMessage = ""
                     paymentViewModel.vodafoneVode = texts
                 }
-                
-                //            }else if text == visaTextField {
-                //                if  texts.count < 8    {
-                //                    floatingLabelTextField.errorMessage = "Invalid   visa number".localized
-                //                    paymentViewModel.visaCard = nil
-                //                }
-                //                else {
-                //                    floatingLabelTextField.errorMessage = ""
-                //                    paymentViewModel.visaCard = texts
-                //                }
-                //
-                //            }else if text == cvcVisaTextField {
-                //                if texts.count < 3 {
-                //                    floatingLabelTextField.errorMessage = "Invalid CVC  visa number".localized
-                //                    paymentViewModel.visaCVCCard = nil
-                //                }
-                //                else {
-                //                    floatingLabelTextField.errorMessage = ""
-                //                    paymentViewModel.visaCVCCard = texts
-                //                }
-                
-                
-                
             } else
                 if(texts.count < 6 ) {
                     floatingLabelTextField.errorMessage = "code must have 6 character".localized
@@ -299,4 +277,19 @@ class CustomMainPaymentView: CustomBaseView {
     }
     
     
+}
+
+
+class TintedSegmentedControl: UISegmentedControl {
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        if #available(iOS 13.0, *) {
+            setTitleTextAttributes([.foregroundColor: UIColor.white], for: .selected)
+            selectedSegmentTintColor = #colorLiteral(red: 0.4747212529, green: 0.2048208416, blue: 1, alpha: 1)
+        } else {
+            tintColor = UIColor.blue
+        }
+    }
 }

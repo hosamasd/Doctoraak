@@ -49,14 +49,16 @@ class MainHomePatientsCell: BaseCollectionCell {
             patientProfileImage.sd_setImage(with: url)
         }
     }
-    var patient:PatientModel? {
+    var patient:DoctorGetPatientsFromClinicModel? {
         didSet{
             guard let patient = patient else { return  }
+            let dates = patient.date
             
-            patientNameLabel.text = patient.name
-            patienDateLabel.text = patient.createdAt
-            patientCityLabel.text = patient.gender
-            let urlString = patient.photo // dd ?? patient.photo
+            patientNameLabel.text = patient.patient.name
+            patienDateLabel.text = dates
+            patientCityLabel.text = patient.patient.gender
+            patientCityLabel.text = patient.patient.phone
+            let urlString = patient.patient.photo // dd ?? patient.photo
             guard let url = URL(string: urlString) else { return  }
             patientProfileImage.sd_setImage(with: url)
         }
@@ -66,7 +68,7 @@ class MainHomePatientsCell: BaseCollectionCell {
         let i = UIImageView(backgroundColor: .gray)
         i.constrainWidth(constant: 80)
         i.constrainHeight(constant: 80)
-        i.layer.cornerRadius = 8
+        i.layer.cornerRadius = 40
         i.clipsToBounds = true
         return i
     }()

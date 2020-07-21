@@ -28,7 +28,7 @@ struct DoctorClinicCreateModel:Codable {
     let id: Int
     let workingHours: [DoctorWorkingHoursModel]
     let photo: String
-    let degree, specialization: DegreeDoctorModel
+    var degree, specialization: DegreeDoctorModel?
     let freeDays: [FreeDayModel]
     let doctor: DoctorSecondModel
     
@@ -54,17 +54,18 @@ struct DoctorSecondModel:Codable {
     let gender, phone, smsCode, apiToken: String
     var email,firebaseToken: String?
     let  password: String
-    let active, specializationID, degreeID: Int
+    let active, specializationID: Int
+    var degreeID:Int?
     let cv: String
-    let cv2: String
-    let photo: String
+    var cv2: String?
+    var photo: String?
     var reservationRate, degreeRate: String?
     let createdAt, updatedAt: String
     let isHospital: Int
     var doctorDescription: String?
     let isMedicalCenter, rate: Int
     let insuranceCompany: [DegreeDoctorModel]
-    let degree, specialization: DegreeDoctorModel
+    var degree, specialization: DegreeDoctorModel?
 
     enum CodingKeys: String, CodingKey {
         case id, name

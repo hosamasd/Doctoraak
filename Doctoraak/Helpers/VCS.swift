@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import MapKit
 
 extension UICollectionView{
     
@@ -31,6 +31,18 @@ extension UICollectionView{
 
 
 extension UIViewController {
+    
+    func convertLatLongToAddress(latitude: Double, longitude: Double, completion: @escaping (_ answer: String?) -> Void) {
+              
+              let coordinates = CLLocation(latitude: latitude, longitude: longitude)
+              
+              CLGeocoder().reverseGeocodeLocation(coordinates, completionHandler: {(placemarks, error) -> Void in
+                  guard let   placeMark = placemarks?[0] else {return }
+                  guard  let street = placeMark.subLocality, let city = placeMark.administrativeArea, let country = placeMark.country else { completion(placeMark.locality );return }
+                  let ans =  street+" - "+city+" - "+country
+                  completion(ans)
+              })
+           }
     
     func hideKeyboardWhenTappedAround() {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard(_:)))

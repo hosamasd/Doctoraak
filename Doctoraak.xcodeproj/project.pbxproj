@@ -216,6 +216,9 @@
 		9F82FDB724AA399F009ED3B9 /* ExtensionsViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F82FDB524AA399F009ED3B9 /* ExtensionsViews.swift */; };
 		9FB5E23D24C7003F00FE0AE3 /* MainPaymentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FB5E23C24C7003F00FE0AE3 /* MainPaymentVC.swift */; };
 		9FDC27E124B4EBCD0030AB22 /* CollectionAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FDC27E024B4EBCD0030AB22 /* CollectionAnimation.swift */; };
+		9FEFCD7F24C73FAA0081E084 /* FirstPaymentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FEFCD7E24C73FAA0081E084 /* FirstPaymentModel.swift */; };
+		9FEFCD8124C740020081E084 /* SecondPaymentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FEFCD8024C740020081E084 /* SecondPaymentModel.swift */; };
+		9FEFCD8324C740210081E084 /* LastTokenPaymentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FEFCD8224C740210081E084 /* LastTokenPaymentModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -431,6 +434,9 @@
 		9F82FDB524AA399F009ED3B9 /* ExtensionsViews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtensionsViews.swift; sourceTree = "<group>"; };
 		9FB5E23C24C7003F00FE0AE3 /* MainPaymentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPaymentVC.swift; sourceTree = "<group>"; };
 		9FDC27E024B4EBCD0030AB22 /* CollectionAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionAnimation.swift; sourceTree = "<group>"; };
+		9FEFCD7E24C73FAA0081E084 /* FirstPaymentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FirstPaymentModel.swift; path = "Doctoraak/Controller/Main Home and Menu/left menu/Lists/FirstPaymentModel.swift"; sourceTree = SOURCE_ROOT; };
+		9FEFCD8024C740020081E084 /* SecondPaymentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondPaymentModel.swift; sourceTree = "<group>"; };
+		9FEFCD8224C740210081E084 /* LastTokenPaymentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastTokenPaymentModel.swift; sourceTree = "<group>"; };
 		BAD6BD9CA05933F3751070F3 /* Pods-Doctoraak.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Doctoraak.debug.xcconfig"; path = "Target Support Files/Pods-Doctoraak/Pods-Doctoraak.debug.xcconfig"; sourceTree = "<group>"; };
 		C300D290AB172CC2F362780A /* Pods_Doctoraak.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Doctoraak.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -1456,6 +1462,7 @@
 		7AB7E38724157FFA0033F347 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				9FEFCD7D24C73F9C0081E084 /* payment */,
 				4EDFFD41249756A300256631 /* LAB */,
 				4EDFFD3E2497555800256631 /* Radiology */,
 				4EDFFD3B2497538F00256631 /* Pharmacy */,
@@ -1472,6 +1479,16 @@
 			children = (
 			);
 			path = "doctor lists";
+			sourceTree = "<group>";
+		};
+		9FEFCD7D24C73F9C0081E084 /* payment */ = {
+			isa = PBXGroup;
+			children = (
+				9FEFCD7E24C73FAA0081E084 /* FirstPaymentModel.swift */,
+				9FEFCD8024C740020081E084 /* SecondPaymentModel.swift */,
+				9FEFCD8224C740210081E084 /* LastTokenPaymentModel.swift */,
+			);
+			path = payment;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1639,6 +1656,7 @@
 				4EA83C6A249764D200C9AB7E /* CustomMainClinicWorkingHoursVCWithoutEditingVC.swift in Sources */,
 				4E115DBC24951D2800B64936 /* CustomAlertLoginView.swift in Sources */,
 				4E5E0BB7242891620031AE4A /* CustomRegisterView.swift in Sources */,
+				9FEFCD8324C740210081E084 /* LastTokenPaymentModel.swift in Sources */,
 				4ED4FFE724605AFF00C72AE5 /* MainPharamacySMSCodeModel.swift in Sources */,
 				9F82FDAD24AA3950009ED3B9 /* UIImageView.swift in Sources */,
 				4E70CD9A243DABC700098C4C /* DoctorPatientDataVC.swift in Sources */,
@@ -1674,6 +1692,7 @@
 				4E9145F32446CCAA00766D20 /* MainServices.swift in Sources */,
 				4E14F23B242B462400107FA7 /* DoctorRegisterViewModel.swift in Sources */,
 				4E5CE7AB2427545C001EE175 /* DoctorBookVC.swift in Sources */,
+				9FEFCD7F24C73FAA0081E084 /* FirstPaymentModel.swift in Sources */,
 				4E9FFF032499EEB700D27463 /* CustomAnaylticsView.swift in Sources */,
 				4E333E0524265B2800F82E00 /* DoctorDaysShiftCell.swift in Sources */,
 				4E9145F92446CF1000766D20 /* MainAreaModel.swift in Sources */,
@@ -1804,6 +1823,7 @@
 				4E41F87424978169003066FB /* OrdersServices.swift in Sources */,
 				4E3449072428BF9300259224 /* MainVerificationVC.swift in Sources */,
 				9F82FDAF24AA3950009ED3B9 /* UITextField.swift in Sources */,
+				9FEFCD8124C740020081E084 /* SecondPaymentModel.swift in Sources */,
 				4E111D822429C5C1000250AE /* ColorConstants.swift in Sources */,
 				4EC1A8CC244705AA00AD898E /* RegistrationServices.swift in Sources */,
 				4E3458EA2428B2FF00DA89A0 /* CustomSecondRegisterView.swift in Sources */,

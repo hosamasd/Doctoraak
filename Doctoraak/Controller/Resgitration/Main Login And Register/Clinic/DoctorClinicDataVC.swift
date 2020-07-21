@@ -170,25 +170,6 @@ class DoctorClinicDataVC: CustomBaseViewVC {
         
     }
     
-    fileprivate  func convertLatLongToAddress(latitude:Double,longitude:Double){
-        
-        let geoCoder = CLGeocoder()
-        let location = CLLocation(latitude: latitude, longitude: longitude)
-        geoCoder.reverseGeocodeLocation(location, completionHandler: {[unowned self] (placemarks, error) -> Void in
-            
-            // Place details
-            var placeMark: CLPlacemark!
-            placeMark = placemarks?[0]
-            self.customClinicDataView.addressLabel.text = placeMark.locality
-            
-            // Location name
-            guard let locationName = placeMark.locality , let street = placeMark.thoroughfare, let city = placeMark.subAdministrativeArea, let country = placeMark.country else {return}
-            self.customClinicDataView.addressLabel.text = "\(locationName) - \(street) - \(city) - \(country)"
-        })
-        
-        
-    }
-    
     fileprivate func goToNext(_ clinic_id:Int)  {
          self.updateStates(clinic_id,index: index)
         if isAddClinic {
@@ -384,7 +365,7 @@ extension DoctorClinicDataVC: MainClinicWorkingHoursProtocol {
     
     func getDays(indexs: [Int], days: [String]) {
         print(indexs,"              ",days)
-        customClinicDataView.workingHoursLabel.text = days.joined(separator: "-")
+        customClinicDataView.workingHoursLabel.text = days.count <=  0 ? "No Days Chossen".localized : days.joined(separator: "-")
     }
 }
 
@@ -423,7 +404,9 @@ extension DoctorClinicDataVC: ChooseLocationVCProtocol{
     func getLatAndLong(lat: Double, long: Double) {
         customClinicDataView.clinicDataViewModel.latt = lat
         customClinicDataView.clinicDataViewModel.lang = long
-        convertLatLongToAddress(latitude: lat, longitude: long)
+        convertLatLongToAddress(latitude: lat, longitude: long) { (ss) in
+                    self.customClinicDataView.addressLabel.text=ss
+               }
     }
 }
 

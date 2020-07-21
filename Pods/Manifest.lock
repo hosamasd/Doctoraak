@@ -1,4 +1,5 @@
 PODS:
+  - AcceptCardSDK (5.2.6)
   - Alamofire (4.9.1)
   - GoogleMaps (3.9.0):
     - GoogleMaps/Maps (= 3.9.0)
@@ -80,6 +81,7 @@ PODS:
   - UIMultiPicker (0.6.0)
 
 DEPENDENCIES:
+  - AcceptCardSDK
   - Alamofire (~> 4.0)
   - GoogleMaps
   - GooglePlaces
@@ -97,6 +99,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - AcceptCardSDK
     - Alamofire
     - GoogleMaps
     - GooglePlaces
@@ -115,6 +118,7 @@ SPEC REPOS:
     - UIMultiPicker
 
 SPEC CHECKSUMS:
+  AcceptCardSDK: 150bd23738356782609758283b4d523b4f2836d7
   Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
   GoogleMaps: 4b5346bddfe6911bb89155d43c903020170523ac
   GooglePlaces: 1634d019549b969d40fe0ccb0b9513055adebe01
@@ -132,6 +136,6 @@ SPEC CHECKSUMS:
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   UIMultiPicker: 814ef851119183662347ed15ebbad26879c49073
 
-PODFILE CHECKSUM: 64549a0523f4f998991cd5fc8960d66ae05a0d34
+PODFILE CHECKSUM: 923f89455d2ca3efa5f9e3b8e31075cbf6baac9a
 
 COCOAPODS: 1.9.3

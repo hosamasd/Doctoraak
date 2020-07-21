@@ -109,21 +109,6 @@ class CustomClinicDataView: CustomBaseView {
         clinicProfileImage.sd_setImage(with: url,placeholderImage: #imageLiteral(resourceName: "Group 4142-4"))
     }
     
-    func convertLatLongToAddress(latitude: Double, longitude: Double, completion: @escaping (_ answer: String?) -> Void) {
-        
-        let coordinates = CLLocation(latitude: latitude, longitude: longitude)
-        
-        CLGeocoder().reverseGeocodeLocation(coordinates, completionHandler: {(placemarks, error) -> Void in
-            
-            
-            guard let   placeMark = placemarks?[0] else {return }
-            guard  let street = placeMark.subLocality, let city = placeMark.administrativeArea, let country = placeMark.country else { completion(placeMark.locality );return }
-            let ans =  street+"-"+city+"-"+country
-            completion(ans)
-        })
-        
-    }
-    
     func putDefaultValuesViewModel(_ c:ClinicGetDoctorsModel)  {
         clinicDataViewModel.clinic_id=c.id
         clinicDataViewModel.api_token=doctor?.apiToken

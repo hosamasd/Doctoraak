@@ -44,13 +44,18 @@ class MainPaymentVC: CustomBaseViewVC {
     
     let accept = AcceptSDK()
     
+   
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViewModelObserver()
         scrollView.delegate=self
-        //        doThis()
+        
+      
+        
     }
+    
+    
     
     //MARK:-User methods
     

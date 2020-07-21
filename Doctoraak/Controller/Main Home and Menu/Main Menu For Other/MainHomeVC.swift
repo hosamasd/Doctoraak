@@ -62,8 +62,8 @@ class MainHomeVC: CustomBaseViewVC {
             
             self.navigationController?.pushViewController(patient, animated: true)
         }
-        v.handleDoctorSelectedIndex = {[unowned self] indexPath in
-            self.goToSpecifyIndex(indexPath)
+        v.handleDoctorSelectedIndex = {[unowned self] indexPath,patient in
+            self.goToSpecifyIndex(indexPath, doctor: patient)
         }
         [v.allButton,v.newButton,v.continueButton,v.consultaionButton].forEach({$0.addTarget(self, action: #selector(handleFilterData), for: .touchUpInside)})
         v.handleChoosedClinicID = {[unowned self] index in
@@ -263,10 +263,10 @@ class MainHomeVC: CustomBaseViewVC {
         DoctorServices.shared.getDocotrsPatientsInClinic(clinic_id: clinicId, api_token: doc.apiToken, doctor_id: doc.id) {[unowned self] (base, err) in
             if let err = err {
                 SVProgressHUD.showError(withStatus: err.localizedDescription)
-                self.handleDismiss()
+//                self.handleDismiss()
                 self.activeViewsIfNoData();return
             }
-            SVProgressHUD.dismiss()
+//            SVProgressHUD.dismiss()
             self.handleDismiss()
             
             self.activeViewsIfNoData()
@@ -332,6 +332,9 @@ class MainHomeVC: CustomBaseViewVC {
                 self.customMainHomeView.mainHomePatientsCollectionVC.doctorPatientsArray = patients
                 
                 
+            }else {
+                SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? group2?.message :  group2?.messageEn)
+                return
             }
             if group2?.data != nil && group2!.data!.count > 0 {
                 if let clinics = group2?.data {
@@ -343,7 +346,9 @@ class MainHomeVC: CustomBaseViewVC {
                     
                     self.customMainHomeView.topMainHomeCell.numberOfClinics = self.numberOfClinicsAvaiable.count
                     self.customMainHomeView.topMainHomeCell.mainDropView.isHide(self.numberOfClinicsAvaiable.count > 0 ? false : true)
-                    self.customMainHomeView.topMainHomeCell.doctorReservationLabel.isHide(self.numberOfClinicsAvaiable.count > 0 ? false : true)
+                    self.customMainHomeView.topMainHomeCell.reservation = self.numberOfClinicsAvaiable.count
+
+//                    self.customMainHomeView.topMainHomeCell.doctorReservationLabel.isHide(self.numberOfClinicsAvaiable.count > 0 ? false : true)
                     let xc = mains?.data?.count ?? 0
                     
                     self.customMainHomeView.topMainHomeCell.reservation = xc

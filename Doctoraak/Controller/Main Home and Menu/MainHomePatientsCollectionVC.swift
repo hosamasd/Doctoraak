@@ -44,7 +44,10 @@ class MainHomePatientsCollectionVC: BaseCollectionVC     {
     var handledisplayPHYNotification:((PharmacyGetOrdersModel,IndexPath)->Void)?
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if index == 2 {
+        if index == 0 || index == 1 {
+//             collectionView.noDataFound(notificationLABArray.count, text: "No Data Added Yet".localized)
+                       return doctorPatientsArray.count
+        }else   if index == 2 {
             collectionView.noDataFound(notificationLABArray.count, text: "No Data Added Yet".localized)
             return notificationLABArray.count
         }else if index == 3 {
@@ -66,7 +69,7 @@ class MainHomePatientsCollectionVC: BaseCollectionVC     {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! MainHomePatientsCell
         
         if index == 0 || index == 1 {
-            let pat = doctorPatientsArray[indexPath.item].patient
+            let pat = doctorPatientsArray[indexPath.item]
             cell.patient=pat
         }else if index == 2 {
             let epoisde = notificationLABArray[indexPath.row]
