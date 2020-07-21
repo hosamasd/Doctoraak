@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import TTSegmentedControl
 import SkyFloatingLabelTextField
 import MOLH
 
@@ -25,8 +26,8 @@ class CustomMainPaymentView: CustomBaseView {
         return i
     }()
     
-    lazy var titleLabel = UILabel(text: "Payment", font: .systemFont(ofSize: 30), textColor: .white)
-    lazy var soonLabel = UILabel(text: "Select the payment method", font: .systemFont(ofSize: 18), textColor: .white)
+    lazy var titleLabel = UILabel(text: "Payment".localized, font: .systemFont(ofSize: 30), textColor: .white,textAlignment: MOLHLanguage.isRTLLanguage() ? .right : .left)
+    lazy var soonLabel = UILabel(text: "Select the payment method".localized, font: .systemFont(ofSize: 18), textColor: .white,textAlignment: MOLHLanguage.isRTLLanguage() ? .right : .left)
     
     lazy var vodafoneImage:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "Vodafone_Sim_Card"))
@@ -37,6 +38,13 @@ class CustomMainPaymentView: CustomBaseView {
     }()
     lazy var fawryImage:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "Component 9 – 2"))
+        i.contentMode = .scaleAspectFill
+        i.constrainWidth(constant: 250)
+        i.isHide(true)
+        return i
+    }()
+    lazy var visaCardImage:UIImageView = {
+        let i = UIImageView(image: #imageLiteral(resourceName: "tw-visa-gold-card-498x28"))
         i.contentMode = .scaleAspectFill
         i.constrainWidth(constant: 250)
         i.isHide(true)
@@ -55,14 +63,33 @@ class CustomMainPaymentView: CustomBaseView {
         i.alpha = 0
         return i
     }()
-    lazy var choosePayLabel = UILabel(text: "Enter your phone number :", font: .systemFont(ofSize: 18), textColor: .black,textAlignment: .center)
+    
+    lazy var chooseTitleLabel = UILabel(text: "You will pay 200 pounds for the/n subscription card".localized, font: .systemFont(ofSize: 16), textColor: .black,textAlignment: .center,numberOfLines: 2)
+    lazy var bookSegmentedView:TTSegmentedControl = {
+        let view = TTSegmentedControl()
+        view.itemTitles = ["Vodafone cash".localized,"Fawry".localized,"Visa card".localized]
+        view.allowChangeThumbWidth = false
+        view.constrainHeight(constant: 50)
+        view.thumbGradientColors = [#colorLiteral(red: 0.6887479424, green: 0.4929093719, blue: 0.9978651404, alpha: 1),#colorLiteral(red: 0.5526981354, green: 0.3201900423, blue: 1, alpha: 1)]
+        view.useShadow = true
+        view.didSelectItemWith = {[unowned self] (index, title) in
+            self.paymentViewModel.firstChosen = index == 0 ? true : false
+            self.paymentViewModel.secondChosen = index == 1 ? true : false
+            self.paymentViewModel.thirdChosen = index == 2 ? true : false
+            self.hideOrUnhide(tag: index)
+        }
+        return view
+    }()
+    lazy var choosePayLabel = UILabel(text: "Enter your phone number :".localized, font: .systemFont(ofSize: 18), textColor: .black,textAlignment: .center)
     
     lazy var numberTextField:UITextField = {
-        let s = createMainTextFields(padding:100,place: "(324) 242-2457", type: .default,secre: true)
+        let s = createMainTextFields(padding:100,place: "Phone".localized, type: .numberPad,secre: false)
+        s.textAlignment = .center
         let button = UIImageView(image: #imageLiteral(resourceName: "Group 4142-3"))
         button.frame = CGRect(x: CGFloat(s.frame.size.width - 80), y: CGFloat(0), width: CGFloat(80), height: CGFloat(50))
         s.leftView = button
         s.leftViewMode = .always
+        //        }
         return s
     }()
     lazy var codeTextField:UITextField = {
@@ -71,10 +98,9 @@ class CustomMainPaymentView: CustomBaseView {
         t.isHide(true)
         return t
     }()
-    
     lazy var doneButton:UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Done", for: .normal)
+        button.setTitle("Done".localized, for: .normal)
         button.backgroundColor = ColorConstants.disabledButtonsGray
         button.setTitleColor(.black, for: .normal)
         button.layer.cornerRadius = 16
@@ -84,83 +110,132 @@ class CustomMainPaymentView: CustomBaseView {
         button.isEnabled = false
         return button
     }()
-    lazy var firstScrollButton = createButtons(image: #imageLiteral(resourceName: "Ellipse 128"),tags: 1)
-    lazy var secondScrollButton = createButtons(image: #imageLiteral(resourceName: "Ellipse 129"),tags: 2)
     
-    var index = 0
+    lazy var paymentButton:UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("Make Payment".localized, for: .normal)
+        button.backgroundColor = ColorConstants.disabledButtonsGray
+        button.setTitleColor(.black, for: .normal)
+        button.layer.cornerRadius = 16
+        button.constrainHeight(constant: 50)
+        button.isHide(true)
+        button.clipsToBounds = true
+        //           button.isEnabled = false
+        return button
+    }()
+    lazy var freeAppLabel = UILabel(text: "You Can Use The App For Free For 3 Months".localized, font: .systemFont(ofSize: 16), textColor: .green,textAlignment: .left)
+
+    //    lazy var visaInfoStack:UIStackView = {
+    //        let v = getStack(views: visaTextField,cvcVisaTextField,monthVisaTextField, spacing: 8, distribution: .fillEqually, axis: .vertical)
+    //        v.isHide(true)
+    //        return v
+    //    }()
     
     let paymentViewModel = PaymentViewModel()
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        if paymentButton.backgroundColor != nil {
+            addGradientInSenderAndRemoveOther(sender: paymentButton)
+        }
+    }
     
     
     override func setupViews() {
-        [firstScrollButton,secondScrollButton].forEach({$0.addTarget(self, action: #selector(handleChoosedButton), for: .touchUpInside)})
-        
+        [numberTextField,codeTextField].forEach({$0.constrainHeight(constant: 60)})
         [numberTextField,codeTextField].forEach({$0.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)})
         
-        let ss = getStack(views: firstScrollButton,secondScrollButton, spacing: 8, distribution: .fillEqually, axis: .horizontal)
+        //        [numberTextField,codeTextField,visaTextField].forEach({$0.constrainHeight(constant: 60)})
+        //        [numberTextField,codeTextField,visaTextField,cvcVisaTextField,monthVisaTextField].forEach({$0.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)})
         
-        addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,vodafoneImage,fawryImage,doneButton,leftImage,rightImage,ss,choosePayLabel,codeTextField,numberTextField)
+        
+        
+        addSubViews(views: LogoImage,backImage,titleLabel,soonLabel,vodafoneImage,fawryImage,visaCardImage,doneButton,leftImage,rightImage,bookSegmentedView,chooseTitleLabel,choosePayLabel,codeTextField,numberTextField,paymentButton,freeAppLabel,doneButton)
         
         NSLayoutConstraint.activate([
-            ss.centerXAnchor.constraint(equalTo: centerXAnchor),
+            //            bookSegmentedView.centerXAnchor.constraint(equalTo: centerXAnchor),
             vodafoneImage.centerXAnchor.constraint(equalTo: centerXAnchor),
             fawryImage.centerXAnchor.constraint(equalTo: centerXAnchor),
+            visaCardImage.centerXAnchor.constraint(equalTo: centerXAnchor),
+            
         ])
-        choosePayLabel.centerInSuperview(size: .init(width: frame.width, height: 120))
+        
+        if MOLHLanguage.isRTLLanguage() {
+            LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 0, bottom: 0, right: -48))
+        }else {
+            
+            LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
+        }
         //
-        LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
+        //        LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
         backImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 60, left: 16, bottom: 0, right: 0))
         titleLabel.anchor(top: nil, leading: leadingAnchor, bottom: LogoImage.bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
         soonLabel.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
-        vodafoneImage.anchor(top: soonLabel.bottomAnchor, leading: nil, bottom: nil, trailing: nil,padding: .init(top: 32, left: 0, bottom: 0, right: 0))
-        fawryImage.anchor(top: soonLabel.bottomAnchor, leading: nil, bottom: vodafoneImage.bottomAnchor, trailing: nil,padding: .init(top: 32, left: 0, bottom: 0, right: 0))
+        //        visaCardImage.anchor(top: soonLabel.bottomAnchor, leading: nil, bottom: nil, trailing: nil,padding: .init(top: 32, left: 0, bottom: 0, right: 0))
+        vodafoneImage.anchor(top: soonLabel.bottomAnchor, leading: nil, bottom: nil, trailing: nil,padding: .init(top: 24, left: 0, bottom: 0, right: 0))
+        fawryImage.anchor(top: soonLabel.bottomAnchor, leading: nil, bottom: vodafoneImage.bottomAnchor, trailing: nil,padding: .init(top: 24, left: 0, bottom: 0, right: 0))
+        visaCardImage.anchor(top: soonLabel.bottomAnchor, leading: nil, bottom: vodafoneImage.bottomAnchor, trailing: nil,padding: .init(top: 24, left: 0, bottom: 0, right: 0))
+        
         
         leftImage.anchor(top: soonLabel.bottomAnchor, leading: nil, bottom: vodafoneImage.bottomAnchor, trailing: vodafoneImage.leadingAnchor,padding: .init(top: 32, left: 0, bottom: 0, right: -8))
         rightImage.anchor(top: soonLabel.bottomAnchor, leading: vodafoneImage.trailingAnchor, bottom: nil, trailing: nil,padding: .init(top: 32, left: -8, bottom: 0, right: 0))
-        ss.anchor(top: choosePayLabel.topAnchor, leading: nil, bottom: nil, trailing: nil,padding: .init(top: 16, left: 32, bottom: 16, right: 32))
-        numberTextField.anchor(top: choosePayLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 8, left: 32, bottom: 16, right: 32))
-        codeTextField.anchor(top: choosePayLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 8, left: 32, bottom: 16, right: 32))
+        bookSegmentedView.anchor(top: vodafoneImage.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 16, right: 32))
+        chooseTitleLabel.anchor(top: bookSegmentedView.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 16, right: 32))
+        choosePayLabel.anchor(top: chooseTitleLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 16, right: 32))
+        numberTextField.anchor(top: choosePayLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 16, right: 32))
+        codeTextField.anchor(top: choosePayLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 16, right: 32))
+        paymentButton.anchor(top: choosePayLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 16, right: 32))
+        freeAppLabel.anchor(top: paymentButton.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 16, right: 32))
+
+        
         doneButton.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 16, right: 32))
         
     }
     
+    
     func createButtons(image:UIImage,tags:Int) -> UIButton {
         let b = UIButton()
         b.setImage(image, for: .normal)
-        //        b.addTarget(self, action: #selector(handleChoosedButton), for: .touchUpInside)
         b.tag = tags
         return b
     }
     
     func hideOrUnhide(tag:Int)  {
+        rightImage.image = tag == 0 ? #imageLiteral(resourceName: "Rectangle 1724_22") : #imageLiteral(resourceName: "Rectangle 1724-1")
+        leftImage.image = tag == 2 ? #imageLiteral(resourceName: "Rectangle 1724_22") : #imageLiteral(resourceName: "Rectangle 1724")
+        
+        choosePayLabel.text = tag == 0 ? "Enter your phone number :".localized : tag == 1 ? "Eneter the code :".localized : "Visa number :".localized
         UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
-            self.rightImage.alpha = tag == 1 ? 1 : 0
-            self.leftImage.alpha = tag == 1 ? 0 : 1
+            self.rightImage.alpha = tag == 0 ? 1 :  tag == 1 ?  1 : 0
+            self.leftImage.alpha = tag == 0 ? 0 : 1
             
-            self.vodafoneImage.isHide(tag == 1 ? false : true)
-            self.fawryImage.isHide(tag == 1 ? true : false)
-            self.numberTextField.isHide(tag == 1 ? false : true)
-            self.codeTextField.isHide(tag == 1 ? true : false)
+            self.vodafoneImage.isHide(tag == 0 ? false : true)
+            self.fawryImage.isHide(tag == 1 ? false : true)
+            self.visaCardImage.isHide(tag == 2 ? false : true)
+            self.numberTextField.isHide(tag == 0 ? false : true)
+            self.codeTextField.isHide(tag == 1 ? false : true)
+            //            self.visaInfoStack.isHide(tag == 2 ? false : true)
+            self.paymentButton.isHide(tag == 2 ? false : true)
+            
+            
         })
-        //           DispatchQueue.main.async {[unowned self] in
-        //
-        //            self.rightImage.isHide(tag == 1 ? false : true)
-        //            self.leftImage.isHide(tag == 1 ? true : false)
-        //
-        //               self.vodafoneImage.isHide(tag == 1 ? false : true)
-        //               self.fawryImage.isHide(tag == 1 ? true : false)
-        //               self.numberTextField.isHide(tag == 1 ? false : true)
-        //               self.codeTextField.isHide(tag == 1 ? true : false)
-        //               //            self.num.rightViewMode = tag == 1 ? .always : .never
-        //           }
     }
     
     
     //TODO: -handle methods
     
+    //    @objc func tapDone(sender: Any, datePicker1: UIDatePicker) {
+    //        if let datePicker = self.monthVisaTextField.inputView as? UIDatePicker { // 2.1
+    //            let dateformatter = DateFormatter() // 2.2
+    //            dateformatter.dateFormat = "MM/YY"
+    //            self.monthVisaTextField.text = dateformatter.string(from: datePicker.date) //2.4
+    //            paymentViewModel.visaMonthCard = dateformatter.string(from: datePicker.date) //2.4
+    //        }
+    //        self.monthVisaTextField.resignFirstResponder() // 2.5
+    //
+    //    }
+    
     @objc func textFieldDidChange(text: UITextField)  {
-        paymentViewModel.index = index
         guard let texts = text.text else { return  }
         if let floatingLabelTextField = text as? SkyFloatingLabelTextField {
             if text == numberTextField {
@@ -173,7 +248,29 @@ class CustomMainPaymentView: CustomBaseView {
                     paymentViewModel.vodafoneVode = texts
                 }
                 
-            }else
+                //            }else if text == visaTextField {
+                //                if  texts.count < 8    {
+                //                    floatingLabelTextField.errorMessage = "Invalid   visa number".localized
+                //                    paymentViewModel.visaCard = nil
+                //                }
+                //                else {
+                //                    floatingLabelTextField.errorMessage = ""
+                //                    paymentViewModel.visaCard = texts
+                //                }
+                //
+                //            }else if text == cvcVisaTextField {
+                //                if texts.count < 3 {
+                //                    floatingLabelTextField.errorMessage = "Invalid CVC  visa number".localized
+                //                    paymentViewModel.visaCVCCard = nil
+                //                }
+                //                else {
+                //                    floatingLabelTextField.errorMessage = ""
+                //                    paymentViewModel.visaCVCCard = texts
+                //                }
+                
+                
+                
+            } else
                 if(texts.count < 6 ) {
                     floatingLabelTextField.errorMessage = "code must have 6 character".localized
                     paymentViewModel.fawryCode = nil
@@ -188,7 +285,6 @@ class CustomMainPaymentView: CustomBaseView {
     
     
     @objc func handleChoosedButton(sender:UIButton)  {
-        [firstScrollButton,secondScrollButton].forEach({$0.setImage(#imageLiteral(resourceName: "Ellipse 129"), for: .normal)})
         
         sender.setImage( #imageLiteral(resourceName: "Ellipse 128"), for: .normal)
         switch sender.tag {
@@ -201,4 +297,6 @@ class CustomMainPaymentView: CustomBaseView {
         paymentViewModel.fawryCode = nil
         paymentViewModel.vodafoneVode = nil
     }
+    
+    
 }

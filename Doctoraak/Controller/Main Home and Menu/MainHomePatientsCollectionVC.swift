@@ -37,7 +37,7 @@ class MainHomePatientsCollectionVC: BaseCollectionVC     {
     //    var handledisplayRADNotification:((RadGetOrdersModel)->Void)?
     //    var handledisplayLABNotification:((LABGetOrdersModel)->Void)?
     //    var handledisplayPHYNotification:((PharmacyGetOrdersModel)->Void)?
-    var handleDoctorSelectedIndex:((IndexPath)->Void)?
+    var handleDoctorSelectedIndex:((IndexPath,DoctorGetPatientsFromClinicModel)->Void)?
     
     var handledisplayRADNotification:((RadGetOrdersModel,IndexPath)->Void)?
     var handledisplayLABNotification:((LABGetOrdersModel,IndexPath)->Void)?
@@ -83,7 +83,8 @@ class MainHomePatientsCollectionVC: BaseCollectionVC     {
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if index == 0 || index == 1 {
-            handleDoctorSelectedIndex?(indexPath)
+             let dd = doctorPatientsArray[indexPath.item]
+            handleDoctorSelectedIndex?(indexPath,dd)
         }else  if index == 2  {
             let dd = notificationLABArray[indexPath.item]
             self.handledisplayLABNotification?(dd,indexPath)

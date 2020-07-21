@@ -18,13 +18,13 @@ class CustomDoctorDataView: CustomBaseView {
             
             guard  let s = patient.type.toInt(),let urlString = patient.patient.insurance?.url,let url = URL(string: urlString) else {return}
             
-            let type = s == 1 ? "New" : s == 2 ? "Consultation" : s == 3 ? "Continue" : "All"
+            let type = s == 1 ? "New".localized : s == 2 ? "Consultation".localized : s == 3 ? "Follow Up".localized : "All".localized
             let number = patient.reservationNumber
             
-            let first = makeAttributedTextssss(fir: "Reservation Type", sec: type)
-            let second = makeAttributedTextssss(fir: "Reservation  Number", sec: "\(number)")
+            let first = makeAttributedTextssss(fir: "Reservation Type".localized, sec: type)
+            let second = makeAttributedTextssss(fir: "Reservation  Number".localized, sec: "\(number)")
             let insuranceCompany = patient.patient.insurance?.name
-            let notes = patient.notes ?? "No Notes Found"
+            let notes = patient.notes ?? "No Notes Found".localized
             
             DispatchQueue.main.async {[unowned self] in
                 self.topLabel.attributedText = first
@@ -52,10 +52,10 @@ class CustomDoctorDataView: CustomBaseView {
         return i
     }()
     
-    lazy var titleLabel = UILabel(text: "Patient data", font: .systemFont(ofSize: 30), textColor: .white)
-    lazy var informationLabel = UILabel(text: "Information", font: .systemFont(ofSize: 20), textColor: .lightGray)
-    lazy var insuranceLabel = UILabel(text: "Insurance", font: .systemFont(ofSize: 20), textColor: .lightGray)
-    lazy var notesLabel = UILabel(text: "Notes", font: .systemFont(ofSize: 20), textColor: .lightGray)
+    lazy var titleLabel = UILabel(text: "Patient data".localized, font: .systemFont(ofSize: 30), textColor: .white)
+    lazy var informationLabel = UILabel(text: "Information".localized, font: .systemFont(ofSize: 20), textColor: .lightGray)
+    lazy var insuranceLabel = UILabel(text: "Insurance".localized, font: .systemFont(ofSize: 20), textColor: .lightGray)
+    lazy var notesLabel = UILabel(text: "Notes".localized, font: .systemFont(ofSize: 20), textColor: .lightGray)
     
     lazy var mainStack:UIStackView = {
         
@@ -127,8 +127,8 @@ class CustomDoctorDataView: CustomBaseView {
     lazy var notesDetailLabel = UILabel(text: "There is no notes", font: .systemFont(ofSize: 16), textColor: .lightGray)
     
     
-    lazy var okButton = createMainButtons(title: "Ok", color: .white)
-    lazy var cancelButton = createMainButtons(title: "Cancel", color: .white)
+    lazy var okButton = createMainButtons(title: "Ok".localized, color: .white)
+    lazy var cancelButton = createMainButtons(title: "Cancel".localized, color: .white)
     lazy var patientCell:PatientCell = {
         let v = PatientCell()
         v.backgroundColor = .white

@@ -124,3 +124,17 @@
 "Follow up"=" متابعه";"New"="جديد";"All"="الكل";"Consultation"="الاستشارات";
 
 "Do You Want To Update?"="هل تريد تعديل البيانات؟";"Submit"="تاكيد";"Do You Want To Cancel All Orders Today?"="هل تريد الغاء كل طلبات اليوم؟";
+
+//MainPaymentVC
+"Select the payment method"=" اختر طريقة الدفع";
+"You will pay 200 pounds for the/n subscription card"="انت سوف تدفع 200 جنيه لهذا الاشتراك";
+"Visa card"="الفيزا";"Fawry"="فوري";"Vodafone cash"="فودافون كاش";
+"Enter your phone number :"="ادخل رقم تليفونك :";
+" Expiration Date"=" تاريخ الانتهاء";
+"Done"="تم";"Eneter the code :"="ادخل الكود :";"Visa number :"="رقم الفيزا :";
+"Invalid   Phone"="رقم محمول غير صحيح";"Invalid   visa number"="رقم الفيزا غير صحيح";
+"Invalid CVC  visa number"="الرقم غير صحيح";
+"code must have 6 character"="الكود مكون من ٦ ارقام";
+"Make Payment"="اتمام عملية الدفع";"You Can Use The App For Free For 3 Months"="يمكن استخدام التطبيق لمده ٣ شهور مجانا";
+
+"Reservation Type"="نوع الحجز";"Reservation  Number"="رقم الحجز";"No Notes Found"="لا يوجد اضافات";"Patient data"="معلومات المريض";"Information"="معلومات";"Insurance"="شركة تامين"; "Notes"= "ملاحظات";

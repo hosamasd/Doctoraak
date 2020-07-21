@@ -489,10 +489,10 @@ class MainHomeVC: CustomBaseViewVC {
         
     }
     
-    fileprivate func goToSpecifyIndex(_ indexx:IndexPath)  {
+    fileprivate func goToSpecifyIndex(_ indexx:IndexPath,doctor:DoctorGetPatientsFromClinicModel)  {
         print(indexx.item)
         guard let index = index else { return  }
-        let patient = PatientDataVC(inde: index)
+        let patient = DoctorPatientDataVC(patient: doctor) //PatientDataVC(inde: index)
         navigationController?.pushViewController(patient, animated: true)
         
     }

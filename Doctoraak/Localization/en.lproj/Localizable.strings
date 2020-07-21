@@ -129,3 +129,9 @@
 
 "Follow up"="Follow up";"New"="New";"All"="All";"Consultation"="Consultation";
 "Do You Want To Update?"="Do You Want To Update?";"Submit"="Submit";"Do You Want To Cancel All Orders Today?"="Do You Want To Cancel All Orders Today?";
+
+//MainPaymentVC
+
+"You Can Use The App For Free For 3 Months"="You Can Use The App For Free For 3 Months";"Make Payment"="Make Payment";"Done"="Done";"Enter your phone number :"="Enter your phone number :";"You will pay 200 pounds for the/n subscription card"="You will pay 200 pounds for the/n subscription card";"Select the payment method"="Select the payment method";"Payment"="Payment";
+
+"Reservation Type"="Reservation Type";"Reservation  Number"="Reservation  Number";"No Notes Found"="No Notes Found";"Patient data"="Patient data";"Information"="Information";"Insurance"="Insurance"; "Notes"= "Notes";

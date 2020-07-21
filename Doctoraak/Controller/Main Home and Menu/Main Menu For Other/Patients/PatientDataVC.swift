@@ -8,6 +8,7 @@
 
 import UIKit
 
+//CustomDoctorDataView
 class PatientDataVC: CustomBaseViewVC {
     
     
@@ -29,6 +30,14 @@ class PatientDataVC: CustomBaseViewVC {
         v.backImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBack)))
         return v
     }()
+    
+    var patient:PatientModel?{
+        didSet{
+            guard let patient = patient else { return  }
+            customPatientDataView.patient=patient
+        }
+    }
+    
     
     fileprivate let index:Int!
     init(inde:Int) {

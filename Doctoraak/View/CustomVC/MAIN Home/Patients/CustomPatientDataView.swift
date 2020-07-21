@@ -11,6 +11,14 @@ import MOLH
 
 class CustomPatientDataView: CustomBaseView {
     
+    
+    var patient:PatientModel?{
+           didSet{
+               guard let patient = patient else { return  }
+//               customPatientDataView.patient=patient
+           }
+       }
+    
     lazy var LogoImage:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "Group 4116"))
         i.contentMode = .scaleAspectFill

@@ -191,8 +191,13 @@ class DoctorClinicDataVC: CustomBaseViewVC {
     
     fileprivate func goToNext(_ clinic_id:Int)  {
          self.updateStates(clinic_id,index: index)
+        if isAddClinic {
+            let payment = MainPaymentVC()
+            navigationController?.pushViewController(payment, animated: true)
+        }else{ dismiss(animated: true)}
+        
 //        isFromProfile ? self.removeSomeObjects() :    self.updateStates(clinic_id,index: index)
-        dismiss(animated: true)
+       
     }
     
     fileprivate func removeSomeObjects()  {
