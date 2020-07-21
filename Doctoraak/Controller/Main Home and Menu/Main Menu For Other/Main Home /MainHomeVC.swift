@@ -165,42 +165,52 @@ class MainHomeVC: CustomBaseViewVC {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        //        if userDefaults.bool(forKey: UserDefaultsConstants.isWelcomeVCAppear) && index == nil  {
-        //            view.alpha = 0
-        //        }else {
-        //            view.alpha = 1
-        //
-        //            if userDefaults.bool(forKey: UserDefaultsConstants.isAllMainHomeObjectsFetched) {
-        //
-        //            }else {
-        
-        index = userDefaults.integer(forKey: UserDefaultsConstants.MainLoginINDEX)
-        if userDefaults.bool(forKey: UserDefaultsConstants.DoctorPerformLogin) {
-            doc = cacheDoctorObjectCodabe.storedValue
-        }
-        if userDefaults.bool(forKey: UserDefaultsConstants.medicalCenterPerformLogin) {
-            medicalCenter = cacheMedicalObjectCodabe.storedValue
-        }
-        
-        if userDefaults.bool(forKey: UserDefaultsConstants.labPerformLogin) {
-            lab = cacheLABObjectCodabe.storedValue
-        }
-        if userDefaults.bool(forKey: UserDefaultsConstants.radiologyPerformLogin) {
-            rad = cachdRADObjectCodabe.storedValue
-        }
-        if userDefaults.bool(forKey: UserDefaultsConstants.pharamacyPerformLogin) {
-            phy = cachdPHARMACYObjectCodabe.storedValue
-        }
-        
-        //            }
-        //        }
-        
-        
+//        if userDefaults.bool(forKey: UserDefaultsConstants.isWelcomeVCAppear) && index == nil  {
+//            view.alpha = 0
+//        }else {
+//            view.alpha = 1
+//
+//            if userDefaults.bool(forKey: UserDefaultsConstants.isAllMainHomeObjectsFetched) {
+//
+//            }else {
+                
+                index = userDefaults.integer(forKey: UserDefaultsConstants.MainLoginINDEX)
+                if userDefaults.bool(forKey: UserDefaultsConstants.DoctorPerformLogin) {
+                    doc = cacheDoctorObjectCodabe.storedValue
+                }
+                if userDefaults.bool(forKey: UserDefaultsConstants.medicalCenterPerformLogin) {
+                    medicalCenter = cacheMedicalObjectCodabe.storedValue
+                }
+                
+                if userDefaults.bool(forKey: UserDefaultsConstants.labPerformLogin) {
+                    lab = cacheLABObjectCodabe.storedValue
+                }
+                if userDefaults.bool(forKey: UserDefaultsConstants.radiologyPerformLogin) {
+                    rad = cachdRADObjectCodabe.storedValue
+                }
+                if userDefaults.bool(forKey: UserDefaultsConstants.pharamacyPerformLogin) {
+                    phy = cachdPHARMACYObjectCodabe.storedValue
+                }
+//            }
+//        }
     }
+    
     //MARK: -user methods
     
     override func setupNavigation()  {
         navigationController?.navigationBar.isHide(true)
+    }
+    
+    override func setupViews()  {
+        //        view.backgroundColor = .red
+        view.addSubview(scrollView)
+        scrollView.fillSuperview()
+        scrollView.addSubview(mainView)
+        //        mainView.fillSuperview()
+        mainView.anchor(top: scrollView.topAnchor, leading: scrollView.leadingAnchor, bottom: scrollView.bottomAnchor, trailing: scrollView.trailingAnchor,padding: .init(top: -60, left: 0, bottom: 0, right: 0))
+        mainView.addSubview(customMainHomeView)
+        customMainHomeView.fillSuperview()
+        
     }
     
     //for doctor and medical center
@@ -263,10 +273,10 @@ class MainHomeVC: CustomBaseViewVC {
         DoctorServices.shared.getDocotrsPatientsInClinic(clinic_id: clinicId, api_token: doc.apiToken, doctor_id: doc.id) {[unowned self] (base, err) in
             if let err = err {
                 SVProgressHUD.showError(withStatus: err.localizedDescription)
-//                self.handleDismiss()
+                //                self.handleDismiss()
                 self.activeViewsIfNoData();return
             }
-//            SVProgressHUD.dismiss()
+            //            SVProgressHUD.dismiss()
             self.handleDismiss()
             
             self.activeViewsIfNoData()
@@ -347,8 +357,8 @@ class MainHomeVC: CustomBaseViewVC {
                     self.customMainHomeView.topMainHomeCell.numberOfClinics = self.numberOfClinicsAvaiable.count
                     self.customMainHomeView.topMainHomeCell.mainDropView.isHide(self.numberOfClinicsAvaiable.count > 0 ? false : true)
                     self.customMainHomeView.topMainHomeCell.reservation = self.numberOfClinicsAvaiable.count
-
-//                    self.customMainHomeView.topMainHomeCell.doctorReservationLabel.isHide(self.numberOfClinicsAvaiable.count > 0 ? false : true)
+                    
+                    //                    self.customMainHomeView.topMainHomeCell.doctorReservationLabel.isHide(self.numberOfClinicsAvaiable.count > 0 ? false : true)
                     let xc = mains?.data?.count ?? 0
                     
                     self.customMainHomeView.topMainHomeCell.reservation = xc
@@ -379,6 +389,7 @@ class MainHomeVC: CustomBaseViewVC {
     }
     
     //MARK:-oTHER MODULES
+    
     
     
     
@@ -482,22 +493,12 @@ class MainHomeVC: CustomBaseViewVC {
     
     
     
-    override func setupViews()  {
-        //        view.backgroundColor = .red
-        view.addSubview(scrollView)
-        scrollView.fillSuperview()
-        scrollView.addSubview(mainView)
-        //        mainView.fillSuperview()
-        mainView.anchor(top: scrollView.topAnchor, leading: scrollView.leadingAnchor, bottom: scrollView.bottomAnchor, trailing: scrollView.trailingAnchor,padding: .init(top: -60, left: 0, bottom: 0, right: 0))
-        mainView.addSubview(customMainHomeView)
-        customMainHomeView.fillSuperview()
-        
-    }
+    
     
     fileprivate func goToSpecifyIndex(_ indexx:IndexPath,doctor:DoctorGetPatientsFromClinicModel)  {
         print(indexx.item)
         guard let index = index else { return  }
-        let patient = DoctorPatientDataVC(patient: doctor) //PatientDataVC(inde: index)
+        let patient = DoctorPatientDataVC(patient: doctor, index: index) //PatientDataVC(inde: index)
         navigationController?.pushViewController(patient, animated: true)
         
     }
@@ -509,7 +510,14 @@ class MainHomeVC: CustomBaseViewVC {
     }
     
     fileprivate func takeTag(_ bt:UIButton,btns:UIButton...,tag:Int)  {
-        addGradientInSenderAndRemoveOtherss(sender: bt, vvv: btns)
+        
+        bt.backgroundColor = #colorLiteral(red: 0.5461338758, green: 0.4431529641, blue: 0.9970824122, alpha: 1)
+        bt.setTitleColor(.white, for: .normal)
+        btns.forEach { (b) in
+            b.backgroundColor = #colorLiteral(red: 0.9097270966, green: 0.9098548293, blue: 0.9096868634, alpha: 1)
+            b.setTitleColor(.black, for: .normal)
+        }
+        //        addGradientInSenderAndRemoveOtherss(sender: bt, vvv: btns)
         filterDoctorPatientsArray = tag == 4 ? docotrAllPatientsArray : docotrAllPatientsArray.filter({$0.type.toInt() == tag})
         customMainHomeView.mainHomePatientsCollectionVC.doctorPatientsArray = tag == 4 ? docotrAllPatientsArray : filterDoctorPatientsArray
         DispatchQueue.main.async {

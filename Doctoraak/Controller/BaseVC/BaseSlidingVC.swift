@@ -13,22 +13,6 @@ import MOLH
 
 class BaseSlidingVC: UIViewController {
     
-    //    var index:Int?{
-    //        didSet{
-    //            guard let index = index else { return }
-    ////            let ss =  index < 2 ?  DoctorHomeVC(inde: index) : MainHomeVC(inde: index)
-    ////            let vc = index == 0 || index == 1 ? DoctorHomeLeftMenuVC(index: index) : HomeLeftMenuVC(index: index)
-    ////
-    ////            if !userDefaults.bool(forKey: UserDefaultsConstants.isWelcomeVCAppear) {
-    ////                rightViewController.navigationController?.viewControllers = [DoctorHomeVC(inde: index)]
-    ////                menuViewController.view.backgroundColor = .gray
-    //
-    //                //                setupViewControllers()
-    //                //                             rightViewController = UINavigationController(rootViewController: ss)
-    //                //                menuViewController = vc
-    ////            }
-    //        }
-    //    }
     var index = 3
     
     

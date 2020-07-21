@@ -24,7 +24,13 @@ class DoctorLeftMenuCell: BaseCollectionCell {
     override var isSelected: Bool{
         didSet{
             backgroundColor = isSelected ? #colorLiteral(red: 0.9296001792, green: 0.9134455323, blue: 0.9993399978, alpha: 1) : .white
+            layer.borderColor = isSelected ? UIColor.gray.cgColor : UIColor.clear.cgColor
         }
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        layer.borderColor =  UIColor.clear.cgColor
     }
     
     override func setupViews() {

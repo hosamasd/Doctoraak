@@ -37,7 +37,7 @@ class CustomUpdateSserProfileView: CustomBaseView {
     }()
     lazy var aboutLabel = UILabel(text: "\nWarring\n".localized, font: .systemFont(ofSize: 20), textColor: .red,textAlignment: .center,numberOfLines: 2)
     
-    let discriptionInfoLabel = UILabel(text: "Are You Sure You Want To Log Out?\n".localized, font: .systemFont(ofSize: 16), textColor: .black,textAlignment: .center,numberOfLines: 1)
+    let discriptionInfoLabel = UILabel(text: "Are You Sure You Want To Log Out?\n".localized, font: .systemFont(ofSize: 16), textColor: .black,textAlignment: .center,numberOfLines: 2)
     let lineSeperatorView:UIView = {
         let v = UIView(backgroundColor: #colorLiteral(red: 0.9529411765, green: 0.9529411765, blue: 0.9529411765, alpha: 1))
         //        let v = UIView(backgroundColor: .red)

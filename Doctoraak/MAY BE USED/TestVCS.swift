@@ -12,8 +12,12 @@ import UIMultiPicker
 
 class TestVCS: CustomBaseViewVC {
     
-    lazy var customAlertMainLoodingView:CustomUpdateSserProfileView = {
-             let v = CustomUpdateSserProfileView()
+    lazy var customAlertMainLoodingView:CustomAlertLoginView = {
+             let v = CustomAlertLoginView()
+        v.setupAnimation(name: "26048-info-bounce")
+               v.handleOkTap = {[unowned self] in
+                   self.handleDismiss()
+               }
              return v
          }()
          
@@ -37,12 +41,17 @@ class TestVCS: CustomBaseViewVC {
          return i
      }()
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        customMainAlertVC.addCustomViewInCenter(views: customAlertMainLoodingView, height: 250)
+                        present(customMainAlertVC, animated: true)
+    }
+    
     override func setupViews() {
-        view.backgroundColor = .red
-        view.addSubview(Image6)
-        Image6.centerInSuperview()
-//        customMainAlertVC.addCustomViewInCenter(views: customAlertMainLoodingView, height: 250)
-//                 present(customMainAlertVC, animated: true)
+        view.backgroundColor = .white
+//        view.addSubview(Image6)
+//        Image6.centerInSuperview()
+       
     }
     
     override func setupNavigation() {
@@ -56,7 +65,7 @@ class TestVCS: CustomBaseViewVC {
     @objc func handleDismiss()  {
 //        removeViewWithAnimation(vvv: customAlertMainLoodingView)
         DispatchQueue.main.async {
-//            self.dismiss(animated: true, completion: nil)
+            self.dismiss(animated: true, completion: nil)
         }
     }
     

@@ -16,33 +16,34 @@ class PatientCell: BaseCollectionCell {
         didSet{
             guard let patient = patient else { return  }
             let urlString = patient.photo
+            let fullDetails = patient.gender + ",\n" + patient.phone
             
             guard let url = URL(string: urlString) else {return}
             
             DispatchQueue.main.async {
                 self.PatientProfileImage.sd_setImage(with: url)
-                self.PatientNameLabel.text = patient.name
-                self.PatientGenderLabel.text = patient.gender
+                self.PatientNameLabel.text = MOLHLanguage.isRTLLanguage() ? patient.nameAr ??  patient.name : patient.name
+                self.PatientGenderLabel.text = fullDetails
                 self.PatientPhoneLabel.text = patient.phone
             }
         }
     }
     
     var patientLab:PatientModelNotification?{
-          didSet{
+        didSet{
             guard let patientLab = patientLab else { return  }
-              let urlString = patientLab.url
-
-              guard let url = URL(string: urlString) else {return}
-              
-              DispatchQueue.main.async {
-                  self.PatientProfileImage.sd_setImage(with: url)
-                  self.PatientNameLabel.text = patientLab.name
-                  self.PatientGenderLabel.text = patientLab.gender
-                  self.PatientPhoneLabel.text = patientLab.phone
-              }
-          }
-      }
+            let urlString = patientLab.url
+            
+            guard let url = URL(string: urlString) else {return}
+            
+            DispatchQueue.main.async {
+                self.PatientProfileImage.sd_setImage(with: url)
+                self.PatientNameLabel.text = MOLHLanguage.isRTLLanguage() ? patientLab.nameAr ??  patientLab.name : patientLab.name
+                self.PatientGenderLabel.text = patientLab.gender
+                self.PatientPhoneLabel.text = patientLab.phone
+            }
+        }
+    }
     
     
     lazy var PatientProfileImage:UIImageView = {
@@ -51,11 +52,12 @@ class PatientCell: BaseCollectionCell {
         i.constrainHeight(constant: 80)
         i.layer.cornerRadius = 8
         i.clipsToBounds = true
+        i.isUserInteractionEnabled=true
         return i
     }()
     lazy var PatientNameLabel = UILabel(text: "Jana Helal", font: .systemFont(ofSize: 16), textColor: .black)
     
-    lazy var PatientGenderLabel = UILabel(text: "Female", font: .systemFont(ofSize: 16), textColor: .lightGray)
+    lazy var PatientGenderLabel = UILabel(text: "Female", font: .systemFont(ofSize: 16), textColor: .lightGray,numberOfLines: 2)
     lazy var PatientPhoneLabel = UILabel(text: "01063525215", font: .systemFont(ofSize: 16), textColor: .lightGray)
     
     override func setupViews() {

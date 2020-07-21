@@ -27,8 +27,8 @@ class CustomAlertLoginView: CustomBaseView {
     
     lazy var problemsView:AnimationView = {
         let i = AnimationView()
-        i.constrainWidth(constant: 30)
-        i.constrainHeight(constant: 30)
+//        i.constrainWidth(constant: 30)
+//        i.constrainHeight(constant: 30)
         return i
     }()
     
@@ -36,9 +36,9 @@ class CustomAlertLoginView: CustomBaseView {
     
     lazy var imageView:UIImageView = {
         let im = UIImageView(image: #imageLiteral(resourceName: "Ellipse 119-1"))
-        im.constrainHeight(constant: 120)
-        im.constrainWidth(constant: 120)
-        im.layer.cornerRadius = 60
+        im.constrainHeight(constant: 180)
+        im.constrainWidth(constant: 180)
+        im.layer.cornerRadius = 90
         im.clipsToBounds = true
         im.translatesAutoresizingMaskIntoConstraints = false
         im.addSubview(problemsView)
@@ -50,7 +50,7 @@ class CustomAlertLoginView: CustomBaseView {
     
     lazy var okButton:UIButton = {
         let bt = UIButton(title: "OK".localized, titleColor: .white, font: .systemFont(ofSize: 16), backgroundColor: #colorLiteral(red: 0.7090973854, green: 0.5211717486, blue: 0.9973145127, alpha: 1), target: self, action: #selector(handleOk))
-        bt.constrainHeight(constant: 40)
+        bt.constrainHeight(constant: 50)
         return bt
     }()
     

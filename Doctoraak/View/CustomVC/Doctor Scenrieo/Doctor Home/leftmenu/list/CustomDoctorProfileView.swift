@@ -37,8 +37,9 @@ class CustomDoctorProfileView: CustomBaseView {
             cvLabel.text =  phy.cv
             let urlstring = phy.photo
             guard let url = URL(string: urlstring) else { return  }
+            self.doctorProfileImage.sd_setImage(with: url)
+            
             //            getIncuracneNames(dd: phy.insuranceCompany)
-            doctorProfileImage.sd_setImage(with: url)
             
             putOtherData(phy)
             DispatchQueue.main.async {
@@ -81,11 +82,11 @@ class CustomDoctorProfileView: CustomBaseView {
         return i
     }()
     
-    lazy var fullNameTextField = createMainTextFields(place: " Name")
-    lazy var mobileNumberTextField = createMainTextFields(place: " phone",type: .numberPad)
-    lazy var mobileSecondNumberTextField = createMainTextFields(place: " phone2",type: .numberPad)
+    lazy var fullNameTextField = createMainTextFields(place: " Name".localized)
+    lazy var mobileNumberTextField = createMainTextFields(place: " phone".localized,type: .numberPad)
+    lazy var mobileSecondNumberTextField = createMainTextFields(place: " phone2".localized,type: .numberPad)
     
-    lazy var emailTextField = createMainTextFields(place: "enter email",type: .emailAddress)
+    lazy var emailTextField = createMainTextFields(place: "enter email".localized,type: .emailAddress)
     lazy var titleTextField = createMainTextFields(place: "title".localized)
     
     
@@ -158,7 +159,7 @@ class CustomDoctorProfileView: CustomBaseView {
         v.hstack(cvLabel,cvImage).padLeft(16)
         return v
     }()
-    lazy var cvLabel = UILabel(text: "cv.pdf".localized, font: .systemFont(ofSize: 16), textColor: .lightGray)
+    lazy var cvLabel = UILabel(text: "cv.pdf (Optional)".localized, font: .systemFont(ofSize: 16), textColor: .lightGray)
     lazy var cvImage:UIImageView = {
         let v = UIImageView(image: #imageLiteral(resourceName: "Group 4142-2"))
         //        v.contentMode = .scaleToFill
@@ -249,14 +250,12 @@ class CustomDoctorProfileView: CustomBaseView {
             LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
         }
         
-        //               LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
         subView.anchor(top: LogoImage.bottomAnchor, leading: nil, bottom: nil, trailing: nil,padding: .init(top: 50, left: 0, bottom: 0, right: 0))
         backImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 60, left: 16, bottom: 0, right: 0))
         titleLabel.anchor(top: nil, leading: leadingAnchor, bottom: LogoImage.bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
         
         textStack.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 128, left: 32, bottom: 16, right: 32))
         insuranceDrop.anchor(top: textStack.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 0, right: 32))
-        //        genderStack.anchor(top: textStack.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 128, left: 32, bottom: 16, right: 32))
         
         nextButton.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 32, left: 32, bottom: 16, right: 32))
         
@@ -374,36 +373,6 @@ class CustomDoctorProfileView: CustomBaseView {
         
         return citName[ff - 1 ]
     }
-    
-    
-    
-//    func getAreassFromIndex(_ index:Int) -> String {
-//        var citName = [String]()
-//        var cityId = [Int]()
-//        
-//        if MOLHLanguage.isRTLLanguage() {
-//            
-//            
-//            
-//            if let  cityArray = userDefaults.value(forKey: UserDefaultsConstants.areaNameARArray) as? [String],let cityIds = userDefaults.value(forKey: UserDefaultsConstants.areaIdArray) as? [Int]{
-//                
-//                citName = cityArray
-//                cityId = cityIds
-//                
-//                
-//                
-//            }}else {
-//            if let cityArray = userDefaults.value(forKey: UserDefaultsConstants.areaNameArray) as? [String],let cityIds = userDefaults.value(forKey: UserDefaultsConstants.areaIdArray) as? [Int] {
-//                citName = cityArray
-//                cityId = cityIds
-//            }
-//        }
-//        let ss = cityId.filter{$0 == index}
-//        let ff = ss.first ?? 1
-//        
-//        return citName[ff - 1 ]
-//    }
-    
     
     @objc func textFieldDidChange(text: UITextField)  {
         guard let texts = text.text else { return  }

@@ -217,9 +217,9 @@ class NotificationVC: CustomBaseViewVC {
         
         ProfileServices.shared.getNotificationsDOC(api_token: phy.apiToken, user_id: phy.id) { (base, err) in
             if let  err = err {
-                //                SVProgressHUD.showError(withStatus: err.localizedDescription)
-                self.showMainAlertErrorMessages(vv: self.customMainAlertVC, secondV: self.customAlertLoginView, text: err.localizedDescription)
-                
+                                SVProgressHUD.showError(withStatus: err.localizedDescription)
+//                self.showMainAlertErrorMessages(vv: self.customMainAlertVC, secondV: self.customAlertLoginView, text: err.localizedDescription)
+                 self.handleDismiss()
                 self.activeViewsIfNoData();return
             }
             self.handleDismiss()
@@ -270,9 +270,9 @@ class NotificationVC: CustomBaseViewVC {
         
         ProfileServices.shared.getNotificationsPHY(api_token: phy.apiToken, user_id: phy.id) { (base, err) in
             if let  err = err {
-                //                SVProgressHUD.showError(withStatus: err.localizedDescription)
-                self.showMainAlertErrorMessages(vv: self.customMainAlertVC, secondV: self.customAlertLoginView, text: err.localizedDescription)
-                
+                                SVProgressHUD.showError(withStatus: err.localizedDescription)
+//                self.showMainAlertErrorMessages(vv: self.customMainAlertVC, secondV: self.customAlertLoginView, text: err.localizedDescription)
+                 self.handleDismiss()
                 self.activeViewsIfNoData();return
             }
             self.handleDismiss()
@@ -304,9 +304,9 @@ class NotificationVC: CustomBaseViewVC {
         
         ProfileServices.shared.getNotificationsLAB(api_token: phy.apiToken, user_id: phy.id) { (base, err) in
             if let  err = err {
-                //                SVProgressHUD.showError(withStatus: err.localizedDescription)
-                self.showMainAlertErrorMessages(vv: self.customMainAlertVC, secondV: self.customAlertLoginView, text: err.localizedDescription)
-                
+                                SVProgressHUD.showError(withStatus: err.localizedDescription)
+//                self.showMainAlertErrorMessages(vv: self.customMainAlertVC, secondV: self.customAlertLoginView, text: err.localizedDescription)
+                 self.handleDismiss()
                 self.activeViewsIfNoData();return
             }
             self.handleDismiss()
@@ -338,9 +338,9 @@ class NotificationVC: CustomBaseViewVC {
         
         ProfileServices.shared.getNotificationsRAD(api_token: phy.apiToken, user_id: phy.id) { (base, err) in
             if let  err = err {
-                //                SVProgressHUD.showError(withStatus: err.localizedDescription)
-                self.showMainAlertErrorMessages(vv: self.customMainAlertVC, secondV: self.customAlertLoginView, text: err.localizedDescription)
-                
+                                SVProgressHUD.showError(withStatus: err.localizedDescription)
+//                self.showMainAlertErrorMessages(vv: self.customMainAlertVC, secondV: self.customAlertLoginView, text: err.localizedDescription)
+                 self.handleDismiss()
                 self.activeViewsIfNoData();return
             }
             self.handleDismiss()
@@ -405,15 +405,15 @@ class NotificationVC: CustomBaseViewVC {
         }
     }
     
-    fileprivate func setDefaults() {
-//        userDefaults.set(true, forKey: UserDefaultsConstants.isWelcomeVCAppear)
-        userDefaults.set(true, forKey: UserDefaultsConstants.isLABNotificationChanged)
-        userDefaults.set(true, forKey: UserDefaultsConstants.isRADNotificationChanged)
-        userDefaults.set(true, forKey: UserDefaultsConstants.isPHYNotificationChanged)
-        userDefaults.set(true, forKey: UserDefaultsConstants.isDoctorNotificationChanged)
-        userDefaults.set(true, forKey: UserDefaultsConstants.isMedicalCenterNotificationChanged)
-        userDefaults.synchronize()
-    }
+//    fileprivate func setDefaults() {
+//        //        userDefaults.set(true, forKey: UserDefaultsConstants.isWelcomeVCAppear)
+//        userDefaults.set(true, forKey: UserDefaultsConstants.isLABNotificationChanged)
+//        userDefaults.set(true, forKey: UserDefaultsConstants.isRADNotificationChanged)
+//        userDefaults.set(true, forKey: UserDefaultsConstants.isPHYNotificationChanged)
+//        userDefaults.set(true, forKey: UserDefaultsConstants.isDoctorNotificationChanged)
+//        userDefaults.set(true, forKey: UserDefaultsConstants.isMedicalCenterNotificationChanged)
+//        userDefaults.synchronize()
+//    }
     
     //MARK: -Handle methods
     
@@ -424,7 +424,7 @@ class NotificationVC: CustomBaseViewVC {
         }else {
             dismiss(animated: true)
         }
-        setDefaults()
+//        setDefaults()
     }
     
     @objc func handleDismiss()  {

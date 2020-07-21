@@ -46,4 +46,13 @@ class DoctorServices {
         let postString = "api_token=\(api_token)&user_id=\(user_id)&name=\(name)"
         MainServices.registerationPostMethodGeneric(postString: postString, url: url, completion: completion)
     }
+    
+    func rejectClinicOrder(user_id:Int,api_token:String,doctor_id:Int,completion:@escaping (MainAddFavoriteModel?,Error?)->Void)  {
+        let nnn = "clinic/order/reject"
+        let urlString = baseUrl+nnn.toSecrueHttps()
+        guard  let url = URL(string: urlString) else { return  }
+        let postString = "api_token=\(api_token)&order_id=\(user_id)&doctor_id=\(doctor_id)"
+        MainServices.registerationPostMethodGeneric(postString: postString, url: url, completion: completion)
+    }
+    
 }

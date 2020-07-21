@@ -11,8 +11,9 @@ import MOLH
 
 class MedicineCell: BaseCollectionCell {
     
-    var med:String!{
+    var med:String?{
         didSet{
+            guard let med = med else { return  }
             nameLabel.text = med
         }
     }
@@ -39,7 +40,6 @@ class MedicineCell: BaseCollectionCell {
     }()
     
     override func setupViews() {
-        //            backgroundColor = .white
         nameLabel.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left
         
         hstack(leftImage,nameLabel,closeImage,spacing:8,alignment:.center).withMargins(.init(top: 0, left: 8, bottom: 0, right: 8))

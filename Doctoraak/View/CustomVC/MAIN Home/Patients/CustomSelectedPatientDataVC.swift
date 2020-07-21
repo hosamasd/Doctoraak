@@ -183,20 +183,7 @@ class CustomSelectedPatientDataVC: CustomBaseView {
             bottomStack.isHide(itemFound)
         }
     }
-    var accepetArrayDOC:[Int]?  {
-        didSet{
-            guard let a = accepetArrayDOC else { return }
-            let itemFound = a.contains(radOrders?.id ?? -1)
-            bottomStack.isHide(itemFound)
-        }
-    }
-    var accepetArrayMEDICALCENTER:[Int]?  {
-        didSet{
-            guard let a = accepetArrayMEDICALCENTER else { return }
-            let itemFound = a.contains(radOrders?.id ?? -1)
-            bottomStack.isHide(itemFound)
-        }
-    }
+   
     
     
     override func layoutSubviews() {

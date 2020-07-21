@@ -214,6 +214,7 @@
 		9F82FDB324AA3950009ED3B9 /* VCS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F82FDA224AA394F009ED3B9 /* VCS.swift */; };
 		9F82FDB624AA399F009ED3B9 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F82FDB424AA399E009ED3B9 /* Extensions.swift */; };
 		9F82FDB724AA399F009ED3B9 /* ExtensionsViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F82FDB524AA399F009ED3B9 /* ExtensionsViews.swift */; };
+		9FB00F2F24C79806009F9B73 /* 26048-info-bounce.json in Resources */ = {isa = PBXBuildFile; fileRef = 9FB00F2E24C79805009F9B73 /* 26048-info-bounce.json */; };
 		9FB5E23D24C7003F00FE0AE3 /* MainPaymentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FB5E23C24C7003F00FE0AE3 /* MainPaymentVC.swift */; };
 		9FDC27E124B4EBCD0030AB22 /* CollectionAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FDC27E024B4EBCD0030AB22 /* CollectionAnimation.swift */; };
 		9FEFCD7F24C73FAA0081E084 /* FirstPaymentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FEFCD7E24C73FAA0081E084 /* FirstPaymentModel.swift */; };
@@ -432,6 +433,7 @@
 		9F82FDA224AA394F009ED3B9 /* VCS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VCS.swift; sourceTree = "<group>"; };
 		9F82FDB424AA399E009ED3B9 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		9F82FDB524AA399F009ED3B9 /* ExtensionsViews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtensionsViews.swift; sourceTree = "<group>"; };
+		9FB00F2E24C79805009F9B73 /* 26048-info-bounce.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "26048-info-bounce.json"; sourceTree = "<group>"; };
 		9FB5E23C24C7003F00FE0AE3 /* MainPaymentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPaymentVC.swift; sourceTree = "<group>"; };
 		9FDC27E024B4EBCD0030AB22 /* CollectionAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionAnimation.swift; sourceTree = "<group>"; };
 		9FEFCD7E24C73FAA0081E084 /* FirstPaymentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FirstPaymentModel.swift; path = "Doctoraak/Controller/Main Home and Menu/left menu/Lists/FirstPaymentModel.swift"; sourceTree = SOURCE_ROOT; };
@@ -464,7 +466,7 @@
 		4E000B0A2431B06D007CEC3C /* Main Menu For Other */ = {
 			isa = PBXGroup;
 			children = (
-				4EA94B98242F5F7E001C4650 /* MainHomeVC.swift */,
+				9F7B0B4424C79D4F00291414 /* Main Home  */,
 				4EDFFD3624974BA000256631 /* Notififcations */,
 				4E92AF63242B6AE300BCF20E /* Patients */,
 			);
@@ -519,6 +521,7 @@
 		4E115DAC2495195000B64936 /* Lottie */ = {
 			isa = PBXGroup;
 			children = (
+				9FB00F2E24C79805009F9B73 /* 26048-info-bounce.json */,
 				9F22716124B3CED30091412C /* lf30_editor_itsaat.json */,
 				9F32E8E924B3ACAB00D4B62E /* 19228-health-care.json */,
 				4E115DAF2495196000B64936 /* 4970-unapproved-cross.json */,
@@ -666,10 +669,9 @@
 		4E35489D242B832200DD4E7A /* left menu */ = {
 			isa = PBXGroup;
 			children = (
-				9FAC96FC24C4E00800CF4A13 /* doctor lists */,
+				9FAC96FC24C4E00800CF4A13 /* doctor Profile */,
 				4E9FFEFD2499EE8500D27463 /* Lists */,
 				4EDCBB0F24964B5E0045574D /* HomeLeftMenuVC.swift */,
-				4E35489E242B834300DD4E7A /* HomeLeftMenuCollcetionVC.swift */,
 				4EDCBB0D249647310045574D /* SecondHomeLeftMenuCollcetionVC.swift */,
 			);
 			path = "left menu";
@@ -678,6 +680,12 @@
 		4E3548A2242B899900DD4E7A /* MAY BE USED */ = {
 			isa = PBXGroup;
 			children = (
+				4E35489E242B834300DD4E7A /* HomeLeftMenuCollcetionVC.swift */,
+				4EDBE2A0242BA00000702C9A /* Doctor Sceniro */,
+				4EC977EE242B525200C61F1B /* DoctorHomeVC.swift */,
+				4E92AF64242B6AFA00BCF20E /* PatientDataVC.swift */,
+				4E0923AE243DA86D0068E10F /* PatientSecondDataVC.swift */,
+				4EEBF7BF243D99B10039BF81 /* PatientThirdDataVC.swift */,
 				4E5CE7A824275187001EE175 /* CusomBookView.swift */,
 				4EDBE2A4242BA28900702C9A /* CustomMainDoctorNotificationView.swift */,
 				9F82FD9424AA3942009ED3B9 /* UITextView.swift */,
@@ -851,12 +859,10 @@
 		4E92AF63242B6AE300BCF20E /* Patients */ = {
 			isa = PBXGroup;
 			children = (
+				9F7B0B4524C79D7500291414 /* Selected patient */,
 				4E96752E2497A2DC006CE497 /* pharmacy */,
-				4E92AF64242B6AFA00BCF20E /* PatientDataVC.swift */,
 				4EEBF7C7243D9BBE0039BF81 /* MedicineCollectionVC.swift */,
-				4E0923AE243DA86D0068E10F /* PatientSecondDataVC.swift */,
-				4EEBF7BF243D99B10039BF81 /* PatientThirdDataVC.swift */,
-				9F088CF524BA5F32009B1832 /* ZoomUserImageVC.swift */,
+				9F7B0B4624C79DF700291414 /* Main Zoom Image */,
 			);
 			path = Patients;
 			sourceTree = "<group>";
@@ -1013,7 +1019,6 @@
 			children = (
 				4E35489D242B832200DD4E7A /* left menu */,
 				4E000B0A2431B06D007CEC3C /* Main Menu For Other */,
-				4EA94B9F242F60C4001C4650 /* MainHomePatientsCollectionVC.swift */,
 			);
 			path = "Main Home and Menu";
 			sourceTree = "<group>";
@@ -1040,7 +1045,6 @@
 		4EB17F9924A20E5C00FEBA55 /* List */ = {
 			isa = PBXGroup;
 			children = (
-				4EB17F9A24A20E7900FEBA55 /* DoctorProfileVC.swift */,
 			);
 			path = List;
 			sourceTree = "<group>";
@@ -1137,16 +1141,6 @@
 				4E42DD662459CD8E00FC4C17 /* MainDoctorClinicCreateModel.swift */,
 			);
 			path = Doctor;
-			sourceTree = "<group>";
-		};
-		4EC977ED242B524000C61F1B /* home */ = {
-			isa = PBXGroup;
-			children = (
-				4EC977EE242B525200C61F1B /* DoctorHomeVC.swift */,
-				4EC977F8242B59A300C61F1B /* DoctorHomePatientsCollectionVC.swift */,
-				4E70CD99243DABC700098C4C /* DoctorPatientDataVC.swift */,
-			);
-			path = home;
 			sourceTree = "<group>";
 		};
 		4EC977F0242B528B00C61F1B /* Doctor Home */ = {
@@ -1249,7 +1243,6 @@
 			isa = PBXGroup;
 			children = (
 				4EA5C64F2469495A005FCABF /* Left menu */,
-				4EC977ED242B524000C61F1B /* home */,
 			);
 			path = "Doctor Sceniro";
 			sourceTree = "<group>";
@@ -1442,7 +1435,6 @@
 				4E333E0B2426604E00F82E00 /* BaseVC */,
 				4EA537922426407F000AE7AD /* Main Home and Menu */,
 				4E5803032427897E00B5D502 /* Resgitration */,
-				4EDBE2A0242BA00000702C9A /* Doctor Sceniro */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1474,11 +1466,38 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		9FAC96FC24C4E00800CF4A13 /* doctor lists */ = {
+		9F7B0B4424C79D4F00291414 /* Main Home  */ = {
 			isa = PBXGroup;
 			children = (
+				4EA94B98242F5F7E001C4650 /* MainHomeVC.swift */,
+				4EA94B9F242F60C4001C4650 /* MainHomePatientsCollectionVC.swift */,
 			);
-			path = "doctor lists";
+			path = "Main Home ";
+			sourceTree = "<group>";
+		};
+		9F7B0B4524C79D7500291414 /* Selected patient */ = {
+			isa = PBXGroup;
+			children = (
+				4E70CD99243DABC700098C4C /* DoctorPatientDataVC.swift */,
+				4EC977F8242B59A300C61F1B /* DoctorHomePatientsCollectionVC.swift */,
+			);
+			path = "Selected patient";
+			sourceTree = "<group>";
+		};
+		9F7B0B4624C79DF700291414 /* Main Zoom Image */ = {
+			isa = PBXGroup;
+			children = (
+				9F088CF524BA5F32009B1832 /* ZoomUserImageVC.swift */,
+			);
+			path = "Main Zoom Image";
+			sourceTree = "<group>";
+		};
+		9FAC96FC24C4E00800CF4A13 /* doctor Profile */ = {
+			isa = PBXGroup;
+			children = (
+				4EB17F9A24A20E7900FEBA55 /* DoctorProfileVC.swift */,
+			);
+			path = "doctor Profile";
 			sourceTree = "<group>";
 		};
 		9FEFCD7D24C73F9C0081E084 /* payment */ = {
@@ -1555,6 +1574,7 @@
 			files = (
 				4E115DB12495196000B64936 /* success.json in Resources */,
 				7A52BB5F24153A30008ED1F9 /* LaunchScreen.storyboard in Resources */,
+				9FB00F2F24C79806009F9B73 /* 26048-info-bounce.json in Resources */,
 				9F32E8EA24B3ACAC00D4B62E /* 19228-health-care.json in Resources */,
 				9F22716224B3CED30091412C /* lf30_editor_itsaat.json in Resources */,
 				7A52BB5C24153A30008ED1F9 /* Assets.xcassets in Resources */,

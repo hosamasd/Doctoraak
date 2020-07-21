@@ -53,7 +53,8 @@ class ZoomUserImageVC: CustomBaseViewVC {
     
     
     
-    //
+    //TODO:-Hnadle methods
+    
     @objc  func handleClose()  {
         navigationController?.popViewController(animated: true)
     }

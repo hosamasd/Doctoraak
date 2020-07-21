@@ -138,3 +138,6 @@
 "Make Payment"="اتمام عملية الدفع";"You Can Use The App For Free For 3 Months"="يمكن استخدام التطبيق لمده ٣ شهور مجانا";
 
 "Reservation Type"="نوع الحجز";"Reservation  Number"="رقم الحجز";"No Notes Found"="لا يوجد اضافات";"Patient data"="معلومات المريض";"Information"="معلومات";"Insurance"="شركة تامين"; "Notes"= "ملاحظات";
+
+
+"Are You Sure You Want To cancel this Order?\n"="\n هل انت متاكد من الغاء الطلب؟";

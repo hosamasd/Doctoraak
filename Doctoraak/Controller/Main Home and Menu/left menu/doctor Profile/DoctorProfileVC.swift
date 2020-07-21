@@ -16,7 +16,7 @@ class DoctorProfileVC:   CustomBaseViewVC {
         let v = UIScrollView()
         v.backgroundColor = .clear
         v.showsVerticalScrollIndicator=false
-
+        
         return v
     }()
     lazy var mainView:UIView = {

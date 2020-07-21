@@ -13,7 +13,7 @@ class MainHomePatientsCollectionVC: BaseCollectionVC     {
     lazy var refreshControl:UIRefreshControl = {
         let refreshControl = UIRefreshControl()
         refreshControl.backgroundColor = UIColor.white
-               refreshControl.tintColor = UIColor.black
+        refreshControl.tintColor = UIColor.black
         return refreshControl
         
     }()
@@ -45,8 +45,8 @@ class MainHomePatientsCollectionVC: BaseCollectionVC     {
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if index == 0 || index == 1 {
-//             collectionView.noDataFound(notificationLABArray.count, text: "No Data Added Yet".localized)
-                       return doctorPatientsArray.count
+            //             collectionView.noDataFound(notificationLABArray.count, text: "No Data Added Yet".localized)
+            return doctorPatientsArray.count
         }else   if index == 2 {
             collectionView.noDataFound(notificationLABArray.count, text: "No Data Added Yet".localized)
             return notificationLABArray.count
@@ -86,7 +86,7 @@ class MainHomePatientsCollectionVC: BaseCollectionVC     {
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if index == 0 || index == 1 {
-             let dd = doctorPatientsArray[indexPath.item]
+            let dd = doctorPatientsArray[indexPath.item]
             handleDoctorSelectedIndex?(indexPath,dd)
         }else  if index == 2  {
             let dd = notificationLABArray[indexPath.item]
@@ -110,49 +110,6 @@ class MainHomePatientsCollectionVC: BaseCollectionVC     {
     }
     
     //MARK: -user methods
-    
-    //    fileprivate  func makePostRADAlert(post:RadGetOrdersModel)  {
-    //        let alert = UIAlertController(title: "Choose Options".localized, message: "What do you want to make?".localized, preferredStyle: .actionSheet)
-    //        let delete = UIAlertAction(title: "Delete".localized, style: .destructive) { (_) in
-    //            self.handledisplayRADNotification?(post)
-    //
-    //        }
-    //        let cancel = UIAlertAction(title: "Cancel".localized, style: .default) { (_) in
-    //            alert.dismiss(animated: true)
-    //        }
-    //        alert.addAction(delete)
-    //        alert.addAction(cancel)
-    //        present(alert, animated: true)
-    //    }
-    //
-    //    fileprivate  func makePostLABAlert(post:LABGetOrdersModel)  {
-    //        let alert = UIAlertController(title: "Choose Options".localized, message: "What do you want to make?".localized, preferredStyle: .actionSheet)
-    //        let delete = UIAlertAction(title: "Delete".localized, style: .destructive) { (_) in
-    //            self.handledisplayLABNotification?(post)
-    //
-    //        }
-    //        let cancel = UIAlertAction(title: "Cancel".localized, style: .default) { (_) in
-    //            alert.dismiss(animated: true)
-    //        }
-    //        alert.addAction(delete)
-    //        alert.addAction(cancel)
-    //        present(alert, animated: true)
-    //    }
-    //
-    //    fileprivate func makePostPHYAlert(post:PharmacyGetOrdersModel)  {
-    //        let alert = UIAlertController(title: "Choose Options".localized, message: "What do you want to make?".localized, preferredStyle: .actionSheet)
-    //        let delete = UIAlertAction(title: "Delete".localized, style: .destructive) { (_) in
-    //            self.handledisplayPHYNotification?(post)
-    //
-    //        }
-    //        let cancel = UIAlertAction(title: "Cancel".localized, style: .default) { (_) in
-    //            alert.dismiss(animated: true)
-    //        }
-    //        alert.addAction(delete)
-    //        alert.addAction(cancel)
-    //        present(alert, animated: true)
-    //    }
-    
     override func setupCollection() {
         collectionView.showsVerticalScrollIndicator = false
         collectionView.backgroundColor = .white
@@ -163,7 +120,6 @@ class MainHomePatientsCollectionVC: BaseCollectionVC     {
     }
     
     @objc func didPullToRefresh()  {
-//        refreshControl.endRefreshing()
         handleRefreshCollection?()
     }
 }

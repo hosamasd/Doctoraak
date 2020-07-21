@@ -250,20 +250,22 @@ extension UIView {
         return l
     }
     
+   
+    
     func createMainButtons(title:String,color:UIColor,tags : Int? = 0) -> UIButton {
-        let button = UIButton(type: .system)
-        button.layer.cornerRadius = 8
-        button.layer.borderWidth = 1
-        button.layer.borderColor = UIColor.gray.cgColor
-        button.clipsToBounds = true
-        button.setTitle(title, for: .normal)
-        button.setTitleColor(color, for: .normal)
-        button.constrainHeight(constant: 50)
-        button.tag = tags ?? 0
-        button.layer.cornerRadius = 16
-        button.backgroundColor = #colorLiteral(red: 0.9214958549, green: 0.9216470122, blue: 0.9214636683, alpha: 1)
-        return button
-    }
+           let button = UIButton(type: .system)
+           button.layer.cornerRadius = 8
+           button.layer.borderWidth = 1
+           button.layer.borderColor = UIColor.gray.cgColor
+           button.clipsToBounds = true
+           button.setTitle(title, for: .normal)
+           button.setTitleColor(color, for: .normal)
+           button.constrainHeight(constant: 50)
+           button.tag = tags ?? 0
+           button.layer.cornerRadius = 16
+           button.backgroundColor = #colorLiteral(red: 0.9214958549, green: 0.9216470122, blue: 0.9214636683, alpha: 1)
+           return button
+       }
     
     func addGradientInSenderAndRemoveOther(sender:UIButton,index:Int? = 0)  {
         
