@@ -44,19 +44,19 @@ class CustomDoctorDataView: CustomBaseView {
     }
     
     var accepetArrayDOC:[Int]?  {
-           didSet{
-               guard let a = accepetArrayDOC else { return }
-               let itemFound = a.contains(patient?.id ?? -1)
-               bottomStack.isHide(itemFound)
-           }
-       }
-       var accepetArrayMEDICALCENTER:[Int]?  {
-           didSet{
-               guard let a = accepetArrayMEDICALCENTER else { return }
-               let itemFound = a.contains(patient?.id ?? -1)
-               bottomStack.isHide(itemFound)
-           }
-       }
+        didSet{
+            guard let a = accepetArrayDOC else { return }
+            let itemFound = a.contains(patient?.id ?? -1)
+            bottomStack.isHide(itemFound)
+        }
+    }
+    var accepetArrayMEDICALCENTER:[Int]?  {
+        didSet{
+            guard let a = accepetArrayMEDICALCENTER else { return }
+            let itemFound = a.contains(patient?.id ?? -1)
+            bottomStack.isHide(itemFound)
+        }
+    }
     
     lazy var LogoImage:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "Group 4116"))
@@ -71,7 +71,7 @@ class CustomDoctorDataView: CustomBaseView {
         return i
     }()
     
-  
+    
     lazy var titleLabel = UILabel(text: "Patient data".localized, font: .systemFont(ofSize: 30), textColor: .white)
     lazy var informationLabel = UILabel(text: "Information".localized, font: .systemFont(ofSize: 20), textColor: .lightGray)
     lazy var insuranceLabel = UILabel(text: "Insurance".localized, font: .systemFont(ofSize: 20), textColor: .lightGray)
@@ -155,9 +155,9 @@ class CustomDoctorDataView: CustomBaseView {
         return v
     }()
     lazy var bottomStack:UIStackView = {
-             let sta = getStack(views: okButton,cancelButton, spacing: 16, distribution: .fillEqually, axis: .horizontal)
-             return sta
-         }()
+        let sta = getStack(views: okButton,cancelButton, spacing: 16, distribution: .fillEqually, axis: .horizontal)
+        return sta
+    }()
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -174,7 +174,7 @@ class CustomDoctorDataView: CustomBaseView {
         [informationLabel,insuranceLabel,notesLabel].forEach({$0.constrainHeight(constant: 30)})
         let mains = getStack(views: informationLabel,bottomView,insuranceLabel,insuranceView,notesLabel,noteView, spacing: 16, distribution: .fillProportionally, axis: .vertical)
         
-//        let ss = getStack(views: okButton,cancelButton, spacing: 8, distribution: .fillEqually, axis: .horizontal)
+        //        let ss = getStack(views: okButton,cancelButton, spacing: 8, distribution: .fillEqually, axis: .horizontal)
         
         addSubViews(views: LogoImage,backImage,titleLabel,patientCell,mains,bottomStack)
         //        addSubViews(views: LogoImage,backImage,titleLabel,doctorHomePatientsCell,ss)//,ss,docotrCollectionView.view)

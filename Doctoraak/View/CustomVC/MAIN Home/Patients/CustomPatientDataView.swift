@@ -13,11 +13,11 @@ class CustomPatientDataView: CustomBaseView {
     
     
     var patient:PatientModel?{
-           didSet{
-               guard let patient = patient else { return  }
-//               customPatientDataView.patient=patient
-           }
-       }
+        didSet{
+            guard let patient = patient else { return  }
+            //               customPatientDataView.patient=patient
+        }
+    }
     
     lazy var LogoImage:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "Group 4116"))
@@ -28,7 +28,7 @@ class CustomPatientDataView: CustomBaseView {
         let i = UIImageView(image: MOLHLanguage.isRTLLanguage() ? #imageLiteral(resourceName: "left-arrow") : #imageLiteral(resourceName: "Icon - Keyboard Arrow - Left - Filled"))
         i.constrainWidth(constant: 30)
         i.constrainHeight(constant: 30)
-         i.isUserInteractionEnabled = true
+        i.isUserInteractionEnabled = true
         return i
     }()
     lazy var sampleRosetaImage:UIImageView = {
@@ -37,12 +37,12 @@ class CustomPatientDataView: CustomBaseView {
         return i
     }()
     lazy var titleLabel = UILabel(text: "Patient data", font: .systemFont(ofSize: 30), textColor: .white)
-  
-
+    
+    
     lazy var okButton = createMainButtons(title: "Ok", color: .white)
     lazy var cancelButton = createMainButtons(title: "Cancel", color: .white)
     lazy var patientCell:PatientCell = {
-       let v = PatientCell()
+        let v = PatientCell()
         v.backgroundColor = .white
         return v
     }()
@@ -50,23 +50,23 @@ class CustomPatientDataView: CustomBaseView {
     override func layoutSubviews() {
         super.layoutSubviews()
         okButton.applyGradient(colors: [ColorConstants.firstColorBangsegy,ColorConstants.secondColorBangsegy],index: 0)
-    [okButton,cancelButton].forEach({$0.setTitleColor(.white, for: .normal)})
+        [okButton,cancelButton].forEach({$0.setTitleColor(.white, for: .normal)})
         cancelButton.backgroundColor = #colorLiteral(red: 0.7318444848, green: 0.7521331906, blue: 0.8052451015, alpha: 1)
     }
     
     
     override func setupViews() {
         let ss = getStack(views: okButton,cancelButton, spacing: 8, distribution: .fillEqually, axis: .horizontal)
-
-         addSubViews(views: LogoImage,backImage,titleLabel,patientCell,sampleRosetaImage,ss)
-//        addSubViews(views: LogoImage,backImage,titleLabel,doctorHomePatientsCell,ss)//,ss,docotrCollectionView.view)
+        
+        addSubViews(views: LogoImage,backImage,titleLabel,patientCell,sampleRosetaImage,ss)
+        //        addSubViews(views: LogoImage,backImage,titleLabel,doctorHomePatientsCell,ss)//,ss,docotrCollectionView.view)
         
         LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
         backImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 60, left: 16, bottom: 0, right: 0))
         titleLabel.anchor(top: nil, leading: leadingAnchor, bottom: LogoImage.bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
         patientCell.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 16, left: 32, bottom: 0, right: 32))
         sampleRosetaImage.anchor(top: patientCell.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 128, left: 32, bottom: 40, right: 32))
-//
+        //
         ss.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 16, left: 46, bottom: 8, right: 32))
         
     }

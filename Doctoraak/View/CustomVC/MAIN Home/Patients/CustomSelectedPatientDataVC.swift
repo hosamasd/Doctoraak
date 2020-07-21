@@ -42,8 +42,8 @@ class CustomSelectedPatientDataVC: CustomBaseView {
             
             //            DispatchQueue.main.async {
             self.patientCell.patient = phy.patient
-//            let itemFound = accepetArrayPHY.contains(phy.id)
-//            bottomStack.isHide(itemFound)
+            //            let itemFound = accepetArrayPHY.contains(phy.id)
+            //            bottomStack.isHide(itemFound)
             
             selectedPatientDataPHYCollectionvc.notificationPHYArray = phy.details
             
@@ -60,8 +60,8 @@ class CustomSelectedPatientDataVC: CustomBaseView {
             
             //            DispatchQueue.main.async {
             self.patientCell.patient = phy.patient
-//            let itemFound = accepetArrayRAD.contains(phy.id)
-//            bottomStack.isHide(itemFound)
+            //            let itemFound = accepetArrayRAD.contains(phy.id)
+            //            bottomStack.isHide(itemFound)
             selectedPatientDataPHYCollectionvc.notificationRADArray = phy.details
             selectedPatientDataPHYCollectionvc.collectionView.reloadData()
             let urlString = phy.photo
@@ -76,8 +76,8 @@ class CustomSelectedPatientDataVC: CustomBaseView {
             
             //            DispatchQueue.main.async {
             self.patientCell.patient = phy.patient
-//            let itemFound = accepetArrayRAD.contains(phy.id)
-//            bottomStack.isHide(itemFound)
+            //            let itemFound = accepetArrayRAD.contains(phy.id)
+            //            bottomStack.isHide(itemFound)
             selectedPatientDataPHYCollectionvc.notificationRADArray = phy.details
             selectedPatientDataPHYCollectionvc.collectionView.reloadData()
             let urlString = phy.photo
@@ -164,9 +164,9 @@ class CustomSelectedPatientDataVC: CustomBaseView {
         didSet{
             guard let a = accepetArrayLAB else { return }
             let itemFound = a.contains(labOrder?.id ?? -1)
-//            DispatchQueue.main.async {
-                self.bottomStack.isHide(itemFound)
-//            }
+            //            DispatchQueue.main.async {
+            self.bottomStack.isHide(itemFound)
+            //            }
         }
     }
     var accepetArrayRAD :[Int]?  {
@@ -183,7 +183,7 @@ class CustomSelectedPatientDataVC: CustomBaseView {
             bottomStack.isHide(itemFound)
         }
     }
-   
+    
     
     
     override func layoutSubviews() {

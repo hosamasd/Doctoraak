@@ -21,7 +21,7 @@ class SelectedPharmacyPatientDataVC: CustomBaseViewVC {
         let v = UIScrollView()
         v.backgroundColor = .clear
         v.showsVerticalScrollIndicator=false
-
+        
         return v
     }()
     lazy var mainView:UIView = {
@@ -181,12 +181,12 @@ class SelectedPharmacyPatientDataVC: CustomBaseViewVC {
     }
     
     fileprivate func getArrayDefaults()  {
-//        if let doc = userDefaults.value(forKey: UserDefaultsConstants.acceptArrayDoc) as? [Int] {
-//            customSelectedPatientDataVC.accepetArrayDOC=doc.count > 0 ? doc.uniques : nil
-//        }
-//        if let doc = userDefaults.value(forKey: UserDefaultsConstants.acceptArrayMedicalCenter) as? [Int] {
-//                   customSelectedPatientDataVC.accepetArrayMEDICALCENTER=doc.count > 0 ? doc.uniques : nil
-//               }
+        //        if let doc = userDefaults.value(forKey: UserDefaultsConstants.acceptArrayDoc) as? [Int] {
+        //            customSelectedPatientDataVC.accepetArrayDOC=doc.count > 0 ? doc.uniques : nil
+        //        }
+        //        if let doc = userDefaults.value(forKey: UserDefaultsConstants.acceptArrayMedicalCenter) as? [Int] {
+        //                   customSelectedPatientDataVC.accepetArrayMEDICALCENTER=doc.count > 0 ? doc.uniques : nil
+        //               }
         if let doc = userDefaults.value(forKey: UserDefaultsConstants.acceptArrayRAD) as? [Int] {
             customSelectedPatientDataVC.accepetArrayRAD=doc.count > 0 ? doc.uniques : nil
         }
@@ -196,7 +196,7 @@ class SelectedPharmacyPatientDataVC: CustomBaseViewVC {
         if let doc = userDefaults.value(forKey: UserDefaultsConstants.acceptArrayPHY) as? [Int] {
             customSelectedPatientDataVC.accepetArrayPHY=doc.count > 0 ? doc.uniques : nil
         }
-       
+        
     }
     
     fileprivate func getObjects()  {
@@ -233,67 +233,67 @@ class SelectedPharmacyPatientDataVC: CustomBaseViewVC {
         
     }
     
-//    fileprivate func checkDoctorLoginState(indexx:Int,isAccept:Bool,message:String? = nil)  {
-//        var apiToekn:String
-//        var userId:Int
-//        var orderId:Int
-//
-//        if isFromMain {
-//
-//            if indexx==2 {
-//                guard let pharmacy = cachdPHARMACYObjectCodabe.storedValue ,let  phyy = phyOrder else { return  }
-//                apiToekn = pharmacy.apiToken
-//                userId=pharmacy.id
-//                orderId=phyy.id
-//
-//            }else {
-//                guard let pharmacy = rad,let  phyy = radOrder else { return  }
-//                apiToekn = pharmacy.apiToken
-//                userId=pharmacy.id
-//                orderId=phyy.id
-//
-//            }
-//        }else {
-//
-//            if indexx==2 {
-//                guard let pharmacy = cachdPHARMACYObjectCodabe.storedValue ,let  phyy = phyOrderss else { return  }
-//                apiToekn = pharmacy.apiToken
-//                userId=pharmacy.id
-//                orderId=phyy.id
-//
-//            }else {
-//                guard let pharmacy = rad,let  phyy = radOrder else { return  }
-//                apiToekn = pharmacy.apiToken
-//                userId=pharmacy.id
-//                orderId=phyy.id
-//
-//            }
-//        }
-//        UIApplication.shared.beginIgnoringInteractionEvents()
-//        self.showMainAlertLooder(cc: self.customMainAlertVC, v: self.customAlertMainLoodingView)
-//
-//        OrdersServices.shared.acceptPharmacyOrders(api_token: apiToekn, pharmacy_id: userId , order_id: orderId) { (base, err) in
-//            if let err = err {
-//                SVProgressHUD.showError(withStatus: err.localizedDescription)
-//                self.handleDismiss()
-//                self.activeViewsIfNoData();return
-//            }
-//            //                SVProgressHUD.dismiss()
-//            self.handleDismiss()
-//            self.activeViewsIfNoData()
-//            guard let user = base else {return}
-//
-//            DispatchQueue.main.async {
-//                SVProgressHUD.showSuccess(withStatus: MOLHLanguage.isRTLLanguage() ? user.message : user.messageEn)
-//                self.makeAction(orderId)
-//                self.performBack(self.isFromMain,message)
-//            }
-//            //            SVProgressHUD.showSuccess(withStatus: MOLHLanguage.isRTLLanguage() ? user.message : user.messageEn)
-//            //            self.customSelectedPatientDataVC.bottomStack.isHide(true)
-//            //            self.makeAction(phy.pharmacyOrderID)
-//
-//        }
-//    }
+    //    fileprivate func checkDoctorLoginState(indexx:Int,isAccept:Bool,message:String? = nil)  {
+    //        var apiToekn:String
+    //        var userId:Int
+    //        var orderId:Int
+    //
+    //        if isFromMain {
+    //
+    //            if indexx==2 {
+    //                guard let pharmacy = cachdPHARMACYObjectCodabe.storedValue ,let  phyy = phyOrder else { return  }
+    //                apiToekn = pharmacy.apiToken
+    //                userId=pharmacy.id
+    //                orderId=phyy.id
+    //
+    //            }else {
+    //                guard let pharmacy = rad,let  phyy = radOrder else { return  }
+    //                apiToekn = pharmacy.apiToken
+    //                userId=pharmacy.id
+    //                orderId=phyy.id
+    //
+    //            }
+    //        }else {
+    //
+    //            if indexx==2 {
+    //                guard let pharmacy = cachdPHARMACYObjectCodabe.storedValue ,let  phyy = phyOrderss else { return  }
+    //                apiToekn = pharmacy.apiToken
+    //                userId=pharmacy.id
+    //                orderId=phyy.id
+    //
+    //            }else {
+    //                guard let pharmacy = rad,let  phyy = radOrder else { return  }
+    //                apiToekn = pharmacy.apiToken
+    //                userId=pharmacy.id
+    //                orderId=phyy.id
+    //
+    //            }
+    //        }
+    //        UIApplication.shared.beginIgnoringInteractionEvents()
+    //        self.showMainAlertLooder(cc: self.customMainAlertVC, v: self.customAlertMainLoodingView)
+    //
+    //        OrdersServices.shared.acceptPharmacyOrders(api_token: apiToekn, pharmacy_id: userId , order_id: orderId) { (base, err) in
+    //            if let err = err {
+    //                SVProgressHUD.showError(withStatus: err.localizedDescription)
+    //                self.handleDismiss()
+    //                self.activeViewsIfNoData();return
+    //            }
+    //            //                SVProgressHUD.dismiss()
+    //            self.handleDismiss()
+    //            self.activeViewsIfNoData()
+    //            guard let user = base else {return}
+    //
+    //            DispatchQueue.main.async {
+    //                SVProgressHUD.showSuccess(withStatus: MOLHLanguage.isRTLLanguage() ? user.message : user.messageEn)
+    //                self.makeAction(orderId)
+    //                self.performBack(self.isFromMain,message)
+    //            }
+    //            //            SVProgressHUD.showSuccess(withStatus: MOLHLanguage.isRTLLanguage() ? user.message : user.messageEn)
+    //            //            self.customSelectedPatientDataVC.bottomStack.isHide(true)
+    //            //            self.makeAction(phy.pharmacyOrderID)
+    //
+    //        }
+    //    }
     
     
     fileprivate  func acceptPharmacyOrders(indexx:Int,isAccept:Bool,message:String? = nil)  {
@@ -426,12 +426,12 @@ class SelectedPharmacyPatientDataVC: CustomBaseViewVC {
     }
     
     fileprivate func makeAction(_ id:Int)  {
-//        if index==1 {
-//            customSelectedPatientDataVC.accepetArrayMEDICALCENTER?.append(id)
-//        }  else      if index==0 {
-//            customSelectedPatientDataVC.accepetArrayDOC?.append(id)
-//        }else
-            if index==2 {
+        //        if index==1 {
+        //            customSelectedPatientDataVC.accepetArrayMEDICALCENTER?.append(id)
+        //        }  else      if index==0 {
+        //            customSelectedPatientDataVC.accepetArrayDOC?.append(id)
+        //        }else
+        if index==2 {
             customSelectedPatientDataVC.accepetArrayLAB?.append(id)
         }else      if index==3 {
             customSelectedPatientDataVC.accepetArrayRAD?.append(id)
@@ -447,11 +447,11 @@ class SelectedPharmacyPatientDataVC: CustomBaseViewVC {
     }
     
     fileprivate func saveDefaULTS()  {
-//        userDefaults.set(customSelectedPatientDataVC.accepetArrayDOC, forKey: UserDefaultsConstants.acceptArrayDoc)
+        //        userDefaults.set(customSelectedPatientDataVC.accepetArrayDOC, forKey: UserDefaultsConstants.acceptArrayDoc)
         userDefaults.set(customSelectedPatientDataVC.accepetArrayLAB, forKey: UserDefaultsConstants.acceptArrayLAB)
         userDefaults.set(customSelectedPatientDataVC.accepetArrayRAD, forKey: UserDefaultsConstants.acceptArrayRAD)
         userDefaults.set(customSelectedPatientDataVC.accepetArrayPHY, forKey: UserDefaultsConstants.acceptArrayPHY)
-//        userDefaults.set(customSelectedPatientDataVC.accepetArrayMEDICALCENTER, forKey: UserDefaultsConstants.acceptArrayMedicalCenter)
+        //        userDefaults.set(customSelectedPatientDataVC.accepetArrayMEDICALCENTER, forKey: UserDefaultsConstants.acceptArrayMedicalCenter)
         userDefaults.synchronize()
     }
     
@@ -571,6 +571,6 @@ extension SelectedPharmacyPatientDataVC:UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let x = scrollView.contentOffset.y
         self.scrollView.isScrollEnabled = x < -60 ? false : true
-    
-      }
+        
+    }
 }

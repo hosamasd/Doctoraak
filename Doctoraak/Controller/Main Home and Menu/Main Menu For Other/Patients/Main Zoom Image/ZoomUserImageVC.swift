@@ -27,13 +27,13 @@ class ZoomUserImageVC: CustomBaseViewVC {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.isNavigationBarHidden = false
-
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-          super.viewWillDisappear(animated)
-          navigationController?.isNavigationBarHidden = true
-      }
+        super.viewWillDisappear(animated)
+        navigationController?.isNavigationBarHidden = true
+    }
     
     override func setupNavigation()  {
         navigationController?.navigationBar.isHide(false)

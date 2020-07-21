@@ -12,20 +12,20 @@ class SelectedPatientDataPHYCollectionVC: BaseCollectionVC {
     
     var index = 0
     lazy var refreshControl:UIRefreshControl = {
-           let refreshControl = UIRefreshControl()
-           refreshControl.backgroundColor = UIColor.white
-                  refreshControl.tintColor = UIColor.black
-           return refreshControl
-           
-       }()
+        let refreshControl = UIRefreshControl()
+        refreshControl.backgroundColor = UIColor.white
+        refreshControl.tintColor = UIColor.black
+        return refreshControl
+        
+    }()
     fileprivate  let cellID = "cellID"
     var currentTableAnimation: CollectionAnimation = .fadeIn(duration: 0.85, delay: 0.03)
     
     var notificationPHYArray = [PharmacyDetailModel]()
     var notificationRADArray = [RADDetailModel]()
-//    var notificationLABArray = [RADDetailModel]()
+    //    var notificationLABArray = [RADDetailModel]()
     var notificationLABArray = [LABDetailModel]()
-
+    
     //        var handledisplayDOCNotification:((PatientNotificationModel,IndexPath)->Void)?
     
     override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
@@ -80,8 +80,8 @@ class SelectedPatientDataPHYCollectionVC: BaseCollectionVC {
     override func setupCollection() {
         collectionView.backgroundColor = .white
         collectionView.register(SelectedPatientDataPHYCell.self, forCellWithReuseIdentifier: cellID)
-
-           collectionView.showsVerticalScrollIndicator=false
-
-        }
+        
+        collectionView.showsVerticalScrollIndicator=false
+        
+    }
 }

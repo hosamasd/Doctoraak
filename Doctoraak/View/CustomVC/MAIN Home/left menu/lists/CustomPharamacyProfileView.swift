@@ -22,7 +22,7 @@ class CustomPharamacyProfileView: CustomBaseView {
         didSet{
             guard let phy = phy else { return  }
             putPHYViewModel(phy)
-
+            
             fullNameTextField.text = MOLHLanguage.isRTLLanguage() ? phy.nameAr ?? phy.name : phy.name
             mobileNumberTextField.text = phy.phone2 ?? phy.phone
             emailTextField.text = phy.email
@@ -45,7 +45,7 @@ class CustomPharamacyProfileView: CustomBaseView {
         didSet{
             guard let phy = rad else { return  }
             putRADViewModel(phy)
-
+            
             fullNameTextField.text = MOLHLanguage.isRTLLanguage() ? phy.nameAr ?? phy.name : phy.name
             mobileNumberTextField.text = phy.phone2 ?? phy.phone
             emailTextField.text = phy.email
@@ -73,7 +73,7 @@ class CustomPharamacyProfileView: CustomBaseView {
         didSet{
             guard let phy = lab else { return  }
             putLABViewModel(phy)
-
+            
             fullNameTextField.text = MOLHLanguage.isRTLLanguage() ? phy.nameAr ?? phy.name : phy.name
             mobileNumberTextField.text = phy.phone2 ?? phy.phone
             emailTextField.text = phy.email
@@ -88,7 +88,7 @@ class CustomPharamacyProfileView: CustomBaseView {
             workingHoursLabel.text = getDaysLab(ind: phy.workingHours).joined(separator: "-") == "" ? "No Days Chossen".localized :  getDaysLab(ind: phy.workingHours).joined(separator: "-")
             deliverySwitch.isOn = phy.delivery.toInt() == 1 ? true : false
             getIncuracneNames(dd: phy.insuranceCompany)
-
+            
             let urlstring = phy.photo
             guard let url = URL(string: urlstring) else { return  }
             doctorProfileImage.sd_setImage(with: url)
@@ -183,7 +183,7 @@ class CustomPharamacyProfileView: CustomBaseView {
         i.constrainHeight(constant: 100)
         i.layer.cornerRadius = 50
         i.layer.borderWidth=3
-               i.layer.borderColor = UIColor.white.cgColor
+        i.layer.borderColor = UIColor.white.cgColor
         i.clipsToBounds = true
         return i
     }()
@@ -267,7 +267,7 @@ class CustomPharamacyProfileView: CustomBaseView {
     override func setupViews() {
         [titleLabel,insuracneText,addressLabel,workingHoursLabel,deliveryLabel].forEach({$0.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left})
         [fullNameTextField,emailTextField].forEach({$0.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)})
-
+        
         
         [mobileNumberTextField,emailTextField].forEach({$0.isUserInteractionEnabled=false})
         
@@ -514,59 +514,59 @@ class CustomPharamacyProfileView: CustomBaseView {
         return ss
     }
     
-//    fileprivate func getCityFromIndex(_ index:Int) -> String {
-//        var citName = [String]()
-//        var cityId = [Int]()
-//        
-//        if MOLHLanguage.isRTLLanguage() {
-//            
-//            
-//            
-//            if let  cityArray = userDefaults.value(forKey: UserDefaultsConstants.cityNameARArray) as? [String],let cityIds = userDefaults.value(forKey: UserDefaultsConstants.cityIdArray) as? [Int]{
-//                
-//                citName = cityArray
-//                cityId = cityIds
-//                
-//                
-//                
-//            }}else {
-//            if let cityArray = userDefaults.value(forKey: UserDefaultsConstants.cityNameArray) as? [String],let cityIds = userDefaults.value(forKey: UserDefaultsConstants.cityIdArray) as? [Int] {
-//                citName = cityArray
-//                cityId = cityIds
-//            }
-//        }
-//        let ss = cityId.filter{$0 == index}
-//        let ff = ss.first ?? 1
-//        
-//        return citName[ff - 1 ]
-//    }
-//    
-//    fileprivate func getAreassFromIndex(_ index:Int) -> String {
-//        var citName = [String]()
-//        var cityId = [Int]()
-//        
-//        if MOLHLanguage.isRTLLanguage() {
-//            
-//            
-//            
-//            if let  cityArray = userDefaults.value(forKey: UserDefaultsConstants.areaNameARArray) as? [String],let cityIds = userDefaults.value(forKey: UserDefaultsConstants.areaIdArray) as? [Int]{
-//                
-//                citName = cityArray
-//                cityId = cityIds
-//                
-//                
-//                
-//            }}else {
-//            if let cityArray = userDefaults.value(forKey: UserDefaultsConstants.areaNameArray) as? [String],let cityIds = userDefaults.value(forKey: UserDefaultsConstants.areaIdArray) as? [Int] {
-//                citName = cityArray
-//                cityId = cityIds
-//            }
-//        }
-//        let ss = cityId.filter{$0 == index}
-//        let ff = ss.first ?? 1
-//        
-//        return citName[ff - 1 ]
-//    }
+    //    fileprivate func getCityFromIndex(_ index:Int) -> String {
+    //        var citName = [String]()
+    //        var cityId = [Int]()
+    //        
+    //        if MOLHLanguage.isRTLLanguage() {
+    //            
+    //            
+    //            
+    //            if let  cityArray = userDefaults.value(forKey: UserDefaultsConstants.cityNameARArray) as? [String],let cityIds = userDefaults.value(forKey: UserDefaultsConstants.cityIdArray) as? [Int]{
+    //                
+    //                citName = cityArray
+    //                cityId = cityIds
+    //                
+    //                
+    //                
+    //            }}else {
+    //            if let cityArray = userDefaults.value(forKey: UserDefaultsConstants.cityNameArray) as? [String],let cityIds = userDefaults.value(forKey: UserDefaultsConstants.cityIdArray) as? [Int] {
+    //                citName = cityArray
+    //                cityId = cityIds
+    //            }
+    //        }
+    //        let ss = cityId.filter{$0 == index}
+    //        let ff = ss.first ?? 1
+    //        
+    //        return citName[ff - 1 ]
+    //    }
+    //    
+    //    fileprivate func getAreassFromIndex(_ index:Int) -> String {
+    //        var citName = [String]()
+    //        var cityId = [Int]()
+    //        
+    //        if MOLHLanguage.isRTLLanguage() {
+    //            
+    //            
+    //            
+    //            if let  cityArray = userDefaults.value(forKey: UserDefaultsConstants.areaNameARArray) as? [String],let cityIds = userDefaults.value(forKey: UserDefaultsConstants.areaIdArray) as? [Int]{
+    //                
+    //                citName = cityArray
+    //                cityId = cityIds
+    //                
+    //                
+    //                
+    //            }}else {
+    //            if let cityArray = userDefaults.value(forKey: UserDefaultsConstants.areaNameArray) as? [String],let cityIds = userDefaults.value(forKey: UserDefaultsConstants.areaIdArray) as? [Int] {
+    //                citName = cityArray
+    //                cityId = cityIds
+    //            }
+    //        }
+    //        let ss = cityId.filter{$0 == index}
+    //        let ff = ss.first ?? 1
+    //        
+    //        return citName[ff - 1 ]
+    //    }
     
     fileprivate func getNameANdCity(lat:Double,lng:Double)  {
         let location = CLLocation(latitude: lat, longitude: lng)

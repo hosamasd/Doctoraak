@@ -680,6 +680,10 @@
 		4E3548A2242B899900DD4E7A /* MAY BE USED */ = {
 			isa = PBXGroup;
 			children = (
+				4EC977F1242B52AC00C61F1B /* CustomDoctorHomeView.swift */,
+				4EBDF1D824A1FF3200D6676F /* CustomDoctorMainHomeLeftView.swift */,
+				4E0923AC243DA7BD0068E10F /* CustomPatientSecondDataView.swift */,
+				4EEBF7C2243D9A250039BF81 /* CustomPatientThirddDataView.swift */,
 				4E35489E242B834300DD4E7A /* HomeLeftMenuCollcetionVC.swift */,
 				4EDBE2A0242BA00000702C9A /* Doctor Sceniro */,
 				4EC977EE242B525200C61F1B /* DoctorHomeVC.swift */,
@@ -815,19 +819,11 @@
 			isa = PBXGroup;
 			children = (
 				4EDFFD3324974B6C00256631 /* other profiles */,
-				4E70CD9B243DAC5400098C4C /* New Group */,
 				4EDBE2A3242BA25300702C9A /* Doctor Scenrieo */,
 				4E92AF6A242B714200BCF20E /* MAIN Home */,
 				4E58030824278A1300B5D502 /* Registration */,
 			);
 			path = CustomVC;
-			sourceTree = "<group>";
-		};
-		4E70CD9B243DAC5400098C4C /* New Group */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "New Group";
 			sourceTree = "<group>";
 		};
 		4E70CD9C243DAC7000098C4C /* Patient */ = {
@@ -1148,8 +1144,6 @@
 			children = (
 				4EB17F9C24A20EE800FEBA55 /* leftmenu */,
 				4E70CD9C243DAC7000098C4C /* Patient */,
-				4EC977F1242B52AC00C61F1B /* CustomDoctorHomeView.swift */,
-				4EBDF1D824A1FF3200D6676F /* CustomDoctorMainHomeLeftView.swift */,
 			);
 			path = "Doctor Home";
 			sourceTree = "<group>";
@@ -1346,8 +1340,6 @@
 			children = (
 				4E96752A2497A1EB006CE497 /* CustomSelectedPatientDataVC.swift */,
 				4E92AF66242B6B5C00BCF20E /* CustomPatientDataView.swift */,
-				4E0923AC243DA7BD0068E10F /* CustomPatientSecondDataView.swift */,
-				4EEBF7C2243D9A250039BF81 /* CustomPatientThirddDataView.swift */,
 			);
 			path = Patients;
 			sourceTree = "<group>";

@@ -145,18 +145,18 @@ class CustomMainHomeView: CustomBaseView {
     lazy var continueButton = createMainButtonsss(title: "Follow up".localized, color: .black, tags: 3)
     
     func createMainButtonsss(title:String,color:UIColor,tags : Int? = 0,colors:UIColor? = #colorLiteral(red: 0.9097270966, green: 0.9098548293, blue: 0.9096868634, alpha: 1)) -> UIButton {
-            let button = UIButton(type: .system)
-            button.clipsToBounds = true
-            button.setTitle(title, for: .normal)
-            button.setTitleColor(color, for: .normal)
+        let button = UIButton(type: .system)
+        button.clipsToBounds = true
+        button.setTitle(title, for: .normal)
+        button.setTitleColor(color, for: .normal)
         button.setTitleColor(.white, for: .selected)
-
-            button.constrainHeight(constant: 50)
-            button.tag = tags ?? 0
-            button.layer.cornerRadius = 16
-            button.backgroundColor = colors
-            return button
-        }
+        
+        button.constrainHeight(constant: 50)
+        button.tag = tags ?? 0
+        button.layer.cornerRadius = 16
+        button.backgroundColor = colors
+        return button
+    }
     
     lazy var mainHomePatientsCollectionVC:MainHomePatientsCollectionVC = {
         let vc = MainHomePatientsCollectionVC()
@@ -193,10 +193,10 @@ class CustomMainHomeView: CustomBaseView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-//        if allButton.backgroundColor != nil && index == 0 || index == 1{
-//            addGradientInSenderAndRemoveOther(sender: allButton)
-//            allButton.setTitleColor(.white, for: .normal)
-//        }
+        //        if allButton.backgroundColor != nil && index == 0 || index == 1{
+        //            addGradientInSenderAndRemoveOther(sender: allButton)
+        //            allButton.setTitleColor(.white, for: .normal)
+        //        }
     }
     
     override func setupViews() {
