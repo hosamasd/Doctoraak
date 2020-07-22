@@ -112,26 +112,6 @@ class DoctorClinicDataVC: CustomBaseViewVC {
     
     //MARK:-User methods
     
-    fileprivate  func check()  {
-        let s = #imageLiteral(resourceName: "lego(1)")
-        let dd:[WorkModel] = [
-            .init(part1From: "00:00", part1To: "00:00", part2From: "00:00", part2To: "00:00", day: 1, active: 0),
-            .init(part1From: "00:00", part1To: "00:00", part2From: "00:00", part2To: "00:00", day: 2, active: 0),
-            .init(part1From: "00:00", part1To: "00:00", part2From: "00:00", part2To: "00:00", day: 3, active: 0),
-            .init(part1From: "00:00", part1To: "00:00", part2From: "00:00", part2To: "00:00", day: 4, active: 0),
-            .init(part1From: "00:00", part1To: "00:00", part2From: "00:00", part2To: "00:00", day: 5, active: 0),
-            .init(part1From: "00:00", part1To: "00:00", part2From: "00:00", part2To: "00:00", day: 6, active: 0),
-            .init(part1From: "15:00", part1To: "20:00", part2From: "00:00", part2To: "00:00", day: 7, active: 1),
-        ]
-        
-        
-        RegistrationServices.shared.RegiasterClinicCreate(fees2: 4, fees: 4, lang: 30.5653565965, latt: 30.5653565965, phone: "99999999632", photo:s , city: 1, area: 1, api_token: "Jb7LVajdcATjzD6ShfC1QPCsfMOndOt2jMk4DI1USrETbRwM5T", waiting_time: 20, doctor_id: 30, working_hours: dd) { (base, err) in
-            if let err=err{
-                print(err.localizedDescription)
-            }
-        }
-    }
-    
     fileprivate func setupViewModelObserver()  {
         customClinicDataView.clinicDataViewModel.bindableIsFormValidate.bind { [unowned self] (isValidForm) in
             guard let isValid = isValidForm else {return}
@@ -171,22 +151,13 @@ class DoctorClinicDataVC: CustomBaseViewVC {
     }
     
     fileprivate func goToNext(_ clinic_id:Int)  {
-         self.updateStates(clinic_id,index: index)
+        self.updateStates(clinic_id,index: index)
         if isAddClinic {
             let payment = MainPaymentVC()
             navigationController?.pushViewController(payment, animated: true)
         }else{ dismiss(animated: true)}
         
-//        isFromProfile ? self.removeSomeObjects() :    self.updateStates(clinic_id,index: index)
-       
-    }
-    
-    fileprivate func removeSomeObjects()  {
-        
-//        cachdDOCTORWorkingHourObjectCodabe.deleteFile(cachdDOCTORWorkingHourObjectCodabe.storedValue!)
-//        userDefaults.set(false, forKey: UserDefaultsConstants.isDoctorWorkingHoursCached)
-//        //        userDefaults.set(false, forKey: UserDefaultsConstants.isAllMainHomeObjectsFetchedDoctor)
-//        userDefaults.synchronize()
+        //        isFromProfile ? self.removeSomeObjects() :    self.updateStates(clinic_id,index: index)
         
     }
     
@@ -196,7 +167,7 @@ class DoctorClinicDataVC: CustomBaseViewVC {
         userDefaults.set(true, forKey: UserDefaultsConstants.currentUserLoginInAPP)
         userDefaults.set(false, forKey: UserDefaultsConstants.isAllMainHomeObjectsFetched)
         cachdDOCTORWorkingHourObjectCodabe.deleteFile(cachdDOCTORWorkingHourObjectCodabe.storedValue!)
-               userDefaults.set(false, forKey: UserDefaultsConstants.isDoctorWorkingHoursCached)
+        userDefaults.set(false, forKey: UserDefaultsConstants.isDoctorWorkingHoursCached)
         userDefaults.synchronize()
     }
     
@@ -225,6 +196,7 @@ class DoctorClinicDataVC: CustomBaseViewVC {
                 self.activeViewsIfNoData();return
             }
             //                   SVProgressHUD.dismiss()
+            self.handleDismiss()
             self.activeViewsIfNoData()
             guard let user = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
             
@@ -305,6 +277,7 @@ class DoctorClinicDataVC: CustomBaseViewVC {
                 self.activeViewsIfNoData();return
             }
             SVProgressHUD.dismiss()
+            self.handleDismiss()
             self.activeViewsIfNoData()
             guard let user = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
             
@@ -331,10 +304,10 @@ class DoctorClinicDataVC: CustomBaseViewVC {
         customClinicDataView.clinicDataViewModel.performUpdating { (base, err) in
             if let err = err {
                 SVProgressHUD.showError(withStatus: err.localizedDescription)
-//                self.handleDismiss()
+                //                self.handleDismiss()
                 self.activeViewsIfNoData();return
             }
-//            SVProgressHUD.dismiss()
+            //            SVProgressHUD.dismiss()
             self.handleDismiss()
             self.activeViewsIfNoData()
             guard let user = base?.data else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
@@ -375,11 +348,17 @@ extension DoctorClinicDataVC: MainClinicWorkingHoursProtocol {
 extension DoctorClinicDataVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     func imagePickerController (_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]){
-        if let img = info[.originalImage]  as? UIImage   {
+        if var img = info[.originalImage]  as? UIImage   {
+            let jpegData = img.jpegData(compressionQuality: 1.0)
+            let jpegSize: Int = jpegData?.count ?? 0
+            img = (jpegSize > 30000 ? img.resized(toWidth: 1300) : img) ?? img
             customClinicDataView.clinicDataViewModel.image = img
             customClinicDataView.clinicProfileImage.image = img
         }
-        if let img = info[.editedImage]  as? UIImage   {
+        if var img = info[.editedImage]  as? UIImage   {
+            let jpegData = img.jpegData(compressionQuality: 1.0)
+            let jpegSize: Int = jpegData?.count ?? 0
+            img = (jpegSize > 30000 ? img.resized(toWidth: 1300) : img) ?? img
             customClinicDataView.clinicDataViewModel.image = img
             customClinicDataView.clinicProfileImage.image = img
         }
@@ -405,8 +384,8 @@ extension DoctorClinicDataVC: ChooseLocationVCProtocol{
         customClinicDataView.clinicDataViewModel.latt = lat
         customClinicDataView.clinicDataViewModel.lang = long
         convertLatLongToAddress(latitude: lat, longitude: long) { (ss) in
-                    self.customClinicDataView.addressLabel.text=ss
-               }
+            self.customClinicDataView.addressLabel.text=ss
+        }
     }
 }
 

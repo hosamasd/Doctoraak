@@ -20,11 +20,18 @@ class LoginViewModel {
     var specificationId:Int?  = -1 {didSet {checkFormValidity()}}
 
     func performDoctorLogging(completion:@escaping (MainDoctorLoginModel?,Error?)->Void)  {
-        guard let phone = phone,let password = password,let index=index
-            else { return  }
-        bindableIsLogging.value = true
-        
+        if index == 1 {
+             guard let phone = phone,let password = password,let index=index,let specificationId=specificationId
+                       else { return  }
+                   bindableIsLogging.value = true
+            LoginServices.shared.DoctorLoginUser(specId:specificationId,index: index, phone: phone, password: password, completion: completion)
+
+        }else {
+       
+        guard let phone = phone,let password = password,let index=index  else { return  }
+                         bindableIsLogging.value = true
         LoginServices.shared.DoctorLoginUser(specId:specificationId,index: index, phone: phone, password: password, completion: completion)
+    }
     }
     
     func performPharamacyLogging(completion:@escaping (MainPharamacyLoginModel?,Error?)->Void)  {
@@ -47,7 +54,7 @@ class LoginViewModel {
     
     
     func checkFormValidity() {
-        let isFormValid = phone?.isEmpty == false && password?.isEmpty == false && index != -1
+        let isFormValid = index == 1 ? phone?.isEmpty == false && password?.isEmpty == false && index == 1 && specificationId != -1 : phone?.isEmpty == false && password?.isEmpty == false && index != -1
         
         bindableIsFormValidate.value = isFormValid
         

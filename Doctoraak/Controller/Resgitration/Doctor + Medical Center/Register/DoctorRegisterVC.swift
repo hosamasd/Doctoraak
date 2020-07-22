@@ -16,7 +16,7 @@ class DoctorRegisterVC: CustomBaseViewVC {
         let v = UIScrollView()
         v.backgroundColor = .clear
         v.showsVerticalScrollIndicator=false
-
+        
         return v
     }()
     lazy var mainView:UIView = {
@@ -42,7 +42,7 @@ class DoctorRegisterVC: CustomBaseViewVC {
         super.init(nibName: nil, bundle: nil)
     }
     
-   
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,7 +56,7 @@ class DoctorRegisterVC: CustomBaseViewVC {
     
     //MARK:-User methods
     
-   fileprivate func setupViewModelObserver()  {
+    fileprivate func setupViewModelObserver()  {
         customRegisterView.doctorRegisterViewModel.bindableIsFormValidate.bind { [unowned self] (isValidForm) in
             guard let isValid = isValidForm else {return}
             //            self.customLoginView.loginButton.isEnabled = isValid
@@ -94,18 +94,18 @@ class DoctorRegisterVC: CustomBaseViewVC {
         //        userDefaults.set(index, forKey: UserDefaultsConstants.indexForSMSCodeForSpecific)
         
         userDefaults.synchronize()
-     }
+    }
     
     fileprivate func handleOpenGallery(sourceType:UIImagePickerController.SourceType)  {
-           let imagePicker = UIImagePickerController()
-           imagePicker.delegate = self
-           imagePicker.sourceType = sourceType
-           present(imagePicker, animated: true)
-       }
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        imagePicker.sourceType = sourceType
+        present(imagePicker, animated: true)
+    }
     
     //TODO: -handle methods
     
-   @objc func createAlertForChoposingImage()  {
+    @objc func createAlertForChoposingImage()  {
         let alert = UIAlertController(title: "Choose Image".localized, message: "Choose image fROM ".localized, preferredStyle: .alert)
         let camera = UIAlertAction(title: "Camera".localized, style: .default) {[unowned self] (_) in
             self.handleOpenGallery(sourceType: .camera)
@@ -141,8 +141,8 @@ class DoctorRegisterVC: CustomBaseViewVC {
     }
     
     required init?(coder: NSCoder) {
-           fatalError("init(coder:) has not been implemented")
-       }
+        fatalError("init(coder:) has not been implemented")
+    }
     
 }
 
@@ -153,11 +153,17 @@ class DoctorRegisterVC: CustomBaseViewVC {
 extension DoctorRegisterVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     func imagePickerController (_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]){
-        if let img = info[.originalImage]  as? UIImage   {
+        if var img = info[.originalImage]  as? UIImage   {
+            let jpegData = img.jpegData(compressionQuality: 1.0)
+            let jpegSize: Int = jpegData?.count ?? 0
+            img = (jpegSize > 30000 ? img.resized(toWidth: 1300) : img) ?? img
             customRegisterView.doctorRegisterViewModel.image = img
             customRegisterView.userProfileImage.image = img
         }
-        if let img = info[.editedImage]  as? UIImage   {
+        if var img = info[.editedImage]  as? UIImage   {
+            let jpegData = img.jpegData(compressionQuality: 1.0)
+            let jpegSize: Int = jpegData?.count ?? 0
+            img = (jpegSize > 30000 ? img.resized(toWidth: 1300) : img) ?? img
             customRegisterView.doctorRegisterViewModel.image = img
             customRegisterView.userProfileImage.image = img
         }

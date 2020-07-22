@@ -102,13 +102,13 @@ class NotificationVC: CustomBaseViewVC {
             //            userDefaults.bool(forKey: UserDefaultsConstants.isDoctorNotificationChanged) ? getNotifications() : ()
         }
     }
-    var medicalCenter:DoctorModel?{
-        didSet{
-            guard let lab = medicalCenter else { return  }
-            customNotificationView.medicalCenter=lab
-            //            userDefaults.bool(forKey: UserDefaultsConstants.isMedicalCenterNotificationChanged) ? getNotifications() : ()
-        }
-    }
+//    var medicalCenter:DoctorModel?{
+//        didSet{
+//            guard let lab = medicalCenter else { return  }
+//            customNotificationView.medicalCenter=lab
+//            //            userDefaults.bool(forKey: UserDefaultsConstants.isMedicalCenterNotificationChanged) ? getNotifications() : ()
+//        }
+//    }
     var lab:LabModel?{
         didSet{
             guard let lab = lab else { return  }
@@ -195,14 +195,14 @@ class NotificationVC: CustomBaseViewVC {
         }else if userDefaults.bool(forKey: UserDefaultsConstants.DoctorPerformLogin) {
             doctor = cacheDoctorObjectCodabe.storedValue
             isBeginFetchNotification ? getNotifications() : ()
-            
-            //            userDefaults.bool(forKey: UserDefaultsConstants.isDoctorNotificationChanged) ? getNotifications() : ()
-        }else if userDefaults.bool(forKey: UserDefaultsConstants.medicalCenterPerformLogin) {
-            medicalCenter = cacheMedicalObjectCodabe.storedValue
-            isBeginFetchNotification ? getNotifications() : ()
-            
-            //            userDefaults.bool(forKey: UserDefaultsConstants.isMedicalCenterNotificationChanged) ? getNotifications() : ()
         }
+            //            userDefaults.bool(forKey: UserDefaultsConstants.isDoctorNotificationChanged) ? getNotifications() : ()
+//        }else if userDefaults.bool(forKey: UserDefaultsConstants.medicalCenterPerformLogin) {
+//            medicalCenter = cacheMedicalObjectCodabe.storedValue
+//            isBeginFetchNotification ? getNotifications() : ()
+//
+//            //            userDefaults.bool(forKey: UserDefaultsConstants.isMedicalCenterNotificationChanged) ? getNotifications() : ()
+//        }
     }
     
     fileprivate func getNotifications()  {
@@ -244,7 +244,7 @@ class NotificationVC: CustomBaseViewVC {
         dd.rad=self.rad
         dd.phy=self.phy
         dd.doctor=self.doctor
-        dd.medicalCenter=self.medicalCenter
+//        dd.medicalCenter=self.medicalCenter
         
         navigationController?.pushViewController(dd, animated: true)
     }

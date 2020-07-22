@@ -106,9 +106,9 @@ class HomeLeftMenuVC: CustomBaseViewVC {
         if userDefaults.bool(forKey: UserDefaultsConstants.DoctorPerformLogin) {
             doctor = cacheDoctorObjectCodabe.storedValue
         }
-        if userDefaults.bool(forKey: UserDefaultsConstants.medicalCenterPerformLogin) {
-            medicalCenter = cacheMedicalObjectCodabe.storedValue
-        }
+//        if userDefaults.bool(forKey: UserDefaultsConstants.medicalCenterPerformLogin) {
+//            medicalCenter = cacheMedicalObjectCodabe.storedValue
+//        }
         
         if userDefaults.bool(forKey: UserDefaultsConstants.isSpecifiedIndexClincChoosed) {
             doctorCacheClinic = cacheDoctorObjectClinicWorkingHoursLeftMenu.storedValue
@@ -179,7 +179,7 @@ class HomeLeftMenuVC: CustomBaseViewVC {
         profile.phy=phy
         profile.lab=lab
         profile.doctor=doctor
-        profile.medicalCenter=self.medicalCenter
+//        profile.medicalCenter=self.medicalCenter
         profile.rad=rad
         let nav = UINavigationController(rootViewController: profile)
         

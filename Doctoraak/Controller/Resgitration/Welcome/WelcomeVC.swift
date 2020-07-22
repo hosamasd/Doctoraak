@@ -130,19 +130,6 @@ class WelcomeVC: CustomBaseViewVC {
         userDefaults.synchronize()
     }
     
-    func checks()  {
-        
-        print(userDefaults.value(forKey: UserDefaultsConstants.areaNameARArray))
-        print("            ",userDefaults.value(forKey: UserDefaultsConstants.cityNameFRArray))
-        print("                ",userDefaults.value(forKey: UserDefaultsConstants.specificationNameArray))
-        print("                        ",userDefaults.value(forKey: UserDefaultsConstants.insuranceNameARArray))
-        print(" ",userDefaults.value(forKey: UserDefaultsConstants.degreeNameFRArray))
-        userDefaults.set(false, forKey: UserDefaultsConstants.isCachedDriopLists)
-        //        userDefaults.removeObject(forKey: <#T##String#>)
-        userDefaults.synchronize()
-        
-    }
-    
     override func setupViews() {
         
         view.addSubview(customWelcomeView)

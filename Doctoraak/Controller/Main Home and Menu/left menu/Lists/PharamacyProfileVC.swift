@@ -149,25 +149,25 @@ class PharamacyProfileVC: CustomBaseViewVC {
         present(imagePicker, animated: true)
     }
     
-//    fileprivate func convertLatLongToAddress(latitude:Double,longitude:Double){
-//
-//        let geoCoder = CLGeocoder()
-//        let location = CLLocation(latitude: latitude, longitude: longitude)
-//        geoCoder.reverseGeocodeLocation(location, completionHandler: {[unowned self] (placemarks, error) -> Void in
-//
-//            // Place details
-//            //            var placeMark: CLPlacemark?
-//            guard let   placeMark = placemarks?[0] else {return}
-//
-//            self.customPharamacyProfileView.addressLabel.text =  placeMark.locality ?? ""
-//
-//            // Location name
-//            guard  let street = placeMark.subLocality, let city = placeMark.administrativeArea, let country = placeMark.country else {return}
-//            self.customPharamacyProfileView.addressLabel.text =  " \(street) - \(city) - \(country)"
-//        })
-//
-//
-//    }
+    //    fileprivate func convertLatLongToAddress(latitude:Double,longitude:Double){
+    //
+    //        let geoCoder = CLGeocoder()
+    //        let location = CLLocation(latitude: latitude, longitude: longitude)
+    //        geoCoder.reverseGeocodeLocation(location, completionHandler: {[unowned self] (placemarks, error) -> Void in
+    //
+    //            // Place details
+    //            //            var placeMark: CLPlacemark?
+    //            guard let   placeMark = placemarks?[0] else {return}
+    //
+    //            self.customPharamacyProfileView.addressLabel.text =  placeMark.locality ?? ""
+    //
+    //            // Location name
+    //            guard  let street = placeMark.subLocality, let city = placeMark.administrativeArea, let country = placeMark.country else {return}
+    //            self.customPharamacyProfileView.addressLabel.text =  " \(street) - \(city) - \(country)"
+    //        })
+    //
+    //
+    //    }
     
     fileprivate func cachedATA(_ patient:PharamacyModel? = nil ,_ lab:LabModel? = nil,_ rad:RadiologyModel? = nil)  {
         patient != nil ?    cachdPHARMACYObjectCodabe.save(patient!) : ()
@@ -288,11 +288,17 @@ class PharamacyProfileVC: CustomBaseViewVC {
 extension PharamacyProfileVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     func imagePickerController (_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]){
-        if let img = info[.originalImage]  as? UIImage   {
+        if var img = info[.originalImage]  as? UIImage   {
+            let jpegData = img.jpegData(compressionQuality: 1.0)
+            let jpegSize: Int = jpegData?.count ?? 0
+            img = (jpegSize > 30000 ? img.resized(toWidth: 1300) : img) ?? img
             customPharamacyProfileView.edirProfileViewModel.image = img
             customPharamacyProfileView.userProfileImage.image = img
         }
-        if let img = info[.editedImage]  as? UIImage   {
+        if var img = info[.editedImage]  as? UIImage   {
+            let jpegData = img.jpegData(compressionQuality: 1.0)
+            let jpegSize: Int = jpegData?.count ?? 0
+            img = (jpegSize > 30000 ? img.resized(toWidth: 1300) : img) ?? img
             customPharamacyProfileView.edirProfileViewModel.image = img
             customPharamacyProfileView.userProfileImage.image = img
         }
@@ -334,8 +340,8 @@ extension PharamacyProfileVC: ChooseLocationVCProtocol{
     
     func getLatAndLong(lat: Double, long: Double) {
         convertLatLongToAddress(latitude: lat, longitude: long) { (ss) in
-                    self.customPharamacyProfileView.addressLabel.text=ss
-               }
+            self.customPharamacyProfileView.addressLabel.text=ss
+        }
         customPharamacyProfileView.edirProfileViewModel.latt = lat
         customPharamacyProfileView.edirProfileViewModel.lang = long
     }

@@ -52,7 +52,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,MOLHResetable {
         
         window = UIWindow()
         window?.makeKeyAndVisible()
-        window?.rootViewController = BaseSlidingVC()//UINavigationController(rootViewController: MainPaymentVC())//BaseSlidingVC()//HomeLeftMenuVC(index: 3)//WelcomeVC()//BaseSlidingVC()//UINavigationController(rootViewController: TestVCS())//MainLoginsVC(indexx: 3))//DoctorRegisterVC(indexx: 1))//MainClinicWorkingHoursNotDoctorVC(index: 2, isFromUpdateProfile: true, isFromRegister: true))//DoctorClinicDataVC(indexx: 0, api_token: "", doctor_id: 2, isFromProfile: false))//DoctorRegisterVC(indexx: 0) )//BaseSlidingVC()
+        window?.rootViewController = BaseSlidingVC()//UINavigationController(rootViewController: MainLoginsVC(indexx: 1))//BaseSlidingVC()//HomeLeftMenuVC(index: 3)//WelcomeVC()//BaseSlidingVC()//UINavigationController(rootViewController: TestVCS())//MainLoginsVC(indexx: 3))//DoctorRegisterVC(indexx: 1))//MainClinicWorkingHoursNotDoctorVC(index: 2, isFromUpdateProfile: true, isFromRegister: true))//DoctorClinicDataVC(indexx: 0, api_token: "", doctor_id: 2, isFromProfile: false))//DoctorRegisterVC(indexx: 0) )//BaseSlidingVC()
         return true
     }
     

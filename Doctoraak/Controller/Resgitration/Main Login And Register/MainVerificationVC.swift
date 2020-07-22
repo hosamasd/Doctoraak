@@ -188,7 +188,7 @@ class MainVerificationVC: CustomBaseViewVC {
             navigationController?.pushViewController(vc, animated: true)
         }else if isFromForgetPassw {
             let login = MainLoginsVC(indexx: index)
-           navigationController?.pushViewController(login, animated: true)
+            navigationController?.pushViewController(login, animated: true)
         }else {
             userDefaults.set(true, forKey: UserDefaultsConstants.currentUserLoginInAPP)
             userDefaults.synchronize()

@@ -29,18 +29,18 @@ class MainNewPassVC: CustomBaseViewVC {
         return v
     }()
     lazy var scrollView: UIScrollView = {
-           let v = UIScrollView()
-           v.backgroundColor = .clear
-           v.showsVerticalScrollIndicator=false
-
-           return v
-       }()
-       lazy var mainView:UIView = {
-           let v = UIView(backgroundColor: .white)
-           v.constrainHeight(constant: 800)
-           v.constrainWidth(constant: view.frame.width)
-           return v
-       }()
+        let v = UIScrollView()
+        v.backgroundColor = .clear
+        v.showsVerticalScrollIndicator=false
+        
+        return v
+    }()
+    lazy var mainView:UIView = {
+        let v = UIView(backgroundColor: .white)
+        v.constrainHeight(constant: 800)
+        v.constrainWidth(constant: view.frame.width)
+        return v
+    }()
     
     lazy var customMainAlertVC:CustomMainAlertVC = {
         let t = CustomMainAlertVC()
@@ -67,17 +67,17 @@ class MainNewPassVC: CustomBaseViewVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViewModelObserver()
-
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
-              super.viewWillAppear(animated)
-           customMainNewPassView.codeTextField.becomeFirstResponder()
-          }
+        super.viewWillAppear(animated)
+        customMainNewPassView.codeTextField.becomeFirstResponder()
+    }
     
     //MARK:-User methods
     
-   fileprivate func setupViewModelObserver()  {
+    fileprivate func setupViewModelObserver()  {
         customMainNewPassView.newPassViewModel.bindableIsFormValidate.bind { [unowned self] (isValidForm) in
             guard let isValid = isValidForm else {return}
             //            self.customLoginView.loginButton.isEnabled = isValid
@@ -120,8 +120,8 @@ class MainNewPassVC: CustomBaseViewVC {
         scrollView.fillSuperview()
         scrollView.addSubview(mainView)
         mainView.anchor(top: scrollView.topAnchor, leading: scrollView.leadingAnchor, bottom: scrollView.bottomAnchor, trailing: scrollView.trailingAnchor,padding: .init(top: -60, left: 0, bottom: 0, right: 0))
-               mainView.addSubViews(views: customMainNewPassView)
-               customMainNewPassView.fillSuperview()
+        mainView.addSubViews(views: customMainNewPassView)
+        customMainNewPassView.fillSuperview()
     }
     
     func goToNext()  {

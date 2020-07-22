@@ -91,14 +91,14 @@ class TopMainHomeCell: BaseCollectionCell {
         }
     }
     
-    var medicalCenter:DoctorModel? {
-        didSet{
-            guard let doctor = medicalCenter else { return  }
-            profileImage.image = #imageLiteral(resourceName: "ic_clinic")
-            let title = MOLHLanguage.isRTLLanguage() ? doctor.nameAr ?? doctor.name :  doctor.name
-            putsAttributedText(la: doctorWelcomeLabel, ft: "Welcome \n\n".localized, st: title)
-        }
-    }
+//    var medicalCenter:DoctorModel? {
+//        didSet{
+//            guard let doctor = medicalCenter else { return  }
+//            profileImage.image = #imageLiteral(resourceName: "ic_clinic")
+//            let title = MOLHLanguage.isRTLLanguage() ? doctor.nameAr ?? doctor.name :  doctor.name
+//            putsAttributedText(la: doctorWelcomeLabel, ft: "Welcome \n\n".localized, st: title)
+//        }
+//    }
     
     lazy var profileImage:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "ic_lab_type"))

@@ -18,7 +18,7 @@ class MainRegisterVC: CustomBaseViewVC {
         let v = UIScrollView()
         v.backgroundColor = .clear
         v.showsVerticalScrollIndicator=false
-
+        
         return v
     }()
     lazy var mainView:UIView = {
@@ -132,51 +132,51 @@ class MainRegisterVC: CustomBaseViewVC {
     
     
     fileprivate func saveAllToken(mobile:String,index:Int,user_id:Int)  {
-           userDefaults.set(mobile, forKey: UserDefaultsConstants.mobileForAll)
-           userDefaults.set(user_id, forKey: UserDefaultsConstants.user_idForAll)
-           userDefaults.set(true, forKey: UserDefaultsConstants.waitForSMSCodeForSpecific)
-           userDefaults.set(index, forKey: UserDefaultsConstants.indexForSMSCodeForSpecific)
-
-           userDefaults.synchronize()
-           goToNext(id: user_id)
-       }
+        userDefaults.set(mobile, forKey: UserDefaultsConstants.mobileForAll)
+        userDefaults.set(user_id, forKey: UserDefaultsConstants.user_idForAll)
+        userDefaults.set(true, forKey: UserDefaultsConstants.waitForSMSCodeForSpecific)
+        userDefaults.set(index, forKey: UserDefaultsConstants.indexForSMSCodeForSpecific)
+        
+        userDefaults.synchronize()
+        goToNext(id: user_id)
+    }
     
-//    fileprivate func saveRadToken(mobile:String,index:Int,user_id:Int)  {
-//        userDefaults.set(mobile, forKey: UserDefaultsConstants.mobileForAll)
-//        userDefaults.set(user_id, forKey: UserDefaultsConstants.user_idForAll)
-//        userDefaults.set(true, forKey: UserDefaultsConstants.waitForSMSCodeForSpecific)
-//        userDefaults.set(index, forKey: UserDefaultsConstants.indexForSMSCodeForSpecific)
-//
-//        userDefaults.synchronize()
-//        goToNext(id: user_id)
-//    }
-//
-//    fileprivate func saveLABToken(mobile:String,index:Int,user_id:Int)  {
-////        userDefaults.set(index, forKey: UserDefaultsConstants.MainLoginINDEX)
-//        userDefaults.set(mobile, forKey: UserDefaultsConstants.pharamcyRegisterMobile)
-//        userDefaults.set(user_id, forKey: UserDefaultsConstants.pharamcyRegisterUser_id)
-//        userDefaults.set(true, forKey: UserDefaultsConstants.isUserRegisterAndWaitForSMScODE)
-//        userDefaults.synchronize()
-//        goToNext(id: user_id)
-//    }
-//
-//    fileprivate func savePharmacyToken(mobile:String,index:Int,user_id:Int)  {
-////        userDefaults.set(index, forKey: UserDefaultsConstants.MainLoginINDEX)
-//        userDefaults.set(mobile, forKey: UserDefaultsConstants.labRegisterMobile)
-//        userDefaults.set(user_id, forKey: UserDefaultsConstants.labRegisterUser_id)
-//        userDefaults.set(true, forKey: UserDefaultsConstants.isUserRegisterAndWaitForSMScODE)
-//        userDefaults.synchronize()
-//        goToNext(id: user_id)
-//    }
+    //    fileprivate func saveRadToken(mobile:String,index:Int,user_id:Int)  {
+    //        userDefaults.set(mobile, forKey: UserDefaultsConstants.mobileForAll)
+    //        userDefaults.set(user_id, forKey: UserDefaultsConstants.user_idForAll)
+    //        userDefaults.set(true, forKey: UserDefaultsConstants.waitForSMSCodeForSpecific)
+    //        userDefaults.set(index, forKey: UserDefaultsConstants.indexForSMSCodeForSpecific)
+    //
+    //        userDefaults.synchronize()
+    //        goToNext(id: user_id)
+    //    }
+    //
+    //    fileprivate func saveLABToken(mobile:String,index:Int,user_id:Int)  {
+    ////        userDefaults.set(index, forKey: UserDefaultsConstants.MainLoginINDEX)
+    //        userDefaults.set(mobile, forKey: UserDefaultsConstants.pharamcyRegisterMobile)
+    //        userDefaults.set(user_id, forKey: UserDefaultsConstants.pharamcyRegisterUser_id)
+    //        userDefaults.set(true, forKey: UserDefaultsConstants.isUserRegisterAndWaitForSMScODE)
+    //        userDefaults.synchronize()
+    //        goToNext(id: user_id)
+    //    }
+    //
+    //    fileprivate func savePharmacyToken(mobile:String,index:Int,user_id:Int)  {
+    ////        userDefaults.set(index, forKey: UserDefaultsConstants.MainLoginINDEX)
+    //        userDefaults.set(mobile, forKey: UserDefaultsConstants.labRegisterMobile)
+    //        userDefaults.set(user_id, forKey: UserDefaultsConstants.labRegisterUser_id)
+    //        userDefaults.set(true, forKey: UserDefaultsConstants.isUserRegisterAndWaitForSMScODE)
+    //        userDefaults.synchronize()
+    //        goToNext(id: user_id)
+    //    }
     
-//    fileprivate func saveDoctorToken(mobile:String,index:Int,user_id:Int)  {
-//        userDefaults.set(index, forKey: UserDefaultsConstants.MainLoginINDEX)
-//        userDefaults.set(mobile, forKey: UserDefaultsConstants.doctorRegisterMobile)
-//        userDefaults.set(user_id, forKey: UserDefaultsConstants.doctorSecondRegisterUser_id)
-//        userDefaults.set(true, forKey: UserDefaultsConstants.isUserRegisterAndWaitForSMScODE)
-//        userDefaults.synchronize()
-//        goToNext(id: user_id)
-//    }
+    //    fileprivate func saveDoctorToken(mobile:String,index:Int,user_id:Int)  {
+    //        userDefaults.set(index, forKey: UserDefaultsConstants.MainLoginINDEX)
+    //        userDefaults.set(mobile, forKey: UserDefaultsConstants.doctorRegisterMobile)
+    //        userDefaults.set(user_id, forKey: UserDefaultsConstants.doctorSecondRegisterUser_id)
+    //        userDefaults.set(true, forKey: UserDefaultsConstants.isUserRegisterAndWaitForSMScODE)
+    //        userDefaults.synchronize()
+    //        goToNext(id: user_id)
+    //    }
     
     fileprivate  func goToNext(id:Int)  {
         let phone = customMainRegisterView.mobileNumberTextField.text ?? ""
@@ -307,11 +307,17 @@ class MainRegisterVC: CustomBaseViewVC {
 extension MainRegisterVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     func imagePickerController (_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]){
-        if let img = info[.originalImage]  as? UIImage   {
+        if var img = info[.originalImage]  as? UIImage   {
+            let jpegData = img.jpegData(compressionQuality: 1.0)
+            let jpegSize: Int = jpegData?.count ?? 0
+            img = (jpegSize > 30000 ? img.resized(toWidth: 1300) : img) ?? img
             customMainRegisterView.registerViewModel.image = img
             customMainRegisterView.userProfileImage.image = img
         }
-        if let img = info[.editedImage]  as? UIImage   {
+        if var img = info[.editedImage]  as? UIImage   {
+            let jpegData = img.jpegData(compressionQuality: 1.0)
+            let jpegSize: Int = jpegData?.count ?? 0
+            img = (jpegSize > 30000 ? img.resized(toWidth: 1300) : img) ?? img
             customMainRegisterView.registerViewModel.image = img
             customMainRegisterView.userProfileImage.image = img
         }
@@ -351,7 +357,7 @@ extension MainRegisterVC: ChooseLocationVCProtocol{
     
     func getLatAndLong(lat: Double, long: Double) {
         convertLatLongToAddress(latitude: lat, longitude: long) { (ss) in
-             self.customMainRegisterView.addressLabel.text=ss
+            self.customMainRegisterView.addressLabel.text=ss
         }
         customMainRegisterView.registerViewModel.latt = lat
         customMainRegisterView.registerViewModel.lang = long

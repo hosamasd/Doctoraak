@@ -96,12 +96,12 @@ class SelectedPharmacyPatientDataVC: CustomBaseViewVC {
             
         }
     }
-    var medicalCenter:DoctorModel?{
-        didSet{
-            guard let lab = medicalCenter else { return  }
-            //            userDefaults.bool(forKey: UserDefaultsConstants.isMedicalCenterNotificationChanged) ? getNotifications() : ()
-        }
-    }
+//    var medicalCenter:DoctorModel?{
+//        didSet{
+//            guard let lab = medicalCenter else { return  }
+//            //            userDefaults.bool(forKey: UserDefaultsConstants.isMedicalCenterNotificationChanged) ? getNotifications() : ()
+//        }
+//    }
     var doctor:DoctorModel?{
         didSet{
             guard let lab = doctor else { return  }
@@ -208,9 +208,10 @@ class SelectedPharmacyPatientDataVC: CustomBaseViewVC {
             phy = cachdPHARMACYObjectCodabe.storedValue
         }else if userDefaults.bool(forKey: UserDefaultsConstants.DoctorPerformLogin) {
             doctor = cacheDoctorObjectCodabe.storedValue
-        }else if userDefaults.bool(forKey: UserDefaultsConstants.medicalCenterPerformLogin) {
-            medicalCenter = cacheMedicalObjectCodabe.storedValue
         }
+//        else if userDefaults.bool(forKey: UserDefaultsConstants.medicalCenterPerformLogin) {
+//            medicalCenter = cacheMedicalObjectCodabe.storedValue
+//        }
     }
     
     //MARK:-User methods

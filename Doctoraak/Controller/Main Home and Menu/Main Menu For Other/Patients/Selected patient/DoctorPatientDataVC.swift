@@ -124,7 +124,7 @@ class DoctorPatientDataVC: CustomBaseViewVC {
     
     fileprivate func performCancelPatient()  {
         let userId = patient.id
-        guard  let doctor = index == 0 ? cacheDoctorObjectCodabe.storedValue : cacheMedicalObjectCodabe.storedValue else {return}
+        guard  let doctor =  cacheDoctorObjectCodabe.storedValue  else {return}
         UIApplication.shared.beginIgnoringInteractionEvents()
         self.showMainAlertLooder(cc: customMainAlertVC, v: customAlertMainLoodingView)
         

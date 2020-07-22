@@ -63,8 +63,7 @@ struct ClinicDoctorLoginModel:Codable {
     let gender, phone, smsCode, apiToken: String
     let  email, password: String
     let active, specializationID: Int
-    let cv: String
-    let cv2: String
+    var cv2,cv: String?
     let photo: String
     var reservationRate, degreeRate: Int?
     let createdAt, updatedAt: String

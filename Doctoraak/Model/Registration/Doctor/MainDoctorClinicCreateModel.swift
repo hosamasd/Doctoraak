@@ -56,8 +56,7 @@ struct DoctorSecondModel:Codable {
     let  password: String
     let active, specializationID: Int
     var degreeID:Int?
-    let cv: String
-    var cv2: String?
+    var cv2,cv: String?
     var photo: String?
     var reservationRate, degreeRate: String?
     let createdAt, updatedAt: String

@@ -36,7 +36,7 @@ class RegisterViewModel {
     var image:UIImage? {didSet {checkFormValidity()}}
     
     func performPHARAMACYRegister(completion:@escaping (MainPharamcyyRegisterModel?,Error?)->Void)  {
-           guard let email = email,let password = password,let name = name,let phone = phone, let insurance = insurance,let city=city,let area=area,let delivery=delivery,let working_hours=working_hours,let latt=latt,let lang=lang,let index=index
+           guard let email = email,let password = password,let name = name,let phone = phone, let insurance = insurance,let city=city,let area=area,let delivery=delivery,let working_hours=working_hours,let latt=latt,let lang=lang
                else { return  }
            bindableIsResgiter.value = true
            
@@ -44,23 +44,15 @@ class RegisterViewModel {
        }
     
     func performLABRegister(completion:@escaping (MainLabRegisterModel?,Error?)->Void)  {
-        guard let email = email,let password = password,let name = name,let phone = phone, let insurance = insurance,let city=city,let area=area,let delivery=delivery,let working_hours=working_hours,let latt=latt,let lang=lang,let index=index
+        guard let email = email,let password = password,let name = name,let phone = phone, let insurance = insurance,let city=city,let area=area,let delivery=delivery,let working_hours=working_hours,let latt=latt,let lang=lang
             else { return  }
         bindableIsResgiter.value = true
         
         RegistrationServices.shared.mainLABRegister( photo: image, name: name, email: email, phone: phone, password: password, insurance: insurance, delivery: delivery, working_hours: working_hours, latt:latt, lang: lang, city: city, area: area, completion: completion)
     }
     
-    func performDoctorRegister(completion:@escaping (MainLabRegisterModel?,Error?)->Void)  {
-        guard let email = email,let password = password,let name = name,let phone = phone, let insurance = insurance,let city=city,let area=area,let image=image,let delivery=delivery,let working_hours=working_hours,let latt=latt,let lang=lang,let index=index
-            else { return  }
-        bindableIsResgiter.value = true
-        
-//        RegistrationServices.shared.registerDoctor( photo: image, name: name, email: email, phone: phone, password: password, insurance: insurance, delivery: delivery, working_hours: working_hours, latt:latt, lang: lang, city: city, area: area, completion: completion)
-    }
-    
     func performRADRegister(completion:@escaping (MainRadiologyRegisterModel?,Error?)->Void)  {
-        guard let email = email,let password = password,let name = name,let phone = phone, let insurance = insurance,let city=city,let area=area,let delivery=delivery,let working_hours=working_hours,let latt=latt,let lang=lang,let index=index
+        guard let email = email,let password = password,let name = name,let phone = phone, let insurance = insurance,let city=city,let area=area,let delivery=delivery,let working_hours=working_hours,let latt=latt,let lang=lang
             else { return  }
         bindableIsResgiter.value = true
         

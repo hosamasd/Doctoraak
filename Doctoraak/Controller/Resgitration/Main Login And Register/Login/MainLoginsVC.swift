@@ -108,7 +108,7 @@ class MainLoginsVC: CustomBaseViewVC {
     fileprivate func saveDoctorToken(doctor:DoctorModel)  {
         userDefaults.set(true, forKey: UserDefaultsConstants.DoctorPerformLogin)
         userDefaults.set(true, forKey: UserDefaultsConstants.currentUserLoginInAPP)
-
+        
         userDefaults.set(index, forKey: UserDefaultsConstants.MainLoginINDEX)
         
         userDefaults.synchronize()
@@ -121,7 +121,7 @@ class MainLoginsVC: CustomBaseViewVC {
     fileprivate func saveRadToken(doctor:RadiologyModel)  {
         userDefaults.set(true, forKey: UserDefaultsConstants.radiologyPerformLogin)
         userDefaults.set(true, forKey: UserDefaultsConstants.currentUserLoginInAPP)
-
+        
         
         userDefaults.set(index, forKey: UserDefaultsConstants.MainLoginINDEX)
         
@@ -135,7 +135,7 @@ class MainLoginsVC: CustomBaseViewVC {
     fileprivate func saveLabToken(doctor:LabModel)  {
         userDefaults.set(true, forKey: UserDefaultsConstants.labPerformLogin)
         userDefaults.set(true, forKey: UserDefaultsConstants.currentUserLoginInAPP)
-
+        
         userDefaults.set(index, forKey: UserDefaultsConstants.MainLoginINDEX)
         
         userDefaults.synchronize()
@@ -225,7 +225,7 @@ class MainLoginsVC: CustomBaseViewVC {
         }
     }
     
-    func checkLabLoginState()  {
+   fileprivate func checkLabLoginState()  {
         customLoginsView.loginViewModel.performLabLogging {[unowned self] (base, err) in
             if let err = err {
                 SVProgressHUD.showError(withStatus: err.localizedDescription)

@@ -478,7 +478,7 @@ class CustomPharamacyProfileView: CustomBaseView {
         var ss = [String]()
         
         ind.forEach { (s) in
-            ss.append( getDaysForAll(s.active, day: s.day) ?? "")
+            ss.append( getDaysForAll(s.active, day: s.day) )
             
         }
         let dd = ss.filter({$0 != "    "})
@@ -513,60 +513,6 @@ class CustomPharamacyProfileView: CustomBaseView {
         }
         return ss
     }
-    
-    //    fileprivate func getCityFromIndex(_ index:Int) -> String {
-    //        var citName = [String]()
-    //        var cityId = [Int]()
-    //        
-    //        if MOLHLanguage.isRTLLanguage() {
-    //            
-    //            
-    //            
-    //            if let  cityArray = userDefaults.value(forKey: UserDefaultsConstants.cityNameARArray) as? [String],let cityIds = userDefaults.value(forKey: UserDefaultsConstants.cityIdArray) as? [Int]{
-    //                
-    //                citName = cityArray
-    //                cityId = cityIds
-    //                
-    //                
-    //                
-    //            }}else {
-    //            if let cityArray = userDefaults.value(forKey: UserDefaultsConstants.cityNameArray) as? [String],let cityIds = userDefaults.value(forKey: UserDefaultsConstants.cityIdArray) as? [Int] {
-    //                citName = cityArray
-    //                cityId = cityIds
-    //            }
-    //        }
-    //        let ss = cityId.filter{$0 == index}
-    //        let ff = ss.first ?? 1
-    //        
-    //        return citName[ff - 1 ]
-    //    }
-    //    
-    //    fileprivate func getAreassFromIndex(_ index:Int) -> String {
-    //        var citName = [String]()
-    //        var cityId = [Int]()
-    //        
-    //        if MOLHLanguage.isRTLLanguage() {
-    //            
-    //            
-    //            
-    //            if let  cityArray = userDefaults.value(forKey: UserDefaultsConstants.areaNameARArray) as? [String],let cityIds = userDefaults.value(forKey: UserDefaultsConstants.areaIdArray) as? [Int]{
-    //                
-    //                citName = cityArray
-    //                cityId = cityIds
-    //                
-    //                
-    //                
-    //            }}else {
-    //            if let cityArray = userDefaults.value(forKey: UserDefaultsConstants.areaNameArray) as? [String],let cityIds = userDefaults.value(forKey: UserDefaultsConstants.areaIdArray) as? [Int] {
-    //                citName = cityArray
-    //                cityId = cityIds
-    //            }
-    //        }
-    //        let ss = cityId.filter{$0 == index}
-    //        let ff = ss.first ?? 1
-    //        
-    //        return citName[ff - 1 ]
-    //    }
     
     fileprivate func getNameANdCity(lat:Double,lng:Double)  {
         let location = CLLocation(latitude: lat, longitude: lng)

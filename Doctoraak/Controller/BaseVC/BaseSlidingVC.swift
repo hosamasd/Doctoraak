@@ -109,7 +109,7 @@ class BaseSlidingVC: UIViewController {
         super.viewDidAppear(true)
         
         if !userDefaults.bool(forKey: UserDefaultsConstants.isWelcomeVCAppear) {
-            view.alpha = 0
+//            view.alpha = 0
              check()
                    }else {
                        view.alpha = 1 }
@@ -135,7 +135,7 @@ class BaseSlidingVC: UIViewController {
     }
     
     fileprivate func setupViews()  {
-        view.backgroundColor = .red
+        view.backgroundColor = .clear
         view.addSubViews(views: redView,blueView)
         
         NSLayoutConstraint.activate([
@@ -164,27 +164,10 @@ class BaseSlidingVC: UIViewController {
     }
     
     fileprivate func setupViewControllers()  {
-        
-        //                index = userDefaults.integer(forKey: UserDefaultsConstants.MainLoginINDEX)
-        //        guard let index=index else {return}
-        //        let vc = index == 0 || index == 1 ? DoctorHomeLeftMenuVC(index: index) : HomeLeftMenuVC(index: index)
-        //              let dd = index < 2 ?  DoctorHomeVC(inde: index) : MainHomeVC(inde: index)
-        //
-        //              rightViewController = UINavigationController(rootViewController: dd)
-        
         let homeView = rightViewController.view!
         //        let menuVC = MenuVC()
         let menuVC =  menuViewController//HomeLeftMenuVC(index: index ?? 2)//vc//HomeLeftMenuVC(index: 2)
         let menuView = menuVC.view!
-        
-        //        let vc = index == 0 || index == 1 ? DoctorHomeLeftMenuVC(index: index) : HomeLeftMenuVC(index: index)
-        //        let dd = index < 2 ?  DoctorHomeVC(inde: index) : MainHomeVC(inde: index)
-        //
-        //        rightViewController = UINavigationController(rootViewController: dd)
-        //        let homeView = rightViewController.view!
-        //        //        let menuVC = MenuVC()
-        //        let menuVC =  vc//HomeLeftMenuVC(index: 2)
-        //        let menuView = menuVC.view!
         
         homeView.translatesAutoresizingMaskIntoConstraints = false
         menuView.translatesAutoresizingMaskIntoConstraints = false
@@ -220,14 +203,7 @@ class BaseSlidingVC: UIViewController {
             cacheDoctorObjectClinicWorkingHoursLeftMenu.deleteFile(cacheDoctorObjectClinicWorkingHoursLeftMenu.storedValue!)
             userDefaults.set(false, forKey: UserDefaultsConstants.DoctorPerformLogin)
 //            userDefaults.set(false, forKey: UserDefaultsConstants.isAllMainHomeObjectsFetchedPHY)
-        }else if userDefaults.bool(forKey: UserDefaultsConstants.medicalCenterPerformLogin) {
-            cacheMedicalObjectCodabe.deleteFile(cacheMedicalObjectCodabe.storedValue!)
-            cacheMedicalCenterObjectCodabeClinicWorkingHoursLeftMenu.deleteFile(cacheMedicalCenterObjectCodabeClinicWorkingHoursLeftMenu.storedValue!)
-            userDefaults.set(false, forKey: UserDefaultsConstants.medicalCenterPerformLogin)
-//            userDefaults.set(false, forKey: UserDefaultsConstants.isAllMainHomeObjectsFetchedPHY)
-            
         }
-        
         userDefaults.set(false, forKey: UserDefaultsConstants.isAllMainHomeObjectsFetched)
 
         userDefaults.removeObject(forKey: UserDefaultsConstants.MainLoginINDEX)

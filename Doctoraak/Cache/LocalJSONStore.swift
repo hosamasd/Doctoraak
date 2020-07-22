@@ -12,7 +12,7 @@ import UIKit
 let cacheSelectedClinicCodabe: LocalJSONStore<ClinicGetDoctorsModel> = LocalJSONStore(storageType: .cache, filename: "sdsssasad.json")
 
 let cacheDoctorObjectCodabe: LocalJSONStore<DoctorModel> = LocalJSONStore(storageType: .cache, filename: "repos.json")
-let cacheMedicalObjectCodabe: LocalJSONStore<DoctorModel> = LocalJSONStore(storageType: .cache, filename: "mc.json")
+//let cacheMedicalObjectCodabe: LocalJSONStore<DoctorModel> = LocalJSONStore(storageType: .cache, filename: "mc.json")
 let cacheLABObjectCodabe: LocalJSONStore<LabModel> = LocalJSONStore(storageType: .cache, filename: "lb.json")
 let cachdRADObjectCodabe: LocalJSONStore<RadiologyModel> = LocalJSONStore(storageType: .cache, filename: "rd.json")
 let cachdPHARMACYObjectCodabe: LocalJSONStore<PharamacyModel> = LocalJSONStore(storageType: .cache, filename: "ph.json")
@@ -25,7 +25,7 @@ let cachdRADObjectWorkingHours: LocalJSONStore<[PharamacyWorkModel]> = LocalJSON
 let cachdPHARMACYObjectWorkingHours: LocalJSONStore<[PharamacyWorkModel]> = LocalJSONStore(storageType: .cache, filename: "phw.json")
 
 let cacheDoctorObjectClinicWorkingHoursLeftMenu: LocalJSONStore<ClinicGetDoctorsModel> = LocalJSONStore(storageType: .cache, filename: "repossss.json")
-let cacheMedicalCenterObjectCodabeClinicWorkingHoursLeftMenu: LocalJSONStore<ClinicGetDoctorsModel> = LocalJSONStore(storageType: .cache, filename: "repossss.json")
+//let cacheMedicalCenterObjectCodabeClinicWorkingHoursLeftMenu: LocalJSONStore<ClinicGetDoctorsModel> = LocalJSONStore(storageType: .cache, filename: "repossss.json")
 
 
 class LocalJSONStore<T> where T : Codable {

@@ -96,7 +96,7 @@ class UserDefaultsConstants {
     
     //login or reigster done states
     static let DoctorPerformLogin="DoctorPerformLogin"
-    static let medicalCenterPerformLogin="medicalCenterPerformLogin"
+//    static let medicalCenterPerformLogin="medicalCenterPerformLogin"
     static let pharamacyPerformLogin="pharamacyPerformLogin"
     static let labPerformLogin="labPerformLogin"
     static let radiologyPerformLogin="radiologyPerformLogin"

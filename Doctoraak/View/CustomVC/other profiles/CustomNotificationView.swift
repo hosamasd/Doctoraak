@@ -30,17 +30,17 @@ class CustomNotificationView: CustomBaseView {
             drInsuranceImage.isHide(false)
         }
     }
-    var medicalCenter:DoctorModel?{
-        didSet{
-            guard let lab = medicalCenter else { return  }
-            
-            guard let ll = lab.insuranceCompany?.first(where: {$0.id==1})  else {return}
-            let urlString = ll.photo
-            guard let url = URL(string: urlString) else { return  }
-            drInsuranceImage.sd_setImage(with: url)
-            drInsuranceImage.isHide(false)
-        }
-    }
+//    var medicalCenter:DoctorModel?{
+//        didSet{
+//            guard let lab = medicalCenter else { return  }
+//            
+//            guard let ll = lab.insuranceCompany?.first(where: {$0.id==1})  else {return}
+//            let urlString = ll.photo
+//            guard let url = URL(string: urlString) else { return  }
+//            drInsuranceImage.sd_setImage(with: url)
+//            drInsuranceImage.isHide(false)
+//        }
+//    }
     
     var lab:LabModel?{
         didSet{
