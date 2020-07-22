@@ -23,7 +23,7 @@ class CustomDoctorClinicWorkingHoursView: CustomBaseView {
     var workingHours:[ClinicWorkingHourModel]?{
         didSet{
             guard let work = workingHours else { return  }
-            workingHoursCachedDoc=nil
+//            workingHoursCachedDoc=nil
             work.forEach { (w) in
                 let sd = WorkModel(part1From: w.part1From, part1To: w.part1To, part2From: w.part2From, part2To: w.part2To, day: w.day, active: w.active)
                 
@@ -36,7 +36,7 @@ class CustomDoctorClinicWorkingHoursView: CustomBaseView {
     var workingHoursCachedDoc:[WorkModel]?{
         didSet{
             guard let work = workingHoursCachedDoc else { return  }
-            workingHours=nil
+//            workingHours=nil
             work.forEach { (w) in
                 putThesesCached(w: w, bols: true)
                 putOtherDXXXS(w)

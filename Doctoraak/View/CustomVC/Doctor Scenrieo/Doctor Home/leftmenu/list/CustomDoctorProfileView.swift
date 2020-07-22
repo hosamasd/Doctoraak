@@ -26,8 +26,12 @@ class CustomDoctorProfileView: CustomBaseView {
         didSet{
             guard let phy = doc else { return  }
             fullNameTextField.text = MOLHLanguage.isRTLLanguage() ? phy.nameAr ?? phy.name : phy.name
-            mobileNumberTextField.text = phy.phone2 ?? phy.phone
+            let phone = index == 1 ? phy.phone.removeSubstringAfterOrBefore(needle: "-", beforeNeedle: true) : phy.phone
+            
+            mobileNumberTextField.text = phone
+            mobileSecondNumberTextField.text = phy.phone2
             emailTextField.text = phy.email
+            discriptionTextField.text = phy.doctorDescription
             let degree = phy.degreeID ?? 1
             degreeDrop.selectedIndex = degree  - 1
             degreeDrop.text = getDegreeFromIndex(degree)
@@ -88,7 +92,8 @@ class CustomDoctorProfileView: CustomBaseView {
     
     lazy var emailTextField = createMainTextFields(place: "enter email".localized,type: .emailAddress)
     lazy var titleTextField = createMainTextFields(place: "title".localized)
-    
+    lazy var discriptionTextField = createMainTextFields(place: "Description (Optional)".localized)
+
     
     lazy var userProfileImage:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "Group 4143"))
@@ -215,7 +220,7 @@ class CustomDoctorProfileView: CustomBaseView {
     }
     
     override func setupViews() {
-        [mobileSecondNumberTextField,titleTextField,emailTextField].forEach({$0.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .valueChanged)})
+        [discriptionTextField,mobileSecondNumberTextField,titleTextField,emailTextField].forEach({$0.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .valueChanged)})
         
         [titleLabel].forEach({$0.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left})
         
@@ -231,7 +236,7 @@ class CustomDoctorProfileView: CustomBaseView {
         subView.constrainHeight(constant: 100)
         userEditProfileImageView.anchor(top: nil, leading: nil, bottom: userProfileImage.bottomAnchor, trailing: userProfileImage.trailingAnchor,padding: .init(top: 0, left:0 , bottom:10, right: 10))
         
-        let textStack = getStack(views: fullNameTextField,mobileNumberTextField,mobileSecondNumberTextField,emailTextField,genderStack,mainDropView,mainDrop2View,mainDrop3View,titleTextField,cvView,mainDrop3View, spacing: 16, distribution: .fillEqually, axis: .vertical)
+        let textStack = getStack(views: fullNameTextField,mobileNumberTextField,mobileSecondNumberTextField,emailTextField,genderStack,mainDropView,mainDrop2View,mainDrop3View,titleTextField,discriptionTextField,cvView,mainDrop3View, spacing: 16, distribution: .fillEqually, axis: .vertical)
         
         mainDropView.hstack(degreeDrop).withMargins(.init(top: 16, left: 16, bottom: 8, right: 16))
         mainDrop2View.hstack(specializationDrop).withMargins(.init(top: 16, left: 16, bottom: 0, right: 16))
@@ -395,7 +400,7 @@ class CustomDoctorProfileView: CustomBaseView {
                     floatingLabelTextField.errorMessage = ""
                     edirProfileViewModel.phone2 = texts
                 }
-            }else {
+            }else if text == emailTextField {
                 if !texts.isValidEmail {
                     floatingLabelTextField.errorMessage = "Invalid   email".localized
                     edirProfileViewModel.email = nil
@@ -404,6 +409,15 @@ class CustomDoctorProfileView: CustomBaseView {
                     floatingLabelTextField.errorMessage = ""
                     edirProfileViewModel.email = texts
                 }
+            }else {
+                               if  texts.count < 3    {
+                                   floatingLabelTextField.errorMessage = "Invalid   Description".localized
+                                   edirProfileViewModel.description = nil
+                               }
+                               else {
+                                   floatingLabelTextField.errorMessage = ""
+                                   edirProfileViewModel.description = texts
+                               }
             }
         }
         

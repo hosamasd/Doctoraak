@@ -21,7 +21,7 @@ class DoctorProfileVC:   CustomBaseViewVC {
     }()
     lazy var mainView:UIView = {
         let v = UIView(backgroundColor: .white)
-        v.constrainHeight(constant: 1200)
+        v.constrainHeight(constant: 1250)
         v.constrainWidth(constant: view.frame.width)
         return v
     }()

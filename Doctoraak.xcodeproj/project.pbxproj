@@ -640,6 +640,7 @@
 		4E333E0B2426604E00F82E00 /* BaseVC */ = {
 			isa = PBXGroup;
 			children = (
+				9FDC27E024B4EBCD0030AB22 /* CollectionAnimation.swift */,
 				4E333E0E2426607E00F82E00 /* BaseCollectionVC.swift */,
 				4E580306242789B800B5D502 /* CustomBaseViewVC.swift */,
 				4E35489B242B814C00DD4E7A /* BaseSlidingVC.swift */,
@@ -1434,7 +1435,6 @@
 		7AB7E38624157FE30033F347 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				9FDC27E024B4EBCD0030AB22 /* CollectionAnimation.swift */,
 				4E115DB32495199A00B64936 /* Custom Alerts */,
 				4E333E0624265C1500F82E00 /* Custom Views */,
 				4E5CE7A024274909001EE175 /* CustomVC */,

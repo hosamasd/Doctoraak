@@ -131,14 +131,6 @@ class MainHomeVC: CustomBaseViewVC {
             userDefaults.bool(forKey: UserDefaultsConstants.isAllMainHomeObjectsFetched) ? () : fetchOrders()
         }
     }
-    //    var medicalCenter:DoctorModel?{
-    //        didSet{
-    //            guard let lab = medicalCenter else { return  }
-    //            customMainHomeView.medicalCenter=lab
-    //            customMainHomeView.topMainHomeCell.medicalCenter=lab
-    //            userDefaults.bool(forKey: UserDefaultsConstants.isAllMainHomeObjectsFetched) ? () : fetchOrders()
-    //        }
-    //    }
     var numberOfClinicsAvaiable = [String]()
     var doctorsClinicArray:[ClinicGetDoctorsModel] = [ClinicGetDoctorsModel]()
     var docotrClinicID = [Int]()
@@ -165,30 +157,30 @@ class MainHomeVC: CustomBaseViewVC {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-//        if userDefaults.bool(forKey: UserDefaultsConstants.isWelcomeVCAppear) && index == nil  {
-//            view.alpha = 0
-//        }else {
-//            view.alpha = 1
-//
-//            if userDefaults.bool(forKey: UserDefaultsConstants.isAllMainHomeObjectsFetched) {
-//
-//            }else {
-                
-                index = userDefaults.integer(forKey: UserDefaultsConstants.MainLoginINDEX)
-                if userDefaults.bool(forKey: UserDefaultsConstants.DoctorPerformLogin) {
-                    doc = cacheDoctorObjectCodabe.storedValue
+                if userDefaults.bool(forKey: UserDefaultsConstants.isWelcomeVCAppear) && index == nil  {
+                    view.alpha = 0
+                }else {
+                    view.alpha = 1
+        
+                    if userDefaults.bool(forKey: UserDefaultsConstants.isAllMainHomeObjectsFetched) {
+        
+                    }else {
+        
+        index = userDefaults.integer(forKey: UserDefaultsConstants.MainLoginINDEX)
+        if userDefaults.bool(forKey: UserDefaultsConstants.DoctorPerformLogin) {
+            doc = cacheDoctorObjectCodabe.storedValue
+        }
+        if userDefaults.bool(forKey: UserDefaultsConstants.labPerformLogin) {
+            lab = cacheLABObjectCodabe.storedValue
+        }
+        if userDefaults.bool(forKey: UserDefaultsConstants.radiologyPerformLogin) {
+            rad = cachdRADObjectCodabe.storedValue
+        }
+        if userDefaults.bool(forKey: UserDefaultsConstants.pharamacyPerformLogin) {
+            phy = cachdPHARMACYObjectCodabe.storedValue
+        }
+                    }
                 }
-                if userDefaults.bool(forKey: UserDefaultsConstants.labPerformLogin) {
-                    lab = cacheLABObjectCodabe.storedValue
-                }
-                if userDefaults.bool(forKey: UserDefaultsConstants.radiologyPerformLogin) {
-                    rad = cachdRADObjectCodabe.storedValue
-                }
-                if userDefaults.bool(forKey: UserDefaultsConstants.pharamacyPerformLogin) {
-                    phy = cachdPHARMACYObjectCodabe.storedValue
-                }
-//            }
-//        }
     }
     
     //MARK: -user methods
@@ -481,10 +473,6 @@ class MainHomeVC: CustomBaseViewVC {
         }
         
     }
-    
-    
-    
-    
     
     fileprivate func goToSpecifyIndex(_ indexx:IndexPath,doctor:DoctorGetPatientsFromClinicModel)  {
         print(indexx.item)

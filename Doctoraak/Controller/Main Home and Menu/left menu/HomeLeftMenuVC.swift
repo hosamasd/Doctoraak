@@ -55,12 +55,12 @@ class HomeLeftMenuVC: CustomBaseViewVC {
         }
     }
     
-    var medicalCenter:DoctorModel?{
-        didSet{
-            guard let phy = medicalCenter else { return  }
-            customMainHomeLeftView.meidicalCenter=phy
-        }
-    }
+//    var medicalCenter:DoctorModel?{
+//        didSet{
+//            guard let phy = medicalCenter else { return  }
+//            customMainHomeLeftView.meidicalCenter=phy
+//        }
+//    }
     var index:Int? {
         didSet{
             guard let index = index else { return  }
@@ -165,7 +165,7 @@ class HomeLeftMenuVC: CustomBaseViewVC {
         profile.lab=lab
         profile.rad=rad
         profile.doctor=doctor
-        profile.medicalCenter=self.medicalCenter
+//        profile.medicalCenter=self.medicalCenter
         //        profile.doctor=doctor
         let nav = UINavigationController(rootViewController: profile)
         
@@ -215,11 +215,12 @@ class HomeLeftMenuVC: CustomBaseViewVC {
                 }else if indexPath.item == 2 {
                     goToDoctorClinicData(baseSlid, index: index, fromUpdate: false, addNew: true)
                 }else if indexPath.item == 1 {
-                    goToClinicWorkingHours(baseSlid,isOnlyShow:false)
+                    let clinic = cacheSelectedClinicCodabe.storedValue
+                    goToClinicWorkingHours(baseSlid,isOnlyShow:false,doctor:clinic )
                 }else if indexPath.item == 3 {
                     //get clinic_id
-                    let clinic = cacheSelectedClinicCodabe.storedValue
                     
+                    let clinic = cacheSelectedClinicCodabe.storedValue
                     goToDoctorClinicData(baseSlid, index: index, fromUpdate: true, addNew: false,clinic_id: clinic)
                     
                     //                    goToClinicWorkingHours(baseSlid,isOnlyShow:true,doctor: cacheDoctorObjectClinicWorkingHoursLeftMenu.storedValue)

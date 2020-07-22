@@ -23,8 +23,8 @@ class NotificationsCollectionVC: BaseCollectionVC {
     fileprivate  let cellID = "cellID"
     var index = 0
     /// an enum of type TableAnimation - determines the animation to be applied to the tableViewCells
-    var currentTableAnimation: CollectionAnimation = .fadeIn(duration: 0.85, delay: 0.03)
-    
+    var currentTableAnimation: CollectionAnimation = .fadeIn(duration: 0.25, delay: 0)
+
     var notificationPHYArray = [PharmacyNotificationModel]()
     var notificationLABArray = [LABNotificationModel]()
     var notificationDocArray = [DOCTORNotificationModel]()

@@ -20,7 +20,9 @@ class EdirDoctorProfileViewModel {
       var phone:String? {didSet {checkFormValidity()}}
     var phone2:String? {didSet {checkFormValidity()}}
     var title:String? {didSet {checkFormValidity()}}
+    var description:String? {didSet {checkFormValidity()}}
 
+    
     var gender:String? {didSet {checkFormValidity()}}
 
       var email:String? {didSet {checkFormValidity()}}

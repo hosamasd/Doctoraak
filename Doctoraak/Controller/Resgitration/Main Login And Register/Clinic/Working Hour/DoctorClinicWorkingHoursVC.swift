@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import SVProgressHUD
+import MOLH
 
 protocol MainClinicWorkingHoursProtocol {
     //    func getHoursChoosed(hours:[String])
@@ -43,6 +45,19 @@ class DoctorClinicWorkingHoursVC: CustomBaseViewVC {
         }
         return v
     }()
+    lazy var customAlertMainLoodingView:CustomAlertMainLoodingView = {
+        let v = CustomAlertMainLoodingView()
+        v.setupAnimation(name: "heart_loading")
+        return v
+    }()
+    
+    lazy var customMainAlertVC:CustomMainAlertVC = {
+        let t = CustomMainAlertVC()
+        t.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
+        t.modalTransitionStyle = .crossDissolve
+        t.modalPresentationStyle = .overCurrentContext
+        return t
+    }()
     let timeSelector = TimeSelector()
     var delgate:MainClinicWorkingHoursProtocol?
     var doctor:ClinicGetDoctorsModel?{
@@ -52,6 +67,7 @@ class DoctorClinicWorkingHoursVC: CustomBaseViewVC {
             customClinicWorkingHoursView.workingHours = doc.workingHours
         }
     }
+    
     
     fileprivate let isFromLeftMenu:Bool!
     //    fileprivate let isOnlyShow:Bool!
@@ -76,12 +92,12 @@ class DoctorClinicWorkingHoursVC: CustomBaseViewVC {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if doctor == nil {
-             if userDefaults.bool(forKey: UserDefaultsConstants.isDoctorWorkingHoursCached){
-                       customClinicWorkingHoursView.workingHoursCachedDoc = cachdDOCTORWorkingHourObjectCodabe.storedValue
-                       
-                   }
+            if userDefaults.bool(forKey: UserDefaultsConstants.isDoctorWorkingHoursCached){
+                customClinicWorkingHoursView.workingHoursCachedDoc = cachdDOCTORWorkingHourObjectCodabe.storedValue
+                
+            }
         }else {}
-       
+        
     }
     
     override  func setupNavigation()  {
@@ -107,15 +123,42 @@ class DoctorClinicWorkingHoursVC: CustomBaseViewVC {
         timeSelector.presentOnView(view: self.view)
     }
     
+    fileprivate func chooseAction() {
+        if isFromMainClinic {
+            navigationController?.popViewController(animated: true)
+        }else {dismiss(animated: true)}
+    }
+    
     fileprivate func checkValidateDoneButton() {
         if  customClinicWorkingHoursView.checkButtonDone() {
             delgate?.getHoursChoosed(hours: customClinicWorkingHoursView.getChoosenHours())
             delgate?.getDays(indexs: customClinicWorkingHoursView.getDaysIndex(), days: customClinicWorkingHoursView.getDays())
             saveCached(vv:customClinicWorkingHoursView.getChoosenHours())
             
-            if isFromMainClinic {
-                navigationController?.popViewController(animated: true)
-            }else {dismiss(animated: true)}
+            if isFromLeftMenu {
+                
+                guard let doctor = doctor,let doc = cacheDoctorObjectCodabe.storedValue else { return  }
+                
+                DoctorServices.shared.updateClinicWorkingHours(api_token: doc.apiToken, clinic_id: doctor.id, workingHours: cachdDOCTORWorkingHourObjectCodabe.storedValue) { (base, err) in
+                    if let err = err {
+                        SVProgressHUD.showError(withStatus: err.localizedDescription)
+                        //                                   self.handleDismiss()
+                        self.activeViewsIfNoData();return
+                    }
+                    self.handleDismiss()
+                    self.activeViewsIfNoData()
+                    guard let user = base else {SVProgressHUD.showError(withStatus: MOLHLanguage.isRTLLanguage() ? base?.message : base?.messageEn); return}
+                    
+                    DispatchQueue.main.async {
+                        SVProgressHUD.showSuccess(withStatus: MOLHLanguage.isRTLLanguage() ? user.message ?? "" : user.messageEn )
+                        self.chooseAction()
+                    }
+                    
+                }
+            }else {
+                
+                chooseAction()
+            }
         }else {}
     }
     
@@ -126,6 +169,7 @@ class DoctorClinicWorkingHoursVC: CustomBaseViewVC {
     }
     
     //TODO:Handle methods
+    
     
     @objc func handleShowPicker(sender:UIButton) {
         var texts = ""
@@ -148,6 +192,14 @@ class DoctorClinicWorkingHoursVC: CustomBaseViewVC {
             }
         }
     }
+    
+    @objc func handleDismiss()  {
+        removeViewWithAnimation(vvv: customAlertMainLoodingView)
+        DispatchQueue.main.async {
+            self.dismiss(animated: true, completion: nil)
+        }
+    }
+    
     
     @objc func handleBack()  {
         if isFromLeftMenu {

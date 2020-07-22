@@ -19,8 +19,8 @@ class SelectedPatientDataPHYCollectionVC: BaseCollectionVC {
         
     }()
     fileprivate  let cellID = "cellID"
-    var currentTableAnimation: CollectionAnimation = .fadeIn(duration: 0.85, delay: 0.03)
-    
+    var currentTableAnimation: CollectionAnimation = .fadeIn(duration: 0.25, delay: 0)
+
     var notificationPHYArray = [PharmacyDetailModel]()
     var notificationRADArray = [RADDetailModel]()
     //    var notificationLABArray = [RADDetailModel]()

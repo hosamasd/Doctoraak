@@ -8,9 +8,50 @@
 
 import UIKit
 import UIMultiPicker
+import SwiftUI
 //import sca
 
 class TestVCS: CustomBaseViewVC {
+    
+     lazy var mainDrop3View:UIView =  {
+          
+          let view =
+            makeMainSubViewWithAppendView(vv: [bookSegmentedView])
+//          l.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpenCloseInsurance)))
+        view.hstack(bookSegmentedView)
+        view.layer.cornerRadius = 30
+               view.layer.borderWidth = 1.0
+               view.layer.masksToBounds = true
+//               view.layer.shadowOpacity = 0.7
+
+                         view.clipsToBounds=true
+          return view
+      }()
+    lazy var bookSegmentedView:UISegmentedControl = {
+           let items = ["Vodafone cash".localized,"Fawry".localized,"Visa card".localized]
+           let view = UISegmentedControl(items: items)
+          
+           view.selectedSegmentIndex=0
+           view.layer.cornerRadius = 30
+                         view.layer.borderWidth = 1.0
+                         view.layer.masksToBounds = true
+        
+//        view.constrainHeight(constant: 60)
+//           view.addTarget(self, action: #selector(handleChoosedSegment), for: .valueChanged)
+           return view
+       }()
+    
+    func makeMainSubViewWithAppendView(vv:[UIView]) ->UIView {
+          let l = UIView(backgroundColor: .white)
+          l.layer.cornerRadius = 8
+          l.layer.borderWidth = 1
+          l.layer.borderColor = #colorLiteral(red: 0.4835817814, green: 0.4836651683, blue: 0.4835640788, alpha: 1).cgColor
+          l.constrainHeight(constant: 60)
+          vv.forEach { (v) in
+              l.addSubViews(views: v)
+          }
+          return l
+      }
     
     lazy var customAlertMainLoodingView:CustomAlertLoginView = {
              let v = CustomAlertLoginView()
@@ -43,14 +84,14 @@ class TestVCS: CustomBaseViewVC {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        customMainAlertVC.addCustomViewInCenter(views: customAlertMainLoodingView, height: 250)
-                        present(customMainAlertVC, animated: true)
+//        customMainAlertVC.addCustomViewInCenter(views: customAlertMainLoodingView, height: 250)
+//                        present(customMainAlertVC, animated: true)
     }
     
     override func setupViews() {
         view.backgroundColor = .white
-//        view.addSubview(Image6)
-//        Image6.centerInSuperview()
+        view.addSubview(mainDrop3View)
+        mainDrop3View.centerInSuperview(size: .init(width: view.frame.width-64, height: 60))
        
     }
     
@@ -71,5 +112,25 @@ class TestVCS: CustomBaseViewVC {
     
   @objc func handleLL()  {
         print(999)
+    }
+}
+
+
+struct InfoVCRepresentable: UIViewControllerRepresentable {
+    func updateUIViewController(_ uiViewController: TestVCS, context: Context) {
+        // leave this empty
+    }
+    
+    
+    @available(iOS 13.0.0, *)
+    func makeUIViewController(context: Context) -> TestVCS {
+        TestVCS()
+    }
+}
+
+struct TestVCS_Previews: PreviewProvider {
+    @available(iOS 13.0.0, *)
+    static var previews: some View {
+      InfoVCRepresentable()
     }
 }

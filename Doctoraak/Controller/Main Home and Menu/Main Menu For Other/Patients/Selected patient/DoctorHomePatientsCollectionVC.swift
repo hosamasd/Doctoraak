@@ -13,8 +13,8 @@ class DoctorHomePatientsCollectionVC: BaseCollectionVC {
     var handleSelectedIndex:((IndexPath)->Void)?
     
     var doctorPatientsArray = [DoctorGetPatientsFromClinicModel]()
-    var currentTableAnimation: CollectionAnimation = .fadeIn(duration: 0.85, delay: 0.03)
-    
+    var currentTableAnimation: CollectionAnimation = .fadeIn(duration: 0.25, delay: 0)
+
     fileprivate let cellId = "cellId"
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

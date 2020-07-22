@@ -45,7 +45,7 @@ class ClinicDataViewModel {
             ,let consultaionFees = consultaionFees ,let api_token=api_token,let doctor_id=doctor_id else { return  }
         bindableIsResgiter.value = true
         
-        DoctorServices.shared.updateClinic(clinic_id:clinic_id,fees2: consultaionFees, fees: fees, lang: lang, latt: lat, phone: phone, photo: image, city: city, area: area, api_token: api_token,waiting_time:waitingHours, doctor_id: doctor_id , completion: completion)
+        DoctorServices.shared.updateClinic(clinic_id:clinic_id,fees2: consultaionFees, fees: fees, lang: lang, latt: lat, phone: phone, photo: image, city: city, area: area, api_token: api_token,waiting_time:waitingHours, working_Hours: workingArrayHours, doctor_id: doctor_id , completion: completion)
     }
     
     func performCancelOrders(completion:@escaping (MainAddFavoriteModel?,Error?)->Void)    {
