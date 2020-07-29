@@ -28,48 +28,17 @@ class DoctorServices {
         MainServices.shared.makeMainPostGenericUsingAlmofire(urlString: urlString, postStrings: postString,photo: photo,clinicWork: working_Hours, completion: completion)
     }
     
-    func updateClinicWorkingHours(api_token:String,clinic_id:Int,workingHours:[WorkModel]?,completion:@escaping (MainAddFavoriteModel?,Error?)->Void)  {
+    
+    
+    func updateClinicWorkingHours(working_hours:[WorkModel],api_token:String,clinic_id:Int,doctor_id:Int,completion:@escaping (MainDoctorClinicCreateModel?,Error?)->Void)  {
         let urlString = "\(baseUrl)doctor_update_clinic".toSecrueHttps()
-        let postString = urlString+"?"+"clinic_id=\(clinic_id)&api_token=\(api_token)"
+
+        let postString = "clinic_id=\(clinic_id)&api_token=\(api_token)&doctor_id=\(doctor_id)"
         
-        Alamofire.upload(multipartFormData: { (multipartFormData) in
-            
-            let jsonEncoder = JSONEncoder()
-            let jsonData = try? jsonEncoder.encode(workingHours)
-            if workingHours?.isEmpty != nil {
-                
-                multipartFormData.append(jsonData ?? Data(), withName: "working_hours")
-            }
-        }, to:postString)//urlsString)
-        { (result) in
-            switch result {
-            case .success(let upload, _, _):
-                
-                upload.uploadProgress(closure: { (progress) in
-                    //Print progress
-                    print(progress)
-                })
-                
-                upload.responseJSON { response in
-                    //print response.result
-                    print(response.result)
-                    guard let data = response.data else {return}
-                    
-                    do {
-                        let objects = try JSONDecoder().decode(MainAddFavoriteModel.self, from: data)
-                        // success
-                        completion(objects,nil)
-                    } catch let error {
-                        completion(nil,error)
-                    }
-                }
-                
-            case .failure( let encodingError):
-                completion(nil,encodingError)
-                break
-                //print encodingError.description
-            }
-        }
+        MainServices.shared.makeMainPostGenericUsingAlmofire(urlString: urlString, postStrings: postString,clinicWork: working_hours, completion: completion)
+        
+               
+        
     }
     
     func rejectClinicOrderDoctorOfToday(doctor_id:Int,api_token:String,clinic_id:Int,completion:@escaping (MainAddFavoriteModel?,Error?)->Void)  {

@@ -55,12 +55,12 @@ class HomeLeftMenuVC: CustomBaseViewVC {
         }
     }
     
-//    var medicalCenter:DoctorModel?{
-//        didSet{
-//            guard let phy = medicalCenter else { return  }
-//            customMainHomeLeftView.meidicalCenter=phy
-//        }
-//    }
+    //    var medicalCenter:DoctorModel?{
+    //        didSet{
+    //            guard let phy = medicalCenter else { return  }
+    //            customMainHomeLeftView.meidicalCenter=phy
+    //        }
+    //    }
     var index:Int? {
         didSet{
             guard let index = index else { return  }
@@ -106,9 +106,9 @@ class HomeLeftMenuVC: CustomBaseViewVC {
         if userDefaults.bool(forKey: UserDefaultsConstants.DoctorPerformLogin) {
             doctor = cacheDoctorObjectCodabe.storedValue
         }
-//        if userDefaults.bool(forKey: UserDefaultsConstants.medicalCenterPerformLogin) {
-//            medicalCenter = cacheMedicalObjectCodabe.storedValue
-//        }
+        //        if userDefaults.bool(forKey: UserDefaultsConstants.medicalCenterPerformLogin) {
+        //            medicalCenter = cacheMedicalObjectCodabe.storedValue
+        //        }
         
         if userDefaults.bool(forKey: UserDefaultsConstants.isSpecifiedIndexClincChoosed) {
             doctorCacheClinic = cacheDoctorObjectClinicWorkingHoursLeftMenu.storedValue
@@ -165,7 +165,7 @@ class HomeLeftMenuVC: CustomBaseViewVC {
         profile.lab=lab
         profile.rad=rad
         profile.doctor=doctor
-//        profile.medicalCenter=self.medicalCenter
+        //        profile.medicalCenter=self.medicalCenter
         //        profile.doctor=doctor
         let nav = UINavigationController(rootViewController: profile)
         
@@ -179,7 +179,7 @@ class HomeLeftMenuVC: CustomBaseViewVC {
         profile.phy=phy
         profile.lab=lab
         profile.doctor=doctor
-//        profile.medicalCenter=self.medicalCenter
+        //        profile.medicalCenter=self.medicalCenter
         profile.rad=rad
         let nav = UINavigationController(rootViewController: profile)
         

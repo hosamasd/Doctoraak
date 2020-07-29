@@ -23,7 +23,8 @@ struct MainDoctorClinicCreateModel:Codable {
 
 struct DoctorClinicCreateModel:Codable {
     let fees, fees2, lang, latt: String
-    let phone, city, area, waitingTime: String
+    let phone, city, area: String
+    let waitingTime:AnyType
     let doctorID, updatedAt, createdAt: String
     let id: Int
     let workingHours: [DoctorWorkingHoursModel]

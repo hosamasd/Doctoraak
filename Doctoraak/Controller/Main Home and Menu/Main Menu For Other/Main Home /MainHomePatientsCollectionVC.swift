@@ -115,7 +115,7 @@ class MainHomePatientsCollectionVC: BaseCollectionVC     {
         collectionView.backgroundColor = .white
         collectionView.register(MainHomePatientsCell.self, forCellWithReuseIdentifier: cellId)
         refreshControl.addTarget(self, action: #selector(didPullToRefresh), for: .valueChanged)
-        
+        collectionView.alwaysBounceVertical=true
         collectionView.refreshControl = refreshControl
     }
     

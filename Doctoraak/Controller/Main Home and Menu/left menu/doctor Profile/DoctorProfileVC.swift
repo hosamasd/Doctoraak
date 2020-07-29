@@ -71,7 +71,7 @@ class DoctorProfileVC:   CustomBaseViewVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViewModelObserver()
-        
+        scrollView.delegate=self
     }
     
     //TODO: -User methods
@@ -288,3 +288,13 @@ extension DoctorProfileVC : UIDocumentPickerDelegate {
         }
     }
 }
+
+
+extension DoctorProfileVC:UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let x = scrollView.contentOffset.y
+        self.scrollView.isScrollEnabled = x < -60 ? false : true
+        
+    }
+}
+

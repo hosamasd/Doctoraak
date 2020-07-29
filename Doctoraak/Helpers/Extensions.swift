@@ -11,6 +11,7 @@ import MaterialComponents.MaterialSnackbar
 import MapKit
 import MOLH
 import iOSDropDown
+
 extension UIView {
     
     func convertLatLongToAddress(latitude: Double, longitude: Double, completion: @escaping (_ answer: String?) -> Void) {
@@ -363,5 +364,18 @@ extension String {
 extension CLLocation {
     func fetchCityAndCountry(completion: @escaping (_ city: String?, _ country:  String?, _ error: Error?) -> ()) {
         CLGeocoder().reverseGeocodeLocation(self) { completion($0?.first?.locality, $0?.first?.country, $1) }
+    }
+}
+
+extension Encodable {
+    var convertToString: String? {
+        let jsonEncoder = JSONEncoder()
+        jsonEncoder.outputFormatting = .prettyPrinted
+        do {
+            let jsonData = try jsonEncoder.encode(self)
+            return String(data: jsonData, encoding: .utf8)
+        } catch {
+            return nil
+        }
     }
 }

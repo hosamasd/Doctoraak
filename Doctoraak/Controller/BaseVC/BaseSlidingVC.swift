@@ -109,10 +109,10 @@ class BaseSlidingVC: UIViewController {
         super.viewDidAppear(true)
         
         if !userDefaults.bool(forKey: UserDefaultsConstants.isWelcomeVCAppear) {
-//            view.alpha = 0
-             check()
-                   }else {
-                       view.alpha = 1 }
+            //            view.alpha = 0
+            check()
+        }else {
+            view.alpha = 1 }
     }
     
     
@@ -189,23 +189,23 @@ class BaseSlidingVC: UIViewController {
         if userDefaults.bool(forKey: UserDefaultsConstants.labPerformLogin) {
             cacheLABObjectCodabe.deleteFile(cacheLABObjectCodabe.storedValue!)
             userDefaults.set(false, forKey: UserDefaultsConstants.labPerformLogin)
-//            userDefaults.set(false, forKey: UserDefaultsConstants.isAllMainHomeObjectsFetchedLAB)
+            //            userDefaults.set(false, forKey: UserDefaultsConstants.isAllMainHomeObjectsFetchedLAB)
         }else if userDefaults.bool(forKey: UserDefaultsConstants.radiologyPerformLogin) {
             cachdRADObjectCodabe.deleteFile(cachdRADObjectCodabe.storedValue!)
             userDefaults.set(false, forKey: UserDefaultsConstants.radiologyPerformLogin)
-//            userDefaults.set(false, forKey: UserDefaultsConstants.isAllMainHomeObjectsFetchedRAD)
+            //            userDefaults.set(false, forKey: UserDefaultsConstants.isAllMainHomeObjectsFetchedRAD)
         }else if userDefaults.bool(forKey: UserDefaultsConstants.pharamacyPerformLogin) {
             cachdPHARMACYObjectCodabe.deleteFile(cachdPHARMACYObjectCodabe.storedValue!)
             userDefaults.set(false, forKey: UserDefaultsConstants.pharamacyPerformLogin)
-//            userDefaults.set(false, forKey: UserDefaultsConstants.isAllMainHomeObjectsFetchedPHY)
+            //            userDefaults.set(false, forKey: UserDefaultsConstants.isAllMainHomeObjectsFetchedPHY)
         }else if userDefaults.bool(forKey: UserDefaultsConstants.DoctorPerformLogin) {
             cacheDoctorObjectCodabe.deleteFile(cacheDoctorObjectCodabe.storedValue!)
             cacheDoctorObjectClinicWorkingHoursLeftMenu.deleteFile(cacheDoctorObjectClinicWorkingHoursLeftMenu.storedValue!)
             userDefaults.set(false, forKey: UserDefaultsConstants.DoctorPerformLogin)
-//            userDefaults.set(false, forKey: UserDefaultsConstants.isAllMainHomeObjectsFetchedPHY)
+            //            userDefaults.set(false, forKey: UserDefaultsConstants.isAllMainHomeObjectsFetchedPHY)
         }
         userDefaults.set(false, forKey: UserDefaultsConstants.isAllMainHomeObjectsFetched)
-
+        
         userDefaults.removeObject(forKey: UserDefaultsConstants.MainLoginINDEX)
         userDefaults.set(true, forKey: UserDefaultsConstants.isWelcomeVCAppear)
         userDefaults.set(false, forKey: UserDefaultsConstants.isSpecifiedIndexClincChoosed)

@@ -90,8 +90,21 @@ class TestVCS: CustomBaseViewVC {
     
     override func setupViews() {
         view.backgroundColor = .white
-        view.addSubview(mainDrop3View)
-        mainDrop3View.centerInSuperview(size: .init(width: view.frame.width-64, height: 60))
+     guard let ss = cachdDOCTORWorkingHourObjectCodabe.storedValue, let ff = try? ss.jsonData(),let json = try? JSONSerialization.jsonObject(with: ff, options: []) else { return  }
+        
+
+        let cc = "[\(json)]".filter { !$0.isWhitespace }.replacingOccurrences(of: ";}", with: "}").replacingOccurrences(of: ";", with: ",").replacingOccurrences(of: "(", with: "").replacingOccurrences(of: ")", with: "")
+print(cc)
+         // To get dictionary from `Data`
+//        print(json)
+        // To get dictionary from `Data`
+//        let json = try? JSONSerialization.jsonObject(with: jsonData!, options: [])
+//        guard let dictionary = json as? [[String : Any]] else {
+//            return
+//        }
+//        print(json)
+//        view.addSubview(mainDrop3View)
+//        mainDrop3View.centerInSuperview(size: .init(width: view.frame.width-64, height: 60))
        
     }
     
@@ -114,6 +127,29 @@ class TestVCS: CustomBaseViewVC {
         print(999)
     }
 }
+
+
+struct Car: Encodable {
+    var name: String
+    var numberOfDoors: Int
+    var cost: Double
+    var isCompanyCar: Bool
+    var datePurchased: Date
+    var ownerName: String? // Optional
+}
+
+extension Encodable {
+
+    /// Encode into JSON and return `Data`
+    func jsonData() throws -> Data {
+        let encoder = JSONEncoder()
+        encoder.outputFormatting = .prettyPrinted
+        encoder.dateEncodingStrategy = .iso8601
+        return try encoder.encode(self)
+    }
+}
+
+
 
 
 struct InfoVCRepresentable: UIViewControllerRepresentable {

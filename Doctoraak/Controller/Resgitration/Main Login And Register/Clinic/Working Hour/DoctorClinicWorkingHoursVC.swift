@@ -137,9 +137,17 @@ class DoctorClinicWorkingHoursVC: CustomBaseViewVC {
             
             if isFromLeftMenu {
                 
-                guard let doctor = doctor,let doc = cacheDoctorObjectCodabe.storedValue else { return  }
+//                let ff =    [{"active":1,"day":1,"part1_from":customClinicWorkingHoursView.,"part1_to":"13:12:00","part2_from":"00:00:00","part2_to":"00:00:00"},{"active":0,"day":2,"part1_from":"00:00:00","part1_to":"00:00:00","part2_from":"00:00:00","part2_to":"00:00:00"},{"active":0,"day":3,"part1_from":"00:00:00","part1_to":"00:00:00","part2_from":"00:00:00","part2_to":"00:00:00"},{"active":0,"day":4,"part1_from":"00:00:00","part1_to":"00:00:00","part2_from":"00:00:00","part2_to":"00:00:00"},{"active":0,"day":5,"part1_from":"00:00:00","part1_to":"00:00:00","part2_from":"00:00:00","part2_to":"00:00:00"},{"active":0,"day":6,"part1_from":"00:00:00","part1_to":"00:00:00","part2_from":"00:00:00","part2_to":"00:00:00"},{"active":0,"day":7,"part1_from":"00:00:00","part1_to":"00:00:00","part2_from":"00:00:00","part2_to":"00:00:00"}]
                 
-                DoctorServices.shared.updateClinicWorkingHours(api_token: doc.apiToken, clinic_id: doctor.id, workingHours: cachdDOCTORWorkingHourObjectCodabe.storedValue) { (base, err) in
+                guard let doctor = doctor,let doc = cacheDoctorObjectCodabe.storedValue,let ss = cachdDOCTORWorkingHourObjectCodabe.storedValue,let ff = try? ss.jsonData(),let json = try? JSONSerialization.jsonObject(with: ff, options: []) else { return  }
+                
+
+                 // To get dictionary from `Data`
+                 print(ss)
+                        let cc = "[\(json)]".filter { !$0.isWhitespace }.replacingOccurrences(of: ";}", with: "}").replacingOccurrences(of: ";", with: ",").replacingOccurrences(of: "(", with: "").replacingOccurrences(of: ")", with: "")
+
+                
+                DoctorServices.shared.updateClinicWorkingHours(working_hours:ss,api_token: doc.apiToken, clinic_id: doctor.id, doctor_id:doc.id ) { (base, err) in
                     if let err = err {
                         SVProgressHUD.showError(withStatus: err.localizedDescription)
                         //                                   self.handleDismiss()
