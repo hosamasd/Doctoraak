@@ -24,8 +24,8 @@ struct MainDoctorClinicCreateModel:Codable {
 struct DoctorClinicCreateModel:Codable {
     let fees, fees2, lang, latt: String
     let phone, city, area: String
-    let waitingTime:AnyType
-    let doctorID, updatedAt, createdAt: String
+    let waitingTime,doctorID:AnyType
+    let  updatedAt, createdAt: String
     let id: Int
     let workingHours: [DoctorWorkingHoursModel]
     let photo: String

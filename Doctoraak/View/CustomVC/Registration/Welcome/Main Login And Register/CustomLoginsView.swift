@@ -197,7 +197,9 @@ class CustomLoginsView: CustomBaseView {
         }
     }
     
-    @objc func handleASD()  {
-        passwordTextField.isSecureTextEntry = !passwordTextField.isSecureTextEntry
+    @objc func handleASD(sender:UIButton)  {
+        passwordTextField.isSecureTextEntry.toggle()
+        let xx = passwordTextField.isSecureTextEntry == true ? #imageLiteral(resourceName: "visibility") : #imageLiteral(resourceName: "icons8-eye-64")
+        sender.setImage(xx, for: .normal)
     }
 }

@@ -33,27 +33,41 @@ class CustomMainNewPassView: CustomBaseView {
     
     lazy var passwordTextField:UITextField = {
         let s = createMainTextFields(place: "New Password".localized, type: .default,secre: true)
-        let button = UIButton(type: .custom)
-        button.setImage(#imageLiteral(resourceName: "visiblity"), for: .normal)
-        button.imageEdgeInsets = MOLHLanguage.isRTLLanguage() ? UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -16) : UIEdgeInsets(top: 0, left: -16, bottom: 0, right: 0)
-        button.frame = CGRect(x: CGFloat(s.frame.size.width - 25), y: CGFloat(5), width: CGFloat(25), height: CGFloat(25))
-        button.addTarget(self, action: #selector(handleASD), for: .touchUpInside)
-        s.rightView = button
+//        let button = UIButton(type: .custom)
+//        button.setImage(#imageLiteral(resourceName: "visiblity"), for: .normal)
+//        button.imageEdgeInsets = MOLHLanguage.isRTLLanguage() ? UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -16) : UIEdgeInsets(top: 0, left: -16, bottom: 0, right: 0)
+        passwordOldBTN.frame = CGRect(x: CGFloat(s.frame.size.width - 25), y: CGFloat(5), width: CGFloat(25), height: CGFloat(25))
+//        button.addTarget(self, action: #selector(handleASD), for: .touchUpInside)
+        s.rightView = passwordOldBTN
         s.rightViewMode = .always
         return s
     }()
+    lazy var passwordOldBTN:UIButton = {
+         let b = UIButton(type: .custom)
+         b.setImage(#imageLiteral(resourceName: "visibility").withRenderingMode(.alwaysOriginal), for: .normal)
+         b.imageEdgeInsets = MOLHLanguage.isRTLLanguage() ? UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -16) : UIEdgeInsets(top: 0, left: -16, bottom: 0, right: 0)
+         b.addTarget(self, action: #selector(handleASD), for: .touchUpInside)
+         return b
+     }()
     lazy var confirmPasswordTextField:UITextField = {
         let s = createMainTextFields(place: "confirm Password".localized, type: .default,secre: true)
-        let button = UIButton(type: .custom)
-        button.setImage(#imageLiteral(resourceName: "visiblity"), for: .normal)
-        button.imageEdgeInsets = MOLHLanguage.isRTLLanguage() ? UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -16) : UIEdgeInsets(top: 0, left: -16, bottom: 0, right: 0)
-        button.frame = CGRect(x: CGFloat(s.frame.size.width - 25), y: CGFloat(5), width: CGFloat(25), height: CGFloat(25))
-        button.addTarget(self, action: #selector(handleASDs), for: .touchUpInside)
-        s.rightView = button
+//        let button = UIButton(type: .custom)
+//        button.setImage(#imageLiteral(resourceName: "visiblity"), for: .normal)
+//        button.imageEdgeInsets = MOLHLanguage.isRTLLanguage() ? UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -16) : UIEdgeInsets(top: 0, left: -16, bottom: 0, right: 0)
+        passwordASOldBTN.frame = CGRect(x: CGFloat(s.frame.size.width - 25), y: CGFloat(5), width: CGFloat(25), height: CGFloat(25))
+//        button.addTarget(self, action: #selector(handleASDs), for: .touchUpInside)
+        s.rightView = passwordASOldBTN
         s.rightViewMode = .always
         s.constrainHeight(constant: 60)
         return s
     }()
+    lazy var passwordASOldBTN:UIButton = {
+            let b = UIButton(type: .custom)
+            b.setImage(#imageLiteral(resourceName: "visibility").withRenderingMode(.alwaysOriginal), for: .normal)
+            b.imageEdgeInsets = MOLHLanguage.isRTLLanguage() ? UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -16) : UIEdgeInsets(top: 0, left: -16, bottom: 0, right: 0)
+            b.addTarget(self, action: #selector(handleASDs), for: .touchUpInside)
+            return b
+        }()
     lazy var resendLabel = UILabel(text: "Don't receive an sms code ? ".localized, font: .systemFont(ofSize: 16), textColor: .black)
     lazy var resendSMSButton:UIButton = {
         let b = UIButton()
@@ -112,12 +126,16 @@ class CustomMainNewPassView: CustomBaseView {
         
     }
     
-    @objc func handleASD()  {
-        passwordTextField.isSecureTextEntry = !passwordTextField.isSecureTextEntry
+    @objc func handleASD(sender:UIButton)  {
+        passwordTextField.isSecureTextEntry.toggle()
+        let xx = passwordTextField.isSecureTextEntry == true ? #imageLiteral(resourceName: "visibility") : #imageLiteral(resourceName: "icons8-eye-64")
+        sender.setImage(xx, for: .normal)
     }
     
-    @objc func handleASDs()  {
-        confirmPasswordTextField.isSecureTextEntry = !confirmPasswordTextField.isSecureTextEntry
+    @objc func handleASDs(sender:UIButton)  {
+        confirmPasswordTextField.isSecureTextEntry.toggle()
+               let xx = confirmPasswordTextField.isSecureTextEntry == true ? #imageLiteral(resourceName: "visibility") : #imageLiteral(resourceName: "icons8-eye-64")
+                      sender.setImage(xx, for: .normal)
     }
     
     @objc func textFieldDidChange(text: UITextField)  {

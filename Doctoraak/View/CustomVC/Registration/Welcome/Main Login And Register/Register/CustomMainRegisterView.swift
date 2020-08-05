@@ -41,13 +41,13 @@ class CustomMainRegisterView: CustomBaseView {
     
     lazy var userViews:UIView = {
         let i = UIView(backgroundColor: .gray)
-           i.constrainWidth(constant: 110)
-           i.constrainHeight(constant: 110)
-           i.layer.cornerRadius = 55
-           i.clipsToBounds = true
+        i.constrainWidth(constant: 110)
+        i.constrainHeight(constant: 110)
+        i.layer.cornerRadius = 55
+        i.clipsToBounds = true
         i.hstack(userProfileImage)
-           return i
-       }()
+        return i
+    }()
     lazy var userProfileImage:UIImageView = {
         let i = UIImageView(image: #imageLiteral(resourceName: "Group 4143"))
         i.constrainWidth(constant: 100)
@@ -55,7 +55,7 @@ class CustomMainRegisterView: CustomBaseView {
         i.layer.cornerRadius = 50
         i.clipsToBounds = true
         i.layer.borderWidth=3
-               i.layer.borderColor = UIColor.white.cgColor
+        i.layer.borderColor = UIColor.white.cgColor
         return i
     }()
     lazy var userEditProfileImageView: UIImageView = {
@@ -74,27 +74,38 @@ class CustomMainRegisterView: CustomBaseView {
     lazy var emailTextField = createMainTextFields(place: "enter email".localized,type: .emailAddress)
     lazy var passwordTextField:UITextField = {
         let s = createMainTextFields(place: "Password".localized, type: .default,secre: true)
-        let button = UIButton(type: .custom)
-        button.setImage(#imageLiteral(resourceName: "visiblity"), for: .normal)
-        button.imageEdgeInsets = self.showPassword
-        button.frame = CGRect(x: CGFloat(s.frame.size.width - 25), y: CGFloat(5), width: CGFloat(25), height: CGFloat(25))
-        button.addTarget(self, action: #selector(handleASD), for: .touchUpInside)
-        s.rightView = button
+        //        let button = UIButton(type: .custom)
+        //        button.setImage(#imageLiteral(resourceName: "visiblity"), for: .normal)
+        //        button.imageEdgeInsets = self.showPassword
+        passwordOsldBTN.frame = CGRect(x: CGFloat(s.frame.size.width - 25), y: CGFloat(5), width: CGFloat(25), height: CGFloat(25))
+        s.rightView = passwordOsldBTN
         s.rightViewMode = .always
         return s
+    }()
+    lazy var passwordOsldBTN:UIButton = {
+        let b = UIButton(type: .custom)
+        b.setImage(#imageLiteral(resourceName: "visibility").withRenderingMode(.alwaysOriginal), for: .normal)
+        b.imageEdgeInsets = MOLHLanguage.isRTLLanguage() ? UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -16) : UIEdgeInsets(top: 0, left: -16, bottom: 0, right: 0)
+        b.addTarget(self, action: #selector(handleASD), for: .touchUpInside)
+        return b
     }()
     lazy var confirmPasswordTextField:UITextField = {
         let s = createMainTextFields(place: "confirm Password".localized, type: .default,secre: true)
-        let button = UIButton(type: .custom)
-        button.setImage(#imageLiteral(resourceName: "visiblity"), for: .normal)
-        button.imageEdgeInsets = self.showPassword
-        button.frame = CGRect(x: CGFloat(s.frame.size.width - 25), y: CGFloat(5), width: CGFloat(25), height: CGFloat(25))
-        button.addTarget(self, action: #selector(handleASDs), for: .touchUpInside)
-        s.rightView = button
+        //        let button = UIButton(type: .custom)
+        //        button.setImage(#imageLiteral(resourceName: "visiblity"), for: .normal)
+        //        button.imageEdgeInsets = self.showPassword
+        passworddOsldBTN.frame = CGRect(x: CGFloat(s.frame.size.width - 25), y: CGFloat(5), width: CGFloat(25), height: CGFloat(25))
+        s.rightView = passworddOsldBTN
         s.rightViewMode = .always
         return s
     }()
-    
+    lazy var passworddOsldBTN:UIButton = {
+        let b = UIButton(type: .custom)
+        b.setImage(#imageLiteral(resourceName: "visibility").withRenderingMode(.alwaysOriginal), for: .normal)
+        b.imageEdgeInsets = MOLHLanguage.isRTLLanguage() ? UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -16) : UIEdgeInsets(top: 0, left: -16, bottom: 0, right: 0)
+        b.addTarget(self, action: #selector(handleASDs), for: .touchUpInside)
+        return b
+    }()
     lazy var addressMainView:UIView = {
         let v = makeMainSubViewWithAppendView(vv: [addressLabel])
         v.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOpenLocation)))
@@ -190,14 +201,14 @@ class CustomMainRegisterView: CustomBaseView {
     var insuranceStringArray = [String]()
     var insuranceNumberArray = [Int]()
     var insuranceSelectedNumbersArray = [Int]()
-
+    
     var cityArray = [String]() //["one","two","three","sdfdsfsd"]
     var areaArray = [String]()
     
     var cityIDSArray = [Int]() //["one","two","three","sdfdsfsd"]
     var areaIDSArray = [Int]()
     let showPassword = MOLHLanguage.isRTLLanguage() ? UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -16) : UIEdgeInsets(top: 0, left: -16, bottom: 0, right: 0)
-
+    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -278,15 +289,15 @@ class CustomMainRegisterView: CustomBaseView {
     
     override func setupViews() {
         [titleLabel,soonLabel,insuracneText,addressLabel,workingHoursLabel,deliveryLabel].forEach({$0.textAlignment = MOLHLanguage.isRTLLanguage() ? .right : .left})
-
+        
         [mobileNumberTextField,passwordTextField,  emailTextField, fullNameTextField, confirmPasswordTextField].forEach({$0.addTarget(self, action: #selector(textFieldDidChange(text:)), for: .editingChanged)})
         
         let subView = UIView(backgroundColor: .clear)
         subView.addSubViews(views: userProfileImage,userEditProfileImageView)
         subView.constrainWidth(constant: 60)
         subView.constrainHeight(constant: 60)
-//        subView.layer.cornerRadius = 55
-//        subView.clipsToBounds=true
+        //        subView.layer.cornerRadius = 55
+        //        subView.clipsToBounds=true
         userEditProfileImageView.anchor(top: nil, leading: nil, bottom: userProfileImage.bottomAnchor, trailing: userProfileImage.trailingAnchor,padding: .init(top: 0, left:0 , bottom:10, right: 10))
         
         let textStack = getStack(views: fullNameTextField,mobileNumberTextField,emailTextField,passwordTextField,confirmPasswordTextField,addressMainView,mainDropView,mainDrop2View,mainDrop3View, spacing: 16, distribution: .fillEqually, axis: .vertical)
@@ -303,11 +314,11 @@ class CustomMainRegisterView: CustomBaseView {
         ])
         
         if MOLHLanguage.isRTLLanguage() {
-                       LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 0, bottom: 0, right: -48))
-                   }else {
-                       
-                       LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
-                  }
+            LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: 0, bottom: 0, right: -48))
+        }else {
+            
+            LogoImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,padding: .init(top: 0, left: -48, bottom: 0, right: 0))
+        }
         subView.anchor(top: LogoImage.bottomAnchor, leading: nil, bottom: nil, trailing: nil,padding: .init(top: 50, left: 0, bottom: 0, right: 0))
         backImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 60, left: 16, bottom: 0, right: 0))
         titleLabel.anchor(top: nil, leading: leadingAnchor, bottom: LogoImage.bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 46, bottom: -20, right: 0))
@@ -326,7 +337,7 @@ class CustomMainRegisterView: CustomBaseView {
         
     }
     
-   
+    
     
     @objc func textFieldDidChange(text: UITextField)  {
         registerViewModel.index = index
@@ -388,12 +399,16 @@ class CustomMainRegisterView: CustomBaseView {
         }
     }
     
-    @objc func handleASD()  {
-        passwordTextField.isSecureTextEntry = !passwordTextField.isSecureTextEntry
+    @objc func handleASD(sender:UIButton)  {
+        passwordTextField.isSecureTextEntry.toggle()
+        let xx = passwordTextField.isSecureTextEntry == true ? #imageLiteral(resourceName: "visibility") : #imageLiteral(resourceName: "icons8-eye-64")
+        sender.setImage(xx, for: .normal)
     }
     
-    @objc func handleASDs()  {
-        confirmPasswordTextField.isSecureTextEntry = !confirmPasswordTextField.isSecureTextEntry
+    @objc func handleASDs(sender:UIButton)  {
+        confirmPasswordTextField.isSecureTextEntry.toggle()
+        let xx = confirmPasswordTextField.isSecureTextEntry == true ? #imageLiteral(resourceName: "visibility") : #imageLiteral(resourceName: "icons8-eye-64")
+        sender.setImage(xx, for: .normal)
     }
     
     
