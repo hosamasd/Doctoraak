@@ -157,15 +157,15 @@ class MainHomeVC: CustomBaseViewVC {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-//                if userDefaults.bool(forKey: UserDefaultsConstants.isWelcomeVCAppear) && index == nil  {
-//                    view.alpha = 0
-//                }else {
-//                    view.alpha = 1
-//
-//                    if userDefaults.bool(forKey: UserDefaultsConstants.isAllMainHomeObjectsFetched) {
-//
-//                    }
-//                    else {
+                if userDefaults.bool(forKey: UserDefaultsConstants.isWelcomeVCAppear) && index == nil  {
+                    view.alpha = 0
+                }else {
+                    view.alpha = 1
+
+                    if userDefaults.bool(forKey: UserDefaultsConstants.isAllMainHomeObjectsFetched) {
+
+                    }
+                    else {
         
         index = userDefaults.integer(forKey: UserDefaultsConstants.MainLoginINDEX)
         if userDefaults.bool(forKey: UserDefaultsConstants.DoctorPerformLogin) {
@@ -180,8 +180,8 @@ class MainHomeVC: CustomBaseViewVC {
         if userDefaults.bool(forKey: UserDefaultsConstants.pharamacyPerformLogin) {
             phy = cachdPHARMACYObjectCodabe.storedValue
         }
-//                    }
-//                }
+                    }
+                }
     }
     
     //MARK: -user methods
